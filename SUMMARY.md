@@ -17,6 +17,7 @@
   * [Map Store](stores/map-store.md)
   * [Proxy Store](stores/proxy-store.md)
   * [Parquet Store](stores/parquet-store.md)
+  * [Federated Store](stores/federated-store.md)
 
 * [Core Components](summaries/components.md)
   * [Serialisation](components/core/serialisation.md)

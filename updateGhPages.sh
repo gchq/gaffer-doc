@@ -2,15 +2,6 @@
 
 # Copied from http://sangsoonam.github.io/2016/08/02/publish-gitbook-to-your-github-pages.html
 
-git checkout master
-git reset --hard
-git pull
-
-./generate.sh
-git add .
-git commit -a -m "Updated docs"
-git push origin master
-
 # install the plugins and build the static site
 gitbook install && gitbook build
 
