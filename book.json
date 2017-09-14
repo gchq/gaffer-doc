@@ -1,0 +1,19 @@
+{
+  "gitbook": "3.x.x",
+  "title": "Gaffer Doc",
+  "plugins": [
+    "-highlight",
+    "github",
+    "anchorjs"
+  ],
+  "pluginsConfig": {
+    "github": {
+      "url": "https://github.com/gchq/gaffer-doc"
+    },
+    "theme-default": {
+      "styles": {
+        "website": "build/gitbook.css"
+      }
+    }
+  }
+}
