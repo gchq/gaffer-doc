@@ -17,7 +17,7 @@ Gaffer does
 
 Gaffer can be run on various databases, including Accumulo and HBase. It is also integrated with Spark for fast and flexible data analysis.
 
-To get going with Gaffer, visit our [getting started pages](getting-started/getting-started.md) or our full documentation [here](https://gchq.github.io/gaffer-doc/).
+To get going with Gaffer, visit our [getting started pages](summaries/getting-started.md) or our full documentation [here](https://gchq.github.io/gaffer-doc/).
 
 Gaffer is still under active development and isn't a finished product yet. There are still plenty of new features
 to be added and additional documentation to write. Please contribute.
