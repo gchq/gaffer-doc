@@ -61,10 +61,10 @@ Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
 <tr><td>java.lang.String</td><td></td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
-<tr><td>java.lang.Long</td><td>1505379613575</td><td>true</td></tr>
-<tr><td>java.lang.Long</td><td>1505379513575</td><td>false</td></tr>
-<tr><td>java.lang.Long</td><td>1505379713575</td><td>true</td></tr>
-<tr><td>java.lang.String</td><td>1505379613575</td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
+<tr><td>java.lang.Long</td><td>1505382421743</td><td>true</td></tr>
+<tr><td>java.lang.Long</td><td>1505382321743</td><td>false</td></tr>
+<tr><td>java.lang.Long</td><td>1505382521743</td><td>true</td></tr>
+<tr><td>java.lang.String</td><td>1505382421743</td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
 </table>
 
 -----------------------------------------------
@@ -1769,7 +1769,7 @@ Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
 <tr><td>java.util.HashMap</td><td>{Thu Jan 01 01:00:00 GMT 1970=1}</td><td>true</td></tr>
-<tr><td>java.util.HashMap</td><td>{Thu Sep 14 10:00:13 BST 2017=2}</td><td>false</td></tr>
+<tr><td>java.util.HashMap</td><td>{Thu Sep 14 10:47:02 BST 2017=2}</td><td>false</td></tr>
 </table>
 
 -----------------------------------------------

@@ -33,7 +33,7 @@ We have a demo available to try that is based around a small uk road use dataset
 
 To build Gaffer run `mvn clean install -Pquick` in the top-level directory. This will build all of Gaffer's core libraries and some examples of how to load and query data.
 
-See [stores](stores/stores.md) for a list of available Gaffer Stores to chose from and the relevant documentation for each.
+See [stores](summaries/stores.md) for a list of available Gaffer Stores to chose from and the relevant documentation for each.
 
 ### Inclusion in other projects
 
