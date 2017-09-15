@@ -15,12 +15,14 @@
  */
 package uk.gov.gchq.gaffer.doc.util;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import uk.gov.gchq.gaffer.commonutil.CommonConstants;
 import uk.gov.gchq.gaffer.exception.SerialisationException;
 import uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
@@ -111,13 +113,71 @@ public abstract class Example {
         log("```\n");
     }
 
+    protected void printPython(final String python) {
+        log("As Python:");
+        log("\n\n```python");
+        log(python);
+        log("```\n");
+    }
+
     protected void printAsJson(final Object object) {
         printJson(getJson(object));
+    }
+
+    protected void printAsPython(final Object object) {
+        printAsPython(object, null);
+    }
+
+    protected void printAsPython(final Object object, final Class<?> clazz) {
+        final String json = getRawJson(object);
+        final ProcessBuilder pb;
+        if (null == clazz) {
+            pb = new ProcessBuilder("python3", "-u", "gaffer-python-shell/src/gafferpy/fromJson.py", json);
+        } else {
+            pb = new ProcessBuilder("python3", "-u", "gaffer-python-shell/src/gafferpy/fromJson.py", json, clazz.getName());
+        }
+
+        final Process p;
+        try {
+            p = pb.start();
+        } catch (final IOException e) {
+            throw new RuntimeException("Unable to run python3", e);
+        }
+
+        try {
+            p.waitFor();
+        } catch (final InterruptedException e) {
+            throw new RuntimeException("Python failed to complete", e);
+        }
+
+        if (p.exitValue() > 0) {
+            try {
+                throw new RuntimeException("Error in python: " + IOUtils.toString(p.getErrorStream()) + "\nUnable to convert json: " + json);
+            } catch (final IOException e) {
+                throw new RuntimeException("Unable to read error from Python", e);
+            }
+        }
+        final String python;
+        try {
+            python = IOUtils.toString(p.getInputStream());
+        } catch (final IOException e) {
+            throw new RuntimeException("Unable to read result from python", e);
+        }
+
+        printPython(python);
     }
 
     protected String getJson(final Object object) {
         try {
             return new String(JSONSerialiser.serialise(object, true), CommonConstants.UTF_8);
+        } catch (final SerialisationException | UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected String getRawJson(final Object object) {
+        try {
+            return new String(JSONSerialiser.serialise(object), CommonConstants.UTF_8);
         } catch (final SerialisationException | UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }

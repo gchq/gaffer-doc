@@ -83,6 +83,7 @@ public abstract class OperationExample extends Example {
         }
         printMethodJavaSnippet();
         printAsJson(operation);
+        printAsPython(operation);
 
         log(METHOD_DIVIDER);
     }
@@ -95,6 +96,7 @@ public abstract class OperationExample extends Example {
         }
         printMethodJavaSnippet();
         printAsJson(operation);
+        printAsPython(operation);
 
         log(METHOD_DIVIDER);
     }
@@ -107,6 +109,7 @@ public abstract class OperationExample extends Example {
         }
         printMethodJavaSnippet();
         printAsJson(operation);
+        printAsPython(operation);
 
         try {
             getGraph().execute(operation, new User("user01"));
@@ -126,6 +129,7 @@ public abstract class OperationExample extends Example {
         printGraph();
         printMethodJavaSnippet();
         printAsJson(operation);
+        printAsPython(operation);
 
         final RESULT_TYPE results;
         try {
@@ -151,6 +155,7 @@ public abstract class OperationExample extends Example {
         printGraph();
         printMethodJavaSnippet();
         printAsJson(operationChain);
+        printAsPython(operationChain);
 
         final RESULT_TYPE result;
         try {

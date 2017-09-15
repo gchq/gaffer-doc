@@ -68,6 +68,7 @@ public class AddElementsExample extends OperationExample {
                 + "                                .build())\n"
                 + "                .build();");
         printAsJson(operation);
+        printAsPython(operation);
 
         getGraph().execute(operation, new User("user01"));
 

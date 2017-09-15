@@ -174,4 +174,8 @@ public class GetDataFrameOfElementsExample extends OperationExample {
         ROOT_LOGGER.setLevel(Level.OFF);
     }
 
+    @Override
+    protected void printAsPython(final Object object) {
+        // skip
+    }
 }

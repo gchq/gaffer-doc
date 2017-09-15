@@ -21,17 +21,14 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
-import uk.gov.gchq.gaffer.commonutil.StringUtil;
 import uk.gov.gchq.gaffer.data.element.function.ElementFilter;
 import uk.gov.gchq.gaffer.data.element.function.ElementTransformer;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.GlobalViewElementDefinition;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.ViewElementDefinition;
 import uk.gov.gchq.gaffer.data.generator.CsvGenerator;
-import uk.gov.gchq.gaffer.exception.SerialisationException;
 import uk.gov.gchq.gaffer.function.FreqMapExtractor;
 import uk.gov.gchq.gaffer.graph.Graph;
-import uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser;
 import uk.gov.gchq.gaffer.operation.OperationChain;
 import uk.gov.gchq.gaffer.operation.OperationException;
 import uk.gov.gchq.gaffer.operation.data.EntitySeed;
@@ -91,12 +88,12 @@ public class FullExample extends UserWalkthrough {
                 CSVFormat.DEFAULT.withFirstRecordAsHeader()
         )) {
             final OperationChain<Void> addOpChain = new OperationChain.Builder()
-                .first(new GenerateElements.Builder<CSVRecord>()
-                    .generator(new RoadTrafficCsvElementGenerator())
-                    .input(parser)
-                    .build())
-                .then(new AddElements())
-                .build();
+                    .first(new GenerateElements.Builder<CSVRecord>()
+                            .generator(new RoadTrafficCsvElementGenerator())
+                            .input(parser)
+                            .build())
+                    .then(new AddElements())
+                    .build();
 
             graph.execute(addOpChain, user);
         }
@@ -163,11 +160,8 @@ public class FullExample extends UserWalkthrough {
                 .build();
         // ---------------------------------------------------------
 
-        try {
-            log("GET_JSON", StringUtil.toString(JSONSerialiser.serialise(opChain, true)));
-        } catch (final SerialisationException e) {
-            throw new RuntimeException(e);
-        }
+        log("GET_JSON", getJson(opChain));
+        log("GET_PYTHON", getAsPython(opChain));
 
         final Iterable<? extends String> results = graph.execute(opChain, user);
         log("\nAll road junctions in the South West that were heavily used by buses in year 2000.");

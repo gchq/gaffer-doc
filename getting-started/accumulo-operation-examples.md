@@ -59,6 +59,28 @@ As JSON:
 }
 ```
 
+As Python:
+
+
+```python
+g.GetElementsBetweenSets( 
+  input=[ 
+    g.EntitySeed( 
+      vertex=1 
+    ) 
+  ], 
+  input_b=[ 
+    g.EntitySeed( 
+      vertex=2 
+    ), 
+    g.EntitySeed( 
+      vertex=4 
+    ) 
+  ] 
+)
+
+```
+
 Result:
 
 ```
@@ -152,6 +174,58 @@ As JSON:
 }
 ```
 
+As Python:
+
+
+```python
+g.GetElementsBetweenSets( 
+  input=[ 
+    g.EntitySeed( 
+      vertex=1 
+    ) 
+  ], 
+  view=g.View( 
+    entities=[ 
+      g.ElementDefinition( 
+        group="entity", 
+        pre_aggregation_filter_functions=[ 
+          g.Predicate( 
+            selection=[ 
+              "count" 
+            ], 
+            class_name="uk.gov.gchq.koryphe.impl.predicate.IsMoreThan", 
+            function_fields={'orEqualTo': False, 'value': 2} 
+          ) 
+        ] 
+      ) 
+    ], 
+    edges=[ 
+      g.ElementDefinition( 
+        group="edge", 
+        pre_aggregation_filter_functions=[ 
+          g.Predicate( 
+            selection=[ 
+              "count" 
+            ], 
+            class_name="uk.gov.gchq.koryphe.impl.predicate.IsMoreThan", 
+            function_fields={'orEqualTo': False, 'value': 2} 
+          ) 
+        ] 
+      ) 
+    ] 
+  ), 
+  input_b=[ 
+    g.EntitySeed( 
+      vertex=2 
+    ), 
+    g.EntitySeed( 
+      vertex=4 
+    ) 
+  ] 
+)
+
+```
+
 Result:
 
 ```
@@ -216,6 +290,25 @@ As JSON:
     }
   } ]
 }
+```
+
+As Python:
+
+
+```python
+g.GetElementsInRanges( 
+  input=[ 
+    g.SeedPair( 
+      second=g.EntitySeed( 
+        vertex=4 
+      ), 
+      first=g.EntitySeed( 
+        vertex=1 
+      ) 
+    ) 
+  ] 
+)
+
 ```
 
 Result:
@@ -289,6 +382,28 @@ As JSON:
 }
 ```
 
+As Python:
+
+
+```python
+g.GetElementsInRanges( 
+  input=[ 
+    g.SeedPair( 
+      second=g.EdgeSeed( 
+        directed_type="EITHER", 
+        source=4, 
+        destination=5, 
+        matched_vertex="SOURCE" 
+      ), 
+      first=g.EntitySeed( 
+        vertex=4 
+      ) 
+    ) 
+  ] 
+)
+
+```
+
 Result:
 
 ```
@@ -351,6 +466,26 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
+```
+
+As Python:
+
+
+```python
+g.GetElementsWithinSet( 
+  input=[ 
+    g.EntitySeed( 
+      vertex=1 
+    ), 
+    g.EntitySeed( 
+      vertex=2 
+    ), 
+    g.EntitySeed( 
+      vertex=3 
+    ) 
+  ] 
+)
+
 ```
 
 Result:
@@ -446,6 +581,56 @@ As JSON:
 }
 ```
 
+As Python:
+
+
+```python
+g.GetElementsWithinSet( 
+  view=g.View( 
+    entities=[ 
+      g.ElementDefinition( 
+        pre_aggregation_filter_functions=[ 
+          g.Predicate( 
+            class_name="uk.gov.gchq.koryphe.impl.predicate.IsMoreThan", 
+            function_fields={'orEqualTo': False, 'value': 2}, 
+            selection=[ 
+              "count" 
+            ] 
+          ) 
+        ], 
+        group="entity" 
+      ) 
+    ], 
+    edges=[ 
+      g.ElementDefinition( 
+        pre_aggregation_filter_functions=[ 
+          g.Predicate( 
+            class_name="uk.gov.gchq.koryphe.impl.predicate.IsMoreThan", 
+            function_fields={'orEqualTo': False, 'value': 2}, 
+            selection=[ 
+              "count" 
+            ] 
+          ) 
+        ], 
+        group="edge" 
+      ) 
+    ] 
+  ), 
+  input=[ 
+    g.EntitySeed( 
+      vertex=1 
+    ), 
+    g.EntitySeed( 
+      vertex=2 
+    ), 
+    g.EntitySeed( 
+      vertex=3 
+    ) 
+  ] 
+)
+
+```
+
 Result:
 
 ```
@@ -453,7 +638,3 @@ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]
 Edge[source=1,destination=2,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>3]]
 ```
 -----------------------------------------------
-
-
-
-

@@ -45,6 +45,13 @@ This can also be written in JSON for performing the query via the REST API:
 ${GET_JSON}
 ```
 
+Or in Python:
+
+```python
+${GET_PYTHON}
+```
+
+
 When executed on the graph, the result is:
 
 ```

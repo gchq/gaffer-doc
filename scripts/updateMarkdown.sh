@@ -1,6 +1,8 @@
 #!/bin/bash
 
-mvn clean install -Pquick
+set -e
+
+mvn clean install -Pquick -Dskip.jar-with-dependencies=true
 
 mkdir -p getting-started
 
@@ -29,21 +31,25 @@ java -cp target/doc-jar-with-dependencies.jar uk.gov.gchq.gaffer.doc.predicate.P
 mkdir -p components/core
 mkdir -p components/example
 components="core/serialisation core/data core/operation core/store core/graph example/road-traffic";
+set +e
 for component in $components; do
     echo "Fetching component: $component"
     curl https://raw.githubusercontent.com/gchq/Gaffer/master/$component/README.md -o components/$component.md
     sed -i '' '/This page has been copied from/d' components/$component.md > /dev/null 2>&1
     sed -i '/This page has been copied from/d' components/$component.md > /dev/null 2>&1
 done
+set -e
 
 mkdir -p stores
 stores="accumulo-store hbase-store map-store proxy-store parquet-store federated-store";
+set +e
 for store in $stores; do
     echo "Fetching store: $store"
     curl https://raw.githubusercontent.com/gchq/Gaffer/master/store-implementation/$store/README.md -o stores/$store.md
     sed -i '' '/The master copy of this page/d' stores/$store.md > /dev/null 2>&1
     sed -i '/The master copy of this page/d' stores/$store.md > /dev/null 2>&1
 done
+set -e
 
 # Remove copyright headers
 files=`grep -rl "Copyright 20" components stores README.md`
