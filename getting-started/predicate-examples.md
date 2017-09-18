@@ -72,10 +72,10 @@ Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
 <tr><td>java.lang.String</td><td></td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
-<tr><td>java.lang.Long</td><td>1505478451998</td><td>true</td></tr>
-<tr><td>java.lang.Long</td><td>1505478351998</td><td>false</td></tr>
-<tr><td>java.lang.Long</td><td>1505478551998</td><td>true</td></tr>
-<tr><td>java.lang.String</td><td>1505478451998</td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
+<tr><td>java.lang.Long</td><td>1505746515449</td><td>true</td></tr>
+<tr><td>java.lang.Long</td><td>1505746415449</td><td>false</td></tr>
+<tr><td>java.lang.Long</td><td>1505746615449</td><td>true</td></tr>
+<tr><td>java.lang.String</td><td>1505746515449</td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
 </table>
 
 -----------------------------------------------
@@ -122,8 +122,8 @@ As Python:
 
 ```python
 g.Predicate( 
-  class_name="uk.gov.gchq.koryphe.impl.predicate.And", 
-  function_fields={'predicates': [{'class': 'uk.gov.gchq.koryphe.impl.predicate.IsLessThan', 'orEqualTo': False, 'value': 3}, {'class': 'uk.gov.gchq.koryphe.impl.predicate.IsMoreThan', 'orEqualTo': False, 'value': 0}]} 
+  function_fields={'predicates': [{'value': 3, 'class': 'uk.gov.gchq.koryphe.impl.predicate.IsLessThan', 'orEqualTo': False}, {'value': 0, 'class': 'uk.gov.gchq.koryphe.impl.predicate.IsMoreThan', 'orEqualTo': False}]}, 
+  class_name="uk.gov.gchq.koryphe.impl.predicate.And" 
 )
 
 ```
@@ -192,8 +192,8 @@ As Python:
 
 ```python
 g.Predicate( 
-  class_name="uk.gov.gchq.koryphe.impl.predicate.And", 
-  function_fields={'predicates': [{'selection': [0], 'class': 'uk.gov.gchq.koryphe.tuple.predicate.IntegerTupleAdaptedPredicate', 'predicate': {'value': 2, 'orEqualTo': False, 'class': 'uk.gov.gchq.koryphe.impl.predicate.IsLessThan'}}, {'selection': [1], 'class': 'uk.gov.gchq.koryphe.tuple.predicate.IntegerTupleAdaptedPredicate', 'predicate': {'value': 5, 'orEqualTo': False, 'class': 'uk.gov.gchq.koryphe.impl.predicate.IsMoreThan'}}]} 
+  function_fields={'predicates': [{'predicate': {'class': 'uk.gov.gchq.koryphe.impl.predicate.IsLessThan', 'orEqualTo': False, 'value': 2}, 'class': 'uk.gov.gchq.koryphe.tuple.predicate.IntegerTupleAdaptedPredicate', 'selection': [0]}, {'predicate': {'class': 'uk.gov.gchq.koryphe.impl.predicate.IsMoreThan', 'orEqualTo': False, 'value': 5}, 'class': 'uk.gov.gchq.koryphe.tuple.predicate.IntegerTupleAdaptedPredicate', 'selection': [1]}]}, 
+  class_name="uk.gov.gchq.koryphe.impl.predicate.And" 
 )
 
 ```
@@ -356,8 +356,8 @@ As Python:
 
 ```python
 g.Predicate( 
-  class_name="uk.gov.gchq.koryphe.impl.predicate.CollectionContains", 
-  function_fields={'value': 1} 
+  function_fields={'value': 1}, 
+  class_name="uk.gov.gchq.koryphe.impl.predicate.CollectionContains" 
 )
 
 ```
@@ -409,8 +409,8 @@ As Python:
 
 ```python
 g.Predicate( 
-  class_name="uk.gov.gchq.koryphe.impl.predicate.Exists", 
-  function_fields={} 
+  function_fields={}, 
+  class_name="uk.gov.gchq.koryphe.impl.predicate.Exists" 
 )
 
 ```
@@ -511,8 +511,8 @@ As Python:
 
 ```python
 g.Predicate( 
-  class_name="uk.gov.gchq.gaffer.sketches.clearspring.cardinality.predicate.HyperLogLogPlusIsLessThan", 
-  function_fields={'value': 2, 'or_equal_to': True} 
+  function_fields={'or_equal_to': True, 'value': 2}, 
+  class_name="uk.gov.gchq.gaffer.sketches.clearspring.cardinality.predicate.HyperLogLogPlusIsLessThan" 
 )
 
 ```
@@ -564,8 +564,8 @@ As Python:
 
 ```python
 g.Predicate( 
-  class_name="uk.gov.gchq.koryphe.impl.predicate.IsA", 
-  function_fields={'type': 'java.lang.String'} 
+  function_fields={'type': 'java.lang.String'}, 
+  class_name="uk.gov.gchq.koryphe.impl.predicate.IsA" 
 )
 
 ```
@@ -610,8 +610,8 @@ As Python:
 
 ```python
 g.Predicate( 
-  class_name="uk.gov.gchq.koryphe.impl.predicate.IsA", 
-  function_fields={'type': 'java.lang.Number'} 
+  function_fields={'type': 'java.lang.Number'}, 
+  class_name="uk.gov.gchq.koryphe.impl.predicate.IsA" 
 )
 
 ```
@@ -812,8 +812,8 @@ As Python:
 
 ```python
 g.Predicate( 
-  class_name="uk.gov.gchq.koryphe.impl.predicate.IsFalse", 
-  function_fields={} 
+  function_fields={}, 
+  class_name="uk.gov.gchq.koryphe.impl.predicate.IsFalse" 
 )
 
 ```
@@ -930,7 +930,7 @@ As Python:
 ```python
 g.Predicate( 
   class_name="uk.gov.gchq.koryphe.impl.predicate.IsLessThan", 
-  function_fields={'or_equal_to': False, 'value': 5} 
+  function_fields={'value': 5, 'or_equal_to': False} 
 )
 
 ```
@@ -980,8 +980,8 @@ As Python:
 
 ```python
 g.Predicate( 
-  class_name="uk.gov.gchq.koryphe.impl.predicate.IsLessThan", 
-  function_fields={'or_equal_to': True, 'value': 5} 
+  function_fields={'or_equal_to': True, 'value': 5}, 
+  class_name="uk.gov.gchq.koryphe.impl.predicate.IsLessThan" 
 )
 
 ```
@@ -1034,7 +1034,7 @@ As Python:
 ```python
 g.Predicate( 
   class_name="uk.gov.gchq.koryphe.impl.predicate.IsLessThan", 
-  function_fields={'value': {'java.lang.Long': 5}, 'or_equal_to': False} 
+  function_fields={'or_equal_to': False, 'value': {'java.lang.Long': 5}} 
 )
 
 ```
@@ -1085,7 +1085,7 @@ As Python:
 ```python
 g.Predicate( 
   class_name="uk.gov.gchq.koryphe.impl.predicate.IsLessThan", 
-  function_fields={'or_equal_to': False, 'value': 'B'} 
+  function_fields={'value': 'B', 'or_equal_to': False} 
 )
 
 ```
@@ -1186,8 +1186,8 @@ As Python:
 
 ```python
 g.Predicate( 
-  function_fields={'or_equal_to': True, 'value': 5}, 
-  class_name="uk.gov.gchq.koryphe.impl.predicate.IsMoreThan" 
+  class_name="uk.gov.gchq.koryphe.impl.predicate.IsMoreThan", 
+  function_fields={'or_equal_to': True, 'value': 5} 
 )
 
 ```
@@ -1235,8 +1235,8 @@ As Python:
 
 ```python
 g.Predicate( 
-  function_fields={'or_equal_to': False, 'value': {'java.lang.Long': 5}}, 
-  class_name="uk.gov.gchq.koryphe.impl.predicate.IsMoreThan" 
+  class_name="uk.gov.gchq.koryphe.impl.predicate.IsMoreThan", 
+  function_fields={'or_equal_to': False, 'value': {'java.lang.Long': 5}} 
 )
 
 ```
@@ -1342,7 +1342,7 @@ As Python:
 ```python
 g.Predicate( 
   class_name="uk.gov.gchq.koryphe.impl.predicate.IsShorterThan", 
-  function_fields={'max_length': 4, 'or_equal_to': False} 
+  function_fields={'or_equal_to': False, 'max_length': 4} 
 )
 
 ```
@@ -1574,8 +1574,8 @@ As Python:
 
 ```python
 g.Predicate( 
-  class_name="uk.gov.gchq.koryphe.impl.predicate.MapContains", 
-  function_fields={'key': 'a'} 
+  function_fields={'key': 'a'}, 
+  class_name="uk.gov.gchq.koryphe.impl.predicate.MapContains" 
 )
 
 ```
@@ -1632,7 +1632,7 @@ As Python:
 
 ```python
 g.Predicate( 
-  function_fields={'key_predicate': {'value': {'java.util.regex.Pattern': 'a.*'}, 'class': 'uk.gov.gchq.koryphe.impl.predicate.Regex'}}, 
+  function_fields={'key_predicate': {'class': 'uk.gov.gchq.koryphe.impl.predicate.Regex', 'value': {'java.util.regex.Pattern': 'a.*'}}}, 
   class_name="uk.gov.gchq.koryphe.impl.predicate.MapContainsPredicate" 
 )
 
@@ -1689,8 +1689,8 @@ As Python:
 
 ```python
 g.Predicate( 
-  class_name="uk.gov.gchq.koryphe.impl.predicate.MultiRegex", 
-  function_fields={'value': [{'java.util.regex.Pattern': '[a-d]'}, {'java.util.regex.Pattern': '[0-4]'}]} 
+  function_fields={'value': [{'java.util.regex.Pattern': '[a-d]'}, {'java.util.regex.Pattern': '[0-4]'}]}, 
+  class_name="uk.gov.gchq.koryphe.impl.predicate.MultiRegex" 
 )
 
 ```
@@ -1748,8 +1748,8 @@ As Python:
 
 ```python
 g.Predicate( 
-  class_name="uk.gov.gchq.koryphe.impl.predicate.Not", 
-  function_fields={'predicate': {'class': 'uk.gov.gchq.koryphe.impl.predicate.Exists'}} 
+  function_fields={'predicate': {'class': 'uk.gov.gchq.koryphe.impl.predicate.Exists'}}, 
+  class_name="uk.gov.gchq.koryphe.impl.predicate.Not" 
 )
 
 ```
@@ -1797,8 +1797,8 @@ As Python:
 
 ```python
 g.Predicate( 
-  class_name="uk.gov.gchq.koryphe.impl.predicate.Not", 
-  function_fields={'predicate': {'class': 'uk.gov.gchq.koryphe.impl.predicate.AreEqual'}} 
+  function_fields={'predicate': {'class': 'uk.gov.gchq.koryphe.impl.predicate.AreEqual'}}, 
+  class_name="uk.gov.gchq.koryphe.impl.predicate.Not" 
 )
 
 ```
@@ -1869,7 +1869,7 @@ As Python:
 
 ```python
 g.Predicate( 
-  function_fields={'predicates': [{'value': 2, 'orEqualTo': False, 'class': 'uk.gov.gchq.koryphe.impl.predicate.IsLessThan'}, {'value': 5, 'class': 'uk.gov.gchq.koryphe.impl.predicate.IsEqual'}, {'value': 10, 'orEqualTo': False, 'class': 'uk.gov.gchq.koryphe.impl.predicate.IsMoreThan'}]}, 
+  function_fields={'predicates': [{'value': 2, 'class': 'uk.gov.gchq.koryphe.impl.predicate.IsLessThan', 'orEqualTo': False}, {'value': 5, 'class': 'uk.gov.gchq.koryphe.impl.predicate.IsEqual'}, {'value': 10, 'class': 'uk.gov.gchq.koryphe.impl.predicate.IsMoreThan', 'orEqualTo': False}]}, 
   class_name="uk.gov.gchq.koryphe.impl.predicate.Or" 
 )
 
@@ -1937,8 +1937,8 @@ As Python:
 
 ```python
 g.Predicate( 
-  function_fields={'predicates': [{'value': 2, 'orEqualTo': False, 'class': 'uk.gov.gchq.koryphe.impl.predicate.IsLessThan'}, {'value': 5, 'class': 'uk.gov.gchq.koryphe.impl.predicate.IsEqual'}, {'value': 10, 'orEqualTo': False, 'class': 'uk.gov.gchq.koryphe.impl.predicate.IsMoreThan'}]}, 
-  class_name="uk.gov.gchq.koryphe.impl.predicate.Or" 
+  class_name="uk.gov.gchq.koryphe.impl.predicate.Or", 
+  function_fields={'predicates': [{'orEqualTo': False, 'class': 'uk.gov.gchq.koryphe.impl.predicate.IsLessThan', 'value': 2}, {'class': 'uk.gov.gchq.koryphe.impl.predicate.IsEqual', 'value': 5}, {'orEqualTo': False, 'class': 'uk.gov.gchq.koryphe.impl.predicate.IsMoreThan', 'value': 10}]} 
 )
 
 ```
@@ -2011,7 +2011,7 @@ As Python:
 
 ```python
 g.Predicate( 
-  function_fields={'predicates': [{'selection': [0], 'predicate': {'value': 2, 'orEqualTo': False, 'class': 'uk.gov.gchq.koryphe.impl.predicate.IsLessThan'}, 'class': 'uk.gov.gchq.koryphe.tuple.predicate.IntegerTupleAdaptedPredicate'}, {'selection': [1], 'predicate': {'value': 10, 'orEqualTo': False, 'class': 'uk.gov.gchq.koryphe.impl.predicate.IsMoreThan'}, 'class': 'uk.gov.gchq.koryphe.tuple.predicate.IntegerTupleAdaptedPredicate'}]}, 
+  function_fields={'predicates': [{'selection': [0], 'class': 'uk.gov.gchq.koryphe.tuple.predicate.IntegerTupleAdaptedPredicate', 'predicate': {'class': 'uk.gov.gchq.koryphe.impl.predicate.IsLessThan', 'value': 2, 'orEqualTo': False}}, {'selection': [1], 'class': 'uk.gov.gchq.koryphe.tuple.predicate.IntegerTupleAdaptedPredicate', 'predicate': {'class': 'uk.gov.gchq.koryphe.impl.predicate.IsMoreThan', 'value': 10, 'orEqualTo': False}}]}, 
   class_name="uk.gov.gchq.koryphe.impl.predicate.Or" 
 )
 
@@ -2074,7 +2074,7 @@ As Python:
 
 ```python
 g.Predicate( 
-  function_fields={'predicate': {'value': {'java.lang.Long': 2}, 'orEqualTo': False, 'class': 'uk.gov.gchq.koryphe.impl.predicate.IsMoreThan'}, 'key': 'key1'}, 
+  function_fields={'key': 'key1', 'predicate': {'orEqualTo': False, 'value': {'java.lang.Long': 2}, 'class': 'uk.gov.gchq.koryphe.impl.predicate.IsMoreThan'}}, 
   class_name="uk.gov.gchq.koryphe.predicate.PredicateMap" 
 )
 
@@ -2129,8 +2129,8 @@ As Python:
 
 ```python
 g.Predicate( 
-  function_fields={'predicate': {'class': 'uk.gov.gchq.koryphe.impl.predicate.IsMoreThan', 'value': {'java.lang.Long': 2}, 'orEqualTo': True}, 'key': 'key1'}, 
-  class_name="uk.gov.gchq.koryphe.predicate.PredicateMap" 
+  class_name="uk.gov.gchq.koryphe.predicate.PredicateMap", 
+  function_fields={'predicate': {'orEqualTo': True, 'class': 'uk.gov.gchq.koryphe.impl.predicate.IsMoreThan', 'value': {'java.lang.Long': 2}}, 'key': 'key1'} 
 )
 
 ```
@@ -2182,8 +2182,8 @@ As Python:
 
 ```python
 g.Predicate( 
-  function_fields={'key': {'java.util.Date': 0}, 'predicate': {'class': 'uk.gov.gchq.koryphe.impl.predicate.Exists'}}, 
-  class_name="uk.gov.gchq.koryphe.predicate.PredicateMap" 
+  class_name="uk.gov.gchq.koryphe.predicate.PredicateMap", 
+  function_fields={'key': {'java.util.Date': 0}, 'predicate': {'class': 'uk.gov.gchq.koryphe.impl.predicate.Exists'}} 
 )
 
 ```
@@ -2198,7 +2198,7 @@ Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
 <tr><td>java.util.HashMap</td><td>{Thu Jan 01 01:00:00 GMT 1970=1}</td><td>true</td></tr>
-<tr><td>java.util.HashMap</td><td>{Fri Sep 15 13:27:34 BST 2017=2}</td><td>false</td></tr>
+<tr><td>java.util.HashMap</td><td>{Mon Sep 18 15:55:17 BST 2017=2}</td><td>false</td></tr>
 </table>
 
 -----------------------------------------------

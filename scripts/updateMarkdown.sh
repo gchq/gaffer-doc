@@ -2,7 +2,7 @@
 
 set -e
 
-mvn clean install -Pquick -Dskip.jar-with-dependencies=true
+mvn clean install -Pquick
 
 mkdir -p getting-started
 

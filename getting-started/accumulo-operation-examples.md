@@ -179,47 +179,47 @@ As Python:
 
 ```python
 g.GetElementsBetweenSets( 
-  input=[ 
-    g.EntitySeed( 
-      vertex=1 
-    ) 
-  ], 
-  view=g.View( 
-    entities=[ 
-      g.ElementDefinition( 
-        group="entity", 
-        pre_aggregation_filter_functions=[ 
-          g.Predicate( 
-            selection=[ 
-              "count" 
-            ], 
-            class_name="uk.gov.gchq.koryphe.impl.predicate.IsMoreThan", 
-            function_fields={'orEqualTo': False, 'value': 2} 
-          ) 
-        ] 
-      ) 
-    ], 
-    edges=[ 
-      g.ElementDefinition( 
-        group="edge", 
-        pre_aggregation_filter_functions=[ 
-          g.Predicate( 
-            selection=[ 
-              "count" 
-            ], 
-            class_name="uk.gov.gchq.koryphe.impl.predicate.IsMoreThan", 
-            function_fields={'orEqualTo': False, 'value': 2} 
-          ) 
-        ] 
-      ) 
-    ] 
-  ), 
   input_b=[ 
     g.EntitySeed( 
       vertex=2 
     ), 
     g.EntitySeed( 
       vertex=4 
+    ) 
+  ], 
+  view=g.View( 
+    edges=[ 
+      g.ElementDefinition( 
+        pre_aggregation_filter_functions=[ 
+          g.Predicate( 
+            class_name="uk.gov.gchq.koryphe.impl.predicate.IsMoreThan", 
+            selection=[ 
+              "count" 
+            ], 
+            function_fields={'orEqualTo': False, 'value': 2} 
+          ) 
+        ], 
+        group="edge" 
+      ) 
+    ], 
+    entities=[ 
+      g.ElementDefinition( 
+        pre_aggregation_filter_functions=[ 
+          g.Predicate( 
+            class_name="uk.gov.gchq.koryphe.impl.predicate.IsMoreThan", 
+            selection=[ 
+              "count" 
+            ], 
+            function_fields={'orEqualTo': False, 'value': 2} 
+          ) 
+        ], 
+        group="entity" 
+      ) 
+    ] 
+  ), 
+  input=[ 
+    g.EntitySeed( 
+      vertex=1 
     ) 
   ] 
 )
@@ -299,11 +299,11 @@ As Python:
 g.GetElementsInRanges( 
   input=[ 
     g.SeedPair( 
-      second=g.EntitySeed( 
-        vertex=4 
-      ), 
       first=g.EntitySeed( 
         vertex=1 
+      ), 
+      second=g.EntitySeed( 
+        vertex=4 
       ) 
     ) 
   ] 
@@ -390,10 +390,10 @@ g.GetElementsInRanges(
   input=[ 
     g.SeedPair( 
       second=g.EdgeSeed( 
-        directed_type="EITHER", 
-        source=4, 
+        matched_vertex="SOURCE", 
         destination=5, 
-        matched_vertex="SOURCE" 
+        source=4, 
+        directed_type="EITHER" 
       ), 
       first=g.EntitySeed( 
         vertex=4 
@@ -587,32 +587,32 @@ As Python:
 ```python
 g.GetElementsWithinSet( 
   view=g.View( 
-    entities=[ 
-      g.ElementDefinition( 
-        pre_aggregation_filter_functions=[ 
-          g.Predicate( 
-            class_name="uk.gov.gchq.koryphe.impl.predicate.IsMoreThan", 
-            function_fields={'orEqualTo': False, 'value': 2}, 
-            selection=[ 
-              "count" 
-            ] 
-          ) 
-        ], 
-        group="entity" 
-      ) 
-    ], 
     edges=[ 
       g.ElementDefinition( 
+        group="edge", 
         pre_aggregation_filter_functions=[ 
           g.Predicate( 
-            class_name="uk.gov.gchq.koryphe.impl.predicate.IsMoreThan", 
-            function_fields={'orEqualTo': False, 'value': 2}, 
             selection=[ 
               "count" 
-            ] 
+            ], 
+            function_fields={'orEqualTo': False, 'value': 2}, 
+            class_name="uk.gov.gchq.koryphe.impl.predicate.IsMoreThan" 
           ) 
-        ], 
-        group="edge" 
+        ] 
+      ) 
+    ], 
+    entities=[ 
+      g.ElementDefinition( 
+        group="entity", 
+        pre_aggregation_filter_functions=[ 
+          g.Predicate( 
+            selection=[ 
+              "count" 
+            ], 
+            function_fields={'orEqualTo': False, 'value': 2}, 
+            class_name="uk.gov.gchq.koryphe.impl.predicate.IsMoreThan" 
+          ) 
+        ] 
       ) 
     ] 
   ), 
@@ -638,3 +638,7 @@ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]
 Edge[source=1,destination=2,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>3]]
 ```
 -----------------------------------------------
+
+
+
+
