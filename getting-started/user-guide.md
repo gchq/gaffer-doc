@@ -1809,89 +1809,100 @@ g.OperationChain(
         ) 
       ], 
       view=g.View( 
-        entities=[ 
-        ], 
         edges=[ 
           g.ElementDefinition( 
             group="RegionContainsLocation" 
           ) 
+        ], 
+        entities=[ 
         ] 
       ) 
     ), 
     g.GetAdjacentIds( 
       view=g.View( 
-        entities=[ 
-        ], 
         edges=[ 
           g.ElementDefinition( 
             group="LocationContainsRoad" 
           ) 
+        ], 
+        entities=[ 
         ] 
       ) 
     ), 
     g.ToSet(), 
     g.GetAdjacentIds( 
       view=g.View( 
-        entities=[ 
-        ], 
         edges=[ 
           g.ElementDefinition( 
             group="RoadHasJunction" 
           ) 
+        ], 
+        entities=[ 
         ] 
       ) 
     ), 
     g.GetElements( 
       include_incoming_out_going="OUTGOING", 
       view=g.View( 
-        entities=[ 
-          g.ElementDefinition( 
-            transform_functions=[ 
-              g.Function( 
-                class_name="uk.gov.gchq.gaffer.function.FreqMapExtractor", 
-                function_fields={'key': 'BUS'}, 
-                projection=[ 
-                  "busCount" 
-                ], 
-                selection=[ 
-                  "countByVehicleType" 
-                ] 
-              ) 
-            ], 
-            pre_aggregation_filter_functions=[ 
-              g.Predicate( 
-                class_name="uk.gov.gchq.koryphe.impl.predicate.IsMoreThan", 
-                function_fields={'orEqualTo': True, 'value': {'java.util.Date': 946684800000}}, 
-                selection=[ 
-                  "startDate" 
-                ] 
-              ), 
-              g.Predicate( 
-                class_name="uk.gov.gchq.koryphe.impl.predicate.IsLessThan", 
-                function_fields={'orEqualTo': False, 'value': {'java.util.Date': 978307200000}}, 
-                selection=[ 
-                  "endDate" 
-                ] 
-              ) 
-            ], 
-            group="JunctionUse", 
-            transient_properties={'busCount': 'java.lang.Long'}, 
-            post_aggregation_filter_functions=[ 
-              g.Predicate( 
-                class_name="uk.gov.gchq.koryphe.predicate.PredicateMap", 
-                function_fields={'key': 'BUS', 'predicate': {'orEqualTo': False, 'value': {'java.lang.Long': 1000}, 'class': 'uk.gov.gchq.koryphe.impl.predicate.IsMoreThan'}}, 
-                selection=[ 
-                  "countByVehicleType" 
-                ] 
-              ) 
+        global_elements=[ 
+          g.GlobalElementDefinition( 
+            group_by=[ 
             ] 
           ) 
         ], 
         edges=[ 
         ], 
-        global_elements=[ 
-          g.GlobalElementDefinition( 
-            group_by=[ 
+        entities=[ 
+          g.ElementDefinition( 
+            group="JunctionUse", 
+            transient_properties={'busCount': 'java.lang.Long'}, 
+            post_aggregation_filter_functions=[ 
+              g.PredicateContext( 
+                selection=[ 
+                  "countByVehicleType" 
+                ], 
+                predicate=g.PredicateMap( 
+                  predicate=g.IsMoreThan( 
+                    or_equal_to=False, 
+                    value={'java.lang.Long': 1000} 
+                  ), 
+                  key="BUS" 
+                ) 
+              ) 
+            ], 
+            pre_aggregation_filter_functions=[ 
+              g.PredicateContext( 
+                selection=[ 
+                  "startDate" 
+                ], 
+                predicate=g.IsMoreThan( 
+                  or_equal_to=True, 
+                  value={'java.util.Date': 946684800000} 
+                ) 
+              ), 
+              g.PredicateContext( 
+                selection=[ 
+                  "endDate" 
+                ], 
+                predicate=g.IsLessThan( 
+                  or_equal_to=False, 
+                  value={'java.util.Date': 978307200000} 
+                ) 
+              ) 
+            ], 
+            transform_functions=[ 
+              g.FunctionContext( 
+                selection=[ 
+                  "countByVehicleType" 
+                ], 
+                projection=[ 
+                  "busCount" 
+                ], 
+                function=g.Function( 
+                  fields={'key': 'BUS'}, 
+                  class_name="uk.gov.gchq.gaffer.function.FreqMapExtractor" 
+                ) 
+              ) 
             ] 
           ) 
         ] 
@@ -1900,8 +1911,8 @@ g.OperationChain(
     g.ToCsv( 
       include_header=True, 
       element_generator=g.ElementGenerator( 
-        class_name="uk.gov.gchq.gaffer.data.generator.CsvGenerator", 
-        fields={'constants': {}, 'fields': {'busCount': 'Bus Count', 'VERTEX': 'Junction'}, 'quoted': False} 
+        fields={'quoted': False, 'fields': {'VERTEX': 'Junction', 'busCount': 'Bus Count'}, 'constants': {}}, 
+        class_name="uk.gov.gchq.gaffer.data.generator.CsvGenerator" 
       ) 
     ) 
   ] 

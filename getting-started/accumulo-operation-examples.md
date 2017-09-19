@@ -64,17 +64,17 @@ As Python:
 
 ```python
 g.GetElementsBetweenSets( 
-  input=[ 
-    g.EntitySeed( 
-      vertex=1 
-    ) 
-  ], 
   input_b=[ 
     g.EntitySeed( 
       vertex=2 
     ), 
     g.EntitySeed( 
       vertex=4 
+    ) 
+  ], 
+  input=[ 
+    g.EntitySeed( 
+      vertex=1 
     ) 
   ] 
 )
@@ -188,32 +188,36 @@ g.GetElementsBetweenSets(
     ) 
   ], 
   view=g.View( 
-    edges=[ 
-      g.ElementDefinition( 
-        pre_aggregation_filter_functions=[ 
-          g.Predicate( 
-            class_name="uk.gov.gchq.koryphe.impl.predicate.IsMoreThan", 
-            selection=[ 
-              "count" 
-            ], 
-            function_fields={'orEqualTo': False, 'value': 2} 
-          ) 
-        ], 
-        group="edge" 
-      ) 
-    ], 
     entities=[ 
       g.ElementDefinition( 
+        group="entity", 
         pre_aggregation_filter_functions=[ 
-          g.Predicate( 
-            class_name="uk.gov.gchq.koryphe.impl.predicate.IsMoreThan", 
+          g.PredicateContext( 
             selection=[ 
               "count" 
             ], 
-            function_fields={'orEqualTo': False, 'value': 2} 
+            predicate=g.IsMoreThan( 
+              value=2, 
+              or_equal_to=False 
+            ) 
           ) 
-        ], 
-        group="entity" 
+        ] 
+      ) 
+    ], 
+    edges=[ 
+      g.ElementDefinition( 
+        group="edge", 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            selection=[ 
+              "count" 
+            ], 
+            predicate=g.IsMoreThan( 
+              value=2, 
+              or_equal_to=False 
+            ) 
+          ) 
+        ] 
       ) 
     ] 
   ), 
@@ -299,11 +303,11 @@ As Python:
 g.GetElementsInRanges( 
   input=[ 
     g.SeedPair( 
-      first=g.EntitySeed( 
-        vertex=1 
-      ), 
       second=g.EntitySeed( 
         vertex=4 
+      ), 
+      first=g.EntitySeed( 
+        vertex=1 
       ) 
     ) 
   ] 
@@ -390,10 +394,10 @@ g.GetElementsInRanges(
   input=[ 
     g.SeedPair( 
       second=g.EdgeSeed( 
-        matched_vertex="SOURCE", 
         destination=5, 
-        source=4, 
-        directed_type="EITHER" 
+        directed_type="EITHER", 
+        matched_vertex="SOURCE", 
+        source=4 
       ), 
       first=g.EntitySeed( 
         vertex=4 
@@ -587,32 +591,36 @@ As Python:
 ```python
 g.GetElementsWithinSet( 
   view=g.View( 
-    edges=[ 
-      g.ElementDefinition( 
-        group="edge", 
-        pre_aggregation_filter_functions=[ 
-          g.Predicate( 
-            selection=[ 
-              "count" 
-            ], 
-            function_fields={'orEqualTo': False, 'value': 2}, 
-            class_name="uk.gov.gchq.koryphe.impl.predicate.IsMoreThan" 
-          ) 
-        ] 
-      ) 
-    ], 
     entities=[ 
       g.ElementDefinition( 
-        group="entity", 
         pre_aggregation_filter_functions=[ 
-          g.Predicate( 
+          g.PredicateContext( 
+            predicate=g.IsMoreThan( 
+              or_equal_to=False, 
+              value=2 
+            ), 
             selection=[ 
               "count" 
-            ], 
-            function_fields={'orEqualTo': False, 'value': 2}, 
-            class_name="uk.gov.gchq.koryphe.impl.predicate.IsMoreThan" 
+            ] 
           ) 
-        ] 
+        ], 
+        group="entity" 
+      ) 
+    ], 
+    edges=[ 
+      g.ElementDefinition( 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            predicate=g.IsMoreThan( 
+              or_equal_to=False, 
+              value=2 
+            ), 
+            selection=[ 
+              "count" 
+            ] 
+          ) 
+        ], 
+        group="edge" 
       ) 
     ] 
   ), 

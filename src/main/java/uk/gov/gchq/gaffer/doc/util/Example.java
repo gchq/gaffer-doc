@@ -125,17 +125,8 @@ public abstract class Example {
     }
 
     protected void printAsPython(final Object object) {
-        printAsPython(object, null);
-    }
-
-    protected void printAsPython(final Object object, final Class<?> clazz) {
         final String json = getRawJson(object);
-        final ProcessBuilder pb;
-        if (null == clazz) {
-            pb = new ProcessBuilder("python3", "-u", "gaffer-python-shell/src/gafferpy/fromJson.py", json);
-        } else {
-            pb = new ProcessBuilder("python3", "-u", "gaffer-python-shell/src/gafferpy/fromJson.py", json, clazz.getName());
-        }
+        final ProcessBuilder pb = new ProcessBuilder("python3", "-u", "gaffer-python-shell/src/gafferpy/fromJson.py", json);
 
         final Process p;
         try {

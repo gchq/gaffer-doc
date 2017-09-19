@@ -37,7 +37,7 @@ public abstract class PredicateExample extends Example {
         }
         printJava(JavaSourceUtil.getRawJavaSnippet(getClass(), "doc", " " + getMethodName(1) + "() {", String.format("---%n"), "// ----"));
         printAsJson(predicate);
-        printAsPython(predicate, Predicate.class);
+        printAsPython(predicate);
 
         log("Input type:");
         log("\n```");
