@@ -175,7 +175,8 @@ public class GetDataFrameOfElementsExample extends OperationExample {
     }
 
     @Override
-    protected void printAsPython(final Object object) {
+    protected String getPython(final Object object) {
         // skip
+        return null;
     }
 }

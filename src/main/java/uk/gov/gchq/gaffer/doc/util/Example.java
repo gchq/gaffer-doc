@@ -92,39 +92,31 @@ public abstract class Example {
         }
     }
 
+    protected void printJavaJsonPython(final Object obj, final String java) {
+        log("\n{% codetabs name=\"Java\", type=\"java\" -%}");
+        log(java);
+        log("\n{%- language name=\"JSON\", type=\"json\" -%}");
+        log(getJson(obj));
+        log("\n{%- language name=\"Python\", type=\"py\" -%}");
+        log(getPython(obj));
+        log("{%- endcodetabs %}\n");
+    }
+
+    protected void printJavaJsonPython(final Object obj, final int parentMethodIndex) {
+        printJavaJsonPython(obj, getJavaSnippet(parentMethodIndex));
+    }
+
+    protected String getJavaSnippet(final int parentMethodIndex) {
+        return JavaSourceUtil.getRawJavaSnippet(getClass(), "doc", " " + getMethodName(parentMethodIndex) + "() {", String.format("---%n"), "// ----");
+    }
+
     protected void printJava(final String java) {
-        log("As Java:");
         log("\n\n```java");
         log(java);
         log("```\n");
     }
 
-    protected void printScala(final String scala) {
-        log("As Scala:");
-        log("\n\n```scala");
-        log(scala);
-        log("```\n");
-    }
-
-    protected void printJson(final String json) {
-        log("As JSON:");
-        log("\n\n```json");
-        log(json);
-        log("```\n");
-    }
-
-    protected void printPython(final String python) {
-        log("As Python:");
-        log("\n\n```python");
-        log(python);
-        log("```\n");
-    }
-
-    protected void printAsJson(final Object object) {
-        printJson(getJson(object));
-    }
-
-    protected void printAsPython(final Object object) {
+    protected String getPython(final Object object) {
         final String json = getRawJson(object);
         final ProcessBuilder pb = new ProcessBuilder("python3", "-u", "gaffer-python-shell/src/gafferpy/fromJson.py", json);
 
@@ -148,14 +140,11 @@ public abstract class Example {
                 throw new RuntimeException("Unable to read error from Python", e);
             }
         }
-        final String python;
         try {
-            python = IOUtils.toString(p.getInputStream());
+            return IOUtils.toString(p.getInputStream());
         } catch (final IOException e) {
             throw new RuntimeException("Unable to read result from python", e);
         }
-
-        printPython(python);
     }
 
     protected String getJson(final Object object) {

@@ -30,7 +30,6 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
 
 ```java
@@ -57,7 +56,6 @@ The results are:
 |entity|     5|    3|
 +------+------+-----
 ```
-As Java:
 
 
 ```java
@@ -74,7 +72,6 @@ The results are:
 |entity|     2|    1|
 +------+------+-----
 ```
-As Java:
 
 
 ```java
@@ -106,7 +103,6 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
 
 ```java
@@ -134,7 +130,6 @@ The results are:
 | edge|  3|  4|    4|
 +-----+---+---+-----
 ```
-As Java:
 
 
 ```java
@@ -152,7 +147,6 @@ The results are:
 | edge|  3|  4|    4|
 +-----+---+---+-----
 ```
-As Java:
 
 
 ```java
@@ -198,7 +192,6 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
 
 ```java
@@ -238,7 +231,6 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
 
 ```java
@@ -288,7 +280,6 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
 
 ```java
@@ -323,7 +314,6 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
 
 ```java

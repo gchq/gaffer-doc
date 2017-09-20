@@ -55,20 +55,20 @@ public class AddElementsExample extends OperationExample {
                                 .property("count", 1)
                                 .build())
                 .build();
-        printJava("new AddElements.Builder()\n"
-                + "                .input(new Entity.Builder()\n"
-                + "                                .group(\"entity\")\n"
-                + "                                .vertex(6)\n"
-                + "                                .property(\"count\", 1)\n"
-                + "                                .build(),\n"
-                + "                        new Edge.Builder()\n"
-                + "                                .group(\"edge\")\n"
-                + "                                .source(5).dest(6).directed(true)\n"
-                + "                                .property(\"count\", 1)\n"
-                + "                                .build())\n"
-                + "                .build();");
-        printAsJson(operation);
-        printAsPython(operation);
+
+        printJavaJsonPython(operation,
+                "new AddElements.Builder()\n"
+                        + "                .input(new Entity.Builder()\n"
+                        + "                                .group(\"entity\")\n"
+                        + "                                .vertex(6)\n"
+                        + "                                .property(\"count\", 1)\n"
+                        + "                                .build(),\n"
+                        + "                        new Edge.Builder()\n"
+                        + "                                .group(\"edge\")\n"
+                        + "                                .source(5).dest(6).directed(true)\n"
+                        + "                                .property(\"count\", 1)\n"
+                        + "                                .build())\n"
+                        + "                .build();");
 
         getGraph().execute(operation, new User("user01"));
 

@@ -1797,65 +1797,65 @@ This can also be written in JSON for performing the query via the REST API:
 
 ```
 
-Or in Python:
+We also have a python shell for connecting to the Gaffer REST API. You can 
+get the python shell from [here](https://github.com/gchq/gaffer-tools/tree/master/python-shell).
+Then you can import the gaffer modules using:
+
+```python
+from gafferpy import gaffer as g
+from gafferpy import gaffer_connector
+```
+
+Here is the previous operation written in Python.
 
 ```python
 g.OperationChain( 
   operations=[ 
     g.GetAdjacentIds( 
-      input=[ 
-        g.EntitySeed( 
-          vertex="South West" 
-        ) 
-      ], 
       view=g.View( 
+        entities=[ 
+        ], 
         edges=[ 
           g.ElementDefinition( 
             group="RegionContainsLocation" 
           ) 
-        ], 
-        entities=[ 
         ] 
-      ) 
+      ), 
+      input=[ 
+        g.EntitySeed( 
+          vertex="South West" 
+        ) 
+      ] 
     ), 
     g.GetAdjacentIds( 
       view=g.View( 
+        entities=[ 
+        ], 
         edges=[ 
           g.ElementDefinition( 
             group="LocationContainsRoad" 
           ) 
-        ], 
-        entities=[ 
         ] 
       ) 
     ), 
     g.ToSet(), 
     g.GetAdjacentIds( 
       view=g.View( 
+        entities=[ 
+        ], 
         edges=[ 
           g.ElementDefinition( 
             group="RoadHasJunction" 
           ) 
-        ], 
-        entities=[ 
         ] 
       ) 
     ), 
     g.GetElements( 
-      include_incoming_out_going="OUTGOING", 
       view=g.View( 
-        global_elements=[ 
-          g.GlobalElementDefinition( 
-            group_by=[ 
-            ] 
-          ) 
-        ], 
-        edges=[ 
-        ], 
         entities=[ 
           g.ElementDefinition( 
-            group="JunctionUse", 
             transient_properties={'busCount': 'java.lang.Long'}, 
+            group="JunctionUse", 
             post_aggregation_filter_functions=[ 
               g.PredicateContext( 
                 selection=[ 
@@ -1868,6 +1868,20 @@ g.OperationChain(
                   ), 
                   key="BUS" 
                 ) 
+              ) 
+            ], 
+            transform_functions=[ 
+              g.FunctionContext( 
+                selection=[ 
+                  "countByVehicleType" 
+                ], 
+                function=g.Function( 
+                  fields={'key': 'BUS'}, 
+                  class_name="uk.gov.gchq.gaffer.function.FreqMapExtractor" 
+                ), 
+                projection=[ 
+                  "busCount" 
+                ] 
               ) 
             ], 
             pre_aggregation_filter_functions=[ 
@@ -1889,31 +1903,26 @@ g.OperationChain(
                   value={'java.util.Date': 978307200000} 
                 ) 
               ) 
-            ], 
-            transform_functions=[ 
-              g.FunctionContext( 
-                selection=[ 
-                  "countByVehicleType" 
-                ], 
-                projection=[ 
-                  "busCount" 
-                ], 
-                function=g.Function( 
-                  fields={'key': 'BUS'}, 
-                  class_name="uk.gov.gchq.gaffer.function.FreqMapExtractor" 
-                ) 
-              ) 
+            ] 
+          ) 
+        ], 
+        edges=[ 
+        ], 
+        global_elements=[ 
+          g.GlobalElementDefinition( 
+            group_by=[ 
             ] 
           ) 
         ] 
-      ) 
+      ), 
+      include_incoming_out_going="OUTGOING" 
     ), 
     g.ToCsv( 
-      include_header=True, 
       element_generator=g.ElementGenerator( 
-        fields={'quoted': False, 'fields': {'VERTEX': 'Junction', 'busCount': 'Bus Count'}, 'constants': {}}, 
+        fields={'fields': {'busCount': 'Bus Count', 'VERTEX': 'Junction'}, 'constants': {}, 'quoted': False}, 
         class_name="uk.gov.gchq.gaffer.data.generator.CsvGenerator" 
-      ) 
+      ), 
+      include_header=True 
     ) 
   ] 
 )

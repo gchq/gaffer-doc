@@ -61,10 +61,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 new AddElements.Builder()
                 .input(new Entity.Builder()
                                 .group("entity")
@@ -77,12 +75,8 @@ new AddElements.Builder()
                                 .property("count", 1)
                                 .build())
                 .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.add.AddElements",
   "validate" : true,
@@ -105,32 +99,28 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.data.element.Edge"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.AddElements( 
-  skip_invalid_elements=False, 
-  validate=True, 
   input=[ 
     g.Entity( 
-      vertex=6, 
+      group="entity", 
       properties={'count': 1}, 
-      group="entity" 
+      vertex=6 
     ), 
     g.Edge( 
-      source=5, 
-      properties={'count': 1}, 
       destination=6, 
+      directed=True, 
       group="edge", 
-      directed=True 
+      source=5, 
+      properties={'count': 1} 
     ) 
-  ] 
+  ], 
+  validate=True, 
+  skip_invalid_elements=False 
 )
 
-```
+{%- endcodetabs %}
 
 Updated graph:
 ```
@@ -159,10 +149,8 @@ The following fields are required:
 
 #### Add elements from file
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final AddElementsFromFile op = new AddElementsFromFile.Builder()
         .filename("filename")
         .generator(ElementGenerator.class)
@@ -170,12 +158,8 @@ final AddElementsFromFile op = new AddElementsFromFile.Builder()
         .validate(true)
         .skipInvalidElements(false)
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.add.AddElementsFromFile",
   "filename" : "filename",
@@ -184,21 +168,17 @@ As JSON:
   "validate" : true,
   "skipInvalidElements" : false
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.AddElementsFromFile( 
-  filename="filename", 
   skip_invalid_elements=False, 
-  element_generator="uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator", 
   validate=True, 
-  parallelism=1 
+  parallelism=1, 
+  filename="filename", 
+  element_generator="uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator" 
 )
 
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -227,21 +207,38 @@ The following fields are required:
 
 #### Add elements from hdfs
 
-As Java:
 
 
 ```java
+if (5 != args.length) {
+    System.err.println("Usage: hadoop jar custom-hdfs-import-<version>-shaded.jar <inputPath> <outputPath> <failurePath> <schemaPath> <storePropertiesPath>");
+    System.exit(1);
+}
+
+final String inputPath = args[0];
+final String outputPath = args[1];
+final String failurePath = args[2];
+final String schemaPath = args[3];
+final String storePropertiesPath = args[4];
+
+final Graph graph = new Graph.Builder()
+        .storeProperties(storePropertiesPath)
+        .addSchemas(Paths.get(schemaPath))
+        .build();
+
 final AddElementsFromHdfs operation = new AddElementsFromHdfs.Builder()
-        .addInputMapperPair("/path/to/input/fileOrFolder", TextMapperGeneratorImpl.class.getName())
-        .outputPath("/path/to/output/folder")
-        .failurePath("/path/to/failure/folder")
-        .splitsFilePath("/path/to/splits/file")
+        .addInputMapperPair(inputPath, TextMapperGeneratorImpl.class.getName())
+        .outputPath(outputPath)
+        .failurePath(failurePath)
+        .splitsFilePath("/tmp/splits")
         .workingPath("/tmp/workingDir")
         .useProvidedSplits(false)
         .jobInitialiser(new TextJobInitialiser())
         .minReducers(10)
         .maxReducers(100)
         .build();
+
+graph.execute(operation, new User());
 ```
 
 -----------------------------------------------
@@ -250,7 +247,6 @@ final AddElementsFromHdfs operation = new AddElementsFromHdfs.Builder()
 
 Example content for a main method that takes 5 arguments and runs an AddElementsFromHdfs
 
-As Java:
 
 
 ```java
@@ -289,26 +285,38 @@ graph.execute(operation, new User());
 
 #### Add elements from hdfs with multiple input
 
-As Java:
 
 
 ```java
-final Map<String, String> inputMapperMap = new HashMap<>();
-inputMapperMap.put("/path/to/first/inputFileOrFolder", TextMapperGeneratorImpl.class.getName());
-inputMapperMap.put("/path/to/second/inputFileOrFolder", TextMapperGeneratorImpl.class.getName());
+if (5 != args.length) {
+    System.err.println("Usage: hadoop jar custom-hdfs-import-<version>-shaded.jar <inputPath> <outputPath> <failurePath> <schemaPath> <storePropertiesPath>");
+    System.exit(1);
+}
+
+final String inputPath = args[0];
+final String outputPath = args[1];
+final String failurePath = args[2];
+final String schemaPath = args[3];
+final String storePropertiesPath = args[4];
+
+final Graph graph = new Graph.Builder()
+        .storeProperties(storePropertiesPath)
+        .addSchemas(Paths.get(schemaPath))
+        .build();
 
 final AddElementsFromHdfs operation = new AddElementsFromHdfs.Builder()
-        .inputMapperPairs(inputMapperMap)
-        .addInputMapperPair("/path/to/third/inputFileOrFolder", TextMapperGeneratorImpl.class.getName())
-        .outputPath("/path/to/output/folder")
-        .failurePath("/path/to/failure/folder")
-        .splitsFilePath("/path/to/splits/file")
+        .addInputMapperPair(inputPath, TextMapperGeneratorImpl.class.getName())
+        .outputPath(outputPath)
+        .failurePath(failurePath)
+        .splitsFilePath("/tmp/splits")
         .workingPath("/tmp/workingDir")
         .useProvidedSplits(false)
         .jobInitialiser(new TextJobInitialiser())
         .minReducers(10)
         .maxReducers(100)
         .build();
+
+graph.execute(operation, new User());
 ```
 
 -----------------------------------------------
@@ -332,10 +340,8 @@ The following fields are required:
 
 #### Add elements from kafka
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final AddElementsFromKafka op = new AddElementsFromKafka.Builder()
         .bootstrapServers("hostname1:8080,hostname2:8080")
         .groupId("groupId1")
@@ -345,12 +351,8 @@ final AddElementsFromKafka op = new AddElementsFromKafka.Builder()
         .validate(true)
         .skipInvalidElements(false)
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.add.AddElementsFromKafka",
   "topic" : "topic1",
@@ -361,25 +363,21 @@ As JSON:
   "validate" : true,
   "skipInvalidElements" : false
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.AddElementsFromKafka( 
-  validate=True, 
+  group_id="groupId1", 
+  element_generator="uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator", 
   parallelism=1, 
+  topic="topic1", 
+  skip_invalid_elements=False, 
+  validate=True, 
   bootstrap_servers=[ 
     "hostname1:8080,hostname2:8080" 
-  ], 
-  topic="topic1", 
-  element_generator="uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator", 
-  group_id="groupId1", 
-  skip_invalid_elements=False 
+  ] 
 )
 
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -401,10 +399,8 @@ The following fields are required:
 
 #### Add elements from socket
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final AddElementsFromSocket op = new AddElementsFromSocket.Builder()
         .hostname("localhost")
         .port(8080)
@@ -414,12 +410,8 @@ final AddElementsFromSocket op = new AddElementsFromSocket.Builder()
         .validate(true)
         .skipInvalidElements(false)
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.add.AddElementsFromSocket",
   "hostname" : "localhost",
@@ -430,23 +422,19 @@ As JSON:
   "skipInvalidElements" : false,
   "delimiter" : ","
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.AddElementsFromSocket( 
-  port=8080, 
-  delimiter=",", 
-  element_generator="uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator", 
-  parallelism=1, 
-  skip_invalid_elements=False, 
   hostname="localhost", 
-  validate=True 
+  port=8080, 
+  skip_invalid_elements=False, 
+  validate=True, 
+  parallelism=1, 
+  element_generator="uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator", 
+  delimiter="," 
 )
 
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -475,20 +463,14 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<GroupCounts> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new CountGroups())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -497,12 +479,8 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.CountGroups"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements(), 
@@ -510,7 +488,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -533,20 +511,14 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<GroupCounts> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new CountGroups(5))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -556,12 +528,8 @@ As JSON:
     "limit" : 5
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements(), 
@@ -571,7 +539,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -605,22 +573,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<CloseableIterable<?>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToGafferResultCache<>())
         .then(new DiscardOutput())
         .then(new GetGafferResultCacheExport())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -634,12 +596,8 @@ As JSON:
     "key" : "ALL"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements(), 
@@ -651,7 +609,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -684,22 +642,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<JobDetail> exportOpChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToGafferResultCache<>())
         .then(new DiscardOutput())
         .then(new GetJobDetails())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -712,12 +664,8 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements(), 
@@ -727,12 +675,12 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
 ```
-JobDetail[jobId=5987b810-70c3-477c-88c5-4bc8894d2fa6,userId=user01,status=RUNNING,startTime=1505814243430,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@3521dfc1, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@32361255, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@39dbaece, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@3c634175]]]
+JobDetail[jobId=540fa2fd-c9ea-4cc6-9836-3013ed5a633a,userId=user01,status=RUNNING,startTime=1505902358119,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@3521dfc1, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@32361255, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@39dbaece, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@3c634175]]]
 ```
 -----------------------------------------------
 
@@ -750,45 +698,35 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<CloseableIterable<?>> opChain = new OperationChain.Builder()
         .first(new GetGafferResultCacheExport.Builder()
                 .jobId(jobDetail.getJobId())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
     "class" : "uk.gov.gchq.gaffer.operation.impl.export.resultcache.GetGafferResultCacheExport",
-    "jobId" : "5987b810-70c3-477c-88c5-4bc8894d2fa6",
+    "jobId" : "540fa2fd-c9ea-4cc6-9836-3013ed5a633a",
     "key" : "ALL"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetGafferResultCacheExport( 
-      job_id="5987b810-70c3-477c-88c5-4bc8894d2fa6", 
-      key="ALL" 
+      key="ALL", 
+      job_id="540fa2fd-c9ea-4cc6-9836-3013ed5a633a" 
     ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -821,10 +759,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToGafferResultCache.Builder<>()
@@ -845,12 +781,8 @@ final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationC
                                 .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -878,12 +810,8 @@ As JSON:
     } ]
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements(), 
@@ -909,7 +837,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -962,10 +890,8 @@ The following fields are required:
 
 This example will export all Edges with group 'edge' to another Gaffer graph with ID 'graph2'. The graph will be loaded from the configured GraphLibrary, so it must already exist. In order to export to graph2 the user must have the required user authorisations that were configured for this operation.
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends Element>> opChain =
         new OperationChain.Builder()
                 .first(new GetAllElements.Builder()
@@ -977,12 +903,8 @@ final OperationChain<Iterable<? extends Element>> opChain =
                         .graphId("graph2")
                         .build())
                 .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -998,22 +920,18 @@ As JSON:
     "graphId" : "graph2"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements( 
       view=g.View( 
-        entities=[ 
-        ], 
         edges=[ 
           g.ElementDefinition( 
             group="edge" 
           ) 
+        ], 
+        entities=[ 
         ] 
       ) 
     ), 
@@ -1023,7 +941,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -1031,10 +949,8 @@ g.OperationChain(
 
 This example will export all Edges with group 'edge' to another Gaffer graph with new ID 'newGraphId'. The new graph will have a parent Schema and Store Properties within the graph library specifed by the ID's schemaId1 and storePropsId1. In order to export to newGraphId with storePropsId1 and schemaId1 the user must have the required user authorisations that were configured for this operation to use each of these 3 ids.
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends Element>> opChain =
         new OperationChain.Builder()
                 .first(new GetAllElements.Builder()
@@ -1048,12 +964,8 @@ final OperationChain<Iterable<? extends Element>> opChain =
                         .parentSchemaIds("schemaId1")
                         .build())
                 .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -1071,12 +983,8 @@ As JSON:
     "parentStorePropertiesId" : "storePropsId1"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements( 
@@ -1091,16 +999,16 @@ g.OperationChain(
       ) 
     ), 
     g.ExportToOtherAuthorisedGraph( 
+      parent_store_properties_id="storePropsId1", 
       graph_id="newGraphId", 
       parent_schema_ids=[ 
         "schemaId1" 
-      ], 
-      parent_store_properties_id="storePropsId1" 
+      ] 
     ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -1125,10 +1033,8 @@ The following fields are required:
 
 This example will export all Edges with group 'edge' to another Gaffer graph with new ID 'newGraphId'. The new graph will have the same schema and same store properties as the current graph. In this case it will just create another table in accumulo called 'newGraphId'.
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends Element>> opChain =
         new OperationChain.Builder()
                 .first(new GetAllElements.Builder()
@@ -1140,12 +1046,8 @@ final OperationChain<Iterable<? extends Element>> opChain =
                         .graphId("newGraphId")
                         .build())
                 .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -1161,22 +1063,18 @@ As JSON:
     "graphId" : "newGraphId"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements( 
       view=g.View( 
-        entities=[ 
-        ], 
         edges=[ 
           g.ElementDefinition( 
             group="edge" 
           ) 
+        ], 
+        entities=[ 
         ] 
       ) 
     ), 
@@ -1186,7 +1084,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -1194,10 +1092,8 @@ g.OperationChain(
 
 This example will export all Edges with group 'edge' to another Gaffer graph with new ID 'newGraphId'. The new graph will have the custom provided schema (note it must contain the same Edge group 'edge' otherwise the exported edges will be invalid') and custom store properties. The store properties could be any store properties e.g. Accumulo, HBase, Map, Proxy store properties.
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final Schema schema = Schema.fromJson(StreamUtil.openStreams(getClass(), "operation/schema"));
 final StoreProperties storeProperties = StoreProperties.loadStoreProperties(StreamUtil.openStream(getClass(), "othermockaccumulostore.properties"));
 final OperationChain<Iterable<? extends Element>> opChain =
@@ -1213,12 +1109,8 @@ final OperationChain<Iterable<? extends Element>> opChain =
                         .storeProperties(storeProperties)
                         .build())
                 .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -1239,9 +1131,9 @@ As JSON:
             "count" : "int"
           },
           "groupBy" : [ ],
-          "source" : "int",
           "destination" : "int",
-          "directed" : "true"
+          "directed" : "true",
+          "source" : "int"
         }
       },
       "entities" : {
@@ -1281,34 +1173,30 @@ As JSON:
     }
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements( 
       view=g.View( 
+        entities=[ 
+        ], 
         edges=[ 
           g.ElementDefinition( 
             group="edge" 
           ) 
-        ], 
-        entities=[ 
         ] 
       ) 
     ), 
     g.ExportToOtherGraph( 
-      schema={'edges': {'edge': {'destination': 'int', 'groupBy': [], 'directed': 'true', 'properties': {'count': 'int'}, 'source': 'int'}}, 'entities': {'entity': {'vertex': 'int', 'groupBy': [], 'properties': {'count': 'int'}}}, 'types': {'int': {'aggregateFunction': {'class': 'uk.gov.gchq.koryphe.impl.binaryoperator.Sum'}, 'class': 'java.lang.Integer'}, 'true': {'validateFunctions': [{"class": "uk.gov.gchq.koryphe.impl.predicate.IsTrue"}], 'class': 'java.lang.Boolean'}}}, 
-      store_properties={'gaffer.store.properties.class': 'uk.gov.gchq.gaffer.accumulostore.AccumuloProperties', 'accumulo.password': 'password', 'gaffer.cache.service.class': 'uk.gov.gchq.gaffer.cache.impl.HashMapCacheService', 'gaffer.store.class': 'uk.gov.gchq.gaffer.accumulostore.MockAccumuloStore', 'accumulo.instance': 'someInstanceName', 'accumulo.user': 'user01', 'gaffer.store.operation.declarations': 'ExportToOtherGraphOperationDeclarations.json', 'accumulo.zookeepers': 'aZookeeper', 'gaffer.store.job.tracker.enabled': 'true'}, 
-      graph_id="newGraphId" 
+      schema={'entities': {'entity': {'vertex': 'int', 'properties': {'count': 'int'}, 'groupBy': []}}, 'types': {'true': {'validateFunctions': [{"class": "uk.gov.gchq.koryphe.impl.predicate.IsTrue"}], 'class': 'java.lang.Boolean'}, 'int': {'aggregateFunction': {'class': 'uk.gov.gchq.koryphe.impl.binaryoperator.Sum'}, 'class': 'java.lang.Integer'}}, 'edges': {'edge': {'directed': 'true', 'properties': {'count': 'int'}, 'source': 'int', 'destination': 'int', 'groupBy': []}}}, 
+      graph_id="newGraphId", 
+      store_properties={'gaffer.store.class': 'uk.gov.gchq.gaffer.accumulostore.MockAccumuloStore', 'accumulo.instance': 'someInstanceName', 'gaffer.store.operation.declarations': 'ExportToOtherGraphOperationDeclarations.json', 'accumulo.zookeepers': 'aZookeeper', 'gaffer.store.job.tracker.enabled': 'true', 'gaffer.cache.service.class': 'uk.gov.gchq.gaffer.cache.impl.HashMapCacheService', 'accumulo.user': 'user01', 'gaffer.store.properties.class': 'uk.gov.gchq.gaffer.accumulostore.AccumuloProperties', 'accumulo.password': 'password'} 
     ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -1316,10 +1204,8 @@ g.OperationChain(
 
 This example will export all Edges with group 'edge' to another Gaffer REST API.To export to another Gaffer REST API, we go via a Gaffer Proxy Store. We just need to tell the proxy store the host, port and context root of the REST API.Note that you will need to include the proxy-store module as a maven dependency to do this.
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final ProxyProperties proxyProperties = new ProxyProperties();
 proxyProperties.setStoreClass(ProxyStore.class);
 proxyProperties.setStorePropertiesClass(ProxyProperties.class);
@@ -1339,12 +1225,8 @@ final OperationChain<Iterable<? extends Element>> opChain =
                         .storeProperties(proxyProperties)
                         .build())
                 .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -1367,33 +1249,29 @@ As JSON:
     }
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements( 
       view=g.View( 
-        entities=[ 
-        ], 
         edges=[ 
           g.ElementDefinition( 
             group="edge" 
           ) 
+        ], 
+        entities=[ 
         ] 
       ) 
     ), 
     g.ExportToOtherGraph( 
       graph_id="otherGafferRestApiGraphId", 
-      store_properties={'gaffer.port': '8081', 'gaffer.store.class': 'uk.gov.gchq.gaffer.proxystore.ProxyStore', 'gaffer.context-root': '/rest/v1', 'gaffer.host': 'localhost', 'gaffer.store.properties.class': 'uk.gov.gchq.gaffer.proxystore.ProxyProperties'} 
+      store_properties={'gaffer.store.properties.class': 'uk.gov.gchq.gaffer.proxystore.ProxyProperties', 'gaffer.port': '8081', 'gaffer.host': 'localhost', 'gaffer.context-root': '/rest/v1', 'gaffer.store.class': 'uk.gov.gchq.gaffer.proxystore.ProxyStore'} 
     ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -1401,10 +1279,8 @@ g.OperationChain(
 
 This example will export all Edges with group 'edge' to another existing graph 'exportGraphId' using a GraphLibrary.We demonstrate here that if we use a GraphLibrary, we can register a graph ID and reference it from the export operation. This means the user does not have to proxy all the schema and store properties when they configure the export operation, they can just provide the ID.
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 // Setup the graphLibrary with an export graph
 final GraphLibrary graphLibrary = new FileGraphLibrary("target/graphLibrary");
 
@@ -1447,12 +1323,8 @@ final OperationChain<Iterable<? extends Element>> opChain =
                         .graphId("exportGraphId")
                         .build())
                 .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -1468,22 +1340,18 @@ As JSON:
     "graphId" : "exportGraphId"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements( 
       view=g.View( 
-        entities=[ 
-        ], 
         edges=[ 
           g.ElementDefinition( 
             group="edge" 
           ) 
+        ], 
+        entities=[ 
         ] 
       ) 
     ), 
@@ -1493,7 +1361,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -1501,10 +1369,8 @@ g.OperationChain(
 
 Similar to the previous example, this example will export all Edges with group 'edge' to another graph using a GraphLibrary. But in this example we show that you can export to a new graph with id newGraphId by chosing any combination of schema and store properties registered in the GraphLibrary. This is useful as a system administrator could register various different store properties, of different Accumulo/HBase clusters and a user could them just select which one to use by referring to the relevant store properties ID.
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 // Setup the graphLibrary with a schema and store properties for exporting
 final GraphLibrary graphLibrary = new FileGraphLibrary("target/graphLibrary");
 
@@ -1549,12 +1415,8 @@ final OperationChain<Iterable<? extends Element>> opChain =
                         .parentStorePropertiesId("exportStorePropertiesId")
                         .build())
                 .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -1572,36 +1434,32 @@ As JSON:
     "parentStorePropertiesId" : "exportStorePropertiesId"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements( 
       view=g.View( 
-        entities=[ 
-        ], 
         edges=[ 
           g.ElementDefinition( 
             group="edge" 
           ) 
+        ], 
+        entities=[ 
         ] 
       ) 
     ), 
     g.ExportToOtherGraph( 
       parent_store_properties_id="exportStorePropertiesId", 
+      graph_id="newGraphId", 
       parent_schema_ids=[ 
         "exportSchemaId" 
-      ], 
-      graph_id="newGraphId" 
+      ] 
     ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -1630,22 +1488,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<?>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToSet<>())
         .then(new DiscardOutput())
         .then(new GetSetExport())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -1659,12 +1511,8 @@ As JSON:
     "start" : 0
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements(), 
@@ -1676,7 +1524,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -1709,10 +1557,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<?>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToSet<>())
@@ -1722,12 +1568,8 @@ final OperationChain<Iterable<?>> opChain = new OperationChain.Builder()
                 .end(4)
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -1742,12 +1584,8 @@ As JSON:
     "end" : 4
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements(), 
@@ -1760,7 +1598,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -1784,10 +1622,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToSet.Builder<>()
@@ -1808,12 +1644,8 @@ final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationC
                                 .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -1843,12 +1675,8 @@ As JSON:
     } ]
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements(), 
@@ -1864,19 +1692,19 @@ g.OperationChain(
     g.GetExports( 
       get_exports=[ 
         g.GetSetExport( 
-          key="edges", 
-          start=0 
+          start=0, 
+          key="edges" 
         ), 
         g.GetSetExport( 
-          key="entities", 
-          start=0 
+          start=0, 
+          key="entities" 
         ) 
       ] 
     ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -1934,20 +1762,14 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GenerateElements<String> operation = new GenerateElements.Builder<String>()
         .input("1,1", "1,2,1")
         .generator(new ElementGenerator())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements",
   "elementGenerator" : {
@@ -1955,24 +1777,20 @@ As JSON:
   },
   "input" : [ "1,1", "1,2,1" ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GenerateElements( 
-  element_generator=g.ElementGenerator( 
-    class_name="uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator", 
-    fields={} 
-  ), 
   input=[ 
     "1,1", 
     "1,2,1" 
-  ] 
+  ], 
+  element_generator=g.ElementGenerator( 
+    class_name="uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator", 
+    fields={} 
+  ) 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -1996,21 +1814,15 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GenerateElements<Object> operation = new GenerateElements.Builder<>()
         .input(new DomainObject1(1, 1),
                 new DomainObject2(1, 2, 1))
         .generator(new DomainObjectGenerator())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements",
   "elementGenerator" : {
@@ -2027,24 +1839,20 @@ As JSON:
     "c" : 1
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GenerateElements( 
-  input=[ 
-    {'class': 'uk.gov.gchq.gaffer.doc.operation.GenerateElementsExample$DomainObject1', 'c': 1, 'a': 1}, 
-    {'c': 1, 'class': 'uk.gov.gchq.gaffer.doc.operation.GenerateElementsExample$DomainObject2', 'b': 2, 'a': 1} 
-  ], 
   element_generator=g.ElementGenerator( 
-    class_name="uk.gov.gchq.gaffer.doc.operation.GenerateElementsExample$DomainObjectGenerator", 
-    fields={} 
-  ) 
+    fields={}, 
+    class_name="uk.gov.gchq.gaffer.doc.operation.GenerateElementsExample$DomainObjectGenerator" 
+  ), 
+  input=[ 
+    {'a': 1, 'c': 1, 'class': 'uk.gov.gchq.gaffer.doc.operation.GenerateElementsExample$DomainObject1'}, 
+    {'a': 1, 'b': 2, 'class': 'uk.gov.gchq.gaffer.doc.operation.GenerateElementsExample$DomainObject2', 'c': 1} 
+  ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2080,10 +1888,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GenerateObjects<String> operation = new GenerateObjects.Builder<String>()
         .input(new Entity.Builder()
                         .group("entity")
@@ -2097,12 +1903,8 @@ final GenerateObjects<String> operation = new GenerateObjects.Builder<String>()
                         .build())
         .generator(new ObjectGenerator())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.generate.GenerateObjects",
   "elementGenerator" : {
@@ -2126,34 +1928,30 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.data.element.Edge"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GenerateObjects( 
   input=[ 
     g.Entity( 
-      vertex=6, 
       properties={'count': 1}, 
-      group="entity" 
+      group="entity", 
+      vertex=6 
     ), 
     g.Edge( 
-      group="edge", 
       source=5, 
+      group="edge", 
+      properties={'count': 1}, 
       directed=True, 
-      destination=6, 
-      properties={'count': 1} 
+      destination=6 
     ) 
   ], 
   element_generator=g.ElementGenerator( 
-    fields={}, 
-    class_name="uk.gov.gchq.gaffer.doc.operation.generator.ObjectGenerator" 
+    class_name="uk.gov.gchq.gaffer.doc.operation.generator.ObjectGenerator", 
+    fields={} 
   ) 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2177,10 +1975,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GenerateObjects<Object> operation = new GenerateObjects.Builder<>()
         .input(new Entity.Builder()
                         .group("entity")
@@ -2194,12 +1990,8 @@ final GenerateObjects<Object> operation = new GenerateObjects.Builder<>()
                         .build())
         .generator(new DomainObjectGenerator())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.generate.GenerateObjects",
   "elementGenerator" : {
@@ -2223,34 +2015,30 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.data.element.Edge"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GenerateObjects( 
-  element_generator=g.ElementGenerator( 
-    class_name="uk.gov.gchq.gaffer.doc.operation.GenerateObjectsExample$DomainObjectGenerator", 
-    fields={} 
-  ), 
   input=[ 
     g.Entity( 
       group="entity", 
-      vertex=6, 
-      properties={'count': 1} 
+      properties={'count': 1}, 
+      vertex=6 
     ), 
     g.Edge( 
-      source=5, 
-      properties={'count': 1}, 
-      directed=True, 
+      group="edge", 
       destination=6, 
-      group="edge" 
+      directed=True, 
+      source=5, 
+      properties={'count': 1} 
     ) 
-  ] 
+  ], 
+  element_generator=g.ElementGenerator( 
+    fields={}, 
+    class_name="uk.gov.gchq.gaffer.doc.operation.GenerateObjectsExample$DomainObjectGenerator" 
+  ) 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2285,19 +2073,13 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetAdjacentIds operation = new GetAdjacentIds.Builder()
         .input(new EntitySeed(2))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds",
   "input" : [ {
@@ -2305,12 +2087,8 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetAdjacentIds( 
   input=[ 
     g.EntitySeed( 
@@ -2319,7 +2097,7 @@ g.GetAdjacentIds(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2345,20 +2123,14 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetAdjacentIds operation = new GetAdjacentIds.Builder()
         .input(new EntitySeed(2))
         .inOutType(IncludeIncomingOutgoingType.OUTGOING)
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds",
   "includeIncomingOutGoing" : "OUTGOING",
@@ -2367,12 +2139,8 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetAdjacentIds( 
   input=[ 
     g.EntitySeed( 
@@ -2382,7 +2150,7 @@ g.GetAdjacentIds(
   include_incoming_out_going="OUTGOING" 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2407,10 +2175,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetAdjacentIds operation = new GetAdjacentIds.Builder()
         .input(new EntitySeed(2))
         .inOutType(IncludeIncomingOutgoingType.OUTGOING)
@@ -2429,12 +2195,8 @@ final GetAdjacentIds operation = new GetAdjacentIds.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds",
   "view" : {
@@ -2458,31 +2220,27 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetAdjacentIds( 
   view=g.View( 
+    entities=[ 
+    ], 
     edges=[ 
       g.ElementDefinition( 
-        group="edge", 
         pre_aggregation_filter_functions=[ 
           g.PredicateContext( 
-            selection=[ 
-              "count" 
-            ], 
             predicate=g.IsMoreThan( 
               or_equal_to=False, 
               value=1 
-            ) 
+            ), 
+            selection=[ 
+              "count" 
+            ] 
           ) 
-        ] 
+        ], 
+        group="edge" 
       ) 
-    ], 
-    entities=[ 
     ] 
   ), 
   include_incoming_out_going="OUTGOING", 
@@ -2493,7 +2251,7 @@ g.GetAdjacentIds(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2527,29 +2285,19 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetAllElements operation = new GetAllElements();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements"
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetAllElements()
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2582,10 +2330,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetAllElements operation = new GetAllElements.Builder()
         .view(new View.Builder()
                 .entity("entity", new ViewElementDefinition.Builder()
@@ -2602,12 +2348,8 @@ final GetAllElements operation = new GetAllElements.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements",
   "view" : {
@@ -2637,50 +2379,46 @@ As JSON:
     }
   }
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetAllElements( 
   view=g.View( 
-    edges=[ 
-      g.ElementDefinition( 
-        group="edge", 
-        pre_aggregation_filter_functions=[ 
-          g.PredicateContext( 
-            selection=[ 
-              "count" 
-            ], 
-            predicate=g.IsMoreThan( 
-              or_equal_to=False, 
-              value=2 
-            ) 
-          ) 
-        ] 
-      ) 
-    ], 
     entities=[ 
       g.ElementDefinition( 
-        group="entity", 
         pre_aggregation_filter_functions=[ 
           g.PredicateContext( 
             selection=[ 
               "count" 
             ], 
             predicate=g.IsMoreThan( 
-              or_equal_to=False, 
-              value=2 
+              value=2, 
+              or_equal_to=False 
             ) 
           ) 
-        ] 
+        ], 
+        group="entity" 
+      ) 
+    ], 
+    edges=[ 
+      g.ElementDefinition( 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            selection=[ 
+              "count" 
+            ], 
+            predicate=g.IsMoreThan( 
+              value=2, 
+              or_equal_to=False 
+            ) 
+          ) 
+        ], 
+        group="edge" 
       ) 
     ] 
   ) 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2717,35 +2455,25 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetAllJobDetails operation = new GetAllJobDetails();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetAllJobDetails"
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetAllJobDetails()
 
-```
+{%- endcodetabs %}
 
 Result:
 
 ```
-JobDetail[jobId=88a34fe1-9f4b-4fe6-b767-9c50ed9cae00,userId=user01,status=RUNNING,startTime=1505814247815,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.job.GetAllJobDetails@50a750a4]]]
-JobDetail[jobId=af1a4b78-c14c-4bcf-8cdd-abc002835cf2,userId=UNKNOWN,status=FINISHED,startTime=1505814247762,endTime=1505814247763,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements@13072652, AddElements[validate=true,skipInvalidElements=false,elements=uk.gov.gchq.gaffer.data.generator.OneToOneElementGenerator$1@57d3f2f2]]]]
+JobDetail[jobId=4202be80-591f-4a6d-9599-7d159a65aa1c,userId=user01,status=RUNNING,startTime=1505902362689,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.job.GetAllJobDetails@50a750a4]]]
+JobDetail[jobId=e0603b7e-a3be-4f7e-a3ac-71647d880719,userId=UNKNOWN,status=FINISHED,startTime=1505902362641,endTime=1505902362641,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements@13072652, AddElements[validate=true,skipInvalidElements=false,elements=uk.gov.gchq.gaffer.data.generator.OneToOneElementGenerator$1@57d3f2f2]]]]
 ```
 -----------------------------------------------
 
@@ -2774,19 +2502,13 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElements operation = new GetElements.Builder()
         .input(new EntitySeed(2), new EdgeSeed(2, 3, DirectedType.EITHER))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "input" : [ {
@@ -2800,27 +2522,23 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EdgeSeed"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetElements( 
   input=[ 
     g.EntitySeed( 
       vertex=2 
     ), 
     g.EdgeSeed( 
-      matched_vertex="SOURCE", 
-      destination=3, 
       source=2, 
-      directed_type="EITHER" 
+      matched_vertex="SOURCE", 
+      directed_type="EITHER", 
+      destination=3 
     ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2850,10 +2568,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElements operation = new GetElements.Builder()
         .input(new EntitySeed(2), new EdgeSeed(2, 3, DirectedType.EITHER))
         .view(new View.Builder()
@@ -2871,12 +2587,8 @@ final GetElements operation = new GetElements.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "view" : {
@@ -2916,61 +2628,57 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EdgeSeed"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetElements( 
+  view=g.View( 
+    entities=[ 
+      g.ElementDefinition( 
+        group="entity", 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            predicate=g.IsMoreThan( 
+              value=1, 
+              or_equal_to=False 
+            ), 
+            selection=[ 
+              "count" 
+            ] 
+          ) 
+        ] 
+      ) 
+    ], 
+    edges=[ 
+      g.ElementDefinition( 
+        group="edge", 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            predicate=g.IsMoreThan( 
+              value=1, 
+              or_equal_to=False 
+            ), 
+            selection=[ 
+              "count" 
+            ] 
+          ) 
+        ] 
+      ) 
+    ] 
+  ), 
   input=[ 
     g.EntitySeed( 
       vertex=2 
     ), 
     g.EdgeSeed( 
+      directed_type="EITHER", 
       source=2, 
       destination=3, 
-      matched_vertex="SOURCE", 
-      directed_type="EITHER" 
+      matched_vertex="SOURCE" 
     ) 
-  ], 
-  view=g.View( 
-    edges=[ 
-      g.ElementDefinition( 
-        pre_aggregation_filter_functions=[ 
-          g.PredicateContext( 
-            selection=[ 
-              "count" 
-            ], 
-            predicate=g.IsMoreThan( 
-              or_equal_to=False, 
-              value=1 
-            ) 
-          ) 
-        ], 
-        group="edge" 
-      ) 
-    ], 
-    entities=[ 
-      g.ElementDefinition( 
-        pre_aggregation_filter_functions=[ 
-          g.PredicateContext( 
-            selection=[ 
-              "count" 
-            ], 
-            predicate=g.IsMoreThan( 
-              or_equal_to=False, 
-              value=1 
-            ) 
-          ) 
-        ], 
-        group="entity" 
-      ) 
-    ] 
-  ) 
+  ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2996,19 +2704,13 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElements operation = new GetElements.Builder()
         .input(new EntitySeed(2))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "input" : [ {
@@ -3016,12 +2718,8 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetElements( 
   input=[ 
     g.EntitySeed( 
@@ -3030,7 +2728,7 @@ g.GetElements(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -3057,19 +2755,13 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElements operation = new GetElements.Builder()
         .input(new EdgeSeed(1, 2, DirectedType.EITHER))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "input" : [ {
@@ -3080,24 +2772,20 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EdgeSeed"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetElements( 
   input=[ 
     g.EdgeSeed( 
-      matched_vertex="SOURCE", 
-      destination=2, 
       source=1, 
-      directed_type="EITHER" 
+      directed_type="EITHER", 
+      destination=2, 
+      matched_vertex="SOURCE" 
     ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -3122,10 +2810,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElements operation = new GetElements.Builder()
         .input(new EdgeSeed(1, 2, DirectedType.EITHER))
         .view(new View.Builder()
@@ -3143,12 +2829,8 @@ final GetElements operation = new GetElements.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "view" : {
@@ -3185,58 +2867,54 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EdgeSeed"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetElements( 
-  input=[ 
-    g.EdgeSeed( 
-      source=1, 
-      directed_type="EITHER", 
-      matched_vertex="SOURCE", 
-      destination=2 
-    ) 
-  ], 
   view=g.View( 
     edges=[ 
       g.ElementDefinition( 
-        group="edge", 
         pre_aggregation_filter_functions=[ 
           g.PredicateContext( 
             predicate=g.IsMoreThan( 
-              value=1, 
-              or_equal_to=False 
+              or_equal_to=False, 
+              value=1 
             ), 
             selection=[ 
               "count" 
             ] 
           ) 
-        ] 
+        ], 
+        group="edge" 
       ) 
     ], 
     entities=[ 
       g.ElementDefinition( 
-        group="entity", 
         pre_aggregation_filter_functions=[ 
           g.PredicateContext( 
             predicate=g.IsMoreThan( 
-              value=1, 
-              or_equal_to=False 
+              or_equal_to=False, 
+              value=1 
             ), 
             selection=[ 
               "count" 
             ] 
           ) 
-        ] 
+        ], 
+        group="entity" 
       ) 
     ] 
-  ) 
+  ), 
+  input=[ 
+    g.EdgeSeed( 
+      source=1, 
+      destination=2, 
+      directed_type="EITHER", 
+      matched_vertex="SOURCE" 
+    ) 
+  ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -3262,10 +2940,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElements operation = new GetElements.Builder()
         .input(new EntitySeed(2), new EdgeSeed(2, 3, DirectedType.EITHER))
         .view(new View.Builder()
@@ -3278,12 +2954,8 @@ final GetElements operation = new GetElements.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "view" : {
@@ -3319,16 +2991,15 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EdgeSeed"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetElements( 
   view=g.View( 
+    edges=[ 
+    ], 
     entities=[ 
       g.ElementDefinition( 
+        group="entity", 
         pre_aggregation_filter_functions=[ 
           g.PredicateContext( 
             selection=[ 
@@ -3347,11 +3018,8 @@ g.GetElements(
               ] 
             ) 
           ) 
-        ], 
-        group="entity" 
+        ] 
       ) 
-    ], 
-    edges=[ 
     ] 
   ), 
   input=[ 
@@ -3360,14 +3028,14 @@ g.GetElements(
     ), 
     g.EdgeSeed( 
       destination=3, 
-      directed_type="EITHER", 
+      matched_vertex="SOURCE", 
       source=2, 
-      matched_vertex="SOURCE" 
+      directed_type="EITHER" 
     ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -3392,10 +3060,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElements operation = new GetElements.Builder()
         .input(new EntitySeed(2))
         .view(new View.Builder()
@@ -3413,12 +3079,8 @@ final GetElements operation = new GetElements.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "view" : {
@@ -3456,18 +3118,9 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetElements( 
-  input=[ 
-    g.EntitySeed( 
-      vertex=2 
-    ) 
-  ], 
   view=g.View( 
     entities=[ 
     ], 
@@ -3476,40 +3129,45 @@ g.GetElements(
         group="edge", 
         pre_aggregation_filter_functions=[ 
           g.PredicateContext( 
-            selection=[ 
-              "SOURCE", 
-              "DESTINATION" 
-            ], 
             predicate=g.Or( 
               predicates=[ 
                 g.NestedPredicate( 
-                  selection=[ 
-                    0 
-                  ], 
                   predicate=g.IsLessThan( 
                     or_equal_to=False, 
                     value=2 
-                  ) 
+                  ), 
+                  selection=[ 
+                    0 
+                  ] 
                 ), 
                 g.NestedPredicate( 
-                  selection=[ 
-                    1 
-                  ], 
                   predicate=g.IsMoreThan( 
                     or_equal_to=False, 
                     value=3 
-                  ) 
+                  ), 
+                  selection=[ 
+                    1 
+                  ] 
                 ) 
               ] 
-            ) 
+            ), 
+            selection=[ 
+              "SOURCE", 
+              "DESTINATION" 
+            ] 
           ) 
         ] 
       ) 
     ] 
-  ) 
+  ), 
+  input=[ 
+    g.EntitySeed( 
+      vertex=2 
+    ) 
+  ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -3534,10 +3192,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final Concat concat = new Concat();
 concat.setSeparator("|");
 final GetElements operation = new GetElements.Builder()
@@ -3554,12 +3210,8 @@ final GetElements operation = new GetElements.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "view" : {
@@ -3586,18 +3238,18 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetElements( 
   view=g.View( 
     entities=[ 
     ], 
     edges=[ 
       g.ElementDefinition( 
+        group="edge", 
+        properties=[ 
+          "vertex|count" 
+        ], 
         transform_functions=[ 
           g.FunctionContext( 
             function=g.Function( 
@@ -3613,10 +3265,6 @@ g.GetElements(
             ] 
           ) 
         ], 
-        properties=[ 
-          "vertex|count" 
-        ], 
-        group="edge", 
         transient_properties={'vertex|count': 'java.lang.String'} 
       ) 
     ] 
@@ -3628,7 +3276,7 @@ g.GetElements(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -3654,10 +3302,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final Concat concat = new Concat();
 concat.setSeparator("|");
 final GetElements operation = new GetElements.Builder()
@@ -3674,12 +3320,8 @@ final GetElements operation = new GetElements.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "view" : {
@@ -3706,12 +3348,8 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetElements( 
   input=[ 
     g.EntitySeed( 
@@ -3719,14 +3357,8 @@ g.GetElements(
     ) 
   ], 
   view=g.View( 
-    entities=[ 
-    ], 
     edges=[ 
       g.ElementDefinition( 
-        exclude_properties=[ 
-          "count" 
-        ], 
-        transient_properties={'vertex|count': 'java.lang.String'}, 
         transform_functions=[ 
           g.FunctionContext( 
             selection=[ 
@@ -3734,21 +3366,27 @@ g.GetElements(
               "count" 
             ], 
             function=g.Function( 
-              class_name="uk.gov.gchq.koryphe.impl.function.Concat", 
-              fields={'separator': '|'} 
+              fields={'separator': '|'}, 
+              class_name="uk.gov.gchq.koryphe.impl.function.Concat" 
             ), 
             projection=[ 
               "vertex|count" 
             ] 
           ) 
         ], 
-        group="edge" 
+        transient_properties={'vertex|count': 'java.lang.String'}, 
+        group="edge", 
+        exclude_properties=[ 
+          "count" 
+        ] 
       ) 
+    ], 
+    entities=[ 
     ] 
   ) 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -3785,22 +3423,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<CloseableIterable<?>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToGafferResultCache<>())
         .then(new DiscardOutput())
         .then(new GetGafferResultCacheExport())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -3814,12 +3446,8 @@ As JSON:
     "key" : "ALL"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements(), 
@@ -3831,7 +3459,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -3864,22 +3492,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<JobDetail> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToGafferResultCache<>())
         .then(new DiscardOutput())
         .then(new GetJobDetails())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -3892,12 +3514,8 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements(), 
@@ -3907,12 +3525,12 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
 ```
-JobDetail[jobId=26bed5e5-99b6-4583-a685-db80a3cb9743,userId=user01,status=RUNNING,startTime=1505814249198,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@98bcfc7, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@62dceb92, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@6ad5b50, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@5743436]]]
+JobDetail[jobId=7b23e6fa-7391-4128-b002-ade36353e6ec,userId=user01,status=RUNNING,startTime=1505902363955,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@98bcfc7, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@62dceb92, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@6ad5b50, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@5743436]]]
 ```
 -----------------------------------------------
 
@@ -3930,45 +3548,35 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<CloseableIterable<?>> opChain = new OperationChain.Builder()
         .first(new GetGafferResultCacheExport.Builder()
                 .jobId(jobDetail.getJobId())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
     "class" : "uk.gov.gchq.gaffer.operation.impl.export.resultcache.GetGafferResultCacheExport",
-    "jobId" : "26bed5e5-99b6-4583-a685-db80a3cb9743",
+    "jobId" : "7b23e6fa-7391-4128-b002-ade36353e6ec",
     "key" : "ALL"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetGafferResultCacheExport( 
-      job_id="26bed5e5-99b6-4583-a685-db80a3cb9743", 
-      key="ALL" 
+      key="ALL", 
+      job_id="7b23e6fa-7391-4128-b002-ade36353e6ec" 
     ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -4001,10 +3609,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToGafferResultCache.Builder<>()
@@ -4025,12 +3631,8 @@ final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationC
                                 .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -4058,12 +3660,8 @@ As JSON:
     } ]
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements(), 
@@ -4089,7 +3687,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -4146,21 +3744,15 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<JobDetail> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new DiscardOutput())
         .then(new GetJobDetails())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -4171,12 +3763,8 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements(), 
@@ -4185,12 +3773,12 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
 ```
-JobDetail[jobId=e62d26ac-30cf-406c-ad92-ceef847d0aa1,userId=user01,status=RUNNING,startTime=1505814250362,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@4a7b89e2, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@2a3d2e9f, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@2742cd45]]]
+JobDetail[jobId=1b2a58f4-9ffb-414e-93bc-a068c943146f,userId=user01,status=RUNNING,startTime=1505902365024,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@2742cd45, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@5861905c, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@4e43262b]]]
 ```
 -----------------------------------------------
 
@@ -4208,39 +3796,29 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetJobDetails operation = new GetJobDetails.Builder()
         .jobId(jobId)
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails",
-  "jobId" : "e62d26ac-30cf-406c-ad92-ceef847d0aa1"
+  "jobId" : "1b2a58f4-9ffb-414e-93bc-a068c943146f"
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetJobDetails( 
-  job_id="e62d26ac-30cf-406c-ad92-ceef847d0aa1" 
+  job_id="1b2a58f4-9ffb-414e-93bc-a068c943146f" 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
 ```
-JobDetail[jobId=e62d26ac-30cf-406c-ad92-ceef847d0aa1,userId=user01,status=FINISHED,startTime=1505814250362,endTime=1505814250362,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@4a7b89e2, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@2a3d2e9f, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@2742cd45]]]
+JobDetail[jobId=1b2a58f4-9ffb-414e-93bc-a068c943146f,userId=user01,status=FINISHED,startTime=1505902365024,endTime=1505902365024,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@2742cd45, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@5861905c, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@4e43262b]]]
 ```
 -----------------------------------------------
 
@@ -4269,34 +3847,24 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetJobResults operation = new GetJobResults.Builder()
         .jobId(jobId)
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetJobResults",
-  "jobId" : "c20118db-257a-4823-95c5-4c1fad54642c"
+  "jobId" : "dd11d918-5a25-4f9c-8881-6f50c4689fff"
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetJobResults( 
-  job_id="c20118db-257a-4823-95c5-4c1fad54642c" 
+  job_id="dd11d918-5a25-4f9c-8881-6f50c4689fff" 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -4340,22 +3908,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<?>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToSet<>())
         .then(new DiscardOutput())
         .then(new GetSetExport())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -4369,12 +3931,8 @@ As JSON:
     "start" : 0
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements(), 
@@ -4386,7 +3944,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -4419,10 +3977,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<?>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToSet<>())
@@ -4432,12 +3988,8 @@ final OperationChain<Iterable<?>> opChain = new OperationChain.Builder()
                 .end(4)
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -4452,25 +4004,21 @@ As JSON:
     "end" : 4
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements(), 
     g.ExportToSet(), 
     g.DiscardOutput(), 
     g.GetSetExport( 
-      end=4, 
-      start=2 
+      start=2, 
+      end=4 
     ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -4494,10 +4042,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToSet.Builder<>()
@@ -4518,12 +4064,8 @@ final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationC
                                 .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -4553,12 +4095,8 @@ As JSON:
     } ]
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements(), 
@@ -4586,7 +4124,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -4644,20 +4182,14 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new Limit<>(3))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -4668,23 +4200,19 @@ As JSON:
     "truncate" : true
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements(), 
     g.Limit( 
-      truncate=True, 
-      result_limit=3 
+      result_limit=3, 
+      truncate=True 
     ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -4699,20 +4227,14 @@ Edge[source=1,destination=4,directed=true,group=edge,properties=Properties[count
 
 Setting this flag to false will throw an error instead of truncating the iterable. In this case there are more than 3 elements, so when executed a LimitExceededException would be thrown.
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new Limit<>(3, false))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -4723,12 +4245,8 @@ As JSON:
     "truncate" : false
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements(), 
@@ -4739,7 +4257,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -4758,10 +4276,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new Limit.Builder<Element>()
@@ -4769,12 +4285,8 @@ final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.B
                 .truncate(true)
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -4785,23 +4297,19 @@ As JSON:
     "truncate" : true
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetAllElements(), 
     g.Limit( 
-      result_limit=3, 
-      truncate=True 
+      truncate=True, 
+      result_limit=3 
     ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -4838,10 +4346,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Element> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -4853,12 +4359,8 @@ final OperationChain<Element> opChain = new OperationChain.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -4880,12 +4382,8 @@ As JSON:
     } ]
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
@@ -4913,7 +4411,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -4936,10 +4434,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Element> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -4977,12 +4473,8 @@ final OperationChain<Element> opChain = new OperationChain.Builder()
                 )
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -5039,15 +4531,55 @@ As JSON:
     } ]
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
+      view=g.View( 
+        entities=[ 
+          g.ElementDefinition( 
+            group="entity", 
+            transient_properties={'score': 'java.lang.Integer'}, 
+            transform_functions=[ 
+              g.FunctionContext( 
+                function=g.Function( 
+                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction", 
+                  fields={} 
+                ), 
+                projection=[ 
+                  "score" 
+                ], 
+                selection=[ 
+                  "VERTEX", 
+                  "count" 
+                ] 
+              ) 
+            ] 
+          ) 
+        ], 
+        edges=[ 
+          g.ElementDefinition( 
+            group="edge", 
+            transient_properties={'score': 'java.lang.Integer'}, 
+            transform_functions=[ 
+              g.FunctionContext( 
+                function=g.Function( 
+                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction", 
+                  fields={} 
+                ), 
+                projection=[ 
+                  "score" 
+                ], 
+                selection=[ 
+                  "DESTINATION", 
+                  "count" 
+                ] 
+              ) 
+            ] 
+          ) 
+        ] 
+      ), 
       input=[ 
         g.EntitySeed( 
           vertex=1 
@@ -5055,68 +4587,24 @@ g.OperationChain(
         g.EntitySeed( 
           vertex=2 
         ) 
-      ], 
-      view=g.View( 
-        edges=[ 
-          g.ElementDefinition( 
-            group="edge", 
-            transform_functions=[ 
-              g.FunctionContext( 
-                function=g.Function( 
-                  fields={}, 
-                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction" 
-                ), 
-                selection=[ 
-                  "DESTINATION", 
-                  "count" 
-                ], 
-                projection=[ 
-                  "score" 
-                ] 
-              ) 
-            ], 
-            transient_properties={'score': 'java.lang.Integer'} 
-          ) 
-        ], 
-        entities=[ 
-          g.ElementDefinition( 
-            group="entity", 
-            transform_functions=[ 
-              g.FunctionContext( 
-                function=g.Function( 
-                  fields={}, 
-                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction" 
-                ), 
-                selection=[ 
-                  "VERTEX", 
-                  "count" 
-                ], 
-                projection=[ 
-                  "score" 
-                ] 
-              ) 
-            ], 
-            transient_properties={'score': 'java.lang.Integer'} 
-          ) 
-        ] 
-      ) 
+      ] 
     ), 
     g.Max( 
       comparators=[ 
         g.ElementPropertyComparator( 
-          property="count", 
           groups=[ 
             "entity", 
             "edge" 
           ], 
+          property="count", 
           reversed=False 
         ), 
         g.ElementPropertyComparator( 
-          property="score", 
           groups=[ 
             "entity", 
             "edge" 
           ], 
+          property="score", 
           reversed=False 
         ) 
       ] 
@@ -5124,7 +4612,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -5159,10 +4647,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Element> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -5174,12 +4660,8 @@ final OperationChain<Element> opChain = new OperationChain.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -5201,12 +4683,8 @@ As JSON:
     } ]
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
@@ -5234,7 +4712,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -5257,10 +4735,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Element> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -5298,12 +4774,8 @@ final OperationChain<Element> opChain = new OperationChain.Builder()
                 )
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -5360,23 +4832,11 @@ As JSON:
     } ]
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
-      input=[ 
-        g.EntitySeed( 
-          vertex=1 
-        ), 
-        g.EntitySeed( 
-          vertex=2 
-        ) 
-      ], 
       view=g.View( 
         edges=[ 
           g.ElementDefinition( 
@@ -5384,15 +4844,15 @@ g.OperationChain(
             transform_functions=[ 
               g.FunctionContext( 
                 function=g.Function( 
-                  fields={}, 
-                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction" 
+                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction", 
+                  fields={} 
                 ), 
+                projection=[ 
+                  "score" 
+                ], 
                 selection=[ 
                   "DESTINATION", 
                   "count" 
-                ], 
-                projection=[ 
-                  "score" 
                 ] 
               ) 
             ], 
@@ -5405,47 +4865,55 @@ g.OperationChain(
             transform_functions=[ 
               g.FunctionContext( 
                 function=g.Function( 
-                  fields={}, 
-                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction" 
+                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction", 
+                  fields={} 
                 ), 
+                projection=[ 
+                  "score" 
+                ], 
                 selection=[ 
                   "VERTEX", 
                   "count" 
-                ], 
-                projection=[ 
-                  "score" 
                 ] 
               ) 
             ], 
             group="entity" 
           ) 
         ] 
-      ) 
+      ), 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ] 
     ), 
     g.Min( 
       comparators=[ 
         g.ElementPropertyComparator( 
-          property="count", 
           reversed=False, 
           groups=[ 
             "entity", 
             "edge" 
-          ] 
+          ], 
+          property="count" 
         ), 
         g.ElementPropertyComparator( 
-          property="score", 
           reversed=False, 
           groups=[ 
             "entity", 
             "edge" 
-          ] 
+          ], 
+          property="score" 
         ) 
       ] 
     ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -5470,10 +4938,8 @@ The following fields are required:
 
 #### Add named operation
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final AddNamedOperation operation = new AddNamedOperation.Builder()
         .operationChain(new OperationChain.Builder()
                 .first(new GetAdjacentIds.Builder()
@@ -5489,12 +4955,8 @@ final AddNamedOperation operation = new AddNamedOperation.Builder()
         .writeAccessRoles("write-user")
         .overwrite()
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.named.operation.AddNamedOperation",
   "operationName" : "2-hop",
@@ -5512,12 +4974,8 @@ As JSON:
     } ]
   }
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.AddNamedOperation( 
   operation_chain=g.OperationChainDAO( 
     operations=[ 
@@ -5529,27 +4987,25 @@ g.AddNamedOperation(
       ) 
     ] 
   ), 
-  write_access_roles=[ 
-    "write-user" 
-  ], 
-  description="2 hop query", 
   operation_name="2-hop", 
-  overwrite_flag=True, 
+  description="2 hop query", 
   read_access_roles=[ 
     "read-user" 
+  ], 
+  overwrite_flag=True, 
+  write_access_roles=[ 
+    "write-user" 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
 #### Add named operation with parameter
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final String opChainString = "{" +
         "    \"operations\" : [ {" +
         "      \"class\" : \"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\"," +
@@ -5581,12 +5037,8 @@ final AddNamedOperation operation = new AddNamedOperation.Builder()
         .parameters(paramMap)
         .overwrite()
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.named.operation.AddNamedOperation",
   "operationName" : "2-hop-with-limit",
@@ -5615,19 +5067,9 @@ As JSON:
     } ]
   }
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.AddNamedOperation( 
-  overwrite_flag=True, 
-  operation_name="2-hop-with-limit", 
-  description="2 hop query with settable limit", 
-  write_access_roles=[ 
-    "write-user" 
-  ], 
   operation_chain=g.OperationChainDAO( 
     operations=[ 
       g.GetAdjacentIds( 
@@ -5641,21 +5083,27 @@ g.AddNamedOperation(
       ) 
     ] 
   ), 
-  parameters=[ 
-    g.NamedOperationParameter( 
-      default_value=1, 
-      name="param1", 
-      description="Limit param", 
-      value_class="java.lang.Long", 
-      required=False 
-    ) 
-  ], 
   read_access_roles=[ 
     "read-user" 
-  ] 
+  ], 
+  parameters=[ 
+    g.NamedOperationParameter( 
+      description="Limit param", 
+      required=False, 
+      default_value=1, 
+      name="param1", 
+      value_class="java.lang.Long" 
+    ) 
+  ], 
+  overwrite_flag=True, 
+  description="2 hop query with settable limit", 
+  write_access_roles=[ 
+    "write-user" 
+  ], 
+  operation_name="2-hop-with-limit" 
 )
 
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -5673,29 +5121,19 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetAllNamedOperations operation = new GetAllNamedOperations();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.named.operation.GetAllNamedOperations"
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetAllNamedOperations()
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -5719,21 +5157,15 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final NamedOperation<EntityId, CloseableIterable<EntityId>> operation =
         new NamedOperation.Builder<EntityId, CloseableIterable<EntityId>>()
                 .name("2-hop")
                 .input(new EntitySeed(1))
                 .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.named.operation.NamedOperation",
   "operationName" : "2-hop",
@@ -5743,12 +5175,8 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.NamedOperation( 
   operation_name="2-hop", 
   input=[ 
@@ -5758,7 +5186,7 @@ g.NamedOperation(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -5783,10 +5211,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 Map<String, Object> paramMap = Maps.newHashMap();
 paramMap.put("param1", 2L);
 
@@ -5796,12 +5222,8 @@ final NamedOperation<EntityId, CloseableIterable<EntityId>> operation =
                 .input(new EntitySeed(1))
                 .parameters(paramMap)
                 .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.named.operation.NamedOperation",
   "operationName" : "2-hop-with-limit",
@@ -5814,23 +5236,19 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.NamedOperation( 
-  operation_name="2-hop-with-limit", 
-  parameters={'param1': 2}, 
   input=[ 
     g.EntitySeed( 
       vertex=1 
     ) 
-  ] 
+  ], 
+  parameters={'param1': 2}, 
+  operation_name="2-hop-with-limit" 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -5842,34 +5260,24 @@ EntitySeed[vertex=4]
 
 #### Delete named operation
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final DeleteNamedOperation operation = new DeleteNamedOperation.Builder()
         .name("2-hop")
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.named.operation.DeleteNamedOperation",
   "operationName" : "2-hop"
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.DeleteNamedOperation( 
   operation_name="2-hop" 
 )
 
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -5899,10 +5307,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -5916,12 +5322,8 @@ final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.B
                 .resultLimit(10)
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -5945,12 +5347,8 @@ As JSON:
     "deduplicate" : true
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
@@ -5964,23 +5362,23 @@ g.OperationChain(
       ] 
     ), 
     g.Sort( 
-      result_limit=10, 
       deduplicate=True, 
       comparators=[ 
         g.ElementPropertyComparator( 
           property="count", 
+          reversed=False, 
           groups=[ 
             "entity", 
             "edge" 
-          ], 
-          reversed=False 
+          ] 
         ) 
-      ] 
+      ], 
+      result_limit=10 
     ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -6010,10 +5408,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -6028,12 +5424,8 @@ final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.B
                 .deduplicate(false)
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -6057,12 +5449,8 @@ As JSON:
     "deduplicate" : false
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
@@ -6078,21 +5466,21 @@ g.OperationChain(
     g.Sort( 
       comparators=[ 
         g.ElementPropertyComparator( 
+          reversed=False, 
           property="count", 
           groups=[ 
             "entity", 
             "edge" 
-          ], 
-          reversed=False 
+          ] 
         ) 
       ], 
-      result_limit=10, 
-      deduplicate=False 
+      deduplicate=False, 
+      result_limit=10 
     ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -6122,10 +5510,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -6164,12 +5550,8 @@ final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.B
                 .resultLimit(4)
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -6228,59 +5610,11 @@ As JSON:
     "deduplicate" : true
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
-      view=g.View( 
-        edges=[ 
-          g.ElementDefinition( 
-            transient_properties={'score': 'java.lang.Integer'}, 
-            group="edge", 
-            transform_functions=[ 
-              g.FunctionContext( 
-                selection=[ 
-                  "DESTINATION", 
-                  "count" 
-                ], 
-                projection=[ 
-                  "score" 
-                ], 
-                function=g.Function( 
-                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction", 
-                  fields={} 
-                ) 
-              ) 
-            ] 
-          ) 
-        ], 
-        entities=[ 
-          g.ElementDefinition( 
-            transient_properties={'score': 'java.lang.Integer'}, 
-            group="entity", 
-            transform_functions=[ 
-              g.FunctionContext( 
-                selection=[ 
-                  "VERTEX", 
-                  "count" 
-                ], 
-                projection=[ 
-                  "score" 
-                ], 
-                function=g.Function( 
-                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction", 
-                  fields={} 
-                ) 
-              ) 
-            ] 
-          ) 
-        ] 
-      ), 
       input=[ 
         g.EntitySeed( 
           vertex=1 
@@ -6288,34 +5622,78 @@ g.OperationChain(
         g.EntitySeed( 
           vertex=2 
         ) 
-      ] 
+      ], 
+      view=g.View( 
+        entities=[ 
+          g.ElementDefinition( 
+            transform_functions=[ 
+              g.FunctionContext( 
+                projection=[ 
+                  "score" 
+                ], 
+                function=g.Function( 
+                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction", 
+                  fields={} 
+                ), 
+                selection=[ 
+                  "VERTEX", 
+                  "count" 
+                ] 
+              ) 
+            ], 
+            group="entity", 
+            transient_properties={'score': 'java.lang.Integer'} 
+          ) 
+        ], 
+        edges=[ 
+          g.ElementDefinition( 
+            transform_functions=[ 
+              g.FunctionContext( 
+                projection=[ 
+                  "score" 
+                ], 
+                function=g.Function( 
+                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction", 
+                  fields={} 
+                ), 
+                selection=[ 
+                  "DESTINATION", 
+                  "count" 
+                ] 
+              ) 
+            ], 
+            group="edge", 
+            transient_properties={'score': 'java.lang.Integer'} 
+          ) 
+        ] 
+      ) 
     ), 
     g.Sort( 
+      result_limit=4, 
       comparators=[ 
         g.ElementPropertyComparator( 
-          reversed=False, 
           groups=[ 
             "entity", 
             "edge" 
           ], 
-          property="count" 
+          property="count", 
+          reversed=False 
         ), 
         g.ElementPropertyComparator( 
-          reversed=False, 
           groups=[ 
             "entity", 
             "edge" 
           ], 
-          property="score" 
+          property="score", 
+          reversed=False 
         ) 
       ], 
-      result_limit=4, 
       deduplicate=True 
     ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -6354,22 +5732,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<? extends Element[]> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
                 .build())
         .then(new ToArray<>())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -6385,12 +5757,8 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToArray"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
@@ -6407,7 +5775,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -6449,10 +5817,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends String>> opChain = new Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -6467,12 +5833,8 @@ final OperationChain<Iterable<? extends String>> opChain = new Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -6500,12 +5862,8 @@ As JSON:
     "includeHeader" : true
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
@@ -6520,15 +5878,15 @@ g.OperationChain(
     ), 
     g.ToCsv( 
       element_generator=g.ElementGenerator( 
-        class_name="uk.gov.gchq.gaffer.data.generator.CsvGenerator", 
-        fields={'fields': {'VERTEX': 'vertex', 'SOURCE': 'source', 'GROUP': 'Edge group', 'count': 'total count'}, 'constants': {}, 'quoted': False} 
+        fields={'quoted': False, 'fields': {'SOURCE': 'source', 'VERTEX': 'vertex', 'GROUP': 'Edge group', 'count': 'total count'}, 'constants': {}}, 
+        class_name="uk.gov.gchq.gaffer.data.generator.CsvGenerator" 
       ), 
       include_header=True 
     ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -6570,22 +5928,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends EntitySeed>> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
                 .build())
         .then(new ToEntitySeeds())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -6601,12 +5953,8 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToEntitySeeds"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
@@ -6623,7 +5971,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -6666,22 +6014,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<List<? extends Element>> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
                 .build())
         .then(new ToList<>())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -6697,12 +6039,8 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToList"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
@@ -6719,7 +6057,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -6761,10 +6099,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends Map<String, Object>>> opChain = new Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -6778,12 +6114,8 @@ final OperationChain<Iterable<? extends Map<String, Object>>> opChain = new Buil
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -6809,12 +6141,8 @@ As JSON:
     }
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
@@ -6829,14 +6157,14 @@ g.OperationChain(
     ), 
     g.ToMapCsv( 
       element_generator=g.ElementGenerator( 
-        class_name="uk.gov.gchq.gaffer.data.generator.MapGenerator", 
-        fields={'fields': {'SOURCE': 'source', 'VERTEX': 'vertex', 'GROUP': 'group', 'count': 'total count'}, 'constants': {}} 
+        fields={'fields': {'SOURCE': 'source', 'GROUP': 'group', 'VERTEX': 'vertex', 'count': 'total count'}, 'constants': {}}, 
+        class_name="uk.gov.gchq.gaffer.data.generator.MapGenerator" 
       ) 
     ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -6879,19 +6207,13 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElements operation = new GetElements.Builder()
         .input(new EntitySeed(1), new EntitySeed(2))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "input" : [ {
@@ -6902,12 +6224,8 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetElements( 
   input=[ 
     g.EntitySeed( 
@@ -6919,7 +6237,7 @@ g.GetElements(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -6949,22 +6267,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Set<? extends Element>> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
                 .build())
         .then(new ToSet<>())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -6980,12 +6292,8 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToSet"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
@@ -7002,7 +6310,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -7044,22 +6352,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Stream<? extends Element>> opChain = new Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
                 .build())
         .then(new ToStream<>())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -7075,12 +6377,8 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToStream"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
@@ -7097,7 +6395,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -7140,10 +6438,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Set<?>> opChain = new Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -7156,12 +6452,8 @@ final OperationChain<Set<?>> opChain = new Builder()
                 .build())
         .then(new ToSet<>())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -7186,24 +6478,11 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToSet"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
-      view=g.View( 
-        edges=[ 
-        ], 
-        entities=[ 
-          g.ElementDefinition( 
-            group="entity" 
-          ) 
-        ] 
-      ), 
       input=[ 
         g.EntitySeed( 
           vertex=1 
@@ -7211,7 +6490,16 @@ g.OperationChain(
         g.EntitySeed( 
           vertex=2 
         ) 
-      ] 
+      ], 
+      view=g.View( 
+        entities=[ 
+          g.ElementDefinition( 
+            group="entity" 
+          ) 
+        ], 
+        edges=[ 
+        ] 
+      ) 
     ), 
     g.ToVertices( 
       edge_vertices="NONE" 
@@ -7220,7 +6508,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -7244,10 +6532,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Set<?>> opChain = new Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -7261,12 +6547,8 @@ final OperationChain<Set<?>> opChain = new Builder()
                 .build())
         .then(new ToSet<>())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -7292,15 +6574,12 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToSet"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
+      include_incoming_out_going="OUTGOING", 
       input=[ 
         g.EntitySeed( 
           vertex=1 
@@ -7317,8 +6596,7 @@ g.OperationChain(
             group="edge" 
           ) 
         ] 
-      ), 
-      include_incoming_out_going="OUTGOING" 
+      ) 
     ), 
     g.ToVertices( 
       edge_vertices="DESTINATION" 
@@ -7327,7 +6605,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -7353,10 +6631,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Set<?>> opChain = new Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -7370,12 +6646,8 @@ final OperationChain<Set<?>> opChain = new Builder()
                 .build())
         .then(new ToSet<>())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -7401,15 +6673,21 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToSet"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
+      view=g.View( 
+        edges=[ 
+          g.ElementDefinition( 
+            group="edge" 
+          ) 
+        ], 
+        entities=[ 
+        ] 
+      ), 
+      include_incoming_out_going="OUTGOING", 
       input=[ 
         g.EntitySeed( 
           vertex=1 
@@ -7417,17 +6695,7 @@ g.OperationChain(
         g.EntitySeed( 
           vertex=2 
         ) 
-      ], 
-      include_incoming_out_going="OUTGOING", 
-      view=g.View( 
-        entities=[ 
-        ], 
-        edges=[ 
-          g.ElementDefinition( 
-            group="edge" 
-          ) 
-        ] 
-      ) 
+      ] 
     ), 
     g.ToVertices( 
       edge_vertices="BOTH" 
@@ -7436,7 +6704,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -7463,10 +6731,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Set<?>> opChain = new Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -7480,12 +6746,8 @@ final OperationChain<Set<?>> opChain = new Builder()
                 .build())
         .then(new ToSet<>())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -7511,25 +6773,12 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToSet"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
       include_incoming_out_going="OUTGOING", 
-      view=g.View( 
-        edges=[ 
-          g.ElementDefinition( 
-            group="edge" 
-          ) 
-        ], 
-        entities=[ 
-        ] 
-      ), 
       input=[ 
         g.EntitySeed( 
           vertex=1 
@@ -7537,7 +6786,16 @@ g.OperationChain(
         g.EntitySeed( 
           vertex=2 
         ) 
-      ] 
+      ], 
+      view=g.View( 
+        entities=[ 
+        ], 
+        edges=[ 
+          g.ElementDefinition( 
+            group="edge" 
+          ) 
+        ] 
+      ) 
     ), 
     g.ToVertices( 
       use_matched_vertex="EQUAL" 
@@ -7546,7 +6804,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -7570,10 +6828,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Set<?>> opChain = new Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -7587,12 +6843,8 @@ final OperationChain<Set<?>> opChain = new Builder()
                 .build())
         .then(new ToSet<>())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -7618,24 +6870,11 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToSet"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
-      include_incoming_out_going="OUTGOING", 
-      input=[ 
-        g.EntitySeed( 
-          vertex=1 
-        ), 
-        g.EntitySeed( 
-          vertex=2 
-        ) 
-      ], 
       view=g.View( 
         edges=[ 
           g.ElementDefinition( 
@@ -7644,7 +6883,16 @@ g.OperationChain(
         ], 
         entities=[ 
         ] 
-      ) 
+      ), 
+      include_incoming_out_going="OUTGOING", 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ] 
     ), 
     g.ToVertices( 
       use_matched_vertex="OPPOSITE" 
@@ -7653,7 +6901,7 @@ g.OperationChain(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 

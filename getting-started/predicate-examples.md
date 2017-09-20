@@ -34,32 +34,22 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.AgeOff](http://gchq.github.io/
 
 #### Age off in milliseconds
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final AgeOff function = new AgeOff(100000L);
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.AgeOff",
   "ageOffTime" : 100000
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.AgeOff( 
   age_off_time=100000 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -71,10 +61,10 @@ Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
 <tr><td>java.lang.String</td><td></td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
-<tr><td>java.lang.Long</td><td>1505814311430</td><td>true</td></tr>
-<tr><td>java.lang.Long</td><td>1505814211430</td><td>false</td></tr>
-<tr><td>java.lang.Long</td><td>1505814411430</td><td>true</td></tr>
-<tr><td>java.lang.String</td><td>1505814311430</td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
+<tr><td>java.lang.Long</td><td>1505902432195</td><td>true</td></tr>
+<tr><td>java.lang.Long</td><td>1505902332195</td><td>false</td></tr>
+<tr><td>java.lang.Long</td><td>1505902532195</td><td>true</td></tr>
+<tr><td>java.lang.String</td><td>1505902432195</td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
 </table>
 
 -----------------------------------------------
@@ -88,20 +78,14 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/kor
 
 #### Is less than 3 and is more than 0
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final And function = new And<>(
         new IsLessThan(3),
         new IsMoreThan(0)
 );
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.And",
   "predicates" : [ {
@@ -114,12 +98,8 @@ As JSON:
     "value" : 0
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.And( 
   predicates=[ 
     g.IsLessThan( 
@@ -133,7 +113,7 @@ g.And(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -156,22 +136,16 @@ Example inputs:
 
 #### First item is less than 2 and second item is more than 5
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final And function = new And.Builder()
         .select(0)
         .execute(new IsLessThan(2))
         .select(1)
         .execute(new IsMoreThan(5))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.And",
   "predicates" : [ {
@@ -192,18 +166,14 @@ As JSON:
     "selection" : [ 1 ]
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.And( 
   predicates=[ 
     g.NestedPredicate( 
       predicate=g.IsLessThan( 
-        or_equal_to=False, 
-        value=2 
+        value=2, 
+        or_equal_to=False 
       ), 
       selection=[ 
         0 
@@ -211,8 +181,8 @@ g.And(
     ), 
     g.NestedPredicate( 
       predicate=g.IsMoreThan( 
-        or_equal_to=False, 
-        value=5 
+        value=5, 
+        or_equal_to=False 
       ), 
       selection=[ 
         1 
@@ -221,7 +191,7 @@ g.And(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -251,29 +221,19 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.AreEqual](http://gchq.github.i
 
 #### Are equal
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final AreEqual function = new AreEqual();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.AreEqual"
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.AreEqual()
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -301,27 +261,17 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.AreIn](http://gchq.github.io/k
 
 #### Are in set
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final AreIn function = new AreIn(1, 2, 3);
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.AreIn",
   "values" : [ 1, 2, 3 ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.AreIn( 
   values=[ 
     1, 
@@ -330,7 +280,7 @@ g.AreIn(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -359,32 +309,22 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.CollectionContains](http://gch
 
 #### Collection contains
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final CollectionContains function = new CollectionContains(1);
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.CollectionContains",
   "value" : 1
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.CollectionContains( 
   value=1 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -412,29 +352,19 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/
 
 #### Exists
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final Exists function = new Exists();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.Exists"
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.Exists()
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -462,34 +392,24 @@ See javadoc - [uk.gov.gchq.gaffer.sketches.clearspring.cardinality.predicate.Hyp
 
 #### Hyper log log plus is less than 2
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final HyperLogLogPlusIsLessThan function = new HyperLogLogPlusIsLessThan(2);
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.sketches.clearspring.cardinality.predicate.HyperLogLogPlusIsLessThan",
   "orEqualTo" : false,
   "value" : 2
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.HyperLogLogPlusIsLessThan( 
   or_equal_to=False, 
   value=2 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -509,34 +429,24 @@ Example inputs:
 
 #### Hyper log log plus is less than or equal to 2
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final HyperLogLogPlusIsLessThan function = new HyperLogLogPlusIsLessThan(2, true);
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.sketches.clearspring.cardinality.predicate.HyperLogLogPlusIsLessThan",
   "orEqualTo" : true,
   "value" : 2
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.HyperLogLogPlusIsLessThan( 
   value=2, 
   or_equal_to=True 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -563,32 +473,22 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/kor
 
 #### Is a string
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final IsA function = new IsA(String.class);
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsA",
   "type" : "java.lang.String"
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.IsA( 
   type="java.lang.String" 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -608,32 +508,22 @@ Example inputs:
 
 #### Is a number
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final IsA function = new IsA(Number.class);
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsA",
   "type" : "java.lang.Number"
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.IsA( 
   type="java.lang.Number" 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -660,32 +550,22 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io
 
 #### Is equal to 5
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final IsEqual function = new IsEqual(5);
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsEqual",
   "value" : 5
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.IsEqual( 
   value=5 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -706,32 +586,22 @@ Example inputs:
 
 #### Is equal to string 5
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final IsEqual function = new IsEqual("5");
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsEqual",
   "value" : "5"
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.IsEqual( 
   value="5" 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -752,34 +622,24 @@ Example inputs:
 
 #### Is equal long 5
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final IsEqual function = new IsEqual(5L);
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsEqual",
   "value" : {
     "java.lang.Long" : 5
   }
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.IsEqual( 
   value={'java.lang.Long': 5} 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -807,29 +667,19 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.IsFalse](http://gchq.github.io
 
 #### Is false
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final IsFalse function = new IsFalse();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsFalse"
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.IsFalse()
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -857,17 +707,11 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/ko
 
 #### Is in set
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final IsIn function = new IsIn(5, 5L, "5", '5');
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsIn",
   "values" : [ 5, {
@@ -876,12 +720,8 @@ As JSON:
     "java.lang.Character" : "5"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.IsIn( 
   values=[ 
     5, 
@@ -891,7 +731,7 @@ g.IsIn(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -923,34 +763,24 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.IsLessThan](http://gchq.github
 
 #### Is less than 5
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final IsLessThan function = new IsLessThan(5);
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsLessThan",
   "orEqualTo" : false,
   "value" : 5
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.IsLessThan( 
-  or_equal_to=False, 
-  value=5 
+  value=5, 
+  or_equal_to=False 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -974,34 +804,24 @@ Example inputs:
 
 #### Is less than or equal to 5
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final IsLessThan function = new IsLessThan(5, true);
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsLessThan",
   "orEqualTo" : true,
   "value" : 5
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.IsLessThan( 
   or_equal_to=True, 
   value=5 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -1025,17 +845,11 @@ Example inputs:
 
 #### Is less than a long 5
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final IsLessThan function = new IsLessThan(5L);
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsLessThan",
   "orEqualTo" : false,
@@ -1043,18 +857,14 @@ As JSON:
     "java.lang.Long" : 5
   }
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.IsLessThan( 
-  value={'java.lang.Long': 5}, 
-  or_equal_to=False 
+  or_equal_to=False, 
+  value={'java.lang.Long': 5} 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -1078,34 +888,24 @@ Example inputs:
 
 #### Is less than a string
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final IsLessThan function = new IsLessThan("B");
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsLessThan",
   "orEqualTo" : false,
   "value" : "B"
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.IsLessThan( 
-  or_equal_to=False, 
-  value="B" 
+  value="B", 
+  or_equal_to=False 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -1133,34 +933,24 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.IsMoreThan](http://gchq.github
 
 #### Is more than 5
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final IsMoreThan function = new IsMoreThan(5);
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsMoreThan",
   "orEqualTo" : false,
   "value" : 5
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.IsMoreThan( 
   value=5, 
   or_equal_to=False 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -1180,34 +970,24 @@ Example inputs:
 
 #### Is more than or equal to 5
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final IsMoreThan function = new IsMoreThan(5, true);
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsMoreThan",
   "orEqualTo" : true,
   "value" : 5
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.IsMoreThan( 
-  or_equal_to=True, 
-  value=5 
+  value=5, 
+  or_equal_to=True 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -1227,17 +1007,11 @@ Example inputs:
 
 #### Is more than a long 5
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final IsMoreThan function = new IsMoreThan(5L);
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsMoreThan",
   "orEqualTo" : false,
@@ -1245,18 +1019,14 @@ As JSON:
     "java.lang.Long" : 5
   }
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.IsMoreThan( 
-  or_equal_to=False, 
-  value={'java.lang.Long': 5} 
+  value={'java.lang.Long': 5}, 
+  or_equal_to=False 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -1280,34 +1050,24 @@ Example inputs:
 
 #### Is more than a string
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final IsMoreThan function = new IsMoreThan("B");
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsMoreThan",
   "orEqualTo" : false,
   "value" : "B"
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.IsMoreThan( 
   value="B", 
   or_equal_to=False 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -1335,34 +1095,24 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.IsShorterThan](http://gchq.git
 
 #### Is shorter than 4
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final IsShorterThan function = new IsShorterThan(4);
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsShorterThan",
   "maxLength" : 4,
   "orEqualTo" : false
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.IsShorterThan( 
-  max_length=4, 
-  or_equal_to=False 
+  or_equal_to=False, 
+  max_length=4 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -1396,29 +1146,19 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.IsTrue](http://gchq.github.io/
 
 #### Is true
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final IsTrue function = new IsTrue();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsTrue"
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.IsTrue()
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -1446,29 +1186,19 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.IsXLessThanY](http://gchq.gith
 
 #### Is x less than y
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final IsXLessThanY function = new IsXLessThanY();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsXLessThanY"
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.IsXLessThanY()
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -1503,29 +1233,19 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.IsXMoreThanY](http://gchq.gith
 
 #### Is x more than y
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final IsXMoreThanY function = new IsXMoreThanY();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsXMoreThanY"
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.IsXMoreThanY()
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -1560,32 +1280,22 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.MapContains](http://gchq.githu
 
 #### Map contains
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final MapContains function = new MapContains("a");
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.MapContains",
   "key" : "a"
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.MapContains( 
   key="a" 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -1612,17 +1322,11 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.MapContainsPredicate](http://g
 
 #### Map contains predicate
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final MapContainsPredicate function = new MapContainsPredicate(new Regex("a.*"));
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.MapContainsPredicate",
   "keyPredicate" : {
@@ -1632,19 +1336,15 @@ As JSON:
     }
   }
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.MapContainsPredicate( 
   key_predicate=g.Regex( 
     value={'java.util.regex.Pattern': 'a.*'} 
   ) 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -1671,17 +1371,11 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.MultiRegex](http://gchq.github
 
 #### Multi regex with pattern
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final MultiRegex function = new MultiRegex(new Pattern[]{Pattern.compile("[a-d]"), Pattern.compile("[0-4]")});
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.MultiRegex",
   "value" : [ {
@@ -1690,12 +1384,8 @@ As JSON:
     "java.util.regex.Pattern" : "[0-4]"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.MultiRegex( 
   value=[ 
     {'java.util.regex.Pattern': '[a-d]'}, 
@@ -1703,7 +1393,7 @@ g.MultiRegex(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -1734,34 +1424,24 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/kor
 
 #### Does not exist
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final Not function = new Not<>(new Exists());
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.Not",
   "predicate" : {
     "class" : "uk.gov.gchq.koryphe.impl.predicate.Exists"
   }
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.Not( 
   predicate=g.Exists() 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -1782,34 +1462,24 @@ Example inputs:
 
 #### Are not equal
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final Not function = new Not<>(new AreEqual());
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.Not",
   "predicate" : {
     "class" : "uk.gov.gchq.koryphe.impl.predicate.AreEqual"
   }
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.Not( 
   predicate=g.AreEqual() 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -1840,21 +1510,15 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/kory
 
 When using an Or predicate with a single selected value you can just use the constructor new Or(predicates))'
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final Or function = new Or<>(
         new IsLessThan(2),
         new IsEqual(5),
         new IsMoreThan(10)
 );
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.Or",
   "predicates" : [ {
@@ -1870,29 +1534,25 @@ As JSON:
     "value" : 10
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.Or( 
   predicates=[ 
     g.IsLessThan( 
-      or_equal_to=False, 
-      value=2 
+      value=2, 
+      or_equal_to=False 
     ), 
     g.IsEqual( 
       value=5 
     ), 
     g.IsMoreThan( 
-      or_equal_to=False, 
-      value=10 
+      value=10, 
+      or_equal_to=False 
     ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -1919,21 +1579,15 @@ Example inputs:
 
 When using an Or predicate with a single selected value you can just use the constructor new Or(predicates))'
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final Or function = new Or<>(
         new IsLessThan(2),
         new IsEqual(5),
         new IsMoreThan(10)
 );
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.Or",
   "predicates" : [ {
@@ -1949,12 +1603,8 @@ As JSON:
     "value" : 10
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.Or( 
   predicates=[ 
     g.IsLessThan( 
@@ -1971,7 +1621,7 @@ g.Or(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -1998,22 +1648,16 @@ Example inputs:
 
 When using an Or predicate with multiple selected values, you need to use the Or.Builder to build your Or predicate, using .select() then .execute(). When selecting values in the Or.Builder you need to refer to the position in the input array. I.e to use the first value use position 0 - select(0).You can select multiple values to give to a predicate like isXLessThanY, this is achieved by passing 2 positions to the selec method - select(0, 1)
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final Or function = new Or.Builder()
         .select(0)
         .execute(new IsLessThan(2))
         .select(1)
         .execute(new IsMoreThan(10))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.Or",
   "predicates" : [ {
@@ -2034,18 +1678,14 @@ As JSON:
     "selection" : [ 1 ]
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.Or( 
   predicates=[ 
     g.NestedPredicate( 
       predicate=g.IsLessThan( 
-        or_equal_to=False, 
-        value=2 
+        value=2, 
+        or_equal_to=False 
       ), 
       selection=[ 
         0 
@@ -2053,8 +1693,8 @@ g.Or(
     ), 
     g.NestedPredicate( 
       predicate=g.IsMoreThan( 
-        or_equal_to=False, 
-        value=10 
+        value=10, 
+        or_equal_to=False 
       ), 
       selection=[ 
         1 
@@ -2063,7 +1703,7 @@ g.Or(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -2093,17 +1733,11 @@ See javadoc - [uk.gov.gchq.koryphe.predicate.PredicateMap](http://gchq.github.io
 
 #### Freq map is more than 2
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final PredicateMap function = new PredicateMap("key1", new IsMoreThan(2L));
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.predicate.PredicateMap",
   "predicate" : {
@@ -2115,12 +1749,8 @@ As JSON:
   },
   "key" : "key1"
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.PredicateMap( 
   key="key1", 
   predicate=g.IsMoreThan( 
@@ -2129,7 +1759,7 @@ g.PredicateMap(
   ) 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -2151,17 +1781,11 @@ Example inputs:
 
 #### Freq map is more than or equal to 2
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final PredicateMap function = new PredicateMap("key1", new IsMoreThan(2L, true));
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.predicate.PredicateMap",
   "predicate" : {
@@ -2173,21 +1797,17 @@ As JSON:
   },
   "key" : "key1"
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.PredicateMap( 
+  key="key1", 
   predicate=g.IsMoreThan( 
     value={'java.lang.Long': 2}, 
     or_equal_to=True 
-  ), 
-  key="key1" 
+  ) 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -2209,17 +1829,11 @@ Example inputs:
 
 #### Map with date key has a value that exists
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final PredicateMap function = new PredicateMap(new Date(0L), new Exists());
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.predicate.PredicateMap",
   "predicate" : {
@@ -2229,18 +1843,14 @@ As JSON:
     "java.util.Date" : 0
   }
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.PredicateMap( 
   key={'java.util.Date': 0}, 
   predicate=g.Exists() 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 
@@ -2252,7 +1862,7 @@ Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
 <tr><td>java.util.HashMap</td><td>{Thu Jan 01 01:00:00 GMT 1970=1}</td><td>true</td></tr>
-<tr><td>java.util.HashMap</td><td>{Tue Sep 19 10:45:13 BST 2017=2}</td><td>false</td></tr>
+<tr><td>java.util.HashMap</td><td>{Wed Sep 20 11:13:54 BST 2017=2}</td><td>false</td></tr>
 </table>
 
 -----------------------------------------------
@@ -2266,34 +1876,24 @@ See javadoc - [uk.gov.gchq.koryphe.impl.predicate.Regex](http://gchq.github.io/k
 
 #### Regex with pattern
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final Regex function = new Regex("[a-d0-4]");
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.Regex",
   "value" : {
     "java.util.regex.Pattern" : "[a-d0-4]"
   }
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.Regex( 
   value={'java.util.regex.Pattern': '[a-d0-4]'} 
 )
 
-```
+{%- endcodetabs %}
 
 Input type:
 

@@ -29,20 +29,14 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElementsBetweenSets operation = new GetElementsBetweenSets.Builder()
         .input(new EntitySeed(1))
         .inputB(new EntitySeed(2), new EntitySeed(4))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.accumulostore.operation.impl.GetElementsBetweenSets",
   "input" : [ {
@@ -57,13 +51,14 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetElementsBetweenSets( 
+  input=[ 
+    g.EntitySeed( 
+      vertex=1 
+    ) 
+  ], 
   input_b=[ 
     g.EntitySeed( 
       vertex=2 
@@ -71,15 +66,10 @@ g.GetElementsBetweenSets(
     g.EntitySeed( 
       vertex=4 
     ) 
-  ], 
-  input=[ 
-    g.EntitySeed( 
-      vertex=1 
-    ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -104,10 +94,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElementsBetweenSets operation = new GetElementsBetweenSets.Builder()
         .input(new EntitySeed(1))
         .inputB(new EntitySeed(2), new EntitySeed(4))
@@ -126,12 +114,8 @@ final GetElementsBetweenSets operation = new GetElementsBetweenSets.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.accumulostore.operation.impl.GetElementsBetweenSets",
   "view" : {
@@ -172,34 +156,22 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetElementsBetweenSets( 
-  input_b=[ 
-    g.EntitySeed( 
-      vertex=2 
-    ), 
-    g.EntitySeed( 
-      vertex=4 
-    ) 
-  ], 
   view=g.View( 
     entities=[ 
       g.ElementDefinition( 
         group="entity", 
         pre_aggregation_filter_functions=[ 
           g.PredicateContext( 
+            predicate=g.IsMoreThan( 
+              or_equal_to=False, 
+              value=2 
+            ), 
             selection=[ 
               "count" 
-            ], 
-            predicate=g.IsMoreThan( 
-              value=2, 
-              or_equal_to=False 
-            ) 
+            ] 
           ) 
         ] 
       ) 
@@ -209,18 +181,26 @@ g.GetElementsBetweenSets(
         group="edge", 
         pre_aggregation_filter_functions=[ 
           g.PredicateContext( 
+            predicate=g.IsMoreThan( 
+              or_equal_to=False, 
+              value=2 
+            ), 
             selection=[ 
               "count" 
-            ], 
-            predicate=g.IsMoreThan( 
-              value=2, 
-              or_equal_to=False 
-            ) 
+            ] 
           ) 
         ] 
       ) 
     ] 
   ), 
+  input_b=[ 
+    g.EntitySeed( 
+      vertex=2 
+    ), 
+    g.EntitySeed( 
+      vertex=4 
+    ) 
+  ], 
   input=[ 
     g.EntitySeed( 
       vertex=1 
@@ -228,7 +208,7 @@ g.GetElementsBetweenSets(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -263,19 +243,13 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElementsInRanges operation = new GetElementsInRanges.Builder()
         .input(new Pair<>(new EntitySeed(1), new EntitySeed(4)))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.accumulostore.operation.impl.GetElementsInRanges",
   "input" : [ {
@@ -294,12 +268,8 @@ As JSON:
     }
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetElementsInRanges( 
   input=[ 
     g.SeedPair( 
@@ -313,7 +283,7 @@ g.GetElementsInRanges(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -350,19 +320,13 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElementsInRanges operation = new GetElementsInRanges.Builder()
         .input(new Pair<>(new EntitySeed(4), new EdgeSeed(4, 5, DirectedType.EITHER)))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.accumulostore.operation.impl.GetElementsInRanges",
   "input" : [ {
@@ -384,29 +348,25 @@ As JSON:
     }
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetElementsInRanges( 
   input=[ 
     g.SeedPair( 
-      second=g.EdgeSeed( 
-        destination=5, 
-        directed_type="EITHER", 
-        matched_vertex="SOURCE", 
-        source=4 
-      ), 
       first=g.EntitySeed( 
         vertex=4 
+      ), 
+      second=g.EdgeSeed( 
+        matched_vertex="SOURCE", 
+        source=4, 
+        destination=5, 
+        directed_type="EITHER" 
       ) 
     ) 
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -444,19 +404,13 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElementsWithinSet operation = new GetElementsWithinSet.Builder()
         .input(new EntitySeed(1), new EntitySeed(2), new EntitySeed(3))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.accumulostore.operation.impl.GetElementsWithinSet",
   "input" : [ {
@@ -470,12 +424,8 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetElementsWithinSet( 
   input=[ 
     g.EntitySeed( 
@@ -490,7 +440,7 @@ g.GetElementsWithinSet(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -517,10 +467,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElementsWithinSet operation = new GetElementsWithinSet.Builder()
         .input(new EntitySeed(1), new EntitySeed(2), new EntitySeed(3))
         .view(new View.Builder()
@@ -538,12 +486,8 @@ final GetElementsWithinSet operation = new GetElementsWithinSet.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.accumulostore.operation.impl.GetElementsWithinSet",
   "view" : {
@@ -583,44 +527,40 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
 
-As Python:
-
-
-```python
+{%- language name="Python", type="py" -%}
 g.GetElementsWithinSet( 
   view=g.View( 
-    entities=[ 
-      g.ElementDefinition( 
-        pre_aggregation_filter_functions=[ 
-          g.PredicateContext( 
-            predicate=g.IsMoreThan( 
-              or_equal_to=False, 
-              value=2 
-            ), 
-            selection=[ 
-              "count" 
-            ] 
-          ) 
-        ], 
-        group="entity" 
-      ) 
-    ], 
     edges=[ 
       g.ElementDefinition( 
         pre_aggregation_filter_functions=[ 
           g.PredicateContext( 
-            predicate=g.IsMoreThan( 
-              or_equal_to=False, 
-              value=2 
-            ), 
             selection=[ 
               "count" 
-            ] 
+            ], 
+            predicate=g.IsMoreThan( 
+              value=2, 
+              or_equal_to=False 
+            ) 
           ) 
         ], 
         group="edge" 
+      ) 
+    ], 
+    entities=[ 
+      g.ElementDefinition( 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            selection=[ 
+              "count" 
+            ], 
+            predicate=g.IsMoreThan( 
+              value=2, 
+              or_equal_to=False 
+            ) 
+          ) 
+        ], 
+        group="entity" 
       ) 
     ] 
   ), 
@@ -637,7 +577,7 @@ g.GetElementsWithinSet(
   ] 
 )
 
-```
+{%- endcodetabs %}
 
 Result:
 
