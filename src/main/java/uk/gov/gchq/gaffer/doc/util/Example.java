@@ -90,34 +90,39 @@ public abstract class Example {
         }
     }
 
+    protected void printJavaJson(final Object obj, final String java) {
+        log("\n{% codetabs name=\"Java\", type=\"java\" -%}");
+        log(java);
+        log("\n{%- language name=\"JSON\", type=\"json\" -%}");
+        log(getJson(obj));
+        log("{%- endcodetabs %}\n");
+    }
+
+    protected void printJavaJson(final Object obj, final int parentMethodIndex) {
+        printJavaJson(obj, getJavaSnippet(parentMethodIndex));
+    }
+
+    protected String getJavaSnippet(final int parentMethodIndex) {
+        return JavaSourceUtil.getRawJavaSnippet(getClass(), "doc", " " + getMethodName(parentMethodIndex) + "() {", String.format("---%n"), "// ----");
+    }
+
     protected void printJava(final String java) {
-        log("As Java:");
         log("\n\n```java");
         log(java);
         log("```\n");
     }
 
-    protected void printScala(final String scala) {
-        log("As Scala:");
-        log("\n\n```scala");
-        log(scala);
-        log("```\n");
-    }
-
-    protected void printJson(final String json) {
-        log("As JSON:");
-        log("\n\n```json");
-        log(json);
-        log("```\n");
-    }
-
-    protected void printAsJson(final Object object) {
-        printJson(getJson(object));
-    }
-
     protected String getJson(final Object object) {
         try {
             return new String(JSONSerialiser.serialise(object, true), CommonConstants.UTF_8);
+        } catch (final SerialisationException | UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected String getRawJson(final Object object) {
+        try {
+            return new String(JSONSerialiser.serialise(object), CommonConstants.UTF_8);
         } catch (final SerialisationException | UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }

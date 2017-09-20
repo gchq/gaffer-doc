@@ -558,9 +558,9 @@ Once the schema has been loaded into a graph the parent elements are merged into
       },
       "groupBy" : [ "startDate", "endDate" ],
       "description" : "A directed edge representing vehicles moving from junction A to junction B.",
-      "directed" : "true",
       "source" : "junction",
       "destination" : "junction",
+      "directed" : "true",
       "aggregateFunctions" : [ {
         "binaryOperator" : {
           "class" : "uk.gov.gchq.gaffer.doc.dev.aggregator.ExampleTuple2BinaryOperator"
@@ -578,9 +578,9 @@ Once the schema has been loaded into a graph the parent elements are merged into
       "properties" : { },
       "groupBy" : [ ],
       "description" : "A directed edge from each road to all the junctions on that road.",
-      "directed" : "true",
       "source" : "road",
-      "destination" : "junction"
+      "destination" : "junction",
+      "directed" : "true"
     }
   },
   "entities" : {
@@ -877,7 +877,7 @@ final String jobId = initialJobDetail.getJobId();
 and the results is:
 
 ```
-JobDetail[jobId=87b74ce5-0819-4a92-b9af-6e7c0367e810,userId=user01,status=RUNNING,startTime=1505915398008,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetElements@17a1e4ca, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@10ded6a9]]]
+JobDetail[jobId=8dde7044-d9ad-47a1-8500-46105996905a,userId=user01,status=RUNNING,startTime=1505920361946,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetElements@17a1e4ca, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@10ded6a9]]]
 
 ```
 
@@ -895,7 +895,7 @@ final JobDetail jobDetail = graph.execute(
 and now you can see the job has finished:
 
 ```
-JobDetail[jobId=87b74ce5-0819-4a92-b9af-6e7c0367e810,userId=user01,status=FINISHED,startTime=1505915398008,endTime=1505915398248,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetElements@17a1e4ca, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@10ded6a9]]]
+JobDetail[jobId=8dde7044-d9ad-47a1-8500-46105996905a,userId=user01,status=FINISHED,startTime=1505920361946,endTime=1505920362191,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetElements@17a1e4ca, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@10ded6a9]]]
 
 ```
 
@@ -1216,9 +1216,9 @@ or through the rest service with json.
         },
         "groupBy" : [ "startDate", "endDate" ],
         "description" : "A directed edge representing vehicles moving from junction A to junction B.",
-        "directed" : "true",
         "source" : "junction",
         "destination" : "junction",
+        "directed" : "true",
         "validateFunctions" : [ {
           "predicate" : {
             "class" : "uk.gov.gchq.koryphe.impl.predicate.IsXLessThanY"
@@ -1235,9 +1235,9 @@ or through the rest service with json.
         "properties" : { },
         "groupBy" : [ ],
         "description" : "A directed edge from each road to all the junctions on that road.",
-        "directed" : "true",
         "source" : "road",
-        "destination" : "junction"
+        "destination" : "junction",
+        "directed" : "true"
       }
     },
     "entities" : {
@@ -1493,9 +1493,9 @@ or through the rest service with json, by default if authorisations is not speci
         },
         "groupBy" : [ "startDate", "endDate" ],
         "description" : "A directed edge representing vehicles moving from junction A to junction B.",
-        "directed" : "true",
         "source" : "junction",
         "destination" : "junction",
+        "directed" : "true",
         "validateFunctions" : [ {
           "predicate" : {
             "class" : "uk.gov.gchq.koryphe.impl.predicate.IsXLessThanY"
@@ -1507,9 +1507,9 @@ or through the rest service with json, by default if authorisations is not speci
         "properties" : { },
         "groupBy" : [ ],
         "description" : "A directed edge from each road to all the junctions on that road.",
-        "directed" : "true",
         "source" : "road",
-        "destination" : "junction"
+        "destination" : "junction",
+        "directed" : "true"
       }
     },
     "entities" : {

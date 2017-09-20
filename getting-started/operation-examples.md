@@ -61,10 +61,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 new AddElements.Builder()
                 .input(new Entity.Builder()
                                 .group("entity")
@@ -77,12 +75,8 @@ new AddElements.Builder()
                                 .property("count", 1)
                                 .build())
                 .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.add.AddElements",
   "validate" : true,
@@ -105,7 +99,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.data.element.Edge"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Updated graph:
 ```
@@ -134,10 +128,8 @@ The following fields are required:
 
 #### Add elements from file
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final AddElementsFromFile op = new AddElementsFromFile.Builder()
         .filename("filename")
         .generator(ElementGenerator.class)
@@ -145,12 +137,8 @@ final AddElementsFromFile op = new AddElementsFromFile.Builder()
         .validate(true)
         .skipInvalidElements(false)
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.add.AddElementsFromFile",
   "filename" : "filename",
@@ -159,7 +147,7 @@ As JSON:
   "validate" : true,
   "skipInvalidElements" : false
 }
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -188,21 +176,38 @@ The following fields are required:
 
 #### Add elements from hdfs
 
-As Java:
 
 
 ```java
+if (5 != args.length) {
+    System.err.println("Usage: hadoop jar custom-hdfs-import-<version>-shaded.jar <inputPath> <outputPath> <failurePath> <schemaPath> <storePropertiesPath>");
+    System.exit(1);
+}
+
+final String inputPath = args[0];
+final String outputPath = args[1];
+final String failurePath = args[2];
+final String schemaPath = args[3];
+final String storePropertiesPath = args[4];
+
+final Graph graph = new Graph.Builder()
+        .storeProperties(storePropertiesPath)
+        .addSchemas(Paths.get(schemaPath))
+        .build();
+
 final AddElementsFromHdfs operation = new AddElementsFromHdfs.Builder()
-        .addInputMapperPair("/path/to/input/fileOrFolder", TextMapperGeneratorImpl.class.getName())
-        .outputPath("/path/to/output/folder")
-        .failurePath("/path/to/failure/folder")
-        .splitsFilePath("/path/to/splits/file")
+        .addInputMapperPair(inputPath, TextMapperGeneratorImpl.class.getName())
+        .outputPath(outputPath)
+        .failurePath(failurePath)
+        .splitsFilePath("/tmp/splits")
         .workingPath("/tmp/workingDir")
         .useProvidedSplits(false)
         .jobInitialiser(new TextJobInitialiser())
         .minReducers(10)
         .maxReducers(100)
         .build();
+
+graph.execute(operation, new User());
 ```
 
 -----------------------------------------------
@@ -211,7 +216,6 @@ final AddElementsFromHdfs operation = new AddElementsFromHdfs.Builder()
 
 Example content for a main method that takes 5 arguments and runs an AddElementsFromHdfs
 
-As Java:
 
 
 ```java
@@ -250,26 +254,38 @@ graph.execute(operation, new User());
 
 #### Add elements from hdfs with multiple input
 
-As Java:
 
 
 ```java
-final Map<String, String> inputMapperMap = new HashMap<>();
-inputMapperMap.put("/path/to/first/inputFileOrFolder", TextMapperGeneratorImpl.class.getName());
-inputMapperMap.put("/path/to/second/inputFileOrFolder", TextMapperGeneratorImpl.class.getName());
+if (5 != args.length) {
+    System.err.println("Usage: hadoop jar custom-hdfs-import-<version>-shaded.jar <inputPath> <outputPath> <failurePath> <schemaPath> <storePropertiesPath>");
+    System.exit(1);
+}
+
+final String inputPath = args[0];
+final String outputPath = args[1];
+final String failurePath = args[2];
+final String schemaPath = args[3];
+final String storePropertiesPath = args[4];
+
+final Graph graph = new Graph.Builder()
+        .storeProperties(storePropertiesPath)
+        .addSchemas(Paths.get(schemaPath))
+        .build();
 
 final AddElementsFromHdfs operation = new AddElementsFromHdfs.Builder()
-        .inputMapperPairs(inputMapperMap)
-        .addInputMapperPair("/path/to/third/inputFileOrFolder", TextMapperGeneratorImpl.class.getName())
-        .outputPath("/path/to/output/folder")
-        .failurePath("/path/to/failure/folder")
-        .splitsFilePath("/path/to/splits/file")
+        .addInputMapperPair(inputPath, TextMapperGeneratorImpl.class.getName())
+        .outputPath(outputPath)
+        .failurePath(failurePath)
+        .splitsFilePath("/tmp/splits")
         .workingPath("/tmp/workingDir")
         .useProvidedSplits(false)
         .jobInitialiser(new TextJobInitialiser())
         .minReducers(10)
         .maxReducers(100)
         .build();
+
+graph.execute(operation, new User());
 ```
 
 -----------------------------------------------
@@ -293,10 +309,8 @@ The following fields are required:
 
 #### Add elements from kafka
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final AddElementsFromKafka op = new AddElementsFromKafka.Builder()
         .bootstrapServers("hostname1:8080,hostname2:8080")
         .groupId("groupId1")
@@ -306,12 +320,8 @@ final AddElementsFromKafka op = new AddElementsFromKafka.Builder()
         .validate(true)
         .skipInvalidElements(false)
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.add.AddElementsFromKafka",
   "topic" : "topic1",
@@ -322,7 +332,7 @@ As JSON:
   "validate" : true,
   "skipInvalidElements" : false
 }
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -344,25 +354,19 @@ The following fields are required:
 
 #### Add elements from socket
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final AddElementsFromSocket op = new AddElementsFromSocket.Builder()
         .hostname("localhost")
         .port(8080)
-        .delimiter("\n")
+        .delimiter(",")
         .generator(ElementGenerator.class)
         .parallelism(1)
         .validate(true)
         .skipInvalidElements(false)
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.add.AddElementsFromSocket",
   "hostname" : "localhost",
@@ -371,9 +375,9 @@ As JSON:
   "parallelism" : 1,
   "validate" : true,
   "skipInvalidElements" : false,
-  "delimiter" : "\n"
+  "delimiter" : ","
 }
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -402,20 +406,14 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<GroupCounts> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new CountGroups())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -424,7 +422,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.CountGroups"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -447,20 +445,14 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<GroupCounts> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new CountGroups(5))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -470,7 +462,7 @@ As JSON:
     "limit" : 5
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -504,22 +496,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<CloseableIterable<?>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToGafferResultCache<>())
         .then(new DiscardOutput())
         .then(new GetGafferResultCacheExport())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -533,7 +519,7 @@ As JSON:
     "key" : "ALL"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -566,22 +552,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<JobDetail> exportOpChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToGafferResultCache<>())
         .then(new DiscardOutput())
         .then(new GetJobDetails())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -594,12 +574,12 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
 ```
-JobDetail[jobId=dd29cba4-5741-4ad8-8b30-6d7f4dede6de,userId=user01,status=RUNNING,startTime=1505915443969,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@2ef1b8e4, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@499c48a6, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@5b0b937b, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@3dc6d401]]]
+JobDetail[jobId=49e53f77-9701-4f95-8929-67f8b0597897,userId=user01,status=RUNNING,startTime=1505920411670,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@2ef1b8e4, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@499c48a6, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@5b0b937b, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@3dc6d401]]]
 ```
 -----------------------------------------------
 
@@ -617,30 +597,24 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<CloseableIterable<?>> opChain = new OperationChain.Builder()
         .first(new GetGafferResultCacheExport.Builder()
                 .jobId(jobDetail.getJobId())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
     "class" : "uk.gov.gchq.gaffer.operation.impl.export.resultcache.GetGafferResultCacheExport",
-    "jobId" : "dd29cba4-5741-4ad8-8b30-6d7f4dede6de",
+    "jobId" : "49e53f77-9701-4f95-8929-67f8b0597897",
     "key" : "ALL"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -673,10 +647,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToGafferResultCache.Builder<>()
@@ -697,12 +669,8 @@ final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationC
                                 .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -730,7 +698,7 @@ As JSON:
     } ]
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -783,10 +751,8 @@ The following fields are required:
 
 This example will export all Edges with group 'edge' to another Gaffer graph with ID 'graph2'. The graph will be loaded from the configured GraphLibrary, so it must already exist. In order to export to graph2 the user must have the required user authorisations that were configured for this operation.
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends Element>> opChain =
         new OperationChain.Builder()
                 .first(new GetAllElements.Builder()
@@ -798,12 +764,8 @@ final OperationChain<Iterable<? extends Element>> opChain =
                         .graphId("graph2")
                         .build())
                 .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -819,7 +781,7 @@ As JSON:
     "graphId" : "graph2"
   } ]
 }
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -827,10 +789,8 @@ As JSON:
 
 This example will export all Edges with group 'edge' to another Gaffer graph with new ID 'newGraphId'. The new graph will have a parent Schema and Store Properties within the graph library specified by the ID's schemaId1 and storePropsId1. In order to export to newGraphId with storePropsId1 and schemaId1 the user must have the required user authorisations that were configured for this operation to use each of these 3 ids.
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends Element>> opChain =
         new OperationChain.Builder()
                 .first(new GetAllElements.Builder()
@@ -844,12 +804,8 @@ final OperationChain<Iterable<? extends Element>> opChain =
                         .parentSchemaIds("schemaId1")
                         .build())
                 .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -867,7 +823,7 @@ As JSON:
     "parentStorePropertiesId" : "storePropsId1"
   } ]
 }
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -892,10 +848,8 @@ The following fields are required:
 
 This example will export all Edges with group 'edge' to another Gaffer graph with new ID 'newGraphId'. The new graph will have the same schema and same store properties as the current graph. In this case it will just create another table in accumulo called 'newGraphId'.
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends Element>> opChain =
         new OperationChain.Builder()
                 .first(new GetAllElements.Builder()
@@ -907,12 +861,8 @@ final OperationChain<Iterable<? extends Element>> opChain =
                         .graphId("newGraphId")
                         .build())
                 .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -928,7 +878,7 @@ As JSON:
     "graphId" : "newGraphId"
   } ]
 }
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -936,10 +886,8 @@ As JSON:
 
 This example will export all Edges with group 'edge' to another Gaffer graph with new ID 'newGraphId'. The new graph will have the custom provided schema (note it must contain the same Edge group 'edge' otherwise the exported edges will be invalid') and custom store properties. The store properties could be any store properties e.g. Accumulo, HBase, Map, Proxy store properties.
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final Schema schema = Schema.fromJson(StreamUtil.openStreams(getClass(), "operation/schema"));
 final StoreProperties storeProperties = StoreProperties.loadStoreProperties(StreamUtil.openStream(getClass(), "othermockaccumulostore.properties"));
 final OperationChain<Iterable<? extends Element>> opChain =
@@ -955,12 +903,8 @@ final OperationChain<Iterable<? extends Element>> opChain =
                         .storeProperties(storeProperties)
                         .build())
                 .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -1023,7 +967,7 @@ As JSON:
     }
   } ]
 }
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -1031,10 +975,8 @@ As JSON:
 
 This example will export all Edges with group 'edge' to another Gaffer REST API.To export to another Gaffer REST API, we go via a Gaffer Proxy Store. We just need to tell the proxy store the host, port and context root of the REST API.Note that you will need to include the proxy-store module as a maven dependency to do this.
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final ProxyProperties proxyProperties = new ProxyProperties();
 proxyProperties.setStoreClass(ProxyStore.class);
 proxyProperties.setStorePropertiesClass(ProxyProperties.class);
@@ -1054,12 +996,8 @@ final OperationChain<Iterable<? extends Element>> opChain =
                         .storeProperties(proxyProperties)
                         .build())
                 .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -1082,7 +1020,7 @@ As JSON:
     }
   } ]
 }
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -1090,10 +1028,8 @@ As JSON:
 
 This example will export all Edges with group 'edge' to another existing graph 'exportGraphId' using a GraphLibrary.We demonstrate here that if we use a GraphLibrary, we can register a graph ID and reference it from the export operation. This means the user does not have to proxy all the schema and store properties when they configure the export operation, they can just provide the ID.
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 // Setup the graphLibrary with an export graph
 final GraphLibrary graphLibrary = new FileGraphLibrary("target/graphLibrary");
 
@@ -1136,12 +1072,8 @@ final OperationChain<Iterable<? extends Element>> opChain =
                         .graphId("exportGraphId")
                         .build())
                 .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -1157,7 +1089,7 @@ As JSON:
     "graphId" : "exportGraphId"
   } ]
 }
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -1165,10 +1097,8 @@ As JSON:
 
 Similar to the previous example, this example will export all Edges with group 'edge' to another graph using a GraphLibrary. But in this example we show that you can export to a new graph with id newGraphId by choosing any combination of schema and store properties registered in the GraphLibrary. This is useful as a system administrator could register various different store properties, of different Accumulo/HBase clusters and a user could them just select which one to use by referring to the relevant store properties ID.
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 // Setup the graphLibrary with a schema and store properties for exporting
 final GraphLibrary graphLibrary = new FileGraphLibrary("target/graphLibrary");
 
@@ -1213,12 +1143,8 @@ final OperationChain<Iterable<? extends Element>> opChain =
                         .parentStorePropertiesId("exportStorePropertiesId")
                         .build())
                 .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -1236,7 +1162,7 @@ As JSON:
     "parentStorePropertiesId" : "exportStorePropertiesId"
   } ]
 }
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -1265,22 +1191,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<?>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToSet<>())
         .then(new DiscardOutput())
         .then(new GetSetExport())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -1294,7 +1214,7 @@ As JSON:
     "start" : 0
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -1327,10 +1247,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<?>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToSet<>())
@@ -1340,12 +1258,8 @@ final OperationChain<Iterable<?>> opChain = new OperationChain.Builder()
                 .end(4)
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -1360,7 +1274,7 @@ As JSON:
     "end" : 4
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -1384,10 +1298,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToSet.Builder<>()
@@ -1408,12 +1320,8 @@ final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationC
                                 .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -1443,7 +1351,7 @@ As JSON:
     } ]
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -1501,20 +1409,14 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GenerateElements<String> operation = new GenerateElements.Builder<String>()
         .input("1,1", "1,2,1")
         .generator(new ElementGenerator())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements",
   "elementGenerator" : {
@@ -1522,7 +1424,7 @@ As JSON:
   },
   "input" : [ "1,1", "1,2,1" ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -1546,21 +1448,15 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GenerateElements<Object> operation = new GenerateElements.Builder<>()
         .input(new DomainObject1(1, 1),
                 new DomainObject2(1, 2, 1))
         .generator(new DomainObjectGenerator())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements",
   "elementGenerator" : {
@@ -1577,7 +1473,7 @@ As JSON:
     "c" : 1
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -1613,10 +1509,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GenerateObjects<String> operation = new GenerateObjects.Builder<String>()
         .input(new Entity.Builder()
                         .group("entity")
@@ -1630,12 +1524,8 @@ final GenerateObjects<String> operation = new GenerateObjects.Builder<String>()
                         .build())
         .generator(new ObjectGenerator())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.generate.GenerateObjects",
   "elementGenerator" : {
@@ -1659,7 +1549,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.data.element.Edge"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -1683,10 +1573,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GenerateObjects<Object> operation = new GenerateObjects.Builder<>()
         .input(new Entity.Builder()
                         .group("entity")
@@ -1700,12 +1588,8 @@ final GenerateObjects<Object> operation = new GenerateObjects.Builder<>()
                         .build())
         .generator(new DomainObjectGenerator())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.generate.GenerateObjects",
   "elementGenerator" : {
@@ -1729,7 +1613,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.data.element.Edge"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -1764,19 +1648,13 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetAdjacentIds operation = new GetAdjacentIds.Builder()
         .input(new EntitySeed(2))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds",
   "input" : [ {
@@ -1784,7 +1662,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -1810,20 +1688,14 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetAdjacentIds operation = new GetAdjacentIds.Builder()
         .input(new EntitySeed(2))
         .inOutType(IncludeIncomingOutgoingType.OUTGOING)
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds",
   "includeIncomingOutGoing" : "OUTGOING",
@@ -1832,7 +1704,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -1857,10 +1729,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetAdjacentIds operation = new GetAdjacentIds.Builder()
         .input(new EntitySeed(2))
         .inOutType(IncludeIncomingOutgoingType.OUTGOING)
@@ -1879,12 +1749,8 @@ final GetAdjacentIds operation = new GetAdjacentIds.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds",
   "view" : {
@@ -1908,7 +1774,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -1942,21 +1808,15 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetAllElements operation = new GetAllElements();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements"
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -1989,10 +1849,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetAllElements operation = new GetAllElements.Builder()
         .view(new View.Builder()
                 .entity("entity", new ViewElementDefinition.Builder()
@@ -2009,12 +1867,8 @@ final GetAllElements operation = new GetAllElements.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements",
   "view" : {
@@ -2044,7 +1898,7 @@ As JSON:
     }
   }
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2081,27 +1935,21 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetAllJobDetails operation = new GetAllJobDetails();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetAllJobDetails"
 }
-```
+{%- endcodetabs %}
 
 Result:
 
 ```
-JobDetail[jobId=d4de5ebe-b5cf-4c95-957b-18137c20977b,userId=UNKNOWN,status=FINISHED,startTime=1505915447172,endTime=1505915447172,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements@56e6ea1a, AddElements[validate=true,skipInvalidElements=false,elements=uk.gov.gchq.gaffer.data.generator.OneToOneElementGenerator$1@4575d7ad]]]]
-JobDetail[jobId=4d8f932a-92fb-4e51-ac32-7134382f421d,userId=user01,status=RUNNING,startTime=1505915447174,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.job.GetAllJobDetails@4e89da03]]]
+JobDetail[jobId=b1bdc4f1-a96a-4c78-a586-fb8b16abe3a2,userId=user01,status=RUNNING,startTime=1505920415695,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.job.GetAllJobDetails@4e89da03]]]
+JobDetail[jobId=8e4e9417-bfeb-4adc-8e2a-2426917aa769,userId=UNKNOWN,status=FINISHED,startTime=1505920415693,endTime=1505920415694,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements@56e6ea1a, AddElements[validate=true,skipInvalidElements=false,elements=uk.gov.gchq.gaffer.data.generator.OneToOneElementGenerator$1@4575d7ad]]]]
 ```
 -----------------------------------------------
 
@@ -2130,19 +1978,13 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElements operation = new GetElements.Builder()
         .input(new EntitySeed(2), new EdgeSeed(2, 3, DirectedType.EITHER))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "input" : [ {
@@ -2156,7 +1998,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EdgeSeed"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2186,10 +2028,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElements operation = new GetElements.Builder()
         .input(new EntitySeed(2), new EdgeSeed(2, 3, DirectedType.EITHER))
         .view(new View.Builder()
@@ -2207,12 +2047,8 @@ final GetElements operation = new GetElements.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "view" : {
@@ -2252,7 +2088,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EdgeSeed"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2278,19 +2114,13 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElements operation = new GetElements.Builder()
         .input(new EntitySeed(2))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "input" : [ {
@@ -2298,7 +2128,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2325,19 +2155,13 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElements operation = new GetElements.Builder()
         .input(new EdgeSeed(1, 2, DirectedType.EITHER))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "input" : [ {
@@ -2348,7 +2172,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EdgeSeed"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2373,10 +2197,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElements operation = new GetElements.Builder()
         .input(new EdgeSeed(1, 2, DirectedType.EITHER))
         .view(new View.Builder()
@@ -2394,12 +2216,8 @@ final GetElements operation = new GetElements.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "view" : {
@@ -2436,7 +2254,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EdgeSeed"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2462,10 +2280,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElements operation = new GetElements.Builder()
         .input(new EntitySeed(2), new EdgeSeed(2, 3, DirectedType.EITHER))
         .view(new View.Builder()
@@ -2478,12 +2294,8 @@ final GetElements operation = new GetElements.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "view" : {
@@ -2519,7 +2331,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EdgeSeed"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2544,10 +2356,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElements operation = new GetElements.Builder()
         .input(new EntitySeed(2))
         .view(new View.Builder()
@@ -2565,12 +2375,8 @@ final GetElements operation = new GetElements.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "view" : {
@@ -2608,7 +2414,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2633,10 +2439,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final Concat concat = new Concat();
 concat.setSeparator("|");
 final GetElements operation = new GetElements.Builder()
@@ -2653,12 +2457,8 @@ final GetElements operation = new GetElements.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "view" : {
@@ -2673,8 +2473,8 @@ As JSON:
             "class" : "uk.gov.gchq.koryphe.impl.function.Concat",
             "separator" : "|"
           },
-          "projection" : [ "vertex|count" ],
-          "selection" : [ "SOURCE", "count" ]
+          "selection" : [ "SOURCE", "count" ],
+          "projection" : [ "vertex|count" ]
         } ]
       }
     },
@@ -2685,7 +2485,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2711,10 +2511,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final Concat concat = new Concat();
 concat.setSeparator("|");
 final GetElements operation = new GetElements.Builder()
@@ -2731,12 +2529,8 @@ final GetElements operation = new GetElements.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "view" : {
@@ -2751,8 +2545,8 @@ As JSON:
             "class" : "uk.gov.gchq.koryphe.impl.function.Concat",
             "separator" : "|"
           },
-          "projection" : [ "vertex|count" ],
-          "selection" : [ "SOURCE", "count" ]
+          "selection" : [ "SOURCE", "count" ],
+          "projection" : [ "vertex|count" ]
         } ]
       }
     },
@@ -2763,7 +2557,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2800,22 +2594,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<CloseableIterable<?>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToGafferResultCache<>())
         .then(new DiscardOutput())
         .then(new GetGafferResultCacheExport())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -2829,7 +2617,7 @@ As JSON:
     "key" : "ALL"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2862,22 +2650,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<JobDetail> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToGafferResultCache<>())
         .then(new DiscardOutput())
         .then(new GetJobDetails())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -2890,12 +2672,12 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
 ```
-JobDetail[jobId=ffb303fa-f48f-4c39-8991-381f2f2d4b0a,userId=user01,status=RUNNING,startTime=1505915447887,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@781bf81d, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@5c281f5f, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@545ddd3, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@d07c7c9]]]
+JobDetail[jobId=7f743d5a-6485-4712-a525-158e048ba8ca,userId=user01,status=RUNNING,startTime=1505920416538,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@781bf81d, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@5c281f5f, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@545ddd3, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@d07c7c9]]]
 ```
 -----------------------------------------------
 
@@ -2913,30 +2695,24 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<CloseableIterable<?>> opChain = new OperationChain.Builder()
         .first(new GetGafferResultCacheExport.Builder()
                 .jobId(jobDetail.getJobId())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
     "class" : "uk.gov.gchq.gaffer.operation.impl.export.resultcache.GetGafferResultCacheExport",
-    "jobId" : "ffb303fa-f48f-4c39-8991-381f2f2d4b0a",
+    "jobId" : "7f743d5a-6485-4712-a525-158e048ba8ca",
     "key" : "ALL"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -2969,10 +2745,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToGafferResultCache.Builder<>()
@@ -2993,12 +2767,8 @@ final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationC
                                 .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -3026,7 +2796,7 @@ As JSON:
     } ]
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -3083,21 +2853,15 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<JobDetail> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new DiscardOutput())
         .then(new GetJobDetails())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -3108,12 +2872,12 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
 ```
-JobDetail[jobId=fb56cf0a-25f4-49a0-ab1d-6ed36aa1b250,userId=user01,status=RUNNING,startTime=1505915448782,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@4ffb0b, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@249121af, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@48ca9243]]]
+JobDetail[jobId=6a309583-2fb5-4edf-b8a1-9a7eaadf210e,userId=user01,status=RUNNING,startTime=1505920417465,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@48ca9243, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@2d8f7425, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@52e7553c]]]
 ```
 -----------------------------------------------
 
@@ -3131,29 +2895,23 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetJobDetails operation = new GetJobDetails.Builder()
         .jobId(jobId)
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails",
-  "jobId" : "fb56cf0a-25f4-49a0-ab1d-6ed36aa1b250"
+  "jobId" : "6a309583-2fb5-4edf-b8a1-9a7eaadf210e"
 }
-```
+{%- endcodetabs %}
 
 Result:
 
 ```
-JobDetail[jobId=fb56cf0a-25f4-49a0-ab1d-6ed36aa1b250,userId=user01,status=FINISHED,startTime=1505915448782,endTime=1505915448782,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@4ffb0b, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@249121af, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@48ca9243]]]
+JobDetail[jobId=6a309583-2fb5-4edf-b8a1-9a7eaadf210e,userId=user01,status=FINISHED,startTime=1505920417465,endTime=1505920417465,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@48ca9243, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@2d8f7425, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@52e7553c]]]
 ```
 -----------------------------------------------
 
@@ -3182,24 +2940,18 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetJobResults operation = new GetJobResults.Builder()
         .jobId(jobId)
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetJobResults",
-  "jobId" : "d257d1ba-e952-4391-948c-3563f3155923"
+  "jobId" : "8b0f3efe-69b5-495b-9057-fe58e1a04cdd"
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -3243,22 +2995,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<?>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToSet<>())
         .then(new DiscardOutput())
         .then(new GetSetExport())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -3272,7 +3018,7 @@ As JSON:
     "start" : 0
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -3305,10 +3051,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<?>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToSet<>())
@@ -3318,12 +3062,8 @@ final OperationChain<Iterable<?>> opChain = new OperationChain.Builder()
                 .end(4)
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -3338,7 +3078,7 @@ As JSON:
     "end" : 4
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -3362,10 +3102,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new ExportToSet.Builder<>()
@@ -3386,12 +3124,8 @@ final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationC
                                 .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -3421,7 +3155,7 @@ As JSON:
     } ]
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -3479,20 +3213,14 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new Limit<>(3))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -3503,7 +3231,7 @@ As JSON:
     "truncate" : true
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -3518,20 +3246,14 @@ Edge[source=1,destination=4,directed=true,group=edge,properties=Properties[count
 
 Setting this flag to false will throw an error instead of truncating the iterable. In this case there are more than 3 elements, so when executed a LimitExceededException would be thrown.
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new Limit<>(3, false))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -3542,7 +3264,7 @@ As JSON:
     "truncate" : false
   } ]
 }
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -3561,10 +3283,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
         .first(new GetAllElements())
         .then(new Limit.Builder<Element>()
@@ -3572,12 +3292,8 @@ final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.B
                 .truncate(true)
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -3588,7 +3304,7 @@ As JSON:
     "truncate" : true
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -3625,10 +3341,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Element> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -3640,12 +3354,8 @@ final OperationChain<Element> opChain = new OperationChain.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -3667,7 +3377,7 @@ As JSON:
     } ]
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -3690,10 +3400,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Element> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -3731,12 +3439,8 @@ final OperationChain<Element> opChain = new OperationChain.Builder()
                 )
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -3751,8 +3455,8 @@ As JSON:
             "function" : {
               "class" : "uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction"
             },
-            "projection" : [ "score" ],
-            "selection" : [ "DESTINATION", "count" ]
+            "selection" : [ "DESTINATION", "count" ],
+            "projection" : [ "score" ]
           } ]
         }
       },
@@ -3765,8 +3469,8 @@ As JSON:
             "function" : {
               "class" : "uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction"
             },
-            "projection" : [ "score" ],
-            "selection" : [ "VERTEX", "count" ]
+            "selection" : [ "VERTEX", "count" ],
+            "projection" : [ "score" ]
           } ]
         }
       }
@@ -3793,7 +3497,7 @@ As JSON:
     } ]
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -3828,10 +3532,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Element> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -3843,12 +3545,8 @@ final OperationChain<Element> opChain = new OperationChain.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -3870,7 +3568,7 @@ As JSON:
     } ]
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -3893,10 +3591,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Element> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -3934,12 +3630,8 @@ final OperationChain<Element> opChain = new OperationChain.Builder()
                 )
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -3954,8 +3646,8 @@ As JSON:
             "function" : {
               "class" : "uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction"
             },
-            "projection" : [ "score" ],
-            "selection" : [ "DESTINATION", "count" ]
+            "selection" : [ "DESTINATION", "count" ],
+            "projection" : [ "score" ]
           } ]
         }
       },
@@ -3968,8 +3660,8 @@ As JSON:
             "function" : {
               "class" : "uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction"
             },
-            "projection" : [ "score" ],
-            "selection" : [ "VERTEX", "count" ]
+            "selection" : [ "VERTEX", "count" ],
+            "projection" : [ "score" ]
           } ]
         }
       }
@@ -3996,7 +3688,7 @@ As JSON:
     } ]
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -4021,10 +3713,8 @@ The following fields are required:
 
 #### Add named operation
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final AddNamedOperation operation = new AddNamedOperation.Builder()
         .operationChain(new OperationChain.Builder()
                 .first(new GetAdjacentIds.Builder()
@@ -4040,12 +3730,8 @@ final AddNamedOperation operation = new AddNamedOperation.Builder()
         .writeAccessRoles("write-user")
         .overwrite()
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.named.operation.AddNamedOperation",
   "operationName" : "2-hop",
@@ -4063,16 +3749,14 @@ As JSON:
     } ]
   }
 }
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
 #### Add named operation with parameter
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final String opChainString = "{" +
         "    \"operations\" : [ {" +
         "      \"class\" : \"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\"," +
@@ -4104,12 +3788,8 @@ final AddNamedOperation operation = new AddNamedOperation.Builder()
         .parameters(paramMap)
         .overwrite()
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.named.operation.AddNamedOperation",
   "operationName" : "2-hop-with-limit",
@@ -4138,7 +3818,7 @@ As JSON:
     } ]
   }
 }
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -4156,21 +3836,15 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetAllNamedOperations operation = new GetAllNamedOperations();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.named.operation.GetAllNamedOperations"
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -4194,21 +3868,15 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final NamedOperation<EntityId, CloseableIterable<EntityId>> operation =
         new NamedOperation.Builder<EntityId, CloseableIterable<EntityId>>()
                 .name("2-hop")
                 .input(new EntitySeed(1))
                 .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.named.operation.NamedOperation",
   "operationName" : "2-hop",
@@ -4218,7 +3886,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -4243,10 +3911,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 Map<String, Object> paramMap = Maps.newHashMap();
 paramMap.put("param1", 2L);
 
@@ -4256,12 +3922,8 @@ final NamedOperation<EntityId, CloseableIterable<EntityId>> operation =
                 .input(new EntitySeed(1))
                 .parameters(paramMap)
                 .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.named.operation.NamedOperation",
   "operationName" : "2-hop-with-limit",
@@ -4274,7 +3936,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -4286,24 +3948,18 @@ EntitySeed[vertex=4]
 
 #### Delete named operation
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final DeleteNamedOperation operation = new DeleteNamedOperation.Builder()
         .name("2-hop")
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.named.operation.DeleteNamedOperation",
   "operationName" : "2-hop"
 }
-```
+{%- endcodetabs %}
 
 -----------------------------------------------
 
@@ -4333,10 +3989,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -4350,12 +4004,8 @@ final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.B
                 .resultLimit(10)
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -4379,7 +4029,7 @@ As JSON:
     "deduplicate" : true
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -4409,10 +4059,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -4427,12 +4075,8 @@ final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.B
                 .deduplicate(false)
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -4456,7 +4100,7 @@ As JSON:
     "deduplicate" : false
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -4486,10 +4130,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -4528,12 +4170,8 @@ final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.B
                 .resultLimit(4)
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -4548,8 +4186,8 @@ As JSON:
             "function" : {
               "class" : "uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction"
             },
-            "projection" : [ "score" ],
-            "selection" : [ "DESTINATION", "count" ]
+            "selection" : [ "DESTINATION", "count" ],
+            "projection" : [ "score" ]
           } ]
         }
       },
@@ -4562,8 +4200,8 @@ As JSON:
             "function" : {
               "class" : "uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction"
             },
-            "projection" : [ "score" ],
-            "selection" : [ "VERTEX", "count" ]
+            "selection" : [ "VERTEX", "count" ],
+            "projection" : [ "score" ]
           } ]
         }
       }
@@ -4592,7 +4230,7 @@ As JSON:
     "deduplicate" : true
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -4631,22 +4269,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<? extends Element[]> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
                 .build())
         .then(new ToArray<>())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -4662,7 +4294,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToArray"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -4704,10 +4336,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends String>> opChain = new Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -4722,12 +4352,8 @@ final OperationChain<Iterable<? extends String>> opChain = new Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -4755,7 +4381,7 @@ As JSON:
     "includeHeader" : true
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -4797,22 +4423,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends EntitySeed>> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
                 .build())
         .then(new ToEntitySeeds())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -4828,7 +4448,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToEntitySeeds"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -4871,22 +4491,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<List<? extends Element>> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
                 .build())
         .then(new ToList<>())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -4902,7 +4516,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToList"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -4944,10 +4558,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Iterable<? extends Map<String, Object>>> opChain = new Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -4961,12 +4573,8 @@ final OperationChain<Iterable<? extends Map<String, Object>>> opChain = new Buil
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -4992,7 +4600,7 @@ As JSON:
     }
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -5035,19 +4643,13 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElements operation = new GetElements.Builder()
         .input(new EntitySeed(1), new EntitySeed(2))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "input" : [ {
@@ -5058,7 +4660,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -5088,22 +4690,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Set<? extends Element>> opChain = new OperationChain.Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
                 .build())
         .then(new ToSet<>())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -5119,7 +4715,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToSet"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -5161,22 +4757,16 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Stream<? extends Element>> opChain = new Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
                 .build())
         .then(new ToStream<>())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -5192,7 +4782,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToStream"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -5235,10 +4825,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Set<?>> opChain = new Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -5251,12 +4839,8 @@ final OperationChain<Set<?>> opChain = new Builder()
                 .build())
         .then(new ToSet<>())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -5281,7 +4865,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToSet"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -5305,10 +4889,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Set<?>> opChain = new Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -5322,12 +4904,8 @@ final OperationChain<Set<?>> opChain = new Builder()
                 .build())
         .then(new ToSet<>())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -5353,7 +4931,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToSet"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -5379,10 +4957,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Set<?>> opChain = new Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -5396,12 +4972,8 @@ final OperationChain<Set<?>> opChain = new Builder()
                 .build())
         .then(new ToSet<>())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -5427,7 +4999,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToSet"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -5454,10 +5026,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Set<?>> opChain = new Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -5471,12 +5041,8 @@ final OperationChain<Set<?>> opChain = new Builder()
                 .build())
         .then(new ToSet<>())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -5502,7 +5068,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToSet"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -5526,10 +5092,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final OperationChain<Set<?>> opChain = new Builder()
         .first(new GetElements.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2))
@@ -5543,12 +5107,8 @@ final OperationChain<Set<?>> opChain = new Builder()
                 .build())
         .then(new ToSet<>())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
@@ -5574,7 +5134,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToSet"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 

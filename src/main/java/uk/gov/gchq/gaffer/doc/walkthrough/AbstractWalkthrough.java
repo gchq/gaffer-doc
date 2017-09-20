@@ -20,10 +20,13 @@ import org.apache.commons.io.IOUtils;
 import uk.gov.gchq.gaffer.commonutil.CommonConstants;
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
 import uk.gov.gchq.gaffer.data.generator.ElementGenerator;
+import uk.gov.gchq.gaffer.exception.SerialisationException;
+import uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser;
 import uk.gov.gchq.gaffer.operation.OperationException;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -118,5 +121,21 @@ public abstract class AbstractWalkthrough {
 
     public String getHeader() {
         return header;
+    }
+
+    protected String getJson(final Object object) {
+        try {
+            return new String(JSONSerialiser.serialise(object, true), CommonConstants.UTF_8);
+        } catch (final SerialisationException | UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected String getRawJson(final Object object) {
+        try {
+            return new String(JSONSerialiser.serialise(object), CommonConstants.UTF_8);
+        } catch (final SerialisationException | UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

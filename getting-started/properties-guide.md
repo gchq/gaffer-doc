@@ -507,7 +507,7 @@ final String quantilesEstimate = "Edge A-B with percentiles of double property -
 The results are as follows. This means that 25% of all the doubles on edge A-B had value less than -0.66, 50% had value less than -0.01 and 75% had value less than 0.64 (the results of the estimation are not deterministic so there may be small differences between the values below and those just quoted).
 
 ```
-Edge A-B with percentiles of double property - 25th percentile: -0.6619073605312316, 50th percentile: -0.006663679636628018, 75th percentile: 0.6485693550275369
+Edge A-B with percentiles of double property - 25th percentile: -0.6620862943419391, 50th percentile: -0.006663679636628018, 75th percentile: 0.6485693550275369
 
 ```
 
@@ -531,7 +531,7 @@ final String cdfEstimate = "Edge A-B with CDF values at 0: " + cdf[0]
 The results are:
 
 ```
-Edge A-B with CDF values at 0: 0.507, at 1: 0.841, at 2: 0.987
+Edge A-B with CDF values at 0: 0.511, at 1: 0.843, at 2: 0.987
 
 ```
 
@@ -650,7 +650,7 @@ for (int i = 0; i < 10 && i < samples.length; i++) {
 
 The results contain a random sample of the strings added to the edge:
 ```
-10 samples: JHIHBHHIAB, CHEJGHGBFJ, FFDCEFGEEG, BCHEAEGBFI, HGDABDAFJG, IHCFCGGEAI, BJBIAAJCBI, DDGGAIBFBG, EAHHEFDAFI, IBBGCHGGDG
+10 samples: CBGGGFAGCH, DJJDEDAFDH, HBIABICJGH, DHHIGJBDHA, GDHDJCHGIE, FBGFAIFDHG, BIJAJEIFBG, JFJGIBEHGI, JCGCGFBJEJ, BBAJFGGGIG
 
 ```
 
@@ -679,7 +679,7 @@ for (int i = 0; i < 10 && i < neighboursSample.length; i++) {
 The results are:
 
 ```
-10 samples: Y463, Y105, Y136, Y112, Y6, Y114, Y264, Y110, Y42, Y73
+10 samples: Y58, Y278, Y168, Y25, Y81, Y417, Y231, Y42, Y97, Y275
 
 ```
 
@@ -1045,7 +1045,7 @@ There are two edges in the graph. Edge A-B was added 3 times, and each time it h
 
 ```
 Edge[source=A,destination=B,directed=false,group=red,properties=Properties[boundedTimestampSet=<uk.gov.gchq.gaffer.time.BoundedTimestampSet>BoundedTimestampSet[timeBucket=MINUTE,state=NOT_FULL,maxSize=25,timestamps=2017-02-12T14:21:00Z,2017-03-21T18:09:00Z,2017-12-24T08:00:00Z]]]
-Edge[source=A,destination=C,directed=false,group=red,properties=Properties[boundedTimestampSet=<uk.gov.gchq.gaffer.time.BoundedTimestampSet>BoundedTimestampSet[timeBucket=MINUTE,state=SAMPLE,maxSize=25,timestamps=2017-01-01T20:50:00Z,2017-01-11T14:00:00Z,2017-01-18T00:19:00Z,2017-01-27T02:17:00Z,2017-02-17T12:27:00Z,2017-03-11T14:48:00Z,2017-03-17T19:56:00Z,2017-03-29T11:57:00Z,2017-05-09T10:41:00Z,2017-05-23T10:02:00Z,2017-06-30T18:51:00Z,2017-08-06T04:55:00Z,2017-08-12T23:56:00Z,2017-08-20T07:17:00Z,2017-09-01T01:42:00Z,2017-09-20T01:47:00Z,2017-10-04T01:37:00Z,2017-10-06T13:51:00Z,2017-10-07T07:38:00Z,2017-11-12T20:40:00Z,2017-11-16T05:02:00Z,2017-12-08T18:47:00Z,2017-12-09T17:50:00Z,2017-12-19T12:55:00Z,2017-12-30T22:34:00Z]]]
+Edge[source=A,destination=C,directed=false,group=red,properties=Properties[boundedTimestampSet=<uk.gov.gchq.gaffer.time.BoundedTimestampSet>BoundedTimestampSet[timeBucket=MINUTE,state=SAMPLE,maxSize=25,timestamps=2017-01-16T21:16:00Z,2017-01-24T04:27:00Z,2017-01-29T05:38:00Z,2017-01-30T17:17:00Z,2017-02-08T02:21:00Z,2017-02-16T12:05:00Z,2017-03-27T21:45:00Z,2017-04-03T16:45:00Z,2017-06-30T20:19:00Z,2017-07-09T21:44:00Z,2017-07-16T20:07:00Z,2017-07-20T07:18:00Z,2017-07-22T08:20:00Z,2017-07-28T19:49:00Z,2017-08-09T23:01:00Z,2017-08-16T15:19:00Z,2017-08-31T10:30:00Z,2017-09-16T07:53:00Z,2017-10-30T04:16:00Z,2017-11-02T22:24:00Z,2017-11-03T19:57:00Z,2017-11-10T07:55:00Z,2017-11-12T05:21:00Z,2017-11-30T09:19:00Z,2017-12-07T19:50:00Z]]]
 
 ```
 

@@ -29,20 +29,14 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElementsBetweenSets operation = new GetElementsBetweenSets.Builder()
         .input(new EntitySeed(1))
         .inputB(new EntitySeed(2), new EntitySeed(4))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.accumulostore.operation.impl.GetElementsBetweenSets",
   "input" : [ {
@@ -57,7 +51,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -82,10 +76,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElementsBetweenSets operation = new GetElementsBetweenSets.Builder()
         .input(new EntitySeed(1))
         .inputB(new EntitySeed(2), new EntitySeed(4))
@@ -104,12 +96,8 @@ final GetElementsBetweenSets operation = new GetElementsBetweenSets.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.accumulostore.operation.impl.GetElementsBetweenSets",
   "view" : {
@@ -150,7 +138,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -185,19 +173,13 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElementsInRanges operation = new GetElementsInRanges.Builder()
         .input(new Pair<>(new EntitySeed(1), new EntitySeed(4)))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.accumulostore.operation.impl.GetElementsInRanges",
   "input" : [ {
@@ -216,7 +198,7 @@ As JSON:
     }
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -253,19 +235,13 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElementsInRanges operation = new GetElementsInRanges.Builder()
         .input(new Pair<>(new EntitySeed(4), new EdgeSeed(4, 5, DirectedType.EITHER)))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.accumulostore.operation.impl.GetElementsInRanges",
   "input" : [ {
@@ -287,7 +263,7 @@ As JSON:
     }
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -325,19 +301,13 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElementsWithinSet operation = new GetElementsWithinSet.Builder()
         .input(new EntitySeed(1), new EntitySeed(2), new EntitySeed(3))
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.accumulostore.operation.impl.GetElementsWithinSet",
   "input" : [ {
@@ -351,7 +321,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 
@@ -378,10 +348,8 @@ Using this simple directed graph:
            -->  5
 ```
 
-As Java:
 
-
-```java
+{% codetabs name="Java", type="java" -%}
 final GetElementsWithinSet operation = new GetElementsWithinSet.Builder()
         .input(new EntitySeed(1), new EntitySeed(2), new EntitySeed(3))
         .view(new View.Builder()
@@ -399,12 +367,8 @@ final GetElementsWithinSet operation = new GetElementsWithinSet.Builder()
                         .build())
                 .build())
         .build();
-```
 
-As JSON:
-
-
-```json
+{%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.accumulostore.operation.impl.GetElementsWithinSet",
   "view" : {
@@ -444,7 +408,7 @@ As JSON:
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-```
+{%- endcodetabs %}
 
 Result:
 

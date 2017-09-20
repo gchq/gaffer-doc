@@ -38,7 +38,7 @@ public class AddElementsFromSocketExample extends OperationExample {
         final AddElementsFromSocket op = new AddElementsFromSocket.Builder()
                 .hostname("localhost")
                 .port(8080)
-                .delimiter("\n")
+                .delimiter(",")
                 .generator(ElementGenerator.class)
                 .parallelism(1)
                 .validate(true)

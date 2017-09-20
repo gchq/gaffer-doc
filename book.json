@@ -2,6 +2,7 @@
   "gitbook": "3.x.x",
   "title": "Gaffer Doc",
   "plugins": [
+    "codetabs",
     "prism",
     "-highlight",
     "github",
