@@ -1206,7 +1206,7 @@ We also added in the serialiser and aggregator for the HyperLogLogPlus object. G
 ```
 
 
-Here are all the edges loaded into the graph (unfortunately the HyperLogLogPlus class we are using for the cardinaltity doesn't have a toString method, so just ignore that for now):
+Here are all the edges loaded into the graph (unfortunately the HyperLogLogPlus class we are using for the cardinality doesn't have a toString method, so just ignore that for now):
 
 ```
 Entity[vertex=10,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@4218500f,count=<java.lang.Long>4,edgeGroup=<java.util.TreeSet>[RoadUse]]]

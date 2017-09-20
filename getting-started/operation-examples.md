@@ -599,7 +599,7 @@ As JSON:
 Result:
 
 ```
-JobDetail[jobId=babfdc54-4c28-4dc6-b676-12193ad20404,userId=user01,status=RUNNING,startTime=1505908941669,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@2ef1b8e4, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@499c48a6, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@5b0b937b, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@3dc6d401]]]
+JobDetail[jobId=dd29cba4-5741-4ad8-8b30-6d7f4dede6de,userId=user01,status=RUNNING,startTime=1505915443969,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@2ef1b8e4, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@499c48a6, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@5b0b937b, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@3dc6d401]]]
 ```
 -----------------------------------------------
 
@@ -636,7 +636,7 @@ As JSON:
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
     "class" : "uk.gov.gchq.gaffer.operation.impl.export.resultcache.GetGafferResultCacheExport",
-    "jobId" : "babfdc54-4c28-4dc6-b676-12193ad20404",
+    "jobId" : "dd29cba4-5741-4ad8-8b30-6d7f4dede6de",
     "key" : "ALL"
   } ]
 }
@@ -825,7 +825,7 @@ As JSON:
 
 #### Export to new graph using preconfigured schema and properties
 
-This example will export all Edges with group 'edge' to another Gaffer graph with new ID 'newGraphId'. The new graph will have a parent Schema and Store Properties within the graph library specifed by the ID's schemaId1 and storePropsId1. In order to export to newGraphId with storePropsId1 and schemaId1 the user must have the required user authorisations that were configured for this operation to use each of these 3 ids.
+This example will export all Edges with group 'edge' to another Gaffer graph with new ID 'newGraphId'. The new graph will have a parent Schema and Store Properties within the graph library specified by the ID's schemaId1 and storePropsId1. In order to export to newGraphId with storePropsId1 and schemaId1 the user must have the required user authorisations that were configured for this operation to use each of these 3 ids.
 
 As Java:
 
@@ -1163,7 +1163,7 @@ As JSON:
 
 #### Export to new graph based on config from graph library
 
-Similar to the previous example, this example will export all Edges with group 'edge' to another graph using a GraphLibrary. But in this example we show that you can export to a new graph with id newGraphId by chosing any combination of schema and store properties registered in the GraphLibrary. This is useful as a system administrator could register various different store properties, of different Accumulo/HBase clusters and a user could them just select which one to use by referring to the relevant store properties ID.
+Similar to the previous example, this example will export all Edges with group 'edge' to another graph using a GraphLibrary. But in this example we show that you can export to a new graph with id newGraphId by choosing any combination of schema and store properties registered in the GraphLibrary. This is useful as a system administrator could register various different store properties, of different Accumulo/HBase clusters and a user could them just select which one to use by referring to the relevant store properties ID.
 
 As Java:
 
@@ -2100,8 +2100,8 @@ As JSON:
 Result:
 
 ```
-JobDetail[jobId=87b75c56-cd90-4790-a28c-66909412c079,userId=UNKNOWN,status=FINISHED,startTime=1505908944988,endTime=1505908944988,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements@56e6ea1a, AddElements[validate=true,skipInvalidElements=false,elements=uk.gov.gchq.gaffer.data.generator.OneToOneElementGenerator$1@4575d7ad]]]]
-JobDetail[jobId=7659a524-9a05-4fb5-9d4d-c4861c78e0e4,userId=user01,status=RUNNING,startTime=1505908944990,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.job.GetAllJobDetails@4e89da03]]]
+JobDetail[jobId=d4de5ebe-b5cf-4c95-957b-18137c20977b,userId=UNKNOWN,status=FINISHED,startTime=1505915447172,endTime=1505915447172,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements@56e6ea1a, AddElements[validate=true,skipInvalidElements=false,elements=uk.gov.gchq.gaffer.data.generator.OneToOneElementGenerator$1@4575d7ad]]]]
+JobDetail[jobId=4d8f932a-92fb-4e51-ac32-7134382f421d,userId=user01,status=RUNNING,startTime=1505915447174,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.job.GetAllJobDetails@4e89da03]]]
 ```
 -----------------------------------------------
 
@@ -2673,8 +2673,8 @@ As JSON:
             "class" : "uk.gov.gchq.koryphe.impl.function.Concat",
             "separator" : "|"
           },
-          "selection" : [ "SOURCE", "count" ],
-          "projection" : [ "vertex|count" ]
+          "projection" : [ "vertex|count" ],
+          "selection" : [ "SOURCE", "count" ]
         } ]
       }
     },
@@ -2751,8 +2751,8 @@ As JSON:
             "class" : "uk.gov.gchq.koryphe.impl.function.Concat",
             "separator" : "|"
           },
-          "selection" : [ "SOURCE", "count" ],
-          "projection" : [ "vertex|count" ]
+          "projection" : [ "vertex|count" ],
+          "selection" : [ "SOURCE", "count" ]
         } ]
       }
     },
@@ -2895,7 +2895,7 @@ As JSON:
 Result:
 
 ```
-JobDetail[jobId=238a6904-75ef-4b88-8c0e-f77373a3c1dd,userId=user01,status=RUNNING,startTime=1505908945725,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@781bf81d, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@5c281f5f, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@545ddd3, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@d07c7c9]]]
+JobDetail[jobId=ffb303fa-f48f-4c39-8991-381f2f2d4b0a,userId=user01,status=RUNNING,startTime=1505915447887,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@781bf81d, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@5c281f5f, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@545ddd3, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@d07c7c9]]]
 ```
 -----------------------------------------------
 
@@ -2932,7 +2932,7 @@ As JSON:
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
     "class" : "uk.gov.gchq.gaffer.operation.impl.export.resultcache.GetGafferResultCacheExport",
-    "jobId" : "238a6904-75ef-4b88-8c0e-f77373a3c1dd",
+    "jobId" : "ffb303fa-f48f-4c39-8991-381f2f2d4b0a",
     "key" : "ALL"
   } ]
 }
@@ -3113,7 +3113,7 @@ As JSON:
 Result:
 
 ```
-JobDetail[jobId=7c42ba99-8142-42cb-a633-c842cc37343a,userId=user01,status=RUNNING,startTime=1505908946635,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@48ca9243, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@2d8f7425, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@52e7553c]]]
+JobDetail[jobId=fb56cf0a-25f4-49a0-ab1d-6ed36aa1b250,userId=user01,status=RUNNING,startTime=1505915448782,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@4ffb0b, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@249121af, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@48ca9243]]]
 ```
 -----------------------------------------------
 
@@ -3146,14 +3146,14 @@ As JSON:
 ```json
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails",
-  "jobId" : "7c42ba99-8142-42cb-a633-c842cc37343a"
+  "jobId" : "fb56cf0a-25f4-49a0-ab1d-6ed36aa1b250"
 }
 ```
 
 Result:
 
 ```
-JobDetail[jobId=7c42ba99-8142-42cb-a633-c842cc37343a,userId=user01,status=FINISHED,startTime=1505908946635,endTime=1505908946635,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@48ca9243, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@2d8f7425, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@52e7553c]]]
+JobDetail[jobId=fb56cf0a-25f4-49a0-ab1d-6ed36aa1b250,userId=user01,status=FINISHED,startTime=1505915448782,endTime=1505915448782,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@4ffb0b, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@249121af, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@48ca9243]]]
 ```
 -----------------------------------------------
 
@@ -3197,7 +3197,7 @@ As JSON:
 ```json
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetJobResults",
-  "jobId" : "b7a80d28-0026-44e7-8647-95290a464b7e"
+  "jobId" : "d257d1ba-e952-4391-948c-3563f3155923"
 }
 ```
 
@@ -3751,8 +3751,8 @@ As JSON:
             "function" : {
               "class" : "uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction"
             },
-            "selection" : [ "DESTINATION", "count" ],
-            "projection" : [ "score" ]
+            "projection" : [ "score" ],
+            "selection" : [ "DESTINATION", "count" ]
           } ]
         }
       },
@@ -3765,8 +3765,8 @@ As JSON:
             "function" : {
               "class" : "uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction"
             },
-            "selection" : [ "VERTEX", "count" ],
-            "projection" : [ "score" ]
+            "projection" : [ "score" ],
+            "selection" : [ "VERTEX", "count" ]
           } ]
         }
       }
@@ -3954,8 +3954,8 @@ As JSON:
             "function" : {
               "class" : "uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction"
             },
-            "selection" : [ "DESTINATION", "count" ],
-            "projection" : [ "score" ]
+            "projection" : [ "score" ],
+            "selection" : [ "DESTINATION", "count" ]
           } ]
         }
       },
@@ -3968,8 +3968,8 @@ As JSON:
             "function" : {
               "class" : "uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction"
             },
-            "selection" : [ "VERTEX", "count" ],
-            "projection" : [ "score" ]
+            "projection" : [ "score" ],
+            "selection" : [ "VERTEX", "count" ]
           } ]
         }
       }
@@ -4548,8 +4548,8 @@ As JSON:
             "function" : {
               "class" : "uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction"
             },
-            "selection" : [ "DESTINATION", "count" ],
-            "projection" : [ "score" ]
+            "projection" : [ "score" ],
+            "selection" : [ "DESTINATION", "count" ]
           } ]
         }
       },
@@ -4562,8 +4562,8 @@ As JSON:
             "function" : {
               "class" : "uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction"
             },
-            "selection" : [ "VERTEX", "count" ],
-            "projection" : [ "score" ]
+            "projection" : [ "score" ],
+            "selection" : [ "VERTEX", "count" ]
           } ]
         }
       }

@@ -61,10 +61,10 @@ Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
 <tr><td>java.lang.String</td><td></td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
-<tr><td>java.lang.Long</td><td>1505909003981</td><td>true</td></tr>
-<tr><td>java.lang.Long</td><td>1505908903981</td><td>false</td></tr>
-<tr><td>java.lang.Long</td><td>1505909103981</td><td>true</td></tr>
-<tr><td>java.lang.String</td><td>1505909003981</td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
+<tr><td>java.lang.Long</td><td>1505915501498</td><td>true</td></tr>
+<tr><td>java.lang.Long</td><td>1505915401498</td><td>false</td></tr>
+<tr><td>java.lang.Long</td><td>1505915601498</td><td>true</td></tr>
+<tr><td>java.lang.String</td><td>1505915501498</td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
 </table>
 
 -----------------------------------------------
@@ -1581,7 +1581,7 @@ Example inputs:
 
 #### First item is less than 2 or second item is more than 10
 
-When using an Or predicate with multiple selected values, you need to use the Or.Builder to build your Or predicate, using .select() then .execute(). When selecting values in the Or.Builder you need to refer to the position in the input array. I.e to use the first value use position 0 - select(0).You can select multiple values to give to a predicate like isXLessThanY, this is achieved by passing 2 positions to the selec method - select(0, 1)
+When using an Or predicate with multiple selected values, you need to use the Or.Builder to build your Or predicate, using .select() then .execute(). When selecting values in the Or.Builder you need to refer to the position in the input array. I.e to use the first value use position 0 - select(0).You can select multiple values to give to a predicate like isXLessThanY, this is achieved by passing 2 positions to the select method - select(0, 1)
 
 As Java:
 
@@ -1769,7 +1769,7 @@ Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
 <tr><td>java.util.HashMap</td><td>{Thu Jan 01 01:00:00 GMT 1970=1}</td><td>true</td></tr>
-<tr><td>java.util.HashMap</td><td>{Wed Sep 20 13:03:24 BST 2017=2}</td><td>false</td></tr>
+<tr><td>java.util.HashMap</td><td>{Wed Sep 20 14:51:41 BST 2017=2}</td><td>false</td></tr>
 </table>
 
 -----------------------------------------------
