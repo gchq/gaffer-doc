@@ -6,3 +6,4 @@ src
 target
 pom.xml
 .travis.yml
+scripts
