@@ -161,7 +161,7 @@ We also added in the [serialiser](https://github.com/gchq/Gaffer/blob/master/lib
 Only one entity is in the graph. This was added 1000 times, and each time it had the 'approxCardinality' property containing a vertex that A had been seen in an Edge with. Here is the Entity:
 
 ```
-Entity[vertex=A,group=cardinality,properties=Properties[approxCardinality=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@105fa53b]]
+Entity[vertex=A,group=cardinality,properties=Properties[approxCardinality=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@60c8d405]]
 
 ```
 
@@ -507,7 +507,7 @@ final String quantilesEstimate = "Edge A-B with percentiles of double property -
 The results are as follows. This means that 25% of all the doubles on edge A-B had value less than -0.66, 50% had value less than -0.01 and 75% had value less than 0.64 (the results of the estimation are not deterministic so there may be small differences between the values below and those just quoted).
 
 ```
-Edge A-B with percentiles of double property - 25th percentile: -0.6622310432085671, 50th percentile: -0.015982652435713205, 75th percentile: 0.6206882987330576
+Edge A-B with percentiles of double property - 25th percentile: -0.6619073605312316, 50th percentile: -0.009261398929964838, 75th percentile: 0.6341803995604817
 
 ```
 
@@ -531,7 +531,7 @@ final String cdfEstimate = "Edge A-B with CDF values at 0: " + cdf[0]
 The results are:
 
 ```
-Edge A-B with CDF values at 0: 0.507, at 1: 0.841, at 2: 0.983
+Edge A-B with CDF values at 0: 0.507, at 1: 0.843, at 2: 0.983
 
 ```
 
@@ -650,7 +650,7 @@ for (int i = 0; i < 10 && i < samples.length; i++) {
 
 The results contain a random sample of the strings added to the edge:
 ```
-10 samples: EBEGFFGDBE, BHAHIIDJDJ, EJGIBEEGHE, CDHBGEBHJI, CJFFJBFJGB, HHGFEAEIEB, JAEFABJJIH, HHGBJHCFIE, ACCJFIBCHI, CEIHJIJJDH
+10 samples: DDBIAIEGHD, CJFFJBFJGB, HIBIJIDGCB, IHEBEEGEEG, GFHCIJADGG, DHDHFEFBED, IFDAFIFJBA, IIEHEDCGDE, EEEIDCFIIH, CFJBGGJBBE
 
 ```
 
@@ -679,7 +679,7 @@ for (int i = 0; i < 10 && i < neighboursSample.length; i++) {
 The results are:
 
 ```
-10 samples: Y137, Y216, Y441, Y361, Y265, Y288, Y26, Y298, Y281, Y107
+10 samples: Y300, Y49, Y26, Y220, Y227, Y138, Y283, Y379, Y168, Y164
 
 ```
 
@@ -1045,7 +1045,7 @@ There are two edges in the graph. Edge A-B was added 3 times, and each time it h
 
 ```
 Edge[source=A,destination=B,directed=false,group=red,properties=Properties[boundedTimestampSet=<uk.gov.gchq.gaffer.time.BoundedTimestampSet>BoundedTimestampSet[timeBucket=MINUTE,state=NOT_FULL,maxSize=25,timestamps=2017-02-12T14:21:00Z,2017-03-21T18:09:00Z,2017-12-24T08:00:00Z]]]
-Edge[source=A,destination=C,directed=false,group=red,properties=Properties[boundedTimestampSet=<uk.gov.gchq.gaffer.time.BoundedTimestampSet>BoundedTimestampSet[timeBucket=MINUTE,state=SAMPLE,maxSize=25,timestamps=2017-01-02T15:54:00Z,2017-01-14T08:21:00Z,2017-01-26T18:22:00Z,2017-01-29T05:38:00Z,2017-02-08T23:04:00Z,2017-02-22T07:24:00Z,2017-02-23T01:50:00Z,2017-02-24T02:29:00Z,2017-03-01T07:48:00Z,2017-03-07T23:18:00Z,2017-03-21T16:05:00Z,2017-04-22T18:37:00Z,2017-05-18T01:02:00Z,2017-07-06T01:17:00Z,2017-07-06T07:54:00Z,2017-07-09T10:01:00Z,2017-07-18T20:40:00Z,2017-08-15T12:59:00Z,2017-09-28T20:07:00Z,2017-11-04T11:36:00Z,2017-11-14T09:56:00Z,2017-11-26T21:29:00Z,2017-11-29T16:05:00Z,2017-12-04T11:54:00Z,2017-12-26T21:40:00Z]]]
+Edge[source=A,destination=C,directed=false,group=red,properties=Properties[boundedTimestampSet=<uk.gov.gchq.gaffer.time.BoundedTimestampSet>BoundedTimestampSet[timeBucket=MINUTE,state=SAMPLE,maxSize=25,timestamps=2017-01-30T17:17:00Z,2017-03-23T03:55:00Z,2017-03-29T02:43:00Z,2017-04-06T13:29:00Z,2017-05-06T09:21:00Z,2017-05-15T21:23:00Z,2017-05-24T19:41:00Z,2017-07-15T14:55:00Z,2017-07-19T02:25:00Z,2017-07-28T19:49:00Z,2017-08-07T21:19:00Z,2017-08-10T23:03:00Z,2017-08-22T08:11:00Z,2017-08-23T07:40:00Z,2017-09-01T18:07:00Z,2017-09-10T15:53:00Z,2017-09-27T04:48:00Z,2017-09-29T00:02:00Z,2017-10-15T15:03:00Z,2017-10-30T04:16:00Z,2017-11-11T14:12:00Z,2017-11-18T00:12:00Z,2017-11-30T04:14:00Z,2017-12-04T00:48:00Z,2017-12-09T17:50:00Z]]]
 
 ```
 

@@ -61,10 +61,10 @@ Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
 <tr><td>java.lang.String</td><td></td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
-<tr><td>java.lang.Long</td><td>1505386609888</td><td>true</td></tr>
-<tr><td>java.lang.Long</td><td>1505386509888</td><td>false</td></tr>
-<tr><td>java.lang.Long</td><td>1505386709888</td><td>true</td></tr>
-<tr><td>java.lang.String</td><td>1505386609888</td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
+<tr><td>java.lang.Long</td><td>1505909003981</td><td>true</td></tr>
+<tr><td>java.lang.Long</td><td>1505908903981</td><td>false</td></tr>
+<tr><td>java.lang.Long</td><td>1505909103981</td><td>true</td></tr>
+<tr><td>java.lang.String</td><td>1505909003981</td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
 </table>
 
 -----------------------------------------------
@@ -391,9 +391,9 @@ com.clearspring.analytics.stream.cardinality.HyperLogLogPlus
 Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@47f57857</td><td>true</td></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@28c30231</td><td>false</td></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@7a6ee396</td><td>false</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@6123bf71</td><td>true</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@5f4db3e7</td><td>false</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@3b048113</td><td>false</td></tr>
 </table>
 
 -----------------------------------------------
@@ -427,9 +427,9 @@ com.clearspring.analytics.stream.cardinality.HyperLogLogPlus
 Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@47f57857</td><td>true</td></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@28c30231</td><td>true</td></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@7a6ee396</td><td>false</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@6123bf71</td><td>true</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@5f4db3e7</td><td>true</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@3b048113</td><td>false</td></tr>
 </table>
 
 -----------------------------------------------
@@ -1083,8 +1083,8 @@ Example inputs:
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
 <tr><td>java.lang.String</td><td>123</td><td>true</td></tr>
 <tr><td>java.lang.String</td><td>1234</td><td>false</td></tr>
-<tr><td>[Ljava.lang.Integer;</td><td>[Ljava.lang.Integer;@6d1d5507</td><td>true</td></tr>
-<tr><td>[Ljava.lang.Integer;</td><td>[Ljava.lang.Integer;@60e27961</td><td>false</td></tr>
+<tr><td>[Ljava.lang.Integer;</td><td>[Ljava.lang.Integer;@6be7aefa</td><td>true</td></tr>
+<tr><td>[Ljava.lang.Integer;</td><td>[Ljava.lang.Integer;@74f4b68c</td><td>false</td></tr>
 <tr><td>java.util.ArrayList</td><td>[1, 2, 3]</td><td>true</td></tr>
 <tr><td>java.util.ArrayList</td><td>[1, 2, 3, 4]</td><td>false</td></tr>
 <tr><td>java.util.HashMap</td><td>{1=a, 2=b, 3=c}</td><td>true</td></tr>
@@ -1769,7 +1769,7 @@ Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
 <tr><td>java.util.HashMap</td><td>{Thu Jan 01 01:00:00 GMT 1970=1}</td><td>true</td></tr>
-<tr><td>java.util.HashMap</td><td>{Thu Sep 14 11:56:50 BST 2017=2}</td><td>false</td></tr>
+<tr><td>java.util.HashMap</td><td>{Wed Sep 20 13:03:24 BST 2017=2}</td><td>false</td></tr>
 </table>
 
 -----------------------------------------------
