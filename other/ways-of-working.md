@@ -146,13 +146,6 @@ In particular:
   mvn clean install -Pquick && mvn javadoc:javadoc scm-publish:publish-scm
   ```
 
-* Update the wiki examples (if required) by running the following classes:
- * [gaffer.example.gettingstarted.walkthrough.WalkthroughRunner](https://github.com/GovernmentCommunicationsHeadquarters/Gaffer/blob/gh-160-accumulo-op-examples/example/src/main/java/gaffer/example/gettingstarted/walkthrough/WalkthroughRunner.java)
- * [gaffer.example.operation.OperationExamplesRunner](https://github.com/GovernmentCommunicationsHeadquarters/Gaffer/blob/gh-160-accumulo-op-examples/example/src/main/java/gaffer/example/operation/OperationExamplesRunner.java)
- * [gaffer.example.operation.accumulo.AccumuloOperationExamplesRunner](https://github.com/GovernmentCommunicationsHeadquarters/Gaffer/blob/gh-160-accumulo-op-examples/example/src/main/java/gaffer/example/operation/accumulo/AccumuloOperationExamplesRunner.java)
- * [gaffer.example.function.filter.FilterFunctionExamplesRunner](https://github.com/GovernmentCommunicationsHeadquarters/Gaffer/blob/gh-160-accumulo-op-examples/example/src/main/java/gaffer/example/function/filter/FilterFunctionExamplesRunner.java)
-
-
 * Create a release in GitHub (Gaffer [version]) containing links to the resolved issues, similar to:
 
   ```
