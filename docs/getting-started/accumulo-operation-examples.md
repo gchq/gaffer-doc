@@ -9,7 +9,7 @@ _This page has been generated from code. To make any changes please update the e
 
 GetElementsBetweenSets example
 -----------------------------------------------
-See javadoc - [uk.gov.gchq.gaffer.accumulostore.operation.impl.GetElementsBetweenSets](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/accumulostore/operation/impl/GetElementsBetweenSets.html).
+See javadoc - [uk.gov.gchq.gaffer.accumulostore.operation.impl.GetElementsBetweenSets](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/accumulostore/operation/impl/GetElementsBetweenSets.html).
 
 ### Required fields
 No required fields
@@ -153,7 +153,7 @@ Edge[source=1,destination=2,directed=true,group=edge,properties=Properties[count
 
 GetElementsInRanges example
 -----------------------------------------------
-See javadoc - [uk.gov.gchq.gaffer.accumulostore.operation.impl.GetElementsInRanges](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/accumulostore/operation/impl/GetElementsInRanges.html).
+See javadoc - [uk.gov.gchq.gaffer.accumulostore.operation.impl.GetElementsInRanges](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/accumulostore/operation/impl/GetElementsInRanges.html).
 
 ### Required fields
 No required fields
@@ -281,7 +281,7 @@ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]
 
 GetElementsWithinSet example
 -----------------------------------------------
-See javadoc - [uk.gov.gchq.gaffer.accumulostore.operation.impl.GetElementsWithinSet](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/accumulostore/operation/impl/GetElementsWithinSet.html).
+See javadoc - [uk.gov.gchq.gaffer.accumulostore.operation.impl.GetElementsWithinSet](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/accumulostore/operation/impl/GetElementsWithinSet.html).
 
 ### Required fields
 No required fields

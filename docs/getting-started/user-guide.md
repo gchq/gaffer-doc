@@ -32,11 +32,11 @@ Gaffer can be run on various databases, including Accumulo and HBase. It is also
 Gaffer allows you to take data, convert it into a graph, store it in a database and then run queries and analytics on it.
 
 To do this you need to do a few things:
- - Choose a database - called the Gaffer [Store](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/Store.html). We've provided a few for you and in the following examples we'll be using the [MockAccumuloStore](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/accumulostore/MockAccumuloStore.html). The MockAccumuloStore behaves the same as the full [AccumuloStore](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/accumulostore/AccumuloStore.html) but means that you can run the code on your local machine in memory without having to have a full Accumulo cluster.
- - Write a [Schema](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/schema/Schema.html). This is a JSON document that describes your graph and is made up of 3 parts:
-   - Elements Schema - the Elements (Edges and Entities) in your Graph; what classes represent your vertices (nodes), what [Properties](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/data/element/Properties.html) your Elements have and so on.
+ - Choose a database - called the Gaffer [Store](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/store/Store.html). We've provided a few for you and in the following examples we'll be using the [MockAccumuloStore](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/accumulostore/MockAccumuloStore.html). The MockAccumuloStore behaves the same as the full [AccumuloStore](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/accumulostore/AccumuloStore.html) but means that you can run the code on your local machine in memory without having to have a full Accumulo cluster.
+ - Write a [Schema](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/store/schema/Schema.html). This is a JSON document that describes your graph and is made up of 3 parts:
+   - Elements Schema - the Elements (Edges and Entities) in your Graph; what classes represent your vertices (nodes), what [Properties](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/data/element/Properties.html) your Elements have and so on.
    - Types Schema - list of all the types schema that are used in your elements schema. For each type it defines the java class and a list of validation functions, how they are aggregated and how they are serialised
- - Write an [ElementGenerator](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/data/generator/ElementGenerator.html) to convert your data into Gaffer Graph [Element](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/data/element/Element.html). We've provided some interfaces for you.
+ - Write an [ElementGenerator](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/data/generator/ElementGenerator.html) to convert your data into Gaffer Graph [Element](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/data/element/Element.html). We've provided some interfaces for you.
  - Write a Store Properties file. This contains information and settings about the specific instance of your store, for example hostnames, ports and so on.
 
 When you've done these things you can write applications to load and query the data.
@@ -98,7 +98,7 @@ The code for this example is [TheBasics](https://github.com/gchq/Gaffer/blob/mas
 We'll walk through it in some detail.
 
 First, let’s do the most basic thing; take some data from a csv file, load it into a Gaffer graph and then run a very simple query to return some graph edges. 
-We'll also look at specific examples of an [ElementGenerator](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/data/generator/ElementGenerator.html) and [Schema](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/schema/Schema.html).
+We'll also look at specific examples of an [ElementGenerator](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/data/generator/ElementGenerator.html) and [Schema](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/store/schema/Schema.html).
 
 We are going to base the following walkthroughs on Road Traffic data, a simplified version of the [Road Traffic Example](https://github.com/gchq/Gaffer/blob/master/example/road-traffic/README.md). 
 Throughout these walkthroughs we will gradually build up the graph, so as we learn about new features we will add them to our Graph schema. 
@@ -219,7 +219,7 @@ The property `"count"` on the `"RoadUse"` Edges is of type `"count.long"`. The d
 We have added a validator that mandates that the count object's value must be greater than or equal to 0. If we have a `"RoadUse"` Edge with a count that's not a Long or is an Long but has a value less than 0 it will fail validation and won't be added to the Graph.
 Gaffer validation is done using [Java Predicates](https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html)
 
-We also supply an [Sum](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Sum.html) [BinaryOperator](https://docs.oracle.com/javase/8/docs/api/java/util/function/BinaryOperator.html) to aggregate the count.long type.
+We also supply an [Sum](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Sum.html) [BinaryOperator](https://docs.oracle.com/javase/8/docs/api/java/util/function/BinaryOperator.html) to aggregate the count.long type.
 Gaffer allows Edges of the same Group to be aggregated together. This means that when different vehicles travel from junction 10 to junction 11 the edges will be aggregated together and the count property will represent the total number of vehicles that have travelled between the 2 junctions. 
 
 
@@ -251,7 +251,7 @@ public class RoadUseElementGenerator implements OneToOneElementGenerator<String>
 }
 ```
 
-The `_apply` method takes a line from the data file as a String and returns a Gaffer [Edge](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/data/element/Edge.html).
+The `_apply` method takes a line from the data file as a String and returns a Gaffer [Edge](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/data/element/Edge.html).
 
 First we take a line from the file as a String and split on `","` to get 3 Strings: (Road,JunctionA,JunctionB).
 Then we create a new Edge object with a group `"RoadUse"`. 
@@ -285,7 +285,7 @@ Edge[source=28,destination=27,directed=true,group=RoadUse,properties=Properties[
 
 #### Creating a Graph Object
 
-The next thing we do is create an instance of a Gaffer [Graph](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/graph/Graph.html), this is basically just a proxy for your chosen Gaffer Store.
+The next thing we do is create an instance of a Gaffer [Graph](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/graph/Graph.html), this is basically just a proxy for your chosen Gaffer Store.
 
 
 ```java
@@ -343,9 +343,9 @@ final AddElements addElements = new AddElements.Builder()
 graph.execute(addElements, user);
 ```
 
-To do anything with the Elements in a Gaffer Graph we use an [Operation](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/Operation.html). In this case our Operation is [AddElements](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/add/AddElements.html).
+To do anything with the Elements in a Gaffer Graph we use an [Operation](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/operation/Operation.html). In this case our Operation is [AddElements](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/operation/impl/add/AddElements.html).
 
-Finally, we run a query to return all Edges in our Graph that contain the vertex "10". To do this we use a [GetElements](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/get/GetElements.html) Operation.
+Finally, we run a query to return all Edges in our Graph that contain the vertex "10". To do this we use a [GetElements](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/operation/impl/get/GetElements.html) Operation.
 
 
 ```java
@@ -479,9 +479,9 @@ Edge[source=28,destination=27,directed=true,group=RoadUse,properties=Properties[
 
 #### Loading and Querying the Data
 
-We create a Graph and load the data using the [AddElements](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/add/AddElements.html) Operation exactly the same as in the previous example.
+We create a Graph and load the data using the [AddElements](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/operation/impl/add/AddElements.html) Operation exactly the same as in the previous example.
 
-This time we'll run 2 queries using [GetElements](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/get/GetElements.html).
+This time we'll run 2 queries using [GetElements](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/operation/impl/get/GetElements.html).
 
 The first one is exactly the same as last time. We ask for all of the Edges containing the Vertex "10". The result is:
 
@@ -492,7 +492,7 @@ Edge[source=M5,destination=10,directed=true,matchedVertex=DESTINATION,group=Road
 
 ```
 
-Our second query is to return all "RoadHasJunction" Edges. We still use the [GetElements](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/get/GetElements.html) Operation like before but this time we add a [View](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/data/elementdefinition/view/View.html) to it:
+Our second query is to return all "RoadHasJunction" Edges. We still use the [GetElements](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/operation/impl/get/GetElements.html) Operation like before but this time we add a [View](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/data/elementdefinition/view/View.html) to it:
 
 
 ```java
@@ -513,7 +513,7 @@ Edge[source=M5,destination=10,directed=true,matchedVertex=DESTINATION,group=Road
 
 ```
 
-We'll explore the [View](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/data/elementdefinition/view/View.html) in more detail over the next few examples. But for now think of it as you are requesting a particular View of you graph, filtering out unwanted elements.
+We'll explore the [View](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/data/elementdefinition/view/View.html) in more detail over the next few examples. But for now think of it as you are requesting a particular View of you graph, filtering out unwanted elements.
 
 
 
@@ -536,7 +536,7 @@ Edge[source=11,destination=10,directed=true,matchedVertex=DESTINATION,group=Road
 
 Now let’s look at how to filter which Edges are returned based on the aggregated value of their count. For example, only return Edges containing vertex `”10”` where the `”count”` > 2.
 
-We do this using a [View](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/data/elementdefinition/view/View.html) and [ViewElementDefinition](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/data/elementdefinition/view/ViewElementDefinition.html) like this:
+We do this using a [View](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/data/elementdefinition/view/View.html) and [ViewElementDefinition](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/data/elementdefinition/view/ViewElementDefinition.html) like this:
 
 
 ```java
@@ -704,9 +704,9 @@ final OperationChain<Iterable<? extends String>> opChain =
 final Iterable<? extends String> results = graph.execute(opChain, user);
 ```
 
-This operation chain takes starts with a seed vertex traverses down all outgoing edges using the [GetAdjacentIds](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/get/GetAdjacentIds.html) operation and then returns all the following connected edges using the [GetElements](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/get/GetElements.html) operation. 
-Before returning the results the edges are converted into a csv format (junctionA, junctionB, count) using the [GenerateObjects](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/generate/GenerateObjects.html) operation.
-In order to convert the edges back into the initial csv format we have implemented the [ObjectGenerator](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/data/generator/ObjectGenerator.html). 
+This operation chain takes starts with a seed vertex traverses down all outgoing edges using the [GetAdjacentIds](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/operation/impl/get/GetAdjacentIds.html) operation and then returns all the following connected edges using the [GetElements](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/operation/impl/get/GetElements.html) operation. 
+Before returning the results the edges are converted into a csv format (junctionA, junctionB, count) using the [GenerateObjects](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/operation/impl/generate/GenerateObjects.html) operation.
+In order to convert the edges back into the initial csv format we have implemented the [ObjectGenerator](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/data/generator/ObjectGenerator.html). 
 
 
 ```java
@@ -737,7 +737,7 @@ You can see the data has been converted back into csv.
 
 Operation chains work with any combination of operations where sequential operations have compatible output/input formats.
 
-For more examples of different types of operations see [Operation Examples](https://github.com/gchq/Gaffer/wiki/operation-examples).
+For more examples of different types of operations see [Operation Examples](../operation-examples).
 
 
 
@@ -1367,14 +1367,14 @@ This example extends the previous dev.walkthrough and demonstrates how a subgrap
 
 We will start by loading the data into the graph as we have done previously.
 
-The operation chain is built up using several [GetElements](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/get/GetElements.html) operations. 
-In between each of these operations we cache the results in memory using a LinkedHashSet by executing the [ExportToSet](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/set/ExportToSet.html) operation. 
-For larger graphs we could simply swap the ExportToSet to [ExportToGafferResultCache](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/resultcache/ExportToGafferResultCache.html) operation.
+The operation chain is built up using several [GetElements](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/operation/impl/get/GetElements.html) operations. 
+In between each of these operations we cache the results in memory using a LinkedHashSet by executing the [ExportToSet](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/operation/impl/export/set/ExportToSet.html) operation. 
+For larger graphs we could simply swap the ExportToSet to [ExportToGafferResultCache](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/operation/impl/export/resultcache/ExportToGafferResultCache.html) operation.
 
 In order to chain GetElements operations together we need to extract the destination vertex of each result Edge and wrap the destination vertex in an EntitySeed so that it can be used as a seed for the next operation.
 
 We can repeat this combination of operations for extract a subgraph contain 'x' number of hops around the graph. In this example we will just do 2 hops as our graph is quite basic. 
-We finish off by using a [GetSetExport](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/set/GetSetExport.html) operation to return the set of edges.
+We finish off by using a [GetSetExport](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/operation/impl/export/set/GetSetExport.html) operation to return the set of edges.
 
 Although this results several operations in chain, each operation is quite simple and this demonstrates the flexibility of the operations. 
 
@@ -1429,7 +1429,7 @@ Edge[source=23,destination=24,directed=true,matchedVertex=SOURCE,group=RoadUse,p
 
 ```
 
-Here are some further export [Operation Examples](https://github.com/gchq/Gaffer/wiki/operation-examples) that demonstrate some more advanced features of exporting. 
+Here are some further export [Operation Examples](../operation-examples) that demonstrate some more advanced features of exporting. 
 
 
 
@@ -1667,7 +1667,7 @@ final OperationChain<Iterable<? extends String>> opChain = new OperationChain.Bu
                                         .execute(new PredicateMap<>("BUS", new IsMoreThan(1000L)))
                                         .build())
 
-                                        // Extract the bus count out of the frequency map and store in transient property "busCount"
+                                // Extract the bus count out of the frequency map and store in transient property "busCount"
                                 .transientProperty("busCount", Long.class)
                                 .transformer(new ElementTransformer.Builder()
                                         .select("countByVehicleType")
@@ -1678,7 +1678,7 @@ final OperationChain<Iterable<? extends String>> opChain = new OperationChain.Bu
                         .build())
                 .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
                 .build())
-                // Convert the result entities to a simple CSV in format: Junction,busCount.
+        // Convert the result entities to a simple CSV in format: Junction,busCount.
         .then(new ToCsv.Builder()
                 .generator(new CsvGenerator.Builder()
                         .vertex("Junction")
