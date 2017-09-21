@@ -139,7 +139,7 @@ public class FullExample extends UserWalkthrough {
                                                 .execute(new PredicateMap<>("BUS", new IsMoreThan(1000L)))
                                                 .build())
 
-                                                // Extract the bus count out of the frequency map and store in transient property "busCount"
+                                        // Extract the bus count out of the frequency map and store in transient property "busCount"
                                         .transientProperty("busCount", Long.class)
                                         .transformer(new ElementTransformer.Builder()
                                                 .select("countByVehicleType")
@@ -150,7 +150,7 @@ public class FullExample extends UserWalkthrough {
                                 .build())
                         .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
                         .build())
-                        // Convert the result entities to a simple CSV in format: Junction,busCount.
+                // Convert the result entities to a simple CSV in format: Junction,busCount.
                 .then(new ToCsv.Builder()
                         .generator(new CsvGenerator.Builder()
                                 .vertex("Junction")

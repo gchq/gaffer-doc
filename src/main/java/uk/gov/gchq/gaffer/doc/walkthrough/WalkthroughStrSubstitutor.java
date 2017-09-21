@@ -58,10 +58,10 @@ import java.util.Map;
 import java.util.function.Function;
 
 public abstract class WalkthroughStrSubstitutor {
-    public static final String JAVA_DOC_URL_PREFIX = "http://gchq.github.io/Gaffer/";
-    public static final String KORYPHE_JAVA_DOC_URL_PREFIX = "http://gchq.github.io/koryphe/";
+    public static final String JAVA_DOC_URL_PREFIX = "ref://../javadoc/gaffer/";
+    public static final String KORYPHE_JAVA_DOC_URL_PREFIX = "ref://../javadoc/koryphe/";
     public static final String GITHUB_URL_PREFIX = "https://github.com/gchq/Gaffer/blob/master/";
-    public static final String GITHUB_WIKI_URL_PREFIX = "https://github.com/gchq/Gaffer/wiki/";
+    public static final String DOC_URL_PREFIX = "../";
     public static final String JAVA_SRC_PATH = "/src/main/java/";
     public static final String RESOURCES_SRC_PATH = "/src/main/resources/";
 
@@ -172,7 +172,7 @@ public abstract class WalkthroughStrSubstitutor {
         params.put("ACCUMULO_KEY_PACKAGE", getGitHubCodeLink(AccumuloKeyPackage.class, "store-implementations/accumulo-store"));
 
 
-        params.put("OPERATION_EXAMPLES_LINK", getGitHubWikiLink("Operation Examples"));
+        params.put("OPERATION_EXAMPLES_LINK", getDocLink("Operation Examples"));
 
         if (null != example) {
             try {
@@ -209,8 +209,8 @@ public abstract class WalkthroughStrSubstitutor {
         return params;
     }
 
-    public static String getGitHubWikiLink(final String page) {
-        return "[" + page + "](" + GITHUB_WIKI_URL_PREFIX + page.toLowerCase(Locale.getDefault()).replace(" ", "-") + ")";
+    public static String getDocLink(final String page) {
+        return "[" + page + "](" + DOC_URL_PREFIX + page.toLowerCase(Locale.getDefault()).replace(" ", "-") + ")";
     }
 
     public static String getResource(final String resourcePath, final Class<?> clazz) {

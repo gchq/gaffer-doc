@@ -2,8 +2,3 @@
 .gitignore
 .bookignore
 _unused/*
-src
-target
-pom.xml
-.travis.yml
-scripts

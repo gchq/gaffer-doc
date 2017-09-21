@@ -507,7 +507,7 @@ final String quantilesEstimate = "Edge A-B with percentiles of double property -
 The results are as follows. This means that 25% of all the doubles on edge A-B had value less than -0.66, 50% had value less than -0.01 and 75% had value less than 0.64 (the results of the estimation are not deterministic so there may be small differences between the values below and those just quoted).
 
 ```
-Edge A-B with percentiles of double property - 25th percentile: -0.6619073605312316, 50th percentile: -0.009261398929964838, 75th percentile: 0.6341803995604817
+Edge A-B with percentiles of double property - 25th percentile: -0.6620862943419391, 50th percentile: -0.006663679636628018, 75th percentile: 0.6485693550275369
 
 ```
 
@@ -531,7 +531,7 @@ final String cdfEstimate = "Edge A-B with CDF values at 0: " + cdf[0]
 The results are:
 
 ```
-Edge A-B with CDF values at 0: 0.507, at 1: 0.841, at 2: 0.983
+Edge A-B with CDF values at 0: 0.511, at 1: 0.843, at 2: 0.987
 
 ```
 
@@ -650,7 +650,7 @@ for (int i = 0; i < 10 && i < samples.length; i++) {
 
 The results contain a random sample of the strings added to the edge:
 ```
-10 samples: AADFJAEHCC, DDCJEHBFJB, FBIDGIGBDE, FJCDEEEHJE, HJBCHGGIED, BBAEJIGCHC, HCHJJEJFJI, EFHIFDHBFF, JIADDJJBJG, GFDIEFDFJH
+10 samples: CBGGGFAGCH, DJJDEDAFDH, HBIABICJGH, DHHIGJBDHA, GDHDJCHGIE, FBGFAIFDHG, BIJAJEIFBG, JFJGIBEHGI, JCGCGFBJEJ, BBAJFGGGIG
 
 ```
 
@@ -679,7 +679,7 @@ for (int i = 0; i < 10 && i < neighboursSample.length; i++) {
 The results are:
 
 ```
-10 samples: Y76, Y341, Y347, Y194, Y45, Y284, Y233, Y473, Y220, Y361
+10 samples: Y58, Y278, Y168, Y25, Y81, Y417, Y231, Y42, Y97, Y275
 
 ```
 
@@ -1045,7 +1045,7 @@ There are two edges in the graph. Edge A-B was added 3 times, and each time it h
 
 ```
 Edge[source=A,destination=B,directed=false,group=red,properties=Properties[boundedTimestampSet=<uk.gov.gchq.gaffer.time.BoundedTimestampSet>BoundedTimestampSet[timeBucket=MINUTE,state=NOT_FULL,maxSize=25,timestamps=2017-02-12T14:21:00Z,2017-03-21T18:09:00Z,2017-12-24T08:00:00Z]]]
-Edge[source=A,destination=C,directed=false,group=red,properties=Properties[boundedTimestampSet=<uk.gov.gchq.gaffer.time.BoundedTimestampSet>BoundedTimestampSet[timeBucket=MINUTE,state=SAMPLE,maxSize=25,timestamps=2017-01-09T13:46:00Z,2017-01-27T02:17:00Z,2017-02-06T20:16:00Z,2017-02-11T04:22:00Z,2017-02-12T12:02:00Z,2017-03-20T19:30:00Z,2017-03-26T05:07:00Z,2017-03-29T15:03:00Z,2017-03-29T18:53:00Z,2017-04-07T03:29:00Z,2017-05-08T15:32:00Z,2017-06-01T05:27:00Z,2017-06-21T02:16:00Z,2017-07-14T21:05:00Z,2017-08-22T11:09:00Z,2017-08-24T02:32:00Z,2017-09-23T16:23:00Z,2017-10-08T17:28:00Z,2017-10-18T21:46:00Z,2017-10-22T00:56:00Z,2017-10-30T13:07:00Z,2017-10-31T06:21:00Z,2017-11-08T01:03:00Z,2017-11-27T13:38:00Z,2017-12-01T19:53:00Z]]]
+Edge[source=A,destination=C,directed=false,group=red,properties=Properties[boundedTimestampSet=<uk.gov.gchq.gaffer.time.BoundedTimestampSet>BoundedTimestampSet[timeBucket=MINUTE,state=SAMPLE,maxSize=25,timestamps=2017-01-16T21:16:00Z,2017-01-24T04:27:00Z,2017-01-29T05:38:00Z,2017-01-30T17:17:00Z,2017-02-08T02:21:00Z,2017-02-16T12:05:00Z,2017-03-27T21:45:00Z,2017-04-03T16:45:00Z,2017-06-30T20:19:00Z,2017-07-09T21:44:00Z,2017-07-16T20:07:00Z,2017-07-20T07:18:00Z,2017-07-22T08:20:00Z,2017-07-28T19:49:00Z,2017-08-09T23:01:00Z,2017-08-16T15:19:00Z,2017-08-31T10:30:00Z,2017-09-16T07:53:00Z,2017-10-30T04:16:00Z,2017-11-02T22:24:00Z,2017-11-03T19:57:00Z,2017-11-10T07:55:00Z,2017-11-12T05:21:00Z,2017-11-30T09:19:00Z,2017-12-07T19:50:00Z]]]
 
 ```
 
@@ -1062,38 +1062,38 @@ Properties class: java.lang.String
 
 Predicates:
 
-- [org.spark_project.jetty.http.PathMap$PathSet](ref://../javadoc/gaffer/org/spark_project/jetty/http/PathMap$PathSet.html)
-- [org.spark_project.jetty.http.pathmap.PathSpecSet](ref://../javadoc/gaffer/org/spark_project/jetty/http/pathmap/PathSpecSet.html)
-- [org.spark_project.jetty.util.RegexSet](ref://../javadoc/gaffer/org/spark_project/jetty/util/RegexSet.html)
-- [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsShorterThan](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsShorterThan.html)
-- [uk.gov.gchq.koryphe.impl.predicate.MultiRegex](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/MultiRegex.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Regex](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Regex.html)
+- [org.spark_project.jetty.http.PathMap$PathSet](http://gchq.github.io/Gaffer/org/spark_project/jetty/http/PathMap$PathSet.html)
+- [org.spark_project.jetty.http.pathmap.PathSpecSet](http://gchq.github.io/Gaffer/org/spark_project/jetty/http/pathmap/PathSpecSet.html)
+- [org.spark_project.jetty.util.RegexSet](http://gchq.github.io/Gaffer/org/spark_project/jetty/util/RegexSet.html)
+- [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsShorterThan](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsShorterThan.html)
+- [uk.gov.gchq.koryphe.impl.predicate.MultiRegex](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/MultiRegex.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Regex](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Regex.html)
 
 
 Aggregators:
 
-- [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Max](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Max.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Min](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Min.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.StringConcat](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/StringConcat.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.StringDeduplicateConcat](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/StringDeduplicateConcat.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.First](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Max](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Max.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Min](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Min.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.StringConcat](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/StringConcat.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.StringDeduplicateConcat](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/StringDeduplicateConcat.html)
 
 
 To Bytes Serialisers:
 
-- [uk.gov.gchq.gaffer.serialisation.implementation.StringSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/implementation/StringSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.implementation.StringSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/StringSerialiser.html)
 
 Other Serialisers:
 
-- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.StringParquetSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/StringParquetSerialiser.html)
-- [uk.gov.gchq.gaffer.serialisation.implementation.tostring.StringToStringSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/implementation/tostring/StringToStringSerialiser.html)
+- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.StringParquetSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/StringParquetSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.implementation.tostring.StringToStringSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/tostring/StringToStringSerialiser.html)
 
 
 
@@ -1106,35 +1106,35 @@ Properties class: java.lang.Long
 
 Predicates:
 
-- [uk.gov.gchq.koryphe.impl.predicate.AgeOff](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/AgeOff.html)
-- [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
+- [uk.gov.gchq.koryphe.impl.predicate.AgeOff](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/AgeOff.html)
+- [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
 
 
 Aggregators:
 
-- [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Max](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Max.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Min](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Min.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Product](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Product.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Sum](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Sum.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.First](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Max](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Max.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Min](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Min.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Product](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Product.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Sum](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Sum.html)
 
 
 To Bytes Serialisers:
 
-- [uk.gov.gchq.gaffer.serialisation.LongSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/LongSerialiser.html)
-- [uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedLongSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/implementation/ordered/OrderedLongSerialiser.html)
-- [uk.gov.gchq.gaffer.serialisation.implementation.raw.CompactRawLongSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/implementation/raw/CompactRawLongSerialiser.html)
-- [uk.gov.gchq.gaffer.serialisation.implementation.raw.RawLongSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/implementation/raw/RawLongSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.LongSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/LongSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedLongSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/ordered/OrderedLongSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.implementation.raw.CompactRawLongSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/raw/CompactRawLongSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.implementation.raw.RawLongSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/raw/RawLongSerialiser.html)
 
 Other Serialisers:
 
-- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.LongParquetSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/LongParquetSerialiser.html)
+- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.LongParquetSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/LongParquetSerialiser.html)
 
 
 
@@ -1147,34 +1147,34 @@ Properties class: java.lang.Integer
 
 Predicates:
 
-- [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
+- [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
 
 
 Aggregators:
 
-- [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Max](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Max.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Min](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Min.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Product](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Product.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Sum](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Sum.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.First](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Max](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Max.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Min](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Min.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Product](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Product.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Sum](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Sum.html)
 
 
 To Bytes Serialisers:
 
-- [uk.gov.gchq.gaffer.serialisation.IntegerSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/IntegerSerialiser.html)
-- [uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedIntegerSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/implementation/ordered/OrderedIntegerSerialiser.html)
-- [uk.gov.gchq.gaffer.serialisation.implementation.raw.CompactRawIntegerSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/implementation/raw/CompactRawIntegerSerialiser.html)
-- [uk.gov.gchq.gaffer.serialisation.implementation.raw.RawIntegerSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/implementation/raw/RawIntegerSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.IntegerSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/IntegerSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedIntegerSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/ordered/OrderedIntegerSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.implementation.raw.CompactRawIntegerSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/raw/CompactRawIntegerSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.implementation.raw.RawIntegerSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/raw/RawIntegerSerialiser.html)
 
 Other Serialisers:
 
-- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.IntegerParquetSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/IntegerParquetSerialiser.html)
+- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.IntegerParquetSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/IntegerParquetSerialiser.html)
 
 
 
@@ -1187,33 +1187,33 @@ Properties class: java.lang.Double
 
 Predicates:
 
-- [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
+- [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
 
 
 Aggregators:
 
-- [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Max](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Max.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Min](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Min.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Product](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Product.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Sum](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Sum.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.First](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Max](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Max.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Min](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Min.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Product](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Product.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Sum](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Sum.html)
 
 
 To Bytes Serialisers:
 
-- [uk.gov.gchq.gaffer.serialisation.DoubleSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/DoubleSerialiser.html)
-- [uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedDoubleSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/implementation/ordered/OrderedDoubleSerialiser.html)
-- [uk.gov.gchq.gaffer.serialisation.implementation.raw.RawDoubleSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/implementation/raw/RawDoubleSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.DoubleSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/DoubleSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedDoubleSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/ordered/OrderedDoubleSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.implementation.raw.RawDoubleSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/raw/RawDoubleSerialiser.html)
 
 Other Serialisers:
 
-- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.DoubleParquetSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/DoubleParquetSerialiser.html)
+- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.DoubleParquetSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/DoubleParquetSerialiser.html)
 
 
 
@@ -1226,33 +1226,33 @@ Properties class: java.lang.Float
 
 Predicates:
 
-- [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
+- [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
 
 
 Aggregators:
 
-- [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Max](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Max.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Min](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Min.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Product](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Product.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Sum](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Sum.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.First](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Max](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Max.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Min](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Min.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Product](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Product.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Sum](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Sum.html)
 
 
 To Bytes Serialisers:
 
-- [uk.gov.gchq.gaffer.serialisation.FloatSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/FloatSerialiser.html)
-- [uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedFloatSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/implementation/ordered/OrderedFloatSerialiser.html)
-- [uk.gov.gchq.gaffer.serialisation.implementation.raw.RawFloatSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/implementation/raw/RawFloatSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.FloatSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/FloatSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedFloatSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/ordered/OrderedFloatSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.implementation.raw.RawFloatSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/raw/RawFloatSerialiser.html)
 
 Other Serialisers:
 
-- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.FloatParquetSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/FloatParquetSerialiser.html)
+- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.FloatParquetSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/FloatParquetSerialiser.html)
 
 
 
@@ -1265,24 +1265,24 @@ Properties class: [Ljava.lang.Byte;
 
 Predicates:
 
-- [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsShorterThan](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsShorterThan.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
+- [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsShorterThan](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsShorterThan.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
 
 
 Aggregators:
 
-- [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.First](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
 
 
 To Bytes Serialisers:
 
-- [uk.gov.gchq.gaffer.serialisation.implementation.BytesSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/implementation/BytesSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.implementation.BytesSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/BytesSerialiser.html)
 
 
 
@@ -1295,33 +1295,33 @@ Properties class: java.lang.Boolean
 
 Predicates:
 
-- [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsFalse](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsFalse.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsTrue](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsTrue.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
+- [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsFalse](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsFalse.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsTrue](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsTrue.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
 
 
 Aggregators:
 
-- [uk.gov.gchq.koryphe.impl.binaryoperator.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/And.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Max](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Max.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Min](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Min.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Or.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/And.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.First](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Max](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Max.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Min](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Min.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Or.html)
 
 
 To Bytes Serialisers:
 
-- [uk.gov.gchq.gaffer.serialisation.implementation.BooleanSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/implementation/BooleanSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.implementation.BooleanSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/BooleanSerialiser.html)
 
 Other Serialisers:
 
-- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.BooleanParquetSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/BooleanParquetSerialiser.html)
+- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.BooleanParquetSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/BooleanParquetSerialiser.html)
 
 
 
@@ -1334,31 +1334,31 @@ Properties class: java.util.Date
 
 Predicates:
 
-- [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
+- [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
 
 
 Aggregators:
 
-- [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Max](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Max.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Min](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Min.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.First](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Max](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Max.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Min](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Min.html)
 
 
 To Bytes Serialisers:
 
-- [uk.gov.gchq.gaffer.serialisation.DateSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/DateSerialiser.html)
-- [uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedDateSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/implementation/ordered/OrderedDateSerialiser.html)
-- [uk.gov.gchq.gaffer.serialisation.implementation.raw.RawDateSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/implementation/raw/RawDateSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.DateSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/DateSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedDateSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/ordered/OrderedDateSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.implementation.raw.RawDateSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/raw/RawDateSerialiser.html)
 
 Other Serialisers:
 
-- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.DateParquetSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/DateParquetSerialiser.html)
+- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.DateParquetSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/DateParquetSerialiser.html)
 
 
 
@@ -1371,29 +1371,29 @@ Properties class: uk.gov.gchq.gaffer.types.TypeValue
 
 Predicates:
 
-- [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
+- [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
 
 
 Aggregators:
 
-- [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Max](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Max.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Min](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Min.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.First](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Max](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Max.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Min](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Min.html)
 
 
 To Bytes Serialisers:
 
-- [uk.gov.gchq.gaffer.serialisation.TypeValueSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/TypeValueSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.TypeValueSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/TypeValueSerialiser.html)
 
 Other Serialisers:
 
-- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.TypeValueParquetSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/TypeValueParquetSerialiser.html)
+- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.TypeValueParquetSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/TypeValueParquetSerialiser.html)
 
 
 
@@ -1406,29 +1406,29 @@ Properties class: uk.gov.gchq.gaffer.types.TypeSubTypeValue
 
 Predicates:
 
-- [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
+- [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
 
 
 Aggregators:
 
-- [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Max](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Max.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.Min](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Min.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.First](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Max](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Max.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.Min](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/Min.html)
 
 
 To Bytes Serialisers:
 
-- [uk.gov.gchq.gaffer.serialisation.TypeSubTypeValueSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/TypeSubTypeValueSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.TypeSubTypeValueSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/TypeSubTypeValueSerialiser.html)
 
 Other Serialisers:
 
-- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.TypeSubTypeValueParquetSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/TypeSubTypeValueParquetSerialiser.html)
+- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.TypeSubTypeValueParquetSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/TypeSubTypeValueParquetSerialiser.html)
 
 
 
@@ -1441,34 +1441,34 @@ Properties class: uk.gov.gchq.gaffer.types.FreqMap
 
 Predicates:
 
-- [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsShorterThan](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsShorterThan.html)
-- [uk.gov.gchq.koryphe.impl.predicate.MapContains](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/MapContains.html)
-- [uk.gov.gchq.koryphe.impl.predicate.MapContainsPredicate](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/MapContainsPredicate.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
-- [uk.gov.gchq.koryphe.predicate.PredicateMap](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/predicate/PredicateMap.html)
+- [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsShorterThan](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsShorterThan.html)
+- [uk.gov.gchq.koryphe.impl.predicate.MapContains](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/MapContains.html)
+- [uk.gov.gchq.koryphe.impl.predicate.MapContainsPredicate](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/MapContainsPredicate.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
+- [uk.gov.gchq.koryphe.predicate.PredicateMap](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/predicate/PredicateMap.html)
 
 
 Aggregators:
 
-- [uk.gov.gchq.gaffer.binaryoperator.FreqMapAggregator](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/binaryoperator/FreqMapAggregator.html)
-- [uk.gov.gchq.koryphe.binaryoperator.BinaryOperatorMap](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/binaryoperator/BinaryOperatorMap.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
+- [uk.gov.gchq.gaffer.binaryoperator.FreqMapAggregator](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/binaryoperator/FreqMapAggregator.html)
+- [uk.gov.gchq.koryphe.binaryoperator.BinaryOperatorMap](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/binaryoperator/BinaryOperatorMap.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.First](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
 
 
 To Bytes Serialisers:
 
-- [uk.gov.gchq.gaffer.serialisation.FreqMapSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/FreqMapSerialiser.html)
-- [uk.gov.gchq.gaffer.serialisation.implementation.MapSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/implementation/MapSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.FreqMapSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/FreqMapSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.implementation.MapSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/MapSerialiser.html)
 
 Other Serialisers:
 
-- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.FreqMapParquetSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/FreqMapParquetSerialiser.html)
+- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.FreqMapParquetSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/FreqMapParquetSerialiser.html)
 
 
 
@@ -1481,28 +1481,28 @@ Properties class: java.util.HashMap
 
 Predicates:
 
-- [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsShorterThan](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsShorterThan.html)
-- [uk.gov.gchq.koryphe.impl.predicate.MapContains](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/MapContains.html)
-- [uk.gov.gchq.koryphe.impl.predicate.MapContainsPredicate](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/MapContainsPredicate.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
-- [uk.gov.gchq.koryphe.predicate.PredicateMap](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/predicate/PredicateMap.html)
+- [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsShorterThan](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsShorterThan.html)
+- [uk.gov.gchq.koryphe.impl.predicate.MapContains](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/MapContains.html)
+- [uk.gov.gchq.koryphe.impl.predicate.MapContainsPredicate](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/MapContainsPredicate.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
+- [uk.gov.gchq.koryphe.predicate.PredicateMap](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/predicate/PredicateMap.html)
 
 
 Aggregators:
 
-- [uk.gov.gchq.koryphe.binaryoperator.BinaryOperatorMap](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/binaryoperator/BinaryOperatorMap.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
+- [uk.gov.gchq.koryphe.binaryoperator.BinaryOperatorMap](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/binaryoperator/BinaryOperatorMap.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.First](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
 
 
 To Bytes Serialisers:
 
-- [uk.gov.gchq.gaffer.serialisation.implementation.MapSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/implementation/MapSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.implementation.MapSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/MapSerialiser.html)
 
 
 
@@ -1515,32 +1515,32 @@ Properties class: java.util.TreeSet
 
 Predicates:
 
-- [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
-- [uk.gov.gchq.koryphe.impl.predicate.AreIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/AreIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.CollectionContains](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/CollectionContains.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsShorterThan](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsShorterThan.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
+- [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
+- [uk.gov.gchq.koryphe.impl.predicate.AreIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/AreIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.CollectionContains](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/CollectionContains.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsShorterThan](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsShorterThan.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
 
 
 Aggregators:
 
-- [uk.gov.gchq.koryphe.impl.binaryoperator.CollectionConcat](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/CollectionConcat.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.CollectionConcat](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/CollectionConcat.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.First](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
 
 
 To Bytes Serialisers:
 
-- [uk.gov.gchq.gaffer.serialisation.implementation.SetSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/implementation/SetSerialiser.html)
-- [uk.gov.gchq.gaffer.serialisation.implementation.TreeSetStringSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/serialisation/implementation/TreeSetStringSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.implementation.SetSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/SetSerialiser.html)
+- [uk.gov.gchq.gaffer.serialisation.implementation.TreeSetStringSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/TreeSetStringSerialiser.html)
 
 Other Serialisers:
 
-- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.TreeSetStringParquetSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/TreeSetStringParquetSerialiser.html)
+- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.TreeSetStringParquetSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/TreeSetStringParquetSerialiser.html)
 
 
 
@@ -1553,30 +1553,30 @@ Properties class: com.clearspring.analytics.stream.cardinality.HyperLogLogPlus
 
 Predicates:
 
-- [uk.gov.gchq.gaffer.sketches.clearspring.cardinality.predicate.HyperLogLogPlusIsLessThan](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/predicate/HyperLogLogPlusIsLessThan.html)
-- [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
+- [uk.gov.gchq.gaffer.sketches.clearspring.cardinality.predicate.HyperLogLogPlusIsLessThan](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/predicate/HyperLogLogPlusIsLessThan.html)
+- [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
 
 
 Aggregators:
 
-- [uk.gov.gchq.gaffer.sketches.clearspring.cardinality.binaryoperator.HyperLogLogPlusAggregator](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/binaryoperator/HyperLogLogPlusAggregator.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
+- [uk.gov.gchq.gaffer.sketches.clearspring.cardinality.binaryoperator.HyperLogLogPlusAggregator](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/binaryoperator/HyperLogLogPlusAggregator.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.First](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
 
 
 To Bytes Serialisers:
 
-- [uk.gov.gchq.gaffer.sketches.clearspring.cardinality.serialisation.HyperLogLogPlusSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/serialisation/HyperLogLogPlusSerialiser.html)
+- [uk.gov.gchq.gaffer.sketches.clearspring.cardinality.serialisation.HyperLogLogPlusSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/serialisation/HyperLogLogPlusSerialiser.html)
 
 Other Serialisers:
 
-- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.InLineHyperLogLogPlusParquetSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/InLineHyperLogLogPlusParquetSerialiser.html)
-- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.NestedHyperLogLogPlusParquetSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/NestedHyperLogLogPlusParquetSerialiser.html)
+- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.InLineHyperLogLogPlusParquetSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/InLineHyperLogLogPlusParquetSerialiser.html)
+- [uk.gov.gchq.gaffer.parquetstore.serialisation.impl.NestedHyperLogLogPlusParquetSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/parquetstore/serialisation/impl/NestedHyperLogLogPlusParquetSerialiser.html)
 
 
 
@@ -1589,24 +1589,24 @@ Properties class: com.yahoo.sketches.hll.HllSketch
 
 Predicates:
 
-- [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
+- [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
 
 
 Aggregators:
 
-- [uk.gov.gchq.gaffer.sketches.datasketches.cardinality.binaryoperator.HllSketchAggregator](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/sketches/datasketches/cardinality/binaryoperator/HllSketchAggregator.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
+- [uk.gov.gchq.gaffer.sketches.datasketches.cardinality.binaryoperator.HllSketchAggregator](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/sketches/datasketches/cardinality/binaryoperator/HllSketchAggregator.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.First](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
 
 
 To Bytes Serialisers:
 
-- [uk.gov.gchq.gaffer.sketches.datasketches.cardinality.serialisation.HllSketchSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/sketches/datasketches/cardinality/serialisation/HllSketchSerialiser.html)
+- [uk.gov.gchq.gaffer.sketches.datasketches.cardinality.serialisation.HllSketchSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/sketches/datasketches/cardinality/serialisation/HllSketchSerialiser.html)
 
 
 
@@ -1619,24 +1619,24 @@ Properties class: com.yahoo.sketches.frequencies.LongsSketch
 
 Predicates:
 
-- [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
+- [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
 
 
 Aggregators:
 
-- [uk.gov.gchq.gaffer.sketches.datasketches.frequencies.binaryoperator.LongsSketchAggregator](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/sketches/datasketches/frequencies/binaryoperator/LongsSketchAggregator.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
+- [uk.gov.gchq.gaffer.sketches.datasketches.frequencies.binaryoperator.LongsSketchAggregator](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/sketches/datasketches/frequencies/binaryoperator/LongsSketchAggregator.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.First](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
 
 
 To Bytes Serialisers:
 
-- [uk.gov.gchq.gaffer.sketches.datasketches.frequencies.serialisation.LongsSketchSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/sketches/datasketches/frequencies/serialisation/LongsSketchSerialiser.html)
+- [uk.gov.gchq.gaffer.sketches.datasketches.frequencies.serialisation.LongsSketchSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/sketches/datasketches/frequencies/serialisation/LongsSketchSerialiser.html)
 
 
 
@@ -1649,24 +1649,24 @@ Properties class: com.yahoo.sketches.quantiles.DoublesSketch
 
 Predicates:
 
-- [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
+- [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
 
 
 Aggregators:
 
-- [uk.gov.gchq.gaffer.sketches.datasketches.quantiles.binaryoperator.DoublesSketchAggregator](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/sketches/datasketches/quantiles/binaryoperator/DoublesSketchAggregator.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
+- [uk.gov.gchq.gaffer.sketches.datasketches.quantiles.binaryoperator.DoublesSketchAggregator](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/sketches/datasketches/quantiles/binaryoperator/DoublesSketchAggregator.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.First](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
 
 
 To Bytes Serialisers:
 
-- [uk.gov.gchq.gaffer.sketches.datasketches.quantiles.serialisation.DoublesSketchSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/sketches/datasketches/quantiles/serialisation/DoublesSketchSerialiser.html)
+- [uk.gov.gchq.gaffer.sketches.datasketches.quantiles.serialisation.DoublesSketchSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/sketches/datasketches/quantiles/serialisation/DoublesSketchSerialiser.html)
 
 
 
@@ -1679,25 +1679,25 @@ Properties class: com.yahoo.sketches.sampling.ReservoirItemsSketch
 
 Predicates:
 
-- [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
+- [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
 
 
 Aggregators:
 
-- [uk.gov.gchq.gaffer.sketches.datasketches.sampling.binaryoperator.ReservoirItemsSketchAggregator](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/sketches/datasketches/sampling/binaryoperator/ReservoirItemsSketchAggregator.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
+- [uk.gov.gchq.gaffer.sketches.datasketches.sampling.binaryoperator.ReservoirItemsSketchAggregator](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/sketches/datasketches/sampling/binaryoperator/ReservoirItemsSketchAggregator.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.First](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
 
 
 To Bytes Serialisers:
 
-- [uk.gov.gchq.gaffer.sketches.datasketches.sampling.serialisation.ReservoirNumbersSketchSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/sketches/datasketches/sampling/serialisation/ReservoirNumbersSketchSerialiser.html)
-- [uk.gov.gchq.gaffer.sketches.datasketches.sampling.serialisation.ReservoirStringsSketchSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/sketches/datasketches/sampling/serialisation/ReservoirStringsSketchSerialiser.html)
+- [uk.gov.gchq.gaffer.sketches.datasketches.sampling.serialisation.ReservoirNumbersSketchSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/sketches/datasketches/sampling/serialisation/ReservoirNumbersSketchSerialiser.html)
+- [uk.gov.gchq.gaffer.sketches.datasketches.sampling.serialisation.ReservoirStringsSketchSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/sketches/datasketches/sampling/serialisation/ReservoirStringsSketchSerialiser.html)
 
 
 
@@ -1710,24 +1710,24 @@ Properties class: com.yahoo.sketches.theta.Sketch
 
 Predicates:
 
-- [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
+- [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
 
 
 Aggregators:
 
-- [uk.gov.gchq.gaffer.sketches.datasketches.theta.binaryoperator.SketchAggregator](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/sketches/datasketches/theta/binaryoperator/SketchAggregator.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
+- [uk.gov.gchq.gaffer.sketches.datasketches.theta.binaryoperator.SketchAggregator](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/sketches/datasketches/theta/binaryoperator/SketchAggregator.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.First](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
 
 
 To Bytes Serialisers:
 
-- [uk.gov.gchq.gaffer.sketches.datasketches.theta.serialisation.SketchSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/sketches/datasketches/theta/serialisation/SketchSerialiser.html)
+- [uk.gov.gchq.gaffer.sketches.datasketches.theta.serialisation.SketchSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/sketches/datasketches/theta/serialisation/SketchSerialiser.html)
 
 
 
@@ -1740,24 +1740,24 @@ Properties class: uk.gov.gchq.gaffer.time.RBMBackedTimestampSet
 
 Predicates:
 
-- [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
+- [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
 
 
 Aggregators:
 
-- [uk.gov.gchq.gaffer.time.binaryoperator.RBMBackedTimestampSetAggregator](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/time/binaryoperator/RBMBackedTimestampSetAggregator.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
+- [uk.gov.gchq.gaffer.time.binaryoperator.RBMBackedTimestampSetAggregator](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/time/binaryoperator/RBMBackedTimestampSetAggregator.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.First](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
 
 
 To Bytes Serialisers:
 
-- [uk.gov.gchq.gaffer.time.serialisation.RBMBackedTimestampSetSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/time/serialisation/RBMBackedTimestampSetSerialiser.html)
+- [uk.gov.gchq.gaffer.time.serialisation.RBMBackedTimestampSetSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/time/serialisation/RBMBackedTimestampSetSerialiser.html)
 
 
 
@@ -1770,24 +1770,24 @@ Properties class: uk.gov.gchq.gaffer.time.BoundedTimestampSet
 
 Predicates:
 
-- [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
-- [uk.gov.gchq.koryphe.impl.predicate.IsIn](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
-- [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
+- [uk.gov.gchq.koryphe.impl.predicate.And](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Exists](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsA](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsEqual](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsEqual.html)
+- [uk.gov.gchq.koryphe.impl.predicate.IsIn](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsIn.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Not](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
+- [uk.gov.gchq.koryphe.impl.predicate.Or](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
 
 
 Aggregators:
 
-- [uk.gov.gchq.gaffer.time.binaryoperator.BoundedTimestampSetAggregator](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/time/binaryoperator/BoundedTimestampSetAggregator.html)
-- [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
+- [uk.gov.gchq.gaffer.time.binaryoperator.BoundedTimestampSetAggregator](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/time/binaryoperator/BoundedTimestampSetAggregator.html)
+- [uk.gov.gchq.koryphe.impl.binaryoperator.First](http://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
 
 
 To Bytes Serialisers:
 
-- [uk.gov.gchq.gaffer.time.serialisation.BoundedTimestampSetSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/time/serialisation/BoundedTimestampSetSerialiser.html)
+- [uk.gov.gchq.gaffer.time.serialisation.BoundedTimestampSetSerialiser](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/time/serialisation/BoundedTimestampSetSerialiser.html)
 
 
 

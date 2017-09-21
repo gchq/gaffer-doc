@@ -28,9 +28,9 @@
   * [Road Traffic Example](components/example/road-traffic.md)
 
 * [Javadoc](summaries/javadoc.md)
-  * [Gaffer Javadoc](http://gchq.github.io/Gaffer)
-  * [Gaffer Tools Javadoc](http://gchq.github.io/gaffer-tools)
-  * [Koryphe Javadoc](http://gchq.github.io/koryphe)
+  * [Gaffer Javadoc](ref://javadoc/gaffer/index.html)
+  * [Gaffer Tools Javadoc](ref://javadoc/gaffer-tools/index.html)
+  * [Koryphe Javadoc](ref://javadoc/koryphe/index.html)
 
 * [Other](summaries/other.md)
   * [Ways of Working](other/ways-of-working.md)

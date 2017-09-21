@@ -676,7 +676,7 @@ Once the schema has been loaded into a graph the parent elements are merged into
 
 The code for this example is [Users](https://github.com/gchq/Gaffer/blob/master/doc/src/main/java/uk/gov/gchq/gaffer/doc/dev/walkthrough/Users.java).
 
-When interacting with Gaffer you need to use a [User](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/user/User.html). The user object
+When interacting with Gaffer you need to use a [User](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/user/User.html). The user object
 contains:
 - userId - unique identifier for the user
 - dataAuths - user authorisations for accessing data
@@ -877,7 +877,7 @@ final String jobId = initialJobDetail.getJobId();
 and the results is:
 
 ```
-JobDetail[jobId=cf3ad3b2-e0c9-4576-854d-a2cf446cad31,userId=user01,status=RUNNING,startTime=1505984527902,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetElements@17a1e4ca, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@10ded6a9]]]
+JobDetail[jobId=8dde7044-d9ad-47a1-8500-46105996905a,userId=user01,status=RUNNING,startTime=1505920361946,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetElements@17a1e4ca, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@10ded6a9]]]
 
 ```
 
@@ -895,7 +895,7 @@ final JobDetail jobDetail = graph.execute(
 and now you can see the job has finished:
 
 ```
-JobDetail[jobId=cf3ad3b2-e0c9-4576-854d-a2cf446cad31,userId=user01,status=FINISHED,startTime=1505984527902,endTime=1505984528144,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetElements@17a1e4ca, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@10ded6a9]]]
+JobDetail[jobId=8dde7044-d9ad-47a1-8500-46105996905a,userId=user01,status=FINISHED,startTime=1505920361946,endTime=1505920362191,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetElements@17a1e4ca, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@10ded6a9]]]
 
 ```
 

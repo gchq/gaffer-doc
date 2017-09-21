@@ -9,7 +9,7 @@ _This page has been generated from code. To make any changes please update the e
 
 GetDataFrameOfElements example
 -----------------------------------------------
-See javadoc - [uk.gov.gchq.gaffer.spark.operation.dataframe.GetDataFrameOfElements](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/spark/operation/dataframe/GetDataFrameOfElements.html).
+See javadoc - [uk.gov.gchq.gaffer.spark.operation.dataframe.GetDataFrameOfElements](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/spark/operation/dataframe/GetDataFrameOfElements.html).
 
 ### Required fields
 The following fields are required: 
@@ -169,7 +169,7 @@ The results are:
 
 GetJavaRDDOfAllElements example
 -----------------------------------------------
-See javadoc - [uk.gov.gchq.gaffer.spark.operation.javardd.GetJavaRDDOfAllElements](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/spark/operation/javardd/GetJavaRDDOfAllElements.html).
+See javadoc - [uk.gov.gchq.gaffer.spark.operation.javardd.GetJavaRDDOfAllElements](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/spark/operation/javardd/GetJavaRDDOfAllElements.html).
 
 All the elements in a graph can be returned as a JavaRDD by using the operation GetJavaRDDOfAllElements. Some examples follow. Note that there is an option to read the Rfiles directly rather than the usual approach of obtaining them from Accumulo's tablet servers. This requires the Hadoop user running the Spark job to have read access to the RFiles in the Accumulo tablet. Note that data that has not been minor compacted will not be read if this option is used. This option is enabled using the option gaffer.accumulo.spark.directrdd.use_rfile_reader=true
 
@@ -259,7 +259,7 @@ Edge[source=3,destination=4,directed=true,group=edge,properties=Properties[count
 
 GetJavaRDDOfElements example
 -----------------------------------------------
-See javadoc - [uk.gov.gchq.gaffer.spark.operation.javardd.GetJavaRDDOfElements](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/spark/operation/javardd/GetJavaRDDOfElements.html).
+See javadoc - [uk.gov.gchq.gaffer.spark.operation.javardd.GetJavaRDDOfElements](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/spark/operation/javardd/GetJavaRDDOfElements.html).
 
 ### Required fields
 The following fields are required: 
