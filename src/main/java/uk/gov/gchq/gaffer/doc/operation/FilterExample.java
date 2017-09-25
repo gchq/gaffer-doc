@@ -15,12 +15,16 @@
  */
 package uk.gov.gchq.gaffer.doc.operation;
 
+import uk.gov.gchq.gaffer.commonutil.iterable.CloseableIterable;
 import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.element.function.ElementFilter;
+import uk.gov.gchq.gaffer.data.element.id.EntityId;
+import uk.gov.gchq.gaffer.named.operation.NamedOperation;
 import uk.gov.gchq.gaffer.operation.OperationChain;
 import uk.gov.gchq.gaffer.operation.OperationException;
+import uk.gov.gchq.gaffer.operation.data.EntitySeed;
 import uk.gov.gchq.gaffer.operation.impl.function.Filter;
-import uk.gov.gchq.gaffer.operation.impl.get.GetAllElements;
+import uk.gov.gchq.gaffer.operation.impl.job.GetJobResults;
 import uk.gov.gchq.koryphe.impl.predicate.IsLessThan;
 import uk.gov.gchq.koryphe.impl.predicate.IsMoreThan;
 import java.util.HashMap;
@@ -46,7 +50,9 @@ public class FilterExample extends OperationExample {
     public Iterable<? extends Element> filterEdgesByCount() {
         // ---------------------------------------------------------
         final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
-                .first(new GetAllElements())
+                .first(new GetJobResults.Builder()
+                        .jobId("job1")
+                        .build())
                 .then(new Filter.Builder()
                       .globalEdges(new ElementFilter.Builder()
                                    .select("count")
@@ -62,7 +68,9 @@ public class FilterExample extends OperationExample {
     public Iterable<? extends Element> filterByElementTypeAndCount() {
         // ---------------------------------------------------------
         final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
-                .first(new GetAllElements())
+                .first(new GetJobResults.Builder()
+                        .jobId("job2")
+                        .build())
                 .then(new Filter.Builder()
                       .globalElements(new ElementFilter.Builder()
                                       .select("count")
@@ -81,7 +89,10 @@ public class FilterExample extends OperationExample {
     public Iterable<? extends Element> filterEntitesByGroupAndCount() {
         // ---------------------------------------------------------
         final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
-                .first(new GetAllElements())
+                .first(new NamedOperation.Builder<EntityId, CloseableIterable<EntityId>>()
+                        .name("2-hop")
+                        .input(new EntitySeed(2))
+                        .build())
                 .then(new Filter.Builder()
                       .entity("entity", new ElementFilter.Builder()
                               .select("count")
@@ -108,7 +119,10 @@ public class FilterExample extends OperationExample {
                   .build());
 
         final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
-                .first(new GetAllElements())
+                .first(new NamedOperation.Builder<EntitySeed, CloseableIterable<EntitySeed>>()
+                        .name("shortestPath")
+                        .input(new EntitySeed(3))
+                        .build())
                 .then(new Filter.Builder()
                       .edges(edges)
                       .build())
@@ -117,7 +131,7 @@ public class FilterExample extends OperationExample {
 
         showExample(opChain, "A map can be utilised to define how each group "
         + "of a particular element type should be filtered - here, the "
-        + "\"edge\" group will be by an IsLessThan(3) predicate, and the \"road\" "
+        + "\"edge\" group by an IsLessThan(3) predicate, and the \"road\" "
         + "group is filtered by an IsMoreThan(10) predicate.");
     }
 }
