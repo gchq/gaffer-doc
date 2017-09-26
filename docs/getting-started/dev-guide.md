@@ -877,7 +877,7 @@ final String jobId = initialJobDetail.getJobId();
 and the results is:
 
 ```
-JobDetail[jobId=fccbdb3a-b278-484f-b7d7-3b808cd56d8e,userId=user01,status=RUNNING,startTime=1506439240194,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetElements@6622fc65, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@299321e2]]]
+JobDetail[jobId=d71ca5ab-04da-43dc-9a86-7f540105677c,userId=user01,status=RUNNING,startTime=1506439940332,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetElements@6622fc65, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@299321e2]]]
 
 ```
 
@@ -895,7 +895,7 @@ final JobDetail jobDetail = graph.execute(
 and now you can see the job has finished:
 
 ```
-JobDetail[jobId=fccbdb3a-b278-484f-b7d7-3b808cd56d8e,userId=user01,status=FINISHED,startTime=1506439240194,endTime=1506439240418,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetElements@6622fc65, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@299321e2]]]
+JobDetail[jobId=d71ca5ab-04da-43dc-9a86-7f540105677c,userId=user01,status=FINISHED,startTime=1506439940332,endTime=1506439940555,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetElements@6622fc65, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@299321e2]]]
 
 ```
 
