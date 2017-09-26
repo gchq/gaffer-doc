@@ -579,7 +579,7 @@ final OperationChain<JobDetail> exportOpChain = new OperationChain.Builder()
 Result:
 
 ```
-JobDetail[jobId=6eae2132-18d0-4f56-8750-8d8178dfd1b3,userId=user01,status=RUNNING,startTime=1505985108315,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@2ef1b8e4, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@499c48a6, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@5b0b937b, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@3dc6d401]]]
+JobDetail[jobId=9f824b68-4c47-4ae9-9b5e-61df1f2e1d7f,userId=user01,status=RUNNING,startTime=1506439289052,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@21d3f822, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@70b9bfa5, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@5834ef26, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@3a797ede]]]
 ```
 -----------------------------------------------
 
@@ -610,7 +610,7 @@ final OperationChain<CloseableIterable<?>> opChain = new OperationChain.Builder(
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
     "class" : "uk.gov.gchq.gaffer.operation.impl.export.resultcache.GetGafferResultCacheExport",
-    "jobId" : "6eae2132-18d0-4f56-8750-8d8178dfd1b3",
+    "jobId" : "9f824b68-4c47-4ae9-9b5e-61df1f2e1d7f",
     "key" : "ALL"
   } ]
 }
@@ -1735,12 +1735,6 @@ final GetAdjacentIds operation = new GetAdjacentIds.Builder()
         .input(new EntitySeed(2))
         .inOutType(IncludeIncomingOutgoingType.OUTGOING)
         .view(new View.Builder()
-                .entity("entity", new ViewElementDefinition.Builder()
-                        .preAggregationFilter(new ElementFilter.Builder()
-                                .select("count")
-                                .execute(new IsMoreThan(1))
-                                .build())
-                        .build())
                 .edge("edge", new ViewElementDefinition.Builder()
                         .preAggregationFilter(new ElementFilter.Builder()
                                 .select("count")
@@ -1948,8 +1942,8 @@ final GetAllJobDetails operation = new GetAllJobDetails();
 Result:
 
 ```
-JobDetail[jobId=6325379e-aba3-478e-9c94-0b406a8148cd,userId=user01,status=RUNNING,startTime=1505985111648,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.job.GetAllJobDetails@4e89da03]]]
-JobDetail[jobId=56b16940-d285-48e5-a9e5-70e1e9c3759c,userId=UNKNOWN,status=FINISHED,startTime=1505985111646,endTime=1505985111646,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements@56e6ea1a, AddElements[validate=true,skipInvalidElements=false,elements=uk.gov.gchq.gaffer.data.generator.OneToOneElementGenerator$1@4575d7ad]]]]
+JobDetail[jobId=aceff588-2d15-4ddd-8bce-a65311725ffd,userId=UNKNOWN,status=FINISHED,startTime=1506439292251,endTime=1506439292252,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements@1a8fcd2d, AddElements[validate=true,skipInvalidElements=false,elements=uk.gov.gchq.gaffer.data.generator.OneToOneElementGenerator$1@50d03b73]]]]
+JobDetail[jobId=b47429dd-bbaa-4bed-9278-e70f91c1c7c4,userId=user01,status=RUNNING,startTime=1506439292253,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.job.GetAllJobDetails@728e862b]]]
 ```
 -----------------------------------------------
 
@@ -2677,7 +2671,7 @@ final OperationChain<JobDetail> opChain = new OperationChain.Builder()
 Result:
 
 ```
-JobDetail[jobId=fe6e3915-bed9-4968-910d-7b92668a33e5,userId=user01,status=RUNNING,startTime=1505985112454,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@781bf81d, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@5c281f5f, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@545ddd3, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@d07c7c9]]]
+JobDetail[jobId=4abdee48-791d-4649-a9ee-d936ca975a48,userId=user01,status=RUNNING,startTime=1506439292961,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@789cb391, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@22ab9ab5, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@7be16c18, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@7bd986d1]]]
 ```
 -----------------------------------------------
 
@@ -2708,7 +2702,7 @@ final OperationChain<CloseableIterable<?>> opChain = new OperationChain.Builder(
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
     "class" : "uk.gov.gchq.gaffer.operation.impl.export.resultcache.GetGafferResultCacheExport",
-    "jobId" : "fe6e3915-bed9-4968-910d-7b92668a33e5",
+    "jobId" : "4abdee48-791d-4649-a9ee-d936ca975a48",
     "key" : "ALL"
   } ]
 }
@@ -2877,7 +2871,7 @@ final OperationChain<JobDetail> opChain = new OperationChain.Builder()
 Result:
 
 ```
-JobDetail[jobId=60108439-a3fa-4adc-87b8-ded9f41b1e87,userId=user01,status=RUNNING,startTime=1505985113561,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@4ffb0b, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@249121af, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@48ca9243]]]
+JobDetail[jobId=45d8e240-972f-4756-8bf4-d2e4dbf15b90,userId=user01,status=RUNNING,startTime=1506439293865,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@3d61e463, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@25b79278, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@362be6d1]]]
 ```
 -----------------------------------------------
 
@@ -2904,14 +2898,14 @@ final GetJobDetails operation = new GetJobDetails.Builder()
 {%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails",
-  "jobId" : "60108439-a3fa-4adc-87b8-ded9f41b1e87"
+  "jobId" : "45d8e240-972f-4756-8bf4-d2e4dbf15b90"
 }
 {%- endcodetabs %}
 
 Result:
 
 ```
-JobDetail[jobId=60108439-a3fa-4adc-87b8-ded9f41b1e87,userId=user01,status=FINISHED,startTime=1505985113561,endTime=1505985113561,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@4ffb0b, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@249121af, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@48ca9243]]]
+JobDetail[jobId=45d8e240-972f-4756-8bf4-d2e4dbf15b90,userId=user01,status=FINISHED,startTime=1506439293865,endTime=1506439293865,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@3d61e463, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@25b79278, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@362be6d1]]]
 ```
 -----------------------------------------------
 
@@ -2949,7 +2943,7 @@ final GetJobResults operation = new GetJobResults.Builder()
 {%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetJobResults",
-  "jobId" : "7cc85fcd-fafd-4340-bde9-60147e0c583c"
+  "jobId" : "d88f2624-f4a0-40c9-a3c0-ff0b127f3309"
 }
 {%- endcodetabs %}
 
