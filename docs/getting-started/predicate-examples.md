@@ -26,6 +26,7 @@ _This page has been generated from code. To make any changes please update the e
 22. [Or](#or-example)
 23. [PredicateMap](#predicatemap-example)
 24. [Regex](#regex-example)
+25. [StringContains](#stringcontains-example)
 
 
 AgeOff example
@@ -55,10 +56,10 @@ Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
 <tr><td>java.lang.String</td><td></td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
-<tr><td>java.lang.Long</td><td>1506439345826</td><td>true</td></tr>
-<tr><td>java.lang.Long</td><td>1506439245826</td><td>false</td></tr>
-<tr><td>java.lang.Long</td><td>1506439445826</td><td>true</td></tr>
-<tr><td>java.lang.String</td><td>1506439345826</td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
+<tr><td>java.lang.Long</td><td>1506440325835</td><td>true</td></tr>
+<tr><td>java.lang.Long</td><td>1506440225835</td><td>false</td></tr>
+<tr><td>java.lang.Long</td><td>1506440425835</td><td>true</td></tr>
+<tr><td>java.lang.String</td><td>1506440325835</td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
 </table>
 
 -----------------------------------------------
@@ -343,9 +344,9 @@ com.clearspring.analytics.stream.cardinality.HyperLogLogPlus
 Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@1589482f</td><td>true</td></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@14a8195b</td><td>false</td></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@7bb5ce90</td><td>false</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@5c29a7be</td><td>true</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@37cec476</td><td>false</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@26ca3dfb</td><td>false</td></tr>
 </table>
 
 -----------------------------------------------
@@ -373,9 +374,9 @@ com.clearspring.analytics.stream.cardinality.HyperLogLogPlus
 Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@1589482f</td><td>true</td></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@14a8195b</td><td>true</td></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@7bb5ce90</td><td>false</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@5c29a7be</td><td>true</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@37cec476</td><td>true</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@26ca3dfb</td><td>false</td></tr>
 </table>
 
 -----------------------------------------------
@@ -933,8 +934,8 @@ Example inputs:
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
 <tr><td>java.lang.String</td><td>123</td><td>true</td></tr>
 <tr><td>java.lang.String</td><td>1234</td><td>false</td></tr>
-<tr><td>[Ljava.lang.Integer;</td><td>[Ljava.lang.Integer;@73fd3d08</td><td>true</td></tr>
-<tr><td>[Ljava.lang.Integer;</td><td>[Ljava.lang.Integer;@26e9aca9</td><td>false</td></tr>
+<tr><td>[Ljava.lang.Integer;</td><td>[Ljava.lang.Integer;@60d5059</td><td>true</td></tr>
+<tr><td>[Ljava.lang.Integer;</td><td>[Ljava.lang.Integer;@71df8086</td><td>false</td></tr>
 <tr><td>java.util.ArrayList</td><td>[1, 2, 3]</td><td>true</td></tr>
 <tr><td>java.util.ArrayList</td><td>[1, 2, 3, 4]</td><td>false</td></tr>
 <tr><td>java.util.HashMap</td><td>{1=a, 2=b, 3=c}</td><td>true</td></tr>
@@ -1535,7 +1536,7 @@ Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
 <tr><td>java.util.HashMap</td><td>{Thu Jan 01 01:00:00 GMT 1970=1}</td><td>true</td></tr>
-<tr><td>java.util.HashMap</td><td>{Tue Sep 26 16:22:26 BST 2017=2}</td><td>false</td></tr>
+<tr><td>java.util.HashMap</td><td>{Tue Sep 26 16:38:46 BST 2017=2}</td><td>false</td></tr>
 </table>
 
 -----------------------------------------------
@@ -1578,6 +1579,77 @@ Example inputs:
 <tr><td>java.lang.String</td><td>2</td><td>true</td></tr>
 <tr><td>java.lang.Integer</td><td>2</td><td>java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.String</td></tr>
 <tr><td>java.lang.Long</td><td>2</td><td>java.lang.ClassCastException: java.lang.Long cannot be cast to java.lang.String</td></tr>
+</table>
+
+-----------------------------------------------
+
+
+
+
+StringContains example
+-----------------------------------------------
+See javadoc - [uk.gov.gchq.koryphe.impl.predicate.StringContains](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/StringContains.html).
+
+#### String contains value
+
+Note - the StringContains predicate is case sensitive by default, hence only exact matches are found.
+
+
+{% codetabs name="Java", type="java" -%}
+final StringContains function = new StringContains("test");
+
+{%- language name="JSON", type="json" -%}
+{
+  "class" : "uk.gov.gchq.koryphe.impl.predicate.StringContains",
+  "value" : "test",
+  "ignoreCase" : false
+}
+{%- endcodetabs %}
+
+Input type:
+
+```
+java.lang.String
+```
+
+Example inputs:
+<table>
+<tr><th>Type</th><th>Input</th><th>Result</th></tr>
+<tr><td>java.lang.String</td><td>This is a Test</td><td>false</td></tr>
+<tr><td>java.lang.String</td><td>Test</td><td>false</td></tr>
+<tr><td>java.lang.String</td><td>test</td><td>true</td></tr>
+</table>
+
+-----------------------------------------------
+
+#### String contains value ignore case
+
+Here the optional flag is set to true - this disables case sensitivity.
+
+
+{% codetabs name="Java", type="java" -%}
+final StringContains function = new StringContains("test", true);
+
+{%- language name="JSON", type="json" -%}
+{
+  "class" : "uk.gov.gchq.koryphe.impl.predicate.StringContains",
+  "value" : "test",
+  "ignoreCase" : true
+}
+{%- endcodetabs %}
+
+Input type:
+
+```
+java.lang.String
+```
+
+Example inputs:
+<table>
+<tr><th>Type</th><th>Input</th><th>Result</th></tr>
+<tr><td>java.lang.String</td><td>This is a Test</td><td>true</td></tr>
+<tr><td>java.lang.String</td><td>Test</td><td>true</td></tr>
+<tr><td>java.lang.String</td><td>test</td><td>true</td></tr>
 </table>
 
 -----------------------------------------------
