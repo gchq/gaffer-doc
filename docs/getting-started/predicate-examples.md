@@ -26,6 +26,7 @@ _This page has been generated from code. To make any changes please update the e
 22. [Or](#or-example)
 23. [PredicateMap](#predicatemap-example)
 24. [Regex](#regex-example)
+25. [StringContains](#stringcontains-example)
 
 
 AgeOff example
@@ -43,6 +44,12 @@ final AgeOff function = new AgeOff(100000L);
   "class" : "uk.gov.gchq.koryphe.impl.predicate.AgeOff",
   "ageOffTime" : 100000
 }
+
+{%- language name="Python", type="py" -%}
+g.AgeOff( 
+  age_off_time=100000 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -55,10 +62,10 @@ Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
 <tr><td>java.lang.String</td><td></td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
-<tr><td>java.lang.Long</td><td>1505985172801</td><td>true</td></tr>
-<tr><td>java.lang.Long</td><td>1505985072801</td><td>false</td></tr>
-<tr><td>java.lang.Long</td><td>1505985272801</td><td>true</td></tr>
-<tr><td>java.lang.String</td><td>1505985172801</td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
+<tr><td>java.lang.Long</td><td>1506500250812</td><td>true</td></tr>
+<tr><td>java.lang.Long</td><td>1506500150812</td><td>false</td></tr>
+<tr><td>java.lang.Long</td><td>1506500350812</td><td>true</td></tr>
+<tr><td>java.lang.String</td><td>1506500250812</td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
 </table>
 
 -----------------------------------------------
@@ -92,6 +99,21 @@ final And function = new And<>(
     "value" : 0
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.And( 
+  predicates=[ 
+    g.IsLessThan( 
+      or_equal_to=False, 
+      value=3 
+    ), 
+    g.IsMoreThan( 
+      or_equal_to=False, 
+      value=0 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -145,6 +167,31 @@ final And function = new And.Builder()
     "selection" : [ 1 ]
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.And( 
+  predicates=[ 
+    g.NestedPredicate( 
+      selection=[ 
+        0 
+      ], 
+      predicate=g.IsLessThan( 
+        value=2, 
+        or_equal_to=False 
+      ) 
+    ), 
+    g.NestedPredicate( 
+      selection=[ 
+        1 
+      ], 
+      predicate=g.IsMoreThan( 
+        value=5, 
+        or_equal_to=False 
+      ) 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -183,6 +230,10 @@ final AreEqual function = new AreEqual();
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.AreEqual"
 }
+
+{%- language name="Python", type="py" -%}
+g.AreEqual()
+
 {%- endcodetabs %}
 
 Input type:
@@ -220,6 +271,16 @@ final AreIn function = new AreIn(1, 2, 3);
   "class" : "uk.gov.gchq.koryphe.impl.predicate.AreIn",
   "values" : [ 1, 2, 3 ]
 }
+
+{%- language name="Python", type="py" -%}
+g.AreIn( 
+  values=[ 
+    1, 
+    2, 
+    3 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -258,6 +319,12 @@ final CollectionContains function = new CollectionContains(1);
   "class" : "uk.gov.gchq.koryphe.impl.predicate.CollectionContains",
   "value" : 1
 }
+
+{%- language name="Python", type="py" -%}
+g.CollectionContains( 
+  value=1 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -294,6 +361,10 @@ final Exists function = new Exists();
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.Exists"
 }
+
+{%- language name="Python", type="py" -%}
+g.Exists()
+
 {%- endcodetabs %}
 
 Input type:
@@ -332,6 +403,13 @@ final HyperLogLogPlusIsLessThan function = new HyperLogLogPlusIsLessThan(2);
   "orEqualTo" : false,
   "value" : 2
 }
+
+{%- language name="Python", type="py" -%}
+g.HyperLogLogPlusIsLessThan( 
+  or_equal_to=False, 
+  value=2 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -343,9 +421,9 @@ com.clearspring.analytics.stream.cardinality.HyperLogLogPlus
 Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@6123bf71</td><td>true</td></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@5f4db3e7</td><td>false</td></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@3b048113</td><td>false</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@21588b5</td><td>true</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@32b9efd9</td><td>false</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@12fd7327</td><td>false</td></tr>
 </table>
 
 -----------------------------------------------
@@ -362,6 +440,13 @@ final HyperLogLogPlusIsLessThan function = new HyperLogLogPlusIsLessThan(2, true
   "orEqualTo" : true,
   "value" : 2
 }
+
+{%- language name="Python", type="py" -%}
+g.HyperLogLogPlusIsLessThan( 
+  or_equal_to=True, 
+  value=2 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -373,9 +458,9 @@ com.clearspring.analytics.stream.cardinality.HyperLogLogPlus
 Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@6123bf71</td><td>true</td></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@5f4db3e7</td><td>true</td></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@3b048113</td><td>false</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@21588b5</td><td>true</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@32b9efd9</td><td>true</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@12fd7327</td><td>false</td></tr>
 </table>
 
 -----------------------------------------------
@@ -398,6 +483,12 @@ final IsA function = new IsA(String.class);
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsA",
   "type" : "java.lang.String"
 }
+
+{%- language name="Python", type="py" -%}
+g.IsA( 
+  type="java.lang.String" 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -427,6 +518,12 @@ final IsA function = new IsA(Number.class);
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsA",
   "type" : "java.lang.Number"
 }
+
+{%- language name="Python", type="py" -%}
+g.IsA( 
+  type="java.lang.Number" 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -463,6 +560,12 @@ final IsEqual function = new IsEqual(5);
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsEqual",
   "value" : 5
 }
+
+{%- language name="Python", type="py" -%}
+g.IsEqual( 
+  value=5 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -493,6 +596,12 @@ final IsEqual function = new IsEqual("5");
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsEqual",
   "value" : "5"
 }
+
+{%- language name="Python", type="py" -%}
+g.IsEqual( 
+  value="5" 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -525,6 +634,12 @@ final IsEqual function = new IsEqual(5L);
     "java.lang.Long" : 5
   }
 }
+
+{%- language name="Python", type="py" -%}
+g.IsEqual( 
+  value={'java.lang.Long': 5} 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -561,6 +676,10 @@ final IsFalse function = new IsFalse();
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsFalse"
 }
+
+{%- language name="Python", type="py" -%}
+g.IsFalse()
+
 {%- endcodetabs %}
 
 Input type:
@@ -602,6 +721,17 @@ final IsIn function = new IsIn(5, 5L, "5", '5');
     "java.lang.Character" : "5"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.IsIn( 
+  values=[ 
+    5, 
+    {'java.lang.Long': 5}, 
+    "5", 
+    {'java.lang.Character': '5'} 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -644,6 +774,13 @@ final IsLessThan function = new IsLessThan(5);
   "orEqualTo" : false,
   "value" : 5
 }
+
+{%- language name="Python", type="py" -%}
+g.IsLessThan( 
+  or_equal_to=False, 
+  value=5 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -678,6 +815,13 @@ final IsLessThan function = new IsLessThan(5, true);
   "orEqualTo" : true,
   "value" : 5
 }
+
+{%- language name="Python", type="py" -%}
+g.IsLessThan( 
+  value=5, 
+  or_equal_to=True 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -714,6 +858,13 @@ final IsLessThan function = new IsLessThan(5L);
     "java.lang.Long" : 5
   }
 }
+
+{%- language name="Python", type="py" -%}
+g.IsLessThan( 
+  value={'java.lang.Long': 5}, 
+  or_equal_to=False 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -748,6 +899,13 @@ final IsLessThan function = new IsLessThan("B");
   "orEqualTo" : false,
   "value" : "B"
 }
+
+{%- language name="Python", type="py" -%}
+g.IsLessThan( 
+  value="B", 
+  or_equal_to=False 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -786,6 +944,13 @@ final IsMoreThan function = new IsMoreThan(5);
   "orEqualTo" : false,
   "value" : 5
 }
+
+{%- language name="Python", type="py" -%}
+g.IsMoreThan( 
+  or_equal_to=False, 
+  value=5 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -816,6 +981,13 @@ final IsMoreThan function = new IsMoreThan(5, true);
   "orEqualTo" : true,
   "value" : 5
 }
+
+{%- language name="Python", type="py" -%}
+g.IsMoreThan( 
+  value=5, 
+  or_equal_to=True 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -848,6 +1020,13 @@ final IsMoreThan function = new IsMoreThan(5L);
     "java.lang.Long" : 5
   }
 }
+
+{%- language name="Python", type="py" -%}
+g.IsMoreThan( 
+  value={'java.lang.Long': 5}, 
+  or_equal_to=False 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -882,6 +1061,13 @@ final IsMoreThan function = new IsMoreThan("B");
   "orEqualTo" : false,
   "value" : "B"
 }
+
+{%- language name="Python", type="py" -%}
+g.IsMoreThan( 
+  value="B", 
+  or_equal_to=False 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -920,6 +1106,13 @@ final IsShorterThan function = new IsShorterThan(4);
   "maxLength" : 4,
   "orEqualTo" : false
 }
+
+{%- language name="Python", type="py" -%}
+g.IsShorterThan( 
+  or_equal_to=False, 
+  max_length=4 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -933,8 +1126,8 @@ Example inputs:
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
 <tr><td>java.lang.String</td><td>123</td><td>true</td></tr>
 <tr><td>java.lang.String</td><td>1234</td><td>false</td></tr>
-<tr><td>[Ljava.lang.Integer;</td><td>[Ljava.lang.Integer;@6be7aefa</td><td>true</td></tr>
-<tr><td>[Ljava.lang.Integer;</td><td>[Ljava.lang.Integer;@74f4b68c</td><td>false</td></tr>
+<tr><td>[Ljava.lang.Integer;</td><td>[Ljava.lang.Integer;@1b8519e0</td><td>true</td></tr>
+<tr><td>[Ljava.lang.Integer;</td><td>[Ljava.lang.Integer;@621835fc</td><td>false</td></tr>
 <tr><td>java.util.ArrayList</td><td>[1, 2, 3]</td><td>true</td></tr>
 <tr><td>java.util.ArrayList</td><td>[1, 2, 3, 4]</td><td>false</td></tr>
 <tr><td>java.util.HashMap</td><td>{1=a, 2=b, 3=c}</td><td>true</td></tr>
@@ -962,6 +1155,10 @@ final IsTrue function = new IsTrue();
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsTrue"
 }
+
+{%- language name="Python", type="py" -%}
+g.IsTrue()
+
 {%- endcodetabs %}
 
 Input type:
@@ -998,6 +1195,10 @@ final IsXLessThanY function = new IsXLessThanY();
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsXLessThanY"
 }
+
+{%- language name="Python", type="py" -%}
+g.IsXLessThanY()
+
 {%- endcodetabs %}
 
 Input type:
@@ -1041,6 +1242,10 @@ final IsXMoreThanY function = new IsXMoreThanY();
 {
   "class" : "uk.gov.gchq.koryphe.impl.predicate.IsXMoreThanY"
 }
+
+{%- language name="Python", type="py" -%}
+g.IsXMoreThanY()
+
 {%- endcodetabs %}
 
 Input type:
@@ -1085,6 +1290,12 @@ final MapContains function = new MapContains("a");
   "class" : "uk.gov.gchq.koryphe.impl.predicate.MapContains",
   "key" : "a"
 }
+
+{%- language name="Python", type="py" -%}
+g.MapContains( 
+  key="a" 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -1126,6 +1337,14 @@ final MapContainsPredicate function = new MapContainsPredicate(new Regex("a.*"))
     }
   }
 }
+
+{%- language name="Python", type="py" -%}
+g.MapContainsPredicate( 
+  key_predicate=g.Regex( 
+    value={'java.util.regex.Pattern': 'a.*'} 
+  ) 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -1166,6 +1385,15 @@ final MultiRegex function = new MultiRegex(new Pattern[]{Pattern.compile("[a-d]"
     "java.util.regex.Pattern" : "[0-4]"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.MultiRegex( 
+  value=[ 
+    {'java.util.regex.Pattern': '[a-d]'}, 
+    {'java.util.regex.Pattern': '[0-4]'} 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -1208,6 +1436,12 @@ final Not function = new Not<>(new Exists());
     "class" : "uk.gov.gchq.koryphe.impl.predicate.Exists"
   }
 }
+
+{%- language name="Python", type="py" -%}
+g.Not( 
+  predicate=g.Exists() 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -1240,6 +1474,12 @@ final Not function = new Not<>(new AreEqual());
     "class" : "uk.gov.gchq.koryphe.impl.predicate.AreEqual"
   }
 }
+
+{%- language name="Python", type="py" -%}
+g.Not( 
+  predicate=g.AreEqual() 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -1295,6 +1535,24 @@ final Or function = new Or<>(
     "value" : 10
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.Or( 
+  predicates=[ 
+    g.IsLessThan( 
+      or_equal_to=False, 
+      value=2 
+    ), 
+    g.IsEqual( 
+      value=5 
+    ), 
+    g.IsMoreThan( 
+      or_equal_to=False, 
+      value=10 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -1346,6 +1604,24 @@ final Or function = new Or<>(
     "value" : 10
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.Or( 
+  predicates=[ 
+    g.IsLessThan( 
+      or_equal_to=False, 
+      value=2 
+    ), 
+    g.IsEqual( 
+      value=5 
+    ), 
+    g.IsMoreThan( 
+      or_equal_to=False, 
+      value=10 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -1403,6 +1679,31 @@ final Or function = new Or.Builder()
     "selection" : [ 1 ]
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.Or( 
+  predicates=[ 
+    g.NestedPredicate( 
+      selection=[ 
+        0 
+      ], 
+      predicate=g.IsLessThan( 
+        or_equal_to=False, 
+        value=2 
+      ) 
+    ), 
+    g.NestedPredicate( 
+      selection=[ 
+        1 
+      ], 
+      predicate=g.IsMoreThan( 
+        or_equal_to=False, 
+        value=10 
+      ) 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -1449,6 +1750,16 @@ final PredicateMap function = new PredicateMap("key1", new IsMoreThan(2L));
   },
   "key" : "key1"
 }
+
+{%- language name="Python", type="py" -%}
+g.PredicateMap( 
+  key="key1", 
+  predicate=g.IsMoreThan( 
+    or_equal_to=False, 
+    value={'java.lang.Long': 2} 
+  ) 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -1487,6 +1798,16 @@ final PredicateMap function = new PredicateMap("key1", new IsMoreThan(2L, true))
   },
   "key" : "key1"
 }
+
+{%- language name="Python", type="py" -%}
+g.PredicateMap( 
+  key="key1", 
+  predicate=g.IsMoreThan( 
+    or_equal_to=True, 
+    value={'java.lang.Long': 2} 
+  ) 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -1523,6 +1844,13 @@ final PredicateMap function = new PredicateMap(new Date(0L), new Exists());
     "java.util.Date" : 0
   }
 }
+
+{%- language name="Python", type="py" -%}
+g.PredicateMap( 
+  key={'java.util.Date': 0}, 
+  predicate=g.Exists() 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -1535,7 +1863,7 @@ Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
 <tr><td>java.util.HashMap</td><td>{Thu Jan 01 01:00:00 GMT 1970=1}</td><td>true</td></tr>
-<tr><td>java.util.HashMap</td><td>{Thu Sep 21 10:12:53 BST 2017=2}</td><td>false</td></tr>
+<tr><td>java.util.HashMap</td><td>{Wed Sep 27 09:17:33 BST 2017=2}</td><td>false</td></tr>
 </table>
 
 -----------------------------------------------
@@ -1560,6 +1888,12 @@ final Regex function = new Regex("[a-d0-4]");
     "java.util.regex.Pattern" : "[a-d0-4]"
   }
 }
+
+{%- language name="Python", type="py" -%}
+g.Regex( 
+  value={'java.util.regex.Pattern': '[a-d0-4]'} 
+)
+
 {%- endcodetabs %}
 
 Input type:
@@ -1578,6 +1912,91 @@ Example inputs:
 <tr><td>java.lang.String</td><td>2</td><td>true</td></tr>
 <tr><td>java.lang.Integer</td><td>2</td><td>java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.String</td></tr>
 <tr><td>java.lang.Long</td><td>2</td><td>java.lang.ClassCastException: java.lang.Long cannot be cast to java.lang.String</td></tr>
+</table>
+
+-----------------------------------------------
+
+
+
+
+StringContains example
+-----------------------------------------------
+See javadoc - [uk.gov.gchq.koryphe.impl.predicate.StringContains](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/StringContains.html).
+
+#### String contains value
+
+Note - the StringContains predicate is case sensitive by default, hence only exact matches are found.
+
+
+{% codetabs name="Java", type="java" -%}
+final StringContains function = new StringContains("test");
+
+{%- language name="JSON", type="json" -%}
+{
+  "class" : "uk.gov.gchq.koryphe.impl.predicate.StringContains",
+  "value" : "test",
+  "ignoreCase" : false
+}
+
+{%- language name="Python", type="py" -%}
+g.StringContains( 
+  value="test", 
+  ignore_case=False 
+)
+
+{%- endcodetabs %}
+
+Input type:
+
+```
+java.lang.String
+```
+
+Example inputs:
+<table>
+<tr><th>Type</th><th>Input</th><th>Result</th></tr>
+<tr><td>java.lang.String</td><td>This is a Test</td><td>false</td></tr>
+<tr><td>java.lang.String</td><td>Test</td><td>false</td></tr>
+<tr><td>java.lang.String</td><td>test</td><td>true</td></tr>
+</table>
+
+-----------------------------------------------
+
+#### String contains value ignore case
+
+Here the optional flag is set to true - this disables case sensitivity.
+
+
+{% codetabs name="Java", type="java" -%}
+final StringContains function = new StringContains("test", true);
+
+{%- language name="JSON", type="json" -%}
+{
+  "class" : "uk.gov.gchq.koryphe.impl.predicate.StringContains",
+  "value" : "test",
+  "ignoreCase" : true
+}
+
+{%- language name="Python", type="py" -%}
+g.StringContains( 
+  ignore_case=True, 
+  value="test" 
+)
+
+{%- endcodetabs %}
+
+Input type:
+
+```
+java.lang.String
+```
+
+Example inputs:
+<table>
+<tr><th>Type</th><th>Input</th><th>Result</th></tr>
+<tr><td>java.lang.String</td><td>This is a Test</td><td>true</td></tr>
+<tr><td>java.lang.String</td><td>Test</td><td>true</td></tr>
+<tr><td>java.lang.String</td><td>test</td><td>true</td></tr>
 </table>
 
 -----------------------------------------------

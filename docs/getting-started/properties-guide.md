@@ -161,7 +161,7 @@ We also added in the [serialiser](https://github.com/gchq/Gaffer/blob/master/lib
 Only one entity is in the graph. This was added 1000 times, and each time it had the 'approxCardinality' property containing a vertex that A had been seen in an Edge with. Here is the Entity:
 
 ```
-Entity[vertex=A,group=cardinality,properties=Properties[approxCardinality=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@60c8d405]]
+Entity[vertex=A,group=cardinality,properties=Properties[approxCardinality=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@3b7a959b]]
 
 ```
 
@@ -507,7 +507,7 @@ final String quantilesEstimate = "Edge A-B with percentiles of double property -
 The results are as follows. This means that 25% of all the doubles on edge A-B had value less than -0.66, 50% had value less than -0.01 and 75% had value less than 0.64 (the results of the estimation are not deterministic so there may be small differences between the values below and those just quoted).
 
 ```
-Edge A-B with percentiles of double property - 25th percentile: -0.6647061919429307, 50th percentile: -0.009776218111167738, 75th percentile: 0.6311663168517678
+Edge A-B with percentiles of double property - 25th percentile: -0.6619073605312316, 50th percentile: -0.009261398929964838, 75th percentile: 0.6341803995604817
 
 ```
 
@@ -531,7 +531,7 @@ final String cdfEstimate = "Edge A-B with CDF values at 0: " + cdf[0]
 The results are:
 
 ```
-Edge A-B with CDF values at 0: 0.507, at 1: 0.843, at 2: 0.987
+Edge A-B with CDF values at 0: 0.507, at 1: 0.841, at 2: 0.983
 
 ```
 
@@ -650,7 +650,7 @@ for (int i = 0; i < 10 && i < samples.length; i++) {
 
 The results contain a random sample of the strings added to the edge:
 ```
-10 samples: GAJIBECFGF, FCFEAEEJDD, FHAJGGHGBE, FGDEIFCDCF, FJFGFJBGCC, FFHHBIJHJF, AHHCDACICI, HIBDGEGCAE, GDHCBJCDJI, FAFHHJIEHC
+10 samples: DDBAFJEADB, JEDAAEAEID, AHFEEHCEJF, GIEEAIFJBD, FJDABGHIDD, EEAEEBFBHB, JIHGGIGFAJ, IHEFHJFEEA, HGDABDAFJG, FGHDEAHGJA
 
 ```
 
@@ -679,7 +679,7 @@ for (int i = 0; i < 10 && i < neighboursSample.length; i++) {
 The results are:
 
 ```
-10 samples: Y316, Y415, Y286, Y202, Y299, Y436, Y67, Y124, Y101, Y285
+10 samples: Y431, Y132, Y448, Y496, Y100, Y58, Y231, Y60, Y262, Y353
 
 ```
 
@@ -1045,7 +1045,7 @@ There are two edges in the graph. Edge A-B was added 3 times, and each time it h
 
 ```
 Edge[source=A,destination=B,directed=false,group=red,properties=Properties[boundedTimestampSet=<uk.gov.gchq.gaffer.time.BoundedTimestampSet>BoundedTimestampSet[timeBucket=MINUTE,state=NOT_FULL,maxSize=25,timestamps=2017-02-12T14:21:00Z,2017-03-21T18:09:00Z,2017-12-24T08:00:00Z]]]
-Edge[source=A,destination=C,directed=false,group=red,properties=Properties[boundedTimestampSet=<uk.gov.gchq.gaffer.time.BoundedTimestampSet>BoundedTimestampSet[timeBucket=MINUTE,state=SAMPLE,maxSize=25,timestamps=2017-01-05T08:24:00Z,2017-01-15T12:09:00Z,2017-01-18T10:41:00Z,2017-01-18T15:57:00Z,2017-02-03T07:32:00Z,2017-02-05T02:42:00Z,2017-02-24T04:18:00Z,2017-03-17T19:56:00Z,2017-04-26T06:58:00Z,2017-05-04T02:12:00Z,2017-05-24T05:08:00Z,2017-06-08T04:18:00Z,2017-07-09T10:01:00Z,2017-07-13T01:04:00Z,2017-07-14T08:51:00Z,2017-08-12T23:56:00Z,2017-08-20T18:57:00Z,2017-09-01T01:42:00Z,2017-09-01T18:07:00Z,2017-10-18T21:46:00Z,2017-10-23T22:02:00Z,2017-10-26T00:37:00Z,2017-11-28T02:45:00Z,2017-11-30T22:52:00Z,2017-12-30T04:50:00Z]]]
+Edge[source=A,destination=C,directed=false,group=red,properties=Properties[boundedTimestampSet=<uk.gov.gchq.gaffer.time.BoundedTimestampSet>BoundedTimestampSet[timeBucket=MINUTE,state=SAMPLE,maxSize=25,timestamps=2017-01-01T10:14:00Z,2017-01-01T16:50:00Z,2017-02-05T08:37:00Z,2017-03-01T07:48:00Z,2017-03-17T19:56:00Z,2017-03-23T03:55:00Z,2017-04-16T10:13:00Z,2017-04-23T02:28:00Z,2017-04-30T12:52:00Z,2017-05-12T11:27:00Z,2017-05-26T06:33:00Z,2017-05-28T21:28:00Z,2017-06-10T02:01:00Z,2017-06-29T03:09:00Z,2017-07-31T23:53:00Z,2017-08-16T08:39:00Z,2017-08-22T08:11:00Z,2017-08-22T11:09:00Z,2017-09-23T15:09:00Z,2017-09-23T15:50:00Z,2017-10-01T20:01:00Z,2017-11-01T16:59:00Z,2017-11-19T05:00:00Z,2017-12-06T15:26:00Z,2017-12-26T12:14:00Z]]]
 
 ```
 
@@ -1075,6 +1075,7 @@ Predicates:
 - [uk.gov.gchq.koryphe.impl.predicate.Not](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Not.html)
 - [uk.gov.gchq.koryphe.impl.predicate.Or](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Or.html)
 - [uk.gov.gchq.koryphe.impl.predicate.Regex](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Regex.html)
+- [uk.gov.gchq.koryphe.impl.predicate.StringContains](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/StringContains.html)
 
 
 Aggregators:
@@ -1456,7 +1457,7 @@ Predicates:
 
 Aggregators:
 
-- [uk.gov.gchq.gaffer.binaryoperator.FreqMapAggregator](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/binaryoperator/FreqMapAggregator.html)
+- [uk.gov.gchq.gaffer.types.function.FreqMapAggregator](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/types/function/FreqMapAggregator.html)
 - [uk.gov.gchq.koryphe.binaryoperator.BinaryOperatorMap](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/binaryoperator/BinaryOperatorMap.html)
 - [uk.gov.gchq.koryphe.impl.binaryoperator.First](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/First.html)
 

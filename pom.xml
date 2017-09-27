@@ -20,14 +20,14 @@
     <parent>
         <groupId>uk.gov.gchq.gaffer</groupId>
         <artifactId>gaffer2</artifactId>
-        <version>1.0.0-RC2</version>
+        <version>1.0.0-RC3</version>
     </parent>
 
     <artifactId>doc</artifactId>
 
     <properties>
-        <gaffer.version>1.0.0-RC2</gaffer.version>
-        <gaffer-tools.version>1.0.0-RC2</gaffer-tools.version>
+        <gaffer.version>1.0.0-RC3</gaffer.version>
+        <gaffer-tools.version>1.0.0-RC3</gaffer-tools.version>
         <scm.url>
             https://github.com/gchq/gaffer-doc
         </scm.url>
@@ -125,6 +125,26 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <id>Download python shell</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>
+                                ${basedir}/scripts/downloadPythonShell.sh
+                            </executable>
+                            <arguments>${gaffer-tools.version}</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>

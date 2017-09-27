@@ -51,6 +51,24 @@ final GetElementsBetweenSets operation = new GetElementsBetweenSets.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GetElementsBetweenSets( 
+  input_b=[ 
+    g.EntitySeed( 
+      vertex=2 
+    ), 
+    g.EntitySeed( 
+      vertex=4 
+    ) 
+  ], 
+  input=[ 
+    g.EntitySeed( 
+      vertex=1 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -138,6 +156,58 @@ final GetElementsBetweenSets operation = new GetElementsBetweenSets.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GetElementsBetweenSets( 
+  input_b=[ 
+    g.EntitySeed( 
+      vertex=2 
+    ), 
+    g.EntitySeed( 
+      vertex=4 
+    ) 
+  ], 
+  input=[ 
+    g.EntitySeed( 
+      vertex=1 
+    ) 
+  ], 
+  view=g.View( 
+    edges=[ 
+      g.ElementDefinition( 
+        group="edge", 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            selection=[ 
+              "count" 
+            ], 
+            predicate=g.IsMoreThan( 
+              or_equal_to=False, 
+              value=2 
+            ) 
+          ) 
+        ] 
+      ) 
+    ], 
+    entities=[ 
+      g.ElementDefinition( 
+        group="entity", 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            selection=[ 
+              "count" 
+            ], 
+            predicate=g.IsMoreThan( 
+              or_equal_to=False, 
+              value=2 
+            ) 
+          ) 
+        ] 
+      ) 
+    ] 
+  ) 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -198,6 +268,21 @@ final GetElementsInRanges operation = new GetElementsInRanges.Builder()
     }
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GetElementsInRanges( 
+  input=[ 
+    g.SeedPair( 
+      first=g.EntitySeed( 
+        vertex=1 
+      ), 
+      second=g.EntitySeed( 
+        vertex=4 
+      ) 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -263,6 +348,24 @@ final GetElementsInRanges operation = new GetElementsInRanges.Builder()
     }
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GetElementsInRanges( 
+  input=[ 
+    g.SeedPair( 
+      first=g.EntitySeed( 
+        vertex=4 
+      ), 
+      second=g.EdgeSeed( 
+        matched_vertex="SOURCE", 
+        destination=5, 
+        source=4, 
+        directed_type="EITHER" 
+      ) 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -321,6 +424,22 @@ final GetElementsWithinSet operation = new GetElementsWithinSet.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GetElementsWithinSet( 
+  input=[ 
+    g.EntitySeed( 
+      vertex=1 
+    ), 
+    g.EntitySeed( 
+      vertex=2 
+    ), 
+    g.EntitySeed( 
+      vertex=3 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -408,6 +527,56 @@ final GetElementsWithinSet operation = new GetElementsWithinSet.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GetElementsWithinSet( 
+  input=[ 
+    g.EntitySeed( 
+      vertex=1 
+    ), 
+    g.EntitySeed( 
+      vertex=2 
+    ), 
+    g.EntitySeed( 
+      vertex=3 
+    ) 
+  ], 
+  view=g.View( 
+    entities=[ 
+      g.ElementDefinition( 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            predicate=g.IsMoreThan( 
+              or_equal_to=False, 
+              value=2 
+            ), 
+            selection=[ 
+              "count" 
+            ] 
+          ) 
+        ], 
+        group="entity" 
+      ) 
+    ], 
+    edges=[ 
+      g.ElementDefinition( 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            predicate=g.IsMoreThan( 
+              or_equal_to=False, 
+              value=2 
+            ), 
+            selection=[ 
+              "count" 
+            ] 
+          ) 
+        ], 
+        group="edge" 
+      ) 
+    ] 
+  ) 
+)
+
 {%- endcodetabs %}
 
 Result:

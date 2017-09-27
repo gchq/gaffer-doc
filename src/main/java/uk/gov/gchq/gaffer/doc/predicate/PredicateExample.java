@@ -35,7 +35,7 @@ public abstract class PredicateExample extends Example {
             log(description + "\n");
         }
 
-        printJavaJson(predicate, 3);
+        printJavaJsonPython(predicate, 3);
 
         log("Input type:");
         log("\n```");

@@ -99,6 +99,27 @@ new AddElements.Builder()
     "class" : "uk.gov.gchq.gaffer.data.element.Edge"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.AddElements( 
+  skip_invalid_elements=False, 
+  input=[ 
+    g.Entity( 
+      vertex=6, 
+      group="entity", 
+      properties={'count': 1} 
+    ), 
+    g.Edge( 
+      directed=True, 
+      destination=6, 
+      group="edge", 
+      properties={'count': 1}, 
+      source=5 
+    ) 
+  ], 
+  validate=True 
+)
+
 {%- endcodetabs %}
 
 Updated graph:
@@ -147,6 +168,16 @@ final AddElementsFromFile op = new AddElementsFromFile.Builder()
   "validate" : true,
   "skipInvalidElements" : false
 }
+
+{%- language name="Python", type="py" -%}
+g.AddElementsFromFile( 
+  parallelism=1, 
+  element_generator="uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator", 
+  validate=True, 
+  filename="filename", 
+  skip_invalid_elements=False 
+)
+
 {%- endcodetabs %}
 
 -----------------------------------------------
@@ -332,6 +363,20 @@ final AddElementsFromKafka op = new AddElementsFromKafka.Builder()
   "validate" : true,
   "skipInvalidElements" : false
 }
+
+{%- language name="Python", type="py" -%}
+g.AddElementsFromKafka( 
+  topic="topic1", 
+  parallelism=1, 
+  group_id="groupId1", 
+  bootstrap_servers=[ 
+    "hostname1:8080,hostname2:8080" 
+  ], 
+  element_generator="uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator", 
+  validate=True, 
+  skip_invalid_elements=False 
+)
+
 {%- endcodetabs %}
 
 -----------------------------------------------
@@ -377,6 +422,18 @@ final AddElementsFromSocket op = new AddElementsFromSocket.Builder()
   "skipInvalidElements" : false,
   "delimiter" : ","
 }
+
+{%- language name="Python", type="py" -%}
+g.AddElementsFromSocket( 
+  parallelism=1, 
+  element_generator="uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator", 
+  skip_invalid_elements=False, 
+  delimiter=",", 
+  validate=True, 
+  hostname="localhost", 
+  port=8080 
+)
+
 {%- endcodetabs %}
 
 -----------------------------------------------
@@ -422,6 +479,15 @@ final OperationChain<GroupCounts> opChain = new OperationChain.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.impl.CountGroups"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements(), 
+    g.CountGroups() 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -462,6 +528,17 @@ final OperationChain<GroupCounts> opChain = new OperationChain.Builder()
     "limit" : 5
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements(), 
+    g.CountGroups( 
+      limit=5 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -519,6 +596,19 @@ final OperationChain<CloseableIterable<?>> opChain = new OperationChain.Builder(
     "key" : "ALL"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements(), 
+    g.ExportToGafferResultCache(), 
+    g.DiscardOutput(), 
+    g.GetGafferResultCacheExport( 
+      key="ALL" 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -574,12 +664,23 @@ final OperationChain<JobDetail> exportOpChain = new OperationChain.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements(), 
+    g.ExportToGafferResultCache(), 
+    g.DiscardOutput(), 
+    g.GetJobDetails() 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
 
 ```
-JobDetail[jobId=6eae2132-18d0-4f56-8750-8d8178dfd1b3,userId=user01,status=RUNNING,startTime=1505985108315,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@2ef1b8e4, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@499c48a6, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@5b0b937b, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@3dc6d401]]]
+JobDetail[jobId=31fddcda-3f4b-454c-827c-65fa8f1ed9ef,userId=user01,status=RUNNING,startTime=1506500161870,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@6ab862dc, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@71ad1d56, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@1f7a8807, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@307918ae]]]
 ```
 -----------------------------------------------
 
@@ -610,10 +711,21 @@ final OperationChain<CloseableIterable<?>> opChain = new OperationChain.Builder(
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
     "class" : "uk.gov.gchq.gaffer.operation.impl.export.resultcache.GetGafferResultCacheExport",
-    "jobId" : "6eae2132-18d0-4f56-8750-8d8178dfd1b3",
+    "jobId" : "31fddcda-3f4b-454c-827c-65fa8f1ed9ef",
     "key" : "ALL"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetGafferResultCacheExport( 
+      job_id="31fddcda-3f4b-454c-827c-65fa8f1ed9ef", 
+      key="ALL" 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -698,6 +810,33 @@ final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationC
     } ]
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements(), 
+    g.ExportToGafferResultCache( 
+      key="edges" 
+    ), 
+    g.DiscardOutput(), 
+    g.GetAllElements(), 
+    g.ExportToGafferResultCache( 
+      key="entities" 
+    ), 
+    g.DiscardOutput(), 
+    g.GetExports( 
+      get_exports=[ 
+        g.GetGafferResultCacheExport( 
+          key="edges" 
+        ), 
+        g.GetGafferResultCacheExport( 
+          key="entities" 
+        ) 
+      ] 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -781,6 +920,27 @@ final OperationChain<Iterable<? extends Element>> opChain =
     "graphId" : "graph2"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements( 
+      view=g.View( 
+        edges=[ 
+          g.ElementDefinition( 
+            group="edge" 
+          ) 
+        ], 
+        entities=[ 
+        ] 
+      ) 
+    ), 
+    g.ExportToOtherAuthorisedGraph( 
+      graph_id="graph2" 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 -----------------------------------------------
@@ -823,6 +983,31 @@ final OperationChain<Iterable<? extends Element>> opChain =
     "parentStorePropertiesId" : "storePropsId1"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements( 
+      view=g.View( 
+        entities=[ 
+        ], 
+        edges=[ 
+          g.ElementDefinition( 
+            group="edge" 
+          ) 
+        ] 
+      ) 
+    ), 
+    g.ExportToOtherAuthorisedGraph( 
+      parent_schema_ids=[ 
+        "schemaId1" 
+      ], 
+      parent_store_properties_id="storePropsId1", 
+      graph_id="newGraphId" 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 -----------------------------------------------
@@ -878,6 +1063,27 @@ final OperationChain<Iterable<? extends Element>> opChain =
     "graphId" : "newGraphId"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements( 
+      view=g.View( 
+        edges=[ 
+          g.ElementDefinition( 
+            group="edge" 
+          ) 
+        ], 
+        entities=[ 
+        ] 
+      ) 
+    ), 
+    g.ExportToOtherGraph( 
+      graph_id="newGraphId" 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 -----------------------------------------------
@@ -925,9 +1131,9 @@ final OperationChain<Iterable<? extends Element>> opChain =
             "count" : "int"
           },
           "groupBy" : [ ],
+          "destination" : "int",
           "directed" : "true",
-          "source" : "int",
-          "destination" : "int"
+          "source" : "int"
         }
       },
       "entities" : {
@@ -967,6 +1173,29 @@ final OperationChain<Iterable<? extends Element>> opChain =
     }
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements( 
+      view=g.View( 
+        entities=[ 
+        ], 
+        edges=[ 
+          g.ElementDefinition( 
+            group="edge" 
+          ) 
+        ] 
+      ) 
+    ), 
+    g.ExportToOtherGraph( 
+      store_properties={'gaffer.cache.service.class': 'uk.gov.gchq.gaffer.cache.impl.HashMapCacheService', 'accumulo.user': 'user01', 'accumulo.zookeepers': 'aZookeeper', 'gaffer.store.job.tracker.enabled': 'true', 'gaffer.store.operation.declarations': 'ExportToOtherGraphOperationDeclarations.json', 'gaffer.store.properties.class': 'uk.gov.gchq.gaffer.accumulostore.AccumuloProperties', 'gaffer.store.class': 'uk.gov.gchq.gaffer.accumulostore.MockAccumuloStore', 'accumulo.password': 'password', 'accumulo.instance': 'someInstanceName'}, 
+      schema={'entities': {'entity': {'vertex': 'int', 'groupBy': [], 'properties': {'count': 'int'}}}, 'types': {'int': {'aggregateFunction': {'class': 'uk.gov.gchq.koryphe.impl.binaryoperator.Sum'}, 'class': 'java.lang.Integer'}, 'true': {'class': 'java.lang.Boolean', 'validateFunctions': [{"class": "uk.gov.gchq.koryphe.impl.predicate.IsTrue"}]}}, 'edges': {'edge': {'directed': 'true', 'groupBy': [], 'properties': {'count': 'int'}, 'source': 'int', 'destination': 'int'}}}, 
+      graph_id="newGraphId" 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 -----------------------------------------------
@@ -1020,6 +1249,28 @@ final OperationChain<Iterable<? extends Element>> opChain =
     }
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements( 
+      view=g.View( 
+        entities=[ 
+        ], 
+        edges=[ 
+          g.ElementDefinition( 
+            group="edge" 
+          ) 
+        ] 
+      ) 
+    ), 
+    g.ExportToOtherGraph( 
+      store_properties={'gaffer.store.properties.class': 'uk.gov.gchq.gaffer.proxystore.ProxyProperties', 'gaffer.port': '8081', 'gaffer.host': 'localhost', 'gaffer.store.class': 'uk.gov.gchq.gaffer.proxystore.ProxyStore', 'gaffer.context-root': '/rest/v1'}, 
+      graph_id="otherGafferRestApiGraphId" 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 -----------------------------------------------
@@ -1089,6 +1340,27 @@ final OperationChain<Iterable<? extends Element>> opChain =
     "graphId" : "exportGraphId"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements( 
+      view=g.View( 
+        entities=[ 
+        ], 
+        edges=[ 
+          g.ElementDefinition( 
+            group="edge" 
+          ) 
+        ] 
+      ) 
+    ), 
+    g.ExportToOtherGraph( 
+      graph_id="exportGraphId" 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 -----------------------------------------------
@@ -1162,6 +1434,31 @@ final OperationChain<Iterable<? extends Element>> opChain =
     "parentStorePropertiesId" : "exportStorePropertiesId"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements( 
+      view=g.View( 
+        edges=[ 
+          g.ElementDefinition( 
+            group="edge" 
+          ) 
+        ], 
+        entities=[ 
+        ] 
+      ) 
+    ), 
+    g.ExportToOtherGraph( 
+      parent_schema_ids=[ 
+        "exportSchemaId" 
+      ], 
+      parent_store_properties_id="exportStorePropertiesId", 
+      graph_id="newGraphId" 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 -----------------------------------------------
@@ -1214,6 +1511,19 @@ final OperationChain<Iterable<?>> opChain = new OperationChain.Builder()
     "start" : 0
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements(), 
+    g.ExportToSet(), 
+    g.DiscardOutput(), 
+    g.GetSetExport( 
+      start=0 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -1274,6 +1584,20 @@ final OperationChain<Iterable<?>> opChain = new OperationChain.Builder()
     "end" : 4
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements(), 
+    g.ExportToSet(), 
+    g.DiscardOutput(), 
+    g.GetSetExport( 
+      end=4, 
+      start=2 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -1351,6 +1675,35 @@ final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationC
     } ]
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements(), 
+    g.ExportToSet( 
+      key="edges" 
+    ), 
+    g.DiscardOutput(), 
+    g.GetAllElements(), 
+    g.ExportToSet( 
+      key="entities" 
+    ), 
+    g.DiscardOutput(), 
+    g.GetExports( 
+      get_exports=[ 
+        g.GetSetExport( 
+          start=0, 
+          key="edges" 
+        ), 
+        g.GetSetExport( 
+          start=0, 
+          key="entities" 
+        ) 
+      ] 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -1424,6 +1777,19 @@ final GenerateElements<String> operation = new GenerateElements.Builder<String>(
   },
   "input" : [ "1,1", "1,2,1" ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GenerateElements( 
+  element_generator=g.ElementGenerator( 
+    fields={}, 
+    class_name="uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator" 
+  ), 
+  input=[ 
+    "1,1", 
+    "1,2,1" 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -1473,6 +1839,19 @@ final GenerateElements<Object> operation = new GenerateElements.Builder<>()
     "c" : 1
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GenerateElements( 
+  input=[ 
+    {'a': 1, 'c': 1, 'class': 'uk.gov.gchq.gaffer.doc.operation.GenerateElementsExample$DomainObject1'}, 
+    {'b': 2, 'a': 1, 'c': 1, 'class': 'uk.gov.gchq.gaffer.doc.operation.GenerateElementsExample$DomainObject2'} 
+  ], 
+  element_generator=g.ElementGenerator( 
+    class_name="uk.gov.gchq.gaffer.doc.operation.GenerateElementsExample$DomainObjectGenerator", 
+    fields={} 
+  ) 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -1549,6 +1928,29 @@ final GenerateObjects<String> operation = new GenerateObjects.Builder<String>()
     "class" : "uk.gov.gchq.gaffer.data.element.Edge"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GenerateObjects( 
+  input=[ 
+    g.Entity( 
+      properties={'count': 1}, 
+      vertex=6, 
+      group="entity" 
+    ), 
+    g.Edge( 
+      properties={'count': 1}, 
+      group="edge", 
+      destination=6, 
+      source=5, 
+      directed=True 
+    ) 
+  ], 
+  element_generator=g.ElementGenerator( 
+    class_name="uk.gov.gchq.gaffer.doc.operation.generator.ObjectGenerator", 
+    fields={} 
+  ) 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -1613,6 +2015,29 @@ final GenerateObjects<Object> operation = new GenerateObjects.Builder<>()
     "class" : "uk.gov.gchq.gaffer.data.element.Edge"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GenerateObjects( 
+  element_generator=g.ElementGenerator( 
+    class_name="uk.gov.gchq.gaffer.doc.operation.GenerateObjectsExample$DomainObjectGenerator", 
+    fields={} 
+  ), 
+  input=[ 
+    g.Entity( 
+      vertex=6, 
+      properties={'count': 1}, 
+      group="entity" 
+    ), 
+    g.Edge( 
+      source=5, 
+      properties={'count': 1}, 
+      destination=6, 
+      group="edge", 
+      directed=True 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -1662,6 +2087,16 @@ final GetAdjacentIds operation = new GetAdjacentIds.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GetAdjacentIds( 
+  input=[ 
+    g.EntitySeed( 
+      vertex=2 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -1704,6 +2139,17 @@ final GetAdjacentIds operation = new GetAdjacentIds.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GetAdjacentIds( 
+  include_incoming_out_going="OUTGOING", 
+  input=[ 
+    g.EntitySeed( 
+      vertex=2 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -1735,12 +2181,6 @@ final GetAdjacentIds operation = new GetAdjacentIds.Builder()
         .input(new EntitySeed(2))
         .inOutType(IncludeIncomingOutgoingType.OUTGOING)
         .view(new View.Builder()
-                .entity("entity", new ViewElementDefinition.Builder()
-                        .preAggregationFilter(new ElementFilter.Builder()
-                                .select("count")
-                                .execute(new IsMoreThan(1))
-                                .build())
-                        .build())
                 .edge("edge", new ViewElementDefinition.Builder()
                         .preAggregationFilter(new ElementFilter.Builder()
                                 .select("count")
@@ -1774,6 +2214,37 @@ final GetAdjacentIds operation = new GetAdjacentIds.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GetAdjacentIds( 
+  view=g.View( 
+    edges=[ 
+      g.ElementDefinition( 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            predicate=g.IsMoreThan( 
+              or_equal_to=False, 
+              value=1 
+            ), 
+            selection=[ 
+              "count" 
+            ] 
+          ) 
+        ], 
+        group="edge" 
+      ) 
+    ], 
+    entities=[ 
+    ] 
+  ), 
+  input=[ 
+    g.EntitySeed( 
+      vertex=2 
+    ) 
+  ], 
+  include_incoming_out_going="OUTGOING" 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -1816,6 +2287,10 @@ final GetAllElements operation = new GetAllElements();
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements"
 }
+
+{%- language name="Python", type="py" -%}
+g.GetAllElements()
+
 {%- endcodetabs %}
 
 Result:
@@ -1898,6 +2373,45 @@ final GetAllElements operation = new GetAllElements.Builder()
     }
   }
 }
+
+{%- language name="Python", type="py" -%}
+g.GetAllElements( 
+  view=g.View( 
+    entities=[ 
+      g.ElementDefinition( 
+        group="entity", 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            selection=[ 
+              "count" 
+            ], 
+            predicate=g.IsMoreThan( 
+              value=2, 
+              or_equal_to=False 
+            ) 
+          ) 
+        ] 
+      ) 
+    ], 
+    edges=[ 
+      g.ElementDefinition( 
+        group="edge", 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            selection=[ 
+              "count" 
+            ], 
+            predicate=g.IsMoreThan( 
+              value=2, 
+              or_equal_to=False 
+            ) 
+          ) 
+        ] 
+      ) 
+    ] 
+  ) 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -1943,13 +2457,17 @@ final GetAllJobDetails operation = new GetAllJobDetails();
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetAllJobDetails"
 }
+
+{%- language name="Python", type="py" -%}
+g.GetAllJobDetails()
+
 {%- endcodetabs %}
 
 Result:
 
 ```
-JobDetail[jobId=6325379e-aba3-478e-9c94-0b406a8148cd,userId=user01,status=RUNNING,startTime=1505985111648,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.job.GetAllJobDetails@4e89da03]]]
-JobDetail[jobId=56b16940-d285-48e5-a9e5-70e1e9c3759c,userId=UNKNOWN,status=FINISHED,startTime=1505985111646,endTime=1505985111646,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements@56e6ea1a, AddElements[validate=true,skipInvalidElements=false,elements=uk.gov.gchq.gaffer.data.generator.OneToOneElementGenerator$1@4575d7ad]]]]
+JobDetail[jobId=4955716b-3c40-4d39-b35b-04b705894810,userId=UNKNOWN,status=FINISHED,startTime=1506500166474,endTime=1506500166475,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements@20c70d20, AddElements[validate=true,skipInvalidElements=false,elements=uk.gov.gchq.gaffer.data.generator.OneToOneElementGenerator$1@11fca628]]]]
+JobDetail[jobId=a46cb093-9b14-45c9-b300-ce2e91926a94,userId=user01,status=RUNNING,startTime=1506500166527,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.job.GetAllJobDetails@7df28863]]]
 ```
 -----------------------------------------------
 
@@ -1998,6 +2516,22 @@ final GetElements operation = new GetElements.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.data.EdgeSeed"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GetElements( 
+  input=[ 
+    g.EntitySeed( 
+      vertex=2 
+    ), 
+    g.EdgeSeed( 
+      source=2, 
+      matched_vertex="SOURCE", 
+      destination=3, 
+      directed_type="EITHER" 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -2088,6 +2622,56 @@ final GetElements operation = new GetElements.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.data.EdgeSeed"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GetElements( 
+  view=g.View( 
+    entities=[ 
+      g.ElementDefinition( 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            predicate=g.IsMoreThan( 
+              value=1, 
+              or_equal_to=False 
+            ), 
+            selection=[ 
+              "count" 
+            ] 
+          ) 
+        ], 
+        group="entity" 
+      ) 
+    ], 
+    edges=[ 
+      g.ElementDefinition( 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            predicate=g.IsMoreThan( 
+              value=1, 
+              or_equal_to=False 
+            ), 
+            selection=[ 
+              "count" 
+            ] 
+          ) 
+        ], 
+        group="edge" 
+      ) 
+    ] 
+  ), 
+  input=[ 
+    g.EntitySeed( 
+      vertex=2 
+    ), 
+    g.EdgeSeed( 
+      source=2, 
+      matched_vertex="SOURCE", 
+      directed_type="EITHER", 
+      destination=3 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -2128,6 +2712,16 @@ final GetElements operation = new GetElements.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GetElements( 
+  input=[ 
+    g.EntitySeed( 
+      vertex=2 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -2172,6 +2766,19 @@ final GetElements operation = new GetElements.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.data.EdgeSeed"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GetElements( 
+  input=[ 
+    g.EdgeSeed( 
+      directed_type="EITHER", 
+      matched_vertex="SOURCE", 
+      destination=2, 
+      source=1 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -2254,6 +2861,53 @@ final GetElements operation = new GetElements.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.data.EdgeSeed"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GetElements( 
+  input=[ 
+    g.EdgeSeed( 
+      source=1, 
+      directed_type="EITHER", 
+      matched_vertex="SOURCE", 
+      destination=2 
+    ) 
+  ], 
+  view=g.View( 
+    edges=[ 
+      g.ElementDefinition( 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            selection=[ 
+              "count" 
+            ], 
+            predicate=g.IsMoreThan( 
+              or_equal_to=False, 
+              value=1 
+            ) 
+          ) 
+        ], 
+        group="edge" 
+      ) 
+    ], 
+    entities=[ 
+      g.ElementDefinition( 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            selection=[ 
+              "count" 
+            ], 
+            predicate=g.IsMoreThan( 
+              or_equal_to=False, 
+              value=1 
+            ) 
+          ) 
+        ], 
+        group="entity" 
+      ) 
+    ] 
+  ) 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -2331,6 +2985,50 @@ final GetElements operation = new GetElements.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.data.EdgeSeed"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GetElements( 
+  input=[ 
+    g.EntitySeed( 
+      vertex=2 
+    ), 
+    g.EdgeSeed( 
+      matched_vertex="SOURCE", 
+      destination=3, 
+      directed_type="EITHER", 
+      source=2 
+    ) 
+  ], 
+  view=g.View( 
+    edges=[ 
+    ], 
+    entities=[ 
+      g.ElementDefinition( 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            predicate=g.Or( 
+              predicates=[ 
+                g.IsLessThan( 
+                  value=2, 
+                  or_equal_to=False 
+                ), 
+                g.IsMoreThan( 
+                  value=5, 
+                  or_equal_to=False 
+                ) 
+              ] 
+            ), 
+            selection=[ 
+              "count" 
+            ] 
+          ) 
+        ], 
+        group="entity" 
+      ) 
+    ] 
+  ) 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -2414,6 +3112,55 @@ final GetElements operation = new GetElements.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GetElements( 
+  view=g.View( 
+    entities=[ 
+    ], 
+    edges=[ 
+      g.ElementDefinition( 
+        group="edge", 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            predicate=g.Or( 
+              predicates=[ 
+                g.NestedPredicate( 
+                  predicate=g.IsLessThan( 
+                    or_equal_to=False, 
+                    value=2 
+                  ), 
+                  selection=[ 
+                    0 
+                  ] 
+                ), 
+                g.NestedPredicate( 
+                  predicate=g.IsMoreThan( 
+                    or_equal_to=False, 
+                    value=3 
+                  ), 
+                  selection=[ 
+                    1 
+                  ] 
+                ) 
+              ] 
+            ), 
+            selection=[ 
+              "SOURCE", 
+              "DESTINATION" 
+            ] 
+          ) 
+        ] 
+      ) 
+    ] 
+  ), 
+  input=[ 
+    g.EntitySeed( 
+      vertex=2 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -2485,6 +3232,44 @@ final GetElements operation = new GetElements.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GetElements( 
+  input=[ 
+    g.EntitySeed( 
+      vertex=2 
+    ) 
+  ], 
+  view=g.View( 
+    edges=[ 
+      g.ElementDefinition( 
+        properties=[ 
+          "vertex|count" 
+        ], 
+        transform_functions=[ 
+          g.FunctionContext( 
+            selection=[ 
+              "SOURCE", 
+              "count" 
+            ], 
+            function=g.Function( 
+              class_name="uk.gov.gchq.koryphe.impl.function.Concat", 
+              fields={'separator': '|'} 
+            ), 
+            projection=[ 
+              "vertex|count" 
+            ] 
+          ) 
+        ], 
+        group="edge", 
+        transient_properties={'vertex|count': 'java.lang.String'} 
+      ) 
+    ], 
+    entities=[ 
+    ] 
+  ) 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -2557,6 +3342,44 @@ final GetElements operation = new GetElements.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GetElements( 
+  view=g.View( 
+    edges=[ 
+      g.ElementDefinition( 
+        group="edge", 
+        transform_functions=[ 
+          g.FunctionContext( 
+            selection=[ 
+              "SOURCE", 
+              "count" 
+            ], 
+            projection=[ 
+              "vertex|count" 
+            ], 
+            function=g.Function( 
+              class_name="uk.gov.gchq.koryphe.impl.function.Concat", 
+              fields={'separator': '|'} 
+            ) 
+          ) 
+        ], 
+        exclude_properties=[ 
+          "count" 
+        ], 
+        transient_properties={'vertex|count': 'java.lang.String'} 
+      ) 
+    ], 
+    entities=[ 
+    ] 
+  ), 
+  input=[ 
+    g.EntitySeed( 
+      vertex=2 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -2617,6 +3440,19 @@ final OperationChain<CloseableIterable<?>> opChain = new OperationChain.Builder(
     "key" : "ALL"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements(), 
+    g.ExportToGafferResultCache(), 
+    g.DiscardOutput(), 
+    g.GetGafferResultCacheExport( 
+      key="ALL" 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -2672,12 +3508,23 @@ final OperationChain<JobDetail> opChain = new OperationChain.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements(), 
+    g.ExportToGafferResultCache(), 
+    g.DiscardOutput(), 
+    g.GetJobDetails() 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
 
 ```
-JobDetail[jobId=fe6e3915-bed9-4968-910d-7b92668a33e5,userId=user01,status=RUNNING,startTime=1505985112454,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@781bf81d, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@5c281f5f, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@545ddd3, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@d07c7c9]]]
+JobDetail[jobId=afed94c3-89a5-4f15-9e8b-93ff06df2379,userId=user01,status=RUNNING,startTime=1506500167842,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@b460b1e, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@5e785ae3, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@3723bdb, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@56949cf6]]]
 ```
 -----------------------------------------------
 
@@ -2708,10 +3555,21 @@ final OperationChain<CloseableIterable<?>> opChain = new OperationChain.Builder(
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
     "class" : "uk.gov.gchq.gaffer.operation.impl.export.resultcache.GetGafferResultCacheExport",
-    "jobId" : "fe6e3915-bed9-4968-910d-7b92668a33e5",
+    "jobId" : "afed94c3-89a5-4f15-9e8b-93ff06df2379",
     "key" : "ALL"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetGafferResultCacheExport( 
+      key="ALL", 
+      job_id="afed94c3-89a5-4f15-9e8b-93ff06df2379" 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -2796,6 +3654,33 @@ final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationC
     } ]
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements(), 
+    g.ExportToGafferResultCache( 
+      key="edges" 
+    ), 
+    g.DiscardOutput(), 
+    g.GetAllElements(), 
+    g.ExportToGafferResultCache( 
+      key="entities" 
+    ), 
+    g.DiscardOutput(), 
+    g.GetExports( 
+      get_exports=[ 
+        g.GetGafferResultCacheExport( 
+          key="edges" 
+        ), 
+        g.GetGafferResultCacheExport( 
+          key="entities" 
+        ) 
+      ] 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -2872,12 +3757,22 @@ final OperationChain<JobDetail> opChain = new OperationChain.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements(), 
+    g.DiscardOutput(), 
+    g.GetJobDetails() 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
 
 ```
-JobDetail[jobId=60108439-a3fa-4adc-87b8-ded9f41b1e87,userId=user01,status=RUNNING,startTime=1505985113561,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@4ffb0b, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@249121af, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@48ca9243]]]
+JobDetail[jobId=3d04cb83-85fc-41a9-9009-0202e932ef4e,userId=user01,status=RUNNING,startTime=1506500168986,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@680ff429, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@4f34bf31, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@536c2a51]]]
 ```
 -----------------------------------------------
 
@@ -2904,14 +3799,20 @@ final GetJobDetails operation = new GetJobDetails.Builder()
 {%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails",
-  "jobId" : "60108439-a3fa-4adc-87b8-ded9f41b1e87"
+  "jobId" : "3d04cb83-85fc-41a9-9009-0202e932ef4e"
 }
+
+{%- language name="Python", type="py" -%}
+g.GetJobDetails( 
+  job_id="3d04cb83-85fc-41a9-9009-0202e932ef4e" 
+)
+
 {%- endcodetabs %}
 
 Result:
 
 ```
-JobDetail[jobId=60108439-a3fa-4adc-87b8-ded9f41b1e87,userId=user01,status=FINISHED,startTime=1505985113561,endTime=1505985113561,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@4ffb0b, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@249121af, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@48ca9243]]]
+JobDetail[jobId=3d04cb83-85fc-41a9-9009-0202e932ef4e,userId=user01,status=FINISHED,startTime=1506500168986,endTime=1506500168986,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@680ff429, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@4f34bf31, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@536c2a51]]]
 ```
 -----------------------------------------------
 
@@ -2949,8 +3850,14 @@ final GetJobResults operation = new GetJobResults.Builder()
 {%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetJobResults",
-  "jobId" : "7cc85fcd-fafd-4340-bde9-60147e0c583c"
+  "jobId" : "f0008059-ca24-4c76-97c1-522a953374e7"
 }
+
+{%- language name="Python", type="py" -%}
+g.GetJobResults( 
+  job_id="f0008059-ca24-4c76-97c1-522a953374e7" 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -3018,6 +3925,19 @@ final OperationChain<Iterable<?>> opChain = new OperationChain.Builder()
     "start" : 0
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements(), 
+    g.ExportToSet(), 
+    g.DiscardOutput(), 
+    g.GetSetExport( 
+      start=0 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -3078,6 +3998,20 @@ final OperationChain<Iterable<?>> opChain = new OperationChain.Builder()
     "end" : 4
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements(), 
+    g.ExportToSet(), 
+    g.DiscardOutput(), 
+    g.GetSetExport( 
+      end=4, 
+      start=2 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -3155,6 +4089,35 @@ final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationC
     } ]
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements(), 
+    g.ExportToSet( 
+      key="edges" 
+    ), 
+    g.DiscardOutput(), 
+    g.GetAllElements(), 
+    g.ExportToSet( 
+      key="entities" 
+    ), 
+    g.DiscardOutput(), 
+    g.GetExports( 
+      get_exports=[ 
+        g.GetSetExport( 
+          key="edges", 
+          start=0 
+        ), 
+        g.GetSetExport( 
+          key="entities", 
+          start=0 
+        ) 
+      ] 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -3231,6 +4194,18 @@ final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.B
     "truncate" : true
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements(), 
+    g.Limit( 
+      truncate=True, 
+      result_limit=3 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -3264,6 +4239,18 @@ final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.B
     "truncate" : false
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements(), 
+    g.Limit( 
+      truncate=False, 
+      result_limit=3 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 -----------------------------------------------
@@ -3304,6 +4291,18 @@ final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.B
     "truncate" : true
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetAllElements(), 
+    g.Limit( 
+      result_limit=3, 
+      truncate=True 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -3377,6 +4376,35 @@ final OperationChain<Element> opChain = new OperationChain.Builder()
     } ]
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetElements( 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ] 
+    ), 
+    g.Max( 
+      comparators=[ 
+        g.ElementPropertyComparator( 
+          property="count", 
+          reversed=False, 
+          groups=[ 
+            "entity", 
+            "edge" 
+          ] 
+        ) 
+      ] 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -3497,6 +4525,87 @@ final OperationChain<Element> opChain = new OperationChain.Builder()
     } ]
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetElements( 
+      view=g.View( 
+        entities=[ 
+          g.ElementDefinition( 
+            group="entity", 
+            transient_properties={'score': 'java.lang.Integer'}, 
+            transform_functions=[ 
+              g.FunctionContext( 
+                projection=[ 
+                  "score" 
+                ], 
+                function=g.Function( 
+                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction", 
+                  fields={} 
+                ), 
+                selection=[ 
+                  "VERTEX", 
+                  "count" 
+                ] 
+              ) 
+            ] 
+          ) 
+        ], 
+        edges=[ 
+          g.ElementDefinition( 
+            group="edge", 
+            transient_properties={'score': 'java.lang.Integer'}, 
+            transform_functions=[ 
+              g.FunctionContext( 
+                projection=[ 
+                  "score" 
+                ], 
+                function=g.Function( 
+                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction", 
+                  fields={} 
+                ), 
+                selection=[ 
+                  "DESTINATION", 
+                  "count" 
+                ] 
+              ) 
+            ] 
+          ) 
+        ] 
+      ), 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ] 
+    ), 
+    g.Max( 
+      comparators=[ 
+        g.ElementPropertyComparator( 
+          property="count", 
+          groups=[ 
+            "entity", 
+            "edge" 
+          ], 
+          reversed=False 
+        ), 
+        g.ElementPropertyComparator( 
+          property="score", 
+          groups=[ 
+            "entity", 
+            "edge" 
+          ], 
+          reversed=False 
+        ) 
+      ] 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -3568,6 +4677,35 @@ final OperationChain<Element> opChain = new OperationChain.Builder()
     } ]
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetElements( 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ] 
+    ), 
+    g.Min( 
+      comparators=[ 
+        g.ElementPropertyComparator( 
+          groups=[ 
+            "entity", 
+            "edge" 
+          ], 
+          reversed=False, 
+          property="count" 
+        ) 
+      ] 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -3688,6 +4826,87 @@ final OperationChain<Element> opChain = new OperationChain.Builder()
     } ]
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetElements( 
+      view=g.View( 
+        entities=[ 
+          g.ElementDefinition( 
+            transient_properties={'score': 'java.lang.Integer'}, 
+            group="entity", 
+            transform_functions=[ 
+              g.FunctionContext( 
+                function=g.Function( 
+                  fields={}, 
+                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction" 
+                ), 
+                selection=[ 
+                  "VERTEX", 
+                  "count" 
+                ], 
+                projection=[ 
+                  "score" 
+                ] 
+              ) 
+            ] 
+          ) 
+        ], 
+        edges=[ 
+          g.ElementDefinition( 
+            transient_properties={'score': 'java.lang.Integer'}, 
+            group="edge", 
+            transform_functions=[ 
+              g.FunctionContext( 
+                function=g.Function( 
+                  fields={}, 
+                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction" 
+                ), 
+                selection=[ 
+                  "DESTINATION", 
+                  "count" 
+                ], 
+                projection=[ 
+                  "score" 
+                ] 
+              ) 
+            ] 
+          ) 
+        ] 
+      ), 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ] 
+    ), 
+    g.Min( 
+      comparators=[ 
+        g.ElementPropertyComparator( 
+          property="count", 
+          groups=[ 
+            "entity", 
+            "edge" 
+          ], 
+          reversed=False 
+        ), 
+        g.ElementPropertyComparator( 
+          property="score", 
+          groups=[ 
+            "entity", 
+            "edge" 
+          ], 
+          reversed=False 
+        ) 
+      ] 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -3749,6 +4968,30 @@ final AddNamedOperation operation = new AddNamedOperation.Builder()
     } ]
   }
 }
+
+{%- language name="Python", type="py" -%}
+g.AddNamedOperation( 
+  operation_name="2-hop", 
+  write_access_roles=[ 
+    "write-user" 
+  ], 
+  operation_chain=g.OperationChainDAO( 
+    operations=[ 
+      g.GetAdjacentIds( 
+        include_incoming_out_going="OUTGOING" 
+      ), 
+      g.GetAdjacentIds( 
+        include_incoming_out_going="OUTGOING" 
+      ) 
+    ] 
+  ), 
+  overwrite_flag=True, 
+  description="2 hop query", 
+  read_access_roles=[ 
+    "read-user" 
+  ] 
+)
+
 {%- endcodetabs %}
 
 -----------------------------------------------
@@ -3818,6 +5061,42 @@ final AddNamedOperation operation = new AddNamedOperation.Builder()
     } ]
   }
 }
+
+{%- language name="Python", type="py" -%}
+g.AddNamedOperation( 
+  operation_name="2-hop-with-limit", 
+  operation_chain=g.OperationChainDAO( 
+    operations=[ 
+      g.GetAdjacentIds( 
+        include_incoming_out_going="OUTGOING" 
+      ), 
+      g.GetAdjacentIds( 
+        include_incoming_out_going="OUTGOING" 
+      ), 
+      g.Limit( 
+        result_limit="${param1}" 
+      ) 
+    ] 
+  ), 
+  read_access_roles=[ 
+    "read-user" 
+  ], 
+  write_access_roles=[ 
+    "write-user" 
+  ], 
+  description="2 hop query with settable limit", 
+  overwrite_flag=True, 
+  parameters=[ 
+    g.NamedOperationParameter( 
+      required=False, 
+      value_class="java.lang.Long", 
+      description="Limit param", 
+      default_value=1, 
+      name="param1" 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 -----------------------------------------------
@@ -3844,6 +5123,10 @@ final GetAllNamedOperations operation = new GetAllNamedOperations();
 {
   "class" : "uk.gov.gchq.gaffer.named.operation.GetAllNamedOperations"
 }
+
+{%- language name="Python", type="py" -%}
+g.GetAllNamedOperations()
+
 {%- endcodetabs %}
 
 Result:
@@ -3886,6 +5169,17 @@ final NamedOperation<EntityId, CloseableIterable<EntityId>> operation =
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.NamedOperation( 
+  operation_name="2-hop", 
+  input=[ 
+    g.EntitySeed( 
+      vertex=1 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -3936,6 +5230,18 @@ final NamedOperation<EntityId, CloseableIterable<EntityId>> operation =
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.NamedOperation( 
+  input=[ 
+    g.EntitySeed( 
+      vertex=1 
+    ) 
+  ], 
+  parameters={'param1': 2}, 
+  operation_name="2-hop-with-limit" 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -3959,6 +5265,12 @@ final DeleteNamedOperation operation = new DeleteNamedOperation.Builder()
   "class" : "uk.gov.gchq.gaffer.named.operation.DeleteNamedOperation",
   "operationName" : "2-hop"
 }
+
+{%- language name="Python", type="py" -%}
+g.DeleteNamedOperation( 
+  operation_name="2-hop" 
+)
+
 {%- endcodetabs %}
 
 -----------------------------------------------
@@ -4029,6 +5341,37 @@ final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.B
     "deduplicate" : true
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetElements( 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ] 
+    ), 
+    g.Sort( 
+      comparators=[ 
+        g.ElementPropertyComparator( 
+          groups=[ 
+            "entity", 
+            "edge" 
+          ], 
+          property="count", 
+          reversed=False 
+        ) 
+      ], 
+      deduplicate=True, 
+      result_limit=10 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -4100,6 +5443,37 @@ final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.B
     "deduplicate" : false
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetElements( 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ] 
+    ), 
+    g.Sort( 
+      comparators=[ 
+        g.ElementPropertyComparator( 
+          groups=[ 
+            "entity", 
+            "edge" 
+          ], 
+          reversed=False, 
+          property="count" 
+        ) 
+      ], 
+      result_limit=10, 
+      deduplicate=False 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -4230,6 +5604,89 @@ final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.B
     "deduplicate" : true
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetElements( 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ], 
+      view=g.View( 
+        edges=[ 
+          g.ElementDefinition( 
+            transform_functions=[ 
+              g.FunctionContext( 
+                selection=[ 
+                  "DESTINATION", 
+                  "count" 
+                ], 
+                projection=[ 
+                  "score" 
+                ], 
+                function=g.Function( 
+                  fields={}, 
+                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction" 
+                ) 
+              ) 
+            ], 
+            transient_properties={'score': 'java.lang.Integer'}, 
+            group="edge" 
+          ) 
+        ], 
+        entities=[ 
+          g.ElementDefinition( 
+            transform_functions=[ 
+              g.FunctionContext( 
+                selection=[ 
+                  "VERTEX", 
+                  "count" 
+                ], 
+                projection=[ 
+                  "score" 
+                ], 
+                function=g.Function( 
+                  fields={}, 
+                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction" 
+                ) 
+              ) 
+            ], 
+            transient_properties={'score': 'java.lang.Integer'}, 
+            group="entity" 
+          ) 
+        ] 
+      ) 
+    ), 
+    g.Sort( 
+      deduplicate=True, 
+      result_limit=4, 
+      comparators=[ 
+        g.ElementPropertyComparator( 
+          property="count", 
+          groups=[ 
+            "entity", 
+            "edge" 
+          ], 
+          reversed=False 
+        ), 
+        g.ElementPropertyComparator( 
+          property="score", 
+          groups=[ 
+            "entity", 
+            "edge" 
+          ], 
+          reversed=False 
+        ) 
+      ] 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -4294,6 +5751,24 @@ final OperationChain<? extends Element[]> opChain = new OperationChain.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToArray"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetElements( 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ] 
+    ), 
+    g.ToArray() 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -4381,6 +5856,30 @@ final OperationChain<Iterable<? extends String>> opChain = new Builder()
     "includeHeader" : true
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetElements( 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ] 
+    ), 
+    g.ToCsv( 
+      include_header=True, 
+      element_generator=g.ElementGenerator( 
+        fields={'fields': {'GROUP': 'Edge group', 'count': 'total count', 'VERTEX': 'vertex', 'SOURCE': 'source'}, 'constants': {}, 'quoted': False}, 
+        class_name="uk.gov.gchq.gaffer.data.generator.CsvGenerator" 
+      ) 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -4448,6 +5947,24 @@ final OperationChain<Iterable<? extends EntitySeed>> opChain = new OperationChai
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToEntitySeeds"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetElements( 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ] 
+    ), 
+    g.ToEntitySeeds() 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -4516,6 +6033,24 @@ final OperationChain<List<? extends Element>> opChain = new OperationChain.Build
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToList"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetElements( 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ] 
+    ), 
+    g.ToList() 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -4600,6 +6135,29 @@ final OperationChain<Iterable<? extends Map<String, Object>>> opChain = new Buil
     }
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetElements( 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ] 
+    ), 
+    g.ToMapCsv( 
+      element_generator=g.ElementGenerator( 
+        fields={'constants': {}, 'fields': {'VERTEX': 'vertex', 'SOURCE': 'source', 'GROUP': 'group', 'count': 'total count'}}, 
+        class_name="uk.gov.gchq.gaffer.data.generator.MapGenerator" 
+      ) 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -4660,6 +6218,19 @@ final GetElements operation = new GetElements.Builder()
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.GetElements( 
+  input=[ 
+    g.EntitySeed( 
+      vertex=1 
+    ), 
+    g.EntitySeed( 
+      vertex=2 
+    ) 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -4715,6 +6286,24 @@ final OperationChain<Set<? extends Element>> opChain = new OperationChain.Builde
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToSet"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetElements( 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ] 
+    ), 
+    g.ToSet() 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -4782,6 +6371,24 @@ final OperationChain<Stream<? extends Element>> opChain = new Builder()
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToStream"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetElements( 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ] 
+    ), 
+    g.ToStream() 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -4865,6 +6472,36 @@ final OperationChain<Set<?>> opChain = new Builder()
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToSet"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetElements( 
+      view=g.View( 
+        edges=[ 
+        ], 
+        entities=[ 
+          g.ElementDefinition( 
+            group="entity" 
+          ) 
+        ] 
+      ), 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ] 
+    ), 
+    g.ToVertices( 
+      edge_vertices="NONE" 
+    ), 
+    g.ToSet() 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -4931,6 +6568,37 @@ final OperationChain<Set<?>> opChain = new Builder()
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToSet"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetElements( 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ], 
+      view=g.View( 
+        edges=[ 
+          g.ElementDefinition( 
+            group="edge" 
+          ) 
+        ], 
+        entities=[ 
+        ] 
+      ), 
+      include_incoming_out_going="OUTGOING" 
+    ), 
+    g.ToVertices( 
+      edge_vertices="DESTINATION" 
+    ), 
+    g.ToSet() 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -4999,6 +6667,37 @@ final OperationChain<Set<?>> opChain = new Builder()
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToSet"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetElements( 
+      include_incoming_out_going="OUTGOING", 
+      view=g.View( 
+        entities=[ 
+        ], 
+        edges=[ 
+          g.ElementDefinition( 
+            group="edge" 
+          ) 
+        ] 
+      ), 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ] 
+    ), 
+    g.ToVertices( 
+      edge_vertices="BOTH" 
+    ), 
+    g.ToSet() 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -5068,6 +6767,37 @@ final OperationChain<Set<?>> opChain = new Builder()
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToSet"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetElements( 
+      view=g.View( 
+        edges=[ 
+          g.ElementDefinition( 
+            group="edge" 
+          ) 
+        ], 
+        entities=[ 
+        ] 
+      ), 
+      include_incoming_out_going="OUTGOING", 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ] 
+    ), 
+    g.ToVertices( 
+      use_matched_vertex="EQUAL" 
+    ), 
+    g.ToSet() 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:
@@ -5134,6 +6864,37 @@ final OperationChain<Set<?>> opChain = new Builder()
     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToSet"
   } ]
 }
+
+{%- language name="Python", type="py" -%}
+g.OperationChain( 
+  operations=[ 
+    g.GetElements( 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ], 
+      include_incoming_out_going="OUTGOING", 
+      view=g.View( 
+        entities=[ 
+        ], 
+        edges=[ 
+          g.ElementDefinition( 
+            group="edge" 
+          ) 
+        ] 
+      ) 
+    ), 
+    g.ToVertices( 
+      use_matched_vertex="OPPOSITE" 
+    ), 
+    g.ToSet() 
+  ] 
+)
+
 {%- endcodetabs %}
 
 Result:

@@ -123,6 +123,49 @@ public abstract class AbstractWalkthrough {
         return header;
     }
 
+    protected String getAsPython(final Object object) {
+        return getAsPython(object, null);
+    }
+
+    protected String getAsPython(final Object object, final Class<?> clazz) {
+        final String json = getRawJson(object);
+        final ProcessBuilder pb;
+        if (null == clazz) {
+            pb = new ProcessBuilder("python3", "-u", "gaffer-python-shell/src/gafferpy/fromJson.py", json);
+        } else {
+            pb = new ProcessBuilder("python3", "-u", "gaffer-python-shell/src/gafferpy/fromJson.py", json, clazz.getName());
+        }
+
+        final Process p;
+        try {
+            p = pb.start();
+        } catch (final IOException e) {
+            throw new RuntimeException("Unable to run python3", e);
+        }
+
+        try {
+            p.waitFor();
+        } catch (final InterruptedException e) {
+            throw new RuntimeException("Python failed to complete", e);
+        }
+
+        if (p.exitValue() > 0) {
+            try {
+                throw new RuntimeException("Error in python: " + IOUtils.toString(p.getErrorStream()) + "\nUnable to convert json: " + json);
+            } catch (final IOException e) {
+                throw new RuntimeException("Unable to read error from Python", e);
+            }
+        }
+        final String python;
+        try {
+            python = IOUtils.toString(p.getInputStream());
+        } catch (final IOException e) {
+            throw new RuntimeException("Unable to read result from python", e);
+        }
+
+        return python;
+    }
+
     protected String getJson(final Object object) {
         try {
             return new String(JSONSerialiser.serialise(object, true), CommonConstants.UTF_8);

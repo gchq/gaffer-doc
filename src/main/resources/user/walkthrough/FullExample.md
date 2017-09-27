@@ -45,6 +45,22 @@ This can also be written in JSON for performing the query via the REST API:
 ${GET_JSON}
 ```
 
+We also have a python shell for connecting to the Gaffer REST API. You can 
+get the python shell from [here](https://github.com/gchq/gaffer-tools/tree/master/python-shell).
+Then you can import the gaffer modules using:
+
+```python
+from gafferpy import gaffer as g
+from gafferpy import gaffer_connector
+```
+
+Here is the previous operation written in Python.
+
+```python
+${GET_PYTHON}
+```
+
+
 When executed on the graph, the result is:
 
 ```

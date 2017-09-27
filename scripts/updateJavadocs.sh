@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
 
-gafferVersion=1.0.0-RC2
-gafferToolsVersion=1.0.0-RC2
-korypheVersion=1.0.0-RC1
+gafferVersion=1.0.0-RC3
+gafferToolsVersion=1.0.0-RC3
+korypheVersion=1.0.0-RC3
 
 # Update javadocs
 cd docs/javadoc

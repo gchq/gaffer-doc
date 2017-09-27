@@ -56,7 +56,7 @@ public class AddElementsExample extends OperationExample {
                                 .build())
                 .build();
 
-        printJavaJson(operation,
+        printJavaJsonPython(operation,
                 "new AddElements.Builder()\n"
                         + "                .input(new Entity.Builder()\n"
                         + "                                .group(\"entity\")\n"

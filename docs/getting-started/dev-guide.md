@@ -877,7 +877,7 @@ final String jobId = initialJobDetail.getJobId();
 and the results is:
 
 ```
-JobDetail[jobId=cef3b427-736f-414e-84f7-f70e3516089c,userId=user01,status=RUNNING,startTime=1505985057795,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetElements@17a1e4ca, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@10ded6a9]]]
+JobDetail[jobId=9df49f7f-ec00-48b7-89ec-10821e786b6a,userId=user01,status=RUNNING,startTime=1506500106967,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetElements@61f05988, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@7ca33c24]]]
 
 ```
 
@@ -895,7 +895,7 @@ final JobDetail jobDetail = graph.execute(
 and now you can see the job has finished:
 
 ```
-JobDetail[jobId=cef3b427-736f-414e-84f7-f70e3516089c,userId=user01,status=FINISHED,startTime=1505985057795,endTime=1505985058057,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetElements@17a1e4ca, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@10ded6a9]]]
+JobDetail[jobId=9df49f7f-ec00-48b7-89ec-10821e786b6a,userId=user01,status=FINISHED,startTime=1506500106967,endTime=1506500107209,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetElements@61f05988, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@7ca33c24]]]
 
 ```
 
@@ -1187,11 +1187,12 @@ Without matching authorisation users can only specify adding a graph with `Store
 
 ```java
 AddGraph addAnotherGraph = new AddGraph.Builder()
-        .setGraphId("AnotherGraph")
+        .graphId("AnotherGraph")
         .schema(new Schema.Builder()
                 .json(StreamUtil.openStreams(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema"))
                 .build())
         .storeProperties(StoreProperties.loadStoreProperties("mockmapstore.properties"))
+        .graphAuths() // private - only this user will have access
         .build();
 federatedGraph.execute(addAnotherGraph, user);
 ```
@@ -1322,7 +1323,8 @@ or through the rest service with json.
         "class" : "com.clearspring.analytics.stream.cardinality.HyperLogLogPlus"
       }
     }
-  }
+  },
+  "graphAuths" : [ ]
 }
 
 ```
@@ -1417,8 +1419,8 @@ Edge[source=10,destination=11,directed=true,matchedVertex=SOURCE,group=RoadUse,p
 Edge[source=10,destination=11,directed=true,matchedVertex=SOURCE,group=RoadUse,properties=Properties[endDate=<java.util.Date>Tue May 02 23:59:59 BST 2000,count=<java.lang.Long>1,startDate=<java.util.Date>Tue May 02 00:00:00 BST 2000]]
 Edge[source=11,destination=10,directed=true,matchedVertex=DESTINATION,group=RoadUse,properties=Properties[endDate=<java.util.Date>Wed May 03 23:59:59 BST 2000,count=<java.lang.Long>1,startDate=<java.util.Date>Wed May 03 00:00:00 BST 2000]]
 Edge[source=M5,destination=10,directed=true,matchedVertex=DESTINATION,group=RoadHasJunction,properties=Properties[]]
-Entity[vertex=10,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@58c34bb3,count=<java.lang.Long>4,edgeGroup=<java.util.TreeSet>[RoadUse]]]
-Entity[vertex=10,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@56a4479a,count=<java.lang.Long>4,edgeGroup=<java.util.TreeSet>[RoadHasJunction]]]
+Entity[vertex=10,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@cb191ca,count=<java.lang.Long>4,edgeGroup=<java.util.TreeSet>[RoadUse]]]
+Entity[vertex=10,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@42f48531,count=<java.lang.Long>4,edgeGroup=<java.util.TreeSet>[RoadHasJunction]]]
 
 ```
 
@@ -1463,7 +1465,7 @@ or via the `AddGraph` operation, by default if authorisations is not specified i
 
 ```java
 AddGraph addSecureGraph = new AddGraph.Builder()
-        .setGraphId("SecureGraph")
+        .graphId("SecureGraph")
         .schema(new Schema.Builder()
                 .json(StreamUtil.openStreams(getClass(), "RoadAndRoadUseWithTimesAndCardinalities/schema"))
                 .build())
