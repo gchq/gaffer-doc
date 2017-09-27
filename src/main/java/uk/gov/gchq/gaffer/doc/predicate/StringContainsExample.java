@@ -19,9 +19,13 @@ import uk.gov.gchq.koryphe.impl.predicate.StringContains;
 
 public class StringContainsExample extends PredicateExample {
 
-    public static void main(final String[] args) { new StringContainsExample().run(); }
+    public static void main(final String[] args) {
+        new StringContainsExample().run();
+    }
 
-    public StringContainsExample() { super(StringContains.class); }
+    public StringContainsExample() {
+        super(StringContains.class);
+    }
 
     @Override
     protected void runExamples() {
