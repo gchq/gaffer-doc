@@ -1,3 +1,4 @@
+# Properties Guide
 1. [Introduction](#introduction)
 2. [Running the Examples](#runningtheexamples)
 3. [Simple properties](#simpleproperties)
@@ -161,7 +162,7 @@ We also added in the [serialiser](https://github.com/gchq/Gaffer/blob/master/lib
 Only one entity is in the graph. This was added 1000 times, and each time it had the 'approxCardinality' property containing a vertex that A had been seen in an Edge with. Here is the Entity:
 
 ```
-Entity[vertex=A,group=cardinality,properties=Properties[approxCardinality=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@39b3cc59]]
+Entity[vertex=A,group=cardinality,properties=Properties[approxCardinality=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@65cc5252]]
 
 ```
 
@@ -507,7 +508,7 @@ final String quantilesEstimate = "Edge A-B with percentiles of double property -
 The results are as follows. This means that 25% of all the doubles on edge A-B had value less than -0.66, 50% had value less than -0.01 and 75% had value less than 0.64 (the results of the estimation are not deterministic so there may be small differences between the values below and those just quoted).
 
 ```
-Edge A-B with percentiles of double property - 25th percentile: -0.6630847714290219, 50th percentile: -0.009776218111167738, 75th percentile: 0.6311663168517678
+Edge A-B with percentiles of double property - 25th percentile: -0.6630847714290219, 50th percentile: -0.009261398929964838, 75th percentile: 0.6341803995604817
 
 ```
 
@@ -531,7 +532,7 @@ final String cdfEstimate = "Edge A-B with CDF values at 0: " + cdf[0]
 The results are:
 
 ```
-Edge A-B with CDF values at 0: 0.503, at 1: 0.843, at 2: 0.983
+Edge A-B with CDF values at 0: 0.511, at 1: 0.841, at 2: 0.987
 
 ```
 
@@ -650,7 +651,7 @@ for (int i = 0; i < 10 && i < samples.length; i++) {
 
 The results contain a random sample of the strings added to the edge:
 ```
-10 samples: FIACBDHCGH, FCBJIDCFFJ, IDHGFBFCFJ, JBDCIFIBCB, JCADGDBDDE, GFEDHHBBAH, AECCDCACAB, IBJCHACEEB, JIADDJJBJG, IBBAAFIDEA
+10 samples: HFBDHCCAHE, BIIDBDFFEC, AIJFFADCDD, ACJGDCIIHG, BDDGGACGEI, CBCDJDCFFD, EFFGFEFEDH, FAGIEBEGIJ, GAJIBECFGF, IBBGCHGGDG
 
 ```
 
@@ -679,7 +680,7 @@ for (int i = 0; i < 10 && i < neighboursSample.length; i++) {
 The results are:
 
 ```
-10 samples: Y101, Y6, Y35, Y389, Y374, Y370, Y402, Y272, Y243, Y321
+10 samples: Y120, Y267, Y246, Y448, Y244, Y55, Y357, Y256, Y220, Y247
 
 ```
 
@@ -1045,7 +1046,7 @@ There are two edges in the graph. Edge A-B was added 3 times, and each time it h
 
 ```
 Edge[source=A,destination=B,directed=false,group=red,properties=Properties[boundedTimestampSet=<uk.gov.gchq.gaffer.time.BoundedTimestampSet>BoundedTimestampSet[timeBucket=MINUTE,state=NOT_FULL,maxSize=25,timestamps=2017-02-12T14:21:00Z,2017-03-21T18:09:00Z,2017-12-24T08:00:00Z]]]
-Edge[source=A,destination=C,directed=false,group=red,properties=Properties[boundedTimestampSet=<uk.gov.gchq.gaffer.time.BoundedTimestampSet>BoundedTimestampSet[timeBucket=MINUTE,state=SAMPLE,maxSize=25,timestamps=2017-01-31T16:16:00Z,2017-02-03T07:32:00Z,2017-03-06T11:18:00Z,2017-03-08T17:07:00Z,2017-03-26T07:48:00Z,2017-04-02T17:27:00Z,2017-04-17T11:06:00Z,2017-04-24T04:30:00Z,2017-05-01T19:54:00Z,2017-05-04T02:12:00Z,2017-05-24T12:45:00Z,2017-06-11T21:03:00Z,2017-06-24T23:50:00Z,2017-07-31T01:42:00Z,2017-08-01T02:19:00Z,2017-08-16T14:37:00Z,2017-09-19T00:06:00Z,2017-09-20T01:47:00Z,2017-09-24T16:04:00Z,2017-10-01T12:52:00Z,2017-10-15T06:17:00Z,2017-10-19T20:44:00Z,2017-10-22T00:56:00Z,2017-11-07T21:50:00Z,2017-12-30T11:02:00Z]]]
+Edge[source=A,destination=C,directed=false,group=red,properties=Properties[boundedTimestampSet=<uk.gov.gchq.gaffer.time.BoundedTimestampSet>BoundedTimestampSet[timeBucket=MINUTE,state=SAMPLE,maxSize=25,timestamps=2017-01-17T14:36:00Z,2017-01-29T10:30:00Z,2017-02-03T18:42:00Z,2017-02-15T22:01:00Z,2017-02-27T09:59:00Z,2017-02-28T11:57:00Z,2017-03-16T21:21:00Z,2017-03-28T19:09:00Z,2017-04-14T08:18:00Z,2017-04-16T10:13:00Z,2017-04-19T23:54:00Z,2017-06-19T10:47:00Z,2017-06-25T15:48:00Z,2017-08-12T10:07:00Z,2017-08-17T12:17:00Z,2017-08-27T07:05:00Z,2017-08-28T08:08:00Z,2017-09-11T20:07:00Z,2017-10-20T01:23:00Z,2017-10-30T02:15:00Z,2017-11-01T16:59:00Z,2017-11-10T07:55:00Z,2017-11-12T05:21:00Z,2017-11-30T23:18:00Z,2017-12-03T01:26:00Z]]]
 
 ```
 
@@ -1062,9 +1063,6 @@ Properties class: java.lang.String
 
 Predicates:
 
-- [org.spark_project.jetty.http.PathMap$PathSet](ref://../javadoc/gaffer/org/spark_project/jetty/http/PathMap$PathSet.html)
-- [org.spark_project.jetty.http.pathmap.PathSpecSet](ref://../javadoc/gaffer/org/spark_project/jetty/http/pathmap/PathSpecSet.html)
-- [org.spark_project.jetty.util.RegexSet](ref://../javadoc/gaffer/org/spark_project/jetty/util/RegexSet.html)
 - [uk.gov.gchq.koryphe.impl.predicate.And](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/And.html)
 - [uk.gov.gchq.koryphe.impl.predicate.Exists](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/Exists.html)
 - [uk.gov.gchq.koryphe.impl.predicate.IsA](ref://../javadoc/koryphe/uk/gov/gchq/koryphe/impl/predicate/IsA.html)
@@ -1789,8 +1787,5 @@ Aggregators:
 To Bytes Serialisers:
 
 - [uk.gov.gchq.gaffer.time.serialisation.BoundedTimestampSetSerialiser](ref://../javadoc/gaffer/uk/gov/gchq/gaffer/time/serialisation/BoundedTimestampSetSerialiser.html)
-
-
-
 
 
