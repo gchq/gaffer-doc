@@ -6,7 +6,8 @@
     "prism",
     "-highlight",
     "github",
-    "anchorjs"
+    "anchorjs",
+    "otherlink"
   ],
   "pluginsConfig": {
     "github": {
@@ -17,5 +18,6 @@
         "website": "build/gitbook.css"
       }
     }
-  }
+  },
+  "root": "./docs"
 }

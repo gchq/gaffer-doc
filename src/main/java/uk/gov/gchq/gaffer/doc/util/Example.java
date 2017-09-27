@@ -31,8 +31,8 @@ public abstract class Example {
     public static final String DIVIDER = "-----------------------------------------------";
     public static final String TITLE_DIVIDER = DIVIDER;
     public static final String METHOD_DIVIDER = DIVIDER + "\n";
-    public static final String KORYPHE_JAVA_DOC_URL_PREFIX = "http://gchq.github.io/koryphe/";
-    public static final String JAVA_DOC_URL_PREFIX = "http://gchq.github.io/Gaffer/";
+    public static final String KORYPHE_JAVA_DOC_URL_PREFIX = "ref://../javadoc/koryphe/";
+    public static final String JAVA_DOC_URL_PREFIX = "ref://../javadoc/gaffer/";
     private final Class<?> classForExample;
     private final String description;
 
