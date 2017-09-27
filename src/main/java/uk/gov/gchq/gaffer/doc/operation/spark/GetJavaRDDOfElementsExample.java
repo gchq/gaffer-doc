@@ -15,8 +15,6 @@
  */
 package uk.gov.gchq.gaffer.doc.operation.spark;
 
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -35,7 +33,6 @@ import uk.gov.gchq.gaffer.spark.operation.javardd.GetJavaRDDOfElements;
 import uk.gov.gchq.gaffer.sparkaccumulo.operation.handler.AbstractGetRDDHandler;
 import uk.gov.gchq.gaffer.user.User;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -111,9 +108,7 @@ public class GetJavaRDDOfElementsExample extends OperationExample {
         log("#### get Java RDD of elements using Hadoop Configurations");
         final Configuration conf = new Configuration();
         conf.set("AN_OPTION", "A_VALUE");
-        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        conf.write(new DataOutputStream(baos));
-        final String encodedConf = Base64.encodeBase64String(baos.toByteArray());
+        final String encodedConf = AbstractGetRDDHandler.convertConfigurationToString(conf);
         final GetJavaRDDOfElements operation = new GetJavaRDDOfElements.Builder()
                 .input(new EdgeSeed(1, 2, true), new EdgeSeed(2, 3, true))
                 .javaSparkContext(sc)
@@ -121,9 +116,7 @@ public class GetJavaRDDOfElementsExample extends OperationExample {
                 .build();
         printJava("Configuration conf = new Configuration();\n"
                 + "conf.set(\"AN_OPTION\", \"A_VALUE\";\n"
-                + "ByteArrayOutputStream baos = new ByteArrayOutputStream();\n"
-                + "conf.write(new DataOutputStream(baos));"
-                + "String encodedConf = Base64.encodeBase64String(baos.toByteArray());\n"
+                + "String encodedConf = AbstractGetRDDHandler.convertConfigurationToString(conf);\n"
                 + "GetJavaRDDOfElements operation = new GetJavaRDDOfElements.Builder()\n"
                 + "                .input(new EdgeSeed(1, 2, true), new EdgeSeed(2, 3, true))\n"
                 + "                .javaSparkContext(sc)\n"
