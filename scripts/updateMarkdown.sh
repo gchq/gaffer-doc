@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-mvn clean install -Pquick
+#mvn clean install -Pquick
 
 mkdir -p getting-started
 
@@ -39,6 +39,17 @@ for component in $components; do
 done
 set -e
 
+mkdir -p docs/components/tool
+components="ui python-shell deployment slider";
+set +e
+for component in $components; do
+    echo "Fetching component: $component"
+    curl https://raw.githubusercontent.com/gchq/gaffer-tools/master/$component/README.md -o docs/components/tool/$component.md
+    sed -i '' '/This page has been copied from/d' docs/components/tool/$component.md > /dev/null 2>&1
+    sed -i '/This page has been copied from/d' docs/components/tool/$component.md > /dev/null 2>&1
+done
+set -e
+
 mkdir -p docs/stores
 stores="accumulo-store hbase-store map-store proxy-store parquet-store federated-store";
 set +e
@@ -54,5 +65,10 @@ set -e
 files=`grep -rl "Copyright 20" docs/components docs/stores`
 for file in $files; do
     tail -n +14 $file > .tmpFile
+    mv .tmpFile $file
+done
+files=`grep -rl "limitations under the License." docs/components docs/stores`
+for file in $files; do
+    tail -n +3 $file > .tmpFile
     mv .tmpFile $file
 done
