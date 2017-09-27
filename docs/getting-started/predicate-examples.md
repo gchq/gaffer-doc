@@ -62,10 +62,10 @@ Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
 <tr><td>java.lang.String</td><td></td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
-<tr><td>java.lang.Long</td><td>1506500250812</td><td>true</td></tr>
-<tr><td>java.lang.Long</td><td>1506500150812</td><td>false</td></tr>
-<tr><td>java.lang.Long</td><td>1506500350812</td><td>true</td></tr>
-<tr><td>java.lang.String</td><td>1506500250812</td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
+<tr><td>java.lang.Long</td><td>1506518637331</td><td>true</td></tr>
+<tr><td>java.lang.Long</td><td>1506518537331</td><td>false</td></tr>
+<tr><td>java.lang.Long</td><td>1506518737331</td><td>true</td></tr>
+<tr><td>java.lang.String</td><td>1506518637331</td><td>java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Long</td></tr>
 </table>
 
 -----------------------------------------------
@@ -104,12 +104,12 @@ final And function = new And<>(
 g.And( 
   predicates=[ 
     g.IsLessThan( 
-      or_equal_to=False, 
-      value=3 
+      value=3, 
+      or_equal_to=False 
     ), 
     g.IsMoreThan( 
-      or_equal_to=False, 
-      value=0 
+      value=0, 
+      or_equal_to=False 
     ) 
   ] 
 )
@@ -172,22 +172,22 @@ final And function = new And.Builder()
 g.And( 
   predicates=[ 
     g.NestedPredicate( 
-      selection=[ 
-        0 
-      ], 
       predicate=g.IsLessThan( 
         value=2, 
         or_equal_to=False 
-      ) 
+      ), 
+      selection=[ 
+        0 
+      ] 
     ), 
     g.NestedPredicate( 
-      selection=[ 
-        1 
-      ], 
       predicate=g.IsMoreThan( 
         value=5, 
         or_equal_to=False 
-      ) 
+      ), 
+      selection=[ 
+        1 
+      ] 
     ) 
   ] 
 )
@@ -406,8 +406,8 @@ final HyperLogLogPlusIsLessThan function = new HyperLogLogPlusIsLessThan(2);
 
 {%- language name="Python", type="py" -%}
 g.HyperLogLogPlusIsLessThan( 
-  or_equal_to=False, 
-  value=2 
+  value=2, 
+  or_equal_to=False 
 )
 
 {%- endcodetabs %}
@@ -421,9 +421,9 @@ com.clearspring.analytics.stream.cardinality.HyperLogLogPlus
 Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@21588b5</td><td>true</td></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@32b9efd9</td><td>false</td></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@12fd7327</td><td>false</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@105f7667</td><td>true</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@2d1f9dcc</td><td>false</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@53d4cb7f</td><td>false</td></tr>
 </table>
 
 -----------------------------------------------
@@ -443,8 +443,8 @@ final HyperLogLogPlusIsLessThan function = new HyperLogLogPlusIsLessThan(2, true
 
 {%- language name="Python", type="py" -%}
 g.HyperLogLogPlusIsLessThan( 
-  or_equal_to=True, 
-  value=2 
+  value=2, 
+  or_equal_to=True 
 )
 
 {%- endcodetabs %}
@@ -458,9 +458,9 @@ com.clearspring.analytics.stream.cardinality.HyperLogLogPlus
 Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@21588b5</td><td>true</td></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@32b9efd9</td><td>true</td></tr>
-<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@12fd7327</td><td>false</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@105f7667</td><td>true</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@2d1f9dcc</td><td>true</td></tr>
+<tr><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</td><td>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@53d4cb7f</td><td>false</td></tr>
 </table>
 
 -----------------------------------------------
@@ -818,8 +818,8 @@ final IsLessThan function = new IsLessThan(5, true);
 
 {%- language name="Python", type="py" -%}
 g.IsLessThan( 
-  value=5, 
-  or_equal_to=True 
+  or_equal_to=True, 
+  value=5 
 )
 
 {%- endcodetabs %}
@@ -861,8 +861,8 @@ final IsLessThan function = new IsLessThan(5L);
 
 {%- language name="Python", type="py" -%}
 g.IsLessThan( 
-  value={'java.lang.Long': 5}, 
-  or_equal_to=False 
+  or_equal_to=False, 
+  value={'java.lang.Long': 5} 
 )
 
 {%- endcodetabs %}
@@ -947,8 +947,8 @@ final IsMoreThan function = new IsMoreThan(5);
 
 {%- language name="Python", type="py" -%}
 g.IsMoreThan( 
-  or_equal_to=False, 
-  value=5 
+  value=5, 
+  or_equal_to=False 
 )
 
 {%- endcodetabs %}
@@ -1064,8 +1064,8 @@ final IsMoreThan function = new IsMoreThan("B");
 
 {%- language name="Python", type="py" -%}
 g.IsMoreThan( 
-  value="B", 
-  or_equal_to=False 
+  or_equal_to=False, 
+  value="B" 
 )
 
 {%- endcodetabs %}
@@ -1126,8 +1126,8 @@ Example inputs:
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
 <tr><td>java.lang.String</td><td>123</td><td>true</td></tr>
 <tr><td>java.lang.String</td><td>1234</td><td>false</td></tr>
-<tr><td>[Ljava.lang.Integer;</td><td>[Ljava.lang.Integer;@1b8519e0</td><td>true</td></tr>
-<tr><td>[Ljava.lang.Integer;</td><td>[Ljava.lang.Integer;@621835fc</td><td>false</td></tr>
+<tr><td>[Ljava.lang.Integer;</td><td>[Ljava.lang.Integer;@1bff9e57</td><td>true</td></tr>
+<tr><td>[Ljava.lang.Integer;</td><td>[Ljava.lang.Integer;@6e852164</td><td>false</td></tr>
 <tr><td>java.util.ArrayList</td><td>[1, 2, 3]</td><td>true</td></tr>
 <tr><td>java.util.ArrayList</td><td>[1, 2, 3, 4]</td><td>false</td></tr>
 <tr><td>java.util.HashMap</td><td>{1=a, 2=b, 3=c}</td><td>true</td></tr>
@@ -1684,22 +1684,22 @@ final Or function = new Or.Builder()
 g.Or( 
   predicates=[ 
     g.NestedPredicate( 
-      selection=[ 
-        0 
-      ], 
       predicate=g.IsLessThan( 
         or_equal_to=False, 
         value=2 
-      ) 
+      ), 
+      selection=[ 
+        0 
+      ] 
     ), 
     g.NestedPredicate( 
-      selection=[ 
-        1 
-      ], 
       predicate=g.IsMoreThan( 
         or_equal_to=False, 
         value=10 
-      ) 
+      ), 
+      selection=[ 
+        1 
+      ] 
     ) 
   ] 
 )
@@ -1753,11 +1753,11 @@ final PredicateMap function = new PredicateMap("key1", new IsMoreThan(2L));
 
 {%- language name="Python", type="py" -%}
 g.PredicateMap( 
-  key="key1", 
   predicate=g.IsMoreThan( 
-    or_equal_to=False, 
-    value={'java.lang.Long': 2} 
-  ) 
+    value={'java.lang.Long': 2}, 
+    or_equal_to=False 
+  ), 
+  key="key1" 
 )
 
 {%- endcodetabs %}
@@ -1801,11 +1801,11 @@ final PredicateMap function = new PredicateMap("key1", new IsMoreThan(2L, true))
 
 {%- language name="Python", type="py" -%}
 g.PredicateMap( 
-  key="key1", 
   predicate=g.IsMoreThan( 
-    or_equal_to=True, 
-    value={'java.lang.Long': 2} 
-  ) 
+    value={'java.lang.Long': 2}, 
+    or_equal_to=True 
+  ), 
+  key="key1" 
 )
 
 {%- endcodetabs %}
@@ -1847,8 +1847,8 @@ final PredicateMap function = new PredicateMap(new Date(0L), new Exists());
 
 {%- language name="Python", type="py" -%}
 g.PredicateMap( 
-  key={'java.util.Date': 0}, 
-  predicate=g.Exists() 
+  predicate=g.Exists(), 
+  key={'java.util.Date': 0} 
 )
 
 {%- endcodetabs %}
@@ -1863,7 +1863,7 @@ Example inputs:
 <table>
 <tr><th>Type</th><th>Input</th><th>Result</th></tr>
 <tr><td>java.util.HashMap</td><td>{Thu Jan 01 01:00:00 GMT 1970=1}</td><td>true</td></tr>
-<tr><td>java.util.HashMap</td><td>{Wed Sep 27 09:17:33 BST 2017=2}</td><td>false</td></tr>
+<tr><td>java.util.HashMap</td><td>{Wed Sep 27 14:23:59 BST 2017=2}</td><td>false</td></tr>
 </table>
 
 -----------------------------------------------
@@ -1979,8 +1979,8 @@ final StringContains function = new StringContains("test", true);
 
 {%- language name="Python", type="py" -%}
 g.StringContains( 
-  ignore_case=True, 
-  value="test" 
+  value="test", 
+  ignore_case=True 
 )
 
 {%- endcodetabs %}

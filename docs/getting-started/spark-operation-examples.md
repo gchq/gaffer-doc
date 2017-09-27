@@ -300,6 +300,23 @@ Entity[vertex=2,group=entity,properties=Properties[count=<java.lang.Integer>1]]
 Edge[source=2,destination=3,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>2]]
 Entity[vertex=3,group=entity,properties=Properties[count=<java.lang.Integer>2]]
 ```
+
+#### get Java RDD of elements using Hadoop Configurations
+
+
+```java
+Configuration conf = new Configuration();
+conf.set("AN_OPTION", "A_VALUE";
+String encodedConf = AbstractGetRDDHandler.convertConfigurationToString(conf);
+GetJavaRDDOfElements operation = new GetJavaRDDOfElements.Builder()
+                .input(new EdgeSeed(1, 2, true), new EdgeSeed(2, 3, true))
+                .javaSparkContext(sc)
+                .option(AbstractGetRddHandler.HADOOP_CONFIGURATION_KEY, encodedConf)
+                .build();
+JavaRDD<Element> rdd = graph.execute(operation, new User("user01"));
+List<Element> elements = rdd.collect();
+```
+
 #### get Java RDD of elements returning edges only
 
 Using this simple directed graph:

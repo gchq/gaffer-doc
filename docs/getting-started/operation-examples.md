@@ -102,22 +102,22 @@ new AddElements.Builder()
 
 {%- language name="Python", type="py" -%}
 g.AddElements( 
+  validate=True, 
   skip_invalid_elements=False, 
   input=[ 
     g.Entity( 
-      vertex=6, 
+      properties={'count': 1}, 
       group="entity", 
-      properties={'count': 1} 
+      vertex=6 
     ), 
     g.Edge( 
-      directed=True, 
-      destination=6, 
-      group="edge", 
       properties={'count': 1}, 
-      source=5 
+      directed=True, 
+      source=5, 
+      destination=6, 
+      group="edge" 
     ) 
-  ], 
-  validate=True 
+  ] 
 )
 
 {%- endcodetabs %}
@@ -171,11 +171,11 @@ final AddElementsFromFile op = new AddElementsFromFile.Builder()
 
 {%- language name="Python", type="py" -%}
 g.AddElementsFromFile( 
-  parallelism=1, 
-  element_generator="uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator", 
   validate=True, 
+  parallelism=1, 
   filename="filename", 
-  skip_invalid_elements=False 
+  skip_invalid_elements=False, 
+  element_generator="uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator" 
 )
 
 {%- endcodetabs %}
@@ -366,15 +366,15 @@ final AddElementsFromKafka op = new AddElementsFromKafka.Builder()
 
 {%- language name="Python", type="py" -%}
 g.AddElementsFromKafka( 
+  skip_invalid_elements=False, 
+  element_generator="uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator", 
+  group_id="groupId1", 
+  validate=True, 
   topic="topic1", 
   parallelism=1, 
-  group_id="groupId1", 
   bootstrap_servers=[ 
     "hostname1:8080,hostname2:8080" 
-  ], 
-  element_generator="uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator", 
-  validate=True, 
-  skip_invalid_elements=False 
+  ] 
 )
 
 {%- endcodetabs %}
@@ -425,13 +425,13 @@ final AddElementsFromSocket op = new AddElementsFromSocket.Builder()
 
 {%- language name="Python", type="py" -%}
 g.AddElementsFromSocket( 
-  parallelism=1, 
   element_generator="uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator", 
-  skip_invalid_elements=False, 
   delimiter=",", 
   validate=True, 
-  hostname="localhost", 
-  port=8080 
+  skip_invalid_elements=False, 
+  port=8080, 
+  parallelism=1, 
+  hostname="localhost" 
 )
 
 {%- endcodetabs %}
@@ -680,7 +680,7 @@ g.OperationChain(
 Result:
 
 ```
-JobDetail[jobId=31fddcda-3f4b-454c-827c-65fa8f1ed9ef,userId=user01,status=RUNNING,startTime=1506500161870,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@6ab862dc, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@71ad1d56, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@1f7a8807, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@307918ae]]]
+JobDetail[jobId=98d950a8-7b9c-411f-b9bc-3fa2989b3cfe,userId=user01,status=RUNNING,startTime=1506518571114,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@45c41b19, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@6014382f, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@19ee41c0, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@6c8f42ee]]]
 ```
 -----------------------------------------------
 
@@ -711,7 +711,7 @@ final OperationChain<CloseableIterable<?>> opChain = new OperationChain.Builder(
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
     "class" : "uk.gov.gchq.gaffer.operation.impl.export.resultcache.GetGafferResultCacheExport",
-    "jobId" : "31fddcda-3f4b-454c-827c-65fa8f1ed9ef",
+    "jobId" : "98d950a8-7b9c-411f-b9bc-3fa2989b3cfe",
     "key" : "ALL"
   } ]
 }
@@ -720,7 +720,7 @@ final OperationChain<CloseableIterable<?>> opChain = new OperationChain.Builder(
 g.OperationChain( 
   operations=[ 
     g.GetGafferResultCacheExport( 
-      job_id="31fddcda-3f4b-454c-827c-65fa8f1ed9ef", 
+      job_id="98d950a8-7b9c-411f-b9bc-3fa2989b3cfe", 
       key="ALL" 
     ) 
   ] 
@@ -989,12 +989,12 @@ g.OperationChain(
   operations=[ 
     g.GetAllElements( 
       view=g.View( 
-        entities=[ 
-        ], 
         edges=[ 
           g.ElementDefinition( 
             group="edge" 
           ) 
+        ], 
+        entities=[ 
         ] 
       ) 
     ), 
@@ -1069,12 +1069,12 @@ g.OperationChain(
   operations=[ 
     g.GetAllElements( 
       view=g.View( 
+        entities=[ 
+        ], 
         edges=[ 
           g.ElementDefinition( 
             group="edge" 
           ) 
-        ], 
-        entities=[ 
         ] 
       ) 
     ), 
@@ -1179,19 +1179,19 @@ g.OperationChain(
   operations=[ 
     g.GetAllElements( 
       view=g.View( 
-        entities=[ 
-        ], 
         edges=[ 
           g.ElementDefinition( 
             group="edge" 
           ) 
+        ], 
+        entities=[ 
         ] 
       ) 
     ), 
     g.ExportToOtherGraph( 
-      store_properties={'gaffer.cache.service.class': 'uk.gov.gchq.gaffer.cache.impl.HashMapCacheService', 'accumulo.user': 'user01', 'accumulo.zookeepers': 'aZookeeper', 'gaffer.store.job.tracker.enabled': 'true', 'gaffer.store.operation.declarations': 'ExportToOtherGraphOperationDeclarations.json', 'gaffer.store.properties.class': 'uk.gov.gchq.gaffer.accumulostore.AccumuloProperties', 'gaffer.store.class': 'uk.gov.gchq.gaffer.accumulostore.MockAccumuloStore', 'accumulo.password': 'password', 'accumulo.instance': 'someInstanceName'}, 
-      schema={'entities': {'entity': {'vertex': 'int', 'groupBy': [], 'properties': {'count': 'int'}}}, 'types': {'int': {'aggregateFunction': {'class': 'uk.gov.gchq.koryphe.impl.binaryoperator.Sum'}, 'class': 'java.lang.Integer'}, 'true': {'class': 'java.lang.Boolean', 'validateFunctions': [{"class": "uk.gov.gchq.koryphe.impl.predicate.IsTrue"}]}}, 'edges': {'edge': {'directed': 'true', 'groupBy': [], 'properties': {'count': 'int'}, 'source': 'int', 'destination': 'int'}}}, 
-      graph_id="newGraphId" 
+      store_properties={'accumulo.user': 'user01', 'accumulo.password': 'password', 'accumulo.zookeepers': 'aZookeeper', 'gaffer.store.operation.declarations': 'ExportToOtherGraphOperationDeclarations.json', 'gaffer.store.class': 'uk.gov.gchq.gaffer.accumulostore.MockAccumuloStore', 'gaffer.store.properties.class': 'uk.gov.gchq.gaffer.accumulostore.AccumuloProperties', 'gaffer.cache.service.class': 'uk.gov.gchq.gaffer.cache.impl.HashMapCacheService', 'gaffer.store.job.tracker.enabled': 'true', 'accumulo.instance': 'someInstanceName'}, 
+      graph_id="newGraphId", 
+      schema={'types': {'int': {'aggregateFunction': {'class': 'uk.gov.gchq.koryphe.impl.binaryoperator.Sum'}, 'class': 'java.lang.Integer'}, 'true': {'class': 'java.lang.Boolean', 'validateFunctions': [{"class": "uk.gov.gchq.koryphe.impl.predicate.IsTrue"}]}}, 'edges': {'edge': {'destination': 'int', 'source': 'int', 'groupBy': [], 'properties': {'count': 'int'}, 'directed': 'true'}}, 'entities': {'entity': {'vertex': 'int', 'groupBy': [], 'properties': {'count': 'int'}}}} 
     ) 
   ] 
 )
@@ -1265,7 +1265,7 @@ g.OperationChain(
       ) 
     ), 
     g.ExportToOtherGraph( 
-      store_properties={'gaffer.store.properties.class': 'uk.gov.gchq.gaffer.proxystore.ProxyProperties', 'gaffer.port': '8081', 'gaffer.host': 'localhost', 'gaffer.store.class': 'uk.gov.gchq.gaffer.proxystore.ProxyStore', 'gaffer.context-root': '/rest/v1'}, 
+      store_properties={'gaffer.store.class': 'uk.gov.gchq.gaffer.proxystore.ProxyStore', 'gaffer.port': '8081', 'gaffer.store.properties.class': 'uk.gov.gchq.gaffer.proxystore.ProxyProperties', 'gaffer.context-root': '/rest/v1', 'gaffer.host': 'localhost'}, 
       graph_id="otherGafferRestApiGraphId" 
     ) 
   ] 
@@ -1346,12 +1346,12 @@ g.OperationChain(
   operations=[ 
     g.GetAllElements( 
       view=g.View( 
-        entities=[ 
-        ], 
         edges=[ 
           g.ElementDefinition( 
             group="edge" 
           ) 
+        ], 
+        entities=[ 
         ] 
       ) 
     ), 
@@ -1450,11 +1450,11 @@ g.OperationChain(
       ) 
     ), 
     g.ExportToOtherGraph( 
+      parent_store_properties_id="exportStorePropertiesId", 
+      graph_id="newGraphId", 
       parent_schema_ids=[ 
         "exportSchemaId" 
-      ], 
-      parent_store_properties_id="exportStorePropertiesId", 
-      graph_id="newGraphId" 
+      ] 
     ) 
   ] 
 )
@@ -1592,8 +1592,8 @@ g.OperationChain(
     g.ExportToSet(), 
     g.DiscardOutput(), 
     g.GetSetExport( 
-      end=4, 
-      start=2 
+      start=2, 
+      end=4 
     ) 
   ] 
 )
@@ -1780,14 +1780,14 @@ final GenerateElements<String> operation = new GenerateElements.Builder<String>(
 
 {%- language name="Python", type="py" -%}
 g.GenerateElements( 
-  element_generator=g.ElementGenerator( 
-    fields={}, 
-    class_name="uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator" 
-  ), 
   input=[ 
     "1,1", 
     "1,2,1" 
-  ] 
+  ], 
+  element_generator=g.ElementGenerator( 
+    class_name="uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator", 
+    fields={} 
+  ) 
 )
 
 {%- endcodetabs %}
@@ -1843,8 +1843,8 @@ final GenerateElements<Object> operation = new GenerateElements.Builder<>()
 {%- language name="Python", type="py" -%}
 g.GenerateElements( 
   input=[ 
-    {'a': 1, 'c': 1, 'class': 'uk.gov.gchq.gaffer.doc.operation.GenerateElementsExample$DomainObject1'}, 
-    {'b': 2, 'a': 1, 'c': 1, 'class': 'uk.gov.gchq.gaffer.doc.operation.GenerateElementsExample$DomainObject2'} 
+    {'c': 1, 'a': 1, 'class': 'uk.gov.gchq.gaffer.doc.operation.GenerateElementsExample$DomainObject1'}, 
+    {'c': 1, 'a': 1, 'class': 'uk.gov.gchq.gaffer.doc.operation.GenerateElementsExample$DomainObject2', 'b': 2} 
   ], 
   element_generator=g.ElementGenerator( 
     class_name="uk.gov.gchq.gaffer.doc.operation.GenerateElementsExample$DomainObjectGenerator", 
@@ -1933,21 +1933,21 @@ final GenerateObjects<String> operation = new GenerateObjects.Builder<String>()
 g.GenerateObjects( 
   input=[ 
     g.Entity( 
-      properties={'count': 1}, 
       vertex=6, 
+      properties={'count': 1}, 
       group="entity" 
     ), 
     g.Edge( 
-      properties={'count': 1}, 
-      group="edge", 
+      directed=True, 
       destination=6, 
       source=5, 
-      directed=True 
+      group="edge", 
+      properties={'count': 1} 
     ) 
   ], 
   element_generator=g.ElementGenerator( 
-    class_name="uk.gov.gchq.gaffer.doc.operation.generator.ObjectGenerator", 
-    fields={} 
+    fields={}, 
+    class_name="uk.gov.gchq.gaffer.doc.operation.generator.ObjectGenerator" 
   ) 
 )
 
@@ -2018,10 +2018,6 @@ final GenerateObjects<Object> operation = new GenerateObjects.Builder<>()
 
 {%- language name="Python", type="py" -%}
 g.GenerateObjects( 
-  element_generator=g.ElementGenerator( 
-    class_name="uk.gov.gchq.gaffer.doc.operation.GenerateObjectsExample$DomainObjectGenerator", 
-    fields={} 
-  ), 
   input=[ 
     g.Entity( 
       vertex=6, 
@@ -2029,13 +2025,17 @@ g.GenerateObjects(
       group="entity" 
     ), 
     g.Edge( 
-      source=5, 
-      properties={'count': 1}, 
-      destination=6, 
+      directed=True, 
       group="edge", 
-      directed=True 
+      source=5, 
+      destination=6, 
+      properties={'count': 1} 
     ) 
-  ] 
+  ], 
+  element_generator=g.ElementGenerator( 
+    class_name="uk.gov.gchq.gaffer.doc.operation.GenerateObjectsExample$DomainObjectGenerator", 
+    fields={} 
+  ) 
 )
 
 {%- endcodetabs %}
@@ -2142,12 +2142,12 @@ final GetAdjacentIds operation = new GetAdjacentIds.Builder()
 
 {%- language name="Python", type="py" -%}
 g.GetAdjacentIds( 
-  include_incoming_out_going="OUTGOING", 
   input=[ 
     g.EntitySeed( 
       vertex=2 
     ) 
-  ] 
+  ], 
+  include_incoming_out_going="OUTGOING" 
 )
 
 {%- endcodetabs %}
@@ -2217,18 +2217,23 @@ final GetAdjacentIds operation = new GetAdjacentIds.Builder()
 
 {%- language name="Python", type="py" -%}
 g.GetAdjacentIds( 
+  input=[ 
+    g.EntitySeed( 
+      vertex=2 
+    ) 
+  ], 
   view=g.View( 
     edges=[ 
       g.ElementDefinition( 
         pre_aggregation_filter_functions=[ 
           g.PredicateContext( 
-            predicate=g.IsMoreThan( 
-              or_equal_to=False, 
-              value=1 
-            ), 
             selection=[ 
               "count" 
-            ] 
+            ], 
+            predicate=g.IsMoreThan( 
+              value=1, 
+              or_equal_to=False 
+            ) 
           ) 
         ], 
         group="edge" 
@@ -2237,11 +2242,6 @@ g.GetAdjacentIds(
     entities=[ 
     ] 
   ), 
-  input=[ 
-    g.EntitySeed( 
-      vertex=2 
-    ) 
-  ], 
   include_incoming_out_going="OUTGOING" 
 )
 
@@ -2379,7 +2379,6 @@ g.GetAllElements(
   view=g.View( 
     entities=[ 
       g.ElementDefinition( 
-        group="entity", 
         pre_aggregation_filter_functions=[ 
           g.PredicateContext( 
             selection=[ 
@@ -2390,12 +2389,12 @@ g.GetAllElements(
               or_equal_to=False 
             ) 
           ) 
-        ] 
+        ], 
+        group="entity" 
       ) 
     ], 
     edges=[ 
       g.ElementDefinition( 
-        group="edge", 
         pre_aggregation_filter_functions=[ 
           g.PredicateContext( 
             selection=[ 
@@ -2406,7 +2405,8 @@ g.GetAllElements(
               or_equal_to=False 
             ) 
           ) 
-        ] 
+        ], 
+        group="edge" 
       ) 
     ] 
   ) 
@@ -2466,8 +2466,8 @@ g.GetAllJobDetails()
 Result:
 
 ```
-JobDetail[jobId=4955716b-3c40-4d39-b35b-04b705894810,userId=UNKNOWN,status=FINISHED,startTime=1506500166474,endTime=1506500166475,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements@20c70d20, AddElements[validate=true,skipInvalidElements=false,elements=uk.gov.gchq.gaffer.data.generator.OneToOneElementGenerator$1@11fca628]]]]
-JobDetail[jobId=a46cb093-9b14-45c9-b300-ce2e91926a94,userId=user01,status=RUNNING,startTime=1506500166527,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.job.GetAllJobDetails@7df28863]]]
+JobDetail[jobId=786dec36-7dd4-4b17-9411-b24c0b565f9e,userId=user01,status=RUNNING,startTime=1506518575295,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.job.GetAllJobDetails@45ebea54]]]
+JobDetail[jobId=d2ed2702-f72c-4fde-9b87-6fbdebce04b0,userId=UNKNOWN,status=FINISHED,startTime=1506518575247,endTime=1506518575247,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements@23e8da0d, AddElements[validate=true,skipInvalidElements=false,elements=uk.gov.gchq.gaffer.data.generator.OneToOneElementGenerator$1@10a1ed19]]]]
 ```
 -----------------------------------------------
 
@@ -2525,9 +2525,9 @@ g.GetElements(
     ), 
     g.EdgeSeed( 
       source=2, 
+      directed_type="EITHER", 
       matched_vertex="SOURCE", 
-      destination=3, 
-      directed_type="EITHER" 
+      destination=3 
     ) 
   ] 
 )
@@ -2625,51 +2625,51 @@ final GetElements operation = new GetElements.Builder()
 
 {%- language name="Python", type="py" -%}
 g.GetElements( 
-  view=g.View( 
-    entities=[ 
-      g.ElementDefinition( 
-        pre_aggregation_filter_functions=[ 
-          g.PredicateContext( 
-            predicate=g.IsMoreThan( 
-              value=1, 
-              or_equal_to=False 
-            ), 
-            selection=[ 
-              "count" 
-            ] 
-          ) 
-        ], 
-        group="entity" 
-      ) 
-    ], 
-    edges=[ 
-      g.ElementDefinition( 
-        pre_aggregation_filter_functions=[ 
-          g.PredicateContext( 
-            predicate=g.IsMoreThan( 
-              value=1, 
-              or_equal_to=False 
-            ), 
-            selection=[ 
-              "count" 
-            ] 
-          ) 
-        ], 
-        group="edge" 
-      ) 
-    ] 
-  ), 
   input=[ 
     g.EntitySeed( 
       vertex=2 
     ), 
     g.EdgeSeed( 
       source=2, 
+      destination=3, 
       matched_vertex="SOURCE", 
-      directed_type="EITHER", 
-      destination=3 
+      directed_type="EITHER" 
     ) 
-  ] 
+  ], 
+  view=g.View( 
+    edges=[ 
+      g.ElementDefinition( 
+        group="edge", 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            selection=[ 
+              "count" 
+            ], 
+            predicate=g.IsMoreThan( 
+              or_equal_to=False, 
+              value=1 
+            ) 
+          ) 
+        ] 
+      ) 
+    ], 
+    entities=[ 
+      g.ElementDefinition( 
+        group="entity", 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            selection=[ 
+              "count" 
+            ], 
+            predicate=g.IsMoreThan( 
+              or_equal_to=False, 
+              value=1 
+            ) 
+          ) 
+        ] 
+      ) 
+    ] 
+  ) 
 )
 
 {%- endcodetabs %}
@@ -2771,10 +2771,10 @@ final GetElements operation = new GetElements.Builder()
 g.GetElements( 
   input=[ 
     g.EdgeSeed( 
-      directed_type="EITHER", 
-      matched_vertex="SOURCE", 
       destination=2, 
-      source=1 
+      source=1, 
+      directed_type="EITHER", 
+      matched_vertex="SOURCE" 
     ) 
   ] 
 )
@@ -2866,43 +2866,43 @@ final GetElements operation = new GetElements.Builder()
 g.GetElements( 
   input=[ 
     g.EdgeSeed( 
-      source=1, 
-      directed_type="EITHER", 
       matched_vertex="SOURCE", 
+      directed_type="EITHER", 
+      source=1, 
       destination=2 
     ) 
   ], 
   view=g.View( 
-    edges=[ 
-      g.ElementDefinition( 
-        pre_aggregation_filter_functions=[ 
-          g.PredicateContext( 
-            selection=[ 
-              "count" 
-            ], 
-            predicate=g.IsMoreThan( 
-              or_equal_to=False, 
-              value=1 
-            ) 
-          ) 
-        ], 
-        group="edge" 
-      ) 
-    ], 
     entities=[ 
       g.ElementDefinition( 
+        group="entity", 
         pre_aggregation_filter_functions=[ 
           g.PredicateContext( 
             selection=[ 
               "count" 
             ], 
             predicate=g.IsMoreThan( 
-              or_equal_to=False, 
-              value=1 
+              value=1, 
+              or_equal_to=False 
             ) 
           ) 
-        ], 
-        group="entity" 
+        ] 
+      ) 
+    ], 
+    edges=[ 
+      g.ElementDefinition( 
+        group="edge", 
+        pre_aggregation_filter_functions=[ 
+          g.PredicateContext( 
+            selection=[ 
+              "count" 
+            ], 
+            predicate=g.IsMoreThan( 
+              value=1, 
+              or_equal_to=False 
+            ) 
+          ) 
+        ] 
       ) 
     ] 
   ) 
@@ -2993,38 +2993,38 @@ g.GetElements(
       vertex=2 
     ), 
     g.EdgeSeed( 
-      matched_vertex="SOURCE", 
-      destination=3, 
       directed_type="EITHER", 
+      destination=3, 
+      matched_vertex="SOURCE", 
       source=2 
     ) 
   ], 
   view=g.View( 
-    edges=[ 
-    ], 
     entities=[ 
       g.ElementDefinition( 
+        group="entity", 
         pre_aggregation_filter_functions=[ 
           g.PredicateContext( 
+            selection=[ 
+              "count" 
+            ], 
             predicate=g.Or( 
               predicates=[ 
                 g.IsLessThan( 
-                  value=2, 
-                  or_equal_to=False 
+                  or_equal_to=False, 
+                  value=2 
                 ), 
                 g.IsMoreThan( 
-                  value=5, 
-                  or_equal_to=False 
+                  or_equal_to=False, 
+                  value=5 
                 ) 
               ] 
-            ), 
-            selection=[ 
-              "count" 
-            ] 
+            ) 
           ) 
-        ], 
-        group="entity" 
+        ] 
       ) 
+    ], 
+    edges=[ 
     ] 
   ) 
 )
@@ -3123,32 +3123,32 @@ g.GetElements(
         group="edge", 
         pre_aggregation_filter_functions=[ 
           g.PredicateContext( 
-            predicate=g.Or( 
-              predicates=[ 
-                g.NestedPredicate( 
-                  predicate=g.IsLessThan( 
-                    or_equal_to=False, 
-                    value=2 
-                  ), 
-                  selection=[ 
-                    0 
-                  ] 
-                ), 
-                g.NestedPredicate( 
-                  predicate=g.IsMoreThan( 
-                    or_equal_to=False, 
-                    value=3 
-                  ), 
-                  selection=[ 
-                    1 
-                  ] 
-                ) 
-              ] 
-            ), 
             selection=[ 
               "SOURCE", 
               "DESTINATION" 
-            ] 
+            ], 
+            predicate=g.Or( 
+              predicates=[ 
+                g.NestedPredicate( 
+                  selection=[ 
+                    0 
+                  ], 
+                  predicate=g.IsLessThan( 
+                    value=2, 
+                    or_equal_to=False 
+                  ) 
+                ), 
+                g.NestedPredicate( 
+                  selection=[ 
+                    1 
+                  ], 
+                  predicate=g.IsMoreThan( 
+                    value=3, 
+                    or_equal_to=False 
+                  ) 
+                ) 
+              ] 
+            ) 
           ) 
         ] 
       ) 
@@ -3243,26 +3243,26 @@ g.GetElements(
   view=g.View( 
     edges=[ 
       g.ElementDefinition( 
+        transient_properties={'vertex|count': 'java.lang.String'}, 
         properties=[ 
           "vertex|count" 
         ], 
         transform_functions=[ 
           g.FunctionContext( 
-            selection=[ 
-              "SOURCE", 
-              "count" 
-            ], 
             function=g.Function( 
               class_name="uk.gov.gchq.koryphe.impl.function.Concat", 
               fields={'separator': '|'} 
             ), 
+            selection=[ 
+              "SOURCE", 
+              "count" 
+            ], 
             projection=[ 
               "vertex|count" 
             ] 
           ) 
         ], 
-        group="edge", 
-        transient_properties={'vertex|count': 'java.lang.String'} 
+        group="edge" 
       ) 
     ], 
     entities=[ 
@@ -3348,26 +3348,26 @@ g.GetElements(
   view=g.View( 
     edges=[ 
       g.ElementDefinition( 
-        group="edge", 
+        exclude_properties=[ 
+          "count" 
+        ], 
+        transient_properties={'vertex|count': 'java.lang.String'}, 
         transform_functions=[ 
           g.FunctionContext( 
             selection=[ 
               "SOURCE", 
               "count" 
             ], 
-            projection=[ 
-              "vertex|count" 
-            ], 
             function=g.Function( 
               class_name="uk.gov.gchq.koryphe.impl.function.Concat", 
               fields={'separator': '|'} 
-            ) 
+            ), 
+            projection=[ 
+              "vertex|count" 
+            ] 
           ) 
         ], 
-        exclude_properties=[ 
-          "count" 
-        ], 
-        transient_properties={'vertex|count': 'java.lang.String'} 
+        group="edge" 
       ) 
     ], 
     entities=[ 
@@ -3524,7 +3524,7 @@ g.OperationChain(
 Result:
 
 ```
-JobDetail[jobId=afed94c3-89a5-4f15-9e8b-93ff06df2379,userId=user01,status=RUNNING,startTime=1506500167842,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@b460b1e, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@5e785ae3, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@3723bdb, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@56949cf6]]]
+JobDetail[jobId=f5ae5aae-4578-43bb-9520-eab7a1814900,userId=user01,status=RUNNING,startTime=1506518576513,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@19ee5d18, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@de79bbf, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@2d6e94c2, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@441b4ce4]]]
 ```
 -----------------------------------------------
 
@@ -3555,7 +3555,7 @@ final OperationChain<CloseableIterable<?>> opChain = new OperationChain.Builder(
   "class" : "uk.gov.gchq.gaffer.operation.OperationChain",
   "operations" : [ {
     "class" : "uk.gov.gchq.gaffer.operation.impl.export.resultcache.GetGafferResultCacheExport",
-    "jobId" : "afed94c3-89a5-4f15-9e8b-93ff06df2379",
+    "jobId" : "f5ae5aae-4578-43bb-9520-eab7a1814900",
     "key" : "ALL"
   } ]
 }
@@ -3565,7 +3565,7 @@ g.OperationChain(
   operations=[ 
     g.GetGafferResultCacheExport( 
       key="ALL", 
-      job_id="afed94c3-89a5-4f15-9e8b-93ff06df2379" 
+      job_id="f5ae5aae-4578-43bb-9520-eab7a1814900" 
     ) 
   ] 
 )
@@ -3772,7 +3772,7 @@ g.OperationChain(
 Result:
 
 ```
-JobDetail[jobId=3d04cb83-85fc-41a9-9009-0202e932ef4e,userId=user01,status=RUNNING,startTime=1506500168986,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@680ff429, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@4f34bf31, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@536c2a51]]]
+JobDetail[jobId=0897d79b-aeef-47ff-8cfe-f34e06594f2c,userId=user01,status=RUNNING,startTime=1506518577584,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@7fe806a9, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@71586399, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@5d231966]]]
 ```
 -----------------------------------------------
 
@@ -3799,12 +3799,12 @@ final GetJobDetails operation = new GetJobDetails.Builder()
 {%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails",
-  "jobId" : "3d04cb83-85fc-41a9-9009-0202e932ef4e"
+  "jobId" : "0897d79b-aeef-47ff-8cfe-f34e06594f2c"
 }
 
 {%- language name="Python", type="py" -%}
 g.GetJobDetails( 
-  job_id="3d04cb83-85fc-41a9-9009-0202e932ef4e" 
+  job_id="0897d79b-aeef-47ff-8cfe-f34e06594f2c" 
 )
 
 {%- endcodetabs %}
@@ -3812,7 +3812,7 @@ g.GetJobDetails(
 Result:
 
 ```
-JobDetail[jobId=3d04cb83-85fc-41a9-9009-0202e932ef4e,userId=user01,status=FINISHED,startTime=1506500168986,endTime=1506500168986,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@680ff429, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@4f34bf31, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@536c2a51]]]
+JobDetail[jobId=0897d79b-aeef-47ff-8cfe-f34e06594f2c,userId=user01,status=FINISHED,startTime=1506518577584,endTime=1506518577584,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetAllElements@7fe806a9, uk.gov.gchq.gaffer.operation.impl.DiscardOutput@71586399, uk.gov.gchq.gaffer.operation.impl.job.GetJobDetails@5d231966]]]
 ```
 -----------------------------------------------
 
@@ -3850,12 +3850,12 @@ final GetJobResults operation = new GetJobResults.Builder()
 {%- language name="JSON", type="json" -%}
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.job.GetJobResults",
-  "jobId" : "f0008059-ca24-4c76-97c1-522a953374e7"
+  "jobId" : "990d1e34-9b0c-482d-9239-98022f8f7d12"
 }
 
 {%- language name="Python", type="py" -%}
 g.GetJobResults( 
-  job_id="f0008059-ca24-4c76-97c1-522a953374e7" 
+  job_id="990d1e34-9b0c-482d-9239-98022f8f7d12" 
 )
 
 {%- endcodetabs %}
@@ -4006,8 +4006,8 @@ g.OperationChain(
     g.ExportToSet(), 
     g.DiscardOutput(), 
     g.GetSetExport( 
-      end=4, 
-      start=2 
+      start=2, 
+      end=4 
     ) 
   ] 
 )
@@ -4106,12 +4106,12 @@ g.OperationChain(
     g.GetExports( 
       get_exports=[ 
         g.GetSetExport( 
-          key="edges", 
-          start=0 
+          start=0, 
+          key="edges" 
         ), 
         g.GetSetExport( 
-          key="entities", 
-          start=0 
+          start=0, 
+          key="entities" 
         ) 
       ] 
     ) 
@@ -4200,8 +4200,8 @@ g.OperationChain(
   operations=[ 
     g.GetAllElements(), 
     g.Limit( 
-      truncate=True, 
-      result_limit=3 
+      result_limit=3, 
+      truncate=True 
     ) 
   ] 
 )
@@ -4393,12 +4393,12 @@ g.OperationChain(
     g.Max( 
       comparators=[ 
         g.ElementPropertyComparator( 
-          property="count", 
-          reversed=False, 
           groups=[ 
             "entity", 
             "edge" 
-          ] 
+          ], 
+          property="count", 
+          reversed=False 
         ) 
       ] 
     ) 
@@ -4533,44 +4533,44 @@ g.OperationChain(
       view=g.View( 
         entities=[ 
           g.ElementDefinition( 
-            group="entity", 
-            transient_properties={'score': 'java.lang.Integer'}, 
             transform_functions=[ 
               g.FunctionContext( 
-                projection=[ 
-                  "score" 
-                ], 
                 function=g.Function( 
                   class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction", 
                   fields={} 
                 ), 
+                projection=[ 
+                  "score" 
+                ], 
                 selection=[ 
                   "VERTEX", 
                   "count" 
                 ] 
               ) 
-            ] 
+            ], 
+            group="entity", 
+            transient_properties={'score': 'java.lang.Integer'} 
           ) 
         ], 
         edges=[ 
           g.ElementDefinition( 
-            group="edge", 
-            transient_properties={'score': 'java.lang.Integer'}, 
             transform_functions=[ 
               g.FunctionContext( 
-                projection=[ 
-                  "score" 
-                ], 
                 function=g.Function( 
                   class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction", 
                   fields={} 
                 ), 
+                projection=[ 
+                  "score" 
+                ], 
                 selection=[ 
                   "DESTINATION", 
                   "count" 
                 ] 
               ) 
-            ] 
+            ], 
+            group="edge", 
+            transient_properties={'score': 'java.lang.Integer'} 
           ) 
         ] 
       ), 
@@ -4586,19 +4586,19 @@ g.OperationChain(
     g.Max( 
       comparators=[ 
         g.ElementPropertyComparator( 
-          property="count", 
           groups=[ 
             "entity", 
             "edge" 
           ], 
+          property="count", 
           reversed=False 
         ), 
         g.ElementPropertyComparator( 
-          property="score", 
           groups=[ 
             "entity", 
             "edge" 
           ], 
+          property="score", 
           reversed=False 
         ) 
       ] 
@@ -4694,11 +4694,11 @@ g.OperationChain(
     g.Min( 
       comparators=[ 
         g.ElementPropertyComparator( 
+          reversed=False, 
           groups=[ 
             "entity", 
             "edge" 
           ], 
-          reversed=False, 
           property="count" 
         ) 
       ] 
@@ -4831,6 +4831,14 @@ final OperationChain<Element> opChain = new OperationChain.Builder()
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ], 
       view=g.View( 
         entities=[ 
           g.ElementDefinition( 
@@ -4839,15 +4847,15 @@ g.OperationChain(
             transform_functions=[ 
               g.FunctionContext( 
                 function=g.Function( 
-                  fields={}, 
-                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction" 
+                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction", 
+                  fields={} 
                 ), 
+                projection=[ 
+                  "score" 
+                ], 
                 selection=[ 
                   "VERTEX", 
                   "count" 
-                ], 
-                projection=[ 
-                  "score" 
                 ] 
               ) 
             ] 
@@ -4860,47 +4868,39 @@ g.OperationChain(
             transform_functions=[ 
               g.FunctionContext( 
                 function=g.Function( 
-                  fields={}, 
-                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction" 
+                  class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction", 
+                  fields={} 
                 ), 
+                projection=[ 
+                  "score" 
+                ], 
                 selection=[ 
                   "DESTINATION", 
                   "count" 
-                ], 
-                projection=[ 
-                  "score" 
                 ] 
               ) 
             ] 
           ) 
         ] 
-      ), 
-      input=[ 
-        g.EntitySeed( 
-          vertex=1 
-        ), 
-        g.EntitySeed( 
-          vertex=2 
-        ) 
-      ] 
+      ) 
     ), 
     g.Min( 
       comparators=[ 
         g.ElementPropertyComparator( 
-          property="count", 
           groups=[ 
             "entity", 
             "edge" 
           ], 
-          reversed=False 
+          reversed=False, 
+          property="count" 
         ), 
         g.ElementPropertyComparator( 
-          property="score", 
           groups=[ 
             "entity", 
             "edge" 
           ], 
-          reversed=False 
+          reversed=False, 
+          property="score" 
         ) 
       ] 
     ) 
@@ -4971,10 +4971,10 @@ final AddNamedOperation operation = new AddNamedOperation.Builder()
 
 {%- language name="Python", type="py" -%}
 g.AddNamedOperation( 
-  operation_name="2-hop", 
   write_access_roles=[ 
     "write-user" 
   ], 
+  operation_name="2-hop", 
   operation_chain=g.OperationChainDAO( 
     operations=[ 
       g.GetAdjacentIds( 
@@ -5064,7 +5064,21 @@ final AddNamedOperation operation = new AddNamedOperation.Builder()
 
 {%- language name="Python", type="py" -%}
 g.AddNamedOperation( 
+  read_access_roles=[ 
+    "read-user" 
+  ], 
   operation_name="2-hop-with-limit", 
+  overwrite_flag=True, 
+  description="2 hop query with settable limit", 
+  parameters=[ 
+    g.NamedOperationParameter( 
+      default_value=1, 
+      description="Limit param", 
+      value_class="java.lang.Long", 
+      name="param1", 
+      required=False 
+    ) 
+  ], 
   operation_chain=g.OperationChainDAO( 
     operations=[ 
       g.GetAdjacentIds( 
@@ -5078,22 +5092,8 @@ g.AddNamedOperation(
       ) 
     ] 
   ), 
-  read_access_roles=[ 
-    "read-user" 
-  ], 
   write_access_roles=[ 
     "write-user" 
-  ], 
-  description="2 hop query with settable limit", 
-  overwrite_flag=True, 
-  parameters=[ 
-    g.NamedOperationParameter( 
-      required=False, 
-      value_class="java.lang.Long", 
-      description="Limit param", 
-      default_value=1, 
-      name="param1" 
-    ) 
   ] 
 )
 
@@ -5233,12 +5233,12 @@ final NamedOperation<EntityId, CloseableIterable<EntityId>> operation =
 
 {%- language name="Python", type="py" -%}
 g.NamedOperation( 
+  parameters={'param1': 2}, 
   input=[ 
     g.EntitySeed( 
       vertex=1 
     ) 
   ], 
-  parameters={'param1': 2}, 
   operation_name="2-hop-with-limit" 
 )
 
@@ -5358,16 +5358,16 @@ g.OperationChain(
     g.Sort( 
       comparators=[ 
         g.ElementPropertyComparator( 
+          reversed=False, 
+          property="count", 
           groups=[ 
             "entity", 
             "edge" 
-          ], 
-          property="count", 
-          reversed=False 
+          ] 
         ) 
       ], 
-      deduplicate=True, 
-      result_limit=10 
+      result_limit=10, 
+      deduplicate=True 
     ) 
   ] 
 )
@@ -5460,16 +5460,16 @@ g.OperationChain(
     g.Sort( 
       comparators=[ 
         g.ElementPropertyComparator( 
+          property="count", 
+          reversed=False, 
           groups=[ 
             "entity", 
             "edge" 
-          ], 
-          reversed=False, 
-          property="count" 
+          ] 
         ) 
       ], 
-      result_limit=10, 
-      deduplicate=False 
+      deduplicate=False, 
+      result_limit=10 
     ) 
   ] 
 )
@@ -5609,14 +5609,6 @@ final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.B
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
-      input=[ 
-        g.EntitySeed( 
-          vertex=1 
-        ), 
-        g.EntitySeed( 
-          vertex=2 
-        ) 
-      ], 
       view=g.View( 
         edges=[ 
           g.ElementDefinition( 
@@ -5635,8 +5627,8 @@ g.OperationChain(
                 ) 
               ) 
             ], 
-            transient_properties={'score': 'java.lang.Integer'}, 
-            group="edge" 
+            group="edge", 
+            transient_properties={'score': 'java.lang.Integer'} 
           ) 
         ], 
         entities=[ 
@@ -5656,31 +5648,39 @@ g.OperationChain(
                 ) 
               ) 
             ], 
-            transient_properties={'score': 'java.lang.Integer'}, 
-            group="entity" 
+            group="entity", 
+            transient_properties={'score': 'java.lang.Integer'} 
           ) 
         ] 
-      ) 
+      ), 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ] 
     ), 
     g.Sort( 
       deduplicate=True, 
       result_limit=4, 
       comparators=[ 
         g.ElementPropertyComparator( 
-          property="count", 
           groups=[ 
             "entity", 
             "edge" 
           ], 
-          reversed=False 
+          reversed=False, 
+          property="count" 
         ), 
         g.ElementPropertyComparator( 
-          property="score", 
           groups=[ 
             "entity", 
             "edge" 
           ], 
-          reversed=False 
+          reversed=False, 
+          property="score" 
         ) 
       ] 
     ) 
@@ -5871,11 +5871,11 @@ g.OperationChain(
       ] 
     ), 
     g.ToCsv( 
-      include_header=True, 
       element_generator=g.ElementGenerator( 
-        fields={'fields': {'GROUP': 'Edge group', 'count': 'total count', 'VERTEX': 'vertex', 'SOURCE': 'source'}, 'constants': {}, 'quoted': False}, 
+        fields={'constants': {}, 'fields': {'SOURCE': 'source', 'GROUP': 'Edge group', 'count': 'total count', 'VERTEX': 'vertex'}, 'quoted': False}, 
         class_name="uk.gov.gchq.gaffer.data.generator.CsvGenerator" 
-      ) 
+      ), 
+      include_header=True 
     ) 
   ] 
 )
@@ -6151,7 +6151,7 @@ g.OperationChain(
     ), 
     g.ToMapCsv( 
       element_generator=g.ElementGenerator( 
-        fields={'constants': {}, 'fields': {'VERTEX': 'vertex', 'SOURCE': 'source', 'GROUP': 'group', 'count': 'total count'}}, 
+        fields={'fields': {'VERTEX': 'vertex', 'GROUP': 'group', 'count': 'total count', 'SOURCE': 'source'}, 'constants': {}}, 
         class_name="uk.gov.gchq.gaffer.data.generator.MapGenerator" 
       ) 
     ) 
@@ -6477,6 +6477,14 @@ final OperationChain<Set<?>> opChain = new Builder()
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ], 
       view=g.View( 
         edges=[ 
         ], 
@@ -6485,15 +6493,7 @@ g.OperationChain(
             group="entity" 
           ) 
         ] 
-      ), 
-      input=[ 
-        g.EntitySeed( 
-          vertex=1 
-        ), 
-        g.EntitySeed( 
-          vertex=2 
-        ) 
-      ] 
+      ) 
     ), 
     g.ToVertices( 
       edge_vertices="NONE" 
@@ -6573,14 +6573,7 @@ final OperationChain<Set<?>> opChain = new Builder()
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
-      input=[ 
-        g.EntitySeed( 
-          vertex=1 
-        ), 
-        g.EntitySeed( 
-          vertex=2 
-        ) 
-      ], 
+      include_incoming_out_going="OUTGOING", 
       view=g.View( 
         edges=[ 
           g.ElementDefinition( 
@@ -6590,7 +6583,14 @@ g.OperationChain(
         entities=[ 
         ] 
       ), 
-      include_incoming_out_going="OUTGOING" 
+      input=[ 
+        g.EntitySeed( 
+          vertex=1 
+        ), 
+        g.EntitySeed( 
+          vertex=2 
+        ) 
+      ] 
     ), 
     g.ToVertices( 
       edge_vertices="DESTINATION" 
@@ -6672,16 +6672,16 @@ final OperationChain<Set<?>> opChain = new Builder()
 g.OperationChain( 
   operations=[ 
     g.GetElements( 
-      include_incoming_out_going="OUTGOING", 
       view=g.View( 
-        entities=[ 
-        ], 
         edges=[ 
           g.ElementDefinition( 
             group="edge" 
           ) 
+        ], 
+        entities=[ 
         ] 
       ), 
+      include_incoming_out_going="OUTGOING", 
       input=[ 
         g.EntitySeed( 
           vertex=1 
@@ -6773,15 +6773,14 @@ g.OperationChain(
   operations=[ 
     g.GetElements( 
       view=g.View( 
+        entities=[ 
+        ], 
         edges=[ 
           g.ElementDefinition( 
             group="edge" 
           ) 
-        ], 
-        entities=[ 
         ] 
       ), 
-      include_incoming_out_going="OUTGOING", 
       input=[ 
         g.EntitySeed( 
           vertex=1 
@@ -6789,7 +6788,8 @@ g.OperationChain(
         g.EntitySeed( 
           vertex=2 
         ) 
-      ] 
+      ], 
+      include_incoming_out_going="OUTGOING" 
     ), 
     g.ToVertices( 
       use_matched_vertex="EQUAL" 
@@ -6879,12 +6879,12 @@ g.OperationChain(
       ], 
       include_incoming_out_going="OUTGOING", 
       view=g.View( 
-        entities=[ 
-        ], 
         edges=[ 
           g.ElementDefinition( 
             group="edge" 
           ) 
+        ], 
+        entities=[ 
         ] 
       ) 
     ), 

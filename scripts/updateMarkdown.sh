@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-#mvn clean install -Pquick
+mvn clean install -Pquick
 
 mkdir -p getting-started
 

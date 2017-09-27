@@ -1209,24 +1209,24 @@ We also added in the serialiser and aggregator for the HyperLogLogPlus object. G
 Here are all the edges loaded into the graph (unfortunately the HyperLogLogPlus class we are using for the cardinality doesn't have a toString method, so just ignore that for now):
 
 ```
-Entity[vertex=10,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@3ecd267f,count=<java.lang.Long>4,edgeGroup=<java.util.TreeSet>[RoadUse]]]
-Entity[vertex=10,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@58ffcbd7,count=<java.lang.Long>4,edgeGroup=<java.util.TreeSet>[RoadHasJunction]]]
+Entity[vertex=10,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@6c5945a7,count=<java.lang.Long>4,edgeGroup=<java.util.TreeSet>[RoadUse]]]
+Entity[vertex=10,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@2f05be7f,count=<java.lang.Long>4,edgeGroup=<java.util.TreeSet>[RoadHasJunction]]]
 Edge[source=10,destination=11,directed=true,group=RoadUse,properties=Properties[endDate=<java.util.Date>Mon May 01 23:59:59 BST 2000,count=<java.lang.Long>2,startDate=<java.util.Date>Mon May 01 00:00:00 BST 2000]]
 Edge[source=10,destination=11,directed=true,group=RoadUse,properties=Properties[endDate=<java.util.Date>Tue May 02 23:59:59 BST 2000,count=<java.lang.Long>1,startDate=<java.util.Date>Tue May 02 00:00:00 BST 2000]]
-Entity[vertex=11,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@555cf22,count=<java.lang.Long>4,edgeGroup=<java.util.TreeSet>[RoadUse]]]
-Entity[vertex=11,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@6bb2d00b,count=<java.lang.Long>4,edgeGroup=<java.util.TreeSet>[RoadHasJunction]]]
+Entity[vertex=11,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@640f11a1,count=<java.lang.Long>4,edgeGroup=<java.util.TreeSet>[RoadUse]]]
+Entity[vertex=11,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@5c10f1c3,count=<java.lang.Long>4,edgeGroup=<java.util.TreeSet>[RoadHasJunction]]]
 Edge[source=11,destination=10,directed=true,group=RoadUse,properties=Properties[endDate=<java.util.Date>Wed May 03 23:59:59 BST 2000,count=<java.lang.Long>1,startDate=<java.util.Date>Wed May 03 00:00:00 BST 2000]]
-Entity[vertex=23,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@3c9bfddc,count=<java.lang.Long>2,edgeGroup=<java.util.TreeSet>[RoadUse]]]
-Entity[vertex=23,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@1a9c38eb,count=<java.lang.Long>2,edgeGroup=<java.util.TreeSet>[RoadHasJunction]]]
+Entity[vertex=23,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@7ac2e39b,count=<java.lang.Long>2,edgeGroup=<java.util.TreeSet>[RoadUse]]]
+Entity[vertex=23,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@78365cfa,count=<java.lang.Long>2,edgeGroup=<java.util.TreeSet>[RoadHasJunction]]]
 Edge[source=23,destination=24,directed=true,group=RoadUse,properties=Properties[endDate=<java.util.Date>Thu May 04 23:59:59 BST 2000,count=<java.lang.Long>2,startDate=<java.util.Date>Thu May 04 00:00:00 BST 2000]]
-Entity[vertex=24,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@319bc845,count=<java.lang.Long>2,edgeGroup=<java.util.TreeSet>[RoadUse]]]
-Entity[vertex=24,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@4c5474f5,count=<java.lang.Long>2,edgeGroup=<java.util.TreeSet>[RoadHasJunction]]]
-Entity[vertex=27,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@2f4205be,count=<java.lang.Long>1,edgeGroup=<java.util.TreeSet>[RoadUse]]]
-Entity[vertex=27,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@54e22bdd,count=<java.lang.Long>1,edgeGroup=<java.util.TreeSet>[RoadHasJunction]]]
-Entity[vertex=28,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@3bd418e4,count=<java.lang.Long>1,edgeGroup=<java.util.TreeSet>[RoadUse]]]
-Entity[vertex=28,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@544820b7,count=<java.lang.Long>1,edgeGroup=<java.util.TreeSet>[RoadHasJunction]]]
+Entity[vertex=24,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@64a8c844,count=<java.lang.Long>2,edgeGroup=<java.util.TreeSet>[RoadUse]]]
+Entity[vertex=24,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@3f6db3fb,count=<java.lang.Long>2,edgeGroup=<java.util.TreeSet>[RoadHasJunction]]]
+Entity[vertex=27,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@52de51b6,count=<java.lang.Long>1,edgeGroup=<java.util.TreeSet>[RoadUse]]]
+Entity[vertex=27,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@18c5069b,count=<java.lang.Long>1,edgeGroup=<java.util.TreeSet>[RoadHasJunction]]]
+Entity[vertex=28,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@3a0d172f,count=<java.lang.Long>1,edgeGroup=<java.util.TreeSet>[RoadUse]]]
+Entity[vertex=28,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@68ad99fe,count=<java.lang.Long>1,edgeGroup=<java.util.TreeSet>[RoadHasJunction]]]
 Edge[source=28,destination=27,directed=true,group=RoadUse,properties=Properties[endDate=<java.util.Date>Thu May 04 23:59:59 BST 2000,count=<java.lang.Long>1,startDate=<java.util.Date>Thu May 04 00:00:00 BST 2000]]
-Entity[vertex=M5,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@6b98a075,count=<java.lang.Long>14,edgeGroup=<java.util.TreeSet>[RoadHasJunction]]]
+Entity[vertex=M5,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@485e36bc,count=<java.lang.Long>14,edgeGroup=<java.util.TreeSet>[RoadHasJunction]]]
 Edge[source=M5,destination=10,directed=true,group=RoadHasJunction,properties=Properties[]]
 Edge[source=M5,destination=11,directed=true,group=RoadHasJunction,properties=Properties[]]
 Edge[source=M5,destination=23,directed=true,group=RoadHasJunction,properties=Properties[]]
@@ -1812,6 +1812,11 @@ Here is the previous operation written in Python.
 g.OperationChain( 
   operations=[ 
     g.GetAdjacentIds( 
+      input=[ 
+        g.EntitySeed( 
+          vertex="South West" 
+        ) 
+      ], 
       view=g.View( 
         edges=[ 
           g.ElementDefinition( 
@@ -1820,12 +1825,7 @@ g.OperationChain(
         ], 
         entities=[ 
         ] 
-      ), 
-      input=[ 
-        g.EntitySeed( 
-          vertex="South West" 
-        ) 
-      ] 
+      ) 
     ), 
     g.GetAdjacentIds( 
       view=g.View( 
@@ -1851,38 +1851,38 @@ g.OperationChain(
       ) 
     ), 
     g.GetElements( 
+      include_incoming_out_going="OUTGOING", 
       view=g.View( 
+        edges=[ 
+        ], 
         global_elements=[ 
           g.GlobalElementDefinition( 
             group_by=[ 
             ] 
           ) 
         ], 
-        edges=[ 
-        ], 
         entities=[ 
           g.ElementDefinition( 
             pre_aggregation_filter_functions=[ 
               g.PredicateContext( 
-                selection=[ 
-                  "startDate" 
-                ], 
                 predicate=g.IsMoreThan( 
                   value={'java.util.Date': 946684800000}, 
                   or_equal_to=True 
-                ) 
+                ), 
+                selection=[ 
+                  "startDate" 
+                ] 
               ), 
               g.PredicateContext( 
-                selection=[ 
-                  "endDate" 
-                ], 
                 predicate=g.IsLessThan( 
                   value={'java.util.Date': 978307200000}, 
                   or_equal_to=False 
-                ) 
+                ), 
+                selection=[ 
+                  "endDate" 
+                ] 
               ) 
             ], 
-            group="JunctionUse", 
             transient_properties={'busCount': 'java.lang.Long'}, 
             transform_functions=[ 
               g.FunctionContext( 
@@ -1890,39 +1890,39 @@ g.OperationChain(
                   "busCount" 
                 ], 
                 function=g.Function( 
-                  class_name="uk.gov.gchq.gaffer.types.function.FreqMapExtractor", 
-                  fields={'key': 'BUS'} 
+                  fields={'key': 'BUS'}, 
+                  class_name="uk.gov.gchq.gaffer.types.function.FreqMapExtractor" 
                 ), 
                 selection=[ 
                   "countByVehicleType" 
                 ] 
               ) 
             ], 
+            group="JunctionUse", 
             post_aggregation_filter_functions=[ 
               g.PredicateContext( 
-                selection=[ 
-                  "countByVehicleType" 
-                ], 
                 predicate=g.PredicateMap( 
-                  key="BUS", 
                   predicate=g.IsMoreThan( 
                     value={'java.lang.Long': 1000}, 
                     or_equal_to=False 
-                  ) 
-                ) 
+                  ), 
+                  key="BUS" 
+                ), 
+                selection=[ 
+                  "countByVehicleType" 
+                ] 
               ) 
             ] 
           ) 
         ] 
-      ), 
-      include_incoming_out_going="OUTGOING" 
+      ) 
     ), 
     g.ToCsv( 
-      include_header=True, 
       element_generator=g.ElementGenerator( 
-        class_name="uk.gov.gchq.gaffer.data.generator.CsvGenerator", 
-        fields={'fields': {'busCount': 'Bus Count', 'VERTEX': 'Junction'}, 'constants': {}, 'quoted': False} 
-      ) 
+        fields={'constants': {}, 'fields': {'VERTEX': 'Junction', 'busCount': 'Bus Count'}, 'quoted': False}, 
+        class_name="uk.gov.gchq.gaffer.data.generator.CsvGenerator" 
+      ), 
+      include_header=True 
     ) 
   ] 
 )

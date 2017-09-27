@@ -877,7 +877,7 @@ final String jobId = initialJobDetail.getJobId();
 and the results is:
 
 ```
-JobDetail[jobId=9df49f7f-ec00-48b7-89ec-10821e786b6a,userId=user01,status=RUNNING,startTime=1506500106967,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetElements@61f05988, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@7ca33c24]]]
+JobDetail[jobId=ed7c96e6-23b5-4207-a7a5-7985b0e0d1a3,userId=user01,status=RUNNING,startTime=1506518520217,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetElements@6622fc65, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@299321e2]]]
 
 ```
 
@@ -895,7 +895,7 @@ final JobDetail jobDetail = graph.execute(
 and now you can see the job has finished:
 
 ```
-JobDetail[jobId=9df49f7f-ec00-48b7-89ec-10821e786b6a,userId=user01,status=FINISHED,startTime=1506500106967,endTime=1506500107209,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetElements@61f05988, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@7ca33c24]]]
+JobDetail[jobId=ed7c96e6-23b5-4207-a7a5-7985b0e0d1a3,userId=user01,status=FINISHED,startTime=1506518520217,endTime=1506518520441,opChain=OperationChain[operations=[uk.gov.gchq.gaffer.operation.impl.get.GetElements@6622fc65, uk.gov.gchq.gaffer.operation.impl.export.resultcache.ExportToGafferResultCache@299321e2]]]
 
 ```
 
@@ -1419,8 +1419,8 @@ Edge[source=10,destination=11,directed=true,matchedVertex=SOURCE,group=RoadUse,p
 Edge[source=10,destination=11,directed=true,matchedVertex=SOURCE,group=RoadUse,properties=Properties[endDate=<java.util.Date>Tue May 02 23:59:59 BST 2000,count=<java.lang.Long>1,startDate=<java.util.Date>Tue May 02 00:00:00 BST 2000]]
 Edge[source=11,destination=10,directed=true,matchedVertex=DESTINATION,group=RoadUse,properties=Properties[endDate=<java.util.Date>Wed May 03 23:59:59 BST 2000,count=<java.lang.Long>1,startDate=<java.util.Date>Wed May 03 00:00:00 BST 2000]]
 Edge[source=M5,destination=10,directed=true,matchedVertex=DESTINATION,group=RoadHasJunction,properties=Properties[]]
-Entity[vertex=10,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@cb191ca,count=<java.lang.Long>4,edgeGroup=<java.util.TreeSet>[RoadUse]]]
-Entity[vertex=10,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@42f48531,count=<java.lang.Long>4,edgeGroup=<java.util.TreeSet>[RoadHasJunction]]]
+Entity[vertex=10,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@fd8294b,count=<java.lang.Long>4,edgeGroup=<java.util.TreeSet>[RoadUse]]]
+Entity[vertex=10,group=Cardinality,properties=Properties[hllp=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@5974109,count=<java.lang.Long>4,edgeGroup=<java.util.TreeSet>[RoadHasJunction]]]
 
 ```
 
