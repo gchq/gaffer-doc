@@ -1,0 +1,16 @@
+language: java
+cache:
+  timeout: 1000
+  directories:
+  - $HOME/.m2
+dist: trusty
+jdk:
+  - oraclejdk8
+sudo: false
+addons:
+  apt:
+    packages:
+      - python3
+
+install: travis_wait 45 ./cd/install.sh
+script: travis_wait 45 ./cd/verify.sh
