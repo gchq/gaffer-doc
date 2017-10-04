@@ -2,9 +2,12 @@
   "gitbook": "3.x.x",
   "title": "Gaffer Doc",
   "plugins": [
+    "codetabs",
+    "prism",
     "-highlight",
     "github",
-    "anchorjs"
+    "anchorjs",
+    "otherlink"
   ],
   "pluginsConfig": {
     "github": {
@@ -15,5 +18,6 @@
         "website": "build/gitbook.css"
       }
     }
-  }
+  },
+  "root": "./docs"
 }

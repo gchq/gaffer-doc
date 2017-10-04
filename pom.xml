@@ -20,14 +20,14 @@
     <parent>
         <groupId>uk.gov.gchq.gaffer</groupId>
         <artifactId>gaffer2</artifactId>
-        <version>1.0.0-RC2</version>
+        <version>1.0.0-RC3</version>
     </parent>
 
     <artifactId>doc</artifactId>
 
     <properties>
-        <gaffer.version>1.0.0-RC2</gaffer.version>
-        <gaffer-tools.version>1.0.0-RC2</gaffer-tools.version>
+        <gaffer.version>1.0.0-RC3</gaffer.version>
+        <gaffer-tools.version>1.0.0-RC3</gaffer-tools.version>
         <scm.url>
             https://github.com/gchq/gaffer-doc
         </scm.url>
@@ -126,6 +126,26 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <id>Download python shell</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>
+                                ${basedir}/scripts/downloadPythonShell.sh
+                            </executable>
+                            <arguments>${gaffer-tools.version}</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco.plugin.version}</version>
@@ -133,35 +153,139 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <skipAssembly>${skip.jar-with-dependencies}</skipAssembly>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>doc-jar-with-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <descriptorRefs>
-                                <descriptorRef>jar-with-dependencies
-                                </descriptorRef>
-                            </descriptorRefs>
-                            <finalName>doc
-                            </finalName>
-                            <archive>
-                                <manifest>
-                                    <addClasspath>true</addClasspath>
-                                </manifest>
-                            </archive>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>buildGitbook</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.6.0</version>
+                        <executions>
+                            <execution>
+                                <id>Download python shell</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>
+                                        ${basedir}/scripts/downloadPythonShell.sh
+                                    </executable>
+                                    <arguments>${gaffer-tools.version}
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>Download javadoc</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>
+                                        ${basedir}/scripts/downloadJavadocs.sh
+                                    </executable>
+                                    <arguments>
+                                        <argument>${gaffer.version}</argument>
+                                        <argument>${gaffer-tools.version}
+                                        </argument>
+                                        <argument>${koryphe.version}</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>Compile markdown</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>
+                                        ${basedir}/scripts/compileMarkdown.sh
+                                    </executable>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>gitbook install</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>
+                                        ${basedir}/scripts/buildGitbook.sh
+                                    </executable>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <configuration>
+                            <skipAssembly>${skip.jar-with-dependencies}
+                            </skipAssembly>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>doc-jar-with-dependencies</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <descriptorRefs>
+                                        <descriptorRef>jar-with-dependencies
+                                        </descriptorRef>
+                                    </descriptorRefs>
+                                    <finalName>doc
+                                    </finalName>
+                                    <archive>
+                                        <manifest>
+                                            <addClasspath>true</addClasspath>
+                                        </manifest>
+                                    </archive>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>serveGitbook</id>
+            <properties>
+                <skip.surefire.tests>true</skip.surefire.tests>
+                <skip.failsafe.tests>true</skip.failsafe.tests>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.6.0</version>
+                        <executions>
+                            <execution>
+                                <id>gitbook serve</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>
+                                        ${basedir}/scripts/serveGitbook.sh
+                                    </executable>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

@@ -141,4 +141,9 @@ public class GetJavaRDDOfAllElementsExample extends OperationExample {
         ROOT_LOGGER.setLevel(Level.OFF);
     }
 
+    @Override
+    protected String getPython(final Object object) {
+        // skip
+        return null;
+    }
 }

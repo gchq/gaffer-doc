@@ -15,7 +15,6 @@
  */
 package uk.gov.gchq.gaffer.doc.predicate;
 
-import uk.gov.gchq.koryphe.impl.predicate.MapContains;
 import uk.gov.gchq.koryphe.impl.predicate.MapContainsPredicate;
 import uk.gov.gchq.koryphe.impl.predicate.Regex;
 
@@ -32,7 +31,7 @@ public class MapContainsPredicateExample extends PredicateExample {
     }
 
     public MapContainsPredicateExample() {
-        super(MapContains.class);
+        super(MapContainsPredicate.class);
 
         map.put("a1", "1");
         map.put("a2", "2");

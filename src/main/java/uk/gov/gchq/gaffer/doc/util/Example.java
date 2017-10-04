@@ -15,12 +15,14 @@
  */
 package uk.gov.gchq.gaffer.doc.util;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import uk.gov.gchq.gaffer.commonutil.CommonConstants;
 import uk.gov.gchq.gaffer.exception.SerialisationException;
 import uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
@@ -29,8 +31,8 @@ public abstract class Example {
     public static final String DIVIDER = "-----------------------------------------------";
     public static final String TITLE_DIVIDER = DIVIDER;
     public static final String METHOD_DIVIDER = DIVIDER + "\n";
-    public static final String KORYPHE_JAVA_DOC_URL_PREFIX = "http://gchq.github.io/koryphe/";
-    public static final String JAVA_DOC_URL_PREFIX = "http://gchq.github.io/Gaffer/";
+    public static final String KORYPHE_JAVA_DOC_URL_PREFIX = "ref://../javadoc/koryphe/";
+    public static final String JAVA_DOC_URL_PREFIX = "ref://../javadoc/gaffer/";
     private final Class<?> classForExample;
     private final String description;
 
@@ -90,34 +92,72 @@ public abstract class Example {
         }
     }
 
+    protected void printJavaJsonPython(final Object obj, final String java) {
+        log("\n{% codetabs name=\"Java\", type=\"java\" -%}");
+        log(java);
+        log("\n{%- language name=\"JSON\", type=\"json\" -%}");
+        log(getJson(obj));
+        log("\n{%- language name=\"Python\", type=\"py\" -%}");
+        log(getPython(obj));
+        log("{%- endcodetabs %}\n");
+    }
+
+    protected void printJavaJsonPython(final Object obj, final int parentMethodIndex) {
+        printJavaJsonPython(obj, getJavaSnippet(parentMethodIndex));
+    }
+
+    protected String getJavaSnippet(final int parentMethodIndex) {
+        return JavaSourceUtil.getRawJavaSnippet(getClass(), "doc", " " + getMethodName(parentMethodIndex) + "() {", String.format("---%n"), "// ----");
+    }
+
     protected void printJava(final String java) {
-        log("As Java:");
         log("\n\n```java");
         log(java);
         log("```\n");
     }
 
-    protected void printScala(final String scala) {
-        log("As Scala:");
-        log("\n\n```scala");
-        log(scala);
-        log("```\n");
-    }
+    protected String getPython(final Object object) {
+        final String json = getRawJson(object);
+        final ProcessBuilder pb = new ProcessBuilder("python3", "-u", "gaffer-python-shell/src/gafferpy/fromJson.py", json);
 
-    protected void printJson(final String json) {
-        log("As JSON:");
-        log("\n\n```json");
-        log(json);
-        log("```\n");
-    }
+        final Process p;
+        try {
+            p = pb.start();
+        } catch (final IOException e) {
+            throw new RuntimeException("Unable to run python3", e);
+        }
 
-    protected void printAsJson(final Object object) {
-        printJson(getJson(object));
+        try {
+            p.waitFor();
+        } catch (final InterruptedException e) {
+            throw new RuntimeException("Python failed to complete", e);
+        }
+
+        if (p.exitValue() > 0) {
+            try {
+                throw new RuntimeException("Error in python: " + IOUtils.toString(p.getErrorStream()) + "\nUnable to convert json: " + json);
+            } catch (final IOException e) {
+                throw new RuntimeException("Unable to read error from Python", e);
+            }
+        }
+        try {
+            return IOUtils.toString(p.getInputStream());
+        } catch (final IOException e) {
+            throw new RuntimeException("Unable to read result from python", e);
+        }
     }
 
     protected String getJson(final Object object) {
         try {
             return new String(JSONSerialiser.serialise(object, true), CommonConstants.UTF_8);
+        } catch (final SerialisationException | UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected String getRawJson(final Object object) {
+        try {
+            return new String(JSONSerialiser.serialise(object), CommonConstants.UTF_8);
         } catch (final SerialisationException | UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }

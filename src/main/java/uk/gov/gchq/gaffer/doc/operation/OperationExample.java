@@ -22,7 +22,6 @@ import uk.gov.gchq.gaffer.commonutil.Required;
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
 import uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator;
 import uk.gov.gchq.gaffer.doc.util.Example;
-import uk.gov.gchq.gaffer.doc.util.JavaSourceUtil;
 import uk.gov.gchq.gaffer.graph.Graph;
 import uk.gov.gchq.gaffer.operation.Operation;
 import uk.gov.gchq.gaffer.operation.OperationChain;
@@ -70,7 +69,7 @@ public abstract class OperationExample extends Example {
         if (StringUtils.isNotBlank(description)) {
             log(description + "\n");
         }
-        printMethodJavaSnippet();
+        printJava(getJavaSnippet(3));
 
         log(METHOD_DIVIDER);
     }
@@ -81,8 +80,7 @@ public abstract class OperationExample extends Example {
         if (StringUtils.isNotBlank(description)) {
             log(description + "\n");
         }
-        printMethodJavaSnippet();
-        printAsJson(operation);
+        printJavaJsonPython(operation, 3);
 
         log(METHOD_DIVIDER);
     }
@@ -93,8 +91,7 @@ public abstract class OperationExample extends Example {
         if (StringUtils.isNotBlank(description)) {
             log(description);
         }
-        printMethodJavaSnippet();
-        printAsJson(operation);
+        printJavaJsonPython(operation, 3);
 
         log(METHOD_DIVIDER);
     }
@@ -105,8 +102,7 @@ public abstract class OperationExample extends Example {
         if (StringUtils.isNotBlank(description)) {
             log(description + "\n");
         }
-        printMethodJavaSnippet();
-        printAsJson(operation);
+        printJavaJsonPython(operation, 3);
 
         try {
             getGraph().execute(operation, new User("user01"));
@@ -124,8 +120,7 @@ public abstract class OperationExample extends Example {
             log(description + "\n");
         }
         printGraph();
-        printMethodJavaSnippet();
-        printAsJson(operation);
+        printJavaJsonPython(operation, 3);
 
         final RESULT_TYPE results;
         try {
@@ -149,8 +144,7 @@ public abstract class OperationExample extends Example {
             log(description);
         }
         printGraph();
-        printMethodJavaSnippet();
-        printAsJson(operationChain);
+        printJavaJsonPython(operationChain, 3);
 
         final RESULT_TYPE result;
         try {
@@ -270,9 +264,5 @@ public abstract class OperationExample extends Example {
         }
 
         log("\n");
-    }
-
-    private void printMethodJavaSnippet() {
-        printJava(JavaSourceUtil.getRawJavaSnippet(getClass(), "doc", " " + getMethodName(2) + "() {", String.format("---%n"), "// ----"));
     }
 }
