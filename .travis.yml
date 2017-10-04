@@ -13,5 +13,4 @@ addons:
       - python3
 
 install: ./cd/install.sh
-script: ./cd/verify.sh
-after_success: ./cd/deploy.sh
+script: ./cd/deploy.sh
