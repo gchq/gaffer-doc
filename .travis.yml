@@ -12,5 +12,6 @@ addons:
     packages:
       - python3
 
-install: travis_wait 45 ./cd/install.sh
-script: travis_wait 45 ./cd/verify.sh
+install: ./cd/install.sh
+script: ./cd/verify.sh
+after_success: ./cd/deploy.sh
