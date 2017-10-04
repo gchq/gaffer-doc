@@ -1,11 +1,12 @@
 #!/bin/bash
 set -e
 
-gafferVersion=1.0.0-RC3
-gafferToolsVersion=1.0.0-RC3
-korypheVersion=1.0.0-RC3
+gafferVersion=$1
+gafferToolsVersion=$2
+korypheVersion=$3
 
 # Update javadocs
+mkdir -p docs/javadoc
 cd docs/javadoc
 if [ ! -f gaffer/$gafferVersion ]; then
     rm -rf gaffer

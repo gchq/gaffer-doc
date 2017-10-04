@@ -1,9 +1,12 @@
 #!/bin/bash
+
+
+# Before running this script you will need to run:
+# mvn clean install -Pquick
+
 set -e
 
-mvn clean install -Pquick
-
-mkdir -p getting-started
+mkdir -p docs/getting-started
 
 echo "Generating user-guide"
 java -cp target/doc-jar-with-dependencies.jar uk.gov.gchq.gaffer.doc.user.walkthrough.UserWalkthroughRunner > docs/getting-started/user-guide.md
