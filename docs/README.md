@@ -23,4 +23,4 @@ Gaffer is still under active development and isn't a finished product yet. There
 to be added and additional documentation to write. Please contribute.
 
 
-<p style="text-align: right">Version 1.0.0-RC2</p>
+<p style="text-align: right">Version 1.0.0-RC3</p>

@@ -80,7 +80,7 @@ public abstract class OperationExample extends Example {
         if (StringUtils.isNotBlank(description)) {
             log(description + "\n");
         }
-        printJavaJson(operation, 3);
+        printJavaJsonPython(operation, 3);
 
         log(METHOD_DIVIDER);
     }
@@ -91,7 +91,7 @@ public abstract class OperationExample extends Example {
         if (StringUtils.isNotBlank(description)) {
             log(description);
         }
-        printJavaJson(operation, 3);
+        printJavaJsonPython(operation, 3);
 
         log(METHOD_DIVIDER);
     }
@@ -102,7 +102,7 @@ public abstract class OperationExample extends Example {
         if (StringUtils.isNotBlank(description)) {
             log(description + "\n");
         }
-        printJavaJson(operation, 3);
+        printJavaJsonPython(operation, 3);
 
         try {
             getGraph().execute(operation, new User("user01"));
@@ -120,7 +120,7 @@ public abstract class OperationExample extends Example {
             log(description + "\n");
         }
         printGraph();
-        printJavaJson(operation, 3);
+        printJavaJsonPython(operation, 3);
 
         final RESULT_TYPE results;
         try {
@@ -144,7 +144,7 @@ public abstract class OperationExample extends Example {
             log(description);
         }
         printGraph();
-        printJavaJson(operationChain, 3);
+        printJavaJsonPython(operationChain, 3);
 
         final RESULT_TYPE result;
         try {
