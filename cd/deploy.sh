@@ -10,5 +10,6 @@ if [ "$TRAVIS_BRANCH" == 'master' ] && [ "$TRAVIS_PULL_REQUEST" != 'true' ]; the
    git add .
    git commit -a -m "Updated docs" # This will not be pushed back to github
 
+   npm install -g gitbook-cli
    ./updateGhPages.sh
 fi
