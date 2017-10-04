@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Partly copied from http://sangsoonam.github.io/2016/08/02/publish-gitbook-to-your-github-pages.html
+set -e
 
 # install the plugins and build the static site
 gitbook install && gitbook build
@@ -8,7 +9,7 @@ gitbook install && gitbook build
 # checkout latest version of the gh-pages branch
 git checkout master
 git pull
-git branch -D gh-pages
+git branch -fqD gh-pages > /dev/null 2>&1 || true
 git checkout gh-pages
 
 # copy the static site files into the current directory.
