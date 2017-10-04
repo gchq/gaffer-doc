@@ -13,6 +13,7 @@ addons:
       - python3
 
 install: ./cd/install.sh
+script: ./cd/verify.sh
 
 deploy:
   provider: pages

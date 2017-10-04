@@ -218,7 +218,7 @@
                                 </goals>
                                 <configuration>
                                     <executable>
-                                        ${basedir}/scripts/installGitbook.sh
+                                        ${basedir}/scripts/buildGitbook.sh
                                     </executable>
                                 </configuration>
                             </execution>
