@@ -60,19 +60,8 @@ Then from inside the Gaffer folder run the maven 'quick' profile. There are quit
 mvn clean install -Pquick
 ```
 
-
-We've written some ${EXAMPLES_LINK} to show you how to get started.
-
-## Running the Examples
-
-The section below provides an overview of a number of examples of working with a Gaffer graph, including a description of the input and output at each stage.
-
-Each example is backed by an example java class containing a main method that can be invoked by your IDE or using the doc-jar-with-dependencies.jar.
-
-You can download the doc-jar-with-dependencies.jar from [maven central](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22uk.gov.gchq.gaffer%22%20AND%20a%3A%22doc%22). Select the latest version and download the jar-with-dependencies.jar file.
-Alternatively you can compile the code yourself by running a "mvn clean install -Pquick". The doc-jar-with-dependencies.jar file will be located here: doc/target/doc-jar-with-dependencies.jar.
-
-```bash
-# Replace <TheBasics> with your example name.
-java -cp doc-jar-with-dependencies.jar uk.gov.gchq.gaffer.doc.user.walkthrough.TheBasics
-```
+We've written some examples to show you how to get started. 
+We have split them up into this [User Guide](user-guide.md), 
+a [Dev Guide](dev-guide.md) and a [Properties Guide](properties-guide.md). 
+In addition to these guides we have examples for the different 
+[Operations](operation-examples.md) and [Predicates](predicate-examples.md) we support.

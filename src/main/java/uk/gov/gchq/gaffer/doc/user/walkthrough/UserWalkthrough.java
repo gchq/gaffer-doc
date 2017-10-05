@@ -20,7 +20,7 @@ import uk.gov.gchq.gaffer.doc.walkthrough.AbstractWalkthrough;
 
 public abstract class UserWalkthrough extends AbstractWalkthrough {
     public UserWalkthrough(final String header, final String resourcePrefix, final Class<? extends ElementGenerator> generatorClass) {
-        super(header, resourcePrefix + "/data.txt", resourcePrefix + "/schema", generatorClass, "doc", "user");
+        super(header, resourcePrefix + "/data.txt", resourcePrefix + "/schema", generatorClass, null, "user");
     }
 
     @Override
