@@ -96,7 +96,7 @@ public abstract class PropertiesWalkthrough extends AbstractWalkthrough {
 
 
     protected PropertiesWalkthrough(final Class<?> propertyType, final String resourcePath, final Class<? extends ElementGenerator> generatorClass) {
-        super(propertyType.getSimpleName(), null, resourcePath + "/schema", generatorClass, "doc", "properties");
+        super(propertyType.getSimpleName(), null, resourcePath + "/schema", generatorClass, null, "properties");
         this.propertyType = propertyType;
     }
 

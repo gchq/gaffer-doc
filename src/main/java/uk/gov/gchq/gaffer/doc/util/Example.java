@@ -107,7 +107,7 @@ public abstract class Example {
     }
 
     protected String getJavaSnippet(final int parentMethodIndex) {
-        return JavaSourceUtil.getRawJavaSnippet(getClass(), "doc", " " + getMethodName(parentMethodIndex) + "() {", String.format("---%n"), "// ----");
+        return JavaSourceUtil.getRawJavaSnippet(getClass(), null, " " + getMethodName(parentMethodIndex) + "() {", String.format("---%n"), "// ----");
     }
 
     protected void printJava(final String java) {
