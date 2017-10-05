@@ -35,7 +35,7 @@ public class UserWalkthroughRunner extends AbstractWalkthroughRunner {
     );
 
     public UserWalkthroughRunner() {
-        super("User Guide", EXAMPLES, "doc", "user");
+        super("User Guide", EXAMPLES, null, "user");
     }
 
     public static void main(final String[] args) throws Exception {

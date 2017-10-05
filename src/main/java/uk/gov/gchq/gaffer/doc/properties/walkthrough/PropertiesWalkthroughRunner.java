@@ -112,7 +112,7 @@ public class PropertiesWalkthroughRunner extends AbstractWalkthroughRunner {
     }
 
     public PropertiesWalkthroughRunner() {
-        super("Properties Guide", null, "doc", "properties");
+        super("Properties Guide", null, null, "properties");
     }
 
     @Override
