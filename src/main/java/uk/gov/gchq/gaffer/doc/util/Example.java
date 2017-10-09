@@ -78,7 +78,11 @@ public abstract class Example {
         final String[] words = getMethodName(parentMethod + 1).split(CAPITALS_AND_NUMBERS_REGEX);
         final StringBuilder sentence = new StringBuilder();
         for (final String word : words) {
-            sentence.append(word.toLowerCase(Locale.getDefault()))
+            String adaptedWord = word.toLowerCase(Locale.getDefault());
+            if ("rdd".equals(adaptedWord)) {
+                adaptedWord = "RDD";
+            }
+            sentence.append(adaptedWord)
                     .append(" ");
         }
         sentence.replace(0, 1, sentence.substring(0, 1).toUpperCase(Locale.getDefault()));
@@ -97,8 +101,13 @@ public abstract class Example {
         log(java);
         log("\n{%- language name=\"JSON\", type=\"json\" -%}");
         log(getJson(obj));
-        log("\n{%- language name=\"Python\", type=\"py\" -%}");
-        log(getPython(obj));
+
+        final String python = getPython(obj);
+        if (null != python) {
+            log("\n{%- language name=\"Python\", type=\"py\" -%}");
+            log(python);
+        }
+
         log("{%- endcodetabs %}\n");
     }
 

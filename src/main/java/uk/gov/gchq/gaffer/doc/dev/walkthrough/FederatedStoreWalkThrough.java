@@ -134,7 +134,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         final OperationChain<CloseableIterable<? extends Element>> getOpChainOnAccumuloGraph = new OperationChain.Builder()
                 .first(new GetElements.Builder()
                         .input(new EntitySeed("10"))
-                        .option(FederatedStoreConstants.GRAPH_IDS, "accumuloGraph")
+                        .option(FederatedStoreConstants.KEY_OPERATION_OPTIONS_GRAPH_IDS, "accumuloGraph")
                         .build())
                 .build();
 

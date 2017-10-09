@@ -204,7 +204,7 @@ public class ExportToOtherGraphExample extends OperationExample {
         final AccumuloProperties exportStoreProperties = new AccumuloProperties();
         exportStoreProperties.setId("exportStorePropertiesId");
         // set other store property config here.
-        graphLibrary.addProperties("exportStorePropertiesId", exportStoreProperties);
+        graphLibrary.addProperties(exportStoreProperties);
 
         final Schema exportSchema = new Schema.Builder()
                 .id("exportSchemaId")
@@ -221,7 +221,7 @@ public class ExportToOtherGraphExample extends OperationExample {
                         .validateFunctions(new IsTrue())
                         .build())
                 .build();
-        graphLibrary.addSchema("exportSchemaId", exportSchema);
+        graphLibrary.addSchema(exportSchema);
 
         final Graph graph = new Graph.Builder()
                 .config(StreamUtil.openStream(getClass(), "graphConfigWithLibrary.json"))
