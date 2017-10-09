@@ -16,32 +16,19 @@
 package uk.gov.gchq.gaffer.doc.operation.spark;
 
 import org.apache.hadoop.conf.Configuration;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.apache.spark.SparkConf;
-import org.apache.spark.api.java.JavaRDD;
-import org.apache.spark.api.java.JavaSparkContext;
 
-import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
-import uk.gov.gchq.gaffer.doc.operation.OperationExample;
-import uk.gov.gchq.gaffer.graph.Graph;
 import uk.gov.gchq.gaffer.operation.OperationException;
 import uk.gov.gchq.gaffer.operation.data.EdgeSeed;
-import uk.gov.gchq.gaffer.spark.SparkConstants;
 import uk.gov.gchq.gaffer.spark.operation.javardd.GetJavaRDDOfElements;
 import uk.gov.gchq.gaffer.sparkaccumulo.operation.handler.AbstractGetRDDHandler;
-import uk.gov.gchq.gaffer.user.User;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * An example showing how the {@link GetJavaRDDOfElements} operation is used from Java.
  */
-public class GetJavaRDDOfElementsExample extends OperationExample {
-    private static final Logger ROOT_LOGGER = Logger.getRootLogger();
-
+public class GetJavaRDDOfElementsExample extends SparkOperationExample {
     public static void main(final String[] args) throws OperationException {
         new GetJavaRDDOfElementsExample().run();
     }
@@ -51,117 +38,53 @@ public class GetJavaRDDOfElementsExample extends OperationExample {
     }
 
     @Override
-    public void runExamples() {
-        // Need to actively turn logging on and off as needed as Spark produces some logs
-        // even when the log level is set to off.
-        ROOT_LOGGER.setLevel(Level.OFF);
-        final SparkConf sparkConf = new SparkConf()
-                .setMaster("local")
-                .setAppName("GetJavaRDDOfElementsExample")
-                .set(SparkConstants.SERIALIZER, SparkConstants.DEFAULT_SERIALIZER)
-                .set(SparkConstants.KRYO_REGISTRATOR, SparkConstants.DEFAULT_KRYO_REGISTRATOR)
-                .set(SparkConstants.DRIVER_ALLOW_MULTIPLE_CONTEXTS, "true");
-        final JavaSparkContext sc = new JavaSparkContext(sparkConf);
-        sc.setLogLevel("OFF");
-        final Graph graph = getGraph();
-        try {
-            getJavaRddOfElements(sc, graph);
-            getJavaRddOfElementsWithHadoopConf(sc, graph);
-            getJavaRddOfElementsReturningEdgesOnly(sc, graph);
-        } catch (final OperationException | IOException e) {
-            throw new RuntimeException(e);
-        }
-        sc.stop();
-        ROOT_LOGGER.setLevel(Level.INFO);
+    protected void _runExamples() throws Exception {
+        getJavaRddOfElements();
+        getJavaRddOfElementsWithHadoopConf();
+        getJavaRddOfElementsReturningEdgesOnly();
     }
 
-    public void getJavaRddOfElements(final JavaSparkContext sc, final Graph graph) throws OperationException {
-        ROOT_LOGGER.setLevel(Level.INFO);
-        // Avoid using getMethodNameAsSentence as it messes up the formatting of the "RDD" part
-        log("#### get Java RDD of elements\n");
-        printGraph();
-        ROOT_LOGGER.setLevel(Level.OFF);
+    public void getJavaRddOfElements() {
+        // ---------------------------------------------------------
         final GetJavaRDDOfElements operation = new GetJavaRDDOfElements.Builder()
                 .input(new EdgeSeed(1, 2, true), new EdgeSeed(2, 3, true))
-                .javaSparkContext(sc)
                 .build();
-        final JavaRDD<Element> rdd = graph.execute(operation, new User("user01"));
-        final List<Element> elements = rdd.collect();
-        ROOT_LOGGER.setLevel(Level.INFO);
-        printJava("GetJavaRDDOfElements operation = new GetJavaRDDOfElements.Builder()\n"
-                + "                .input(new EdgeSeed(1, 2, true), new EdgeSeed(2, 3, true))\n"
-                + "                .javaSparkContext(sc)\n"
-                + "                .build();\n"
-                + "JavaRDD<Element> rdd = graph.execute(operation, new User(\"user01\"));\n"
-                + "List<Element> elements = rdd.collect();");
-        log("The results are:\n");
-        log("```");
-        for (final Element e : elements) {
-            log(e.toString());
-        }
-        log("```\n");
-        ROOT_LOGGER.setLevel(Level.OFF);
+        // ---------------------------------------------------------
+
+        runExample(operation, null);
     }
 
-    public void getJavaRddOfElementsWithHadoopConf(final JavaSparkContext sc, final Graph graph) throws OperationException, IOException {
-        ROOT_LOGGER.setLevel(Level.INFO);
-        log("#### get Java RDD of elements using Hadoop Configurations");
+    public void getJavaRddOfElementsWithHadoopConf() {
+        // ---------------------------------------------------------
         final Configuration conf = new Configuration();
         conf.set("AN_OPTION", "A_VALUE");
-        final String encodedConf = AbstractGetRDDHandler.convertConfigurationToString(conf);
+
+        final String encodedConf;
+        try {
+            encodedConf = AbstractGetRDDHandler.convertConfigurationToString(conf);
+        } catch (final IOException e) {
+            throw new RuntimeException("Unable to convert conf to string", e);
+        }
+
         final GetJavaRDDOfElements operation = new GetJavaRDDOfElements.Builder()
                 .input(new EdgeSeed(1, 2, true), new EdgeSeed(2, 3, true))
-                .javaSparkContext(sc)
                 .option(AbstractGetRDDHandler.HADOOP_CONFIGURATION_KEY, encodedConf)
                 .build();
-        printJava("Configuration conf = new Configuration();\n"
-                + "conf.set(\"AN_OPTION\", \"A_VALUE\";\n"
-                + "String encodedConf = AbstractGetRDDHandler.convertConfigurationToString(conf);\n"
-                + "GetJavaRDDOfElements operation = new GetJavaRDDOfElements.Builder()\n"
-                + "                .input(new EdgeSeed(1, 2, true), new EdgeSeed(2, 3, true))\n"
-                + "                .javaSparkContext(sc)\n"
-                + "                .option(AbstractGetRddHandler.HADOOP_CONFIGURATION_KEY, encodedConf)\n"
-                + "                .build();\n"
-                + "JavaRDD<Element> rdd = graph.execute(operation, new User(\"user01\"));\n"
-                + "List<Element> elements = rdd.collect();");
+        // ---------------------------------------------------------
+
+        runExample(operation, null);
     }
 
-    public void getJavaRddOfElementsReturningEdgesOnly(final JavaSparkContext sc, final Graph graph) throws OperationException {
-        ROOT_LOGGER.setLevel(Level.INFO);
-        log("#### get Java RDD of elements returning edges only\n");
-        printGraph();
-        ROOT_LOGGER.setLevel(Level.OFF);
+    public void getJavaRddOfElementsReturningEdgesOnly() {
+        // ---------------------------------------------------------
         final GetJavaRDDOfElements operation = new GetJavaRDDOfElements.Builder()
                 .input(new EdgeSeed(1, 2, true), new EdgeSeed(2, 3, true))
                 .view(new View.Builder()
                         .edge("edge")
                         .build())
-                .javaSparkContext(sc)
                 .build();
-        final JavaRDD<Element> rdd = graph.execute(operation, new User("user01"));
-        final List<Element> elements = rdd.collect();
-        ROOT_LOGGER.setLevel(Level.INFO);
-        printJava("GetJavaRDDOfElements operation = new GetJavaRDDOfElements.Builder()\n"
-                + "                .input(new EdgeSeed(1, 2, true), new EdgeSeed(2, 3, true))\n"
-                + "                .view(new View.Builder()\n" +
-                "                        .edge(\"edge\")\n" +
-                "                        .build())\n"
-                + "                .javaSparkContext(sc)\n"
-                + "                .build();\n"
-                + "JavaRDD<Element> rdd = graph.execute(operation, new User(\"user01\"));\n"
-                + "List<Element> elements = rdd.collect();");
-        log("The results are:\n");
-        log("```");
-        for (final Element e : elements) {
-            log(e.toString());
-        }
-        log("```");
-        ROOT_LOGGER.setLevel(Level.OFF);
-    }
+        // ---------------------------------------------------------
 
-    @Override
-    protected String getPython(final Object object) {
-        // skip
-        return null;
+        runExample(operation, null);
     }
 }
