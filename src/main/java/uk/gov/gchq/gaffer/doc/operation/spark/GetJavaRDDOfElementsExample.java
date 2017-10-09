@@ -72,7 +72,8 @@ public class GetJavaRDDOfElementsExample extends SparkOperationExample {
                 .build();
         // ---------------------------------------------------------
 
-        runExample(operation, null);
+        operation.addOption(AbstractGetRDDHandler.HADOOP_CONFIGURATION_KEY, "config removed for readability");
+        showExample(operation, null);
     }
 
     public void getJavaRddOfElementsReturningEdgesOnly() {
