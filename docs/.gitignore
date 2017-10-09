@@ -11,27 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License
-*/target/
-target/
-*/*.iml
-*.iml
-*/.settings
-*/.project
-*/bin
-*/*.class
-*/atlassian-ide*
-*/.idea
-.idea/*
-.idea
-*/.classpath
-__pycache__
-*.pem
-*.pyc
-.DS_Store
-*/.DS_Store
-node_modules
-_book
-_unused
-build
-*.swp
-spark-warehouse
+stores
+javadoc
+components
+getting-started

@@ -117,6 +117,7 @@ public class PropertiesWalkthroughRunner extends AbstractWalkthroughRunner {
 
     @Override
     public void run() throws Exception {
+        System.out.println("# Properties Guide");
         printTableOfContents();
         printIntro();
         printRunningTheExamples();
