@@ -20,7 +20,7 @@ import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.element.function.ElementAggregator;
 import uk.gov.gchq.gaffer.named.operation.NamedOperation;
 import uk.gov.gchq.gaffer.operation.OperationChain;
-import uk.gov.gchq.gaffer.operation.function.Aggregate;
+import uk.gov.gchq.gaffer.operation.impl.function.Aggregate;
 import uk.gov.gchq.gaffer.operation.util.AggregatePair;
 import uk.gov.gchq.gaffer.store.schema.Schema;
 import uk.gov.gchq.gaffer.store.schema.SchemaEdgeDefinition;
@@ -156,6 +156,7 @@ public class AggregateExample extends OperationExample {
                         .entities(entities)
                         .build())
                 .build();
+        // ---------------------------------------------------------
 
         showExample(opChain, "In this example, we define both the groupBy property, and the " +
                 "ElementAggregator in the constructor of the AggregatePair. The pair is matched " +
