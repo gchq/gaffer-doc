@@ -20,7 +20,7 @@ ${TYPES_JSON}
 
 
 #### Example complex query
-Now we have a the full schema we can load in our ${ROAD_TRAFFIC_SAMPLE_DATA_LINK} data and run a more complex query.
+Now we have a the full schema we can load in our Road Traffic Sample ${ROAD_TRAFFIC_SAMPLE_DATA_LINK} and run a more complex query.
 
 For this example, the question we want to ask is: "In the year 2000, which junctions in the South West were heavily used by buses".
 

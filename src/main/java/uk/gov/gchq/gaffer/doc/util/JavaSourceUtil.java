@@ -37,7 +37,7 @@ public final class JavaSourceUtil {
     public static String getRawJava(final String className, final String modulePath) {
         try {
             String path = JAVA_SRC_PATH + className.replace(".", "/") + ".java";
-            if (!new File("").getAbsolutePath().endsWith(modulePath)) {
+            if (!StringUtils.isEmpty(modulePath) && !new File("").getAbsolutePath().endsWith(modulePath)) {
                 path = modulePath + "/" + path;
             }
             final String javaCode = FileUtils.readFileToString(new File(path));
