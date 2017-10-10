@@ -18,22 +18,15 @@ package uk.gov.gchq.gaffer.doc.operation;
 import uk.gov.gchq.gaffer.commonutil.iterable.CloseableIterable;
 import uk.gov.gchq.gaffer.data.element.Edge;
 import uk.gov.gchq.gaffer.data.element.Element;
-import uk.gov.gchq.gaffer.data.element.Entity;
 import uk.gov.gchq.gaffer.data.element.function.ElementFilter;
-import uk.gov.gchq.gaffer.data.element.id.EntityId;
 import uk.gov.gchq.gaffer.named.operation.NamedOperation;
 import uk.gov.gchq.gaffer.operation.OperationChain;
 import uk.gov.gchq.gaffer.operation.OperationException;
-import uk.gov.gchq.gaffer.operation.data.EntitySeed;
 import uk.gov.gchq.gaffer.operation.impl.function.Filter;
-import uk.gov.gchq.gaffer.operation.impl.get.GetElements;
-import uk.gov.gchq.gaffer.operation.impl.job.GetJobResults;
 import uk.gov.gchq.koryphe.impl.predicate.IsLessThan;
 import uk.gov.gchq.koryphe.impl.predicate.IsMoreThan;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class FilterExample extends OperationExample {
@@ -55,86 +48,94 @@ public class FilterExample extends OperationExample {
 
     public void filterEdgesByCount() {
         // ---------------------------------------------------------
+        final NamedOperation<Iterable<Element>, Iterable<? extends Element>> namedOp = new NamedOperation<>();
+        namedOp.setOperationName("customOperation");
 
         final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
-                .first(new NamedOperation<Iterable<Element>, Iterable<? extends Element>>())
+                .first(namedOp)
                 .then(new Filter.Builder()
-                      .globalEdges(new ElementFilter.Builder()
-                                   .select("count")
-                                   .execute(new IsMoreThan(2))
-                                   .build())
-                      .build())
+                        .globalEdges(new ElementFilter.Builder()
+                                .select("count")
+                                .execute(new IsMoreThan(2))
+                                .build())
+                        .build())
                 .build();
         // ---------------------------------------------------------
 
         showExample(opChain, null);
     }
 
-    public Iterable<? extends Element> filterByElementTypeAndCount() {
+    public void filterByElementTypeAndCount() {
         // ---------------------------------------------------------
+        final NamedOperation<Iterable<? extends Element>, Iterable<? extends Element>> namedOp = new NamedOperation<>();
+        namedOp.setOperationName("testOp");
+
         final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
-                .first(new NamedOperation<Iterable<Element>, Iterable<? extends Element>>())
+                .first(namedOp)
                 .then(new Filter.Builder()
-                      .globalElements(new ElementFilter.Builder()
-                                      .select("count")
-                                      .execute(new IsMoreThan(1))
-                                      .build())
-                      .edge("edge")
-                      .build())
+                        .globalElements(new ElementFilter.Builder()
+                                .select("count")
+                                .execute(new IsMoreThan(1))
+                                .build())
+                        .edge("shortEdge")
+                        .build())
                 .build();
         // ---------------------------------------------------------
 
-        return runExample(opChain, "This first selects any elements that have a "
+        showExample(opChain, "This first selects any elements that have a "
                 + "count of more than 1, and then further selects only edges "
-                + "that are in the group of \"edge\".");
+                + "that are in the group of \"shortEdge\".");
     }
 
-    public Iterable<? extends Element> filterEntitesByGroupAndCount() {
+    public void filterEntitesByGroupAndCount() {
+        final Edge testEdge = new Edge.Builder()
+                .source("src")
+                .dest("dest")
+                .build();
         // ---------------------------------------------------------
         final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
-                .first(new NamedOperation.Builder<Entity, CloseableIterable<Element>>()
+                .first(new NamedOperation.Builder<Edge, CloseableIterable<Element>>()
                         .name("path")
-                        .input(new Entity.Builder().build())
+                        .input(testEdge)
                         .build())
                 .then(new Filter.Builder()
-                      .entity("entity", new ElementFilter.Builder()
-                              .select("count")
-                              .execute(new IsLessThan(3))
-                              .build())
-                      .build())
+                        .entity("entity", new ElementFilter.Builder()
+                                .select("count")
+                                .execute(new IsLessThan(3))
+                                .build())
+                        .build())
                 .build();
         // ---------------------------------------------------------
 
-        return runExample(opChain, "Here we select all entities in the group of "
-        + "\"entity\", then selecting only those with a count of less than 3.");
+        showExample(opChain, "Here we select all entities in the group of "
+                + "\"entity\", then selecting only those with a count of less than 3.");
     }
 
     public void filterUsingMap() {
         // ---------------------------------------------------------
         final Map<String, ElementFilter> edges = new HashMap<>();
-        edges.put("edge", new ElementFilter.Builder()
-                  .select("count")
-                  .execute(new IsLessThan(3))
-                  .build());
         edges.put("road", new ElementFilter.Builder()
-                  .select("count")
-                  .execute(new IsMoreThan(10))
-                  .build());
+                .select("count")
+                .execute(new IsLessThan(3))
+                .build());
+        edges.put("motorway", new ElementFilter.Builder()
+                .select("count")
+                .execute(new IsMoreThan(10))
+                .build());
 
         final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
                 .first(new NamedOperation.Builder<Element, CloseableIterable<Element>>()
                         .name("path")
-                        .input(new Edge.Builder().build())
                         .build())
                 .then(new Filter.Builder()
-                      .edges(edges)
-                      .build())
+                        .edges(edges)
+                        .build())
                 .build();
         // ---------------------------------------------------------
 
         showExample(opChain, "A map can be utilised to define how each group "
-        + "of a particular element type should be filtered - here, the "
-        + "\"edge\" group by an IsLessThan(3) predicate, and the \"road\" "
-        + "group is filtered by an IsMoreThan(10) predicate.");
+                + "of a particular element type should be filtered - here, the "
+                + "\"road\" group by an IsLessThan(3) predicate, and the \"motorway\" "
+                + "group is filtered by an IsMoreThan(10) predicate.");
     }
 }
