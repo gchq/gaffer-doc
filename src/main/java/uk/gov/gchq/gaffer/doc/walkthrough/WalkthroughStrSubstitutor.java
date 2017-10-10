@@ -16,6 +16,7 @@
 package uk.gov.gchq.gaffer.doc.walkthrough;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
 
 import uk.gov.gchq.gaffer.accumulostore.AccumuloStore;
@@ -60,7 +61,8 @@ import java.util.function.Function;
 public abstract class WalkthroughStrSubstitutor {
     public static final String JAVA_DOC_URL_PREFIX = "ref://../javadoc/gaffer/";
     public static final String KORYPHE_JAVA_DOC_URL_PREFIX = "ref://../javadoc/koryphe/";
-    public static final String GITHUB_URL_PREFIX = "https://github.com/gchq/Gaffer/blob/master/";
+    public static final String GITHUB_URL_PREFIX = "https://github.com/gchq/gaffer-doc/blob/master";
+    public static final String GAFFER_GITHUB_URL_PREFIX = "https://github.com/gchq/Gaffer/blob/master";
     public static final String DOC_URL_PREFIX = "../";
     public static final String JAVA_SRC_PATH = "/src/main/java/";
     public static final String RESOURCES_SRC_PATH = "/src/main/resources/";
@@ -167,9 +169,8 @@ public abstract class WalkthroughStrSubstitutor {
         params.put("FETCH_EXPORT_JAVADOC", getJavaDocLink(GetSetExport.class));
         params.put("EXPORT_TO_SET_JAVADOC", getJavaDocLink(ExportToSet.class));
         params.put("EXPORT_TO_GAFFER_RESULT_CACHE_JAVADOC", getJavaDocLink(ExportToGafferResultCache.class));
-        params.put("EXAMPLES_LINK", getGitHubPackageLink("Examples", AbstractWalkthrough.class.getPackage().getName(), modulePath));
         params.put("ACCUMULO_USER_GUIDE", "[Accumulo Store User Guide](https://github.com/gchq/Gaffer/wiki/Accumulo-Store-user-guide)");
-        params.put("ACCUMULO_KEY_PACKAGE", getGitHubCodeLink(AccumuloKeyPackage.class, "store-implementations/accumulo-store"));
+        params.put("ACCUMULO_KEY_PACKAGE", getGafferGitHubCodeLink(AccumuloKeyPackage.class, "store-implementations/accumulo-store"));
 
 
         params.put("OPERATION_EXAMPLES_LINK", getDocLink("Operation Examples"));
@@ -245,11 +246,18 @@ public abstract class WalkthroughStrSubstitutor {
 
     public static String getGitHubResourcesLink(final String resourcePath, final String modulePath) {
         final String resourceName = resourcePath.substring(resourcePath.lastIndexOf("/") + 1, resourcePath.length());
-        return "[" + resourceName + "](" + GITHUB_URL_PREFIX + modulePath + RESOURCES_SRC_PATH + resourcePath + ")";
+        if (StringUtils.isEmpty(modulePath)) {
+            return "[" + resourceName + "](" + GITHUB_URL_PREFIX + RESOURCES_SRC_PATH + resourcePath + ")";
+        }
+        return "[" + resourceName + "](" + GITHUB_URL_PREFIX + "/" + modulePath + RESOURCES_SRC_PATH + resourcePath + ")";
+
     }
 
     public static String getGitHubPackageLink(final String displayName, final String packagePath, final String modulePath) {
-        return "[" + displayName + "](" + GITHUB_URL_PREFIX + modulePath + JAVA_SRC_PATH + packagePath.replaceAll("\\.", "/") + ")";
+        if (StringUtils.isEmpty(modulePath)) {
+            return "[" + displayName + "](" + GITHUB_URL_PREFIX + JAVA_SRC_PATH + packagePath.replaceAll("\\.", "/") + ")";
+        }
+        return "[" + displayName + "](" + GITHUB_URL_PREFIX + "/" + modulePath + JAVA_SRC_PATH + packagePath.replaceAll("\\.", "/") + ")";
     }
 
     public static String getGitHubCodeLink(final Class<?> clazz, final String modulePath) {
@@ -258,10 +266,50 @@ public abstract class WalkthroughStrSubstitutor {
 
     public static String getGitHubCodeLink(final String className, final String modulePath) {
         final String simpleClassName = className.substring(className.lastIndexOf(".") + 1, className.length());
-        return "[" + simpleClassName + "](" + GITHUB_URL_PREFIX + modulePath + JAVA_SRC_PATH + className.replaceAll("\\.", "/") + ".java)";
+        if (StringUtils.isEmpty(modulePath)) {
+            return "[" + simpleClassName + "](" + GITHUB_URL_PREFIX + JAVA_SRC_PATH + className.replaceAll("\\.", "/") + ".java)";
+        }
+
+        return "[" + simpleClassName + "](" + GITHUB_URL_PREFIX + "/" + modulePath + JAVA_SRC_PATH + className.replaceAll("\\.", "/") + ".java)";
     }
 
     public static String getGitHubFileLink(final String displayName, final String path) {
-        return "[" + displayName + "](" + GITHUB_URL_PREFIX + path + ")";
+        return "[" + displayName + "](" + GITHUB_URL_PREFIX + "/" + path + ")";
     }
+
+
+    public static String getGafferGitHubResourcesLink(final String resourcePath, final String modulePath) {
+        final String resourceName = resourcePath.substring(resourcePath.lastIndexOf("/") + 1, resourcePath.length());
+        if (StringUtils.isEmpty(modulePath)) {
+            return "[" + resourceName + "](" + GAFFER_GITHUB_URL_PREFIX + RESOURCES_SRC_PATH + resourcePath + ")";
+        }
+        return "[" + resourceName + "](" + GAFFER_GITHUB_URL_PREFIX + "/" + modulePath + RESOURCES_SRC_PATH + resourcePath + ")";
+
+    }
+
+    public static String getGafferGitHubPackageLink(final String displayName, final String packagePath, final String modulePath) {
+        if (StringUtils.isEmpty(modulePath)) {
+            return "[" + displayName + "](" + GAFFER_GITHUB_URL_PREFIX + JAVA_SRC_PATH + packagePath.replaceAll("\\.", "/") + ")";
+        }
+        return "[" + displayName + "](" + GAFFER_GITHUB_URL_PREFIX + "/" + modulePath + JAVA_SRC_PATH + packagePath.replaceAll("\\.", "/") + ")";
+    }
+
+    public static String getGafferGitHubCodeLink(final Class<?> clazz, final String modulePath) {
+        return getGafferGitHubCodeLink(clazz.getName(), modulePath);
+    }
+
+    public static String getGafferGitHubCodeLink(final String className, final String modulePath) {
+        final String simpleClassName = className.substring(className.lastIndexOf(".") + 1, className.length());
+        if (StringUtils.isEmpty(modulePath)) {
+            return "[" + simpleClassName + "](" + GAFFER_GITHUB_URL_PREFIX + JAVA_SRC_PATH + className.replaceAll("\\.", "/") + ".java)";
+        }
+
+        return "[" + simpleClassName + "](" + GAFFER_GITHUB_URL_PREFIX + "/" + modulePath + JAVA_SRC_PATH + className.replaceAll("\\.", "/") + ".java)";
+    }
+
+    public static String getGafferGitHubFileLink(final String displayName, final String path) {
+        return "[" + displayName + "](" + GAFFER_GITHUB_URL_PREFIX + "/" + path + ")";
+    }
+
+
 }

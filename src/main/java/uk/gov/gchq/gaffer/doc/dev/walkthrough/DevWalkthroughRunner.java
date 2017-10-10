@@ -35,7 +35,7 @@ public class DevWalkthroughRunner extends AbstractWalkthroughRunner {
     );
 
     public DevWalkthroughRunner() {
-        super("Developer Guide", EXAMPLES, "doc", "dev");
+        super("Developer Guide", EXAMPLES, null, "dev");
     }
 
     public static void main(final String[] args) throws Exception {

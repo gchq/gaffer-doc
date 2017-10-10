@@ -15,9 +15,6 @@
  */
 package uk.gov.gchq.gaffer.doc.operation.spark;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-
 import uk.gov.gchq.gaffer.doc.operation.OperationExample;
 import uk.gov.gchq.gaffer.doc.util.ExampleDocRunner;
 import uk.gov.gchq.gaffer.operation.Operation;
@@ -26,7 +23,6 @@ import uk.gov.gchq.gaffer.operation.Operation;
  * This runner will run all spark operation examples.
  */
 public class SparkOperationExamplesRunner extends ExampleDocRunner {
-    private static final Logger ROOT_LOGGER = Logger.getRootLogger();
 
     public static void main(final String[] args) throws Exception {
         new SparkOperationExamplesRunner().run();
@@ -34,11 +30,5 @@ public class SparkOperationExamplesRunner extends ExampleDocRunner {
 
     public void run() throws Exception {
         run("Spark Operation Examples", OperationExample.class, Operation.class);
-        ROOT_LOGGER.setLevel(Level.OFF);
-    }
-
-    @Override
-    protected void printEditWarning() {
-        log("_This page has been generated from code. To make any changes please update the examples in the [spark-doc](https://github.com/gchq/Gaffer/tree/master/library/spark/spark-doc/src/main/java/uk/gov/gchq/gaffer/spark/examples) module, run it and replace the content of this page with the output._\n\n");
     }
 }

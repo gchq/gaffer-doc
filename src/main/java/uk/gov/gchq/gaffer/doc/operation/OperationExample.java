@@ -17,9 +17,15 @@ package uk.gov.gchq.gaffer.doc.operation;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
 
 import uk.gov.gchq.gaffer.commonutil.Required;
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
+import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator;
 import uk.gov.gchq.gaffer.doc.util.Example;
 import uk.gov.gchq.gaffer.graph.Graph;
@@ -29,6 +35,7 @@ import uk.gov.gchq.gaffer.operation.OperationException;
 import uk.gov.gchq.gaffer.operation.impl.add.AddElements;
 import uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements;
 import uk.gov.gchq.gaffer.operation.io.Output;
+import uk.gov.gchq.gaffer.store.Context;
 import uk.gov.gchq.gaffer.user.User;
 
 import java.io.IOException;
@@ -38,26 +45,24 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public abstract class OperationExample extends Example {
+    private static final Logger ROOT_LOGGER = Logger.getRootLogger();
     private final Graph graph = createExampleGraph();
-    //private Graph graph;
+    protected boolean skipEndOfMethodBreaks = false;
 
     public OperationExample(final Class<? extends Operation> classForExample) {
         super(classForExample);
+        ROOT_LOGGER.setLevel(Level.OFF);
     }
 
     public OperationExample(final Class<? extends Operation> classForExample, final String description) {
         super(classForExample, description);
+        ROOT_LOGGER.setLevel(Level.OFF);
     }
 
     @Override
     protected void printDescription() {
         super.printDescription();
         printRequiredFields();
-    }
-
-    @Override
-    protected void runExamples() {
-        // not used - implement runExample(Graph) instead.
     }
 
     protected Graph getGraph() {
@@ -71,7 +76,9 @@ public abstract class OperationExample extends Example {
         }
         printJava(getJavaSnippet(3));
 
-        log(METHOD_DIVIDER);
+        if (!skipEndOfMethodBreaks) {
+            endOfMethod();
+        }
     }
 
     protected void showExample(final OperationChain operation,
@@ -82,7 +89,9 @@ public abstract class OperationExample extends Example {
         }
         printJavaJsonPython(operation, 3);
 
-        log(METHOD_DIVIDER);
+        if (!skipEndOfMethodBreaks) {
+            endOfMethod();
+        }
     }
 
     protected void showExample(final Operation operation,
@@ -93,7 +102,9 @@ public abstract class OperationExample extends Example {
         }
         printJavaJsonPython(operation, 3);
 
-        log(METHOD_DIVIDER);
+        if (!skipEndOfMethodBreaks) {
+            endOfMethod();
+        }
     }
 
     protected void runExampleNoResult(final Operation operation,
@@ -105,12 +116,14 @@ public abstract class OperationExample extends Example {
         printJavaJsonPython(operation, 3);
 
         try {
-            getGraph().execute(operation, new User("user01"));
+            getGraph().execute(operation, createContext());
         } catch (final OperationException e) {
             throw new RuntimeException(e);
         }
 
-        log(METHOD_DIVIDER);
+        if (!skipEndOfMethodBreaks) {
+            endOfMethod();
+        }
     }
 
     protected <RESULT_TYPE> RESULT_TYPE runExample(
@@ -124,15 +137,16 @@ public abstract class OperationExample extends Example {
 
         final RESULT_TYPE results;
         try {
-            results = getGraph().execute(
-                    operation, new User("user01"));
+            results = getGraph().execute(operation, createContext());
         } catch (final OperationException e) {
             throw new RuntimeException(e);
         }
 
         logResult(results);
 
-        log(METHOD_DIVIDER);
+        if (!skipEndOfMethodBreaks) {
+            endOfMethod();
+        }
         return results;
     }
 
@@ -148,16 +162,25 @@ public abstract class OperationExample extends Example {
 
         final RESULT_TYPE result;
         try {
-            result = getGraph().execute(
-                    operationChain, new User("user01"));
+            result = getGraph().execute(operationChain, createContext());
         } catch (final OperationException e) {
             throw new RuntimeException(e);
         }
 
         logResult(result);
 
-        log(METHOD_DIVIDER);
+        if (!skipEndOfMethodBreaks) {
+            endOfMethod();
+        }
         return result;
+    }
+
+    protected void endOfMethod() {
+        log(getEndOfMethodString());
+    }
+
+    protected String getEndOfMethodString() {
+        return METHOD_DIVIDER;
     }
 
     public <RESULT_TYPE> void logResult(final RESULT_TYPE result) {
@@ -187,6 +210,15 @@ public abstract class OperationExample extends Example {
             for (int i = 0; i < array.length; i++) {
                 log(array[i].toString());
             }
+        } else if (result instanceof JavaRDD) {
+            final List<Element> elements = ((JavaRDD) result).collect();
+            for (final Element e : elements) {
+                log(e.toString());
+            }
+        } else if (result instanceof Dataset) {
+            final Dataset<Row> dataset = ((Dataset) result);
+            final String resultStr = dataset.showString(100, 20);
+            log(resultStr.substring(0, resultStr.length() - 2));
         } else {
             log(result.toString());
         }
@@ -264,5 +296,9 @@ public abstract class OperationExample extends Example {
         }
 
         log("\n");
+    }
+
+    protected Context createContext() {
+        return new Context(new User("user01"));
     }
 }
