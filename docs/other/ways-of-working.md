@@ -99,59 +99,18 @@ In particular:
 
 ## Releases
 * All issues included in the release should be marked with the relevant milestone
-* Check the javadoc is all still valid - mvn clean install -Pquick && mvn javadoc:javadoc
-* Run the following (assuming develop is ahead of master), replacing [version] with the release version:
-  
-  ```bash
-  # Create release branch
-  git reset --hard
-  git checkout develop
-  git pull
-  git checkout -b release-[version]
-
-  # Run following the release:prepare goal to update the pom version and tag the code - when prompted enter [version]-RC1 for the version.
-  mvn release:prepare release:clean 
-  ```
-
-* Test the release
-* Make any changes required by creating issues, branching off the release branch and creating pull requests back into the release branch.
-* Release the next RC version using the following:
-
-  ```bash
-  git reset --hard
-  git checkout release-[version]
-  git pull
-  mvn release:prepare release:clean
-  ```
-
-* When no further bugs run the release:prepare goal a final time and set the version to [version] without the RC bit.
-* Create a pull request to merge the release branch into master
-* Merge master into develop:
-
-  ```bash
-  git checkout master
-  git pull
-  git checkout develop
-  git pull
-  git checkout -b update-develop
-  git merge master
-  git push -u origin update-develop
-  # Create a pull request to merge update-develop into develop
-  ```
-
-* Update the Javadoc
-
-  ```bash
-  git checkout gaffer2-[version]
-  mvn clean install -Pquick && mvn javadoc:javadoc scm-publish:publish-scm
-  ```
-
-* Create a release in GitHub (Gaffer [version]) containing links to the resolved issues, similar to:
-
-  ```
-  [0.3.2 issues resolved](https://github.com/gchq/Gaffer/issues?q=milestone%3Av0.3.2)
-
-  [0.3.2 issues with migration steps](https://github.com/gchq/Gaffer/issues?q=milestone%3Av0.3.2+label%3Amigration-required)
-  ```
-
-* We are currently investigating the use of the maven release plugin to push artefacts up to a repository
+* When the `develop` branch is ready to be released create a pull request to merge `develop` into `master`
+* Merge the pull request
+* Travis CI will carry out the release in 2 stages
+  * Initially it will see the pom version is a SNAPSHOT, this will trigger it to tag the 
+ release based on the SNAPSHOT version or you can define the version by setting the environment variable RELEASE_VERSION in Travis CI settings. 
+ After tagging the release it will update the Javadoc and generate the release notes.
+ It will then update the `develop` branch and update the pom version to the next SNAPSHOT version.
+  * Travis CI is then automatically triggered on `master` for a second time, now with a pom version that does not contain a SNAPSHOT. 
+  It will now build the binaries and release them to Nexus.
+* Once Travis CI has finished both stages:
+  * Log into Nexus
+  * Go to the staging environment
+  * Select the artifacts
+  * Click 'close'
+  * Click 'release' - this will release them to Maven Central.
