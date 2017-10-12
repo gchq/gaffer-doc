@@ -23,6 +23,8 @@ sed -i '' "s/version>$oldVersion</version>$newVersion</g" pom.xml
 sed -i '' "s/gaffer2:$oldVersion/gaffer2:$newVersion/g" NOTICES
 sed -i '' "s/gaffer-tools:$oldVersion/gaffer-tools:$newVersion/g" NOTICES
 
+sed -i '' "s/>Version $oldVersion</>Version $newVersion</g" docs/README.md
+
 git add .
 git commit -a -m "Updated Gaffer version to $newVersion"
 git push -u origin updating-gaffer-version-$newVersion
