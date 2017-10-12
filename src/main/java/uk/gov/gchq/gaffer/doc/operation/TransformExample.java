@@ -15,19 +15,9 @@
  */
 package uk.gov.gchq.gaffer.doc.operation;
 
-import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.element.function.ElementTransformer;
-import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
-import uk.gov.gchq.gaffer.data.elementdefinition.view.ViewElementDefinition;
-import uk.gov.gchq.gaffer.operation.OperationChain;
-import uk.gov.gchq.gaffer.operation.data.EntitySeed;
 import uk.gov.gchq.gaffer.operation.impl.function.Transform;
-import uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds;
-import uk.gov.gchq.gaffer.operation.impl.get.GetElements;
 import uk.gov.gchq.koryphe.impl.function.ToString;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class TransformExample extends OperationExample {
 
@@ -36,70 +26,25 @@ public class TransformExample extends OperationExample {
     }
 
     public TransformExample() {
-        super(Transform.class);
+        super(Transform.class, "The Transform operation would normally be used in an Operation Chain to transform the results of a previous operation.");
     }
 
     @Override
-    protected void runExamples() {
-        transformToTransientProperty();
-        transformUsingElementMap();
+    public void runExamples() {
+        transformACountPropertyIntoACountStringPropertyOnlyForEdgesOfTypeEdge();
     }
 
-    public Iterable<? extends Element> transformToTransientProperty() {
+    public void transformACountPropertyIntoACountStringPropertyOnlyForEdgesOfTypeEdge() {
         // ---------------------------------------------------------
-        final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
-                .first(new GetAdjacentIds.Builder()
-                        .input(new EntitySeed(1))
-                        .build())
-                .then(new GetElements.Builder()
-                        .view(new View.Builder()
-                                .edge("edge", new ViewElementDefinition.Builder()
-                                        .transientProperty("newProp", String.class)
-                                        .build())
-                                .build())
-                        .build())
-                .then(new Transform.Builder()
-                        .edge("edge", new ElementTransformer.Builder()
-                                .select("count")
-                                .execute(new ToString())
-                                .project("newProp")
-                                .build())
+        final Transform transform = new Transform.Builder()
+                .edge("edge", new ElementTransformer.Builder()
+                        .select("count")
+                        .execute(new ToString())
+                        .project("countString")
                         .build())
                 .build();
         // ---------------------------------------------------------
-        return runExample(opChain, "In this example, we have added a transient property to each " +
-                "edge in the \"edge\" group, and then transformed the existing \"count\" property " +
-                "into this new transient property.");
-    }
 
-    public Iterable<? extends Element> transformUsingElementMap() {
-        // ---------------------------------------------------------
-        final Map<String, ElementTransformer> entities = new HashMap<>();
-        entities.put("entity", new ElementTransformer.Builder()
-                .select("count")
-                .execute(new ToString())
-                .project("stringProp")
-                .build());
-
-        final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
-                .first(new GetAdjacentIds.Builder()
-                        .input(new EntitySeed(2))
-                        .build())
-                .then(new GetElements.Builder()
-                        .view(new View.Builder()
-                                .entity("entity", new ViewElementDefinition.Builder()
-                                        .transientProperty("stringProp", String.class)
-                                        .build())
-                                .build())
-                        .build())
-                .then(new Transform.Builder()
-                        .entities(entities)
-                        .build())
-                .build();
-        // ---------------------------------------------------------
-        return runExample(opChain, "Similar to the previous example, a transient property is added to each " +
-                "entity in the \"entity\" group, and the count property is transformed into it. The main " +
-                "difference is using the map of group to ElementTransformer, to perform complex transforms " +
-                "on multiple groups with ease.");
+        showExample(transform, null);
     }
 }
