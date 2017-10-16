@@ -28,7 +28,7 @@ public class ScoreOperationChainExample extends OperationExample {
     }
 
     public ScoreOperationChainExample() {
-        super(ScoreOperationChain.class);
+        super(ScoreOperationChain.class, "Note - ScoreOperationChain is not a core operation.");
     }
 
     @Override
@@ -53,12 +53,5 @@ public class ScoreOperationChainExample extends OperationExample {
         // ---------------------------------------------------------
         showExample(scoreOpChain, "This demonstrates a simple example for constructing a " +
                 "ScoreOperationChain, with Operations and a NamedOperation.");
-    }
-
-    @Override
-    protected String getPython(final Object object) {
-
-        // TODO When this is added to python.py, remove this method
-        return null;
     }
 }
