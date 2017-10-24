@@ -20,13 +20,13 @@
     <parent>
         <groupId>uk.gov.gchq.gaffer</groupId>
         <artifactId>gaffer2</artifactId>
-        <version>1.0.2</version>
+        <version>1.0.3-SNAPSHOT</version>
     </parent>
 
     <artifactId>doc</artifactId>
 
     <properties>
-        <gaffer.version>1.0.2</gaffer.version>
+        <gaffer.version>1.0.3-SNAPSHOT</gaffer.version>
         <gaffer-tools.version>1.0.2</gaffer-tools.version>
         <scm.url>
             https://github.com/gchq/gaffer-doc
