@@ -5,10 +5,24 @@
       "properties": {
         "count": "int"
       }
+    },
+    "entity1": {
+      "vertex": "int",
+      "properties": {
+        "count": "int"
+      }
     }
   },
   "edges": {
     "edge": {
+      "source": "int",
+      "destination": "int",
+      "directed": "true",
+      "properties": {
+        "count": "int"
+      }
+    },
+    "edge1": {
       "source": "int",
       "destination": "int",
       "directed": "true",
