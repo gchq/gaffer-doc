@@ -29,8 +29,8 @@ public class GetSchemaExample extends OperationExample {
 
     @Override
     protected void runExamples() {
-        getCompactSchema();
         getFullSchema();
+        getCompactSchema();
     }
 
     public void getFullSchema() {
@@ -38,7 +38,7 @@ public class GetSchemaExample extends OperationExample {
         final GetSchema operation = new GetSchema();
         // ---------------------------------------------------------
 
-        showExample(operation, "This operation defaults the compact field to false, " +
+        runExample(operation, "This operation defaults the compact field to false, " +
                 "thereby returning the full Schema.");
     }
 
@@ -49,7 +49,7 @@ public class GetSchemaExample extends OperationExample {
                 .build();
         // ---------------------------------------------------------
 
-        showExample(operation, "This operation will retrieve the compact Schema from the store, " +
+        runExample(operation, "This operation will retrieve the compact Schema from the store, " +
                 "rather than the full schema.");
     }
 }
