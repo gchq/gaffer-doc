@@ -17,6 +17,7 @@ package uk.gov.gchq.gaffer.doc.operation;
 
 import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.named.operation.AddNamedOperation;
+import uk.gov.gchq.gaffer.named.operation.DeleteNamedOperation;
 import uk.gov.gchq.gaffer.named.operation.NamedOperation;
 import uk.gov.gchq.gaffer.operation.OperationChain;
 import uk.gov.gchq.gaffer.operation.OperationException;
@@ -36,21 +37,42 @@ public class ScoreOperationChainExample extends OperationExample {
 
     @Override
     protected void runExamples() {
+        final AddNamedOperation addNamedOp = new AddNamedOperation.Builder()
+                .operationChain(new OperationChain.Builder()
+                        .first(new GetElements())
+                        .build())
+                .name("1-hop")
+                .description("a 1-hop operation")
+                .overwrite()
+                .score(3)
+                .build();
+
+        try {
+            getGraph().execute(addNamedOp, createContext());
+        } catch (OperationException e) {
+            throw new RuntimeException(e);
+        }
+
         scoreOperationChain();
         scoreOperationChainWithCustomNamedScore();
+
+        try {
+            getGraph().execute(new DeleteNamedOperation.Builder()
+                    .name("1-hop")
+                    .build(), createContext());
+        } catch (OperationException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void scoreOperationChain() {
         // ---------------------------------------------------------
-        final NamedOperation<Element, Iterable<? extends Element>> operation =
-                new NamedOperation.Builder<Element, Iterable<? extends Element>>()
-                        .name("namedOp")
-                        .build();
-
         final ScoreOperationChain scoreOpChain = new ScoreOperationChain.Builder()
                 .operationChain(new OperationChain.Builder()
                         .first(new GetElements())
-                        .then(operation)
+                        .then(new NamedOperation.Builder<Element, Iterable<? extends Element>>()
+                                .name("namedOp")
+                                .build())
                         .then(new Limit<>(3))
                         .build())
                 .build();
@@ -61,29 +83,12 @@ public class ScoreOperationChainExample extends OperationExample {
 
     public void scoreOperationChainWithCustomNamedScore() {
         // ---------------------------------------------------------
-        final AddNamedOperation addNamedOp = new AddNamedOperation.Builder()
-                .operationChain(new OperationChain.Builder()
-                        .first(new GetElements())
-                        .build())
-                .name("1-hop")
-                .description("a 1-hop operation")
-                .score(3)
-                .build();
-
-        try {
-            getGraph().execute(addNamedOp, createContext());
-        } catch (OperationException e) {
-            throw new RuntimeException(e);
-        }
-
-        final NamedOperation<EntitySeed, Iterable<? extends Element>> namedOp = new NamedOperation.Builder<EntitySeed, Iterable<? extends Element>>()
-                .name("1-hop")
-                .input(new EntitySeed(1))
-                .build();
-
         final ScoreOperationChain scoreOperationChain = new ScoreOperationChain.Builder()
                 .operationChain(new OperationChain.Builder()
-                        .first(namedOp)
+                        .first(new NamedOperation.Builder<EntitySeed, Iterable<? extends Element>>()
+                                .name("1-hop")
+                                .input(new EntitySeed(1))
+                                .build())
                         .then(new Limit<>(3))
                         .build())
                 .build();
