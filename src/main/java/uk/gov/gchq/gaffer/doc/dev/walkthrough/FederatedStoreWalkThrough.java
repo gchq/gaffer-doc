@@ -63,6 +63,28 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
 
         final User user = new User("user01");
 
+        final AddGraph addMapGraph = new AddGraph.Builder()
+                .graphId("mapGraph")
+                .schema(new Schema.Builder()
+                        .json(StreamUtil.openStream(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema/entities.json"))
+                        .json(StreamUtil.openStream(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema/types.json"))
+                        .build())
+                .storeProperties(StoreProperties.loadStoreProperties("mockmapstore.properties"))
+                .isPublic(true)
+                .build();
+        federatedGraph.execute(addMapGraph, user);
+
+        final AddGraph addAccumuloGraph = new AddGraph.Builder()
+                .graphId("accumuloGraph")
+                .schema(new Schema.Builder()
+                        .json(StreamUtil.openStream(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema/edges.json"))
+                        .json(StreamUtil.openStream(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema/types.json"))
+                        .build())
+                .storeProperties(StoreProperties.loadStoreProperties("mockaccumulostore.properties"))
+                .isPublic(true)
+                .build();
+        federatedGraph.execute(addAccumuloGraph, user);
+
         // [add graph] add a graph to the federated store.
         // ---------------------------------------------------------
         AddGraph addAnotherGraph = new AddGraph.Builder()
