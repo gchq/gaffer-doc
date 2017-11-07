@@ -49,7 +49,7 @@ public class ScoreOperationChainExample extends OperationExample {
 
         try {
             getGraph().execute(addNamedOp, createContext());
-        } catch (OperationException e) {
+        } catch (final OperationException e) {
             throw new RuntimeException(e);
         }
 
@@ -60,7 +60,7 @@ public class ScoreOperationChainExample extends OperationExample {
             getGraph().execute(new DeleteNamedOperation.Builder()
                     .name("1-hop")
                     .build(), createContext());
-        } catch (OperationException e) {
+        } catch (final OperationException e) {
             throw new RuntimeException(e);
         }
     }

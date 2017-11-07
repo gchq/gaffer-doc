@@ -92,6 +92,7 @@ public class NamedOperations extends DevWalkthrough {
                 .name("2-limit")
                 .readAccessRoles("read-user")
                 .writeAccessRoles("write-user")
+                .score(2)
                 .overwrite()
                 .build();
 
