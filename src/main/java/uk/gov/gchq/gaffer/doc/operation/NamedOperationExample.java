@@ -53,6 +53,7 @@ public class NamedOperationExample extends OperationExample {
         }
 
         addNamedOperation();
+        addNamedOperationWithScore();
         addNamedOperationWithParameter();
         getAllNamedOperations();
         runNamedOperation();
@@ -76,6 +77,26 @@ public class NamedOperationExample extends OperationExample {
                 .readAccessRoles("read-user")
                 .writeAccessRoles("write-user")
                 .overwrite()
+                .build();
+        // ---------------------------------------------------------
+
+        runExampleNoResult(operation, null);
+    }
+
+    public void addNamedOperationWithScore() {
+        // ---------------------------------------------------------
+        final AddNamedOperation operation = new AddNamedOperation.Builder()
+                .operationChain(new OperationChain.Builder()
+                        .first(new GetAdjacentIds.Builder()
+                                .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
+                                .build())
+                        .build())
+                .description("1 hop query")
+                .name("1-hop")
+                .readAccessRoles("read-user")
+                .writeAccessRoles("write-user")
+                .overwrite()
+                .score(2)
                 .build();
         // ---------------------------------------------------------
 
@@ -114,6 +135,7 @@ public class NamedOperationExample extends OperationExample {
                 .writeAccessRoles("write-user")
                 .parameters(paramMap)
                 .overwrite()
+                .score(3)
                 .build();
         // ---------------------------------------------------------
 
