@@ -46,9 +46,9 @@ A graph is added into the `FederatedStore` using the `AddGraph` operation. To lo
 
 **Note**
 * You can't add a graph using a graphId already in use, you will need to explicitly remove the old GraphId first.
-* You can limit access to the sub-graphs when adding to FederatedStore, see [Limiting Access](#Limit-Access-with-Authentication).
+* You can limit access to the sub-graphs when adding to FederatedStore, see [Limiting Access](#limit-access-with-authentication).
 * Schema & Properties are not required if the GraphId is known by the GraphLibrary.
-* Custom properties defined by the user can be disallowed, see [limit custom properties](#limit-custom-properties)..
+* Custom properties defined by the user can be disallowed, see [limit custom properties](#limit-custom-properties).
 
 ${ADD_ANOTHER_GRAPH_SNIPPET}
 
@@ -60,7 +60,7 @@ ${addGraphJson}
 
 #### Remove Graphs
 
-To remove a graph from the `FederatedStore` is even easier, you only need to know the graphId. This does not delete the graph only removes it from the scope.
+To remove a graph from the `FederatedStore` it is even easier, you only need to know the graphId. This does not delete the graph only removes it from the scope.
 However the user can only delete graphs they have access to view.
 
 ${REMOVE_GRAPH_SNIPPET}
@@ -126,7 +126,9 @@ ${GET_ELEMENTS_FROM_ACCUMULO_GRAPH_SNIPPET}
 
 and the results are:
 
-${GET_ELEMENTS_FROM_ACCUMULO_GRAPH_SNIPPET}
+```
+${elementsFromAccumuloGraph}
+```
 
 #### Select Graphs for Operations
 Operations can be performed against specific sub-graphs by settings the option "gaffer.federatedstore.operation.graphIds".

@@ -187,6 +187,9 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         CloseableIterable<? extends Element> elementsFromAccumuloGraph = federatedGraph.execute(getOpChainOnAccumuloGraph, user);
         // ---------------------------------------------------------
 
+        for (final Element element : elementsFromAccumuloGraph) {
+            log("elementsFromAccumuloGraph", element.toString());
+        }
 
         // [select graphs for operations]
         // ---------------------------------------------------------
@@ -206,9 +209,6 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
 
         log("doNotSkipFailedExecutionJson", new String(JSONSerialiser.serialise(doNotSkipFailedExecution, true)));
 
-        for (final Element element : elementsFromAccumuloGraph) {
-            log("elements from accumuloGraph", element.toString());
-        }
 
         // [add public graph] add a graph to the federated store.
         // ---------------------------------------------------------
@@ -263,7 +263,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         disallowPublicProperties.setGraphsCanHavePublicAccess(false);
         // ---------------------------------------------------------
 
-        log("disallowPublicAccessJson", new String(JSONSerialiser.serialise(disallowPublicProperties, true)));
+        log("disallowPublicAccessJson", new String(JSONSerialiser.serialise(disallowPublicProperties.getProperties(), true)));
 
 
         // [limit custom properties]
@@ -272,7 +272,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         limitCustomProperties.setCustomPropertyAuths("Auth1, Auth2, Auth3");
         // ---------------------------------------------------------
 
-        log("limitCustomPropertiesJson", new String(JSONSerialiser.serialise(limitCustomProperties, true)));
+        log("limitCustomPropertiesJson", new String(JSONSerialiser.serialise(limitCustomProperties.getProperties(), true)));
 
 
         return elements;
