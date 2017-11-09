@@ -214,10 +214,9 @@ public abstract class OperationExample extends Example {
     }
 
     public <RESULT_TYPE> void logResult(final RESULT_TYPE result) {
-        log("Result:\n");
+        log("Result:");
 
         log("\n{% codetabs name=\"Java\", type=\"java\" -%}");
-
         if (result instanceof Iterable) {
             for (final Object item : (Iterable) result) {
                 if (item instanceof Walk) {
