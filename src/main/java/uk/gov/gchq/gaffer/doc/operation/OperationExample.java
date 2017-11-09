@@ -26,7 +26,9 @@ import org.apache.spark.sql.Row;
 import uk.gov.gchq.gaffer.commonutil.Required;
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
 import uk.gov.gchq.gaffer.data.element.Element;
+import uk.gov.gchq.gaffer.data.graph.Walk;
 import uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator;
+import uk.gov.gchq.gaffer.doc.operation.generator.ElementWithVaryingGroupsGenerator;
 import uk.gov.gchq.gaffer.doc.util.Example;
 import uk.gov.gchq.gaffer.graph.Graph;
 import uk.gov.gchq.gaffer.operation.Operation;
@@ -43,21 +45,35 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class OperationExample extends Example {
     private static final Logger ROOT_LOGGER = Logger.getRootLogger();
-    private final Graph graph = createExampleGraph();
     protected boolean skipEndOfMethodBreaks = false;
+    private final Graph graph;
+    private boolean complex;
 
     public OperationExample(final Class<? extends Operation> classForExample) {
         super(classForExample);
         ROOT_LOGGER.setLevel(Level.OFF);
+
+        this.graph = createSimpleExampleGraph();
     }
 
     public OperationExample(final Class<? extends Operation> classForExample, final String description) {
         super(classForExample, description);
         ROOT_LOGGER.setLevel(Level.OFF);
+
+        this.graph = createSimpleExampleGraph();
+    }
+
+    public OperationExample(final Class<? extends Operation> classForExample, final String description, final boolean complex) {
+        super(classForExample, description);
+        ROOT_LOGGER.setLevel(Level.OFF);
+
+        this.graph = (complex) ? createComplexExampleGraph() : createSimpleExampleGraph();
+        this.complex = complex;
     }
 
     @Override
@@ -133,7 +149,13 @@ public abstract class OperationExample extends Example {
         if (StringUtils.isNotBlank(description)) {
             log(description + "\n");
         }
-        printGraph();
+
+        if (complex) {
+            printComplexGraphAsAscii();
+        } else {
+            printSimpleGraphAsAscii();
+        }
+
         printJavaJsonPython(operation, 3);
 
         final RESULT_TYPE results;
@@ -157,8 +179,15 @@ public abstract class OperationExample extends Example {
         log("#### " + getMethodNameAsSentence(1) + "\n");
         if (StringUtils.isNotBlank(description)) {
             log(description);
+            log("");
         }
-        printGraph();
+
+        if (complex) {
+            printComplexGraphAsAscii();
+        } else {
+            printSimpleGraphAsAscii();
+        }
+
         printJavaJsonPython(operationChain, 3);
 
         final RESULT_TYPE result;
@@ -189,7 +218,15 @@ public abstract class OperationExample extends Example {
         log("\n```");
         if (result instanceof Iterable) {
             for (final Object item : (Iterable) result) {
-                log(item.toString());
+                if (item instanceof Walk) {
+                    final Walk walk = (Walk) item;
+                    log(Walk.class.getName() + walk.getVerticesOrdered()
+                            .stream()
+                            .map(Object::toString)
+                            .collect(Collectors.joining(" --> ", "[ ", " ]")));
+                } else {
+                    log(item.toString());
+                }
             }
         } else if (result instanceof Map) {
             final Map<?, ?> resultMap = (Map) result;
@@ -228,7 +265,7 @@ public abstract class OperationExample extends Example {
         log("```");
     }
 
-    protected Graph createExampleGraph() {
+    protected Graph createSimpleExampleGraph() {
         final Graph graph = new Graph.Builder()
                 .config(StreamUtil.graphConfig(getClass()))
                 .addSchemas(StreamUtil.openStreams(getClass(), "operation/schema"))
@@ -266,8 +303,54 @@ public abstract class OperationExample extends Example {
         return graph;
     }
 
-    protected void printGraph() {
-        log("Using this simple directed graph:");
+    protected Graph createComplexExampleGraph() {
+        final Graph graph = new Graph.Builder()
+                .config(StreamUtil.graphConfig(getClass()))
+                .addSchemas(StreamUtil.openStreams(getClass(), "operation/schema"))
+                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .build();
+
+        // Create data generator
+        final ElementWithVaryingGroupsGenerator dataGenerator = new ElementWithVaryingGroupsGenerator();
+
+        // Load data into memory
+        final List<String> data;
+        try {
+            data = IOUtils.readLines(StreamUtil.openStream(getClass(), "operation/complexData.txt"));
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        //add the edges to the graph using an operation chain consisting of:
+        //generateElements - generating edges from the data (note these are directed edges)
+        //addElements - add the edges to the graph
+        final OperationChain addOpChain = new OperationChain.Builder()
+                .first(new GenerateElements.Builder<String>()
+                        .generator(dataGenerator)
+                        .input(data)
+                        .build())
+                .then(new AddElements())
+                .build();
+
+        try {
+            graph.execute(addOpChain, new User());
+        } catch (final OperationException e) {
+            throw new RuntimeException(e);
+        }
+
+        return graph;
+    }
+
+    protected void simpleGraphAsImage() {
+        log("<img src=\"images/complex.png\" width=\"300\">");
+    }
+
+    protected void complexGraphAsImage() {
+        log("<img src=\"images/complex.png\" width=\"300\">");
+    }
+
+    protected void printSimpleGraphAsAscii() {
+        log("Using this complex directed graph:");
         log("\n```");
         log("");
         log("    --> 4 <--");
@@ -276,6 +359,25 @@ public abstract class OperationExample extends Example {
         log("1  -->  2  -->  3");
         log("         \\");
         log("           -->  5");
+        log("```\n");
+    }
+
+    protected void printComplexGraphAsAscii() {
+        log("Using this directed graph:");
+        log("\n```");
+        log("");
+        log("             --> 7 <--");
+        log("           /           \\");
+        log("          /             \\");
+        log("         6  -->  3  -->  4");
+        log("         ^         \\");
+        log("        /          /");
+        log("8 -->  5  <--  2  <");
+        log("      ^        ^");
+        log("     /        /");
+        log("1 --         /");
+        log(" \\          /");
+        log("   --------");
         log("```\n");
     }
 
