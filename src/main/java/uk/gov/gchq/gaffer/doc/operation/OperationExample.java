@@ -25,12 +25,15 @@ import org.apache.spark.sql.Row;
 
 import uk.gov.gchq.gaffer.commonutil.Required;
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
+import uk.gov.gchq.gaffer.commonutil.StringUtil;
 import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.graph.Walk;
 import uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator;
 import uk.gov.gchq.gaffer.doc.operation.generator.ElementWithVaryingGroupsGenerator;
 import uk.gov.gchq.gaffer.doc.util.Example;
+import uk.gov.gchq.gaffer.exception.SerialisationException;
 import uk.gov.gchq.gaffer.graph.Graph;
+import uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser;
 import uk.gov.gchq.gaffer.operation.Operation;
 import uk.gov.gchq.gaffer.operation.OperationChain;
 import uk.gov.gchq.gaffer.operation.OperationException;
@@ -214,8 +217,10 @@ public abstract class OperationExample extends Example {
     }
 
     public <RESULT_TYPE> void logResult(final RESULT_TYPE result) {
-        log("Result:");
-        log("\n```");
+        log("Result:\n");
+
+        log("\n{% codetabs name=\"Java\", type=\"java\" -%}");
+
         if (result instanceof Iterable) {
             for (final Object item : (Iterable) result) {
                 if (item instanceof Walk) {
@@ -262,7 +267,16 @@ public abstract class OperationExample extends Example {
         } else {
             log(result.toString());
         }
-        log("```");
+
+        try {
+            final byte[] json = JSONSerialiser.serialise(result, true);
+            log("\n{%- language name=\"JSON\", type=\"json\" -%}");
+            log(StringUtil.toString(json));
+        } catch (final SerialisationException e) {
+            // ignore error - just don't display the json
+        }
+
+        log("{%- endcodetabs %}\n");
     }
 
     protected Graph createSimpleExampleGraph() {
