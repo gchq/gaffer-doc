@@ -25,15 +25,12 @@ import org.apache.spark.sql.Row;
 
 import uk.gov.gchq.gaffer.commonutil.Required;
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
-import uk.gov.gchq.gaffer.commonutil.StringUtil;
 import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.graph.Walk;
 import uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator;
 import uk.gov.gchq.gaffer.doc.operation.generator.ElementWithVaryingGroupsGenerator;
 import uk.gov.gchq.gaffer.doc.util.Example;
-import uk.gov.gchq.gaffer.exception.SerialisationException;
 import uk.gov.gchq.gaffer.graph.Graph;
-import uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser;
 import uk.gov.gchq.gaffer.operation.Operation;
 import uk.gov.gchq.gaffer.operation.OperationChain;
 import uk.gov.gchq.gaffer.operation.OperationException;
@@ -269,10 +266,10 @@ public abstract class OperationExample extends Example {
         }
 
         try {
-            final byte[] json = JSONSerialiser.serialise(result, true);
+            final String json = getJson(result);
             log("\n{%- language name=\"JSON\", type=\"json\" -%}");
-            log(StringUtil.toString(json));
-        } catch (final SerialisationException e) {
+            log(json);
+        } catch (final Exception e) {
             // ignore error - just don't display the json
         }
 
