@@ -32,6 +32,60 @@ gaffer.cache.service.class=uk.gov.gchq.gaffer.cache.impl.JcsCacheService
 gaffer.cache.config.file=/path/to/config/file
 ```
 
+If you are using the OperationChainLimiter GraphHook then you will also need to configure
+that GraphHook to use the NamedOperationScoreResolver, this will allow you to have custom scores for each named operation.
+The hook configuration should look something like:
+
+```json
+{
+    "class": "uk.gov.gchq.gaffer.graph.hook.OperationChainLimiter",
+    "opScores": {
+      "uk.gov.gchq.gaffer.operation.Operation": 1,
+      "uk.gov.gchq.gaffer.operation.impl.add.AddElements": 2,
+      "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements": 5,
+      "uk.gov.gchq.gaffer.operation.impl.generate.GenerateObjects": 0
+    },
+    "authScores": {
+      "User": 2,
+      "SuperUser": 5
+    },
+    "scoreResolvers": {
+      "uk.gov.gchq.gaffer.named.operation.NamedOperation": {
+        "class": "uk.gov.gchq.gaffer.store.operation.resolver.named.NamedOperationScoreResolver"
+      }
+    }
+  }
+```
+
+and the operation declarations file for registering the ScoreOperationChain operation would then look like:
+```json
+{
+  "operations": [
+    {
+      "operation": "uk.gov.gchq.gaffer.operation.impl.ScoreOperationChain",
+      "handler": {
+        "opScores": {
+          "uk.gov.gchq.gaffer.operation.Operation": 1,
+          "uk.gov.gchq.gaffer.operation.impl.add.AddElements": 2,
+          "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements": 5,
+          "uk.gov.gchq.gaffer.operation.impl.generate.GenerateObjects": 0
+        },
+        "authScores": {
+          "User": 2,
+          "SuperUser": 5
+        },
+        "scoreResolvers": {
+          "uk.gov.gchq.gaffer.named.operation.NamedOperation": {
+            "class": "uk.gov.gchq.gaffer.store.operation.resolver.named.NamedOperationScoreResolver"
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+
 
 #### Using Named Operations
 OK, now for some examples of using NamedOperations.
@@ -47,6 +101,10 @@ ${GRAPH_SNIPPET}
 Then add a named operation to the cache with the AddNamedOperation operation:
 
 ${ADD_NAMED_OPERATION_SNIPPET}
+
+The above named operation has been configured to have a score of 2. If you have
+the OperationChainLimiter GraphHook configured then this score will be used by
+the hook to limit operation chains.
 
 Then create a NamedOperation and execute it
 
@@ -88,10 +146,13 @@ Details of all available NamedOperations can be fetched using the GetAllNamedOpe
 
 ${GET_ALL_NAMED_OPERATIONS_SNIPPET}
 
-That gives the following results:
+That gives the following result:
 
+```
 ${ALL_NAMED_OPERATIONS}
+```
 
+For other named operation examples see [NamedOperation examples](operation-examples.md#namedoperation-example).
 
 
 

@@ -37,6 +37,7 @@ import uk.gov.gchq.gaffer.operation.impl.add.AddElements;
 import uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements;
 import uk.gov.gchq.gaffer.operation.io.Output;
 import uk.gov.gchq.gaffer.store.Context;
+import uk.gov.gchq.gaffer.store.schema.Schema;
 import uk.gov.gchq.gaffer.user.User;
 
 import java.io.IOException;
@@ -245,6 +246,8 @@ public abstract class OperationExample extends Example {
             final Dataset<Row> dataset = ((Dataset) result);
             final String resultStr = dataset.showString(100, 20);
             log(resultStr.substring(0, resultStr.length() - 2));
+        } else if (result instanceof Schema) {
+            log(getJson(result));
         } else {
             log(result.toString());
         }
