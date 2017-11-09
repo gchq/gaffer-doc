@@ -15,23 +15,29 @@
  */
 package uk.gov.gchq.gaffer.doc.dev.walkthrough;
 
+import com.google.common.collect.Lists;
 import org.apache.commons.io.IOUtils;
 
+import uk.gov.gchq.gaffer.cache.impl.HashMapCacheService;
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
 import uk.gov.gchq.gaffer.commonutil.iterable.CloseableIterable;
 import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.doc.user.generator.RoadAndRoadUseWithTimesAndCardinalitiesElementGenerator;
 import uk.gov.gchq.gaffer.federatedstore.FederatedStoreConstants;
+import uk.gov.gchq.gaffer.federatedstore.FederatedStoreProperties;
 import uk.gov.gchq.gaffer.federatedstore.operation.AddGraph;
 import uk.gov.gchq.gaffer.federatedstore.operation.GetAllGraphIds;
 import uk.gov.gchq.gaffer.federatedstore.operation.RemoveGraph;
 import uk.gov.gchq.gaffer.graph.Graph;
 import uk.gov.gchq.gaffer.graph.GraphConfig;
 import uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser;
+import uk.gov.gchq.gaffer.operation.Operation;
 import uk.gov.gchq.gaffer.operation.OperationChain;
 import uk.gov.gchq.gaffer.operation.data.EntitySeed;
 import uk.gov.gchq.gaffer.operation.impl.add.AddElements;
 import uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements;
+import uk.gov.gchq.gaffer.operation.impl.get.GetAllElements;
+import uk.gov.gchq.gaffer.operation.impl.get.GetAllElements.Builder;
 import uk.gov.gchq.gaffer.operation.impl.get.GetElements;
 import uk.gov.gchq.gaffer.store.StoreProperties;
 import uk.gov.gchq.gaffer.store.library.HashMapGraphLibrary;
@@ -49,17 +55,27 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
     }
 
     public CloseableIterable<? extends Element> run() throws Exception {
-        // [federated store] create a store that federates to a MapStore and AccumuloStore
+        final FederatedStoreProperties federatedProperty = FederatedStoreProperties.loadStoreProperties(StreamUtil.openStream(getClass(), "federatedStore.properties"));
+
+        // [creating a federatedstore] create a store that federates to a MapStore and AccumuloStore
         // ---------------------------------------------------------
         final Graph federatedGraph = new Graph.Builder()
                 .config(new GraphConfig.Builder()
                         .graphId("federatedRoadUse")
                         .library(new HashMapGraphLibrary())
                         .build())
-                .storeProperties(StreamUtil.openStream(getClass(), "federatedStore.properties"))
+                .storeProperties(federatedProperty)
                 .build();
-
         // ---------------------------------------------------------
+
+        // [federatedstore properties]
+        // ---------------------------------------------------------
+        final FederatedStoreProperties exampleFederatedProperty = new FederatedStoreProperties();
+        exampleFederatedProperty.setCacheProperties(HashMapCacheService.class.getName());
+        // ---------------------------------------------------------
+
+        log("fedPropJson", new String(JSONSerialiser.serialise(federatedProperty.getProperties(), true)));
+
 
         final User user = new User("user01");
 
@@ -85,7 +101,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
                 .build();
         federatedGraph.execute(addAccumuloGraph, user);
 
-        // [add graph] add a graph to the federated store.
+        // [add another graph] add a graph to the federated store.
         // ---------------------------------------------------------
         AddGraph addAnotherGraph = new AddGraph.Builder()
                 .graphId("AnotherGraph")
@@ -93,11 +109,12 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
                         .json(StreamUtil.openStreams(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema"))
                         .build())
                 .storeProperties(StoreProperties.loadStoreProperties("mockmapstore.properties"))
-                .graphAuths() // private - only this user will have access
                 .build();
         federatedGraph.execute(addAnotherGraph, user);
         // ---------------------------------------------------------
 
+        improveReadabilityOfJson(addAnotherGraph);
+        addAccumuloGraph.setGraphAuths(null);
         log("addGraphJson", new String(JSONSerialiser.serialise(addAnotherGraph, true)));
 
         // [remove graph] remove a graph from the federated store.
@@ -108,6 +125,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         federatedGraph.execute(removeGraph, user);
         // ---------------------------------------------------------
 
+        improveReadabilityOfJson(removeGraph);
         log("removeGraphJson", new String(JSONSerialiser.serialise(removeGraph, true)));
 
         // [get all graph ids] Get a list of all the graphId within the FederatedStore.
@@ -116,6 +134,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         Iterable<? extends String> graphIds = federatedGraph.execute(getAllGraphIDs, user);
         // ---------------------------------------------------------
 
+        improveReadabilityOfJson(getAllGraphIDs);
         log("getAllGraphIdsJson", new String(JSONSerialiser.serialise(getAllGraphIDs, true)));
 
         log("graphIds", graphIds.toString());
@@ -136,6 +155,8 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         federatedGraph.execute(addOpChain, user);
         // ---------------------------------------------------------
 
+        log("addElementsJson", new String(JSONSerialiser.serialise(addOpChain, true)));
+
         // [get elements]
         // ---------------------------------------------------------
         final OperationChain<CloseableIterable<? extends Element>> getOpChain = new OperationChain.Builder()
@@ -151,6 +172,9 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
             log("elements", element.toString());
         }
 
+        log("getElementsJson", new String(JSONSerialiser.serialise(getOpChain, true)));
+
+
         // [get elements from accumulo graph]
         // ---------------------------------------------------------
         final OperationChain<CloseableIterable<? extends Element>> getOpChainOnAccumuloGraph = new OperationChain.Builder()
@@ -164,25 +188,97 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         // ---------------------------------------------------------
 
         for (final Element element : elementsFromAccumuloGraph) {
-            log("elements from accumuloGraph", element.toString());
+            log("elementsFromAccumuloGraph", element.toString());
         }
+
+        // [select graphs for operations]
+        // ---------------------------------------------------------
+        GetAllElements selectGraphsForOperations = new Builder()
+                .option(FederatedStoreConstants.KEY_OPERATION_OPTIONS_GRAPH_IDS, "graphId1, graphId2")
+                .build();
+        // ---------------------------------------------------------
+
+        log("selectGraphsForOperationsJson", new String(JSONSerialiser.serialise(selectGraphsForOperations, true)));
+
+        // [do not skip failed execution]
+        // ---------------------------------------------------------
+        GetAllElements doNotSkipFailedExecution = new Builder()
+                .option(FederatedStoreConstants.KEY_SKIP_FAILED_FEDERATED_STORE_EXECUTE, "false")
+                .build();
+        // ---------------------------------------------------------
+
+        log("doNotSkipFailedExecutionJson", new String(JSONSerialiser.serialise(doNotSkipFailedExecution, true)));
+
+
+        // [add public graph] add a graph to the federated store.
+        // ---------------------------------------------------------
+        AddGraph publicGraph = new AddGraph.Builder()
+                .graphId("publicGraph")
+                .parentSchemaIds(Lists.newArrayList("AnotherGraph"))
+                .parentPropertiesId("AnotherGraph")
+                .isPublic(true) //<-- public access
+                .graphAuths("Auth1") //<-- used but irrelevant as graph has public access
+                .build();
+        federatedGraph.execute(addAnotherGraph, user);
+        // ---------------------------------------------------------
+
+        improveReadabilityOfJson(publicGraph);
+        log("addPublicGraphJson", new String(JSONSerialiser.serialise(publicGraph, true)));
+
+        // [add private graph] add a graph to the federated store.
+        // ---------------------------------------------------------
+        AddGraph privateGraph = new AddGraph.Builder()
+                .graphId("privateGraph")
+                .parentSchemaIds(Lists.newArrayList("AnotherGraph"))
+                .parentPropertiesId("AnotherGraph")
+                        //.isPublic(false) <-- not specifying also defaults to false.
+                        //.graphAuths() <-- leave blank/null or do no specify otherwise private access is lost.
+                .build();
+        federatedGraph.execute(addAnotherGraph, user);
+        // ---------------------------------------------------------
+
+        improveReadabilityOfJson(privateGraph);
+        log("addPrivateGraphJson", new String(JSONSerialiser.serialise(privateGraph, true)));
+
 
         // [add secure graph] add a graph to the federated store.
         // ---------------------------------------------------------
         AddGraph addSecureGraph = new AddGraph.Builder()
                 .graphId("SecureGraph")
-                .schema(new Schema.Builder()
-                        .json(StreamUtil.openStreams(getClass(), "RoadAndRoadUseWithTimesAndCardinalities/schema"))
-                        .build())
-                .storeProperties(StoreProperties.loadStoreProperties("mockmapstore.properties"))
-                .graphAuths("public", "private")
+                .parentSchemaIds(Lists.newArrayList("AnotherGraph"))
+                .parentPropertiesId("AnotherGraph")
+                .graphAuths("Auth1", "Auth2", "Auth3")
+                        //.isPublic(false) <-- not specifying also defaults to false.
                 .build();
         federatedGraph.execute(addSecureGraph, user);
         // ---------------------------------------------------------
 
+        improveReadabilityOfJson(addSecureGraph);
         log("addSecureGraphJson", new String(JSONSerialiser.serialise(addSecureGraph, true)));
 
 
+        // [disallow public access]
+        // ---------------------------------------------------------
+        FederatedStoreProperties disallowPublicProperties = new FederatedStoreProperties();
+        disallowPublicProperties.setGraphsCanHavePublicAccess(false);
+        // ---------------------------------------------------------
+
+        log("disallowPublicAccessJson", new String(JSONSerialiser.serialise(disallowPublicProperties.getProperties(), true)));
+
+
+        // [limit custom properties]
+        // ---------------------------------------------------------
+        FederatedStoreProperties limitCustomProperties = new FederatedStoreProperties();
+        limitCustomProperties.setCustomPropertyAuths("Auth1, Auth2, Auth3");
+        // ---------------------------------------------------------
+
+        log("limitCustomPropertiesJson", new String(JSONSerialiser.serialise(limitCustomProperties.getProperties(), true)));
+
+
         return elements;
+    }
+
+    private String improveReadabilityOfJson(final Operation op) {
+        return op.getOptions().remove(FederatedStoreConstants.KEY_OPERATION_OPTIONS_GRAPH_IDS);
     }
 }
