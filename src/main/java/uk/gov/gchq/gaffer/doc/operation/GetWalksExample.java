@@ -206,7 +206,7 @@ public class GetWalksExample extends OperationExample {
                 .build();
         // ---------------------------------------------------------
 
-        return runExample(opChain, "Gets all of the Walks of length 3" +
+        return runExample(opChain, "Gets all of the Walks of length 3 " +
                 "which start from vertex 8, with the added restriction that all " +
                 "edges must be traversed using the source as the matched vertex. " +
                 "This demonstrates the behaviour when self loops exist in the graph.");

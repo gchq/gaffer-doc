@@ -179,6 +179,7 @@ public abstract class OperationExample extends Example {
         log("#### " + getMethodNameAsSentence(1) + "\n");
         if (StringUtils.isNotBlank(description)) {
             log(description);
+            log("");
         }
 
         if (complex) {
