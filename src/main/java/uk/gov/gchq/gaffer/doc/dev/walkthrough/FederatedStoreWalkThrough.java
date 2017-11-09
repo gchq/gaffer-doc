@@ -31,6 +31,7 @@ import uk.gov.gchq.gaffer.federatedstore.operation.RemoveGraph;
 import uk.gov.gchq.gaffer.graph.Graph;
 import uk.gov.gchq.gaffer.graph.GraphConfig;
 import uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser;
+import uk.gov.gchq.gaffer.operation.Operation;
 import uk.gov.gchq.gaffer.operation.OperationChain;
 import uk.gov.gchq.gaffer.operation.data.EntitySeed;
 import uk.gov.gchq.gaffer.operation.impl.add.AddElements;
@@ -73,7 +74,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         exampleFederatedProperty.setCacheProperties(HashMapCacheService.class.getName());
         // ---------------------------------------------------------
 
-        log("fedPropJson", new String(JSONSerialiser.serialise(federatedProperty, true)));
+        log("fedPropJson", new String(JSONSerialiser.serialise(federatedProperty.getProperties(), true)));
 
 
         final User user = new User("user01");
@@ -108,11 +109,12 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
                         .json(StreamUtil.openStreams(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema"))
                         .build())
                 .storeProperties(StoreProperties.loadStoreProperties("mockmapstore.properties"))
-                .graphAuths() // <-- no auths means private access, only this user will have access.
                 .build();
         federatedGraph.execute(addAnotherGraph, user);
         // ---------------------------------------------------------
 
+        improveReadabilityOfJson(addAnotherGraph);
+        addAccumuloGraph.setGraphAuths(null);
         log("addGraphJson", new String(JSONSerialiser.serialise(addAnotherGraph, true)));
 
         // [remove graph] remove a graph from the federated store.
@@ -123,6 +125,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         federatedGraph.execute(removeGraph, user);
         // ---------------------------------------------------------
 
+        improveReadabilityOfJson(removeGraph);
         log("removeGraphJson", new String(JSONSerialiser.serialise(removeGraph, true)));
 
         // [get all graph ids] Get a list of all the graphId within the FederatedStore.
@@ -131,6 +134,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         Iterable<? extends String> graphIds = federatedGraph.execute(getAllGraphIDs, user);
         // ---------------------------------------------------------
 
+        improveReadabilityOfJson(getAllGraphIDs);
         log("getAllGraphIdsJson", new String(JSONSerialiser.serialise(getAllGraphIDs, true)));
 
         log("graphIds", graphIds.toString());
@@ -218,6 +222,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         federatedGraph.execute(addAnotherGraph, user);
         // ---------------------------------------------------------
 
+        improveReadabilityOfJson(publicGraph);
         log("addPublicGraphJson", new String(JSONSerialiser.serialise(publicGraph, true)));
 
         // [add private graph] add a graph to the federated store.
@@ -226,12 +231,13 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
                 .graphId("privateGraph")
                 .parentSchemaIds(Lists.newArrayList("AnotherGraph"))
                 .parentPropertiesId("AnotherGraph")
-                        //.isPublic(false) //<-- not specifying also defaults to false.
-                .graphAuths() //<-- leave blank/null or do no specify otherwise private access is lost.
+                        //.isPublic(false) <-- not specifying also defaults to false.
+                        //.graphAuths() <-- leave blank/null or do no specify otherwise private access is lost.
                 .build();
         federatedGraph.execute(addAnotherGraph, user);
         // ---------------------------------------------------------
 
+        improveReadabilityOfJson(privateGraph);
         log("addPrivateGraphJson", new String(JSONSerialiser.serialise(privateGraph, true)));
 
 
@@ -242,11 +248,12 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
                 .parentSchemaIds(Lists.newArrayList("AnotherGraph"))
                 .parentPropertiesId("AnotherGraph")
                 .graphAuths("Auth1", "Auth2", "Auth3")
-                        //.isPublic(false) //<-- not specifying also defaults to false.
+                        //.isPublic(false) <-- not specifying also defaults to false.
                 .build();
         federatedGraph.execute(addSecureGraph, user);
         // ---------------------------------------------------------
 
+        improveReadabilityOfJson(addSecureGraph);
         log("addSecureGraphJson", new String(JSONSerialiser.serialise(addSecureGraph, true)));
 
 
@@ -259,6 +266,19 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         log("disallowPublicAccessJson", new String(JSONSerialiser.serialise(disallowPublicProperties, true)));
 
 
+        // [limit custom properties]
+        // ---------------------------------------------------------
+        FederatedStoreProperties limitCustomProperties = new FederatedStoreProperties();
+        limitCustomProperties.setCustomPropertyAuths("Auth1, Auth2, Auth3");
+        // ---------------------------------------------------------
+
+        log("limitCustomPropertiesJson", new String(JSONSerialiser.serialise(limitCustomProperties, true)));
+
+
         return elements;
+    }
+
+    private String improveReadabilityOfJson(final Operation op) {
+        return op.getOptions().remove(FederatedStoreConstants.KEY_OPERATION_OPTIONS_GRAPH_IDS);
     }
 }
