@@ -15,7 +15,9 @@
  */
 package uk.gov.gchq.gaffer.doc.operation;
 
+import uk.gov.gchq.gaffer.data.element.function.ElementFilter;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
+import uk.gov.gchq.gaffer.data.elementdefinition.view.ViewElementDefinition;
 import uk.gov.gchq.gaffer.data.graph.Walk;
 import uk.gov.gchq.gaffer.operation.OperationChain;
 import uk.gov.gchq.gaffer.operation.OperationException;
@@ -23,14 +25,19 @@ import uk.gov.gchq.gaffer.operation.data.EntitySeed;
 import uk.gov.gchq.gaffer.operation.graph.SeededGraphFilters;
 import uk.gov.gchq.gaffer.operation.impl.GetWalks;
 import uk.gov.gchq.gaffer.operation.impl.get.GetElements;
+import uk.gov.gchq.koryphe.impl.predicate.IsMoreThan;
 
 public class GetWalksExample extends OperationExample {
-    public static void main(final String[] args) throws OperationException {
-        new GetWalksExample().run();
+    public GetWalksExample() {
+        super(GetWalks.class, "Examples for the GetWalks operation. This example " +
+                "uses a modified graph. This graph contains two different edge groups, " +
+                "each with an modified count property. The count is set to the sum of the source " +
+                "and destination vertices. Additionally the edge group is determined by " +
+                "whether this count property is even (group edge) or odd (group edge1).", true);
     }
 
-    public GetWalksExample() {
-        super(GetWalks.class, true);
+    public static void main(final String[] args) throws OperationException {
+        new GetWalksExample().run();
     }
 
     @Override
@@ -40,6 +47,7 @@ public class GetWalksExample extends OperationExample {
         getWalksWithSelfLoops();
         getWalksWithIncomingOutgoingFlags();
         getWalksWithMultipleGroups();
+        getWalksWithFiltering();
     }
 
     public Iterable<Walk> getWalks() {
@@ -47,17 +55,9 @@ public class GetWalksExample extends OperationExample {
         final OperationChain<Iterable<Walk>> opChain = new OperationChain.Builder()
                 .first(new GetWalks.Builder()
                         .operations(new GetElements.Builder()
-                                        .view(new View.Builder()
-                                                .edge("edge")
-                                                .edge("edge1")
-                                                .build())
                                         .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
                                         .build(),
                                 new GetElements.Builder()
-                                        .view(new View.Builder()
-                                                .edge("edge")
-                                                .edge("edge1")
-                                                .build())
                                         .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
                                         .build())
                         .input(new EntitySeed(1))
@@ -70,22 +70,49 @@ public class GetWalksExample extends OperationExample {
                 "edges must be traversed using the source as the matched vertex.");
     }
 
+    public Iterable<Walk> getWalksWithFiltering() {
+        // ---------------------------------------------------------
+        final OperationChain<Iterable<Walk>> opChain = new OperationChain.Builder()
+                .first(new GetWalks.Builder()
+                        .operations(new GetElements.Builder()
+                                        .view(new View.Builder().edge("edge", new ViewElementDefinition.Builder()
+                                                .preAggregationFilter(new ElementFilter.Builder()
+                                                        .select("count")
+                                                        .execute(new IsMoreThan(3))
+                                                        .build())
+                                                .build())
+                                                .build())
+                                        .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
+                                        .build(),
+                                new GetElements.Builder()
+                                        .view(new View.Builder().edge("edge1", new ViewElementDefinition.Builder()
+                                                .preAggregationFilter(new ElementFilter.Builder()
+                                                        .select("count")
+                                                        .execute(new IsMoreThan(8))
+                                                        .build())
+                                                .build())
+                                                .build())
+                                        .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.INCOMING)
+                                        .build())
+                        .input(new EntitySeed(1))
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+
+        return runExample(opChain, "Gets all of the Walks of length 2 " +
+                "which start from vertex 1. This example demonstrates the use of " +
+                "pre-aggregation filters to select which edges to traverse based " +
+                "on a property on the edge.");
+    }
+
     public Iterable<Walk> getWalksWithIncomingOutgoingFlags() {
         // ---------------------------------------------------------
         final OperationChain<Iterable<Walk>> opChain = new OperationChain.Builder()
                 .first(new GetWalks.Builder()
                         .operations(new GetElements.Builder()
-                                        .view(new View.Builder()
-                                                .edge("edge")
-                                                .edge("edge1")
-                                                .build())
                                         .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
                                         .build(),
                                 new GetElements.Builder()
-                                        .view(new View.Builder()
-                                                .edge("edge")
-                                                .edge("edge1")
-                                                .build())
                                         .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.INCOMING)
                                         .build())
                         .input(new EntitySeed(1))
@@ -132,45 +159,21 @@ public class GetWalksExample extends OperationExample {
         final OperationChain<Iterable<Walk>> opChain = new OperationChain.Builder()
                 .first(new GetWalks.Builder()
                         .operations(new GetElements.Builder()
-                                        .view(new View.Builder()
-                                                .edge("edge")
-                                                .edge("edge1")
-                                                .build())
                                         .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
                                         .build(),
                                 new GetElements.Builder()
-                                        .view(new View.Builder()
-                                                .edge("edge")
-                                                .edge("edge1")
-                                                .build())
                                         .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
                                         .build(),
                                 new GetElements.Builder()
-                                        .view(new View.Builder()
-                                                .edge("edge")
-                                                .edge("edge1")
-                                                .build())
                                         .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
                                         .build(),
                                 new GetElements.Builder()
-                                        .view(new View.Builder()
-                                                .edge("edge")
-                                                .edge("edge1")
-                                                .build())
                                         .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
                                         .build(),
                                 new GetElements.Builder()
-                                        .view(new View.Builder()
-                                                .edge("edge")
-                                                .edge("edge1")
-                                                .build())
                                         .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
                                         .build(),
                                 new GetElements.Builder()
-                                        .view(new View.Builder()
-                                                .edge("edge")
-                                                .edge("edge1")
-                                                .build())
                                         .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
                                         .build())
                         .input(new EntitySeed(1))
@@ -190,24 +193,12 @@ public class GetWalksExample extends OperationExample {
         final OperationChain<Iterable<Walk>> opChain = new OperationChain.Builder()
                 .first(new GetWalks.Builder()
                         .operations(new GetElements.Builder()
-                                        .view(new View.Builder()
-                                                .edge("edge")
-                                                .edge("edge1")
-                                                .build())
                                         .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
                                         .build(),
                                 new GetElements.Builder()
-                                        .view(new View.Builder()
-                                                .edge("edge")
-                                                .edge("edge1")
-                                                .build())
                                         .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
                                         .build(),
                                 new GetElements.Builder()
-                                        .view(new View.Builder()
-                                                .edge("edge")
-                                                .edge("edge1")
-                                                .build())
                                         .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
                                         .build())
                         .input(new EntitySeed(8))

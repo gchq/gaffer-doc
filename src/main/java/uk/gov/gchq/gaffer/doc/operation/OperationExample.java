@@ -26,6 +26,7 @@ import org.apache.spark.sql.Row;
 import uk.gov.gchq.gaffer.commonutil.Required;
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
 import uk.gov.gchq.gaffer.data.element.Element;
+import uk.gov.gchq.gaffer.data.graph.Walk;
 import uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator;
 import uk.gov.gchq.gaffer.doc.operation.generator.ElementWithVaryingGroupsGenerator;
 import uk.gov.gchq.gaffer.doc.util.Example;
@@ -44,6 +45,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public abstract class OperationExample extends Example {
@@ -66,8 +68,8 @@ public abstract class OperationExample extends Example {
         this.graph = createSimpleExampleGraph();
     }
 
-    public OperationExample(final Class<? extends Operation> classForExample, final boolean complex) {
-        super(classForExample);
+    public OperationExample(final Class<? extends Operation> classForExample, final String description, final boolean complex) {
+        super(classForExample, description);
         ROOT_LOGGER.setLevel(Level.OFF);
 
         this.graph = (complex) ? createComplexExampleGraph() : createSimpleExampleGraph();
@@ -215,7 +217,15 @@ public abstract class OperationExample extends Example {
         log("\n```");
         if (result instanceof Iterable) {
             for (final Object item : (Iterable) result) {
-                log(item.toString());
+                if (item instanceof Walk) {
+                    final Walk walk = (Walk) item;
+                    log(Walk.class.getName() + walk.getVerticesOrdered()
+                            .stream()
+                            .map(Object::toString)
+                            .collect(Collectors.joining(" --> ","[ "," ]")));
+                } else {
+                    log(item.toString());
+                }
             }
         } else if (result instanceof Map) {
             final Map<?, ?> resultMap = (Map) result;
