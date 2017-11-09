@@ -38,18 +38,41 @@ The hook configuration should look something like:
 
 ```json
 {
+    "class": "uk.gov.gchq.gaffer.graph.hook.OperationChainLimiter",
+    "opScores": {
+      "uk.gov.gchq.gaffer.operation.Operation": 1,
+      "uk.gov.gchq.gaffer.operation.impl.add.AddElements": 2,
+      "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements": 5,
+      "uk.gov.gchq.gaffer.operation.impl.generate.GenerateObjects": 0
+    },
+    "authScores": {
+      "User": 2,
+      "SuperUser": 5
+    },
+    "scoreResolvers": {
+      "uk.gov.gchq.gaffer.named.operation.NamedOperation": {
+        "class": "uk.gov.gchq.gaffer.store.operation.resolver.named.NamedOperationScoreResolver"
+      }
+    }
+  }
+```
+
+and the operation declarations file for registering the ScoreOperationChain operation would then look like:
+```json
+{
   "operations": [
     {
       "operation": "uk.gov.gchq.gaffer.operation.impl.ScoreOperationChain",
       "handler": {
-        "class": "uk.gov.gchq.gaffer.store.operation.handler.ScoreOperationChainHandler",
         "opScores": {
-          "uk.gov.gchq.gaffer.operation.Operation": 2,
+          "uk.gov.gchq.gaffer.operation.Operation": 1,
+          "uk.gov.gchq.gaffer.operation.impl.add.AddElements": 2,
+          "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements": 5,
           "uk.gov.gchq.gaffer.operation.impl.generate.GenerateObjects": 0
         },
         "authScores": {
-          "User": 4,
-          "EnhancedUser": 10
+          "User": 2,
+          "SuperUser": 5
         },
         "scoreResolvers": {
           "uk.gov.gchq.gaffer.named.operation.NamedOperation": {
