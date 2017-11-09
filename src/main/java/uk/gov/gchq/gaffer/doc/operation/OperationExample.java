@@ -222,7 +222,7 @@ public abstract class OperationExample extends Example {
                     log(Walk.class.getName() + walk.getVerticesOrdered()
                             .stream()
                             .map(Object::toString)
-                            .collect(Collectors.joining(" --> ","[ "," ]")));
+                            .collect(Collectors.joining(" --> ", "[ ", " ]")));
                 } else {
                     log(item.toString());
                 }
