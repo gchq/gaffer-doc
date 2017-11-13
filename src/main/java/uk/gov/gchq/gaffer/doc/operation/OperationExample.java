@@ -215,7 +215,8 @@ public abstract class OperationExample extends Example {
 
     public <RESULT_TYPE> void logResult(final RESULT_TYPE result) {
         log("Result:");
-        log("\n```");
+
+        log("\n{% codetabs name=\"Java\", type=\"java\" -%}");
         if (result instanceof Iterable) {
             for (final Object item : (Iterable) result) {
                 if (item instanceof Walk) {
@@ -262,7 +263,16 @@ public abstract class OperationExample extends Example {
         } else {
             log(result.toString());
         }
-        log("```");
+
+        try {
+            final String json = getJson(result);
+            log("\n{%- language name=\"JSON\", type=\"json\" -%}");
+            log(json);
+        } catch (final Exception e) {
+            // ignore error - just don't display the json
+        }
+
+        log("{%- endcodetabs %}\n");
     }
 
     protected Graph createSimpleExampleGraph() {
