@@ -123,7 +123,7 @@ public class Views extends UserWalkthrough {
         viewWithGlobalFilter.expandGlobalDefinitions();
 
         final GetElements getEdgesWithGlobalFilter = new GetElements.Builder()
-                .input(new EntitySeed("10"), new EntitySeed("11"))
+                .input(new EntitySeed("10"))
                 .view(viewWithGlobalFilter)
                 .build();
         final CloseableIterable<? extends Element> globallyFilteredResults = graph.execute(getEdgesWithGlobalFilter, user);
@@ -165,6 +165,7 @@ public class Views extends UserWalkthrough {
             log("GET_ELEMENTS_WITH_GLOBAL_AND_GROUP_SPECIFIC_FILTER", e.toString());
         }
 
+
         // [get group specific property] run query with a group specific property to return the count property
         // ---------------------------------------------------------
         final View viewWithGroupSpecificProperty = new View.Builder()
@@ -183,6 +184,7 @@ public class Views extends UserWalkthrough {
             log("GET_ELEMENTS_WITH_GROUP_SPECIFIC_PROPERTY", e.toString());
         }
 
+
         // [get global property] run query with a global property to return the count property
         // ---------------------------------------------------------
         final View viewWithGlobalProperty = new View.Builder()
@@ -190,6 +192,9 @@ public class Views extends UserWalkthrough {
                         .properties("count")
                         .build())
                 .build();
+
+        viewWithGlobalProperty.expandGlobalDefinitions();
+
         final GetElements getEdgesWithGlobalProperty = new GetElements.Builder()
                 .input(new EntitySeed("10"))
                 .view(viewWithGlobalProperty)
@@ -201,6 +206,7 @@ public class Views extends UserWalkthrough {
             log("GET_ELEMENTS_WITH_GLOBAL_PROPERTY", e.toString());
         }
 
+
         // [get global and group specific property] run query with a global property, overridden by group specific property to return the doesNotExist property
         // ---------------------------------------------------------
         final View viewWithGlobalAndGroupSpecificProperty = new View.Builder()
@@ -211,6 +217,9 @@ public class Views extends UserWalkthrough {
                         .properties("doesNotExist")
                         .build())
                 .build();
+
+        viewWithGlobalAndGroupSpecificProperty.expandGlobalDefinitions();
+
         final GetElements getEdgesWithGlobalAndGroupSpecificProperty = new GetElements.Builder()
                 .input(new EntitySeed("10"))
                 .view(viewWithGlobalAndGroupSpecificProperty)
@@ -221,6 +230,7 @@ public class Views extends UserWalkthrough {
         for (final Element e : globalAndGroupSpecificPropertyResults) {
             log("GET_ELEMENTS_WITH_GLOBAL_AND_GROUP_SPECIFIC_PROPERTY", e.toString());
         }
+
 
         // [get group specific exclude property] run query with a group specific exclude property to not return the count property
         // ---------------------------------------------------------
@@ -240,6 +250,7 @@ public class Views extends UserWalkthrough {
             log("GET_ELEMENTS_WITH_GROUP_SPECIFIC_EXCLUDE_PROPERTY", e.toString());
         }
 
+
         // [get global exclude property] run query with a global exclude property to not return the count property
         // ---------------------------------------------------------
         final View viewWithGlobalExcludeProperty = new View.Builder()
@@ -247,6 +258,9 @@ public class Views extends UserWalkthrough {
                         .excludeProperties("count")
                         .build())
                 .build();
+
+        viewWithGlobalExcludeProperty.expandGlobalDefinitions();
+
         final GetElements getEdgesWithGlobalExcludeProperty = new GetElements.Builder()
                 .input(new EntitySeed("10"))
                 .view(viewWithGlobalExcludeProperty)
@@ -258,6 +272,7 @@ public class Views extends UserWalkthrough {
             log("GET_ELEMENTS_WITH_GLOBAL_EXCLUDE_PROPERTY", e.toString());
         }
 
+
         // [get global and group specific exclude property] run query with a global exclude property to not return the count property, overridden by the group specific filter to not return the doesNotExist property
         // ---------------------------------------------------------
         final View viewWithGlobalAndGroupSpecificExcludeProperty = new View.Builder()
@@ -268,6 +283,9 @@ public class Views extends UserWalkthrough {
                         .excludeProperties("doesNotExist")
                         .build())
                 .build();
+
+        viewWithGlobalAndGroupSpecificExcludeProperty.expandGlobalDefinitions();
+
         final GetElements getEdgesWithGlobalAndGroupSpecificExcludeProperty = new GetElements.Builder()
                 .input(new EntitySeed("10"))
                 .view(viewWithGlobalAndGroupSpecificExcludeProperty)
