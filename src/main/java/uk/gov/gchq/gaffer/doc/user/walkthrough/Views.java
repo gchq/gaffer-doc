@@ -118,6 +118,7 @@ public class Views extends UserWalkthrough {
                                 .execute(new IsMoreThan(2L))
                                 .build())
                         .build())
+                .edge("RoadUse")
                 .build();
 
         viewWithGlobalFilter.expandGlobalDefinitions();
@@ -191,6 +192,7 @@ public class Views extends UserWalkthrough {
                 .globalEdges(new GlobalViewElementDefinition.Builder()
                         .properties("count")
                         .build())
+                .edge("RoadUse")
                 .build();
 
         viewWithGlobalProperty.expandGlobalDefinitions();
@@ -257,6 +259,7 @@ public class Views extends UserWalkthrough {
                 .globalEdges(new GlobalViewElementDefinition.Builder()
                         .excludeProperties("count")
                         .build())
+                .edge("RoadUse")
                 .build();
 
         viewWithGlobalExcludeProperty.expandGlobalDefinitions();
