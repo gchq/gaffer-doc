@@ -34,6 +34,7 @@
     * [Slider](components/tool/slider.md)
   * Examples
     * [Road Traffic Example](components/example/road-traffic.md)
+    * [Federated Example](components/example/federated-demo.md)
 
 * [Javadoc](summaries/javadoc.md)
   * [Gaffer Javadoc](ref://javadoc/gaffer/index.html)

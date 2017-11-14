@@ -14,3 +14,4 @@
     * [Slider](../components/tool/slider.md)
 * Examples
     * [Road Traffic Example](../components/example/road-traffic.md)
+    * [Federated Example](../components/example/federated-demo.md)
