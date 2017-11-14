@@ -31,6 +31,7 @@ public class UserWalkthroughRunner extends AbstractWalkthroughRunner {
             new Aggregation(),
             new Cardinalities(),
             new Subgraphs(),
+            new Views(),
             new FullExample()
     );
 
