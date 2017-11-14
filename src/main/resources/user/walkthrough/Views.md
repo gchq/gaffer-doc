@@ -2,7 +2,7 @@ ${HEADER}
 
 ${CODE_LINK}
 
-when running an Operation, for example GetElements, within Gaffer you can give it a View.
+When running an Operation, for example GetElements, within Gaffer you supply a View.
 
 In the view you can set filters, properties to include, and properties to exclude, on different groups.
 
@@ -11,7 +11,9 @@ To avoid complicating things for the rest of the internals of Gaffer we must 'ex
 
 In this example we will explain all uses, including overriding and concatenating, within filters and properties.
 
-If we want to query for RoadUse edges containing vertex `”10”` and with a count of less than `”count”` > 2 one time we can do this:
+All of these examples use globalEdges, but the method is identical to globalEntities/globalElements.
+
+If we want to query for RoadUse edges containing vertex `”10”` and with a count of less than `”count”` > 2 we can do this:
 
 ${GET_GROUP_SPECIFIC_FILTER_SNIPPET}
 
@@ -25,23 +27,26 @@ This can also be written using a global filter, that will apply the filter to al
 
 ${GET_GLOBAL_FILTER_SNIPPET}
 
+Returning the same elements as using a group specific filter:
+
+${GET_ELEMENTS_WITH_GLOBAL_FILTER}
+
 Group specific filters can also be applied on top of global filters, and these are concatenated using an AND operator.  Lets look at how this will work:
 
 ${GET_GLOBAL_AND_GROUP_SPECIFIC_FILTER_SNIPPET}
 
 As you can see above we have applied a global filter (`"count"` > 0), and then applied a group specific filter to the view (`"count"` > 2).  Because these are concatenated with
-the AND operator, it reads as `"count"` > 0 && `"count"` > 2.  Take a look at the results below, we can see that it has returned one record:
+the AND operator, it reads as `"count"` > 0 && `"count"` > 2.  Take a look at the results below.  We can see that it has returned one record:
 
 ```
 ${GET_ELEMENTS_WITH_GLOBAL_AND_GROUP_SPECIFIC_FILTER}
 ```
 
-This is because the global filter will have returned multiple records, but the group specific filter, concatenated with the AND, means only one record with a `"count"` > 2
-is returned.
+This is because the global filter will have returned multiple records, but the group specific filter, concatenated with the AND, means only one record with a `"count"` > 2 is returned.
 
 Properties can also be set globally, using a similar method to the above for filtering.
 
-If we want to include the `"count"` property on a group specific level, this can be done like this:
+If we want to include the `"count"` property on a group specific level, this can be done like below:
 
 ${GET_GROUP_SPECIFIC_PROPERTY_SNIPPET}
 
