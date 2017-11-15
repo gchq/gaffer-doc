@@ -89,17 +89,16 @@ public class Views extends UserWalkthrough {
 
         // [get group specific filter] run query with a group specific filter
         // ---------------------------------------------------------
-        final View viewWithGroupSpecificFilter = new View.Builder()
-                .edge("RoadUse", new ViewElementDefinition.Builder()
-                        .postAggregationFilter(new ElementFilter.Builder()
-                                .select("count")
-                                .execute(new IsMoreThan(2L))
-                                .build())
-                        .build())
-                .build();
         final GetElements getEdgesWithGroupSpecificFilter = new GetElements.Builder()
                 .input(new EntitySeed("10"))
-                .view(viewWithGroupSpecificFilter)
+                .view(new View.Builder()
+                        .edge("RoadUse", new ViewElementDefinition.Builder()
+                                .postAggregationFilter(new ElementFilter.Builder()
+                                        .select("count")
+                                        .execute(new IsMoreThan(2L))
+                                        .build())
+                                .build())
+                        .build())
                 .build();
         final CloseableIterable<? extends Element> groupSpecificFilteredResults = graph.execute(getEdgesWithGroupSpecificFilter, user);
         // ---------------------------------------------------------
@@ -111,21 +110,17 @@ public class Views extends UserWalkthrough {
 
         // [get global filter] run query with a global filter to return only edges with a count more than 2
         // ---------------------------------------------------------
-        final View viewWithGlobalFilter = new View.Builder()
-                .globalEdges(new GlobalViewElementDefinition.Builder()
-                        .postAggregationFilter(new ElementFilter.Builder()
-                                .select("count")
-                                .execute(new IsMoreThan(2L))
-                                .build())
-                        .build())
-                .edge("RoadUse")
-                .build();
-
-        viewWithGlobalFilter.expandGlobalDefinitions();
-
         final GetElements getEdgesWithGlobalFilter = new GetElements.Builder()
                 .input(new EntitySeed("10"))
-                .view(viewWithGlobalFilter)
+                .view(new View.Builder()
+                        .globalEdges(new GlobalViewElementDefinition.Builder()
+                                .postAggregationFilter(new ElementFilter.Builder()
+                                        .select("count")
+                                        .execute(new IsMoreThan(2L))
+                                        .build())
+                                .build())
+                        .edge("RoadUse")
+                        .build())
                 .build();
         final CloseableIterable<? extends Element> globallyFilteredResults = graph.execute(getEdgesWithGlobalFilter, user);
         // ---------------------------------------------------------
@@ -138,26 +133,22 @@ public class Views extends UserWalkthrough {
         // [get global and group specific filter] run query with a global filter to return only edges with a count more than 0
         // and then an edge specific filter to return only edges with a count more than 2
         // ---------------------------------------------------------
-        final View viewWithGlobalAndGroupSpecificFilter = new View.Builder()
-                .globalEdges(new GlobalViewElementDefinition.Builder()
-                        .postAggregationFilter(new ElementFilter.Builder()
-                                .select("count")
-                                .execute(new IsMoreThan(0L))
-                                .build())
-                        .build())
-                .edge("RoadUse", new ViewElementDefinition.Builder()
-                        .postAggregationFilter(new ElementFilter.Builder()
-                                .select("count")
-                                .execute(new IsMoreThan(2L))
-                                .build())
-                        .build())
-                .build();
-
-        viewWithGlobalAndGroupSpecificFilter.expandGlobalDefinitions();
-
         final GetElements getEdgesWithGlobalAndGroupSpecificFilter = new GetElements.Builder()
                 .input(new EntitySeed("10"))
-                .view(viewWithGlobalAndGroupSpecificFilter)
+                .view(new View.Builder()
+                        .globalEdges(new GlobalViewElementDefinition.Builder()
+                                .postAggregationFilter(new ElementFilter.Builder()
+                                        .select("count")
+                                        .execute(new IsMoreThan(0L))
+                                        .build())
+                                .build())
+                        .edge("RoadUse", new ViewElementDefinition.Builder()
+                                .postAggregationFilter(new ElementFilter.Builder()
+                                        .select("count")
+                                        .execute(new IsMoreThan(2L))
+                                        .build())
+                                .build())
+                        .build())
                 .build();
         final CloseableIterable<? extends Element> globallyAndGroupSpecificFilteredResults = graph.execute(getEdgesWithGlobalAndGroupSpecificFilter, user);
         // ---------------------------------------------------------
@@ -169,14 +160,13 @@ public class Views extends UserWalkthrough {
 
         // [get group specific property] run query with a group specific property to return the count property
         // ---------------------------------------------------------
-        final View viewWithGroupSpecificProperty = new View.Builder()
-                .edge("RoadUse", new ViewElementDefinition.Builder()
-                        .properties("count")
-                        .build())
-                .build();
         final GetElements getEdgesWithGroupSpecificProperty = new GetElements.Builder()
                 .input(new EntitySeed("10"))
-                .view(viewWithGroupSpecificProperty)
+                .view(new View.Builder()
+                        .edge("RoadUse", new ViewElementDefinition.Builder()
+                                .properties("count")
+                                .build())
+                        .build())
                 .build();
         final CloseableIterable<? extends Element> groupSpecificPropertyResults = graph.execute(getEdgesWithGroupSpecificProperty, user);
         // ---------------------------------------------------------
@@ -188,18 +178,14 @@ public class Views extends UserWalkthrough {
 
         // [get global property] run query with a global property to return the count property
         // ---------------------------------------------------------
-        final View viewWithGlobalProperty = new View.Builder()
-                .globalEdges(new GlobalViewElementDefinition.Builder()
-                        .properties("count")
-                        .build())
-                .edge("RoadUse")
-                .build();
-
-        viewWithGlobalProperty.expandGlobalDefinitions();
-
         final GetElements getEdgesWithGlobalProperty = new GetElements.Builder()
                 .input(new EntitySeed("10"))
-                .view(viewWithGlobalProperty)
+                .view(new View.Builder()
+                        .globalEdges(new GlobalViewElementDefinition.Builder()
+                                .properties("count")
+                                .build())
+                        .edge("RoadUse")
+                        .build())
                 .build();
         final CloseableIterable<? extends Element> globalPropertyResults = graph.execute(getEdgesWithGlobalProperty, user);
         // ---------------------------------------------------------
@@ -211,20 +197,16 @@ public class Views extends UserWalkthrough {
 
         // [get global and group specific property] run query with a global property, overridden by group specific property to return the doesNotExist property
         // ---------------------------------------------------------
-        final View viewWithGlobalAndGroupSpecificProperty = new View.Builder()
-                .globalEdges(new GlobalViewElementDefinition.Builder()
-                        .properties("count")
-                        .build())
-                .edge("RoadUse", new ViewElementDefinition.Builder()
-                        .properties("doesNotExist")
-                        .build())
-                .build();
-
-        viewWithGlobalAndGroupSpecificProperty.expandGlobalDefinitions();
-
         final GetElements getEdgesWithGlobalAndGroupSpecificProperty = new GetElements.Builder()
                 .input(new EntitySeed("10"))
-                .view(viewWithGlobalAndGroupSpecificProperty)
+                .view(new View.Builder()
+                        .globalEdges(new GlobalViewElementDefinition.Builder()
+                                .properties("count")
+                                .build())
+                        .edge("RoadUse", new ViewElementDefinition.Builder()
+                                .properties("doesNotExist")
+                                .build())
+                        .build())
                 .build();
         final CloseableIterable<? extends Element> globalAndGroupSpecificPropertyResults = graph.execute(getEdgesWithGlobalAndGroupSpecificProperty, user);
         // ---------------------------------------------------------
@@ -236,14 +218,13 @@ public class Views extends UserWalkthrough {
 
         // [get group specific exclude property] run query with a group specific exclude property to not return the count property
         // ---------------------------------------------------------
-        final View viewWithGroupSpecificExcludeProperty = new View.Builder()
-                .edge("RoadUse", new ViewElementDefinition.Builder()
-                        .excludeProperties("count")
-                        .build())
-                .build();
         final GetElements getEdgesWithGroupSpecificExcludeProperty = new GetElements.Builder()
                 .input(new EntitySeed("10"))
-                .view(viewWithGroupSpecificExcludeProperty)
+                .view(new View.Builder()
+                        .edge("RoadUse", new ViewElementDefinition.Builder()
+                                .excludeProperties("count")
+                                .build())
+                        .build())
                 .build();
         final CloseableIterable<? extends Element> groupSpecificExcludePropertyResults = graph.execute(getEdgesWithGroupSpecificExcludeProperty, user);
         // ---------------------------------------------------------
@@ -255,18 +236,14 @@ public class Views extends UserWalkthrough {
 
         // [get global exclude property] run query with a global exclude property to not return the count property
         // ---------------------------------------------------------
-        final View viewWithGlobalExcludeProperty = new View.Builder()
-                .globalEdges(new GlobalViewElementDefinition.Builder()
-                        .excludeProperties("count")
-                        .build())
-                .edge("RoadUse")
-                .build();
-
-        viewWithGlobalExcludeProperty.expandGlobalDefinitions();
-
         final GetElements getEdgesWithGlobalExcludeProperty = new GetElements.Builder()
                 .input(new EntitySeed("10"))
-                .view(viewWithGlobalExcludeProperty)
+                .view(new View.Builder()
+                        .globalEdges(new GlobalViewElementDefinition.Builder()
+                                .excludeProperties("count")
+                                .build())
+                        .edge("RoadUse")
+                        .build())
                 .build();
         final CloseableIterable<? extends Element> globalExcludePropertyResults = graph.execute(getEdgesWithGlobalExcludeProperty, user);
         // ---------------------------------------------------------
@@ -278,20 +255,16 @@ public class Views extends UserWalkthrough {
 
         // [get global and group specific exclude property] run query with a global exclude property to not return the count property, overridden by the group specific filter to not return the doesNotExist property
         // ---------------------------------------------------------
-        final View viewWithGlobalAndGroupSpecificExcludeProperty = new View.Builder()
-                .globalEdges(new GlobalViewElementDefinition.Builder()
-                        .excludeProperties("count")
-                        .build())
-                .edge("RoadUse", new ViewElementDefinition.Builder()
-                        .excludeProperties("doesNotExist")
-                        .build())
-                .build();
-
-        viewWithGlobalAndGroupSpecificExcludeProperty.expandGlobalDefinitions();
-
         final GetElements getEdgesWithGlobalAndGroupSpecificExcludeProperty = new GetElements.Builder()
                 .input(new EntitySeed("10"))
-                .view(viewWithGlobalAndGroupSpecificExcludeProperty)
+                .view(new View.Builder()
+                        .globalEdges(new GlobalViewElementDefinition.Builder()
+                                .excludeProperties("count")
+                                .build())
+                        .edge("RoadUse", new ViewElementDefinition.Builder()
+                                .excludeProperties("doesNotExist")
+                                .build())
+                        .build())
                 .build();
         final CloseableIterable<? extends Element> globalAndGroupSpecificExcludePropertyResults = graph.execute(getEdgesWithGlobalAndGroupSpecificExcludeProperty, user);
         // ---------------------------------------------------------

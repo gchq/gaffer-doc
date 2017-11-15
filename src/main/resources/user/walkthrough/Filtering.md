@@ -26,3 +26,5 @@ If we run the query, we now get only those vertex `”10”` Edges where the `�
 ```
 ${GET_ELEMENTS_WITH_COUNT_MORE_THAN_2_RESULT}
 ```
+
+For more information on Views and filtering, see [Views](#view).
