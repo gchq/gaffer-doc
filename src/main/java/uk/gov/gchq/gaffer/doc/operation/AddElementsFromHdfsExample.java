@@ -41,17 +41,22 @@ public class AddElementsFromHdfsExample extends OperationExample {
         super(AddElementsFromHdfs.class, "This operation must be run as a Hadoop Job. " +
                 "So you will need to package up a shaded jar containing a main method " +
                 "that creates an instance of Graph and executes the operation. " +
-                "It can then be run with: \n\n"
-                + "```bash\n"
-                + "hadoop jar custom-shaded-jar.jar\n"
-                + "```\n\n"
-                + "When running an " + AddElementsFromHdfs.class.getSimpleName()
-                + " on Accumulo, if you do not specify useProvidedSplits " +
+                "It can then be run with: \n\n" +
+                "```bash\n" +
+                "hadoop jar custom-shaded-jar.jar\n" +
+                "```\n\n" +
+                "When running an " + AddElementsFromHdfs.class.getSimpleName() +
+                " on Accumulo, if you do not specify useProvidedSplits " +
                 "and the Accumulo table does not have a full set of split points " +
                 "then this operation will first sample the input data, generate " +
                 "split points and set them on the Accumulo table. " +
-                "It does this by delegating to " + SampleDataForSplitPoints.class.getSimpleName()
-                + " and " + SplitStore.class + ".");
+                "It does this by delegating to " + SampleDataForSplitPoints.class.getSimpleName() +
+                " and " + SplitStore.class + ".  Specifying the number of reducers within the Job" +
+                "has now been deprecated, and instead it is preferred to set the minimum and/or maximum" +
+                "number of reducers.  This means Accumulo, in most cases, will be able to choose the right" +
+                "amount of reducers for the user, based on the number of tablet servers. If the minimum is" +
+                "more than the amount Accumulo chooses it will update to be more, and equally if the maximum" +
+                "is less than the Accumulo amount, it will reduce the number of reducers to be the maximum.");
     }
 
     @Override
