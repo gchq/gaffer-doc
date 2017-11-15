@@ -376,18 +376,18 @@ public abstract class OperationExample extends Example {
         log("Using this directed graph:");
         log("\n```");
         log("");
-        log("             --> 7 <--");
-        log("           /           \\");
-        log("          /             \\");
-        log("         6  -->  3  -->  4");
-        log("         ^         \\");
-        log("        /          /");
-        log("8 -->  5  <--  2  <");
-        log("      ^        ^");
-        log("     /        /");
-        log("1 --         /");
-        log(" \\          /");
-        log("   --------");
+        log("                 --> 7 <--");
+        log("               /           \\");
+        log("              /             \\");
+        log("             6  -->  3  -->  4");
+        log(" ___        ^         \\");
+        log("|   |       /          /");
+        log(" -> 8 -->  5  <--  2  <");
+        log("          ^        ^");
+        log("         /        /");
+        log("    1 --         /");
+        log("     \\          /");
+        log("       --------");
         log("```\n");
     }
 
