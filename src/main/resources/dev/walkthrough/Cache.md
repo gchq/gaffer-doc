@@ -14,13 +14,18 @@ gaffer.cache.service.class=uk.gov.gchq.gaffer.cache.impl.JcsCacheService
 gaffer.cache.config.file=/path/to/config/file
 ```
 
-If we wanted to use the JCS cache service for example, we would also need to add the dependency on the jcs-cache-service in our pom:
+If using an external cache service (anything found in the cache library) be sure to include the library as a dependency:
 ```xml
 <dependency>
     <groupId>uk.gov.gchq.gaffer</groupId>
     <artifactId>jcs-cache-service</artifactId>
-    <version>[gaffer.version]</version>
+    <version>{gaffer.version}</version>
 </dependency>
 ```
 
 Once we have specified the the type of cache to use, Gaffer can use this cache service to store and get data to serve it more efficiently.
+
+Please note, by default no service is loaded so if you want to make use of the cache, be sure to specify the service class in your store.properties file.
+
+If using the Hazelcast instance of the Cache service be aware that once the last node shuts down, all data will be lost. This is due to the data being held in
+memory in a distributed system.
