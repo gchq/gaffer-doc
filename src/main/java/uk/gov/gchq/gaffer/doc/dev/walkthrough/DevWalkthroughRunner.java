@@ -31,7 +31,8 @@ public class DevWalkthroughRunner extends AbstractWalkthroughRunner {
             new Users(),
             new Jobs(),
             new NamedOperations(),
-            new FederatedStoreWalkThrough()
+            new FederatedStoreWalkThrough(),
+            new Cache()
     );
 
     public DevWalkthroughRunner() {
