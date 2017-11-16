@@ -18,7 +18,7 @@ gaffer.store.job.tracker.enabled=true
 
 You will also need to configure what cache to use for the job tracker.  For more information on this please see [Cache](#cache).
 
-In addition to the job tracker, it is recommended that you enable a cache to store the job results in. The caching mechanism is implemented as operations and operation handlers. By default these are disabled.
+In addition to the job tracker, it is recommended that you enable a `GafferResultCache` to store the job results in. The caching mechanism is implemented as operations and operation handlers. By default these are disabled.
 The job result cache is simply a second Gaffer Graph. So, if you are running on Accumulo, this can just be a separate table in your existing Accumulo cluster.
 
 Two operations are required for exporting and getting results from a Gaffer cache - ExportToGafferResultCache and GetGafferResultCacheExport.

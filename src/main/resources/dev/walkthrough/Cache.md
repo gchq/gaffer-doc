@@ -2,7 +2,9 @@ ${HEADER}
 
 ${CODE_LINK}
 
-In Gaffer there is one central cache service, meaning the same cache is used across all Gaffer internals, namely named operations, the job tracker and FederatedStore.
+In Gaffer there is one central caching service, meaning the same cache is used across all Gaffer internals, namely named operations, the job tracker and FederatedStore.
+
+There are three types of cache we can use, JCS (Java Caching System), HazelCast or HashMap. 
 
 To implement a cache service, first we must specify the cache service class in our store.properties:
 ```
@@ -20,3 +22,5 @@ If we wanted to use the JCS cache service for example, we would also need to add
     <version>[gaffer.version]</version>
 </dependency>
 ```
+
+Once we have specified the the type of cache to use, Gaffer can use this cache service to store and get data to serve it more efficiently.
