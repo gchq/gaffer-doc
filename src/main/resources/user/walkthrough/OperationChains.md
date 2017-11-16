@@ -9,7 +9,9 @@ Operation chains are simply a list of operations in which the operations are exe
 
 So adding elements from a CSV file can now be done as follows:
 
+${START_JAVA_CODE}
 ${ADD_SNIPPET}
+${END_CODE}
 
 This chain consists of 2 operations.
 The first, GenerateElements, which takes the data and an element generator and generates the Gaffer Edges.
@@ -19,7 +21,9 @@ This operation chain can then be executed on the graph as before.
 
 Another example of using an operation chain is when we are traversing the graph.
 
+${START_JAVA_CODE}
 ${GET_SNIPPET}
+${END_CODE}
 
 This operation chain takes starts with a seed vertex traverses down all outgoing edges using the ${GET_ADJACENT_ENTITY_SEEDS_JAVADOC} operation and then returns all the following connected edges using the ${GET_ELEMENTS_JAVADOC} operation. 
 Before returning the results the edges are converted into a csv format (junctionA, junctionB, count) using the ${GENERATE_OBJECTS_JAVADOC} operation.

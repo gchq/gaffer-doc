@@ -27,15 +27,17 @@ Optionally you can add a `GraphLibrary` this will store all the `Schema` and `St
 Optionally you can add a `CacheService` within the `StoreProperties`.
 In this example we are using a non-persistent library `HashMapGraphLibrary` and cache `HashMapCacheService`.
 
+${START_JAVA_CODE}
 ${CREATING_A_FEDERATEDSTORE_SNIPPET}
+${END_CODE}
 
 ##### FederatedStore Properties
 
+${START_JAVA_CODE}
 ${FEDERATEDSTORE_PROPERTIES_SNIPPET}
-
-```json
+${JSON_CODE}
 ${fedPropJson}
-```
+${END_CODE}
 
 #### Add Graphs
 
@@ -50,38 +52,32 @@ A graph is added into the `FederatedStore` using the `AddGraph` operation. To lo
 * Schema & Properties are not required if the GraphId is known by the GraphLibrary.
 * Custom properties defined by the user can be disallowed, see [limit custom properties](#limit-custom-properties).
 
+${START_JAVA_CODE}
 ${ADD_ANOTHER_GRAPH_SNIPPET}
-
-or through the rest service with json.
-
-```json
+${JSON_CODE}
 ${addGraphJson}
-```
+${END_CODE}
 
 #### Remove Graphs
 
 To remove a graph from the `FederatedStore` it is even easier, you only need to know the graphId. This does not delete the graph only removes it from the scope.
 However the user can only delete graphs they have access to view.
 
+${START_JAVA_CODE}
 ${REMOVE_GRAPH_SNIPPET}
-
-or through the rest service with json.
-
-```json
+${JSON_CODE}
 ${removeGraphJson}
-```
+${END_CODE}
 
 #### Get GraphIds
 
 To get a list of all the sub-graphs within the `FederatedStore` you can perform the following `GetAllGraphId` operation.
 
+${START_JAVA_CODE}
 ${GET_ALL_GRAPH_IDS_SNIPPET}
-
-or through the rest service with json.
-
-```json
+${JSON_CODE}
 ${getAllGraphIdsJson}
-```
+${END_CODE}
 
 
 and the result is:
@@ -102,19 +98,17 @@ Behind the scenes the `FederatedStore` sends out operation chains to the sub-gra
 A following `GetElements` operation would then return the same element from both sub-graph, resulting in duplicates.
 It is advised to keep groups to within one sub-graph or limit queries to one of the graphs with the option "gaffer.federatedstore.operation.graphIds".
 
+${START_JAVA_CODE}
 ${ADD_ELEMENTS_SNIPPET}
-
-${GET_ELEMENTS_SNIPPET}
-
-or through the rest service with json.
-
-```json
+${JSON_CODE}
 ${addElementsJson}
-```
+${END_CODE}
 
-```json
+${START_JAVA_CODE}
+${GET_ELEMENTS_SNIPPET}
+${JSON_CODE}
 ${getElementsJson}
-```
+${END_CODE}
 
 and the results are:
 
@@ -122,7 +116,9 @@ and the results are:
 ${elements}
 ```
 
+${START_JAVA_CODE}
 ${GET_ELEMENTS_FROM_ACCUMULO_GRAPH_SNIPPET}
+${END_CODE}
 
 and the results are:
 
@@ -133,12 +129,11 @@ ${elementsFromAccumuloGraph}
 #### Select Graphs for Operations
 Operations can be performed against specific sub-graphs by settings the option "gaffer.federatedstore.operation.graphIds".
 
+${START_JAVA_CODE}
 ${SELECT_GRAPHS_FOR_OPERATIONS_SNIPPET}
-
-or through the rest service with json.
-```json
+${JSON_CODE}
 ${selectGraphsForOperationsJson}
-```
+${END_CODE}
 
 #### Do Not Skip Failed Execution
 If the execution against a graph fails, that graph is skipped and the
@@ -146,13 +141,11 @@ If the execution against a graph fails, that graph is skipped and the
 has the option "gaffer.federatedstore.operation.skipFailedFederatedStoreExecute"
  set to `false`, in that situation a `OperationException` is thrown.
 
+${START_JAVA_CODE}
 ${DO_NOT_SKIP_FAILED_EXECUTION_SNIPPET}
-
-or through the rest service with json.
-
-```json
+${JSON_CODE}
 ${doNotSkipFailedExecutionJson}
-```
+${END_CODE}
 
 
 #### Limit Access with Authentication
@@ -166,49 +159,40 @@ Within the `AddGraph` operation, explicitly setting the parameter "isPublic" as
 true grants access to all users, regardless of authorisations that may be used.
 By default the "isPublic" parameter is false.
 
+${START_JAVA_CODE}
 ${ADD_PUBLIC_GRAPH_SNIPPET}
-
-or through the rest service with json.
-
-```json
+${JSON_CODE}
 ${addPublicGraphJson}
-```
+${END_CODE}
 
 ##### Private Access
 Within the `AddGraph` operation, by default the "isPublic" parameter is false.
 If authorisations is not specified it is private to the user that added it to FederatedStore.
 
+${START_JAVA_CODE}
 ${ADD_PRIVATE_GRAPH_SNIPPET}
-
-or through the rest service with json.
-
-```
 ${addPrivateGraphJson}
-```
+${END_CODE}
 
 ##### Secure Access
 Within the `AddGraph` operation, do not assign the "isPublic" parameter or assign it to false.
 By assigning the parameter "graphAuths", all users that has one of the listed authorisations will have access to that graph.
 
+${START_JAVA_CODE}
 ${ADD_SECURE_GRAPH_SNIPPET}
-
-or through the rest service with json
-
-```json
+${JSON_CODE}
 ${addSecureGraphJson}
-```
+${END_CODE}
 
 #### Disallow Public Access
 By default the `FederatedStore` will allow graphs to be added with public access.
 However public access can be disallow by setting the property `gaffer.federatedstore.isPublicAllowed` to false.
 
+${START_JAVA_CODE}
 ${DISALLOW_PUBLIC_ACCESS_SNIPPET}
-
-or through the rest service with json
-
-```json
+${JSON_CODE}
 ${disallowPublicAccessJson}
-```
+${END_CODE}
 
 #### Limit Custom Properties
 You may not want all users to be able to specify their own properties for graphs they are creating and adding, and to only use properties defined within the library.
@@ -216,10 +200,9 @@ To limit the user that use custom properties set the authorisation required by u
 By default this key is null, so all users can use custom properties.
 Users that do not match this authorisation can only specify using `StoreProperties` from the `GraphLibrary`.
 
+${START_JAVA_CODE}
 ${LIMIT_CUSTOM_PROPERTIES_SNIPPET}
-or through the rest service with json
-
-```json
+${JSON_CODE}
 ${limitCustomPropertiesJson}
-```
+${END_CODE}
 

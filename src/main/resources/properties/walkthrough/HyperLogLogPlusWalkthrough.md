@@ -24,7 +24,10 @@ ${GET_ALL_ENTITIES_RESULT}
 This is not very illuminating as this just shows the default `toString()` method on the sketch.
 
 We can fetch the cardinality for the vertex using the following code:
+
+${START_JAVA_CODE}
 ${GET_THE_APPROXIMATE_DEGREE_OF_A_SNIPPET}
+${END_CODE}
 
 The results are as follows. As an Entity was added 1000 times, each time with a different vertex, then we would expect the degree to be approximately 1000.
 

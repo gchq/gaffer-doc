@@ -86,7 +86,9 @@ Finally we add a property called 'count' to our Edge. This is an integer and is 
 
 In a later dev.walkthrough you will see there is a quick way of adding data to Gaffer directly from CSVs but for now we will do it in 2 steps. First we convert the csv to Edges.
 
+${START_JAVA_CODE}
 ${GENERATE_SNIPPET}
+${END_CODE}
 
 This produces these edges:
 
@@ -98,7 +100,9 @@ ${GENERATED_EDGES}
 
 The next thing we do is create an instance of a Gaffer ${GRAPH_JAVADOC}, this is basically just a proxy for your chosen Gaffer Store.
 
+${START_JAVA_CODE}
 ${GRAPH_SNIPPET}
+${END_CODE}
 
 To do this we provide the schema files and a Store Properties file: ${STORE_PROPERTIES_LINK}.
 
@@ -117,17 +121,23 @@ Now we've generated some Graph Edges and created a Graph, let's put the Edges in
 
 Start by creating a user:
 
+${START_JAVA_CODE}
 ${USER_SNIPPET}
+${END_CODE}
 
 Then using that user we can add the elements:
 
+${START_JAVA_CODE}
 ${ADD_SNIPPET}
+${END_CODE}
 
 To do anything with the Elements in a Gaffer Graph we use an ${OPERATION_JAVADOC}. In this case our Operation is ${ADD_ELEMENTS_JAVADOC}.
 
 Finally, we run a query to return all Edges in our Graph that contain the vertex "10". To do this we use a ${GET_ELEMENTS_JAVADOC} Operation.
 
+${START_JAVA_CODE}
 ${GET_SNIPPET}
+${END_CODE}
 
 #### Summary
 

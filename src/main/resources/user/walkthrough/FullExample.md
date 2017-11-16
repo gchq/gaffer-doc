@@ -35,29 +35,21 @@ The query is form a follows:
 - We will then query for the JunctionUse entity to find out if the junction was heavily used by buses in the year 2000.
 - Finally, just to demonstrate another operation, we will convert the results into a simple CSV of junction and bus count.
 
-and here is the code:
+and here is the code in Java, JSON and Python:
 
+${START_JAVA_CODE}
 ${GET_SNIPPET}
-
-This can also be written in JSON for performing the query via the REST API:
-
-```json
+${JSON_CODE}
 ${GET_JSON}
-```
+${END_CODE}
 
-We also have a python shell for connecting to the Gaffer REST API. You can 
+We have a python shell for connecting to the Gaffer REST API. You can
 get the python shell from [here](https://github.com/gchq/gaffer-tools/tree/master/python-shell).
-Then you can import the gaffer modules using:
+To execute the python code above you will need to import the folowing:
 
 ```python
 from gafferpy import gaffer as g
 from gafferpy import gaffer_connector
-```
-
-Here is the previous operation written in Python.
-
-```python
-${GET_PYTHON}
 ```
 
 
