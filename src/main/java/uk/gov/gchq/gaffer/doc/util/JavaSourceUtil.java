@@ -71,6 +71,6 @@ public final class JavaSourceUtil {
     }
 
     public static String getJavaSnippet(final Class<?> clazz, final String modulePath, final String tag) {
-        return "\n```java\n" + getRawJavaSnippet(clazz, modulePath, "// [" + tag + "]", START_TAG_CODE_SNIPPET_MARKER, TAG_END_CODE_SNIPPET_MARKER) + String.format("%n```");
+        return getRawJavaSnippet(clazz, modulePath, "// [" + tag + "]", START_TAG_CODE_SNIPPET_MARKER, TAG_END_CODE_SNIPPET_MARKER);
     }
 }

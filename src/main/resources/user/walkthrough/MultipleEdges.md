@@ -38,7 +38,9 @@ ${GET_ELEMENTS_RESULT}
 
 Our second query is to return all "RoadHasJunction" Edges. We still use the ${GET_ELEMENTS_JAVADOC} Operation like before but this time we add a ${VIEW_JAVADOC} to it:
 
+${START_JAVA_CODE}
 ${GET_SNIPPET}
+${END_CODE}
 
 and only get the "RoadHasJunction" Edges containing Vertex "10":
 

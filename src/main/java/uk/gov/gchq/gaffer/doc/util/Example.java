@@ -19,6 +19,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import uk.gov.gchq.gaffer.commonutil.CommonConstants;
+import uk.gov.gchq.gaffer.doc.walkthrough.WalkthroughStrSubstitutor;
 import uk.gov.gchq.gaffer.exception.SerialisationException;
 import uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser;
 
@@ -97,18 +98,18 @@ public abstract class Example {
     }
 
     protected void printJavaJsonPython(final Object obj, final String java) {
-        log("\n{% codetabs name=\"Java\", type=\"java\" -%}");
+        log(WalkthroughStrSubstitutor.START_JAVA_CODE_MARKER);
         log(java);
-        log("\n{%- language name=\"JSON\", type=\"json\" -%}");
+        log(WalkthroughStrSubstitutor.JSON_CODE_MARKER);
         log(getJson(obj));
 
         final String python = getPython(obj);
         if (null != python) {
-            log("\n{%- language name=\"Python\", type=\"py\" -%}");
+            log(WalkthroughStrSubstitutor.PYTHON_CODE_MARKER);
             log(python);
         }
 
-        log("{%- endcodetabs %}\n");
+        log(WalkthroughStrSubstitutor.END_MARKER_MARKER);
     }
 
     protected void printJavaJsonPython(final Object obj, final int parentMethodIndex) {
