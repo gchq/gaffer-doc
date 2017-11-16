@@ -30,8 +30,8 @@ public class UserWalkthroughRunner extends AbstractWalkthroughRunner {
             new OperationChains(),
             new Aggregation(),
             new Cardinalities(),
-            new Subgraphs(),
             new Views(),
+            new Subgraphs(),
             new FullExample()
     );
 

@@ -91,7 +91,7 @@ In particular:
 
       // When
       [Invoke the test method]
-  
+
       // Then
       [assert the method did what was expected]
   }

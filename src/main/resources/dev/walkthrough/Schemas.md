@@ -98,6 +98,6 @@ ordered.
 #### Full Schema
 Once the schema has been loaded into a graph the parent elements are merged into the children for performance reasons. This is what the full schema created from the above example schema parts looks like:
 
-```json
+${START_JSON_CODE}
 ${SCHEMA}
-```
+${END_CODE}

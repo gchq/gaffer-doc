@@ -17,7 +17,9 @@ Now let’s look at how to filter which Edges are returned based on the aggregat
 
 We do this using a ${VIEW_JAVADOC} and ${VIEW_ELEMENT_DEF_JAVADOC} like this:
 
+${START_JAVA_CODE}
 ${GET_SNIPPET}
+${END_CODE}
 
 Our ViewElementDefinition allows us to perform post Aggregation filtering using a IsMoreThan Predicate.
 

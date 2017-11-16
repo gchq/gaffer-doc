@@ -24,7 +24,10 @@ ${GET_ALL_EDGES_RESULT}
 This is not very illuminating as this just shows the default `toString()` method on the sketch. To get value from it we need to call methods on the LongsSketch object. Let's get estimates of the frequencies of the values 1 and 9.
 
 We can fetch all cardinalities for all the vertices using the following code:
+
+${START_JAVA_CODE}
 ${GET_FREQUENCIES_OF_1_AND_9_FOR_THE_EDGE_A_B_SNIPPET}
+${END_CODE}
 
 The results are as follows. As 1000 edges were generated with a long randomly sampled from 0 to 9 then the occurrence of each is approximately 100.
 

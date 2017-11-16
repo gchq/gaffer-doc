@@ -70,17 +70,25 @@ We will use the same basic schema and data from the first developer walkthrough.
 
 Start by creating your user instance and graph as you will have done previously:
 
+${START_JAVA_CODE}
 ${USER_SNIPPET}
+${END_CODE}
 
+${START_JAVA_CODE}
 ${GRAPH_SNIPPET}
+${END_CODE}
 
 Then create a job, otherwise known as an operation chain:
 
+${START_JAVA_CODE}
 ${JOB_SNIPPET}
+${END_CODE}
 
 When you execute your job, instead of using the normal execute method on Graph you will need to use the executeJob method.
 
+${START_JAVA_CODE}
 ${EXECUTE_JOB_SNIPPET}
+${END_CODE}
 
 and the results is:
 
@@ -90,7 +98,9 @@ ${JOB_DETAIL_START}
 
 As you can see this returns a JobDetail object containing your job id. The GetJobDetails operation allows you to check the status of your Job, e.g:
 
+${START_JAVA_CODE}
 ${JOB_DETAILS_SNIPPET}
+${END_CODE}
 
 and now you can see the job has finished:
 
@@ -100,11 +110,15 @@ ${JOB_DETAIL_FINISH}
 
 You can actually get the details of all running and completed jobs using the GetAllJobDetails operation:
 
+${START_JAVA_CODE}
 ${ALL_JOB_DETAILS_SNIPPET}
+${END_CODE}
 
 Then finally you can get the results of your job using the GetJobResults operation:
 
+${START_JAVA_CODE}
 ${GET_JOB_RESULTS_SNIPPET}
+${END_CODE}
 
 and the results were:
 

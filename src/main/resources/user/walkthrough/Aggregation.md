@@ -27,7 +27,10 @@ ${TYPES_JSON}
 
 Once we have loaded the data into Gaffer, we can fetch all the edges using a GetAllElements operation.
 Note this operation is not recommended for large Graphs as it will do a full scan of your database and could take a while to finish.
+
+${START_JAVA_CODE}
 ${GET_SNIPPET}
+${END_CODE}
 
 All edges:
 
@@ -42,7 +45,9 @@ These aggregated edges have had all their properties aggregated together using t
 Next we will further demonstrate query time aggregation and get all the 'RoadUse' edges with the same source to the same destination to be aggregated together, regardless of the start and end dates. 
 This is achieved by overriding the groupBy field with empty array so no properties are grouped on. Here is the operation:
 
+${START_JAVA_CODE}
 ${GET_ALL_EDGES_SUMMARISED_SNIPPET}
+${END_CODE}
 
 The summarised edges are as follows:
 
@@ -53,7 +58,10 @@ ${GET_ALL_EDGES_SUMMARISED_RESULT}
 Now you can see the edges from 10 to 11 have been aggregated together and their counts have been summed together.
 
 If we apply some pre-aggregation filtering, we can return a time window summary of the edges. The new operation looks like:
+
+${START_JAVA_CODE}
 ${GET_ALL_EDGES_SUMMARISED_IN_TIME_WINDOW_SNIPPET}
+${END_CODE}
 
 The time window summaries are:
 
@@ -74,15 +82,15 @@ So in this example the Edges have been summarised into daily time buckets and th
 Now at query time we are able to ask: What is the minimum daily count?
 
 Here is the java code:
+
+${START_JAVA_CODE}
 ${GET_ALL_EDGES_SUMMARISED_IN_TIME_WINDOW_WITH_MIN_COUNT_SNIPPET}
+${JSON_CODE}
+${GET_ALL_EDGES_SUMMARISED_IN_TIME_WINDOW_RESULT_WITH_MIN_COUNT_JSON}
+${END_CODE}
 
 So, you can see we have just added an extra 'aggregator' block to the Operation view.
-This can be written in json like this:
 
-```json
-${GET_ALL_EDGES_SUMMARISED_IN_TIME_WINDOW_RESULT_WITH_MIN_COUNT_JSON}
-```
- 
 We have increased the time window to 3 days just so there are multiple edges to demonstrate the query time aggregation.
 The result is:
 

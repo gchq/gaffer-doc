@@ -2,111 +2,128 @@ ${HEADER}
 
 ${CODE_LINK}
 
-When running an Operation, for example GetElements, within Gaffer you supply a View.
+In previous sections we have talked about Filtering, Aggregation and Transformations.
+This section just goes into a bit more information about what a View actually is and some of the other features of a View.
 
-In the view you can set filters, properties to include, and properties to exclude, on different groups.
+When running an Operation, for example GetElements, you can use a ${VIEW_JAVADOC} to filter, aggregate, transform and just generally manipulate the results.
+As with all parts of Gaffer, the View is quite generic and quite powerful, but can be tricky to get going with.
+You can use any of the predefined Functions and Predicates or reference you own (as long as they are on the classpath).
 
-If you want to set the same filters on multiple groups previously it would be a case of copying and pasting. Now you are able to use the global definition section.
-To avoid complicating things for the rest of the internals of Gaffer we must 'expand' out these global filters before the View is passed to the internals of Gaffer.
+There are quite a few different parts to a View, these are:
 
-In this example we will explain all uses, including overriding and concatenating, within filters and properties.
+- Filtering - for filtering entire elements out based on predicates. Filtering can be applied: pre aggregation, post aggregation and post transformation.
 
-All of these examples use globalEdges, but the method is identical to globalEntities/globalElements.
+- Aggregation - for controlling if and how similar elements are aggregated together. You can provide a subset of the schema groupBy properties and override the aggregation functions.
 
-If we want to query for RoadUse edges containing vertex `”10”` and with a count of less than `”count”` > 2 we can do this:
+- Transformation - for transforming elements. This is applied by providing Functions to transform properties and vertex values. You can override the existing values or you can transform and project the new value into a new transient property.
 
-${GET_GROUP_SPECIFIC_FILTER_SNIPPET}
+- Removing properties - for defining which properties you want to be returned. You can use either 'properties' or 'excludeProperties' to define the list of properties to be included or excluded.
 
-This will return these results:
 
-```
-${GET_ELEMENTS_WITH_GROUP_SPECIFIC_FILTER}
-```
+If you don't provide a View (or you provide an empty view with no groups) when
+executing an operation you will just get all elements back without any modifications.
+When creating a View the first thing to do is decide which Edges and Entities you would like to be returned.
+Let's assume you want RoadUse, RoadHasJunction, Cardinality. If you provide a Your view would look like this:
 
-This can also be written using a global filter, that will apply the filter to all groups.  An example can be seen below:
+${START_JAVA_CODE}
+${VIEW_WITH_GROUPS_SNIPPET}
+${JSON_CODE}
+${VIEW_WITH_GROUPS_JSON}
+${END_CODE}
 
-${GET_GLOBAL_FILTER_SNIPPET}
+It is important to use the correct element type when listing the elements.
+RoadUse is an Edge group, so we include it in the View as an Edge. Whereas Cardinality
+is an Entity so we include it as an Entity.
 
-Returning the same elements as using a group specific filter:
+As seen in the Filtering walkthrough we can then apply filters to the different element groups using an ${VIEW_ELEMENT_DEF_JAVADOC}.
+Below you can see we have added a post aggregation filters to the element groups.
+This demonstrates how you can add different filters to different groups and how to add multiple filters.
 
-${GET_ELEMENTS_WITH_GLOBAL_FILTER}
+${START_JAVA_CODE}
+${VIEW_WITH_FILTERS_SNIPPET}
+${JSON_CODE}
+${VIEW_WITH_FILTERS_JSON}
+${END_CODE}
 
-Group specific filters can also be applied on top of global filters, and these are concatenated using an AND operator.  Lets look at how this will work:
+We could just as easily add pre aggregation filters using "preAggregationFilter" instead.
+It is important to think about the stage at which you are applying your filtering.
+Pre aggregation filters are useful when you want to apply a filter to a property
+before it is aggregated, like time window filtering. However, post aggregation
+filtering is required for properties like a count, when you want to filter based
+on the fully summarised value after query time aggregation has happened.
 
-${GET_GLOBAL_AND_GROUP_SPECIFIC_FILTER_SNIPPET}
 
-As you can see above we have applied a global filter (`"count"` > 0), and then applied a group specific filter to the view (`"count"` > 2).  Because these are concatenated with
-the AND operator, it reads as `"count"` > 0 && `"count"` > 2.  Take a look at the results below.  We can see that it has returned one record:
+If you are only interested in specific properties then it is more efficient to tell Gaffer to only return those properties.
+This can be easily achieved using the 'properties' or 'excludeProperties' field.
+For example:
 
-```
-${GET_ELEMENTS_WITH_GLOBAL_AND_GROUP_SPECIFIC_FILTER}
-```
+${START_JAVA_CODE}
+${VIEW_WITH_REMOVED_PROPERTIES_SNIPPET}
+${JSON_CODE}
+${VIEW_WITH_REMOVED_PROPERTIES_JSON}
+${END_CODE}
 
-This is because the global filter will have returned multiple records, but the group specific filter, concatenated with the AND, means only one record with a `"count"` > 2 is returned.
+#### Global view definitions
 
-Properties can also be set globally, using a similar method to the above for filtering.
+If you want to set the same filters on multiple groups you can use a global view definition.
+When specifying global view definitions you can choose from:
 
-If we want to include the `"count"` property on a group specific level, this can be done like below:
+- globalElements - these are applied to all edges and entities
+- globalEdges - these are applied to all edges
+- globalEntities - these are applied to all entities
 
-${GET_GROUP_SPECIFIC_PROPERTY_SNIPPET}
+If we want to return all elements that have a count more than 2 we can do this:
 
-Producing these elements:
+${START_JAVA_CODE}
+${VIEW_WITH_GLOBAL_FILTER_SNIPPET}
+${JSON_CODE}
+${VIEW_WITH_GLOBAL_FILTER_JSON}
+${END_CODE}
 
-```
-${GET_ELEMENTS_WITH_GROUP_SPECIFIC_PROPERTY}
-```
+In addition to global definitions you can add specific view definitions to different element groups as we have done previously.
+The global definitions will just get merged with each of the element definitions.
+Filters are merged together using an AND operator. For example:
 
-Similarly, we can do it on a global edge level, applying this property to all edges returned in the GetElements Operation:
+${START_JAVA_CODE}
+${VIEW_WITH_GLOBAL_AND_SPECIFIC_FILTERS_SNIPPET}
+${JSON_CODE}
+${VIEW_WITH_GLOBAL_AND_SPECIFIC_FILTERS_JSON}
+${END_CODE}
 
-${GET_GLOBAL_PROPERTY_SNIPPET}
+when this is expanded out by Gaffer automatically it would become:
 
-Producing:
+${START_JAVA_CODE}
+${VIEW_WITH_GLOBAL_AND_SPECIFIC_FILTERS_EXPANDED_SNIPPET}
+${JSON_CODE}
+${VIEW_WITH_GLOBAL_AND_SPECIFIC_FILTERS_EXPANDED_JSON}
+${END_CODE}
 
-```
-${GET_ELEMENTS_WITH_GLOBAL_PROPERTY}
-```
+Global aggregations and transformations work in a similar way to filtering.
 
-In contrast to the filters however, setting group specific properties will completely override the globally set properties.
-If there is a global property of `"count"` but then a group specific property of `"doesNotExist"` we will get no properties returned:
+Properties can also included/excluded globally, using a similar method to the above for filtering.
 
-${GET_GLOBAL_AND_GROUP_SPECIFIC_PROPERTY_SNIPPET}
+If we want to only want to return the `"count"` property for all elements this can be done like:
 
-```
-${GET_ELEMENTS_WITH_GLOBAL_AND_GROUP_SPECIFIC_PROPERTY}
-```
+${START_JAVA_CODE}
+${VIEW_WITH_GLOBAL_REMOVED_PROPERTIES_SNIPPET}
+${JSON_CODE}
+${VIEW_WITH_GLOBAL_REMOVED_PROPERTIES_JSON}
+${END_CODE}
+
+Again, you can override the global included properties field for a specific element group:
+
+${START_JAVA_CODE}
+${VIEW_WITH_GLOBAL_AND_SPECIFIC_REMOVED_PROPERTIES_SNIPPET}
+${JSON_CODE}
+${VIEW_WITH_GLOBAL_AND_SPECIFIC_REMOVED_PROPERTIES_JSON}
+${END_CODE}
+
+when this is expanded out by Gaffer automatically it would become:
+
+${START_JAVA_CODE}
+${VIEW_WITH_GLOBAL_AND_SPECIFIC_REMOVED_PROPERTIES_EXPANDED_SNIPPET}
+${JSON_CODE}
+${VIEW_WITH_GLOBAL_AND_SPECIFIC_REMOVED_PROPERTIES_EXPANDED_JSON}
+${END_CODE}
 
 Global exclude properties work in the same way as global properties.
-
-If we want to exclude the property `"count"` on a group specific level we can do this:
-
-${GET_GROUP_SPECIFIC_EXCLUDE_PROPERTY_SNIPPET}
-
-This will return all elements that match the other criteria of the GetElements Operation, and exclude the property `"count"`:
-
-```
-${GET_ELEMENTS_WITH_GROUP_SPECIFIC_EXCLUDE_PROPERTY}
-```
-
-We can also do this on a global level, applying the exclude property `"count"` to all edges:
-
-${GET_GLOBAL_EXCLUDE_PROPERTY_SNIPPET}
-
-This will return the same results as the group specific exclude property:
-
-```
-${GET_ELEMENTS_WITH_GLOBAL_EXCLUDE_PROPERTY}
-```
-
-Using both global and group specific exclude properties will cause the global excludes to be overwritten.  If we exclude the `"count"` property
-on a global level we can then override it on a group specific level, for example excluding the property `"doesNotExist"`.  The example can be seen below:
-
-${GET_GLOBAL_AND_GROUP_SPECIFIC_EXCLUDE_PROPERTY_SNIPPET}
-
-As mentioned above, the global level exclude property has been overridden so we will get the count property in our returned elements:
-
-```
-${GET_ELEMENTS_WITH_GLOBAL_AND_GROUP_SPECIFIC_EXCLUDE_PROPERTY}
-```
-
-
-

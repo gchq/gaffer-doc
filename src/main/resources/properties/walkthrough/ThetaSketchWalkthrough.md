@@ -23,21 +23,32 @@ ${GET_ENTITIES}
 ```
 
 This is not very illuminating as this just shows the default `toString()` method on the sketch. To get value from it we need to call a method on the Sketch object:
+
+${START_JAVA_CODE}
 ${GET_ESTIMATE_SEPARATE_DAYS_SNIPPET}
+${END_CODE}
+
 The result is:
 ```
 ${GET_ESTIMATE_OVER_SEPARATE_DAYS}
 ```
 
 Now we can get an estimate for the number of edges in common across the two days:
+
+${START_JAVA_CODE}
 ${GET_INTERSECTION_ACROSS_DAYS_SNIPPET}
+${END_CODE}
+
 The result is:
 ```
 ${PRINT_ESTIMATE}
 ```
 
 We now get an estimate for the number of edges in total across the two days, by simply aggregating overall the properties:
+
+${START_JAVA_CODE}
 ${GET_UNION_ACROSS_ALL_DAYS_SNIPPET}
+${END_CODE}
 
 The result is:
 
