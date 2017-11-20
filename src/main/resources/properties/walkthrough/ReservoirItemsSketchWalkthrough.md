@@ -21,7 +21,10 @@ ${GET_A-B_EDGE_RESULT}
 ```
 
 This is not very illuminating as this just shows the default `toString()` method on the sketch. To get value from it we need to call a method on the ReservoirItemsSketch object:
+
+${START_JAVA_CODE}
 ${GET_SAMPLE_FOR_EDGE_A_B_SNIPPET}
+${END_CODE}
 
 The results contain a random sample of the strings added to the edge:
 ```
@@ -29,7 +32,10 @@ ${GET_SAMPLE_FOR_RED_EDGE}
 ```
 
 500 edges of group "blue" were also added to the graph (edges X-Y0, X-Y1, ..., X-Y499). For each of these edges, an Entity was created for both the source and destination. Each Entity contained a 'neighboursSample' property that contains the vertex at the other end of the edge. We now get the Entity for the vertex X and display the sample of its neighbours:
+
+${START_JAVA_CODE}
 ${GET_SAMPLE_FOR_ENTITY_X_SNIPPET}
+${END_CODE}
 
 The results are:
 

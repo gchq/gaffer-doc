@@ -26,6 +26,7 @@
     * [Operations](components/core/operation.md)
     * [Store](components/core/store.md)
     * [Graph](components/core/graph.md)
+    * [REST API](components/rest-api.md)
   * Tools
     * [Python Shell](components/tool/python-shell.md)
     * [UI](components/tool/ui.md)
@@ -33,6 +34,7 @@
     * [Slider](components/tool/slider.md)
   * Examples
     * [Road Traffic Example](components/example/road-traffic.md)
+    * [Federated Example](components/example/federated-demo.md)
 
 * [Javadoc](summaries/javadoc.md)
   * [Gaffer Javadoc](ref://javadoc/gaffer/index.html)

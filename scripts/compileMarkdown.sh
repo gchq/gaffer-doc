@@ -32,7 +32,7 @@ java -cp target/doc-jar-with-dependencies.jar uk.gov.gchq.gaffer.doc.predicate.P
 
 mkdir -p docs/components/core
 mkdir -p docs/components/example
-components="core/serialisation core/data core/operation core/store core/graph example/road-traffic";
+components="core/serialisation core/data core/operation core/store core/graph rest-api example/road-traffic example/federated-demo";
 set +e
 for component in $components; do
     echo "Fetching component: $component"

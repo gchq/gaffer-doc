@@ -41,7 +41,7 @@ public class AddElementsExample extends OperationExample {
 
     public void addElements() throws OperationException {
         log("#### " + getMethodNameAsSentence(0) + "\n");
-        printGraph();
+        printSimpleGraphAsAscii();
 
         final AddElements operation = new AddElements.Builder()
                 .input(new Entity.Builder()

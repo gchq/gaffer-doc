@@ -13,13 +13,17 @@ This transform function takes 3 values, the `”SOURCE”` vertex, the `”DESTI
 
 This transform function then needs to be configured using an [ElementTransformer](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/data/element/function/ElementTransformer.html):
 
+${START_JAVA_CODE}
 ${TRANSFORM_SNIPPET}
+${END_CODE}
 
 Here you can see we `select` the `”SOURCE”` vertex, the `”DESTINATION”` vertex and `”count”` property and `project`, them into the new `”description”` transient property.
 
 We add the new `”description”` property to the result Edge using a `View` and then execute the operation.
 
+${START_JAVA_CODE}
 ${GET_SNIPPET}
+${END_CODE}
 
 This produces the following result:
 
@@ -35,7 +39,9 @@ to exclude, using the 'excludeProperties' field. In this case once we have used
 the count property to create our description we don't actually want the count
 property to be returned. So we will exclude it using the following code:
 
+${START_JAVA_CODE}
 ${GET_WITH_NO_COUNT_SNIPPET}
+${END_CODE}
 
 and the result now does not contain the count property:
 
