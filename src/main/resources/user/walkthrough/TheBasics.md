@@ -104,7 +104,8 @@ ${START_JAVA_CODE}
 ${GRAPH_SNIPPET}
 ${END_CODE}
 
-To do this we provide the schema files and a Store Properties file: ${STORE_PROPERTIES_LINK}.
+To do this we provide the schema files and a Store Properties file: ${STORE_PROPERTIES_LINK}.  To create a Graph we can also use a GraphConfig.
+For more information please see the [Graph](components/core/graph.md) section.
 
 ##### The StoreProperties
 
