@@ -19,7 +19,7 @@ Once you have configured the cache service, if you are using the OperationChainL
 that GraphHook to use the NamedOperationScoreResolver, this will allow you to have custom scores for each named operation.
 The hook configuration should look something like:
 
-```json
+${START_JSON_CODE}
 {
     "class": "uk.gov.gchq.gaffer.graph.hook.OperationChainLimiter",
     "opScores": {
@@ -37,11 +37,11 @@ The hook configuration should look something like:
         "class": "uk.gov.gchq.gaffer.store.operation.resolver.named.NamedOperationScoreResolver"
       }
     }
-  }
-```
+}
+${END_CODE}
 
 and the operation declarations file for registering the ScoreOperationChain operation would then look like:
-```json
+${START_JSON_CODE}
 {
   "operations": [
     {
@@ -66,7 +66,7 @@ and the operation declarations file for registering the ScoreOperationChain oper
     }
   ]
 }
-```
+${END_CODE}
 
 
 
@@ -77,9 +77,13 @@ We will use the same basic schema and data from the first developer walkthrough.
 
 Start by creating your user instance and graph as you will have done previously:
 
+${START_JAVA_CODE}
 ${USER_SNIPPET}
+${END_CODE}
 
+${START_JAVA_CODE}
 ${GRAPH_SNIPPET}
+${END_CODE}
 
 Then add a named operation to the cache with the AddNamedOperation operation:
 
@@ -91,9 +95,13 @@ the hook to limit operation chains.
 
 Then create a NamedOperation and execute it
 
+${START_JAVA_CODE}
 ${CREATE_NAMED_OPERATION_SNIPPET}
+${END_CODE}
 
+${START_JAVA_CODE}
 ${EXECUTE_NAMED_OPERATION_SNIPPET}
+${END_CODE}
 
 The results are:
 
@@ -109,15 +117,21 @@ and an optional default for the Parameter, and also indicates whether the parame
 
 The following code adds a NamedOperation with a 'limitParam' parameter that allows the result limit for the OperationChain to be set:
 
+${START_JAVA_CODE}
 ${ADD_NAMED_OPERATION_WITH_PARAMETERS_SNIPPET}
+${END_CODE}
 
 A NamedOperation can then be created, with a value provided for the 'limitParam' parameter:
 
+${START_JAVA_CODE}
 ${CREATE_NAMED_OPERATION_WITH_PARAMETERS_SNIPPET}
+${END_CODE}
 
 and executed:
 
+${START_JAVA_CODE}
 ${EXECUTE_NAMED_OPERATION_WITH_PARAMETERS_SNIPPET}
+${END_CODE}
 
 giving these results:
 
@@ -127,7 +141,9 @@ ${NAMED_OPERATION_WITH_PARAMETER_RESULTS}
 
 Details of all available NamedOperations can be fetched using the GetAllNamedOperations operation:
 
+${START_JAVA_CODE}
 ${GET_ALL_NAMED_OPERATIONS_SNIPPET}
+${END_CODE}
 
 That gives the following result:
 
@@ -136,9 +152,3 @@ ${ALL_NAMED_OPERATIONS}
 ```
 
 For other named operation examples see [NamedOperation examples](operation-examples.md#namedoperation-example).
-
-
-
-
-
-

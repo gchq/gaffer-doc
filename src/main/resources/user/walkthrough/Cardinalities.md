@@ -25,7 +25,10 @@ ${GET_ALL_EDGES_RESULT}
 
 
 We can fetch all cardinalities for all the vertices using the following operation:
+
+${START_JAVA_CODE}
 ${GET_ALL_CARDINALITIES_SNIPPET}
+${END_CODE}
 
 If we look at the cardinality value of the HyperLogLogPlus property the values are:
 
@@ -38,7 +41,11 @@ The cardinality value for the M5 Road is 7 as there are 7 junctions on this road
 Remember that the HyperLogLogPlus cardinality value is just an estimate.  
 
 If we want to merge these cardinalities together we can add 'groupBy=[]' to the operation view to override the groupBy defined in the schema.
+
+${START_JAVA_CODE}
 ${GET_ALL_SUMMARISED_CARDINALITIES_SNIPPET}
+${END_CODE}
+
 Now you can see the cardinality values have been merged together at each vertex:
 
 ```
@@ -46,7 +53,11 @@ ${ALL_SUMMARISED_CARDINALITIES_RESULT}
 ```
 
 This next snippet shows you how you can query for a single cardinality value.
+
+${START_JAVA_CODE}
 ${GET_ROADUSE_EDGE_CARDINALITY_10_SNIPPET}
+${END_CODE}
+
 As you can see the query just simply asks for an entities at vertex '10' and filters for only 'Cardinality' entities that have an edgeGroup property equal to 'RoadUse'. 
 
 The result is:
@@ -59,4 +70,6 @@ One of the main uses of Cardinalities is to avoid busy vertices whilst traversin
 For example if you want to do a 2 hop query (traverse along an edge then another edge) you may want to only go down edges where the source vertex has a low cardinality to avoid returning too many edges.
 Here is the java code:
 
+${START_JAVA_CODE}
 ${GET_2_HOPS_WITH_A_CARDINALITY_FILTER_SNIPPET}
+${END_CODE}

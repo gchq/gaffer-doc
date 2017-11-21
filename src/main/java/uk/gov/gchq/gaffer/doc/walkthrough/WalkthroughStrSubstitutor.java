@@ -67,6 +67,17 @@ public abstract class WalkthroughStrSubstitutor {
     public static final String JAVA_SRC_PATH = "/src/main/java/";
     public static final String RESOURCES_SRC_PATH = "/src/main/resources/";
 
+    public static final String START_JAVA_CODE_MARKER = "\n{% codetabs name=\"Java\", type=\"java\" -%}";
+    public static final String JAVA_CODE_MARKER = "\n{%- language name=\"Java\", type=\"java\" -%}";
+
+    public static final String START_JSON_CODE_MARKER = "\n{% codetabs name=\"JSON\", type=\"json\" -%}";
+    public static final String JSON_CODE_MARKER = "\n{%- language name=\"JSON\", type=\"json\" -%}";
+
+    public static final String START_PYTHON_CODE_MARKER = "\n{% codetabs name=\"Python\", type=\"python\" -%}";
+    public static final String PYTHON_CODE_MARKER = "\n{%- language name=\"Python\", type=\"py\" -%}";
+
+    public static final String END_MARKER_MARKER = "{%- endcodetabs %}\n";
+
     public static String substitute(final String walkthrough, final AbstractWalkthrough example, final String modulePath, final String header, final String dataPath, final String schemaPath, final Class<? extends ElementGenerator> elementGenerator) {
         return substitute(walkthrough, createParameterMap(walkthrough, example, modulePath, header, dataPath, schemaPath, elementGenerator));
     }
@@ -143,6 +154,15 @@ public abstract class WalkthroughStrSubstitutor {
 
     public static Map<String, String> createParameterMap(final String text, final AbstractWalkthrough example, final String modulePath) {
         final Map<String, String> params = new HashMap<>();
+
+        params.put("START_JAVA_CODE", START_JAVA_CODE_MARKER);
+        params.put("JAVA_CODE", JAVA_CODE_MARKER);
+        params.put("START_JSON_CODE", START_JSON_CODE_MARKER);
+        params.put("JSON_CODE", JSON_CODE_MARKER);
+        params.put("START_PYTHON_CODE", START_PYTHON_CODE_MARKER);
+        params.put("PYTHON_CODE", PYTHON_CODE_MARKER);
+        params.put("END_CODE", END_MARKER_MARKER);
+
         params.put("EDGE_JAVADOC", getJavaDocLink(Edge.class));
         params.put("USER_JAVADOC", getJavaDocLink(User.class));
         params.put("STORE_JAVADOC", getJavaDocLink(Store.class));
