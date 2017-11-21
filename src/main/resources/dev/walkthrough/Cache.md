@@ -5,7 +5,7 @@ In Gaffer there is one central caching service, meaning the same cache is used a
 There are three types of cache we can use, JCS (Java Caching System), HazelCast or HashMap. 
 
 To implement a cache service, first we must specify the cache service class in our store.properties:
-```
+```properties
 gaffer.cache.service.class=uk.gov.gchq.gaffer.cache.impl.JcsCacheService
 
 # Optionally provide custom cache properties
