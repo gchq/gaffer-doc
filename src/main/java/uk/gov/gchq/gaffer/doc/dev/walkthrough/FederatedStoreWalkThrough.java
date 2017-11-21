@@ -57,12 +57,25 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
     public CloseableIterable<? extends Element> run() throws Exception {
         final FederatedStoreProperties federatedProperty = FederatedStoreProperties.loadStoreProperties(StreamUtil.openStream(getClass(), "federatedStore.properties"));
 
+
+        final StoreProperties mapProps = StoreProperties.loadStoreProperties("mockmapstore.properties");
+        final StoreProperties accumuloProps = StoreProperties.loadStoreProperties("mockaccumulostore.properties");
+
+        final Schema schema = new Schema.Builder()
+                .json(StreamUtil.openStreams(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema"))
+                .build();
+
+        final HashMapGraphLibrary library = new HashMapGraphLibrary();
+        library.addProperties("mapStore", mapProps);
+        library.addProperties("accumuloStore", accumuloProps);
+        library.addSchema("roadTraffic", schema);
+
         // [creating a federatedstore] create a store that federates to a MapStore and AccumuloStore
         // ---------------------------------------------------------
         final Graph federatedGraph = new Graph.Builder()
                 .config(new GraphConfig.Builder()
                         .graphId("federatedRoadUse")
-                        .library(new HashMapGraphLibrary())
+                        .library(library)
                         .build())
                 .storeProperties(federatedProperty)
                 .build();
@@ -85,7 +98,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
                         .json(StreamUtil.openStream(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema/entities.json"))
                         .json(StreamUtil.openStream(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema/types.json"))
                         .build())
-                .storeProperties(StoreProperties.loadStoreProperties("mockmapstore.properties"))
+                .storeProperties(mapProps)
                 .isPublic(true)
                 .build();
         federatedGraph.execute(addMapGraph, user);
@@ -96,7 +109,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
                         .json(StreamUtil.openStream(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema/edges.json"))
                         .json(StreamUtil.openStream(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema/types.json"))
                         .build())
-                .storeProperties(StoreProperties.loadStoreProperties("mockaccumulostore.properties"))
+                .storeProperties(accumuloProps)
                 .isPublic(true)
                 .build();
         federatedGraph.execute(addAccumuloGraph, user);
@@ -105,10 +118,8 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         // ---------------------------------------------------------
         AddGraph addAnotherGraph = new AddGraph.Builder()
                 .graphId("AnotherGraph")
-                .schema(new Schema.Builder()
-                        .json(StreamUtil.openStreams(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema"))
-                        .build())
-                .storeProperties(StoreProperties.loadStoreProperties("mockmapstore.properties"))
+                .schema(schema)
+                .storeProperties(mapProps)
                 .build();
         federatedGraph.execute(addAnotherGraph, user);
         // ---------------------------------------------------------
@@ -120,7 +131,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         // [remove graph] remove a graph from the federated store.
         // ---------------------------------------------------------
         RemoveGraph removeGraph = new RemoveGraph.Builder()
-                .setGraphId("AnotherGraph")
+                .graphId("AnotherGraph")
                 .build();
         federatedGraph.execute(removeGraph, user);
         // ---------------------------------------------------------
@@ -214,8 +225,8 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         // ---------------------------------------------------------
         AddGraph publicGraph = new AddGraph.Builder()
                 .graphId("publicGraph")
-                .parentSchemaIds(Lists.newArrayList("AnotherGraph"))
-                .parentPropertiesId("AnotherGraph")
+                .parentSchemaIds(Lists.newArrayList("roadTraffic"))
+                .parentPropertiesId("mapStore")
                 .isPublic(true) //<-- public access
                 .graphAuths("Auth1") //<-- used but irrelevant as graph has public access
                 .build();
@@ -229,8 +240,8 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         // ---------------------------------------------------------
         AddGraph privateGraph = new AddGraph.Builder()
                 .graphId("privateGraph")
-                .parentSchemaIds(Lists.newArrayList("AnotherGraph"))
-                .parentPropertiesId("AnotherGraph")
+                .parentSchemaIds(Lists.newArrayList("roadTraffic"))
+                .parentPropertiesId("mapStore")
                         //.isPublic(false) <-- not specifying also defaults to false.
                         //.graphAuths() <-- leave blank/null or do no specify otherwise private access is lost.
                 .build();
@@ -245,8 +256,8 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         // ---------------------------------------------------------
         AddGraph addSecureGraph = new AddGraph.Builder()
                 .graphId("SecureGraph")
-                .parentSchemaIds(Lists.newArrayList("AnotherGraph"))
-                .parentPropertiesId("AnotherGraph")
+                .parentSchemaIds(Lists.newArrayList("roadTraffic"))
+                .parentPropertiesId("mapStore")
                 .graphAuths("Auth1", "Auth2", "Auth3")
                         //.isPublic(false) <-- not specifying also defaults to false.
                 .build();

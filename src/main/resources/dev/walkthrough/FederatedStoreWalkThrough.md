@@ -171,6 +171,7 @@ If authorisations is not specified it is private to the user that added it to Fe
 
 ${START_JAVA_CODE}
 ${ADD_PRIVATE_GRAPH_SNIPPET}
+${JSON_CODE}
 ${addPrivateGraphJson}
 ${END_CODE}
 
