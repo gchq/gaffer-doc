@@ -29,6 +29,7 @@ public class DevWalkthroughRunner extends AbstractWalkthroughRunner {
             new Visibilities(),
             new Schemas(),
             new Users(),
+            new Cache(),
             new Jobs(),
             new NamedOperations(),
             new FederatedStoreWalkThrough()
