@@ -25,7 +25,7 @@ To create a `FederatedStore` you need to initialise the store with a graphId and
 
 Optionally you can add a `GraphLibrary` this will store all the `Schema` and `StoreProperties` associated with your `FederatedStore` and sub-graphs, otherwise a `NoGraphLibrary` is used which does nothing.
 Optionally you can add a `CacheService` within the `StoreProperties`.
-In this example we are using a non-persistent library `HashMapGraphLibrary` and cache `HashMapCacheService`.
+In this example we are using a non-persistent library `HashMapGraphLibrary` and cache `HashMapCacheService`.  For more information on the cache service please see [Cache](#cache).
 
 ${START_JAVA_CODE}
 ${CREATING_A_FEDERATEDSTORE_SNIPPET}
@@ -171,6 +171,7 @@ If authorisations is not specified it is private to the user that added it to Fe
 
 ${START_JAVA_CODE}
 ${ADD_PRIVATE_GRAPH_SNIPPET}
+${JSON_CODE}
 ${addPrivateGraphJson}
 ${END_CODE}
 

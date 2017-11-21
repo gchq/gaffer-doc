@@ -23,7 +23,7 @@ import uk.gov.gchq.gaffer.hdfs.operation.AddElementsFromHdfs;
 import uk.gov.gchq.gaffer.hdfs.operation.SampleDataForSplitPoints;
 import uk.gov.gchq.gaffer.hdfs.operation.handler.job.initialiser.TextJobInitialiser;
 import uk.gov.gchq.gaffer.operation.OperationException;
-import uk.gov.gchq.gaffer.operation.impl.SplitStore;
+import uk.gov.gchq.gaffer.operation.impl.SplitStoreFromFile;
 import uk.gov.gchq.gaffer.user.User;
 
 import java.nio.file.Paths;
@@ -52,7 +52,7 @@ public class AddElementsFromHdfsExample extends OperationExample {
                 "then this operation will first sample the input data, generate " +
                 "split points and set them on the Accumulo table. " +
                 "It does this by delegating to " + SampleDataForSplitPoints.class.getSimpleName() +
-                " and " + SplitStore.class + ".\n\n" +
+                " and " + SplitStoreFromFile.class + ".\n\n" +
 
                 "Specifying the number of reducers within the Job has now been deprecated, " +
                 "and instead it is preferred to set the minimum and/or maximum number of reducers. " +
