@@ -86,18 +86,18 @@ public class Filtering extends UserWalkthrough {
         log("The elements have been added.");
 
 
-        log("\nAll elements related to vertex 10. The counts have been aggregated\n");
+        log("\nRoadUse edges related to vertex 10. The counts have been aggregated\n");
         // [get simple] get all the edges that contain the vertex "10"
         // ---------------------------------------------------------
-        final View view = new View.Builder()
-                .edge("RoadUse")
-                .build();
         final GetElements getRelatedElement = new GetElements.Builder()
                 .input(new EntitySeed("10"))
-                .view(view)
+                .view(new View.Builder()
+                        .edge("RoadUse")
+                        .build())
                 .build();
         final CloseableIterable<? extends Element> results = graph.execute(getRelatedElement, user);
         // ---------------------------------------------------------
+        log("GET_SIMPLE_JSON", getJson(getRelatedElement));
         for (final Element e : results) {
             log("GET_ELEMENTS_RESULT", e.toString());
         }
@@ -105,20 +105,20 @@ public class Filtering extends UserWalkthrough {
 
         // [get] rerun previous query with a filter to return only edges with a count more than 2
         // ---------------------------------------------------------
-        final View viewWithFilter = new View.Builder()
-                .edge("RoadUse", new ViewElementDefinition.Builder()
-                        .postAggregationFilter(new ElementFilter.Builder()
-                                .select("count")
-                                .execute(new IsMoreThan(2L))
+        final GetElements getEdgesWithCountMoreThan2 = new GetElements.Builder()
+                .input(new EntitySeed("10"))
+                .view(new View.Builder()
+                        .edge("RoadUse", new ViewElementDefinition.Builder()
+                                .postAggregationFilter(new ElementFilter.Builder()
+                                        .select("count")
+                                        .execute(new IsMoreThan(2L))
+                                        .build())
                                 .build())
                         .build())
                 .build();
-        final GetElements getEdgesWithCountMoreThan2 = new GetElements.Builder()
-                .input(new EntitySeed("10"))
-                .view(viewWithFilter)
-                .build();
         final CloseableIterable<? extends Element> filteredResults = graph.execute(getEdgesWithCountMoreThan2, user);
         // ---------------------------------------------------------
+        log("GET_JSON", getJson(getEdgesWithCountMoreThan2));
         log("\nAll edges containing the vertex 10 with an aggregated count more than than 2\n");
         for (final Element e : filteredResults) {
             log("GET_ELEMENTS_WITH_COUNT_MORE_THAN_2_RESULT", e.toString());
@@ -129,6 +129,6 @@ public class Filtering extends UserWalkthrough {
 
     public static void main(final String[] args) throws OperationException, IOException {
         final Filtering walkthrough = new Filtering();
-        walkthrough.run();
+        System.out.println(walkthrough.walkthrough());
     }
 }
