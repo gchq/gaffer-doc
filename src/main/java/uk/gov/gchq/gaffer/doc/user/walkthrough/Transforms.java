@@ -107,22 +107,22 @@ public class Transforms extends UserWalkthrough {
                 .project("description")
                 .build();
         // ---------------------------------------------------------
-
+        log("TRANSFORM_JSON", getJson(descriptionTransformer));
 
         // [get] Add the element transformer to the view and run the query
         // ---------------------------------------------------------
-        final View view = new View.Builder()
-                .edge("RoadUse", new ViewElementDefinition.Builder()
-                        .transientProperty("description", String.class)
-                        .transformer(descriptionTransformer)
-                        .build())
-                .build();
         final GetElements getEdgesWithDescription = new GetElements.Builder()
                 .input(new EntitySeed("10"))
-                .view(view)
+                .view(new View.Builder()
+                        .edge("RoadUse", new ViewElementDefinition.Builder()
+                                .transientProperty("description", String.class)
+                                .transformer(descriptionTransformer)
+                                .build())
+                        .build())
                 .build();
         final CloseableIterable<? extends Element> resultsWithDescription = graph.execute(getEdgesWithDescription, user);
         // ---------------------------------------------------------
+        log("GET_JSON", getJson(getEdgesWithDescription));
         log("\nWe can add a new property to the edges that is calculated from the aggregated values of other properties\n");
         for (final Element e : resultsWithDescription) {
             log("GET_ELEMENTS_WITH_DESCRIPTION_RESULT", e.toString());
@@ -131,19 +131,19 @@ public class Transforms extends UserWalkthrough {
 
         // [get with no count]
         // ---------------------------------------------------------
-        final View viewWithExcludedProperties = new View.Builder()
-                .edge("RoadUse", new ViewElementDefinition.Builder()
-                        .transientProperty("description", String.class)
-                        .transformer(descriptionTransformer)
-                        .excludeProperties("count")
-                        .build())
-                .build();
         final GetElements getEdgesWithDescriptionAndNoCount = new GetElements.Builder()
                 .input(new EntitySeed("10"))
-                .view(viewWithExcludedProperties)
+                .view(new View.Builder()
+                        .edge("RoadUse", new ViewElementDefinition.Builder()
+                                .transientProperty("description", String.class)
+                                .transformer(descriptionTransformer)
+                                .excludeProperties("count")
+                                .build())
+                        .build())
                 .build();
         final CloseableIterable<? extends Element> resultsWithDescriptionAndNoCount = graph.execute(getEdgesWithDescriptionAndNoCount, user);
         // ---------------------------------------------------------
+        log("GET_WITH_NO_COUNT_JSON", getJson(getEdgesWithDescriptionAndNoCount));
         log("\nAnd the result without the count property:\n");
         for (final Element e : resultsWithDescriptionAndNoCount) {
             log("GET_ELEMENTS_WITH_DESCRIPTION_AND_NO_COUNT_RESULT", e.toString());
@@ -154,6 +154,6 @@ public class Transforms extends UserWalkthrough {
 
     public static void main(final String[] args) throws OperationException, IOException {
         final Transforms walkthrough = new Transforms();
-        walkthrough.run();
+        System.out.println(walkthrough.walkthrough());
     }
 }
