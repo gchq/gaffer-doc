@@ -31,12 +31,8 @@ public class GetDataFrameOfElementsExample extends SparkOperationExample {
     }
 
     public GetDataFrameOfElementsExample() {
-        super(GetDataFrameOfElements.class, getDescription());
+        super(GetDataFrameOfElements.class, RFILE_READER_DESCRIPTION);
         skipEndOfMethodBreaks = true;
-    }
-
-    private static String getDescription() {
-        return RFILE_READER_DESCRIPTION;
     }
 
     @Override

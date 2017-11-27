@@ -25,10 +25,11 @@ import uk.gov.gchq.gaffer.spark.SparkContextUtil;
 import uk.gov.gchq.gaffer.store.Context;
 
 public abstract class SparkOperationExample extends OperationExample {
-    public static final String RFILE_READER_DESCRIPTION = "Note - there is an option to read the RFiles directly rather than the usual approach of obtaining them from Accumulo's tablet servers. "
-            + "This requires the Hadoop user, running the Spark job, to have read access to the RFiles in the Accumulo tablet. "
-            + "Note, however, that data which has not been minor compacted will not be read if this option is used. "
-            + "This functionality is enabled using the option: \"gaffer.accumulo.spark.directrdd.use_rfile_reader=true\"";
+    public static final String RFILE_READER_DESCRIPTION =
+            "Note - there is an option to read the RFiles directly rather than the usual approach of obtaining them from Accumulo's tablet servers. "
+                    + "This requires the Hadoop user, running the Spark job, to have read access to the RFiles in the Accumulo tablet. "
+                    + "Note, however, that data which has not been minor compacted will not be read if this option is used. "
+                    + "This functionality is enabled using the option: \"gaffer.accumulo.spark.directrdd.use_rfile_reader=true\"";
 
     private SparkSession sparkSession;
 
