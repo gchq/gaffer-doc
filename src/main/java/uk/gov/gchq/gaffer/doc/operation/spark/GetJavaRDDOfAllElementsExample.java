@@ -34,14 +34,8 @@ public class GetJavaRDDOfAllElementsExample extends SparkOperationExample {
     private static String getDescription() {
         return "All the elements in a graph can be returned "
                 + "as a JavaRDD by using the operation GetJavaRDDOfAllElements. "
-            + "Some examples follow. Note that there is an option to "
-            + "read the RFiles directly rather than the usual approach of "
-            + "obtaining them from Accumulo's tablet servers. This requires "
-            + "the Hadoop user running the Spark job to have read access to "
-            + "the RFiles in the Accumulo tablet. Note that data that has "
-            + "not been minor compacted will not be read if this option "
-            + "is used. This functionality is enabled using the option: "
-            + "\"gaffer.accumulo.spark.directrdd.use_rfile_reader=true\"";
+                + "Some examples follow. \n"
+                + RFILE_READER_DESCRIPTION;
     }
 
     @Override
