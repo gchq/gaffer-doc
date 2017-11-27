@@ -31,7 +31,7 @@ public class GetDataFrameOfElementsExample extends SparkOperationExample {
     }
 
     public GetDataFrameOfElementsExample() {
-        super(GetDataFrameOfElements.class, "Note - when backed by Accumulo, this operation supports reading directly from R files.");
+        super(GetDataFrameOfElements.class, getDescription());
         skipEndOfMethodBreaks = true;
     }
 
