@@ -98,3 +98,4 @@ The result is:
 ${GET_ALL_EDGES_SUMMARISED_IN_TIME_WINDOW_RESULT_WITH_MIN_COUNT}
 ```
  
+For more information on Views and aggregating, see [Views](#views).

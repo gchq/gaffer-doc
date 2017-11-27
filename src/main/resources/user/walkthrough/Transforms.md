@@ -64,3 +64,4 @@ and the result now does not contain the count property:
 ${GET_ELEMENTS_WITH_DESCRIPTION_AND_NO_COUNT_RESULT}
 ```
 
+For more information on Views and transforms, see [Views](#views).

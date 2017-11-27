@@ -55,4 +55,4 @@ When choosing a Predicate you must ensure your input selection (the property and
 For example the IsMoreThan Predicate accepts a single Comparable value. Whereas the IsXMoreThanY Predicate accepts 2 Comparable values.
 The Predicate inputs are also documented within the Predicate examples documentation.
 
-For more information on Views and filtering, see [Views](#view).
+For more information on Views and filtering, see [Views](#views).
