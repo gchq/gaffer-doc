@@ -15,14 +15,27 @@ This transform function then needs to be configured using an [ElementTransformer
 
 ${START_JAVA_CODE}
 ${TRANSFORM_SNIPPET}
+${JSON_CODE}
+${TRANSFORM_JSON}
 ${END_CODE}
 
 Here you can see we `select` the `”SOURCE”` vertex, the `”DESTINATION”` vertex and `”count”` property and `project`, them into the new `”description”` transient property.
+The selection here is similar to the way we select properties and identifiers in a filter,
+remember you can select (and also project) any property name or any of these identifiers:
 
-We add the new `”description”` property to the result Edge using a `View` and then execute the operation.
+- VERTEX - this is the vertex on an Entity
+- SOURCE - this is the source vertex on an Edge
+- DESTINATION - this is the destination vertex on an Edge
+- DIRECTED - this is the directed field on an Edge
+- MATCHED_VERTEX - this is the vertex that was matched in the query, either the SOURCE or the DESTINATION
+- ADJACENT_MATCHED_VERTEX - this is the adjacent vertex that was matched in the query, either the SOURCE or the DESTINATION. I.e if your seed matches the source of the edge this would resolve to the DESTINATION value.
+
+We then can just add this transformer with a new `”description”` transient property to a `View` and then execute the operation.
 
 ${START_JAVA_CODE}
 ${GET_SNIPPET}
+${JSON_CODE}
+${GET_JSON}
 ${END_CODE}
 
 This produces the following result:
@@ -41,6 +54,8 @@ property to be returned. So we will exclude it using the following code:
 
 ${START_JAVA_CODE}
 ${GET_WITH_NO_COUNT_SNIPPET}
+${JSON_CODE}
+${GET_WITH_NO_COUNT_JSON}
 ${END_CODE}
 
 and the result now does not contain the count property:
