@@ -6,12 +6,12 @@ This example demonstrates how storing a HyperLogLogPlus object on each vertex in
 
 To add properties to vertices we need to add an Entity to our schema. Entities are associated with a vertex and contain a set of properties about that vertex.
 
-##### Elements schema
+### Elements schema
 This is our new elements schema. You can we we have added a Cardinality Entity. This will be added to every vertex in the Graph. This Entity has a 'hllp' property that will hold the HyperLogLogPlus cardinality value.
 
 ${ELEMENTS_JSON}
 
-##### Types schema
+### Types schema
 We have added a new type - hllp. This is a HyperLogLogPlus object. The HyperLogLogPlus object will be used to estimate the cardinality of a vertex.
 We also added in the serialiser and aggregator for the HyperLogLogPlus object. Gaffer will automatically aggregate the cardinalities, using the provided aggregator, so they will keep up to date as new elements are added to the graph.
 

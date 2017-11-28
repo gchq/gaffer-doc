@@ -111,7 +111,7 @@ public abstract class WalkthroughStrSubstitutor {
         final Class<?> exampleClass = example.getClass();
         final Map<String, String> params = new HashMap<>();
         params.put("HEADER",
-                "### " + header);
+                "# " + header);
         params.put("CODE_LINK",
                 "The code for this example is " + getGitHubCodeLink(example.getClass(), modulePath) + ".");
         if (null != dataPath) {

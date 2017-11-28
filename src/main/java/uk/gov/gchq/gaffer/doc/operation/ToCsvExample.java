@@ -29,7 +29,7 @@ public class ToCsvExample extends OperationExample {
     }
 
     public static void main(final String[] args) throws OperationException {
-        new ToCsvExample().run();
+        new ToCsvExample().runAndPrint();
     }
 
     @Override

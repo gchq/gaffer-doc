@@ -30,26 +30,26 @@ public abstract class PredicateExample extends Example {
     }
 
     public void runExample(final Predicate predicate, final String description, final Object... inputs) {
-        log("#### " + getMethodNameAsSentence(1) + "\n");
+        print("### " + getMethodNameAsSentence(1) + "\n");
         if (StringUtils.isNotBlank(description)) {
-            log(description + "\n");
+            print(description + "\n");
         }
 
         printJavaJsonPython(predicate, 3);
 
-        log("Input type:");
-        log("\n```");
+        print("Input type:");
+        print("\n```");
         final StringBuilder inputClasses = new StringBuilder();
         for (final Class<?> item : Signature.getInputSignature(predicate).getClasses()) {
             inputClasses.append(item.getName());
             inputClasses.append(", ");
         }
-        log(inputClasses.substring(0, inputClasses.length() - 2));
-        log("```\n");
+        print(inputClasses.substring(0, inputClasses.length() - 2));
+        print("```\n");
 
-        log("Example inputs:");
-        log("<table>");
-        log("<tr><th>Type</th><th>Input</th><th>Result</th></tr>");
+        print("Example inputs:");
+        print("<table>");
+        print("<tr><th>Type</th><th>Input</th><th>Result</th></tr>");
         for (final Object input : inputs) {
             final String inputType;
             final String inputString;
@@ -87,9 +87,9 @@ public abstract class PredicateExample extends Example {
                 result = e.toString();
             }
 
-            log("<tr><td>" + inputType + "</td><td>" + inputString + "</td><td>" + result + "</td></tr>");
+            print("<tr><td>" + inputType + "</td><td>" + inputString + "</td><td>" + result + "</td></tr>");
         }
-        log("</table>\n");
-        log(METHOD_DIVIDER);
+        print("</table>\n");
+        print(METHOD_DIVIDER);
     }
 }

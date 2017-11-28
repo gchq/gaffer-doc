@@ -17,18 +17,16 @@ package uk.gov.gchq.gaffer.doc.operation.spark;
 
 import uk.gov.gchq.gaffer.doc.operation.OperationExample;
 import uk.gov.gchq.gaffer.doc.util.ExampleDocRunner;
-import uk.gov.gchq.gaffer.operation.Operation;
 
 /**
  * This runner will run all spark operation examples.
  */
 public class SparkOperationExamplesRunner extends ExampleDocRunner {
-
-    public static void main(final String[] args) throws Exception {
-        new SparkOperationExamplesRunner().run();
+    public SparkOperationExamplesRunner() {
+        super("Spark Operations", OperationExample.class);
     }
 
-    public void run() throws Exception {
-        run("Spark Operation Examples", OperationExample.class, Operation.class);
+    public static void main(final String[] args) throws Exception {
+        new SparkOperationExamplesRunner().generate();
     }
 }

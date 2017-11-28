@@ -87,7 +87,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         exampleFederatedProperty.setCacheProperties(HashMapCacheService.class.getName());
         // ---------------------------------------------------------
 
-        log("fedPropJson", new String(JSONSerialiser.serialise(federatedProperty.getProperties(), true)));
+        print("fedPropJson", new String(JSONSerialiser.serialise(federatedProperty.getProperties(), true)));
 
 
         final User user = new User("user01");
@@ -126,7 +126,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
 
         improveReadabilityOfJson(addAnotherGraph);
         addAccumuloGraph.setGraphAuths(null);
-        log("addGraphJson", new String(JSONSerialiser.serialise(addAnotherGraph, true)));
+        print("addGraphJson", new String(JSONSerialiser.serialise(addAnotherGraph, true)));
 
         // [remove graph] remove a graph from the federated store.
         // ---------------------------------------------------------
@@ -137,7 +137,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         // ---------------------------------------------------------
 
         improveReadabilityOfJson(removeGraph);
-        log("removeGraphJson", new String(JSONSerialiser.serialise(removeGraph, true)));
+        print("removeGraphJson", new String(JSONSerialiser.serialise(removeGraph, true)));
 
         // [get all graph ids] Get a list of all the graphId within the FederatedStore.
         // ---------------------------------------------------------
@@ -146,9 +146,9 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         // ---------------------------------------------------------
 
         improveReadabilityOfJson(getAllGraphIDs);
-        log("getAllGraphIdsJson", new String(JSONSerialiser.serialise(getAllGraphIDs, true)));
+        print("getAllGraphIdsJson", new String(JSONSerialiser.serialise(getAllGraphIDs, true)));
 
-        log("graphIds", graphIds.toString());
+        print("graphIds", graphIds.toString());
 
 
         // [add elements] Create a data generator and add the edges to the federated graphs using an operation chain consisting of:
@@ -166,7 +166,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         federatedGraph.execute(addOpChain, user);
         // ---------------------------------------------------------
 
-        log("addElementsJson", new String(JSONSerialiser.serialise(addOpChain, true)));
+        print("addElementsJson", new String(JSONSerialiser.serialise(addOpChain, true)));
 
         // [get elements]
         // ---------------------------------------------------------
@@ -180,10 +180,10 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         // ---------------------------------------------------------
 
         for (final Element element : elements) {
-            log("elements", element.toString());
+            print("elements", element.toString());
         }
 
-        log("getElementsJson", new String(JSONSerialiser.serialise(getOpChain, true)));
+        print("getElementsJson", new String(JSONSerialiser.serialise(getOpChain, true)));
 
 
         // [get elements from accumulo graph]
@@ -199,7 +199,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         // ---------------------------------------------------------
 
         for (final Element element : elementsFromAccumuloGraph) {
-            log("elementsFromAccumuloGraph", element.toString());
+            print("elementsFromAccumuloGraph", element.toString());
         }
 
         // [select graphs for operations]
@@ -209,7 +209,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
                 .build();
         // ---------------------------------------------------------
 
-        log("selectGraphsForOperationsJson", new String(JSONSerialiser.serialise(selectGraphsForOperations, true)));
+        print("selectGraphsForOperationsJson", new String(JSONSerialiser.serialise(selectGraphsForOperations, true)));
 
         // [do not skip failed execution]
         // ---------------------------------------------------------
@@ -218,7 +218,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
                 .build();
         // ---------------------------------------------------------
 
-        log("doNotSkipFailedExecutionJson", new String(JSONSerialiser.serialise(doNotSkipFailedExecution, true)));
+        print("doNotSkipFailedExecutionJson", new String(JSONSerialiser.serialise(doNotSkipFailedExecution, true)));
 
 
         // [add public graph] add a graph to the federated store.
@@ -234,7 +234,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         // ---------------------------------------------------------
 
         improveReadabilityOfJson(publicGraph);
-        log("addPublicGraphJson", new String(JSONSerialiser.serialise(publicGraph, true)));
+        print("addPublicGraphJson", new String(JSONSerialiser.serialise(publicGraph, true)));
 
         // [add private graph] add a graph to the federated store.
         // ---------------------------------------------------------
@@ -249,7 +249,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         // ---------------------------------------------------------
 
         improveReadabilityOfJson(privateGraph);
-        log("addPrivateGraphJson", new String(JSONSerialiser.serialise(privateGraph, true)));
+        print("addPrivateGraphJson", new String(JSONSerialiser.serialise(privateGraph, true)));
 
 
         // [add secure graph] add a graph to the federated store.
@@ -265,7 +265,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         // ---------------------------------------------------------
 
         improveReadabilityOfJson(addSecureGraph);
-        log("addSecureGraphJson", new String(JSONSerialiser.serialise(addSecureGraph, true)));
+        print("addSecureGraphJson", new String(JSONSerialiser.serialise(addSecureGraph, true)));
 
 
         // [disallow public access]
@@ -274,7 +274,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         disallowPublicProperties.setGraphsCanHavePublicAccess(false);
         // ---------------------------------------------------------
 
-        log("disallowPublicAccessJson", new String(JSONSerialiser.serialise(disallowPublicProperties.getProperties(), true)));
+        print("disallowPublicAccessJson", new String(JSONSerialiser.serialise(disallowPublicProperties.getProperties(), true)));
 
 
         // [limit custom properties]
@@ -283,7 +283,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         limitCustomProperties.setCustomPropertyAuths("Auth1, Auth2, Auth3");
         // ---------------------------------------------------------
 
-        log("limitCustomPropertiesJson", new String(JSONSerialiser.serialise(limitCustomProperties.getProperties(), true)));
+        print("limitCustomPropertiesJson", new String(JSONSerialiser.serialise(limitCustomProperties.getProperties(), true)));
 
 
         return elements;

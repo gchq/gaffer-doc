@@ -72,7 +72,7 @@ public class Views extends UserWalkthrough {
 
         graph.execute(addOpChain, user);
         // ---------------------------------------------------------
-        log("The elements have been added.");
+        print("The elements have been added.");
 
 
         // [view with groups]
@@ -83,7 +83,7 @@ public class Views extends UserWalkthrough {
                 .entity("Cardinality")
                 .build();
         // ---------------------------------------------------------
-        log("VIEW_WITH_GROUPS_JSON", getJson(viewWithGroups));
+        print("VIEW_WITH_GROUPS_JSON", getJson(viewWithGroups));
 
         // [view with filters]
         // ---------------------------------------------------------
@@ -104,7 +104,7 @@ public class Views extends UserWalkthrough {
                         .build())
                 .build();
         // ---------------------------------------------------------
-        log("VIEW_WITH_FILTERS_JSON", getJson(viewWithFilters));
+        print("VIEW_WITH_FILTERS_JSON", getJson(viewWithFilters));
 
         // [view with removed properties]
         // ---------------------------------------------------------
@@ -117,7 +117,7 @@ public class Views extends UserWalkthrough {
                         .build())
                 .build();
         // ---------------------------------------------------------
-        log("VIEW_WITH_REMOVED_PROPERTIES_JSON", getJson(viewWithRemovedProperties));
+        print("VIEW_WITH_REMOVED_PROPERTIES_JSON", getJson(viewWithRemovedProperties));
 
 
         // [view with global filter] run query with a global filter to return only elements with a count more than 2
@@ -131,7 +131,7 @@ public class Views extends UserWalkthrough {
                         .build())
                 .build();
         // ---------------------------------------------------------
-        log("VIEW_WITH_GLOBAL_FILTER_JSON", getJson(viewWithGlobalFilter));
+        print("VIEW_WITH_GLOBAL_FILTER_JSON", getJson(viewWithGlobalFilter));
 
 
         // [view with global and specific filters]
@@ -152,7 +152,7 @@ public class Views extends UserWalkthrough {
                 .entity("Cardinality")
                 .build();
         // ---------------------------------------------------------
-        log("VIEW_WITH_GLOBAL_AND_SPECIFIC_FILTERS_JSON", getJson(globalAndSpecificView));
+        print("VIEW_WITH_GLOBAL_AND_SPECIFIC_FILTERS_JSON", getJson(globalAndSpecificView));
 
         // [view with global and specific filters expanded]
         // ---------------------------------------------------------
@@ -173,7 +173,7 @@ public class Views extends UserWalkthrough {
                         .build())
                 .build();
         // ---------------------------------------------------------
-        log("VIEW_WITH_GLOBAL_AND_SPECIFIC_FILTERS_EXPANDED_JSON", getJson(globalAndSpecificViewExpanded));
+        print("VIEW_WITH_GLOBAL_AND_SPECIFIC_FILTERS_EXPANDED_JSON", getJson(globalAndSpecificViewExpanded));
 
 
         // [view with global removed properties]
@@ -184,7 +184,7 @@ public class Views extends UserWalkthrough {
                         .build())
                 .build();
         // ---------------------------------------------------------
-        log("VIEW_WITH_GLOBAL_REMOVED_PROPERTIES_JSON", getJson(viewWithGlobalRemovedProperties));
+        print("VIEW_WITH_GLOBAL_REMOVED_PROPERTIES_JSON", getJson(viewWithGlobalRemovedProperties));
 
 
         // [view with global and specific removed properties]
@@ -199,7 +199,7 @@ public class Views extends UserWalkthrough {
                         .build())
                 .build();
         // ---------------------------------------------------------
-        log("VIEW_WITH_GLOBAL_AND_SPECIFIC_REMOVED_PROPERTIES_JSON", getJson(viewWithGlobalAndSpecificRemovedProperties));
+        print("VIEW_WITH_GLOBAL_AND_SPECIFIC_REMOVED_PROPERTIES_JSON", getJson(viewWithGlobalAndSpecificRemovedProperties));
 
         // [view with global and specific removed properties expanded]
         // ---------------------------------------------------------
@@ -212,7 +212,7 @@ public class Views extends UserWalkthrough {
                         .build())
                 .build();
         // ---------------------------------------------------------
-        log("VIEW_WITH_GLOBAL_AND_SPECIFIC_REMOVED_PROPERTIES_EXPANDED_JSON", getJson(viewWithGlobalAndSpecificRemovedPropertiesExpanded));
+        print("VIEW_WITH_GLOBAL_AND_SPECIFIC_REMOVED_PROPERTIES_EXPANDED_JSON", getJson(viewWithGlobalAndSpecificRemovedPropertiesExpanded));
 
         return null;
     }

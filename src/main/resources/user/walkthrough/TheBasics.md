@@ -39,7 +39,7 @@ The Schema file can be broken down into small parts, we encourage at least 2 fil
 
 Splitting the schema up into these 2 files helps to illustrate the different roles that the schemas fulfil.
 
-##### The Elements Schema
+## The Elements Schema
 
 The Elements Schema is a JSON document that describes the Elements (Edges and Entities) in the Graph. We will start by using this very basic schema:
 
@@ -52,7 +52,7 @@ This edge is a directed edge representing vehicles moving from junction A to jun
 You can see the `“RoadUse”` Edge has a source and a destination vertex of type `"junction"` and a single property called `"count"` of type `"count.long"`. 
 These types are defined in the DataType file.
 
-##### The Types Schema
+## The Types Schema
 
 The Types Schema is a JSON document that describes the types of objects used by Elements
 
@@ -68,7 +68,7 @@ We also supply an ${SUM_JAVADOC} [BinaryOperator](https://docs.oracle.com/javase
 Gaffer allows Edges of the same Group to be aggregated together. This means that when different vehicles travel from junction 10 to junction 11 the edges will be aggregated together and the count property will represent the total number of vehicles that have travelled between the 2 junctions. 
 
 
-#### Generating Graph Elements
+## Generating Graph Elements
 
 So now we have modelled our data we need to write an Element Generator, an implementation of a [Java Function](https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html) to convert each line of our csv file to a RoadUse edge.
 
@@ -96,7 +96,7 @@ This produces these edges:
 ${GENERATED_EDGES}
 ```
 
-#### Creating a Graph Object
+## Creating a Graph Object
 
 The next thing we do is create an instance of a Gaffer ${GRAPH_JAVADOC}, this is basically just a proxy for your chosen Gaffer Store.
 
@@ -106,7 +106,7 @@ ${END_CODE}
 
 To do this we provide the schema files and a Store Properties file: ${STORE_PROPERTIES_LINK}.
 
-##### The StoreProperties
+## The StoreProperties
 
 Here is the StoreProperties file:
 
@@ -115,7 +115,7 @@ ${STORE_PROPERTIES}
 This contains information specific to the actual instance of the Store you are using. Refer to the documentation for your chosen store for the configurable properties, e.g ${ACCUMULO_USER_GUIDE}.
 The important property is 'gaffer.store.class' this tells Gaffer the type of store you wish to use to store your data. 
 
-#### Loading and Querying Data
+## Loading and Querying Data
 
 Now we've generated some Graph Edges and created a Graph, let's put the Edges in the Graph.
 
@@ -139,7 +139,7 @@ ${START_JAVA_CODE}
 ${GET_SNIPPET}
 ${END_CODE}
 
-#### Summary
+## Summary
 
 In this example we've taken some simple pairs of integers in a file and, using a ElementGenerator, converted them into Gaffer Graph Edges with a `”count”` property.
 

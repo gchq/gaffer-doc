@@ -79,11 +79,11 @@ public abstract class AbstractWalkthrough {
         return modulePath;
     }
 
-    public void log(final String message) {
-        log(DESCRIPTION_LOG_KEY, message);
+    public void print(final String message) {
+        print(DESCRIPTION_LOG_KEY, message);
     }
 
-    public void log(final String key, final String message) {
+    public void print(final String key, final String message) {
         if (cacheLogs) {
             StringBuilder logs = logCache.get(key);
             if (null == logs) {

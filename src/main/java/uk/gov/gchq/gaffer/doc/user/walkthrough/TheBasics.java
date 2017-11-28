@@ -48,11 +48,11 @@ public class TheBasics extends UserWalkthrough {
             elements.add(dataGenerator._apply(line));
         }
         // ---------------------------------------------------------
-        log("Elements generated from the data file.");
+        print("Elements generated from the data file.");
         for (final Element element : elements) {
-            log("GENERATED_EDGES", element.toString());
+            print("GENERATED_EDGES", element.toString());
         }
-        log("");
+        print("");
 
 
         // [graph] Create a graph using our schema and store properties
@@ -78,7 +78,7 @@ public class TheBasics extends UserWalkthrough {
                 .build();
         graph.execute(addElements, user);
         // ---------------------------------------------------------
-        log("The elements have been added.");
+        print("The elements have been added.");
 
 
         // [get] Get all the edges that contain the vertex "10"
@@ -91,9 +91,9 @@ public class TheBasics extends UserWalkthrough {
                 .build();
         final CloseableIterable<? extends Element> results = graph.execute(query, user);
         // ---------------------------------------------------------
-        log("\nAll edges containing the vertex 10. The counts have been aggregated.");
+        print("\nAll edges containing the vertex 10. The counts have been aggregated.");
         for (final Element e : results) {
-            log("GET_ELEMENTS_RESULT", e.toString());
+            print("GET_ELEMENTS_RESULT", e.toString());
         }
 
         return results;

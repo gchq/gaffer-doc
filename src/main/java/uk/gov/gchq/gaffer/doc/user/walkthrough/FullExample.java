@@ -99,7 +99,7 @@ public class FullExample extends UserWalkthrough {
         }
 
         // ---------------------------------------------------------
-        log("The elements have been added.");
+        print("The elements have been added.");
 
 
         // [get] Get all road junctions in the South West that were heavily used by buses in the year 2000.
@@ -160,13 +160,13 @@ public class FullExample extends UserWalkthrough {
                 .build();
         // ---------------------------------------------------------
 
-        log("GET_JSON", getJson(opChain));
-        log("GET_PYTHON", getAsPython(opChain));
+        print("GET_JSON", getJson(opChain));
+        print("GET_PYTHON", getAsPython(opChain));
 
         final Iterable<? extends String> results = graph.execute(opChain, user);
-        log("\nAll road junctions in the South West that were heavily used by buses in year 2000.");
+        print("\nAll road junctions in the South West that were heavily used by buses in year 2000.");
         for (final String result : results) {
-            log("RESULT", result);
+            print("RESULT", result);
         }
 
         return results;
@@ -174,7 +174,7 @@ public class FullExample extends UserWalkthrough {
 
     public static void main(final String[] args) throws OperationException {
         final UserWalkthrough walkthrough = new FullExample();
-        walkthrough.log(walkthrough.walkthrough());
+        walkthrough.print(walkthrough.walkthrough());
     }
 
     private static Date getDate(final String dateStr) {

@@ -30,7 +30,7 @@ import java.io.IOException;
  */
 public class GetJavaRDDOfElementsExample extends SparkOperationExample {
     public static void main(final String[] args) throws OperationException {
-        new GetJavaRDDOfElementsExample().run();
+        new GetJavaRDDOfElementsExample().runAndPrint();
     }
 
     public GetJavaRDDOfElementsExample() {

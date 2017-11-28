@@ -35,7 +35,7 @@ public class GetGafferResultCacheExportExample extends OperationExample {
     private JobDetail jobDetail;
 
     public static void main(final String[] args) throws OperationException {
-        new GetGafferResultCacheExportExample().run();
+        new GetGafferResultCacheExportExample().runAndPrint();
     }
 
     public GetGafferResultCacheExportExample() {

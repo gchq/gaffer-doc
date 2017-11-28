@@ -29,7 +29,7 @@ import uk.gov.gchq.koryphe.impl.predicate.IsMoreThan;
 
 public class FilterExample extends OperationExample {
     public static void main(final String[] args) throws OperationException {
-        new FilterExample().run();
+        new FilterExample().runAndPrint();
     }
 
     public FilterExample() {

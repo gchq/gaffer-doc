@@ -27,7 +27,7 @@ import uk.gov.gchq.gaffer.spark.operation.dataframe.GetDataFrameOfElements;
  */
 public class GetDataFrameOfElementsExample extends SparkOperationExample {
     public static void main(final String[] args) throws OperationException {
-        new GetDataFrameOfElementsExample().run();
+        new GetDataFrameOfElementsExample().runAndPrint();
     }
 
     public GetDataFrameOfElementsExample() {
@@ -58,19 +58,19 @@ public class GetDataFrameOfElementsExample extends SparkOperationExample {
         final Dataset<Row> seeded = df.filter("vertex = 1 OR vertex = 2");
         String result = seeded.showString(100, 20);
         printJava("df.filter(\"vertex = 1 OR vertex = 2\").show();");
-        log("The results are:\n");
-        log("```");
-        log(result.substring(0, result.length() - 2));
-        log("```");
+        print("The results are:\n");
+        print("```");
+        print(result.substring(0, result.length() - 2));
+        print("```");
 
         // Filter by property
         final Dataset<Row> filtered = df.filter("count > 1");
         result = filtered.showString(100, 20);
         printJava("df.filter(\"count > 1\").show();");
-        log("The results are:\n");
-        log("```");
-        log(result.substring(0, result.length() - 2));
-        log("```");
+        print("The results are:\n");
+        print("```");
+        print(result.substring(0, result.length() - 2));
+        print("```");
     }
 
     public void getDataFrameOfElementsWithEdgeGroup() {
@@ -89,18 +89,18 @@ public class GetDataFrameOfElementsExample extends SparkOperationExample {
         final Dataset<Row> seeded = df.filter("src = 1 OR src = 3");
         String result = seeded.showString(100, 20);
         printJava("df.filter(\"src = 1 OR src = 3\").show();");
-        log("The results are:\n");
-        log("```");
-        log(result.substring(0, result.length() - 2));
-        log("```");
+        print("The results are:\n");
+        print("```");
+        print(result.substring(0, result.length() - 2));
+        print("```");
 
         // Filter by property
         final Dataset<Row> filtered = df.filter("count > 1");
         result = filtered.showString(100, 20);
         printJava("df.filter(\"count > 1\").show();");
-        log("The results are:\n");
-        log("```");
-        log(result.substring(0, result.length() - 2));
-        log("```");
+        print("The results are:\n");
+        print("```");
+        print(result.substring(0, result.length() - 2));
+        print("```");
     }
 }

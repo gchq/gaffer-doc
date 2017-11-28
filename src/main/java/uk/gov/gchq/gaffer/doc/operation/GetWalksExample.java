@@ -37,7 +37,7 @@ public class GetWalksExample extends OperationExample {
     }
 
     public static void main(final String[] args) throws OperationException {
-        new GetWalksExample().run();
+        new GetWalksExample().runAndPrint();
     }
 
     @Override

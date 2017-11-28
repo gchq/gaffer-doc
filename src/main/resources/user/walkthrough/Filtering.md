@@ -49,10 +49,10 @@ We can choose to select any property or one of the following identifiers:
 - MATCHED_VERTEX - this is the vertex that was matched in the query, either the SOURCE or the DESTINATION
 - ADJACENT_MATCHED_VERTEX - this is the adjacent vertex that was matched in the query, either the SOURCE or the DESTINATION. I.e if your seed matches the source of the edge this would resolve to the DESTINATION value.
 
-We chose to use the IsMoreThan Predicate, however the full list of our core Predicates are documented in [Predicate examples](predicate-examples.md).
+We chose to use the IsMoreThan Predicate, however the full list of our core Predicates are documented in [Predicates](../predicates/content.md).
 You can also write your own Predicate implementations and include them on the class path.
 When choosing a Predicate you must ensure your input selection (the property and identifier types) match the Predicate input types.
 For example the IsMoreThan Predicate accepts a single Comparable value. Whereas the IsXMoreThanY Predicate accepts 2 Comparable values.
 The Predicate inputs are also documented within the Predicate examples documentation.
 
-For more information on Views and filtering, see [Views](#views).
+For more information on Views and filtering, see [Views](views.md).

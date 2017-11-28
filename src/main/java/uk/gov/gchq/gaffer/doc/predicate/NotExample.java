@@ -23,7 +23,7 @@ import uk.gov.gchq.koryphe.tuple.n.Tuple2;
 
 public class NotExample extends PredicateExample {
     public static void main(final String[] args) {
-        new NotExample().run();
+        new NotExample().runAndPrint();
     }
 
     public NotExample() {
