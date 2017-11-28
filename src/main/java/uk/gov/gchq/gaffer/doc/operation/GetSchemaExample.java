@@ -20,7 +20,7 @@ import uk.gov.gchq.gaffer.store.operation.GetSchema;
 public class GetSchemaExample extends OperationExample {
 
     public static void main(final String[] args) {
-        new GetSchemaExample().run();
+        new GetSchemaExample().runAndPrint();
     }
 
     public GetSchemaExample() {

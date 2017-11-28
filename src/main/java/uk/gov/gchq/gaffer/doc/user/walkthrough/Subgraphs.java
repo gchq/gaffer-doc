@@ -78,7 +78,7 @@ public class Subgraphs extends UserWalkthrough {
 
         graph.execute(addOpChain, user);
         // ---------------------------------------------------------
-        log("The elements have been added.");
+        print("The elements have been added.");
 
 
         // [get] Create a sub graph
@@ -119,9 +119,9 @@ public class Subgraphs extends UserWalkthrough {
         // ---------------------------------------------------------
 
         final Iterable<? extends Element> subGraph = (Iterable<? extends Element>) graph.execute(opChain, user);
-        log("\nSub graph:");
+        print("\nSub graph:");
         for (final Element edge : subGraph) {
-            log("SUB_GRAPH", edge.toString());
+            print("SUB_GRAPH", edge.toString());
         }
 
         return subGraph;

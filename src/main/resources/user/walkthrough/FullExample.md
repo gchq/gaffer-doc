@@ -11,15 +11,15 @@ As we now have multiple roads in our sample data, we will include the name of th
 We have also add in a frequency map for the counts of each vehicle time. This will allow us to perform queries such as to find out which roads have a large number of buses. 
 Here are the updated schema files:
 
-##### Elements schema
+### Elements schema
 ${ELEMENTS_JSON}
 
 
-##### Types schema
+### Types schema
 ${TYPES_JSON}
 
 
-#### Example complex query
+## Example complex query
 Now we have a the full schema we can load in our Road Traffic Sample ${ROAD_TRAFFIC_SAMPLE_DATA_LINK} and run a more complex query.
 
 For this example, the question we want to ask is: "In the year 2000, which junctions in the South West were heavily used by buses".

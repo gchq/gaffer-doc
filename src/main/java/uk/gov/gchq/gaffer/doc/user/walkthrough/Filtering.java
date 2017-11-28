@@ -53,11 +53,11 @@ public class Filtering extends UserWalkthrough {
             Iterables.addAll(elements, dataGenerator._apply(line));
         }
         // ---------------------------------------------------------
-        log("Elements generated from the data file.");
+        print("Elements generated from the data file.");
         for (final Element element : elements) {
-            log("GENERATED_EDGES", element.toString());
+            print("GENERATED_EDGES", element.toString());
         }
-        log("");
+        print("");
 
 
         // [graph] Create a graph using our schema and store properties
@@ -83,10 +83,10 @@ public class Filtering extends UserWalkthrough {
                 .build();
         graph.execute(addElements, user);
         // ---------------------------------------------------------
-        log("The elements have been added.");
+        print("The elements have been added.");
 
 
-        log("\nRoadUse edges related to vertex 10. The counts have been aggregated\n");
+        print("\nRoadUse edges related to vertex 10. The counts have been aggregated\n");
         // [get simple] get all the edges that contain the vertex "10"
         // ---------------------------------------------------------
         final GetElements getRelatedElement = new GetElements.Builder()
@@ -97,9 +97,9 @@ public class Filtering extends UserWalkthrough {
                 .build();
         final CloseableIterable<? extends Element> results = graph.execute(getRelatedElement, user);
         // ---------------------------------------------------------
-        log("GET_SIMPLE_JSON", getJson(getRelatedElement));
+        print("GET_SIMPLE_JSON", getJson(getRelatedElement));
         for (final Element e : results) {
-            log("GET_ELEMENTS_RESULT", e.toString());
+            print("GET_ELEMENTS_RESULT", e.toString());
         }
 
 
@@ -118,10 +118,10 @@ public class Filtering extends UserWalkthrough {
                 .build();
         final CloseableIterable<? extends Element> filteredResults = graph.execute(getEdgesWithCountMoreThan2, user);
         // ---------------------------------------------------------
-        log("GET_JSON", getJson(getEdgesWithCountMoreThan2));
-        log("\nAll edges containing the vertex 10 with an aggregated count more than than 2\n");
+        print("GET_JSON", getJson(getEdgesWithCountMoreThan2));
+        print("\nAll edges containing the vertex 10 with an aggregated count more than than 2\n");
         for (final Element e : filteredResults) {
-            log("GET_ELEMENTS_WITH_COUNT_MORE_THAN_2_RESULT", e.toString());
+            print("GET_ELEMENTS_WITH_COUNT_MORE_THAN_2_RESULT", e.toString());
         }
 
         return filteredResults;

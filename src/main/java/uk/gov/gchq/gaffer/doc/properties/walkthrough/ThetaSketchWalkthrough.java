@@ -82,7 +82,7 @@ public class ThetaSketchWalkthrough extends PropertiesWalkthrough {
 
         graph.execute(addOpChain, user);
         // ---------------------------------------------------------
-        log("Added 1000 edges A-B0, A-B1, ..., A-B999 on 10/1/17. For each edge we create an Entity with a union sketch"
+        print("Added 1000 edges A-B0, A-B1, ..., A-B999 on 10/1/17. For each edge we create an Entity with a union sketch"
                 + " containing a string of the source and destination from the edge. Added 500 edges A-B750, A-B751, "
                 + "..., A-B1249 for day 11/1/17. Again for each edge we create an Entity with a union sketch.");
 
@@ -96,7 +96,7 @@ public class ThetaSketchWalkthrough extends PropertiesWalkthrough {
                 .build();
         final CloseableIterable<? extends Element> entities = graph.execute(get, user);
         for (final Element entity : entities) {
-            log("GET_ENTITIES", entity.toString());
+            print("GET_ENTITIES", entity.toString());
         }
         // ---------------------------------------------------------
 
@@ -117,9 +117,9 @@ public class ThetaSketchWalkthrough extends PropertiesWalkthrough {
         final double estimateDay1 = sketchDay1.getEstimate();
         final double estimateDay2 = sketchDay2.getEstimate();
         // ---------------------------------------------------------
-        log("\nThe estimates for the different days");
-        log("GET_ESTIMATE_OVER_SEPARATE_DAYS", "" + estimateDay1);
-        log("GET_ESTIMATE_OVER_SEPARATE_DAYS", "" + estimateDay2);
+        print("\nThe estimates for the different days");
+        print("GET_ESTIMATE_OVER_SEPARATE_DAYS", "" + estimateDay1);
+        print("GET_ESTIMATE_OVER_SEPARATE_DAYS", "" + estimateDay2);
 
 
         // [get intersection across days] Get the number of edges in common across the two days
@@ -129,8 +129,8 @@ public class ThetaSketchWalkthrough extends PropertiesWalkthrough {
         intersection.update(sketchDay2);
         final double intersectionSizeEstimate = intersection.getResult().getEstimate();
         // ---------------------------------------------------------
-        log("\nThe estimate of the number of edges in common across the different days");
-        log("PRINT_ESTIMATE", "" + intersectionSizeEstimate);
+        print("\nThe estimate of the number of edges in common across the different days");
+        print("PRINT_ESTIMATE", "" + intersectionSizeEstimate);
 
 
         // [get union across all days] Get the total number edges across the two days
@@ -148,8 +148,8 @@ public class ThetaSketchWalkthrough extends PropertiesWalkthrough {
         }
         final double unionSizeEstimate = ((Sketch) entity.getProperty("size")).getEstimate();
         // ---------------------------------------------------------
-        log("\nThe estimate of the number of edges across the different days");
-        log("UNION_ESTIMATE", "" + unionSizeEstimate);
+        print("\nThe estimate of the number of edges across the different days");
+        print("UNION_ESTIMATE", "" + unionSizeEstimate);
         return null;
     }
 }

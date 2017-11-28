@@ -93,7 +93,7 @@ public class Jobs extends DevWalkthrough {
         final JobDetail initialJobDetail = graph.executeJob(job, user);
         final String jobId = initialJobDetail.getJobId();
         // ---------------------------------------------------------
-        log("JOB_DETAIL_START", initialJobDetail.toString());
+        print("JOB_DETAIL_START", initialJobDetail.toString());
 
         waitUntilJobHashFinished(user, graph, initialJobDetail);
 
@@ -105,7 +105,7 @@ public class Jobs extends DevWalkthrough {
                         .build(),
                 user);
         // ---------------------------------------------------------
-        log("JOB_DETAIL_FINISH", jobDetail.toString());
+        print("JOB_DETAIL_FINISH", jobDetail.toString());
 
 
         // [all job details] Get all job details
@@ -113,7 +113,7 @@ public class Jobs extends DevWalkthrough {
         final CloseableIterable<JobDetail> jobDetails = graph.execute(new GetAllJobDetails(), user);
         // ---------------------------------------------------------
         for (final JobDetail detail : jobDetails) {
-            log("ALL_JOB_DETAILS", detail.toString());
+            print("ALL_JOB_DETAILS", detail.toString());
         }
 
         // [get job results] Get the job results
@@ -123,7 +123,7 @@ public class Jobs extends DevWalkthrough {
                 .build(), user);
         // ---------------------------------------------------------
         for (final Object result : jobResults) {
-            log("JOB_RESULTS", result.toString());
+            print("JOB_RESULTS", result.toString());
         }
 
         return (CloseableIterable) jobResults;

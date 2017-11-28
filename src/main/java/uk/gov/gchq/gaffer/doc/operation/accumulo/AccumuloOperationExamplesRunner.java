@@ -17,17 +17,17 @@ package uk.gov.gchq.gaffer.doc.operation.accumulo;
 
 import uk.gov.gchq.gaffer.doc.operation.OperationExample;
 import uk.gov.gchq.gaffer.doc.util.ExampleDocRunner;
-import uk.gov.gchq.gaffer.operation.Operation;
 
 /**
  * This runner will run all accumulo operation examples.
  */
 public class AccumuloOperationExamplesRunner extends ExampleDocRunner {
-    public static void main(final String[] args) throws Exception {
-        new AccumuloOperationExamplesRunner().run();
+
+    public AccumuloOperationExamplesRunner() {
+        super("Accumulo Operations", OperationExample.class);
     }
 
-    public void run() throws Exception {
-        run("Accumulo Operation Examples", OperationExample.class, Operation.class);
+    public static void main(final String[] args) throws Exception {
+        new AccumuloOperationExamplesRunner().generate();
     }
 }

@@ -34,7 +34,7 @@ public class AddElementsFromHdfsExample extends OperationExample {
     private final String[] args = new String[5];
 
     public static void main(final String[] args) throws OperationException {
-        new AddElementsFromHdfsExample().run();
+        new AddElementsFromHdfsExample().runAndPrint();
     }
 
     public AddElementsFromHdfsExample() {

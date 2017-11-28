@@ -4,7 +4,7 @@ ${CODE_LINK}
 
 This time we'll see at what happens when we have more than one Edge.
 
-#### Schemas
+### Schemas
 
 We first need to add an additional Edge to our Schema. We will add a RoadHasJunction Edge. This will be a simple Edge from a new vertex 'Road' to the existing 'Junction' vertex. 
 
@@ -13,7 +13,7 @@ ${ELEMENTS_JSON}
 
 Here we have used a new 'road' type so we also have to define that in our elements schema. It is defined to be a simple java String.
 
-#### Element Generator
+### Element Generator
 
 Like the previous example, we use a ElementGenerator to generate Gaffer Edges from each line of the CSV, but in now each line will generate 3 Edges. 1 RoadUse edge and 2 RoadHasJunction edges. The generator for this example is:
 ${ELEMENT_GENERATOR_JAVA}
@@ -24,7 +24,7 @@ Here are the generated edges:
 ${GENERATED_EDGES}
 ```
 
-#### Loading and Querying the Data
+### Loading and Querying the Data
 
 We create a Graph and load the data using the ${ADD_ELEMENTS_JAVADOC} Operation exactly the same as in the previous example.
 

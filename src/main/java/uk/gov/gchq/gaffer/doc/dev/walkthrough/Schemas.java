@@ -41,7 +41,7 @@ public class Schemas extends DevWalkthrough {
 
         final Schema schema = graph.getSchema();
         try {
-            log("SCHEMA", new String(schema.toJson(true), CommonConstants.UTF_8));
+            print("SCHEMA", new String(schema.toJson(true), CommonConstants.UTF_8));
         } catch (final UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }

@@ -71,7 +71,7 @@ public class Visibilities extends DevWalkthrough {
         // ---------------------------------------------------------
 
 
-        log("\nNow run a simple query to get edges\n");
+        print("\nNow run a simple query to get edges\n");
         // [get simple] get all the edges that contain the vertex "10" or "23"
         // ---------------------------------------------------------
         final GetElements getEdges = new GetElements.Builder()
@@ -83,12 +83,12 @@ public class Visibilities extends DevWalkthrough {
         final CloseableIterable<? extends Element> resultsWithBasicUser = graph.execute(getEdges, basicUser);
         // ---------------------------------------------------------
         for (final Element e : resultsWithBasicUser) {
-            log("GET_ELEMENTS_RESULT", e.toString());
+            print("GET_ELEMENTS_RESULT", e.toString());
         }
-        log("We get nothing back");
+        print("We get nothing back");
 
 
-        log("\nGet edges with the public visibility. We shouldn't see any of the private ones.\n");
+        print("\nGet edges with the public visibility. We shouldn't see any of the private ones.\n");
         // [get public] get all the edges that contain the vertex "10" or "23"
         // ---------------------------------------------------------
         final User publicUser = new User.Builder()
@@ -106,11 +106,11 @@ public class Visibilities extends DevWalkthrough {
         final CloseableIterable<? extends Element> publicResults = graph.execute(getPublicRelatedEdges, publicUser);
         // ---------------------------------------------------------
         for (final Element e : publicResults) {
-            log("GET_PUBLIC_EDGES_RESULT", e.toString());
+            print("GET_PUBLIC_EDGES_RESULT", e.toString());
         }
 
 
-        log("\nGet edges with the private visibility. We should get the public edges too.\n");
+        print("\nGet edges with the private visibility. We should get the public edges too.\n");
         // [get private] get all the edges that contain the vertex "10" or "23"
         // ---------------------------------------------------------
         final User privateUser = new User.Builder()
@@ -128,7 +128,7 @@ public class Visibilities extends DevWalkthrough {
         final CloseableIterable<? extends Element> privateResults = graph.execute(getPrivateRelatedEdges, privateUser);
         // ---------------------------------------------------------
         for (final Element e : privateResults) {
-            log("GET_PRIVATE_EDGES_RESULT", e.toString());
+            print("GET_PRIVATE_EDGES_RESULT", e.toString());
         }
 
         return publicResults;

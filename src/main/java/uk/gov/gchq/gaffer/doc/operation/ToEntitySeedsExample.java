@@ -27,7 +27,7 @@ public class ToEntitySeedsExample extends OperationExample {
     }
 
     public static void main(final String[] args) throws OperationException {
-        new ToEntitySeedsExample().run();
+        new ToEntitySeedsExample().runAndPrint();
     }
 
     @Override

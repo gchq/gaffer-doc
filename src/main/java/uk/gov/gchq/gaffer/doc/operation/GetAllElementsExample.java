@@ -25,7 +25,7 @@ import uk.gov.gchq.koryphe.impl.predicate.IsMoreThan;
 
 public class GetAllElementsExample extends OperationExample {
     public static void main(final String[] args) {
-        new GetAllElementsExample().run();
+        new GetAllElementsExample().runAndPrint();
     }
 
     public GetAllElementsExample() {

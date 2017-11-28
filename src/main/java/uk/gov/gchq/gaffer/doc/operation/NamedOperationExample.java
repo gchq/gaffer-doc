@@ -17,10 +17,9 @@ package uk.gov.gchq.gaffer.doc.operation;
 
 import com.google.common.collect.Maps;
 
-import uk.gov.gchq.gaffer.cache.CacheServiceLoader;
-import uk.gov.gchq.gaffer.cache.exception.CacheOperationException;
 import uk.gov.gchq.gaffer.commonutil.iterable.CloseableIterable;
 import uk.gov.gchq.gaffer.data.element.id.EntityId;
+import uk.gov.gchq.gaffer.doc.util.DocUtil;
 import uk.gov.gchq.gaffer.named.operation.AddNamedOperation;
 import uk.gov.gchq.gaffer.named.operation.DeleteNamedOperation;
 import uk.gov.gchq.gaffer.named.operation.GetAllNamedOperations;
@@ -36,21 +35,16 @@ import java.util.Map;
 
 public class NamedOperationExample extends OperationExample {
     public static void main(final String[] args) {
-        new NamedOperationExample().run();
+        new NamedOperationExample().runAndPrint();
     }
 
     public NamedOperationExample() {
-        super(NamedOperation.class, "See [Named Operations](https://github.com/gchq/Gaffer/wiki/dev-guide#namedoperations) for information on configuring named operations for your Gaffer graph.");
+        super(NamedOperation.class, "See [Named Operations](../developer-guide/namedoperations.md) for information on configuring named operations for your Gaffer graph.");
     }
 
     @Override
     public void runExamples() {
-        // Clear the cache
-        try {
-            CacheServiceLoader.getService().clearCache("NamedOperation");
-        } catch (final CacheOperationException e) {
-            throw new RuntimeException(e);
-        }
+        DocUtil.clearCache();
 
         addNamedOperation();
         addNamedOperationWithScore();

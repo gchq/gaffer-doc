@@ -71,16 +71,16 @@ public class BoundedTimestampSetWalkthrough extends PropertiesWalkthrough {
 
         graph.execute(addOpChain, user);
         // ---------------------------------------------------------
-        log("Added an edge A-B 3 times, each time with a BoundedTimestampSet containing a random time in 2017.");
+        print("Added an edge A-B 3 times, each time with a BoundedTimestampSet containing a random time in 2017.");
 
 
         // [get] Get all edges
         // ---------------------------------------------------------
         CloseableIterable<? extends Element> allEdges = graph.execute(new GetAllElements(), user);
         // ---------------------------------------------------------
-        log("\nAll edges:");
+        print("\nAll edges:");
         for (final Element edge : allEdges) {
-            log("GET_ALL_EDGES_RESULT", edge.toString());
+            print("GET_ALL_EDGES_RESULT", edge.toString());
         }
 
         return null;

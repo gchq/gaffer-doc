@@ -1,4 +1,4 @@
-## Introduction 
+# Introduction
 
 Gaffer is built for very large graphs.
 
@@ -61,7 +61,7 @@ mvn clean install -Pquick
 ```
 
 We've written some examples to show you how to get started. 
-We have split them up into this [User Guide](user-guide.md), 
-a [Dev Guide](dev-guide.md) and a [Properties Guide](properties-guide.md). 
+We have split them up into this user guide,
+a [Developer Guide](developer-guide/contents.md) and a [Properties Guide](properties-guide/contents.md).
 In addition to these guides we have examples for the different 
-[Operations](operation-examples.md) and [Predicates](predicate-examples.md) we support.
+[Operations](operations/contents.md) and [Predicates](predicates/contents.md) we support.

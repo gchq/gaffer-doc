@@ -77,16 +77,16 @@ public class Cardinalities extends UserWalkthrough {
 
         graph.execute(addOpChain, user);
         // ---------------------------------------------------------
-        log("The elements have been added.");
+        print("The elements have been added.");
 
 
         // [get] Get all edges
         // ---------------------------------------------------------
         final CloseableIterable<? extends Element> edges = graph.execute(new GetAllElements(), user);
         // ---------------------------------------------------------
-        log("\nAll edges:");
+        print("\nAll edges:");
         for (final Element edge : edges) {
-            log("GET_ALL_EDGES_RESULT", edge.toString());
+            print("GET_ALL_EDGES_RESULT", edge.toString());
         }
 
 
@@ -100,10 +100,10 @@ public class Cardinalities extends UserWalkthrough {
                         .build();
         // ---------------------------------------------------------
         final CloseableIterable<? extends Element> allCardinalities = graph.execute(getAllCardinalities, user);
-        log("\nAll cardinalities");
+        print("\nAll cardinalities");
         for (final Element cardinality : allCardinalities) {
             final String edgeGroup = cardinality.getProperty("edgeGroup").toString();
-            log("ALL_CARDINALITIES_RESULT", "Vertex " + ((Entity) cardinality).getVertex() + " " + edgeGroup + ": " + ((HyperLogLogPlus) cardinality.getProperty("hllp")).cardinality());
+            print("ALL_CARDINALITIES_RESULT", "Vertex " + ((Entity) cardinality).getVertex() + " " + edgeGroup + ": " + ((HyperLogLogPlus) cardinality.getProperty("hllp")).cardinality());
         }
 
         // [get all summarised cardinalities] Get all summarised cardinalities over all edges
@@ -118,10 +118,10 @@ public class Cardinalities extends UserWalkthrough {
                         .build();
         // ---------------------------------------------------------
         final CloseableIterable<? extends Element> allSummarisedCardinalities = graph.execute(getAllSummarisedCardinalities, user);
-        log("\nAll summarised cardinalities");
+        print("\nAll summarised cardinalities");
         for (final Element cardinality : allSummarisedCardinalities) {
             final String edgeGroup = cardinality.getProperty("edgeGroup").toString();
-            log("ALL_SUMMARISED_CARDINALITIES_RESULT", "Vertex " + ((Entity) cardinality).getVertex() + " " + edgeGroup + ": " + ((HyperLogLogPlus) cardinality.getProperty("hllp")).cardinality());
+            print("ALL_SUMMARISED_CARDINALITIES_RESULT", "Vertex " + ((Entity) cardinality).getVertex() + " " + edgeGroup + ": " + ((HyperLogLogPlus) cardinality.getProperty("hllp")).cardinality());
         }
 
         // [get roaduse edge cardinality 10] Get the cardinality value at vertex 10 for RoadUse edges
@@ -144,9 +144,9 @@ public class Cardinalities extends UserWalkthrough {
         try (final CloseableIterable<? extends Element> elements = graph.execute(getCardinalities, user)) {
             roadUse10Cardinality = elements.iterator().next();
         }
-        log("\nRoadUse edge cardinality at vertex 10:");
+        print("\nRoadUse edge cardinality at vertex 10:");
         final String edgeGroup = (roadUse10Cardinality.getProperty("edgeGroup")).toString();
-        log("CARDINALITY_OF_10_RESULT", "Vertex " + ((Entity) roadUse10Cardinality).getVertex() + " " + edgeGroup + ": " + ((HyperLogLogPlus) roadUse10Cardinality.getProperty("hllp")).cardinality());
+        print("CARDINALITY_OF_10_RESULT", "Vertex " + ((Entity) roadUse10Cardinality).getVertex() + " " + edgeGroup + ": " + ((HyperLogLogPlus) roadUse10Cardinality.getProperty("hllp")).cardinality());
 
 
         // [get 2 hops with a cardinality filter] 2 hops with a cardinality filter
@@ -182,9 +182,9 @@ public class Cardinalities extends UserWalkthrough {
         // ---------------------------------------------------------
 
         final CloseableIterable<? extends Element> twoHopsWithCardinalityFilterResult = graph.execute(twoHopsWithCardinalityFilter, user);
-        log("\n2 hops with cardinality filter result:");
+        print("\n2 hops with cardinality filter result:");
         for (final Element element : twoHopsWithCardinalityFilterResult) {
-            log("2_HOP_RESULT", element.toString());
+            print("2_HOP_RESULT", element.toString());
         }
 
         return allSummarisedCardinalities;

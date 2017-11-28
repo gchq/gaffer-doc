@@ -31,18 +31,17 @@ public abstract class SparkOperationExample extends OperationExample {
                     + "Note, however, that data which has not been minor compacted will not be read if this option is used. "
                     + "This functionality is enabled using the option: \"gaffer.accumulo.spark.directrdd.use_rfile_reader=true\"";
 
+    private SparkConf sparkConf;
     private SparkSession sparkSession;
 
     public SparkOperationExample(final Class<? extends Operation> opClass, final String description) {
         super(opClass, createSparkDescription(description));
-        final SparkConf sparkConf = new SparkConf()
+        sparkConf = new SparkConf()
                 .setMaster("local")
-                .setAppName("GetJavaRDDOfElementsExample")
+                .setAppName(getClass().getSimpleName())
                 .set(SparkConstants.SERIALIZER, SparkConstants.DEFAULT_SERIALIZER)
                 .set(SparkConstants.KRYO_REGISTRATOR, SparkConstants.DEFAULT_KRYO_REGISTRATOR)
                 .set(SparkConstants.DRIVER_ALLOW_MULTIPLE_CONTEXTS, "true");
-        sparkSession = SparkSession.builder().config(sparkConf).getOrCreate();
-        sparkSession.sparkContext().setLogLevel("OFF");
     }
 
     public SparkOperationExample(final Class<? extends Operation> opClass) {
@@ -73,6 +72,7 @@ public abstract class SparkOperationExample extends OperationExample {
             throw new RuntimeException(e);
         } finally {
             sparkSession.stop();
+            sparkSession = null;
         }
     }
 
@@ -80,6 +80,9 @@ public abstract class SparkOperationExample extends OperationExample {
 
     @Override
     protected Context createContext() {
+        if (null == sparkSession) {
+            createSparkSession();
+        }
         final Context context = super.createContext();
         SparkContextUtil.addSparkSession(context, sparkSession);
         return context;
@@ -89,5 +92,10 @@ public abstract class SparkOperationExample extends OperationExample {
     protected String getPython(final Object object) {
         // skip
         return null;
+    }
+
+    protected void createSparkSession() {
+        sparkSession = SparkSession.builder().config(sparkConf).getOrCreate();
+        sparkSession.sparkContext().setLogLevel("OFF");
     }
 }

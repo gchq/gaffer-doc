@@ -31,7 +31,7 @@ public class ToSetExample extends OperationExample {
     }
 
     public static void main(final String[] args) throws OperationException {
-        new ToSetExample().run();
+        new ToSetExample().runAndPrint();
     }
 
     @Override

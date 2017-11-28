@@ -50,11 +50,11 @@ public class MultipleEdges extends UserWalkthrough {
             Iterables.addAll(elements, dataGenerator._apply(line));
         }
         // ---------------------------------------------------------
-        log("Elements generated from the data file.");
+        print("Elements generated from the data file.");
         for (final Element element : elements) {
-            log("GENERATED_EDGES", element.toString());
+            print("GENERATED_EDGES", element.toString());
         }
-        log("");
+        print("");
 
 
         // [graph] Create a graph using our schema and store properties
@@ -80,7 +80,7 @@ public class MultipleEdges extends UserWalkthrough {
                 .build();
         graph.execute(addElements, user);
         // ---------------------------------------------------------
-        log("The elements have been added.");
+        print("The elements have been added.");
 
 
         // [get simple] Get all the edges related to vertex 10
@@ -90,10 +90,10 @@ public class MultipleEdges extends UserWalkthrough {
                 .build();
         final CloseableIterable<? extends Element> edges = graph.execute(getEdges, user);
         // ---------------------------------------------------------
-        log("\nAll edges containing vertex 10");
-        log("\nNotice that the edges are aggregated within their groups");
+        print("\nAll edges containing vertex 10");
+        print("\nNotice that the edges are aggregated within their groups");
         for (final Element e : edges) {
-            log("GET_ELEMENTS_RESULT", e.toString());
+            print("GET_ELEMENTS_RESULT", e.toString());
         }
 
 
@@ -108,9 +108,9 @@ public class MultipleEdges extends UserWalkthrough {
                 .build();
         final CloseableIterable<? extends Element> redResults = graph.execute(getRelatedRedEdges, user);
         // ---------------------------------------------------------
-        log("\nAll RoadHasJunction edges containing vertex 10\n");
+        print("\nAll RoadHasJunction edges containing vertex 10\n");
         for (final Element e : redResults) {
-            log("GET_ROAD_HAS_JUNCTION_EDGES_RESULT", e.toString());
+            print("GET_ROAD_HAS_JUNCTION_EDGES_RESULT", e.toString());
         }
 
         return redResults;

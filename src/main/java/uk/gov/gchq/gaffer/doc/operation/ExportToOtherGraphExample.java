@@ -47,7 +47,7 @@ public class ExportToOtherGraphExample extends OperationExample {
     }
 
     public static void main(final String[] args) throws OperationException {
-        new ExportToOtherGraphExample().run();
+        new ExportToOtherGraphExample().runAndPrint();
     }
 
     @Override
@@ -95,7 +95,7 @@ public class ExportToOtherGraphExample extends OperationExample {
 
     public void simpleExportWithCustomGraph() {
         // ---------------------------------------------------------
-        final Schema schema = Schema.fromJson(StreamUtil.openStreams(getClass(), "operation/schema"));
+        final Schema schema = Schema.fromJson(StreamUtil.openStreams(getClass(), "operations/schema"));
         final StoreProperties storeProperties = StoreProperties.loadStoreProperties(StreamUtil.openStream(getClass(), "othermockaccumulostore.properties"));
         final OperationChain<Iterable<? extends Element>> opChain =
                 new OperationChain.Builder()
@@ -174,7 +174,7 @@ public class ExportToOtherGraphExample extends OperationExample {
 
         final Graph graph = new Graph.Builder()
                 .config(StreamUtil.openStream(getClass(), "graphConfigWithLibrary.json"))
-                .addSchemas(StreamUtil.openStreams(getClass(), "operation/schema"))
+                .addSchemas(StreamUtil.openStreams(getClass(), "operations/schema"))
                 .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
                 .build();
 
@@ -225,7 +225,7 @@ public class ExportToOtherGraphExample extends OperationExample {
 
         final Graph graph = new Graph.Builder()
                 .config(StreamUtil.openStream(getClass(), "graphConfigWithLibrary.json"))
-                .addSchemas(StreamUtil.openStreams(getClass(), "operation/schema"))
+                .addSchemas(StreamUtil.openStreams(getClass(), "operations/schema"))
                 .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
                 .build();
 

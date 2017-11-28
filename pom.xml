@@ -28,6 +28,9 @@
     <properties>
         <gaffer.version>1.1.2</gaffer.version>
         <gaffer-tools.version>1.1.2</gaffer-tools.version>
+
+        <skip.python>false</skip.python>
+
         <scm.url>
             https://github.com/gchq/gaffer-doc
         </scm.url>
@@ -211,6 +214,24 @@
                                 </configuration>
                             </execution>
                             <execution>
+                                <id>Generate docs</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                                <configuration>
+                                    <mainClass>
+                                        uk.gov.gchq.gaffer.doc.DocsGenerator
+                                    </mainClass>
+                                    <systemProperties>
+                                        <systemProperty>
+                                            <key>gaffer.doc.skipPython</key>
+                                            <value>${skip.python}</value>
+                                        </systemProperty>
+                                    </systemProperties>
+                                </configuration>
+                            </execution>
+                            <execution>
                                 <id>gitbook install</id>
                                 <phase>verify</phase>
                                 <goals>
@@ -220,36 +241,6 @@
                                     <executable>
                                         ${basedir}/scripts/buildGitbook.sh
                                     </executable>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <configuration>
-                            <skipAssembly>${skip.jar-with-dependencies}
-                            </skipAssembly>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>doc-jar-with-dependencies</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
-                                <configuration>
-                                    <descriptorRefs>
-                                        <descriptorRef>jar-with-dependencies
-                                        </descriptorRef>
-                                    </descriptorRefs>
-                                    <finalName>doc
-                                    </finalName>
-                                    <archive>
-                                        <manifest>
-                                            <addClasspath>true</addClasspath>
-                                        </manifest>
-                                    </archive>
                                 </configuration>
                             </execution>
                         </executions>
@@ -286,6 +277,12 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <id>skipPython</id>
+            <properties>
+                <skip.python>true</skip.python>
+            </properties>
         </profile>
     </profiles>
 </project>

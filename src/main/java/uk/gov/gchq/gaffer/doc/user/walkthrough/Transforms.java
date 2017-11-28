@@ -53,11 +53,11 @@ public class Transforms extends UserWalkthrough {
             Iterables.addAll(elements, dataGenerator._apply(line));
         }
         // ---------------------------------------------------------
-        log("Elements generated from the data file.");
+        print("Elements generated from the data file.");
         for (final Element element : elements) {
-            log("GENERATED_EDGES", element.toString());
+            print("GENERATED_EDGES", element.toString());
         }
-        log("");
+        print("");
 
 
         // [graph] Create a graph using our schema and store properties
@@ -83,7 +83,7 @@ public class Transforms extends UserWalkthrough {
                 .build();
         graph.execute(addElements, user);
         // ---------------------------------------------------------
-        log("The elements have been added.");
+        print("The elements have been added.");
 
 
         // [get simple] get all the edges that contain the vertex "1"
@@ -93,9 +93,9 @@ public class Transforms extends UserWalkthrough {
                 .build();
         final CloseableIterable<? extends Element> results = graph.execute(getEdges, user);
         // ---------------------------------------------------------
-        log("\nAll edges containing the vertex 10. The counts and 'things' have been aggregated\n");
+        print("\nAll edges containing the vertex 10. The counts and 'things' have been aggregated\n");
         for (final Element e : results) {
-            log("GET_ELEMENTS_RESULT", e.toString());
+            print("GET_ELEMENTS_RESULT", e.toString());
         }
 
 
@@ -107,7 +107,7 @@ public class Transforms extends UserWalkthrough {
                 .project("description")
                 .build();
         // ---------------------------------------------------------
-        log("TRANSFORM_JSON", getJson(descriptionTransformer));
+        print("TRANSFORM_JSON", getJson(descriptionTransformer));
 
         // [get] Add the element transformer to the view and run the query
         // ---------------------------------------------------------
@@ -122,10 +122,10 @@ public class Transforms extends UserWalkthrough {
                 .build();
         final CloseableIterable<? extends Element> resultsWithDescription = graph.execute(getEdgesWithDescription, user);
         // ---------------------------------------------------------
-        log("GET_JSON", getJson(getEdgesWithDescription));
-        log("\nWe can add a new property to the edges that is calculated from the aggregated values of other properties\n");
+        print("GET_JSON", getJson(getEdgesWithDescription));
+        print("\nWe can add a new property to the edges that is calculated from the aggregated values of other properties\n");
         for (final Element e : resultsWithDescription) {
-            log("GET_ELEMENTS_WITH_DESCRIPTION_RESULT", e.toString());
+            print("GET_ELEMENTS_WITH_DESCRIPTION_RESULT", e.toString());
         }
 
 
@@ -143,10 +143,10 @@ public class Transforms extends UserWalkthrough {
                 .build();
         final CloseableIterable<? extends Element> resultsWithDescriptionAndNoCount = graph.execute(getEdgesWithDescriptionAndNoCount, user);
         // ---------------------------------------------------------
-        log("GET_WITH_NO_COUNT_JSON", getJson(getEdgesWithDescriptionAndNoCount));
-        log("\nAnd the result without the count property:\n");
+        print("GET_WITH_NO_COUNT_JSON", getJson(getEdgesWithDescriptionAndNoCount));
+        print("\nAnd the result without the count property:\n");
         for (final Element e : resultsWithDescriptionAndNoCount) {
-            log("GET_ELEMENTS_WITH_DESCRIPTION_AND_NO_COUNT_RESULT", e.toString());
+            print("GET_ELEMENTS_WITH_DESCRIPTION_AND_NO_COUNT_RESULT", e.toString());
         }
 
         return resultsWithDescriptionAndNoCount;

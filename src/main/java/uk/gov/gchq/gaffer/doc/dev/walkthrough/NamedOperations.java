@@ -105,7 +105,7 @@ public class NamedOperations extends DevWalkthrough {
 
         // ---------------------------------------------------------
         for (final NamedOperationDetail detail : details) {
-            log("ALL_NAMED_OPERATIONS", detail.toString());
+            print("ALL_NAMED_OPERATIONS", detail.toString());
         }
 
         // [create named operation] create the named operation
@@ -123,7 +123,7 @@ public class NamedOperations extends DevWalkthrough {
 
         // ---------------------------------------------------------
         for (final Object result : results) {
-            log("NAMED_OPERATION_RESULTS", result.toString());
+            print("NAMED_OPERATION_RESULTS", result.toString());
         }
 
         // [add named operation with parameters] create an operation chain to be executed as a named operation
@@ -186,7 +186,7 @@ public class NamedOperations extends DevWalkthrough {
 
 
         for (final Object result : namedOperationResults) {
-            log("NAMED_OPERATION_WITH_PARAMETER_RESULTS", result.toString());
+            print("NAMED_OPERATION_WITH_PARAMETER_RESULTS", result.toString());
         }
 
         return namedOperationResults;

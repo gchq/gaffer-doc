@@ -20,7 +20,7 @@ import uk.gov.gchq.koryphe.impl.predicate.Regex;
 
 public class RegexExample extends PredicateExample {
     public static void main(final String[] args) {
-        new RegexExample().run();
+        new RegexExample().runAndPrint();
     }
 
     public RegexExample() {

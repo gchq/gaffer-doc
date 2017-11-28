@@ -28,7 +28,7 @@ import uk.gov.gchq.gaffer.operation.impl.get.GetElements;
 
 public class ScoreOperationChainExample extends OperationExample {
     public static void main(final String[] args) {
-        new ScoreOperationChainExample().run();
+        new ScoreOperationChainExample().runAndPrint();
     }
 
     public ScoreOperationChainExample() {

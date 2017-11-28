@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class PredicateMapExample extends PredicateExample {
     public static void main(final String[] args) {
-        new PredicateMapExample().run();
+        new PredicateMapExample().runAndPrint();
     }
 
     public PredicateMapExample() {

@@ -71,7 +71,7 @@ public class OperationChains extends UserWalkthrough {
 
         graph.execute(addOpChain, user);
         // ---------------------------------------------------------
-        log("The elements have been added.");
+        print("The elements have been added.");
 
 
         // [get] Create and execute an operation chain consisting of 3 operations:
@@ -96,9 +96,9 @@ public class OperationChains extends UserWalkthrough {
         final Iterable<? extends String> results = graph.execute(opChain, user);
         // ---------------------------------------------------------
 
-        log("\nFiltered edges converted back into comma separated strings. The counts have been aggregated\n");
+        print("\nFiltered edges converted back into comma separated strings. The counts have been aggregated\n");
         for (final String result : results) {
-            log("RESULT", result);
+            print("RESULT", result);
         }
 
         return results;

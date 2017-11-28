@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class ExportToSetExample extends OperationExample {
     public static void main(final String[] args) throws OperationException {
-        new ExportToSetExample().run();
+        new ExportToSetExample().runAndPrint();
     }
 
     public ExportToSetExample() {

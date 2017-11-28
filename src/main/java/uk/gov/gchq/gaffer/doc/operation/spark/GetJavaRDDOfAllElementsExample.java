@@ -24,7 +24,7 @@ import uk.gov.gchq.gaffer.spark.operation.javardd.GetJavaRDDOfAllElements;
  */
 public class GetJavaRDDOfAllElementsExample extends SparkOperationExample {
     public static void main(final String[] args) throws OperationException {
-        new GetJavaRDDOfAllElementsExample().run();
+        new GetJavaRDDOfAllElementsExample().runAndPrint();
     }
 
     public GetJavaRDDOfAllElementsExample() {

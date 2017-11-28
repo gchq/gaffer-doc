@@ -19,10 +19,10 @@ These properties have been added to the groupBy field.
 Properties in the groupBy will be used to determine whether elements should be aggregated together at ingest. 
 Property values in the groupBy are required to be identical for Gaffer to aggregate them at ingest.
 
-##### Elements schema
+### Elements schema
 ${ELEMENTS_JSON}
 
-##### Types schema
+### Types schema
 ${TYPES_JSON}
 
 Once we have loaded the data into Gaffer, we can fetch all the edges using a GetAllElements operation.
@@ -98,4 +98,4 @@ The result is:
 ${GET_ALL_EDGES_SUMMARISED_IN_TIME_WINDOW_RESULT_WITH_MIN_COUNT}
 ```
  
-For more information on Views and aggregating, see [Views](#views).
+For more information on Views and aggregating, see [Views](views.md).

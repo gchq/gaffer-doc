@@ -23,7 +23,7 @@ import uk.gov.gchq.koryphe.impl.binaryoperator.StringConcat;
 public class AggregateExample extends OperationExample {
 
     public static void main(final String[] args) {
-        new AggregateExample().run();
+        new AggregateExample().runAndPrint();
     }
 
     public AggregateExample() {

@@ -33,7 +33,7 @@ public class MaxExample extends OperationExample {
     }
 
     public static void main(final String[] args) throws OperationException {
-        new MaxExample().run();
+        new MaxExample().runAndPrint();
     }
 
     @Override
