@@ -21,10 +21,10 @@
     },
     "expandable-chapters": {},
     "lunr": {
-      "maxIndexSize": 500000
+      "maxIndexSize": 5000000
     },
     "search": {
-      "maxIndexSize": 500000
+      "maxIndexSize": 5000000
     }
   },
   "root": "./docs"
