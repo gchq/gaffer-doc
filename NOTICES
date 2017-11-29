@@ -8,3 +8,8 @@ Gaffer (uk.gov.gchq.gaffer:gaffer2:1.1.2):
 gaffer-tools (uk.gov.gchq.gaffer:gaffer-tools:1.1.2):
 
 - Apache License, Version 2.0
+
+
+swagger-maven-plugin (com.github.kongchen:swagger-maven-plugin:3.1.5):
+
+- Apache License, Version 2.0

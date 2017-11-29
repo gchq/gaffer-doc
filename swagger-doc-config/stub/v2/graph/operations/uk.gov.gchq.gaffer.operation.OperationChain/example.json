@@ -1,0 +1,12 @@
+{
+  "class": "uk.gov.gchq.gaffer.operation.OperationChain",
+  "operations": [
+    {
+      "class": "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements"
+    }, {
+      "class": "uk.gov.gchq.gaffer.operation.impl.Limit",
+      "resultLimit": 1,
+      "truncate": true
+    }
+  ]
+}
