@@ -12,13 +12,10 @@ rm -rf docs/swagger-doc
 mkdir docs/swagger-doc
 cd docs/swagger-doc
 
-if [ ! -f ../../swagger-doc-config/rest-${gafferVersion}.war ]; then
-    curl -L http://repo1.maven.org/maven2/uk/gov/gchq/gaffer/core-rest/${gafferVersion}/core-rest-${gafferVersion}.war -o ../../swagger-doc-config/rest-${gafferVersion}.war
-fi
-mv ../../swagger-doc-config/rest-${gafferVersion}.war .
-tar -xf rest-${gafferVersion}.war
+mv ../../swagger-doc-config/core-rest-${gafferVersion}.war .
+tar -xf core-rest-${gafferVersion}.war
 rm -rf META-INF WEB-INF
-mv rest-${gafferVersion}.war ../../swagger-doc-config/
+rm -rf core-rest-${gafferVersion}.war
 
 mkdir -p v2
 mkdir -p latest
