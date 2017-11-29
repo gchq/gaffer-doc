@@ -20,8 +20,14 @@ rm -rf core-rest-${gafferVersion}.war
 mkdir -p v2
 mkdir -p latest
 cp -r ../../swagger-doc-config/stub/* .
-sed -i '' "s/\"basePath\": .*/\"basePath\": \"\/v2\",/g" v2/swagger.json
+set +e
+sed -i "s/\"basePath\": .*/\"basePath\": \"\/v2\",/g" v2/swagger.json > /dev/null 2>&1
+sed -i '' "s/\"basePath\": .*/\"basePath\": \"\/v2\",/g" v2/swagger.json > /dev/null 2>&1
+set -e
 cp v2/swagger.json latest/
 
-sed -i '' "s/supportedSubmitMethods: \['get', 'post', 'put', 'delete'\]/supportedSubmitMethods: \[\]/g" lib/gaffer.js
+set +e
+sed -i "s/supportedSubmitMethods: \['get', 'post', 'put', 'delete'\]/supportedSubmitMethods: \[\]/g" lib/gaffer.js > /dev/null 2>&1
+sed -i '' "s/supportedSubmitMethods: \['get', 'post', 'put', 'delete'\]/supportedSubmitMethods: \[\]/g" lib/gaffer.js > /dev/null 2>&1
+set -e
 cat ../../swagger-doc-config/stub-requests.js >> lib/gaffer.js
