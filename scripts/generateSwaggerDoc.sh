@@ -13,7 +13,7 @@ mkdir docs/swagger-doc
 cd docs/swagger-doc
 
 if [ ! -f ../../swagger-doc-config/rest-${gafferVersion}.war ]; then
-    curl http://repo1.maven.org/maven2/uk/gov/gchq/gaffer/core-rest/${gafferVersion}/core-rest-${gafferVersion}.war -o ../../swagger-doc-config/rest-${gafferVersion}.war
+    curl -L http://repo1.maven.org/maven2/uk/gov/gchq/gaffer/core-rest/${gafferVersion}/core-rest-${gafferVersion}.war -o ../../swagger-doc-config/rest-${gafferVersion}.war
 fi
 mv ../../swagger-doc-config/rest-${gafferVersion}.war .
 tar -xf rest-${gafferVersion}.war
