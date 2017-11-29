@@ -13,7 +13,7 @@ mkdir docs/swagger-doc
 cd docs/swagger-doc
 
 mv ../../swagger-doc-config/core-rest-${gafferVersion}.war .
-tar -xf core-rest-${gafferVersion}.war
+jar xvf core-rest-${gafferVersion}.war
 rm -rf META-INF WEB-INF
 rm -rf core-rest-${gafferVersion}.war
 
