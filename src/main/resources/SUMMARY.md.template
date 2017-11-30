@@ -19,6 +19,7 @@ ${GETTING_STARTED_SUMMARIES}
     * [Store](components/core/store.md)
     * [Graph](components/core/graph.md)
     * [REST API](components/rest-api.md)
+    * [REST API Swagger Doc](ref://swagger-doc)
   * Tools
     * [Python Shell](components/tool/python-shell.md)
     * [UI](components/tool/ui.md)

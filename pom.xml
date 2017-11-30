@@ -28,7 +28,9 @@
     <properties>
         <gaffer.version>1.1.2</gaffer.version>
         <gaffer-tools.version>1.1.2</gaffer-tools.version>
-
+        <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+        <swagger-maven-plugin.version>3.1.5</swagger-maven-plugin.version>
+        <maven-dependency-plugin.version>3.0.2</maven-dependency-plugin.version>
         <skip.python>false</skip.python>
 
         <scm.url>
@@ -131,7 +133,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.6.0</version>
+                <version>${exec-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>Download python shell</id>
@@ -165,9 +167,76 @@
             <build>
                 <plugins>
                     <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <version>${maven-dependency-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>copy</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>copy</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>uk.gov.gchq.gaffer
+                                            </groupId>
+                                            <artifactId>core-rest</artifactId>
+                                            <version>${gaffer.version}</version>
+                                            <type>war</type>
+                                            <overWrite>true</overWrite>
+                                            <outputDirectory>
+                                                ${basedir}/swagger-doc-config
+                                            </outputDirectory>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.github.kongchen</groupId>
+                        <artifactId>swagger-maven-plugin</artifactId>
+                        <version>${swagger-maven-plugin.version}</version>
+                        <configuration>
+                            <apiSources>
+                                <apiSource>
+                                    <locations>
+                                        <location>
+                                            uk.gov.gchq.gaffer.rest.service.v2
+                                        </location>
+                                    </locations>
+                                    <basePath>/v2</basePath>
+                                    <swaggerDirectory>
+                                        ${basedir}/swagger-doc-config/stub/v2
+                                    </swaggerDirectory>
+                                    <attachSwaggerArtifact>true
+                                    </attachSwaggerArtifact>
+                                </apiSource>
+                            </apiSources>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>uk.gov.gchq.gaffer</groupId>
+                                <artifactId>core-rest</artifactId>
+                                <version>${gaffer.version}</version>
+                                <classifier>classes</classifier>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                    <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
-                        <version>1.6.0</version>
+                        <version>${exec-maven-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>Download python shell</id>
@@ -232,6 +301,21 @@
                                 </configuration>
                             </execution>
                             <execution>
+                                <id>Generate Swagger Doc</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>
+                                        ${basedir}/scripts/generateSwaggerDoc.sh
+                                    </executable>
+                                    <arguments>
+                                        <argument>${gaffer.version}</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
                                 <id>gitbook install</id>
                                 <phase>verify</phase>
                                 <goals>
@@ -259,7 +343,7 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
-                        <version>1.6.0</version>
+                        <version>${exec-maven-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>gitbook serve</id>
