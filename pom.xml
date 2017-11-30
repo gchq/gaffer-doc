@@ -28,7 +28,9 @@
     <properties>
         <gaffer.version>1.1.2</gaffer.version>
         <gaffer-tools.version>1.1.2</gaffer-tools.version>
-
+        <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+        <swagger-maven-plugin.version>3.1.5</swagger-maven-plugin.version>
+        <maven-dependency-plugin.version>3.0.2</maven-dependency-plugin.version>
         <skip.python>false</skip.python>
 
         <scm.url>
@@ -131,7 +133,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>1.6.0</version>
+                <version>${exec-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>Download python shell</id>
@@ -167,7 +169,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
-                        <version>3.0.2</version>
+                        <version>${maven-dependency-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>copy</id>
@@ -196,7 +198,7 @@
                     <plugin>
                         <groupId>com.github.kongchen</groupId>
                         <artifactId>swagger-maven-plugin</artifactId>
-                        <version>3.1.5</version>
+                        <version>${swagger-maven-plugin.version}</version>
                         <configuration>
                             <apiSources>
                                 <apiSource>
@@ -229,18 +231,12 @@
                                 <version>${gaffer.version}</version>
                                 <classifier>classes</classifier>
                             </dependency>
-                            <dependency>
-                                <groupId>io.swagger</groupId>
-                                <artifactId>swagger-hibernate-validations
-                                </artifactId>
-                                <version>1.5.6</version>
-                            </dependency>
                         </dependencies>
                     </plugin>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
-                        <version>1.6.0</version>
+                        <version>${exec-maven-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>Download python shell</id>
@@ -347,7 +343,7 @@
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
-                        <version>1.6.0</version>
+                        <version>${exec-maven-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>gitbook serve</id>
