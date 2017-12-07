@@ -220,11 +220,13 @@ public abstract class WalkthroughStrSubstitutor {
     }
 
     public static String getCsvBlockFromResource(final String resourcePath, final Class<?> clazz) {
-        return getBlockFromResource(resourcePath, clazz, "properties");
+        return getBlockFromResource(resourcePath, clazz, "csv");
     }
 
     public static String getPropertiesBlockFromResource(final String resourcePath, final Class<?> clazz) {
-        return getBlockFromResource(resourcePath, clazz, "csv");
+        final String resource = getResource(resourcePath, clazz);
+        return null == resource ? null : "\n```properties\n" + resource.replaceAll("#.*\\n", "") + "\n```\n";
+
     }
 
     private static String getBlockFromResource(final String resourcePath, final Class<?> clazz, final String type) {
