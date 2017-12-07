@@ -15,14 +15,25 @@
  */
 package uk.gov.gchq.gaffer.doc.walkthrough;
 
+import com.google.common.collect.Sets;
 import org.apache.commons.io.IOUtils;
 
+import uk.gov.gchq.gaffer.accumulostore.AccumuloProperties;
+import uk.gov.gchq.gaffer.accumulostore.SingleUseMockAccumuloStore;
+import uk.gov.gchq.gaffer.bitmap.serialisation.json.BitmapJsonModules;
+import uk.gov.gchq.gaffer.cache.impl.HashMapCacheService;
+import uk.gov.gchq.gaffer.cache.util.CacheProperties;
 import uk.gov.gchq.gaffer.commonutil.CommonConstants;
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
 import uk.gov.gchq.gaffer.data.generator.ElementGenerator;
 import uk.gov.gchq.gaffer.exception.SerialisationException;
+import uk.gov.gchq.gaffer.federatedstore.FederatedStoreProperties;
+import uk.gov.gchq.gaffer.graph.GraphConfig;
 import uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser;
+import uk.gov.gchq.gaffer.mapstore.MapStoreProperties;
+import uk.gov.gchq.gaffer.mapstore.SingleUseMapStore;
 import uk.gov.gchq.gaffer.operation.OperationException;
+import uk.gov.gchq.gaffer.store.StoreProperties;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,48 +46,83 @@ public abstract class AbstractWalkthrough {
     protected final Class<? extends ElementGenerator> elementGenerator;
     protected final String dataPath;
     protected final String schemaPath;
-    protected final String modulePath;
-    protected final String storePropertiesLocation;
+    protected final String walkthroughId;
+    protected final String storePropertiesPath;
+    protected final String graphConfigPath;
 
     private final Map<String, StringBuilder> logCache = new HashMap<>();
     private final String exampleId;
     private final String header;
-    private final String resourcePrefix;
 
     protected boolean cacheLogs;
 
     public AbstractWalkthrough(final String header,
-                               final String dataPath,
-                               final String schemaPath,
+                               final String resourcePrefix,
                                final Class<? extends ElementGenerator> generatorClass,
-                               final String modulePath,
-                               final String resourcePrefix) {
+                               final String walkthroughId) {
         this.header = header;
-        this.dataPath = dataPath;
-        this.schemaPath = schemaPath;
+        this.dataPath = resourcePrefix + "/data.txt";
+        this.schemaPath = resourcePrefix + "/schema";
+        this.storePropertiesPath = resourcePrefix + "/store.properties";
+        this.graphConfigPath = resourcePrefix + "/graphConfig.json";
         this.elementGenerator = generatorClass;
-        this.modulePath = modulePath;
-        this.resourcePrefix = resourcePrefix;
-        exampleId = getClass().getSimpleName();
-        storePropertiesLocation = "/mockaccumulostore.properties";
+        this.walkthroughId = walkthroughId;
+        this.exampleId = getClass().getSimpleName();
     }
 
     public abstract Object run() throws Exception;
+
+    protected GraphConfig getDefaultGraphConfig() {
+        return new GraphConfig.Builder()
+                .graphId(getClass().getSimpleName())
+                .build();
+    }
+
+    protected StoreProperties getDefaultStoreProperties() {
+        return getAccumuloStoreProperties();
+    }
+
+    protected StoreProperties getAccumuloStoreProperties() {
+        final AccumuloProperties properties = new AccumuloProperties();
+        properties.setStoreClass(SingleUseMockAccumuloStore.class);
+        properties.setInstance("instance1");
+        properties.setZookeepers("zookeeper1");
+        properties.setUser("user01");
+        properties.setPassword("password");
+        properties.set(CacheProperties.CACHE_SERVICE_CLASS, HashMapCacheService.class.getName());
+        properties.setJobTrackerEnabled(true);
+        properties.setJsonSerialiserModules(Sets.newHashSet(BitmapJsonModules.class));
+        properties.setOperationDeclarationPaths("sparkAccumuloOperationsDeclarations.json,ResultCacheExportOperations.json,ExportToOtherGraphOperationDeclarations.json,ScoreOperationChainDeclaration.json");
+        return properties;
+    }
+
+    protected StoreProperties getMapStoreProperties() {
+        final MapStoreProperties properties = new MapStoreProperties();
+        properties.setStoreClass(SingleUseMapStore.class);
+        properties.set(CacheProperties.CACHE_SERVICE_CLASS, HashMapCacheService.class.getName());
+        return properties;
+    }
+
+    protected StoreProperties getFederatedStoreProperties() {
+        final FederatedStoreProperties properties = new FederatedStoreProperties();
+        properties.setCacheProperties(HashMapCacheService.class.getName());
+        return properties;
+    }
 
     protected String substituteParameters(final String walkthrough) {
         return substituteParameters(walkthrough, false);
     }
 
     protected String substituteParameters(final String walkthrough, final boolean skipValidation) {
-        final String walkthroughFormatted = WalkthroughStrSubstitutor.substitute(walkthrough, this, modulePath, header, dataPath, schemaPath, elementGenerator);
+        final String walkthroughFormatted = WalkthroughStrSubstitutor.substitute(walkthrough, this);
         if (!skipValidation) {
             WalkthroughStrSubstitutor.validateSubstitution(walkthroughFormatted);
         }
         return walkthroughFormatted;
     }
 
-    public String getModulePath() {
-        return modulePath;
+    public String getWalkthroughId() {
+        return walkthroughId;
     }
 
     public void print(final String message) {
@@ -105,7 +151,7 @@ public abstract class AbstractWalkthrough {
     public String walkthrough() throws OperationException {
         cacheLogs = true;
         final String walkthrough;
-        try (final InputStream stream = StreamUtil.openStream(getClass(), resourcePrefix + "/walkthrough/" + exampleId + ".md")) {
+        try (final InputStream stream = StreamUtil.openStream(getClass(), walkthroughId + "/walkthrough/" + exampleId + ".md")) {
             if (null == stream) {
                 throw new RuntimeException("Missing walkthrough file");
             }

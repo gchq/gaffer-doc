@@ -49,7 +49,7 @@ public class Transforms extends UserWalkthrough {
         // ---------------------------------------------------------
         final List<Element> elements = new ArrayList<>();
         final RoadAndRoadUseElementGenerator dataGenerator = new RoadAndRoadUseElementGenerator();
-        for (final String line : IOUtils.readLines(StreamUtil.openStream(getClass(), "RoadAndRoadUse/data.txt"))) {
+        for (final String line : IOUtils.readLines(StreamUtil.openStream(getClass(), dataPath))) {
             Iterables.addAll(elements, dataGenerator._apply(line));
         }
         // ---------------------------------------------------------
@@ -63,9 +63,9 @@ public class Transforms extends UserWalkthrough {
         // [graph] Create a graph using our schema and store properties
         // ---------------------------------------------------------
         final Graph graph = new Graph.Builder()
-                .config(StreamUtil.graphConfig(getClass()))
-                .addSchemas(StreamUtil.openStreams(getClass(), "RoadAndRoadUse/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .config(getDefaultGraphConfig())
+                .addSchemas(StreamUtil.openStreams(getClass(), schemaPath))
+                .storeProperties(getDefaultStoreProperties())
                 .build();
         // ---------------------------------------------------------
 
@@ -154,6 +154,6 @@ public class Transforms extends UserWalkthrough {
 
     public static void main(final String[] args) throws OperationException, IOException {
         final Transforms walkthrough = new Transforms();
-        System.out.println(walkthrough.walkthrough());
+        walkthrough.run();
     }
 }

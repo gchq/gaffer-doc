@@ -32,9 +32,9 @@ ${JSON_CODE}
 ${GET_JSON}
 ${END_CODE}
 
-Our ViewElementDefinition allows us to perform post Aggregation filtering using a IsMoreThan Predicate.
+Our ViewElementDefinition allows us to perform post Aggregation filtering using an IsMoreThan Predicate.
 
-If we run the query, we now get only those vertex `”10”` Edges where the `”count”` > 2:
+Querying with our view, we now get only those vertex `”10”` Edges where the `”count”` > 2:
 
 ```
 ${GET_ELEMENTS_WITH_COUNT_MORE_THAN_2_RESULT}

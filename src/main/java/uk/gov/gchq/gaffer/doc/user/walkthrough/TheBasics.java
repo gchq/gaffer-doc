@@ -17,17 +17,26 @@ package uk.gov.gchq.gaffer.doc.user.walkthrough;
 
 import org.apache.commons.io.IOUtils;
 
+import uk.gov.gchq.gaffer.accumulostore.AccumuloProperties;
+import uk.gov.gchq.gaffer.accumulostore.SingleUseMockAccumuloStore;
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
 import uk.gov.gchq.gaffer.commonutil.iterable.CloseableIterable;
 import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
 import uk.gov.gchq.gaffer.doc.user.generator.RoadUseElementGenerator;
 import uk.gov.gchq.gaffer.graph.Graph;
+import uk.gov.gchq.gaffer.graph.GraphConfig;
 import uk.gov.gchq.gaffer.operation.OperationException;
 import uk.gov.gchq.gaffer.operation.data.EntitySeed;
 import uk.gov.gchq.gaffer.operation.impl.add.AddElements;
 import uk.gov.gchq.gaffer.operation.impl.get.GetElements;
+import uk.gov.gchq.gaffer.store.schema.Schema;
+import uk.gov.gchq.gaffer.store.schema.SchemaEdgeDefinition;
+import uk.gov.gchq.gaffer.store.schema.TypeDefinition;
 import uk.gov.gchq.gaffer.user.User;
+import uk.gov.gchq.koryphe.impl.binaryoperator.Sum;
+import uk.gov.gchq.koryphe.impl.predicate.IsMoreThan;
+import uk.gov.gchq.koryphe.impl.predicate.IsTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,7 +44,7 @@ import java.util.List;
 
 public class TheBasics extends UserWalkthrough {
     public TheBasics() {
-        super("The basics", "RoadUse", RoadUseElementGenerator.class);
+        super("The Basics", "RoadUse", RoadUseElementGenerator.class);
     }
 
     @Override
@@ -44,7 +53,7 @@ public class TheBasics extends UserWalkthrough {
         // ---------------------------------------------------------
         final List<Element> elements = new ArrayList<>();
         final RoadUseElementGenerator dataGenerator = new RoadUseElementGenerator();
-        for (final String line : IOUtils.readLines(StreamUtil.openStream(getClass(), "RoadUse/data.txt"))) {
+        for (final String line : IOUtils.readLines(StreamUtil.openStream(getClass(), dataPath))) {
             elements.add(dataGenerator._apply(line));
         }
         // ---------------------------------------------------------
@@ -55,12 +64,59 @@ public class TheBasics extends UserWalkthrough {
         print("");
 
 
-        // [graph] Create a graph using our schema and store properties
+        Graph graph;
+        // [graph from files] Create a graph using config, schema and store properties files
         // ---------------------------------------------------------
-        final Graph graph = new Graph.Builder()
-                .config(StreamUtil.graphConfig(getClass()))
-                .addSchemas(StreamUtil.openStreams(getClass(), "RoadUse/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+        graph = new Graph.Builder()
+                .config(StreamUtil.openStream(getClass(), graphConfigPath))
+                .addSchemas(StreamUtil.openStreams(getClass(), schemaPath))
+                .storeProperties(StreamUtil.openStream(getClass(), storePropertiesPath))
+                .build();
+        // ---------------------------------------------------------
+
+
+        // [graph] Create a graph using config, schema and store properties from java
+        // ---------------------------------------------------------
+        final GraphConfig config = new GraphConfig.Builder()
+                .graphId(getClass().getSimpleName())
+                .build();
+
+        final Schema schema = new Schema.Builder()
+                .edge("RoadUse", new SchemaEdgeDefinition.Builder()
+                        .description("A directed edge representing vehicles moving from junction A to junction B.")
+                        .source("junction")
+                        .destination("junction")
+                        .directed("true")
+                        .property("count", "count.long")
+                        .build())
+                .type("junction", new TypeDefinition.Builder()
+                        .description("A road junction represented by a String.")
+                        .clazz(String.class)
+                        .build())
+                .type("count.long", new TypeDefinition.Builder()
+                        .description("A long count that must be greater than or equal to 0.")
+                        .clazz(Long.class)
+                        .validateFunctions(new IsMoreThan(0L, true))
+                        .aggregateFunction(new Sum())
+                        .build())
+                .type("true", new TypeDefinition.Builder()
+                        .description("A simple boolean that must always be true.")
+                        .clazz(Boolean.class)
+                        .validateFunctions(new IsTrue())
+                        .build())
+                .build();
+
+        final AccumuloProperties properties = new AccumuloProperties();
+        properties.setStoreClass(SingleUseMockAccumuloStore.class);
+        properties.setInstance("instance1");
+        properties.setZookeepers("zookeeper1");
+        properties.setUser("user01");
+        properties.setPassword("password");
+
+        graph = new Graph.Builder()
+                .config(config)
+                .addSchema(schema)
+                .storeProperties(properties)
                 .build();
         // ---------------------------------------------------------
 

@@ -151,11 +151,9 @@ public class ExportToOtherGraphExample extends OperationExample {
         final GraphLibrary graphLibrary = new FileGraphLibrary("target/graphLibrary");
 
         final AccumuloProperties exportStoreProperties = new AccumuloProperties();
-        exportStoreProperties.setId("exportStorePropertiesId");
         // set other store property config here.
 
         final Schema exportSchema = new Schema.Builder()
-                .id("exportSchemaId")
                 .edge("edge", new SchemaEdgeDefinition.Builder()
                         .source("int")
                         .destination("int")
@@ -202,12 +200,10 @@ public class ExportToOtherGraphExample extends OperationExample {
         final GraphLibrary graphLibrary = new FileGraphLibrary("target/graphLibrary");
 
         final AccumuloProperties exportStoreProperties = new AccumuloProperties();
-        exportStoreProperties.setId("exportStorePropertiesId");
         // set other store property config here.
-        graphLibrary.addProperties(exportStoreProperties);
+        graphLibrary.addProperties("exportStorePropertiesId", exportStoreProperties);
 
         final Schema exportSchema = new Schema.Builder()
-                .id("exportSchemaId")
                 .edge("edge", new SchemaEdgeDefinition.Builder()
                         .source("int")
                         .destination("int")
@@ -221,7 +217,7 @@ public class ExportToOtherGraphExample extends OperationExample {
                         .validateFunctions(new IsTrue())
                         .build())
                 .build();
-        graphLibrary.addSchema(exportSchema);
+        graphLibrary.addSchema("exportSchemaId", exportSchema);
 
         final Graph graph = new Graph.Builder()
                 .config(StreamUtil.openStream(getClass(), "graphConfigWithLibrary.json"))
