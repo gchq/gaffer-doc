@@ -15,15 +15,13 @@
  */
 package uk.gov.gchq.gaffer.doc.operation;
 
-import uk.gov.gchq.gaffer.data.element.Edge;
-import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
 import uk.gov.gchq.gaffer.data.graph.Walk;
+import uk.gov.gchq.gaffer.data.graph.function.walk.ExtractWalkEdgesFromHop;
 import uk.gov.gchq.gaffer.operation.OperationChain;
 import uk.gov.gchq.gaffer.operation.data.EntitySeed;
 import uk.gov.gchq.gaffer.operation.impl.GetWalks;
 import uk.gov.gchq.gaffer.operation.impl.Map;
-import uk.gov.gchq.gaffer.operation.impl.get.GetAllElements;
 import uk.gov.gchq.gaffer.operation.impl.get.GetElements;
 import uk.gov.gchq.gaffer.operation.impl.output.ToSet;
 import uk.gov.gchq.gaffer.operation.impl.output.ToVertices;
@@ -44,25 +42,10 @@ public class MapExample extends OperationExample {
 
     @Override
     protected void runExamples() {
-        extractItemFromIterable();
-        flattenNestedIterable();
+        extractInputSeeds();
     }
 
-    public void extractItemFromIterable() {
-        // ---------------------------------------------------------
-        final OperationChain<Element> opChain = new OperationChain.Builder()
-                .first(new GetAllElements())
-                .then(new Map.Builder<Iterable<? extends Element>, Element>()
-                        .function(new FirstItem<>())
-                        .build())
-                .build();
-        // ---------------------------------------------------------
-
-        runExample(opChain, "Here, the Map operation is being used to map an " +
-                "Iterable of Elements to a single Element.");
-    }
-
-    public Set<?> flattenNestedIterable() {
+    public Set<?> extractInputSeeds() {
         // ---------------------------------------------------------
         final OperationChain<Set<?>> opChain = new OperationChain.Builder()
                 .first(new GetWalks.Builder()
@@ -74,11 +57,11 @@ public class MapExample extends OperationExample {
                         .resultsLimit(100)
                         .input(new EntitySeed(1), new EntitySeed(2))
                         .build())
-                .then(new Map.Builder<Iterable<Walk>, Walk>()
-                        .function(new IterableFunction<>(new FirstItem<>()))
-                        .build())
-                .then(new Map.Builder<Walk, Set<Edge>>()
-                        .function(new IterableFunction<>(new FirstItem<>()))
+                .then(new Map.Builder<Iterable<Walk>>()
+                        .first(new IterableFunction.Builder<Walk>()
+                                .first(new ExtractWalkEdgesFromHop(0))
+                                .then(new FirstItem<>())
+                                .build())
                         .build())
                 .then(new ToVertices.Builder()
                         .edgeVertices(ToVertices.EdgeVertices.SOURCE)
@@ -88,6 +71,6 @@ public class MapExample extends OperationExample {
         // ---------------------------------------------------------
         return runExample(opChain, "This example demonstrates the extraction of " +
                 "the input seeds to a GetWalks operation, using the Map operation " +
-                "twice, to reduce the results each time with a FirstItem function.");
+                "with ExtractWalkEdgesFromHop, and FirstItem functions.");
     }
 }
