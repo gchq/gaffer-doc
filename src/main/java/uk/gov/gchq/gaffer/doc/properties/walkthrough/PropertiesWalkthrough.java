@@ -96,7 +96,7 @@ public abstract class PropertiesWalkthrough extends AbstractWalkthrough {
 
 
     protected PropertiesWalkthrough(final Class<?> propertyType, final String resourcePath, final Class<? extends ElementGenerator> generatorClass) {
-        super(propertyType.getSimpleName(), null, resourcePath + "/schema", generatorClass, null, "properties");
+        super(propertyType.getSimpleName(), resourcePath, generatorClass, "properties");
         this.propertyType = propertyType;
     }
 
@@ -218,7 +218,7 @@ public abstract class PropertiesWalkthrough extends AbstractWalkthrough {
         final Set<URL> urls = new HashSet<>();
         urls.addAll(ClasspathHelper.forPackage("uk.gov.gchq"));
 
-        final List<Class> classes = new ArrayList<>(new Reflections(urls).getSubTypesOf(clazz));
+        final List<Class> classes = new ArrayList<Class>(new Reflections(urls).getSubTypesOf(clazz));
         keepPublicConcreteClasses(classes);
         classes.removeIf(c -> c.getName().contains("uk.gov.gchq.gaffer.doc"));
         classes.removeAll(SYSTEM_CLASSES);

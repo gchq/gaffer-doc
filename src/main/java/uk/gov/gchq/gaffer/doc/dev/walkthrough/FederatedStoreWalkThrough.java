@@ -39,7 +39,6 @@ import uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements;
 import uk.gov.gchq.gaffer.operation.impl.get.GetAllElements;
 import uk.gov.gchq.gaffer.operation.impl.get.GetAllElements.Builder;
 import uk.gov.gchq.gaffer.operation.impl.get.GetElements;
-import uk.gov.gchq.gaffer.store.StoreProperties;
 import uk.gov.gchq.gaffer.store.library.HashMapGraphLibrary;
 import uk.gov.gchq.gaffer.store.schema.Schema;
 import uk.gov.gchq.gaffer.user.User;
@@ -55,29 +54,24 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
     }
 
     public CloseableIterable<? extends Element> run() throws Exception {
-        final FederatedStoreProperties federatedProperty = FederatedStoreProperties.loadStoreProperties(StreamUtil.openStream(getClass(), "federatedStore.properties"));
-
-
-        final StoreProperties mapProps = StoreProperties.loadStoreProperties("mockmapstore.properties");
-        final StoreProperties accumuloProps = StoreProperties.loadStoreProperties("mockaccumulostore.properties");
 
         final Schema schema = new Schema.Builder()
-                .json(StreamUtil.openStreams(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema"))
+                .json(StreamUtil.openStreams(getClass(), schemaPath))
                 .build();
 
         final HashMapGraphLibrary library = new HashMapGraphLibrary();
-        library.addProperties("mapStore", mapProps);
-        library.addProperties("accumuloStore", accumuloProps);
+        library.addProperties("mapStore", getMapStoreProperties());
+        library.addProperties("accumuloStore", getAccumuloStoreProperties());
         library.addSchema("roadTraffic", schema);
 
         // [creating a federatedstore] create a store that federates to a MapStore and AccumuloStore
         // ---------------------------------------------------------
         final Graph federatedGraph = new Graph.Builder()
                 .config(new GraphConfig.Builder()
-                        .graphId("federatedRoadUse")
+                        .graphId(getClass().getSimpleName())
                         .library(library)
                         .build())
-                .storeProperties(federatedProperty)
+                .storeProperties(getFederatedStoreProperties())
                 .build();
         // ---------------------------------------------------------
 
@@ -87,7 +81,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         exampleFederatedProperty.setCacheProperties(HashMapCacheService.class.getName());
         // ---------------------------------------------------------
 
-        print("fedPropJson", new String(JSONSerialiser.serialise(federatedProperty.getProperties(), true)));
+        print("fedPropJson", new String(JSONSerialiser.serialise(getFederatedStoreProperties().getProperties(), true)));
 
 
         final User user = new User("user01");
@@ -98,7 +92,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
                         .json(StreamUtil.openStream(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema/entities.json"))
                         .json(StreamUtil.openStream(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema/types.json"))
                         .build())
-                .storeProperties(mapProps)
+                .storeProperties(getMapStoreProperties())
                 .isPublic(true)
                 .build();
         federatedGraph.execute(addMapGraph, user);
@@ -109,7 +103,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
                         .json(StreamUtil.openStream(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema/edges.json"))
                         .json(StreamUtil.openStream(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema/types.json"))
                         .build())
-                .storeProperties(accumuloProps)
+                .storeProperties(getAccumuloStoreProperties())
                 .isPublic(true)
                 .build();
         federatedGraph.execute(addAccumuloGraph, user);
@@ -119,7 +113,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         AddGraph addAnotherGraph = new AddGraph.Builder()
                 .graphId("AnotherGraph")
                 .schema(schema)
-                .storeProperties(mapProps)
+                .storeProperties(getMapStoreProperties())
                 .build();
         federatedGraph.execute(addAnotherGraph, user);
         // ---------------------------------------------------------

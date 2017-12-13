@@ -57,9 +57,9 @@ public class Aggregation extends UserWalkthrough {
         // [graph] create a graph using our schema and store properties
         // ---------------------------------------------------------
         final Graph graph = new Graph.Builder()
-                .config(StreamUtil.graphConfig(getClass()))
-                .addSchemas(StreamUtil.openStreams(getClass(), "RoadAndRoadUseWithTimes/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .config(getDefaultGraphConfig())
+                .addSchemas(StreamUtil.openStreams(getClass(), schemaPath))
+                .storeProperties(getDefaultStoreProperties())
                 .build();
         // ---------------------------------------------------------
 
@@ -77,7 +77,7 @@ public class Aggregation extends UserWalkthrough {
         final OperationChain<Void> addOpChain = new OperationChain.Builder()
                 .first(new GenerateElements.Builder<String>()
                         .generator(new RoadAndRoadUseWithTimesElementGenerator())
-                        .input(IOUtils.readLines(StreamUtil.openStream(getClass(), "RoadAndRoadUseWithTimes/data.txt")))
+                        .input(IOUtils.readLines(StreamUtil.openStream(getClass(), dataPath)))
                         .build())
                 .then(new AddElements())
                 .build();
@@ -130,11 +130,11 @@ public class Aggregation extends UserWalkthrough {
                 .view(new View.Builder()
                         .edge("RoadUse", new ViewElementDefinition.Builder()
                                 .preAggregationFilter(new ElementFilter.Builder()
-                                        .select("startDate")
-                                        .execute(new IsMoreThan(MAY_01_2000, true))
-                                        .select("endDate")
-                                        .execute(new IsLessThan(MAY_02_2000, false))
-                                        .build()
+                                                .select("startDate")
+                                                .execute(new IsMoreThan(MAY_01_2000, true))
+                                                .select("endDate")
+                                                .execute(new IsLessThan(MAY_02_2000, false))
+                                                .build()
                                 )
                                 .groupBy() // set the group by properties to 'none'
                                 .build())
@@ -158,11 +158,11 @@ public class Aggregation extends UserWalkthrough {
                 .view(new View.Builder()
                         .edge("RoadUse", new ViewElementDefinition.Builder()
                                 .preAggregationFilter(new ElementFilter.Builder()
-                                        .select("startDate")
-                                        .execute(new IsMoreThan(MAY_01_2000, true))
-                                        .select("endDate")
-                                        .execute(new IsLessThan(MAY_03_2000, false))
-                                        .build()
+                                                .select("startDate")
+                                                .execute(new IsMoreThan(MAY_01_2000, true))
+                                                .select("endDate")
+                                                .execute(new IsLessThan(MAY_03_2000, false))
+                                                .build()
                                 )
                                 .groupBy() // set the group by properties to 'none'
                                 .aggregator(new ElementAggregator.Builder()

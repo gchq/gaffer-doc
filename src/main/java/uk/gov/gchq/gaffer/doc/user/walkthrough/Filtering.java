@@ -49,7 +49,7 @@ public class Filtering extends UserWalkthrough {
         // ---------------------------------------------------------
         final List<Element> elements = new ArrayList<>();
         final RoadAndRoadUseElementGenerator dataGenerator = new RoadAndRoadUseElementGenerator();
-        for (final String line : IOUtils.readLines(StreamUtil.openStream(getClass(), "RoadAndRoadUse/data.txt"))) {
+        for (final String line : IOUtils.readLines(StreamUtil.openStream(getClass(), dataPath))) {
             Iterables.addAll(elements, dataGenerator._apply(line));
         }
         // ---------------------------------------------------------
@@ -63,9 +63,9 @@ public class Filtering extends UserWalkthrough {
         // [graph] Create a graph using our schema and store properties
         // ---------------------------------------------------------
         final Graph graph = new Graph.Builder()
-                .config(StreamUtil.graphConfig(getClass()))
-                .addSchemas(StreamUtil.openStreams(getClass(), "RoadAndRoadUse/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .config(getDefaultGraphConfig())
+                .addSchemas(StreamUtil.openStreams(getClass(), schemaPath))
+                .storeProperties(getDefaultStoreProperties())
                 .build();
         // ---------------------------------------------------------
 
@@ -89,15 +89,15 @@ public class Filtering extends UserWalkthrough {
         print("\nRoadUse edges related to vertex 10. The counts have been aggregated\n");
         // [get simple] get all the edges that contain the vertex "10"
         // ---------------------------------------------------------
-        final GetElements getRelatedElement = new GetElements.Builder()
+        final GetElements getElements = new GetElements.Builder()
                 .input(new EntitySeed("10"))
                 .view(new View.Builder()
                         .edge("RoadUse")
                         .build())
                 .build();
-        final CloseableIterable<? extends Element> results = graph.execute(getRelatedElement, user);
+        final CloseableIterable<? extends Element> results = graph.execute(getElements, user);
         // ---------------------------------------------------------
-        print("GET_SIMPLE_JSON", getJson(getRelatedElement));
+        print("GET_SIMPLE_JSON", getJson(getElements));
         for (final Element e : results) {
             print("GET_ELEMENTS_RESULT", e.toString());
         }
@@ -129,6 +129,6 @@ public class Filtering extends UserWalkthrough {
 
     public static void main(final String[] args) throws OperationException, IOException {
         final Filtering walkthrough = new Filtering();
-        System.out.println(walkthrough.walkthrough());
+        walkthrough.run();
     }
 }

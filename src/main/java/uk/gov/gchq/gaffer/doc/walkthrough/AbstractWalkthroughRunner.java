@@ -85,7 +85,7 @@ public class AbstractWalkthroughRunner implements DocGenerator {
             throw new RuntimeException(e);
         }
 
-        return WalkthroughStrSubstitutor.substitute(intro, modulePath) + "\n";
+        return WalkthroughStrSubstitutor.substitute(intro) + "\n";
     }
 
     protected String getTableOfContents() throws InstantiationException, IllegalAccessException {

@@ -2,4 +2,4 @@
 
 set -e
 
-mvn clean install -PbuildGitbook,serveGitbook
+mvn clean install -PbuildGitbook,serveGitbook $@
