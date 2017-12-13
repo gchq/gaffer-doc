@@ -124,9 +124,6 @@ public abstract class Example {
                 if (value instanceof Iterable) {
                     final StringBuilder valueStr = new StringBuilder();
                     for (final Object obj : ((Iterable) value)) {
-                        if (valueStr.length() > 0) {
-                            valueStr.append("<br />");
-                        }
                         valueStr.append(StringEscapeUtils.escapeHtml4(obj.toString()));
                     }
                     typeValue.setSecond(valueStr.toString());
