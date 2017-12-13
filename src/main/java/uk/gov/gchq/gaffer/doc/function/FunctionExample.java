@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.gov.gchq.gaffer.doc.predicate;
+package uk.gov.gchq.gaffer.doc.function;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -21,30 +21,29 @@ import uk.gov.gchq.gaffer.commonutil.pair.Pair;
 import uk.gov.gchq.gaffer.doc.util.Example;
 import uk.gov.gchq.koryphe.signature.Signature;
 
-import java.util.function.Predicate;
+import java.util.function.Function;
 
-
-public abstract class PredicateExample extends Example {
-    public PredicateExample(final Class<? extends Predicate> classForExample) {
+public abstract class FunctionExample extends Example {
+    public FunctionExample(final Class<? extends Function> classForExample) {
         super(classForExample);
     }
 
-    public PredicateExample(final Class<? extends Predicate> classForExample, final String description) {
+    public FunctionExample(final Class<? extends Function> classForExample, final String description) {
         super(classForExample, description);
     }
 
-    public void runExample(final Predicate predicate, final String description, final Object... inputs) {
+    public void runExample(final Function function, final String description, final Object... inputs) {
         print("### " + getMethodNameAsSentence(1) + "\n");
         if (StringUtils.isNotBlank(description)) {
             print(description + "\n");
         }
 
-        printJavaJsonPython(predicate, 3);
+        printJavaJsonPython(function, 3);
 
         print("Input type:");
         print("\n```");
         final StringBuilder inputClasses = new StringBuilder();
-        for (final Class<?> item : Signature.getInputSignature(predicate).getClasses()) {
+        for (final Class<?> item : Signature.getInputSignature(function).getClasses()) {
             inputClasses.append(item.getName());
             inputClasses.append(", ");
         }
@@ -53,20 +52,26 @@ public abstract class PredicateExample extends Example {
 
         print("Example inputs:");
         print("<table style=\"block: display; overflow-x: auto; word-break: break-all\">");
-        print("<tr><th>Input Type</th><th>Input</th><th>Result</th></tr>");
+        print("<tr><th>Input Type</th><th>Input</th><th>Result Type</th><th>Result</th></tr>");
         for (final Object input : inputs) {
             final Pair<String, String> inputTypeValue = getTypeValue(input);
 
             Pair<String, String> resultTypeValue;
             try {
-                resultTypeValue = getTypeValue(predicate.test(input));
+                resultTypeValue = getTypeValue(function.apply(input));
             } catch (final Exception e) {
                 resultTypeValue = new Pair<>(e.toString());
             }
 
-            print("<tr><td>" + inputTypeValue.getFirst() + "</td><td>" + inputTypeValue.getSecond() + "</td><td>" + resultTypeValue.getSecond() + "</td></tr>");
+            print("<tr><td>" + inputTypeValue.getFirst() + "</td><td>" + inputTypeValue.getSecond() + "</td><td>" + resultTypeValue.getFirst() + "</td><td>" + resultTypeValue.getSecond() + "</td></tr>");
         }
         print("</table>\n");
         print(METHOD_DIVIDER);
+    }
+
+    @Override
+    protected String getPython(final Object object) {
+        // Functions have not yet been written in the python shell.
+        return null;
     }
 }

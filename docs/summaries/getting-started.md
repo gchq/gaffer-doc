@@ -9,6 +9,7 @@
 * [Accumulo operation](../getting-started/accumulo-operations/contents.md)
 * [Spark operations](../getting-started/spark-operations/contents.md)
 * [Predicates](../getting-started/predicates/contents.md)
+* [Functions](../getting-started/functions/contents.md)
 
 
 ## Try it out

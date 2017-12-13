@@ -15,13 +15,18 @@
  */
 package uk.gov.gchq.gaffer.doc.util;
 
+import com.google.common.collect.Lists;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import uk.gov.gchq.gaffer.commonutil.CommonConstants;
+import uk.gov.gchq.gaffer.commonutil.pair.Pair;
 import uk.gov.gchq.gaffer.doc.walkthrough.WalkthroughStrSubstitutor;
 import uk.gov.gchq.gaffer.exception.SerialisationException;
 import uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser;
+import uk.gov.gchq.koryphe.tuple.MapTuple;
+import uk.gov.gchq.koryphe.tuple.Tuple;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -106,6 +111,53 @@ public abstract class Example {
         sentence.replace(0, 1, sentence.substring(0, 1).toUpperCase(Locale.getDefault()));
         sentence.replace(sentence.length() - 1, sentence.length(), "");
         return sentence.toString();
+    }
+
+    protected Pair<String, String> getTypeValue(final Object value) {
+        Pair<String, String> typeValue = new Pair<>();
+        if (!(value instanceof Tuple) || value instanceof MapTuple) {
+            if (null == value) {
+                typeValue.setFirst("");
+                typeValue.setSecond("null");
+            } else {
+                typeValue.setFirst(value.getClass().getName());
+                if (value instanceof Iterable) {
+                    final StringBuilder valueStr = new StringBuilder();
+                    for (final Object obj : ((Iterable) value)) {
+                        if (valueStr.length() > 0) {
+                            valueStr.append("<br />");
+                        }
+                        valueStr.append(StringEscapeUtils.escapeHtml4(obj.toString()));
+                    }
+                    typeValue.setSecond(valueStr.toString());
+                } else {
+                    typeValue.setSecond(StringEscapeUtils.escapeHtml4(value.toString()));
+                }
+            }
+        } else {
+            final StringBuilder typeBuilder = new StringBuilder("[");
+            final StringBuilder valueStringBuilder = new StringBuilder("[");
+            for (final Object item : (Tuple) value) {
+                if (null == item) {
+                    typeBuilder.append(" ,");
+                    valueStringBuilder.append("null, ");
+                } else {
+                    typeBuilder.append(item.getClass().getName());
+                    typeBuilder.append(", ");
+
+                    if (item instanceof Iterable) {
+                        valueStringBuilder.append(Lists.newArrayList((Iterable) item));
+                    } else {
+                        valueStringBuilder.append(item);
+                    }
+
+                    valueStringBuilder.append(", ");
+                }
+            }
+            typeValue.setFirst(typeBuilder.substring(0, typeBuilder.length() - 2) + "]");
+            typeValue.setSecond(StringEscapeUtils.escapeHtml4(valueStringBuilder.substring(0, valueStringBuilder.length() - 2) + "]"));
+        }
+        return typeValue;
     }
 
     protected void printJavaJsonPython(final Object obj, final String java) {

@@ -21,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
 import uk.gov.gchq.gaffer.doc.dev.walkthrough.DevWalkthroughRunner;
+import uk.gov.gchq.gaffer.doc.function.FunctionExamplesRunner;
 import uk.gov.gchq.gaffer.doc.operation.OperationExamplesRunner;
 import uk.gov.gchq.gaffer.doc.operation.accumulo.AccumuloOperationExamplesRunner;
 import uk.gov.gchq.gaffer.doc.operation.spark.SparkOperationExamplesRunner;
@@ -39,7 +40,8 @@ public class DocsGenerator implements DocGenerator {
             new OperationExamplesRunner(),
             new AccumuloOperationExamplesRunner(),
             new SparkOperationExamplesRunner(),
-            new PredicateExamplesRunner()
+            new PredicateExamplesRunner(),
+            new FunctionExamplesRunner(),
     };
 
     public static void main(final String[] args) throws Exception {
