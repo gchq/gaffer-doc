@@ -15,6 +15,7 @@
  */
 package uk.gov.gchq.gaffer.doc.operation;
 
+import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
 import uk.gov.gchq.gaffer.data.graph.Walk;
 import uk.gov.gchq.gaffer.data.graph.function.walk.ExtractWalkEdgesFromHop;
@@ -42,10 +43,30 @@ public class MapExample extends OperationExample {
 
     @Override
     protected void runExamples() {
-        extractInputSeeds();
+        extractFromGetElements();
+        extractFirstItemsFromWalks();
     }
 
-    public Set<?> extractInputSeeds() {
+    public Object extractFromGetElements() {
+        // ---------------------------------------------------------
+        final OperationChain<?> operationChain = new OperationChain.Builder()
+                .first(new GetElements.Builder()
+                        .view(new View.Builder()
+                                .entity("entity")
+                                .build())
+                        .build())
+                .then(new Map.Builder<Iterable<? extends Element>>()
+                        .first(new FirstItem<>())
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+
+        return runExample(operationChain, "This simple example demonstrates retrieving " +
+                "elements from the \"entity\" group, from which the first item is " +
+                "extracted.");
+    }
+
+    public Set<?> extractFirstItemsFromWalks() {
         // ---------------------------------------------------------
         final OperationChain<Set<?>> opChain = new OperationChain.Builder()
                 .first(new GetWalks.Builder()
