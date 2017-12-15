@@ -51,6 +51,7 @@ public class MapExample extends OperationExample {
         // ---------------------------------------------------------
         final OperationChain<?> operationChain = new OperationChain.Builder()
                 .first(new GetElements.Builder()
+                        .input(new EntitySeed(1), new EntitySeed(2))
                         .view(new View.Builder()
                                 .entity("entity")
                                 .build())
