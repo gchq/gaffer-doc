@@ -44,7 +44,7 @@ ${GET_AND_CONVERT_SNIPPET}
 
 When we execute this query we get:
 
-```csv
+```
 ${CSV_RESULT}
 ```
 

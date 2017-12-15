@@ -52,7 +52,7 @@ public abstract class PredicateExample extends Example {
         print("```\n");
 
         print("Example inputs:");
-        print("<table style=\"block: display; overflow-x: auto; word-break: break-all\">");
+        print("<table style=\"display: block;\">");
         print("<tr><th>Input Type</th><th>Input</th><th>Result</th></tr>");
         for (final Object input : inputs) {
             final Pair<String, String> inputTypeValue = getTypeValue(input);

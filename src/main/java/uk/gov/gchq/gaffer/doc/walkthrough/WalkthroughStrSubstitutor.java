@@ -107,7 +107,7 @@ public abstract class WalkthroughStrSubstitutor {
         final Map<String, String> params = new HashMap<>();
         putParam(params, "HEADER", "# " + example.getHeader());
         putParam(params, "CODE_LINK", "The code for this example is " + getGitHubCodeLink(example.getClass(), example.walkthroughId) + ".");
-        putParam(params, "DATA", getCsvBlockFromResource(example.dataPath, exampleClass));
+        putParam(params, "DATA", getBlockFromResource(example.dataPath, exampleClass));
         if (null != example.elementGenerator) {
             putParam(params, "ELEMENT_GENERATOR_JAVA", JavaSourceUtil.getJava(example.elementGenerator.getName(), null));
         }
@@ -219,8 +219,8 @@ public abstract class WalkthroughStrSubstitutor {
         return getBlockFromResource(resourcePath, clazz, "json");
     }
 
-    public static String getCsvBlockFromResource(final String resourcePath, final Class<?> clazz) {
-        return getBlockFromResource(resourcePath, clazz, "csv");
+    public static String getBlockFromResource(final String resourcePath, final Class<?> clazz) {
+        return getBlockFromResource(resourcePath, clazz, "");
     }
 
     public static String getPropertiesBlockFromResource(final String resourcePath, final Class<?> clazz) {

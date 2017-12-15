@@ -103,7 +103,9 @@ To do this we need to provide 3 things; the schema files we introduced in the pr
 
 ### The Graph Configuration
 
-The graph configuration identifies the graph you are connecting to. In it's simplest form, this is just a JSON document containing a single String to identify your graph.
+The graph configuration identifies the graph you are connecting to.
+In it's simplest form, this is just a JSON document containing a single String to identify your graph.
+For more information please see [Graph Configuration](../../components/core/graph.md#graph-configuration).
 
 ${SIMPLE_GRAPH_CONFIGURATION}
 

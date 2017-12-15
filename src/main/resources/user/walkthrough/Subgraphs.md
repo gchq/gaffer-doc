@@ -28,7 +28,7 @@ The export operations will export the currently result and pass the result onto 
 
 The result is the full set of traversed Edges:
 
-```csv
+```
 ${SUB_GRAPH}
 ```
 

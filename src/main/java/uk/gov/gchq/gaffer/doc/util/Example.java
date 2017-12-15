@@ -36,8 +36,8 @@ public abstract class Example {
     public static final String CAPITALS_AND_NUMBERS_REGEX = "((?=[A-Z])|(?<=[0-9])(?=[a-zA-Z])|(?<=[a-zA-Z])(?=[0-9]))";
     public static final String DIVIDER = "-----------------------------------------------";
     public static final String METHOD_DIVIDER = DIVIDER + "\n";
-    public static final String KORYPHE_JAVA_DOC_URL_PREFIX = "ref://../javadoc/koryphe/";
-    public static final String JAVA_DOC_URL_PREFIX = "ref://../javadoc/gaffer/";
+    public static final String KORYPHE_JAVA_DOC_URL_PREFIX = "ref://../../javadoc/koryphe/";
+    public static final String JAVA_DOC_URL_PREFIX = "ref://../../javadoc/gaffer/";
     public static final String SKIP_PYTHON_PROPERTY = "gaffer.doc.skipPython";
     private final Class<?> classForExample;
     private final String description;
@@ -124,9 +124,6 @@ public abstract class Example {
                 if (value instanceof Iterable) {
                     final StringBuilder valueStr = new StringBuilder();
                     for (final Object obj : ((Iterable) value)) {
-                        if (valueStr.length() > 0) {
-                            valueStr.append("<br />");
-                        }
                         valueStr.append(StringEscapeUtils.escapeHtml4(obj.toString()));
                     }
                     typeValue.setSecond(valueStr.toString());
