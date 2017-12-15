@@ -15,9 +15,12 @@
  */
 package uk.gov.gchq.gaffer.doc.function;
 
+
+import com.google.common.collect.Lists;
+
 import uk.gov.gchq.koryphe.impl.function.IterableConcat;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class IterableConcatExample extends FunctionExample {
@@ -39,21 +42,22 @@ public class IterableConcatExample extends FunctionExample {
         final IterableConcat<Integer> function = new IterableConcat<>();
         // ---------------------------------------------------------
 
-        final List<Integer> aa = Arrays.asList(2, 3, 5);
-        final List<Integer> ab = Arrays.asList(7, 11, 13);
-        final List<Integer> ac = Arrays.asList(17, 19, 23);
+        final List<Integer> aa = Lists.newArrayList(2, 3, 5);
+        final List<Integer> ab = Lists.newArrayList(7, 11, 13);
+        final List<Integer> ac = Lists.newArrayList(17, 19, 23);
+        final List<List<Integer>> input1 = Lists.newArrayList(aa, ab, ac);
 
-        final List<Iterable<Integer>> input = Arrays.asList(aa, ab, ac);
+        final List<Integer> ba = Lists.newArrayList(29, 31, 37);
+        final List<List<Integer>> input2 = new ArrayList<>();
+        input2.add(ba);
 
-        final List<Integer> ba = Arrays.asList(29, 31, 37);
-        final List<Integer> bb = Arrays.asList(41, 43, 47);
-        final List<Integer> bc = Arrays.asList(53, 59, 61);
-
-        final List<Iterable<Integer>> input1 = Arrays.asList(ba, bb, bc);
+        final List<List<Integer>> input3 = Lists.newArrayList(aa, ab, null);
 
         runExample(function,
                 null,
-                input,
-                input1);
+                input1,
+                input2,
+                input3,
+                null);
     }
 }

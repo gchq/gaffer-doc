@@ -38,6 +38,6 @@ public class ToStringExample extends FunctionExample {
 
         runExample(function,
                 null,
-                1, 2.5, "abc");
+                1, 2.5, "abc", null);
     }
 }

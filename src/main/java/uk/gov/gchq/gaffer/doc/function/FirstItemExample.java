@@ -15,9 +15,9 @@
  */
 package uk.gov.gchq.gaffer.doc.function;
 
-import uk.gov.gchq.koryphe.impl.function.FirstItem;
+import com.google.common.collect.Lists;
 
-import java.util.Arrays;
+import uk.gov.gchq.koryphe.impl.function.FirstItem;
 
 public class FirstItemExample extends FunctionExample {
     public static void main(final String[] args) {
@@ -40,8 +40,10 @@ public class FirstItemExample extends FunctionExample {
 
         runExample(function,
                 null,
-                Arrays.asList(2, 3, 5),
-                Arrays.asList(7, 11, 13),
-                Arrays.asList(17, 19, 23));
+                Lists.newArrayList(2, 3, 5),
+                Lists.newArrayList(7, 11, 13),
+                Lists.newArrayList(17, 19, null),
+                Lists.newArrayList(null, 19, 27),
+                null);
     }
 }

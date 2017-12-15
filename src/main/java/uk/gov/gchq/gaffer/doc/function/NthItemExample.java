@@ -15,9 +15,9 @@
  */
 package uk.gov.gchq.gaffer.doc.function;
 
-import uk.gov.gchq.koryphe.impl.function.NthItem;
+import com.google.common.collect.Lists;
 
-import java.util.Arrays;
+import uk.gov.gchq.koryphe.impl.function.NthItem;
 
 public class NthItemExample extends FunctionExample {
     public static void main(final String[] args) {
@@ -39,10 +39,12 @@ public class NthItemExample extends FunctionExample {
         // ---------------------------------------------------------
 
         runExample(function,
-                 null,
-                Arrays.asList(3, 1, 4),
-                Arrays.asList(1, 5, 9),
-                Arrays.asList(2, 6, 5));
-
+                null,
+                Lists.newArrayList(3, 1, 4),
+                Lists.newArrayList(1, 5, 9),
+                Lists.newArrayList(2, 6, 5),
+                Lists.newArrayList(2, null, 5),
+                Lists.newArrayList(2, 6, null),
+                null);
     }
 }
