@@ -123,9 +123,18 @@ public abstract class Example {
                 typeValue.setFirst(value.getClass().getName());
                 if (value instanceof Iterable) {
                     final StringBuilder valueStr = new StringBuilder();
+                    valueStr.append("[");
                     for (final Object obj : ((Iterable) value)) {
-                        valueStr.append(StringEscapeUtils.escapeHtml4(obj.toString()));
+                        if (valueStr.length() > 1) {
+                            valueStr.append(", ");
+                        }
+                        if (null == obj) {
+                            valueStr.append("null");
+                        } else {
+                            valueStr.append(StringEscapeUtils.escapeHtml4(obj.toString()));
+                        }
                     }
+                    valueStr.append("]");
                     typeValue.setSecond(valueStr.toString());
                 } else {
                     typeValue.setSecond(StringEscapeUtils.escapeHtml4(value.toString()));

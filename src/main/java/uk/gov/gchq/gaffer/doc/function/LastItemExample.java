@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Crown Copyright
+ * Copyright 2017 Crown Copyright
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,29 +15,37 @@
  */
 package uk.gov.gchq.gaffer.doc.function;
 
-import uk.gov.gchq.koryphe.impl.function.ToString;
+import com.google.common.collect.Lists;
 
-public class ToStringExample extends FunctionExample {
+import uk.gov.gchq.koryphe.impl.function.LastItem;
+
+public class LastItemExample extends FunctionExample {
     public static void main(final String[] args) {
-        new ToStringExample().runAndPrint();
+        new LastItemExample().runAndPrint();
     }
 
-    public ToStringExample() {
-        super(ToString.class, "toString is simply called on each input. If the input is null, null is returned.");
+    public LastItemExample() {
+        super(LastItem.class, "For a given Iterable, a LastItem will extract the last item.");
     }
 
     @Override
-    public void runExamples() {
-        objectToString();
+    protected void runExamples() {
+        extractLastItem();
+
     }
 
-    public void objectToString() {
+    public void extractLastItem() {
         // ---------------------------------------------------------
-        final ToString function = new ToString();
+        final LastItem<Integer> function = new LastItem<>();
         // ---------------------------------------------------------
 
         runExample(function,
                 null,
-                1, 2.5, "abc", null);
+                Lists.newArrayList(1, 2, 3),
+                Lists.newArrayList(5, 8, 13),
+                Lists.newArrayList(21, 34, 55),
+                Lists.newArrayList(1, null, 3),
+                Lists.newArrayList(1, 2, null),
+                null);
     }
 }
