@@ -31,6 +31,7 @@ import uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator;
 import uk.gov.gchq.gaffer.doc.operation.generator.ElementWithVaryingGroupsGenerator;
 import uk.gov.gchq.gaffer.doc.util.Example;
 import uk.gov.gchq.gaffer.graph.Graph;
+import uk.gov.gchq.gaffer.graph.GraphConfig;
 import uk.gov.gchq.gaffer.operation.Operation;
 import uk.gov.gchq.gaffer.operation.OperationChain;
 import uk.gov.gchq.gaffer.operation.OperationException;
@@ -87,9 +88,9 @@ public abstract class OperationExample extends Example {
     }
 
     protected void showJavaExample(final String description) {
-        log("#### " + getMethodNameAsSentence(1) + "\n");
+        print("### " + getMethodNameAsSentence(1) + "\n");
         if (StringUtils.isNotBlank(description)) {
-            log(description + "\n");
+            print(description + "\n");
         }
         printJava(getJavaSnippet(3));
 
@@ -100,9 +101,9 @@ public abstract class OperationExample extends Example {
 
     protected void showExample(final OperationChain operation,
                                final String description) {
-        log("#### " + getMethodNameAsSentence(1) + "\n");
+        print("### " + getMethodNameAsSentence(1) + "\n");
         if (StringUtils.isNotBlank(description)) {
-            log(description + "\n");
+            print(description + "\n");
         }
         printJavaJsonPython(operation, 3);
 
@@ -113,9 +114,9 @@ public abstract class OperationExample extends Example {
 
     protected void showExample(final Operation operation,
                                final String description) {
-        log("#### " + getMethodNameAsSentence(1) + "\n");
+        print("### " + getMethodNameAsSentence(1) + "\n");
         if (StringUtils.isNotBlank(description)) {
-            log(description);
+            print(description);
         }
         printJavaJsonPython(operation, 3);
 
@@ -126,9 +127,9 @@ public abstract class OperationExample extends Example {
 
     protected void runExampleNoResult(final Operation operation,
                                       final String description) {
-        log("#### " + getMethodNameAsSentence(1) + "\n");
+        print("### " + getMethodNameAsSentence(1) + "\n");
         if (StringUtils.isNotBlank(description)) {
-            log(description + "\n");
+            print(description + "\n");
         }
         printJavaJsonPython(operation, 3);
 
@@ -145,9 +146,9 @@ public abstract class OperationExample extends Example {
 
     protected <RESULT_TYPE> RESULT_TYPE runExample(
             final Output<RESULT_TYPE> operation, final String description) {
-        log("#### " + getMethodNameAsSentence(1) + "\n");
+        print("### " + getMethodNameAsSentence(1) + "\n");
         if (StringUtils.isNotBlank(description)) {
-            log(description + "\n");
+            print(description + "\n");
         }
 
         if (complex) {
@@ -165,7 +166,7 @@ public abstract class OperationExample extends Example {
             throw new RuntimeException(e);
         }
 
-        logResult(results);
+        printResult(results);
 
         if (!skipEndOfMethodBreaks) {
             endOfMethod();
@@ -176,10 +177,10 @@ public abstract class OperationExample extends Example {
     protected <RESULT_TYPE> RESULT_TYPE runExample(
             final OperationChain<RESULT_TYPE> operationChain,
             final String description) {
-        log("#### " + getMethodNameAsSentence(1) + "\n");
+        print("### " + getMethodNameAsSentence(1) + "\n");
         if (StringUtils.isNotBlank(description)) {
-            log(description);
-            log("");
+            print(description);
+            print("");
         }
 
         if (complex) {
@@ -197,7 +198,7 @@ public abstract class OperationExample extends Example {
             throw new RuntimeException(e);
         }
 
-        logResult(result);
+        printResult(result);
 
         if (!skipEndOfMethodBreaks) {
             endOfMethod();
@@ -206,79 +207,84 @@ public abstract class OperationExample extends Example {
     }
 
     protected void endOfMethod() {
-        log(getEndOfMethodString());
+        print(getEndOfMethodString());
     }
 
     protected String getEndOfMethodString() {
         return METHOD_DIVIDER;
     }
 
-    public <RESULT_TYPE> void logResult(final RESULT_TYPE result) {
-        log("Result:");
+    public <RESULT_TYPE> void printResult(final RESULT_TYPE result) {
+        print("Result:");
 
-        log("\n{% codetabs name=\"Java\", type=\"java\" -%}");
+        print("\n{% codetabs name=\"Java\", type=\"java\" -%}");
         if (result instanceof Iterable) {
             for (final Object item : (Iterable) result) {
                 if (item instanceof Walk) {
                     final Walk walk = (Walk) item;
-                    log(Walk.class.getName() + walk.getVerticesOrdered()
+                    print(Walk.class.getName() + walk.getVerticesOrdered()
                             .stream()
                             .map(Object::toString)
                             .collect(Collectors.joining(" --> ", "[ ", " ]")));
                 } else {
-                    log(item.toString());
+                    print(item.toString());
                 }
             }
         } else if (result instanceof Map) {
             final Map<?, ?> resultMap = (Map) result;
             for (final Map.Entry<?, ?> entry : resultMap.entrySet()) {
-                log(entry.getKey() + ":");
+                print(entry.getKey() + ":");
                 if (entry.getValue() instanceof Iterable) {
                     for (final Object item : (Iterable) entry.getValue()) {
-                        log("    " + item.toString());
+                        print("    " + item.toString());
                     }
                 } else {
-                    log("    " + entry.getValue().toString());
+                    print("    " + entry.getValue().toString());
                 }
             }
         } else if (result instanceof Stream) {
             final Stream stream = (Stream) result;
-            stream.forEach(item -> log(item.toString()));
+            stream.forEach(item -> print(item.toString()));
         } else if (result instanceof Object[]) {
             final Object[] array = (Object[]) result;
             for (int i = 0; i < array.length; i++) {
-                log(array[i].toString());
+                print(array[i].toString());
             }
         } else if (result instanceof JavaRDD) {
             final List<Element> elements = ((JavaRDD) result).collect();
             for (final Element e : elements) {
-                log(e.toString());
+                print(e.toString());
             }
         } else if (result instanceof Dataset) {
             final Dataset<Row> dataset = ((Dataset) result);
             final String resultStr = dataset.showString(100, 20);
-            log(resultStr.substring(0, resultStr.length() - 2));
+            print(resultStr.substring(0, resultStr.length() - 2));
         } else if (result instanceof Schema) {
-            log(getJson(result));
+            print(getJson(result));
+        } else if (null != result) {
+            print(result.toString());
         } else {
-            log(result.toString());
+            throw new RuntimeException("Operation result was null");
         }
 
         try {
             final String json = getJson(result);
-            log("\n{%- language name=\"JSON\", type=\"json\" -%}");
-            log(json);
+            print("\n{%- language name=\"JSON\", type=\"json\" -%}");
+            print(json);
         } catch (final Exception e) {
             // ignore error - just don't display the json
         }
 
-        log("{%- endcodetabs %}\n");
+        print("{%- endcodetabs %}\n");
     }
 
     protected Graph createSimpleExampleGraph() {
         final Graph graph = new Graph.Builder()
-                .config(StreamUtil.graphConfig(getClass()))
-                .addSchemas(StreamUtil.openStreams(getClass(), "operation/schema"))
+                .config(new GraphConfig.Builder()
+                        .json(StreamUtil.graphConfig(getClass()))
+                        .graphId(getClass().getSimpleName())
+                        .build())
+                .addSchemas(StreamUtil.openStreams(getClass(), "operations/schema"))
                 .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
                 .build();
 
@@ -288,7 +294,7 @@ public abstract class OperationExample extends Example {
         // Load data into memory
         final List<String> data;
         try {
-            data = IOUtils.readLines(StreamUtil.openStream(getClass(), "operation/data.txt"));
+            data = IOUtils.readLines(StreamUtil.openStream(getClass(), "operations/data.txt"));
         } catch (final IOException e) {
             throw new RuntimeException(e);
         }
@@ -315,8 +321,11 @@ public abstract class OperationExample extends Example {
 
     protected Graph createComplexExampleGraph() {
         final Graph graph = new Graph.Builder()
-                .config(StreamUtil.graphConfig(getClass()))
-                .addSchemas(StreamUtil.openStreams(getClass(), "operation/schema"))
+                .config(new GraphConfig.Builder()
+                        .json(StreamUtil.graphConfig(getClass()))
+                        .graphId(getClass().getSimpleName())
+                        .build())
+                .addSchemas(StreamUtil.openStreams(getClass(), "operations/schema"))
                 .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
                 .build();
 
@@ -326,7 +335,7 @@ public abstract class OperationExample extends Example {
         // Load data into memory
         final List<String> data;
         try {
-            data = IOUtils.readLines(StreamUtil.openStream(getClass(), "operation/complexData.txt"));
+            data = IOUtils.readLines(StreamUtil.openStream(getClass(), "operations/complexData.txt"));
         } catch (final IOException e) {
             throw new RuntimeException(e);
         }
@@ -352,65 +361,65 @@ public abstract class OperationExample extends Example {
     }
 
     protected void simpleGraphAsImage() {
-        log("<img src=\"images/complex.png\" width=\"300\">");
+        print("<img src=\"images/complex.png\" width=\"300\">");
     }
 
     protected void complexGraphAsImage() {
-        log("<img src=\"images/complex.png\" width=\"300\">");
+        print("<img src=\"images/complex.png\" width=\"300\">");
     }
 
     protected void printSimpleGraphAsAscii() {
-        log("Using this complex directed graph:");
-        log("\n```");
-        log("");
-        log("    --> 4 <--");
-        log("  /     ^     \\");
-        log(" /      |      \\");
-        log("1  -->  2  -->  3");
-        log("         \\");
-        log("           -->  5");
-        log("```\n");
+        print("Using this complex directed graph:");
+        print("\n```");
+        print("");
+        print("    --> 4 <--");
+        print("  /     ^     \\");
+        print(" /      |      \\");
+        print("1  -->  2  -->  3");
+        print("         \\");
+        print("           -->  5");
+        print("```\n");
     }
 
     protected void printComplexGraphAsAscii() {
-        log("Using this directed graph:");
-        log("\n```");
-        log("");
-        log("                 --> 7 <--");
-        log("               /           \\");
-        log("              /             \\");
-        log("             6  -->  3  -->  4");
-        log(" ___        ^         \\");
-        log("|   |       /          /");
-        log(" -> 8 -->  5  <--  2  <");
-        log("          ^        ^");
-        log("         /        /");
-        log("    1 --         /");
-        log("     \\          /");
-        log("       --------");
-        log("```\n");
+        print("Using this directed graph:");
+        print("\n```");
+        print("");
+        print("                 --> 7 <--");
+        print("               /           \\");
+        print("              /             \\");
+        print("             6  -->  3  -->  4");
+        print(" ___        ^         \\");
+        print("|   |       /          /");
+        print(" -> 8 -->  5  <--  2  <");
+        print("          ^        ^");
+        print("         /        /");
+        print("    1 --         /");
+        print("     \\          /");
+        print("       --------");
+        print("```\n");
     }
 
     protected void printRequiredFields() {
-        log("### Required fields");
+        print("## Required fields");
         boolean hasRequiredFields = false;
         for (final Field field : getClassForExample().getDeclaredFields()) {
             final Required[] annotations = field.getAnnotationsByType(Required.class);
             if (null != annotations && annotations.length > 0) {
                 if (!hasRequiredFields) {
                     hasRequiredFields = true;
-                    log("The following fields are required: ");
+                    print("The following fields are required: ");
                 }
                 final String name = field.getName();
-                log("- " + name);
+                print("- " + name);
             }
         }
 
         if (!hasRequiredFields) {
-            log("No required fields");
+            print("No required fields");
         }
 
-        log("\n");
+        print("\n");
     }
 
     protected Context createContext() {

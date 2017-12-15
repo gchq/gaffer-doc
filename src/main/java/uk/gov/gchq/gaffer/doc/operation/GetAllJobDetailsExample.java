@@ -22,7 +22,7 @@ import uk.gov.gchq.gaffer.operation.impl.job.GetAllJobDetails;
 
 public class GetAllJobDetailsExample extends OperationExample {
     public static void main(final String[] args) throws OperationException {
-        new GetAllJobDetailsExample().run();
+        new GetAllJobDetailsExample().runAndPrint();
     }
 
     public GetAllJobDetailsExample() {

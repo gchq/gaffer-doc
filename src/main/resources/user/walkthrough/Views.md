@@ -63,7 +63,7 @@ ${JSON_CODE}
 ${VIEW_WITH_REMOVED_PROPERTIES_JSON}
 ${END_CODE}
 
-#### Global view definitions
+## Global view definitions
 
 If you want to set the same filters on multiple groups you can use a global view definition.
 When specifying global view definitions you can choose from:

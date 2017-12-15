@@ -96,7 +96,7 @@ public abstract class PropertiesWalkthrough extends AbstractWalkthrough {
 
 
     protected PropertiesWalkthrough(final Class<?> propertyType, final String resourcePath, final Class<? extends ElementGenerator> generatorClass) {
-        super(propertyType.getSimpleName(), null, resourcePath + "/schema", generatorClass, null, "properties");
+        super(propertyType.getSimpleName(), resourcePath, generatorClass, "properties");
         this.propertyType = propertyType;
     }
 
@@ -104,7 +104,7 @@ public abstract class PropertiesWalkthrough extends AbstractWalkthrough {
     public String walkthrough() throws OperationException {
         if (null != propertyType) {
             cacheLogs = true;
-            log("PROPERTY_CLASS", "Properties class: " + propertyType.getName());
+            print("PROPERTY_CLASS", "Properties class: " + propertyType.getName());
             listPredicates(propertyType);
             listAggregators(propertyType);
             listSerialisers(propertyType);
@@ -126,8 +126,8 @@ public abstract class PropertiesWalkthrough extends AbstractWalkthrough {
             }
         }
         if (!validateClasses.isEmpty()) {
-            log(PREDICATES_KEY, "\nPredicates:");
-            log(PREDICATES_KEY, "\n- " + StringUtils.join(validateClasses, "\n- "));
+            print(PREDICATES_KEY, "\nPredicates:");
+            print(PREDICATES_KEY, "\n- " + StringUtils.join(validateClasses, "\n- "));
         }
         return !validateClasses.isEmpty();
     }
@@ -141,8 +141,8 @@ public abstract class PropertiesWalkthrough extends AbstractWalkthrough {
             }
         }
         if (!aggregateClasses.isEmpty()) {
-            log(AGGREGATORS_KEY, "\nAggregators:");
-            log(AGGREGATORS_KEY, "\n- " + StringUtils.join(aggregateClasses, "\n- "));
+            print(AGGREGATORS_KEY, "\nAggregators:");
+            print(AGGREGATORS_KEY, "\n- " + StringUtils.join(aggregateClasses, "\n- "));
         }
         return !aggregateClasses.isEmpty();
     }
@@ -181,8 +181,8 @@ public abstract class PropertiesWalkthrough extends AbstractWalkthrough {
         }
 
         if (!toBytesSerialiserClasses.isEmpty()) {
-            log(SERIALISERS_KEY, "\nTo Bytes Serialisers:");
-            log(SERIALISERS_KEY, "\n- " + StringUtils.join(toBytesSerialiserClassNames, "\n- "));
+            print(SERIALISERS_KEY, "\nTo Bytes Serialisers:");
+            print(SERIALISERS_KEY, "\n- " + StringUtils.join(toBytesSerialiserClassNames, "\n- "));
         }
         return !toBytesSerialiserClasses.isEmpty();
     }
@@ -195,8 +195,8 @@ public abstract class PropertiesWalkthrough extends AbstractWalkthrough {
             }
         }
         if (!serialiserClasses.isEmpty()) {
-            log(SERIALISERS_KEY, "\nOther Serialisers:");
-            log(SERIALISERS_KEY, "\n- " + StringUtils.join(serialiserClasses, "\n- "));
+            print(SERIALISERS_KEY, "\nOther Serialisers:");
+            print(SERIALISERS_KEY, "\n- " + StringUtils.join(serialiserClasses, "\n- "));
         }
         return !serialiserClasses.isEmpty();
     }
@@ -218,7 +218,7 @@ public abstract class PropertiesWalkthrough extends AbstractWalkthrough {
         final Set<URL> urls = new HashSet<>();
         urls.addAll(ClasspathHelper.forPackage("uk.gov.gchq"));
 
-        final List<Class> classes = new ArrayList<>(new Reflections(urls).getSubTypesOf(clazz));
+        final List<Class> classes = new ArrayList<Class>(new Reflections(urls).getSubTypesOf(clazz));
         keepPublicConcreteClasses(classes);
         classes.removeIf(c -> c.getName().contains("uk.gov.gchq.gaffer.doc"));
         classes.removeAll(SYSTEM_CLASSES);

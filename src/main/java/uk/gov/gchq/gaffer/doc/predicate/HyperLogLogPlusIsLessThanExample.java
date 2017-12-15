@@ -25,7 +25,7 @@ public class HyperLogLogPlusIsLessThanExample extends PredicateExample {
     private final HyperLogLogPlus hllp3 = new HyperLogLogPlus(15);
 
     public static void main(final String[] args) {
-        new HyperLogLogPlusIsLessThanExample().run();
+        new HyperLogLogPlusIsLessThanExample().runAndPrint();
     }
 
     public HyperLogLogPlusIsLessThanExample() {

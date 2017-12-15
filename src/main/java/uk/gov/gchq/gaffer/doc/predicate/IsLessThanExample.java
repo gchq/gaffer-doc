@@ -19,7 +19,7 @@ import uk.gov.gchq.koryphe.impl.predicate.IsLessThan;
 
 public class IsLessThanExample extends PredicateExample {
     public static void main(final String[] args) {
-        new IsLessThanExample().run();
+        new IsLessThanExample().runAndPrint();
     }
 
     public IsLessThanExample() {

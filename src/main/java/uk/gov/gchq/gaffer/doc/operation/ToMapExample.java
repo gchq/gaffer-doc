@@ -31,7 +31,7 @@ public class ToMapExample extends OperationExample {
     }
 
     public static void main(final String[] args) throws OperationException {
-        new ToMapExample().run();
+        new ToMapExample().runAndPrint();
     }
 
     @Override

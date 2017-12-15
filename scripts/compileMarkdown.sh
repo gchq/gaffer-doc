@@ -7,29 +7,6 @@
 set -e
 
 mkdir -p docs/getting-started
-
-echo "Generating user-guide"
-java -cp target/doc-jar-with-dependencies.jar uk.gov.gchq.gaffer.doc.user.walkthrough.UserWalkthroughRunner > docs/getting-started/user-guide.md
-
-echo "Generating dev-guide"
-java -cp target/doc-jar-with-dependencies.jar uk.gov.gchq.gaffer.doc.dev.walkthrough.DevWalkthroughRunner > docs/getting-started/dev-guide.md
-
-echo "Generating properties-guide"
-java -cp target/doc-jar-with-dependencies.jar uk.gov.gchq.gaffer.doc.properties.walkthrough.PropertiesWalkthroughRunner > docs/getting-started/properties-guide.md
-
-echo "Generating operation-examples"
-java -cp target/doc-jar-with-dependencies.jar uk.gov.gchq.gaffer.doc.operation.OperationExamplesRunner > docs/getting-started/operation-examples.md
-
-echo "Generating accumulo-operation-examples"
-java -cp target/doc-jar-with-dependencies.jar uk.gov.gchq.gaffer.doc.operation.accumulo.AccumuloOperationExamplesRunner > docs/getting-started/accumulo-operation-examples.md
-
-echo "Generating spark-operation-examples"
-java -cp target/doc-jar-with-dependencies.jar uk.gov.gchq.gaffer.doc.operation.spark.SparkOperationExamplesRunner > docs/getting-started/spark-operation-examples.md
-
-echo "Generating predicate-examples"
-java -cp target/doc-jar-with-dependencies.jar uk.gov.gchq.gaffer.doc.predicate.PredicateExamplesRunner > docs/getting-started/predicate-examples.md
-
-
 mkdir -p docs/components/core
 mkdir -p docs/components/example
 components="core/serialisation core/data core/operation core/store core/graph rest-api example/road-traffic example/federated-demo";

@@ -49,7 +49,6 @@ import uk.gov.gchq.gaffer.user.User;
 import uk.gov.gchq.koryphe.impl.binaryoperator.Sum;
 import uk.gov.gchq.koryphe.impl.predicate.Exists;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -78,16 +77,12 @@ public abstract class WalkthroughStrSubstitutor {
 
     public static final String END_MARKER_MARKER = "{%- endcodetabs %}\n";
 
-    public static String substitute(final String walkthrough, final AbstractWalkthrough example, final String modulePath, final String header, final String dataPath, final String schemaPath, final Class<? extends ElementGenerator> elementGenerator) {
-        return substitute(walkthrough, createParameterMap(walkthrough, example, modulePath, header, dataPath, schemaPath, elementGenerator));
+    public static String substitute(final String walkthrough, final AbstractWalkthrough example) {
+        return substitute(walkthrough, createParameterMapForExample(walkthrough, example));
     }
 
-    public static String substitute(final String walkthrough, final AbstractWalkthrough example, final String modulePath) {
-        return substitute(walkthrough, createParameterMap(walkthrough, example, modulePath));
-    }
-
-    public static String substitute(final String walkthrough, final String modulePath) {
-        return substitute(walkthrough, null, modulePath);
+    public static String substitute(final String walkthrough) {
+        return substitute(walkthrough, createParameterMap());
     }
 
     public static String substitute(final String walkthrough, final Map<String, String> paramMap) {
@@ -107,104 +102,34 @@ public abstract class WalkthroughStrSubstitutor {
         }
     }
 
-    public static Map<String, String> createParameterMap(final String text, final AbstractWalkthrough example, final String modulePath, final String header, final String dataPath, final String schemaPath, final Class<? extends ElementGenerator> elementGenerator) {
+    public static Map<String, String> createParameterMapForExample(final String text, final AbstractWalkthrough example) {
         final Class<?> exampleClass = example.getClass();
         final Map<String, String> params = new HashMap<>();
-        params.put("HEADER",
-                "### " + header);
-        params.put("CODE_LINK",
-                "The code for this example is " + getGitHubCodeLink(example.getClass(), modulePath) + ".");
-        if (null != dataPath) {
-            params.put("DATA",
-                    "\n```csv\n" + getResource(dataPath, exampleClass) + "\n```\n");
+        putParam(params, "HEADER", "# " + example.getHeader());
+        putParam(params, "CODE_LINK", "The code for this example is " + getGitHubCodeLink(example.getClass(), example.walkthroughId) + ".");
+        putParam(params, "DATA", getBlockFromResource(example.dataPath, exampleClass));
+        if (null != example.elementGenerator) {
+            putParam(params, "ELEMENT_GENERATOR_JAVA", JavaSourceUtil.getJava(example.elementGenerator.getName(), null));
         }
-        if (null != elementGenerator) {
-            params.put("ELEMENT_GENERATOR_JAVA",
-                    JavaSourceUtil.getJava(elementGenerator.getName(), modulePath));
-        }
-        params.put("STORE_PROPERTIES",
-                "\n```properties\n" + getResource("/mockaccumulostore.properties", exampleClass).replaceAll("#.*\\n", "") + "\n```\n");
-        params.put("ELEMENTS_SCHEMA_LINK",
-                getGitHubResourcesLink(schemaPath + "/elements.json", modulePath));
-        params.put("TYPES_SCHEMA_LINK",
-                getGitHubResourcesLink(schemaPath + "/types.json", modulePath));
-        params.put("AGGREGATION_LINK",
-                getGitHubResourcesLink(schemaPath + "/aggregation.json", modulePath));
-        params.put("STORE_PROPERTIES_LINK",
-                getGitHubResourcesLink("/mockaccumulostore.properties", modulePath));
-        if (null != schemaPath) {
-            params.put("ELEMENTS_JSON",
-                    "\n```json\n" + getResource(schemaPath + "/elements.json", exampleClass) + "\n```\n");
-            params.put("TYPES_JSON",
-                    "\n```json\n" + getResource(schemaPath + "/types.json", exampleClass) + "\n```\n");
+        putParam(params, "STORE_PROPERTIES", getPropertiesBlockFromResource(example.storePropertiesPath, exampleClass));
+        putParam(params, "GRAPH_CONFIG", getJsonBlockFromResource(example.graphConfigPath, exampleClass));
+        putParam(params, "ELEMENTS_SCHEMA_LINK", getGitHubResourcesLink(example.schemaPath + "/elements.json", example.walkthroughId));
+        putParam(params, "TYPES_SCHEMA_LINK", getGitHubResourcesLink(example.schemaPath + "/types.json", example.walkthroughId));
+        putParam(params, "AGGREGATION_LINK", getGitHubResourcesLink(example.schemaPath + "/aggregation.json", example.walkthroughId));
+        putParam(params, "STORE_PROPERTIES_LINK", getGitHubResourcesLink(example.storePropertiesPath, example.walkthroughId));
+        putParam(params, "ELEMENTS_JSON", getJsonBlockFromResource(example.schemaPath + "/elements.json", exampleClass));
+        putParam(params, "TYPES_JSON", getJsonBlockFromResource(example.schemaPath + "/types.json", exampleClass));
+        putParam(params, "AGGREGATION_JSON", getJsonBlockFromResource(example.schemaPath + "/aggregation.json", exampleClass));
+        putParam(params, "VALIDATION_JSON", getJsonBlockFromResource(example.schemaPath + "/validation.json", exampleClass));
 
-            if (null != exampleClass.getResource("/" + schemaPath + "/aggregation.json")) {
-                params.put("AGGREGATION_JSON",
-                        "\n```json\n" + getResource(schemaPath + "/aggregation.json", exampleClass) + "\n```\n");
-            }
-            if (null != exampleClass.getResource("/" + schemaPath + "/validation.json")) {
-                params.put("VALIDATION_JSON",
-                        "\n```json\n" + getResource(schemaPath + "/validation.json", exampleClass) + "\n```\n");
-            }
+        try {
+            example.run();
+        } catch (final Exception e) {
+            throw new RuntimeException(e);
         }
 
-        params.putAll(createParameterMap(text, example, modulePath));
-        return params;
-    }
-
-    public static Map<String, String> createParameterMap(final String text, final AbstractWalkthrough example, final String modulePath) {
-        final Map<String, String> params = new HashMap<>();
-
-        params.put("START_JAVA_CODE", START_JAVA_CODE_MARKER);
-        params.put("JAVA_CODE", JAVA_CODE_MARKER);
-        params.put("START_JSON_CODE", START_JSON_CODE_MARKER);
-        params.put("JSON_CODE", JSON_CODE_MARKER);
-        params.put("START_PYTHON_CODE", START_PYTHON_CODE_MARKER);
-        params.put("PYTHON_CODE", PYTHON_CODE_MARKER);
-        params.put("END_CODE", END_MARKER_MARKER);
-
-        params.put("EDGE_JAVADOC", getJavaDocLink(Edge.class));
-        params.put("USER_JAVADOC", getJavaDocLink(User.class));
-        params.put("STORE_JAVADOC", getJavaDocLink(Store.class));
-        params.put("ACCUMULO_STORE_JAVADOC", getJavaDocLink(AccumuloStore.class));
-        params.put("MOCK_ACCUMULO_STORE_JAVADOC", getJavaDocLink(MockAccumuloStore.class));
-        params.put("GRAPH_JAVADOC", getJavaDocLink(Graph.class));
-        params.put("ELEMENT_GENERATOR_JAVADOC", getJavaDocLink(ElementGenerator.class));
-        params.put("OBJECT_GENERATOR_JAVADOC", getJavaDocLink(ObjectGenerator.class));
-        params.put("ELEMENT_JAVADOC", getJavaDocLink(Element.class));
-        params.put("SCHEMA_JAVADOC", getJavaDocLink(Schema.class));
-        params.put("PROPERTIES_JAVADOC", getJavaDocLink(Properties.class));
-        params.put("ADD_ELEMENTS_JAVADOC", getJavaDocLink(AddElements.class));
-        params.put("OPERATION_JAVADOC", getJavaDocLink(Operation.class));
-        params.put("GET_ELEMENTS_JAVADOC", getJavaDocLink(GetElements.class));
-        params.put("VIEW_JAVADOC", getJavaDocLink(View.class));
-        params.put("SUM_JAVADOC", getJavaDocLink(Sum.class));
-        params.put("EXISTS_JAVADOC", getJavaDocLink(Exists.class));
-        params.put("VIEW_ELEMENT_DEF_JAVADOC", getJavaDocLink(ViewElementDefinition.class));
-        params.put("ELEMENT_TRANSFORMER_JAVADOC", getJavaDocLink(ElementTransformer.class));
-        params.put("FUNCTION_JAVADOC", getJavaDocLink(Function.class));
-        params.put("GET_ADJACENT_ENTITY_SEEDS_JAVADOC", getJavaDocLink(GetAdjacentIds.class));
-        params.put("GENERATE_OBJECTS_JAVADOC", getJavaDocLink(GenerateObjects.class));
-        params.put("ENTITY_SEED_EXTRACTOR_JAVADOC", getJavaDocLink(EntityIdExtractor.class));
-        params.put("FETCH_EXPORT_JAVADOC", getJavaDocLink(GetSetExport.class));
-        params.put("EXPORT_TO_SET_JAVADOC", getJavaDocLink(ExportToSet.class));
-        params.put("EXPORT_TO_GAFFER_RESULT_CACHE_JAVADOC", getJavaDocLink(ExportToGafferResultCache.class));
-        params.put("ACCUMULO_USER_GUIDE", "[Accumulo Store User Guide](https://github.com/gchq/Gaffer/wiki/Accumulo-Store-user-guide)");
-        params.put("ACCUMULO_KEY_PACKAGE", getGafferGitHubCodeLink(AccumuloKeyPackage.class, "store-implementations/accumulo-store"));
-
-
-        params.put("OPERATION_EXAMPLES_LINK", getDocLink("Operation Examples"));
-
-        if (null != example) {
-            try {
-                example.run();
-            } catch (final Exception e) {
-                throw new RuntimeException(e);
-            }
-
-            for (final Map.Entry<String, StringBuilder> log : example.getLogCache().entrySet()) {
-                params.put(log.getKey(), log.getValue().toString() + "\n");
-            }
+        for (final Map.Entry<String, StringBuilder> log : example.getLogCache().entrySet()) {
+            putParam(params, log.getKey(), log.getValue().toString() + "\n");
         }
 
         int position = 0;
@@ -219,14 +144,70 @@ public abstract class WalkthroughStrSubstitutor {
                     position = startIndex + endIndex + 3;
                     final String param = tmp.substring(0, endIndex);
                     if (param.endsWith("_SNIPPET")) {
-                        if (null != example) {
-                            final String textId = param.replace("_SNIPPET", "").replaceAll("_", " ").toLowerCase(Locale.getDefault());
-                            params.put(param, JavaSourceUtil.getJavaSnippet(example.getClass(), modulePath, textId));
-                        }
+                        final String textId = param.replace("_SNIPPET", "").replaceAll("_", " ").toLowerCase(Locale.getDefault());
+                        putParam(params, param, JavaSourceUtil.getJavaSnippet(example.getClass(), null, textId));
                     }
                 }
             }
+            putParam(params, "VALIDATION_JSON", getJsonBlockFromResource(example.schemaPath + "/validation.json", exampleClass));
         }
+
+        putAllParams(params, createParameterMap());
+        return params;
+    }
+
+    public static void putParam(final Map<String, String> params, final String data, final String value) {
+        if (null != value) {
+            params.put(data, value);
+        }
+    }
+
+    public static void putAllParams(final Map<String, String> params, final Map<String, String> paramsToAdd) {
+        for (final Map.Entry<String, String> entry : paramsToAdd.entrySet()) {
+            putParam(params, entry.getKey(), entry.getValue());
+        }
+    }
+
+    public static Map<String, String> createParameterMap() {
+        final Map<String, String> params = new HashMap<>();
+
+        putParam(params, "START_JAVA_CODE", START_JAVA_CODE_MARKER);
+        putParam(params, "JAVA_CODE", JAVA_CODE_MARKER);
+        putParam(params, "START_JSON_CODE", START_JSON_CODE_MARKER);
+        putParam(params, "JSON_CODE", JSON_CODE_MARKER);
+        putParam(params, "START_PYTHON_CODE", START_PYTHON_CODE_MARKER);
+        putParam(params, "PYTHON_CODE", PYTHON_CODE_MARKER);
+        putParam(params, "END_CODE", END_MARKER_MARKER);
+        putParam(params, "EDGE_JAVADOC", getJavaDocLink(Edge.class));
+        putParam(params, "USER_JAVADOC", getJavaDocLink(User.class));
+        putParam(params, "STORE_JAVADOC", getJavaDocLink(Store.class));
+        putParam(params, "ACCUMULO_STORE_JAVADOC", getJavaDocLink(AccumuloStore.class));
+        putParam(params, "MOCK_ACCUMULO_STORE_JAVADOC", getJavaDocLink(MockAccumuloStore.class));
+        putParam(params, "GRAPH_JAVADOC", getJavaDocLink(Graph.class));
+        putParam(params, "ELEMENT_GENERATOR_JAVADOC", getJavaDocLink(ElementGenerator.class));
+        putParam(params, "OBJECT_GENERATOR_JAVADOC", getJavaDocLink(ObjectGenerator.class));
+        putParam(params, "ELEMENT_JAVADOC", getJavaDocLink(Element.class));
+        putParam(params, "SCHEMA_JAVADOC", getJavaDocLink(Schema.class));
+        putParam(params, "PROPERTIES_JAVADOC", getJavaDocLink(Properties.class));
+        putParam(params, "ADD_ELEMENTS_JAVADOC", getJavaDocLink(AddElements.class));
+        putParam(params, "OPERATION_JAVADOC", getJavaDocLink(Operation.class));
+        putParam(params, "GET_ELEMENTS_JAVADOC", getJavaDocLink(GetElements.class));
+        putParam(params, "VIEW_JAVADOC", getJavaDocLink(View.class));
+        putParam(params, "SUM_JAVADOC", getJavaDocLink(Sum.class));
+        putParam(params, "EXISTS_JAVADOC", getJavaDocLink(Exists.class));
+        putParam(params, "VIEW_ELEMENT_DEF_JAVADOC", getJavaDocLink(ViewElementDefinition.class));
+        putParam(params, "ELEMENT_TRANSFORMER_JAVADOC", getJavaDocLink(ElementTransformer.class));
+        putParam(params, "FUNCTION_JAVADOC", getJavaDocLink(Function.class));
+        putParam(params, "GET_ADJACENT_ENTITY_SEEDS_JAVADOC", getJavaDocLink(GetAdjacentIds.class));
+        putParam(params, "GENERATE_OBJECTS_JAVADOC", getJavaDocLink(GenerateObjects.class));
+        putParam(params, "ENTITY_SEED_EXTRACTOR_JAVADOC", getJavaDocLink(EntityIdExtractor.class));
+        putParam(params, "FETCH_EXPORT_JAVADOC", getJavaDocLink(GetSetExport.class));
+        putParam(params, "EXPORT_TO_SET_JAVADOC", getJavaDocLink(ExportToSet.class));
+        putParam(params, "EXPORT_TO_GAFFER_RESULT_CACHE_JAVADOC", getJavaDocLink(ExportToGafferResultCache.class));
+        putParam(params, "ACCUMULO_USER_GUIDE", "[Accumulo Store User Guide](https://github.com/gchq/Gaffer/wiki/Accumulo-Store-user-guide)");
+        putParam(params, "ACCUMULO_KEY_PACKAGE", getGafferGitHubCodeLink(AccumuloKeyPackage.class, "store-implementations/accumulo-store"));
+        putParam(params, "OPERATION_EXAMPLES_LINK", getDocLink("Operation Examples"));
+
         return params;
     }
 
@@ -234,16 +215,36 @@ public abstract class WalkthroughStrSubstitutor {
         return "[" + page + "](" + DOC_URL_PREFIX + page.toLowerCase(Locale.getDefault()).replace(" ", "-") + ")";
     }
 
+    public static String getJsonBlockFromResource(final String resourcePath, final Class<?> clazz) {
+        return getBlockFromResource(resourcePath, clazz, "json");
+    }
+
+    public static String getBlockFromResource(final String resourcePath, final Class<?> clazz) {
+        return getBlockFromResource(resourcePath, clazz, "");
+    }
+
+    public static String getPropertiesBlockFromResource(final String resourcePath, final Class<?> clazz) {
+        final String resource = getResource(resourcePath, clazz);
+        return null == resource ? null : "\n```properties\n" + resource.replaceAll("#.*\\n", "") + "\n```\n";
+
+    }
+
+    private static String getBlockFromResource(final String resourcePath, final Class<?> clazz, final String type) {
+        final String resource = getResource(resourcePath, clazz);
+        return null == resource ? null : "\n```" + type + "\n" + resource + "\n```\n";
+    }
+
     public static String getResource(final String resourcePath, final Class<?> clazz) {
-        final String resource;
+        String resource;
         try (final InputStream stream = StreamUtil.openStream(clazz, resourcePath)) {
             if (null == stream) {
                 throw new IllegalArgumentException("Resource was not found: " + resourcePath);
             } else {
                 resource = new String(IOUtils.toByteArray(stream), CommonConstants.UTF_8);
             }
-        } catch (final IOException e) {
-            throw new RuntimeException(e);
+        } catch (final Exception e) {
+            resource = null;
+            // ignore
         }
         return resource;
     }

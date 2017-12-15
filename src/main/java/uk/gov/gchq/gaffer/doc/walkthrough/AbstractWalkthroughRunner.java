@@ -15,63 +15,69 @@
  */
 package uk.gov.gchq.gaffer.doc.walkthrough;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
-import uk.gov.gchq.gaffer.cache.CacheServiceLoader;
-import uk.gov.gchq.gaffer.cache.exception.CacheOperationException;
 import uk.gov.gchq.gaffer.commonutil.CommonConstants;
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
+import uk.gov.gchq.gaffer.doc.DocGenerator;
+import uk.gov.gchq.gaffer.doc.util.DocUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Locale;
 
-public class AbstractWalkthroughRunner {
-    public static final String EXAMPLE_DIVIDER = "\n\n";
+import static uk.gov.gchq.gaffer.doc.util.DocUtil.toFolderName;
+import static uk.gov.gchq.gaffer.doc.util.DocUtil.toMdFileName;
 
-    private final String title;
-    private final List<AbstractWalkthrough> examples;
+public class AbstractWalkthroughRunner implements DocGenerator {
+    protected final String title;
+    protected final List<AbstractWalkthrough> examples;
     protected final String modulePath;
     protected final String resourcePrefix;
+    protected final String outputPath;
 
     public AbstractWalkthroughRunner(final String title, final List<AbstractWalkthrough> examples, final String modulePath, final String resourcePrefix) {
         this.title = title;
         this.examples = examples;
         this.modulePath = modulePath;
         this.resourcePrefix = resourcePrefix;
+        this.outputPath = toFolderName(GETTING_STARTED_FOLDER) + toFolderName(title);
     }
 
-    public void run() throws Exception {
-        System.out.println("# " + title);
-        printTableOfContents();
-        printIntro();
-        printWalkthroughTitle();
-        for (final AbstractWalkthrough example : examples) {
-            // Clear the caches so the output is not dependent on what's been run before
-            try {
-                if (CacheServiceLoader.getService() != null) {
-                    CacheServiceLoader.getService().clearCache("NamedOperation");
-                    CacheServiceLoader.getService().clearCache("JobTracker");
-                }
-            } catch (final CacheOperationException e) {
-                throw new RuntimeException(e);
-            }
-
-            System.out.println(example.walkthrough());
-            System.out.println(EXAMPLE_DIVIDER);
+    @Override
+    public void generate() {
+        try {
+            _generate();
+        } catch (final Exception e) {
+            throw new RuntimeException("Unable to generate documentation: " + title, e);
         }
     }
 
-    protected void printIntro() {
-        printFile("Intro.md");
+    protected void _generate() throws Exception {
+        FileUtils.writeStringToFile(
+                new File(outputPath + toMdFileName("contents")),
+                getTableOfContents()
+        );
+        FileUtils.writeStringToFile(
+                new File(outputPath + toMdFileName("introduction")),
+                getIntro()
+        );
+
+        for (final AbstractWalkthrough example : examples) {
+            DocUtil.clearCache();
+            FileUtils.writeStringToFile(
+                    new File(outputPath + toMdFileName(example.getHeader())),
+                    example.walkthrough());
+        }
     }
 
-    protected void printRunningTheExamples() {
-        printFile("RunningTheExamples.md");
+    protected String getIntro() {
+        return loadFile("Intro.md");
     }
 
-    protected void printFile(final String filename) {
+    protected String loadFile(final String filename) {
         final String intro;
         try (final InputStream stream = StreamUtil.openStream(getClass(), resourcePrefix + "/walkthrough/" + filename)) {
             intro = new String(IOUtils.toByteArray(stream), CommonConstants.UTF_8);
@@ -79,25 +85,46 @@ public class AbstractWalkthroughRunner {
             throw new RuntimeException(e);
         }
 
-        System.out.println(WalkthroughStrSubstitutor.substitute(intro, modulePath));
+        return WalkthroughStrSubstitutor.substitute(intro) + "\n";
     }
 
-    private void printTableOfContents() throws InstantiationException, IllegalAccessException {
-        int index = 1;
-        System.out.println(index + ". [Introduction](#introduction)");
-        index++;
-        System.out.println(index + ". [Walkthroughs](#walkthroughs)");
+    protected String getTableOfContents() throws InstantiationException, IllegalAccessException {
+        final StringBuilder tableOfContents = new StringBuilder();
+        tableOfContents.append("# ").append(title).append("\n");
 
-        index = 1;
+        int index = 1;
+
+        tableOfContents.append(DocUtil.getLink(index, "Introduction"));
+        index++;
+
         for (final AbstractWalkthrough example : examples) {
             final String header = example.getHeader();
-            System.out.println("   " + index + ". [" + header + "](#" + header.toLowerCase(Locale.getDefault()).replace(" ", "-") + ")");
+            tableOfContents
+                    .append(index).append(". [").append(header).append("](")
+                    .append(toMdFileName(header))
+                    .append(")\n");
             index++;
         }
-        System.out.println("\n");
+        tableOfContents.append("\n");
+
+        return tableOfContents.toString();
     }
 
-    protected void printWalkthroughTitle() {
-        System.out.println("## Walkthroughs");
+    @Override
+    public String getSummary() {
+        final StringBuilder summary = new StringBuilder();
+        final String folderPrefix = "getting-started/" + toFolderName(title);
+        summary.append("  * [").append(title).append("](").append(folderPrefix).append(toMdFileName("contents")).append(")\n");
+        summary.append("    * [Introduction](").append(folderPrefix).append(toMdFileName("introduction")).append(")\n");
+
+        for (final AbstractWalkthrough example : examples) {
+            final String header = example.getHeader();
+            summary
+                    .append("    * [").append(header).append("](")
+                    .append(folderPrefix)
+                    .append(toMdFileName(header))
+                    .append(")\n");
+        }
+        return summary.toString();
     }
 }

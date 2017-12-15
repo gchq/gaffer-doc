@@ -40,6 +40,6 @@ public class UserWalkthroughRunner extends AbstractWalkthroughRunner {
     }
 
     public static void main(final String[] args) throws Exception {
-        new UserWalkthroughRunner().run();
+        new UserWalkthroughRunner().generate();
     }
 }

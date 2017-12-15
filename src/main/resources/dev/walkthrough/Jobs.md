@@ -8,7 +8,7 @@ Jobs are useful if an operation chain takes a long time to return results or if 
 When we refer to a 'Job' we are really just talking about an Operation Chain containing a long-running sequence of operations that is executed asynchronously.
 
 
-#### Configuration
+## Configuration
 
 By default the Job Tracker is disabled. To enable the job tracker set this store.property:
 
@@ -16,25 +16,9 @@ By default the Job Tracker is disabled. To enable the job tracker set this store
 gaffer.store.job.tracker.enabled=true
 ```
 
-You will also need to configure what cache to use for the job tracker. The same cache is used for named operations and the job tracker.
-For example, to use the JCS cache service, add a dependency on the jcs-cache-service and set these store.properties:
+You will also need to configure what cache to use for the job tracker.  For more information on this please see [Cache](cache.md).
 
-```xml
-<dependency>
-    <groupId>uk.gov.gchq.gaffer</groupId>
-    <artifactId>jcs-cache-service</artifactId>
-    <version>[gaffer.version]</version>
-</dependency>
-```
-
-```
-gaffer.cache.service.class=uk.gov.gchq.gaffer.cache.impl.JcsCacheService
-
-# Optionally provide custom cache properties
-gaffer.cache.config.file=/path/to/config/file
-```
-
-In addition to the job tracker, it is recommended that you enable a cache to store the job results in. The caching mechanism is implemented as operations and operation handlers. By default these are disabled.
+In addition to the job tracker, it is recommended that you enable a `GafferResultCache` to store the job results in. The caching mechanism is implemented as operations and operation handlers. By default these are disabled.
 The job result cache is simply a second Gaffer Graph. So, if you are running on Accumulo, this can just be a separate table in your existing Accumulo cluster.
 
 Two operations are required for exporting and getting results from a Gaffer cache - ExportToGafferResultCache and GetGafferResultCacheExport.
@@ -63,7 +47,7 @@ For this example the cache-store.properties just references another MockAccumulo
 ${CACHE_STORE_PROPERTIES}
 
 
-#### Using Jobs
+## Using Jobs
 OK, now for some examples of using Jobs.
 
 We will use the same basic schema and data from the first developer walkthrough.

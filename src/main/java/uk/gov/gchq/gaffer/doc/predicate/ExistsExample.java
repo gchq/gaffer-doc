@@ -20,7 +20,7 @@ import uk.gov.gchq.koryphe.impl.predicate.Exists;
 
 public class ExistsExample extends PredicateExample {
     public static void main(final String[] args) {
-        new ExistsExample().run();
+        new ExistsExample().runAndPrint();
     }
 
     public ExistsExample() {

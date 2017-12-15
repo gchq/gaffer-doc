@@ -24,7 +24,7 @@ import uk.gov.gchq.koryphe.tuple.n.Tuple2;
 
 public class AndExample extends PredicateExample {
     public static void main(final String[] args) {
-        new AndExample().run();
+        new AndExample().runAndPrint();
     }
 
     public AndExample() {

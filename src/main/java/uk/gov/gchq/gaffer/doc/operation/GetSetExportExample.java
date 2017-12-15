@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class GetSetExportExample extends OperationExample {
     public static void main(final String[] args) throws OperationException {
-        new GetSetExportExample().run();
+        new GetSetExportExample().runAndPrint();
     }
 
     public GetSetExportExample() {

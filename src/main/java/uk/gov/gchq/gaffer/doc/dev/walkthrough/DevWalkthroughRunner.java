@@ -29,6 +29,7 @@ public class DevWalkthroughRunner extends AbstractWalkthroughRunner {
             new Visibilities(),
             new Schemas(),
             new Users(),
+            new Cache(),
             new Jobs(),
             new NamedOperations(),
             new FederatedStoreWalkThrough()
@@ -39,6 +40,6 @@ public class DevWalkthroughRunner extends AbstractWalkthroughRunner {
     }
 
     public static void main(final String[] args) throws Exception {
-        new DevWalkthroughRunner().run();
+        new DevWalkthroughRunner().generate();
     }
 }

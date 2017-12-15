@@ -1,10 +1,15 @@
 Copyright 2016-2017 Crown Copyright
 
-Gaffer (uk.gov.gchq.gaffer:gaffer2:1.1.0):
+Gaffer (uk.gov.gchq.gaffer:gaffer2:1.2.0-RC1):
 
 - Apache License, Version 2.0
 
 
-gaffer-tools (uk.gov.gchq.gaffer:gaffer-tools:1.1.0):
+gaffer-tools (uk.gov.gchq.gaffer:gaffer-tools:1.2.0-RC1):
+
+- Apache License, Version 2.0
+
+
+swagger-maven-plugin (com.github.kongchen:swagger-maven-plugin:3.1.5):
 
 - Apache License, Version 2.0

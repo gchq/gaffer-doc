@@ -37,7 +37,7 @@ public class GetElementsExample extends OperationExample {
     }
 
     public static void main(final String[] args) {
-        new GetElementsExample().run();
+        new GetElementsExample().runAndPrint();
     }
 
     @Override

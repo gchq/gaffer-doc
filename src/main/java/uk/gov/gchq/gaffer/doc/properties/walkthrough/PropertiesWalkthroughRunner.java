@@ -21,28 +21,33 @@ import com.yahoo.sketches.hll.HllSketch;
 import com.yahoo.sketches.quantiles.DoublesSketch;
 import com.yahoo.sketches.sampling.ReservoirItemsSketch;
 import com.yahoo.sketches.theta.Sketch;
+import org.apache.commons.io.FileUtils;
 
-import uk.gov.gchq.gaffer.cache.CacheServiceLoader;
-import uk.gov.gchq.gaffer.cache.exception.CacheOperationException;
+import uk.gov.gchq.gaffer.doc.util.DocUtil;
 import uk.gov.gchq.gaffer.doc.walkthrough.AbstractWalkthrough;
 import uk.gov.gchq.gaffer.doc.walkthrough.AbstractWalkthroughRunner;
-import uk.gov.gchq.gaffer.operation.OperationException;
 import uk.gov.gchq.gaffer.time.BoundedTimestampSet;
 import uk.gov.gchq.gaffer.time.RBMBackedTimestampSet;
 import uk.gov.gchq.gaffer.types.FreqMap;
 import uk.gov.gchq.gaffer.types.TypeSubTypeValue;
 import uk.gov.gchq.gaffer.types.TypeValue;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.TreeSet;
 
+import static uk.gov.gchq.gaffer.doc.util.DocUtil.toFolderName;
+import static uk.gov.gchq.gaffer.doc.util.DocUtil.toMdFileName;
+
 public class PropertiesWalkthroughRunner extends AbstractWalkthroughRunner {
+    private static final String SIMPLE_PROPERTIES_TITLE = "Simple Properties";
+    private static final String WALKTHROUGHS_TITLE = "Walkthroughs";
+
     private static final List<Class<?>> SIMPLE_PROPERTIES = Arrays.asList(
             String.class,
             Long.class,
@@ -108,7 +113,7 @@ public class PropertiesWalkthroughRunner extends AbstractWalkthroughRunner {
     }
 
     public static void main(final String[] args) throws Exception {
-        new PropertiesWalkthroughRunner().run();
+        new PropertiesWalkthroughRunner().generate();
     }
 
     public PropertiesWalkthroughRunner() {
@@ -116,99 +121,136 @@ public class PropertiesWalkthroughRunner extends AbstractWalkthroughRunner {
     }
 
     @Override
-    public void run() throws Exception {
-        System.out.println("# Properties Guide");
-        printTableOfContents();
-        printIntro();
-        printRunningTheExamples();
-        printSimpleProperties();
-        printSketches();
-        printTimestampsIntro();
-        printWalkthroughs();
-        printPredicatesAggregatorsSerialisers();
+    protected void _generate() throws Exception {
+        FileUtils.writeStringToFile(
+                new File(outputPath + toMdFileName("contents")),
+                getTableOfContents()
+        );
+        FileUtils.writeStringToFile(
+                new File(outputPath + toMdFileName("introduction")),
+                getIntro()
+        );
+        FileUtils.writeStringToFile(
+                new File(outputPath + toMdFileName("Simple Properties")),
+                getSimpleProperties()
+        );
+        FileUtils.writeStringToFile(
+                new File(outputPath + toMdFileName("Sketches")),
+                getSketches()
+        );
+        FileUtils.writeStringToFile(
+                new File(outputPath + toMdFileName("Timestamps")),
+                getTimestamps()
+        );
+
+        generateWalkthroughs();
+        generateSimpleProperties();
     }
 
-    private void printTableOfContents() throws InstantiationException, IllegalAccessException {
+    @Override
+    protected String getTableOfContents() throws InstantiationException, IllegalAccessException {
+        final StringBuilder tableOfContents = new StringBuilder();
+        tableOfContents.append("# ").append(title).append("\n");
+
         int index = 1;
-        System.out.println(index + ". [Introduction](#introduction)");
+        tableOfContents.append(DocUtil.getLink(index, "Introduction"));
         index++;
-        System.out.println(index + ". [Running the Examples](#runningtheexamples)");
+        tableOfContents.append(DocUtil.getLink(index, "Simple properties"));
         index++;
-        System.out.println(index + ". [Simple properties](#simpleproperties)");
+        tableOfContents.append(DocUtil.getLink(index, "Sketches"));
         index++;
-        System.out.println(index + ". [Sketches](#sketches)");
+        tableOfContents.append(DocUtil.getLink(index, "Timestamps"));
         index++;
-        System.out.println(index + ". [Timestamps](#timestamps)");
-        index++;
-        System.out.println(index + ". [Walkthroughs](#walkthroughs)");
+        tableOfContents.append(index).append(". " + WALKTHROUGHS_TITLE + "\n");
         index++;
         int subIndex = 1;
         for (final AbstractWalkthrough example : getAllWalkthroughs()) {
             final String header = example.getHeader();
-            System.out.println("   " + subIndex + ". [" + header + "](#" + header.toLowerCase(Locale.getDefault()).replace(" ", "-") + ")");
+            tableOfContents.append("   ")
+                    .append(subIndex)
+                    .append(". [").append(header).append("](")
+                    .append(toFolderName(WALKTHROUGHS_TITLE)).append(toMdFileName(header))
+                    .append(")\n");
             subIndex++;
         }
-        System.out.println(index + ". [Predicates, aggregators and serialisers](#predicatesaggregatorsserialisers)");
+        tableOfContents.append(index).append(". " + SIMPLE_PROPERTIES_TITLE + "\n");
         subIndex = 1;
         for (final AbstractWalkthrough example : EXAMPLES) {
             final String header = example.getHeader();
-            System.out.println("   " + subIndex + ". [" + header + "](#" + header.toLowerCase(Locale.getDefault()).replace(" ", "-") + ")");
+            tableOfContents.append("   ")
+                    .append(subIndex)
+                    .append(". [").append(header).append("](")
+                    .append(toFolderName(SIMPLE_PROPERTIES_TITLE)).append(toMdFileName(header))
+                    .append(")\n");
             subIndex++;
         }
-        System.out.println("\n");
+        return tableOfContents.toString();
     }
 
-    private void printSimpleProperties() {
-        printFile("SimpleProperties.md");
+    @Override
+    public String getSummary() {
+        final StringBuilder summary = new StringBuilder();
+        final String folderPrefix = "getting-started/" + toFolderName(title);
+        summary.append("  * [").append(title).append("](").append(folderPrefix).append(toMdFileName("contents")).append(")\n");
+        summary.append(DocUtil.getFullLink(folderPrefix, "Introduction"));
+        summary.append(DocUtil.getFullLink(folderPrefix, "Simple properties"));
+        summary.append(DocUtil.getFullLink(folderPrefix, "Sketches"));
+        summary.append(DocUtil.getFullLink(folderPrefix, "Timestamps"));
+        summary.append("    * " + WALKTHROUGHS_TITLE + " \n");
+        for (final AbstractWalkthrough example : getAllWalkthroughs()) {
+            final String header = example.getHeader();
+            summary.append("       * [")
+                    .append(header).append("](")
+                    .append(folderPrefix)
+                    .append(toFolderName(WALKTHROUGHS_TITLE)).append(toMdFileName(header))
+                    .append(")\n");
+        }
+        summary.append("    * " + SIMPLE_PROPERTIES_TITLE + "\n");
+        for (final AbstractWalkthrough example : EXAMPLES) {
+            final String header = example.getHeader();
+            summary.append("       * [")
+                    .append(header).append("](")
+                    .append(folderPrefix)
+                    .append(toFolderName(SIMPLE_PROPERTIES_TITLE)).append(toMdFileName(header))
+                    .append(")\n");
+        }
+        return summary.toString();
     }
 
-    private void printSketches() {
-        printFile("Sketches.md");
+    private String getSimpleProperties() {
+        return loadFile("SimpleProperties.md");
     }
 
-    private void printTimestampsIntro() {
-        printFile("Timestamps.md");
+    private String getSketches() {
+        return loadFile("Sketches.md");
     }
 
-    private void printWalkthroughs() throws OperationException {
-        printFile("WalkthroughsIntro.md");
-        printWalkthroughs(CLEARSPRING_SKETCHES_WALKTHROUGHS);
-        printWalkthroughs(DATA_SKETCHES_WALKTHROUGHS);
-        printWalkthroughs(TIMESTAMP_WALKTHROUGHS);
+    private String getTimestamps() {
+        return loadFile("Timestamps.md");
     }
 
-    private void printWalkthroughs(final List<AbstractWalkthrough> walkthroughs) throws OperationException {
-        for (final AbstractWalkthrough example : walkthroughs) {
-            // Clear the caches so the output is not dependent on what's been run before
-            try {
-                if (CacheServiceLoader.getService() != null) {
-                    CacheServiceLoader.getService().clearCache("NamedOperation");
-                    CacheServiceLoader.getService().clearCache("JobTracker");
-                }
-            } catch (final CacheOperationException e) {
-                throw new RuntimeException(e);
-            }
+    private void generateWalkthroughs() throws Exception {
+        generateWalkthroughs(CLEARSPRING_SKETCHES_WALKTHROUGHS);
+        generateWalkthroughs(DATA_SKETCHES_WALKTHROUGHS);
+        generateWalkthroughs(TIMESTAMP_WALKTHROUGHS);
+    }
 
-            System.out.println(example.walkthrough());
-            System.out.println(EXAMPLE_DIVIDER);
+    private void generateWalkthroughs(final List<AbstractWalkthrough> examples) throws Exception {
+        for (final AbstractWalkthrough example : examples) {
+            DocUtil.clearCache();
+            FileUtils.writeStringToFile(
+                    new File(outputPath + toFolderName(WALKTHROUGHS_TITLE) + toMdFileName(example.getHeader())),
+                    example.walkthrough());
         }
     }
 
-    private void printPredicatesAggregatorsSerialisers() throws OperationException {
-        System.out.println("## Predicates, aggregators and serialisers");
+    private void generateSimpleProperties() throws Exception {
         for (final AbstractWalkthrough example : EXAMPLES) {
             // Clear the caches so the output is not dependent on what's been run before
-            try {
-                if (CacheServiceLoader.getService() != null) {
-                    CacheServiceLoader.getService().clearCache("NamedOperation");
-                    CacheServiceLoader.getService().clearCache("JobTracker");
-                }
-            } catch (final CacheOperationException e) {
-                throw new RuntimeException(e);
-            }
-
-            System.out.println(example.walkthrough());
-            System.out.println(EXAMPLE_DIVIDER);
+            DocUtil.clearCache();
+            FileUtils.writeStringToFile(
+                    new File(outputPath + toFolderName(SIMPLE_PROPERTIES_TITLE) + toMdFileName(example.getHeader())),
+                    example.walkthrough());
         }
     }
 }

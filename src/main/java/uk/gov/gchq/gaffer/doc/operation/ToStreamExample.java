@@ -31,7 +31,7 @@ public class ToStreamExample extends OperationExample {
     }
 
     public static void main(final String[] args) throws OperationException {
-        new ToStreamExample().run();
+        new ToStreamExample().runAndPrint();
     }
 
     @Override

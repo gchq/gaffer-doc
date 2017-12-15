@@ -57,9 +57,9 @@ public class Aggregation extends UserWalkthrough {
         // [graph] create a graph using our schema and store properties
         // ---------------------------------------------------------
         final Graph graph = new Graph.Builder()
-                .config(StreamUtil.graphConfig(getClass()))
-                .addSchemas(StreamUtil.openStreams(getClass(), "RoadAndRoadUseWithTimes/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .config(getDefaultGraphConfig())
+                .addSchemas(StreamUtil.openStreams(getClass(), schemaPath))
+                .storeProperties(getDefaultStoreProperties())
                 .build();
         // ---------------------------------------------------------
 
@@ -77,14 +77,14 @@ public class Aggregation extends UserWalkthrough {
         final OperationChain<Void> addOpChain = new OperationChain.Builder()
                 .first(new GenerateElements.Builder<String>()
                         .generator(new RoadAndRoadUseWithTimesElementGenerator())
-                        .input(IOUtils.readLines(StreamUtil.openStream(getClass(), "RoadAndRoadUseWithTimes/data.txt")))
+                        .input(IOUtils.readLines(StreamUtil.openStream(getClass(), dataPath)))
                         .build())
                 .then(new AddElements())
                 .build();
 
         graph.execute(addOpChain, user);
         // ---------------------------------------------------------
-        log("The elements have been added.");
+        print("The elements have been added.");
 
 
         // [get] Get all RoadUse edges
@@ -97,9 +97,9 @@ public class Aggregation extends UserWalkthrough {
 
         final CloseableIterable<? extends Element> roadUseElements = graph.execute(getAllRoadUseEdges, user);
         // ---------------------------------------------------------
-        log("\nAll RoadUse edges in daily time buckets:");
+        print("\nAll RoadUse edges in daily time buckets:");
         for (final Element element : roadUseElements) {
-            log("GET_ALL_EDGES_RESULT", element.toString());
+            print("GET_ALL_EDGES_RESULT", element.toString());
         }
 
 
@@ -116,9 +116,9 @@ public class Aggregation extends UserWalkthrough {
 
         final CloseableIterable<? extends Element> edgesSummarised = graph.execute(edgesSummarisedOperation, user);
         // ---------------------------------------------------------
-        log("\nAll edges summarised:");
+        print("\nAll edges summarised:");
         for (final Element edge : edgesSummarised) {
-            log("GET_ALL_EDGES_SUMMARISED_RESULT", edge.toString());
+            print("GET_ALL_EDGES_SUMMARISED_RESULT", edge.toString());
         }
 
 
@@ -130,11 +130,11 @@ public class Aggregation extends UserWalkthrough {
                 .view(new View.Builder()
                         .edge("RoadUse", new ViewElementDefinition.Builder()
                                 .preAggregationFilter(new ElementFilter.Builder()
-                                        .select("startDate")
-                                        .execute(new IsMoreThan(MAY_01_2000, true))
-                                        .select("endDate")
-                                        .execute(new IsLessThan(MAY_02_2000, false))
-                                        .build()
+                                                .select("startDate")
+                                                .execute(new IsMoreThan(MAY_01_2000, true))
+                                                .select("endDate")
+                                                .execute(new IsLessThan(MAY_02_2000, false))
+                                                .build()
                                 )
                                 .groupBy() // set the group by properties to 'none'
                                 .build())
@@ -143,9 +143,9 @@ public class Aggregation extends UserWalkthrough {
 
         final CloseableIterable<? extends Element> edgesSummarisedInTimeWindow = graph.execute(edgesSummarisedInTimeWindowOperation, user);
         // ---------------------------------------------------------
-        log("\nEdges in 2 day time window:");
+        print("\nEdges in 2 day time window:");
         for (final Element edge : edgesSummarisedInTimeWindow) {
-            log("GET_ALL_EDGES_SUMMARISED_IN_TIME_WINDOW_RESULT", edge.toString());
+            print("GET_ALL_EDGES_SUMMARISED_IN_TIME_WINDOW_RESULT", edge.toString());
         }
 
         // [get all edges summarised in time window with min count] Now a bit more advanced.
@@ -158,11 +158,11 @@ public class Aggregation extends UserWalkthrough {
                 .view(new View.Builder()
                         .edge("RoadUse", new ViewElementDefinition.Builder()
                                 .preAggregationFilter(new ElementFilter.Builder()
-                                        .select("startDate")
-                                        .execute(new IsMoreThan(MAY_01_2000, true))
-                                        .select("endDate")
-                                        .execute(new IsLessThan(MAY_03_2000, false))
-                                        .build()
+                                                .select("startDate")
+                                                .execute(new IsMoreThan(MAY_01_2000, true))
+                                                .select("endDate")
+                                                .execute(new IsLessThan(MAY_03_2000, false))
+                                                .build()
                                 )
                                 .groupBy() // set the group by properties to 'none'
                                 .aggregator(new ElementAggregator.Builder()
@@ -173,13 +173,13 @@ public class Aggregation extends UserWalkthrough {
                         .build())
                 .build();
 
-        log("GET_ALL_EDGES_SUMMARISED_IN_TIME_WINDOW_RESULT_WITH_MIN_COUNT_JSON", StringUtil.toString(JSONSerialiser.serialise(edgesSummarisedInTimeWindowWithMinCountOperation, true)));
+        print("GET_ALL_EDGES_SUMMARISED_IN_TIME_WINDOW_RESULT_WITH_MIN_COUNT_JSON", StringUtil.toString(JSONSerialiser.serialise(edgesSummarisedInTimeWindowWithMinCountOperation, true)));
 
         final CloseableIterable<? extends Element> edgesSummarisedInTimeWindowWithMinCount = graph.execute(edgesSummarisedInTimeWindowWithMinCountOperation, user);
         // ---------------------------------------------------------
-        log("\nEdges in 3 day time window with min count:");
+        print("\nEdges in 3 day time window with min count:");
         for (final Element edge : edgesSummarisedInTimeWindowWithMinCount) {
-            log("GET_ALL_EDGES_SUMMARISED_IN_TIME_WINDOW_RESULT_WITH_MIN_COUNT", edge.toString());
+            print("GET_ALL_EDGES_SUMMARISED_IN_TIME_WINDOW_RESULT_WITH_MIN_COUNT", edge.toString());
         }
 
         return edgesSummarisedInTimeWindowWithMinCount;

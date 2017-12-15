@@ -27,7 +27,7 @@ public class IsShorterThanExample extends PredicateExample {
     final Map<String, String> bigMap = new HashMap<>(map);
 
     public static void main(final String[] args) {
-        new IsShorterThanExample().run();
+        new IsShorterThanExample().runAndPrint();
     }
 
     public IsShorterThanExample() {

@@ -19,7 +19,7 @@ import uk.gov.gchq.koryphe.impl.predicate.IsA;
 
 public class IsAExample extends PredicateExample {
     public static void main(final String[] args) {
-        new IsAExample().run();
+        new IsAExample().runAndPrint();
     }
 
     public IsAExample() {
