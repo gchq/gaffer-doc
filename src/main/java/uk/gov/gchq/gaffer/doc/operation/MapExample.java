@@ -70,7 +70,7 @@ public class MapExample extends OperationExample {
         // ---------------------------------------------------------
         final OperationChain<Set<?>> opChain = new OperationChain.Builder()
                 .first(new GetWalks.Builder()
-                        .operation(new GetElements.Builder()
+                        .operations(new GetElements.Builder()
                                 .view(new View.Builder()
                                         .edge("edge")
                                         .build())
