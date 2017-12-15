@@ -12,8 +12,8 @@ There are various possible uses for NamedOperations:
 
 In addition to the NamedOperation there are a set of operations which manage named operations (AddNamedOperation, GetAllNamedOperations, DeleteNamedOperation).
 
-#### Configuration
-You will need to configure what cache to use for storing NamedOperations. For more information on the cache service, see [Cache](#cache).
+## Configuration
+You will need to configure what cache to use for storing NamedOperations. For more information on the cache service, see [Cache](cache.md).
 
 Once you have configured the cache service, if you are using the OperationChainLimiter GraphHook then you will also need to configure
 that GraphHook to use the NamedOperationScoreResolver, this will allow you to have custom scores for each named operation.
@@ -70,7 +70,7 @@ ${END_CODE}
 
 
 
-#### Using Named Operations
+## Using Named Operations
 OK, now for some examples of using NamedOperations.
 
 We will use the same basic schema and data from the first developer walkthrough.
@@ -151,4 +151,4 @@ That gives the following result:
 ${ALL_NAMED_OPERATIONS}
 ```
 
-For other named operation examples see [NamedOperation examples](operation-examples.md#namedoperation-example).
+For other named operation examples see [NamedOperation](../operations/namedoperation.md).

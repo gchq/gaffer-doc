@@ -21,7 +21,7 @@ import uk.gov.gchq.gaffer.operation.impl.add.AddElementsFromFile;
 
 public class AddElementsFromFileExample extends OperationExample {
     public static void main(final String[] args) throws OperationException {
-        new AddElementsFromFileExample().run();
+        new AddElementsFromFileExample().runAndPrint();
     }
 
     public AddElementsFromFileExample() {

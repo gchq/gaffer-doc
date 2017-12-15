@@ -28,7 +28,7 @@ import uk.gov.gchq.gaffer.operation.data.EntitySeed;
 @SuppressWarnings("unchecked")
 public class GetElementsInRangesExample extends OperationExample {
     public static void main(final String[] args) throws OperationException {
-        new GetElementsInRangesExample().run();
+        new GetElementsInRangesExample().runAndPrint();
     }
 
     public GetElementsInRangesExample() {

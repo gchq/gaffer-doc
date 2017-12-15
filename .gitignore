@@ -36,3 +36,4 @@ build
 *.swp
 spark-warehouse
 gaffer-python-shell
+package-lock.json

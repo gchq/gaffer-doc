@@ -1,31 +1,28 @@
 # Getting Started
 
-Getting Started
----------------
+## Guides and examples
 
-
-### Guides and examples
-
-* [User Guide](../getting-started/user-guide.md)
-* [Dev Guide](../getting-started/dev-guide.md)
+* [User Guide](../getting-started/user-guide/contents.md)
+* [Developer Guide](../getting-started/developer-guide/contents.md)
 * [Properties Guide](../getting-started/properties-guide.md)
-* [Operation examples](../getting-started/operation-examples.md)
-* [Accumulo operation examples](../getting-started/accumulo-operation-examples.md)
-* [Spark operation examples](../getting-started/spark-operation-examples.md)
-* [Predicate examples](../getting-started/predicate-examples.md)
+* [Operations](../getting-started/operations/contents.md)
+* [Accumulo operation](../getting-started/accumulo-operations/contents.md)
+* [Spark operations](../getting-started/spark-operations/contents.md)
+* [Predicates](../getting-started/predicates/contents.md)
+* [Functions](../getting-started/functions/contents.md)
 
 
-### Try it out
+## Try it out
 
 We have a demo available to try that is based around a small uk road use dataset. See the [Road Traffic Example](../components/example/road-traffic.md) to try it out.
 
-### Building and Deploying
+## Building and Deploying
 
 To build Gaffer run `mvn clean install -Pquick` in the top-level directory. This will build all of Gaffer's core libraries and some examples of how to load and query data.
 
 See [stores](stores.md) for a list of available Gaffer Stores to chose from and the relevant documentation for each.
 
-### Inclusion in other projects
+## Inclusion in other projects
 
 Gaffer is hosted on [Maven Central](https://mvnrepository.com/search?q=uk.gov.gchq.gaffer) and can easily be incorporated into your own projects.
 
@@ -46,7 +43,7 @@ To use Gaffer the only required dependencies are the Gaffer graph module and a s
 
 This will include all other mandatory dependencies. Other (optional) components can be added to your project as required.
 
-### Contributing
+## Contributing
 
 We have some detailed information on our [ways of working page](../other/ways-of-working.md).
 

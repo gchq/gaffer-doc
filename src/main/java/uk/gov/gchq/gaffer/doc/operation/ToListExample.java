@@ -30,7 +30,7 @@ public class ToListExample extends OperationExample {
     }
 
     public static void main(final String[] args) throws OperationException {
-        new ToListExample().run();
+        new ToListExample().runAndPrint();
     }
 
     @Override

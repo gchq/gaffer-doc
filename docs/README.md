@@ -67,7 +67,7 @@ This will include all other mandatory dependencies. Other (optional) components 
 
 Our Javadoc can be found [here](summaries/javadoc.md).
 
-We have some user guides in our [docs](getting-started/user-guide.md).
+We have some user guides in our [docs](getting-started/user-guide/contents.md).
 
 Related repositories
 --------------------
@@ -92,4 +92,4 @@ We welcome contributions to the project. Detailed information on our ways of wor
 - Push your changes to a fork;
 - Submit a pull request.
 
-<p style="text-align: right">Version 1.1.1</p>
+<p style="text-align: right">Version 1.2.0-RC1</p>

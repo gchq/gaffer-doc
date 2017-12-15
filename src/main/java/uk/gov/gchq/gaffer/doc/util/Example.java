@@ -15,13 +15,18 @@
  */
 package uk.gov.gchq.gaffer.doc.util;
 
+import com.google.common.collect.Lists;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import uk.gov.gchq.gaffer.commonutil.CommonConstants;
+import uk.gov.gchq.gaffer.commonutil.pair.Pair;
 import uk.gov.gchq.gaffer.doc.walkthrough.WalkthroughStrSubstitutor;
 import uk.gov.gchq.gaffer.exception.SerialisationException;
 import uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser;
+import uk.gov.gchq.koryphe.tuple.MapTuple;
+import uk.gov.gchq.koryphe.tuple.Tuple;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -30,12 +35,13 @@ import java.util.Locale;
 public abstract class Example {
     public static final String CAPITALS_AND_NUMBERS_REGEX = "((?=[A-Z])|(?<=[0-9])(?=[a-zA-Z])|(?<=[a-zA-Z])(?=[0-9]))";
     public static final String DIVIDER = "-----------------------------------------------";
-    public static final String TITLE_DIVIDER = DIVIDER;
     public static final String METHOD_DIVIDER = DIVIDER + "\n";
-    public static final String KORYPHE_JAVA_DOC_URL_PREFIX = "ref://../javadoc/koryphe/";
-    public static final String JAVA_DOC_URL_PREFIX = "ref://../javadoc/gaffer/";
+    public static final String KORYPHE_JAVA_DOC_URL_PREFIX = "ref://../../javadoc/koryphe/";
+    public static final String JAVA_DOC_URL_PREFIX = "ref://../../javadoc/gaffer/";
+    public static final String SKIP_PYTHON_PROPERTY = "gaffer.doc.skipPython";
     private final Class<?> classForExample;
     private final String description;
+    private StringBuilder output = new StringBuilder();
 
     public Example(final Class<?> classForExample) {
         this(classForExample, "");
@@ -47,12 +53,17 @@ public abstract class Example {
     }
 
     public void run() {
-        log(classForExample.getSimpleName() + " example");
-        log(TITLE_DIVIDER);
+        print("# " + classForExample.getSimpleName());
         printJavaDocLink();
         printDescription();
-
+        print("## Examples");
+        print("");
         runExamples();
+    }
+
+    public void runAndPrint() {
+        run();
+        System.out.println(getOutput());
     }
 
     public void printJavaDocLink() {
@@ -62,7 +73,18 @@ public abstract class Example {
         } else {
             urlPrefix = JAVA_DOC_URL_PREFIX;
         }
-        log("See javadoc - [" + classForExample.getName() + "](" + urlPrefix + classForExample.getName().replace(".", "/") + ".html).\n");
+
+        print("See javadoc - [" + classForExample.getName() + "](" + urlPrefix + classForExample.getName().replace(".", "/") + ".html).\n");
+    }
+
+    protected void printDescription() {
+        if (StringUtils.isNotEmpty(description)) {
+            print(description + "\n");
+        }
+    }
+
+    public String getOutput() {
+        return output.toString();
     }
 
     public Class<?> getClassForExample() {
@@ -91,25 +113,63 @@ public abstract class Example {
         return sentence.toString();
     }
 
-    protected void printDescription() {
-        if (StringUtils.isNotEmpty(description)) {
-            log(description + "\n");
+    protected Pair<String, String> getTypeValue(final Object value) {
+        Pair<String, String> typeValue = new Pair<>();
+        if (!(value instanceof Tuple) || value instanceof MapTuple) {
+            if (null == value) {
+                typeValue.setFirst("");
+                typeValue.setSecond("null");
+            } else {
+                typeValue.setFirst(value.getClass().getName());
+                if (value instanceof Iterable) {
+                    final StringBuilder valueStr = new StringBuilder();
+                    for (final Object obj : ((Iterable) value)) {
+                        valueStr.append(StringEscapeUtils.escapeHtml4(obj.toString()));
+                    }
+                    typeValue.setSecond(valueStr.toString());
+                } else {
+                    typeValue.setSecond(StringEscapeUtils.escapeHtml4(value.toString()));
+                }
+            }
+        } else {
+            final StringBuilder typeBuilder = new StringBuilder("[");
+            final StringBuilder valueStringBuilder = new StringBuilder("[");
+            for (final Object item : (Tuple) value) {
+                if (null == item) {
+                    typeBuilder.append(" ,");
+                    valueStringBuilder.append("null, ");
+                } else {
+                    typeBuilder.append(item.getClass().getName());
+                    typeBuilder.append(", ");
+
+                    if (item instanceof Iterable) {
+                        valueStringBuilder.append(Lists.newArrayList((Iterable) item));
+                    } else {
+                        valueStringBuilder.append(item);
+                    }
+
+                    valueStringBuilder.append(", ");
+                }
+            }
+            typeValue.setFirst(typeBuilder.substring(0, typeBuilder.length() - 2) + "]");
+            typeValue.setSecond(StringEscapeUtils.escapeHtml4(valueStringBuilder.substring(0, valueStringBuilder.length() - 2) + "]"));
         }
+        return typeValue;
     }
 
     protected void printJavaJsonPython(final Object obj, final String java) {
-        log(WalkthroughStrSubstitutor.START_JAVA_CODE_MARKER);
-        log(java);
-        log(WalkthroughStrSubstitutor.JSON_CODE_MARKER);
-        log(getJson(obj));
+        print(WalkthroughStrSubstitutor.START_JAVA_CODE_MARKER);
+        print(java);
+        print(WalkthroughStrSubstitutor.JSON_CODE_MARKER);
+        print(getJson(obj));
 
         final String python = getPython(obj);
         if (null != python) {
-            log(WalkthroughStrSubstitutor.PYTHON_CODE_MARKER);
-            log(python);
+            print(WalkthroughStrSubstitutor.PYTHON_CODE_MARKER);
+            print(python);
         }
 
-        log(WalkthroughStrSubstitutor.END_MARKER_MARKER);
+        print(WalkthroughStrSubstitutor.END_MARKER_MARKER);
     }
 
     protected void printJavaJsonPython(final Object obj, final int parentMethodIndex) {
@@ -121,12 +181,13 @@ public abstract class Example {
     }
 
     protected void printJava(final String java) {
-        log("\n\n```java");
-        log(java);
-        log("```\n");
+        print("\n\n```java");
+        print(java);
+        print("```\n");
     }
 
     protected String getPython(final Object object) {
+        final boolean skipPythonOnError = Boolean.parseBoolean(System.getProperty(SKIP_PYTHON_PROPERTY));
         final String json = getRawJson(object);
         final ProcessBuilder pb = new ProcessBuilder("python3", "-u", "gaffer-python-shell/src/gafferpy/fromJson.py", json);
 
@@ -134,12 +195,18 @@ public abstract class Example {
         try {
             p = pb.start();
         } catch (final IOException e) {
+            if (skipPythonOnError) {
+                return "";
+            }
             throw new RuntimeException("Unable to run python3", e);
         }
 
         try {
             p.waitFor();
         } catch (final InterruptedException e) {
+            if (skipPythonOnError) {
+                return "";
+            }
             throw new RuntimeException("Python failed to complete", e);
         }
 
@@ -147,12 +214,18 @@ public abstract class Example {
             try {
                 throw new RuntimeException("Error in python: " + IOUtils.toString(p.getErrorStream()) + "\nUnable to convert json: " + json);
             } catch (final IOException e) {
+                if (skipPythonOnError) {
+                    return "";
+                }
                 throw new RuntimeException("Unable to read error from Python", e);
             }
         }
         try {
             return IOUtils.toString(p.getInputStream());
         } catch (final IOException e) {
+            if (skipPythonOnError) {
+                return "";
+            }
             throw new RuntimeException("Unable to read result from python", e);
         }
     }
@@ -173,7 +246,7 @@ public abstract class Example {
         }
     }
 
-    protected void log(final String message) {
-        System.out.println(message);
+    protected void print(final String message) {
+        output.append(message).append("\n");
     }
 }

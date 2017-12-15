@@ -2,16 +2,18 @@ ${HEADER}
 
 ${CODE_LINK}
 
-This example demonstrates how storing a HyperLogLogPlus object on each vertex in a graph allows us to quickly estimate its degree (i.e. the number of edges it is involved in). The estimate can be obtained without scanning through all the edges involving a node and so is very quick, even if the degree is very large.
+This example demonstrates how storing a HyperLogLogPlus object on each vertex in a graph allows us to quickly estimate its degree (i.e. the number of edges it is involved in). The estimate can be obtained without scanning through all the edges involving a vertex and so is very quick, even if the degree is very large.
 
 To add properties to vertices we need to add an Entity to our schema. Entities are associated with a vertex and contain a set of properties about that vertex.
 
-##### Elements schema
-This is our new elements schema. You can we we have added a Cardinality Entity. This will be added to every vertex in the Graph. This Entity has a 'hllp' property that will hold the HyperLogLogPlus cardinality value.
+### Elements schema
+
+This is our new elements schema. You can see we have added a Cardinality Entity. This will be added to every vertex in the Graph. This Entity has a 'hllp' property that will hold the HyperLogLogPlus cardinality value.
 
 ${ELEMENTS_JSON}
 
-##### Types schema
+### Types schema
+
 We have added a new type - hllp. This is a HyperLogLogPlus object. The HyperLogLogPlus object will be used to estimate the cardinality of a vertex.
 We also added in the serialiser and aggregator for the HyperLogLogPlus object. Gaffer will automatically aggregate the cardinalities, using the provided aggregator, so they will keep up to date as new elements are added to the graph.
 
@@ -22,7 +24,6 @@ Here are all the edges loaded into the graph (unfortunately the HyperLogLogPlus 
 ```
 ${GET_ALL_EDGES_RESULT}
 ```
-
 
 We can fetch all cardinalities for all the vertices using the following operation:
 
@@ -36,7 +37,7 @@ If we look at the cardinality value of the HyperLogLogPlus property the values a
 ${ALL_CARDINALITIES_RESULT}
 ```
 
-You can see we get a cardinality value of one for each junction for RoadUse edges as each junction is only connected to 1 other junction. 
+You can see we get a cardinality value of 1 for each junction for RoadUse edges as each junction is only connected to 1 other junction.
 The cardinality value for the M5 Road is 7 as there are 7 junctions on this road in our data set. 
 Remember that the HyperLogLogPlus cardinality value is just an estimate.  
 

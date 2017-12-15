@@ -21,7 +21,7 @@ import uk.gov.gchq.gaffer.operation.impl.add.AddElementsFromKafka;
 
 public class AddElementsFromKafkaExample extends OperationExample {
     public static void main(final String[] args) throws OperationException {
-        new AddElementsFromKafkaExample().run();
+        new AddElementsFromKafkaExample().runAndPrint();
     }
 
     public AddElementsFromKafkaExample() {

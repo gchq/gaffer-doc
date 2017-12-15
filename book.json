@@ -2,6 +2,7 @@
   "gitbook": "3.x.x",
   "title": "Gaffer Doc",
   "plugins": [
+    "expandable-chapters-interactive",
     "codetabs",
     "prism",
     "-highlight",
@@ -17,6 +18,13 @@
       "styles": {
         "website": "build/gitbook.css"
       }
+    },
+    "expandable-chapters": {},
+    "lunr": {
+      "maxIndexSize": 5000000
+    },
+    "search": {
+      "maxIndexSize": 5000000
     }
   },
   "root": "./docs"

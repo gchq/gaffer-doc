@@ -19,7 +19,7 @@ import uk.gov.gchq.koryphe.impl.predicate.IsIn;
 
 public class IsInExample extends PredicateExample {
     public static void main(final String[] args) {
-        new IsInExample().run();
+        new IsInExample().runAndPrint();
     }
 
     public IsInExample() {

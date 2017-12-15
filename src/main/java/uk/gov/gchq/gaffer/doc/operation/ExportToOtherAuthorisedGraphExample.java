@@ -25,7 +25,7 @@ import uk.gov.gchq.gaffer.operation.impl.get.GetAllElements;
 
 public class ExportToOtherAuthorisedGraphExample extends OperationExample {
     public static void main(final String[] args) throws OperationException {
-        new ExportToOtherAuthorisedGraphExample().run();
+        new ExportToOtherAuthorisedGraphExample().runAndPrint();
     }
 
     public ExportToOtherAuthorisedGraphExample() {

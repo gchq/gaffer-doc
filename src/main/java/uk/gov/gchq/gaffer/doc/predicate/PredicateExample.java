@@ -17,79 +17,56 @@ package uk.gov.gchq.gaffer.doc.predicate;
 
 import org.apache.commons.lang.StringUtils;
 
+import uk.gov.gchq.gaffer.commonutil.pair.Pair;
 import uk.gov.gchq.gaffer.doc.util.Example;
 import uk.gov.gchq.koryphe.signature.Signature;
-import uk.gov.gchq.koryphe.tuple.MapTuple;
-import uk.gov.gchq.koryphe.tuple.Tuple;
 
 import java.util.function.Predicate;
+
 
 public abstract class PredicateExample extends Example {
     public PredicateExample(final Class<? extends Predicate> classForExample) {
         super(classForExample);
     }
 
+    public PredicateExample(final Class<? extends Predicate> classForExample, final String description) {
+        super(classForExample, description);
+    }
+
     public void runExample(final Predicate predicate, final String description, final Object... inputs) {
-        log("#### " + getMethodNameAsSentence(1) + "\n");
+        print("### " + getMethodNameAsSentence(1) + "\n");
         if (StringUtils.isNotBlank(description)) {
-            log(description + "\n");
+            print(description + "\n");
         }
 
         printJavaJsonPython(predicate, 3);
 
-        log("Input type:");
-        log("\n```");
+        print("Input type:");
+        print("\n```");
         final StringBuilder inputClasses = new StringBuilder();
         for (final Class<?> item : Signature.getInputSignature(predicate).getClasses()) {
             inputClasses.append(item.getName());
             inputClasses.append(", ");
         }
-        log(inputClasses.substring(0, inputClasses.length() - 2));
-        log("```\n");
+        print(inputClasses.substring(0, inputClasses.length() - 2));
+        print("```\n");
 
-        log("Example inputs:");
-        log("<table>");
-        log("<tr><th>Type</th><th>Input</th><th>Result</th></tr>");
+        print("Example inputs:");
+        print("<table style=\"display: block;\">");
+        print("<tr><th>Input Type</th><th>Input</th><th>Result</th></tr>");
         for (final Object input : inputs) {
-            final String inputType;
-            final String inputString;
-            if (!(input instanceof Tuple) || input instanceof MapTuple) {
-                if (null == input) {
-                    inputType = "";
-                    inputString = "null";
-                } else {
-                    inputType = input.getClass().getName();
-                    inputString = String.valueOf(input);
-                }
-            } else {
-                final StringBuilder inputTypeBuilder = new StringBuilder("[");
-                final StringBuilder inputStringBuilder = new StringBuilder("[");
-                for (final Object item : (Tuple) input) {
-                    if (null == item) {
-                        inputTypeBuilder.append(" ,");
-                        inputStringBuilder.append("null, ");
-                    } else {
-                        inputTypeBuilder.append(item.getClass().getName());
-                        inputTypeBuilder.append(", ");
+            final Pair<String, String> inputTypeValue = getTypeValue(input);
 
-                        inputStringBuilder.append(String.valueOf(item));
-                        inputStringBuilder.append(", ");
-                    }
-                }
-                inputType = inputTypeBuilder.substring(0, inputTypeBuilder.length() - 2) + "]";
-                inputString = inputStringBuilder.substring(0, inputStringBuilder.length() - 2) + "]";
-            }
-
-            String result;
+            Pair<String, String> resultTypeValue;
             try {
-                result = String.valueOf(predicate.test(input));
+                resultTypeValue = getTypeValue(predicate.test(input));
             } catch (final Exception e) {
-                result = e.toString();
+                resultTypeValue = new Pair<>(e.toString());
             }
 
-            log("<tr><td>" + inputType + "</td><td>" + inputString + "</td><td>" + result + "</td></tr>");
+            print("<tr><td>" + inputTypeValue.getFirst() + "</td><td>" + inputTypeValue.getSecond() + "</td><td>" + resultTypeValue.getSecond() + "</td></tr>");
         }
-        log("</table>\n");
-        log(METHOD_DIVIDER);
+        print("</table>\n");
+        print(METHOD_DIVIDER);
     }
 }

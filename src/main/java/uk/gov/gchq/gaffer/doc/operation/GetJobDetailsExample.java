@@ -26,7 +26,7 @@ public class GetJobDetailsExample extends OperationExample {
     private String jobId;
 
     public static void main(final String[] args) throws OperationException {
-        new GetJobDetailsExample().run();
+        new GetJobDetailsExample().runAndPrint();
     }
 
     public GetJobDetailsExample() {

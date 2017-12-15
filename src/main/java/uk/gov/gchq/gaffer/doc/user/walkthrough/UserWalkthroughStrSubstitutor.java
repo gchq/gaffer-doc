@@ -30,11 +30,12 @@ public abstract class UserWalkthroughStrSubstitutor extends WalkthroughStrSubsti
 
     public static Map<String, String> createParameterMap(final UserWalkthrough example) {
         final Map<String, String> params = new HashMap<>();
-        params.put("ROAD_TRAFFIC_EXAMPLE_LINK", getGafferGitHubFileLink("Road Traffic Example", "example/road-traffic/README.md"));
-        params.put("CSV_GENERATOR_JAVA",
-                JavaSourceUtil.getJava(RoadUseCsvGenerator.class.getName(), null));
-        params.put("DESCRIPTION_TRANSFORM_LINK", getGafferGitHubCodeLink(DescriptionTransform.class, "example/road-traffic/road-traffic-model"));
-        params.put("ROAD_TRAFFIC_SAMPLE_DATA_LINK", getGitHubResourcesLink("FullExample/data.txt", null));
+        putParam(params, "SIMPLE_GRAPH_CONFIGURATION", getJsonBlockFromResource("graphConfig.json", example.getClass()));
+        putParam(params, "SIMPLE_STORE_PROPERTIES", getPropertiesBlockFromResource("mockaccumulostore.properties", example.getClass()));
+        putParam(params, "ROAD_TRAFFIC_EXAMPLE_LINK", getGafferGitHubFileLink("Road Traffic Example", "example/road-traffic/README.md"));
+        putParam(params, "CSV_GENERATOR_JAVA", JavaSourceUtil.getJava(RoadUseCsvGenerator.class.getName(), null));
+        putParam(params, "DESCRIPTION_TRANSFORM_LINK", getGafferGitHubCodeLink(DescriptionTransform.class, "example/road-traffic/road-traffic-model"));
+        putParam(params, "ROAD_TRAFFIC_SAMPLE_DATA_LINK", getGitHubResourcesLink("FullExample/data.txt", null));
         return params;
     }
 }

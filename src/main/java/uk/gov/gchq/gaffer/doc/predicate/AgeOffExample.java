@@ -21,7 +21,7 @@ public class AgeOffExample extends PredicateExample {
     private long now = System.currentTimeMillis();
 
     public static void main(final String[] args) {
-        new AgeOffExample().run();
+        new AgeOffExample().runAndPrint();
     }
 
     public AgeOffExample() {

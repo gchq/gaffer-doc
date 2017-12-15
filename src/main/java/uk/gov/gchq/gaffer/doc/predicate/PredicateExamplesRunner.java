@@ -17,17 +17,15 @@ package uk.gov.gchq.gaffer.doc.predicate;
 
 import uk.gov.gchq.gaffer.doc.util.ExampleDocRunner;
 
-import java.util.function.Predicate;
-
 /**
  * This runner will run all predicate examples.
  */
 public class PredicateExamplesRunner extends ExampleDocRunner {
-    public static void main(final String[] args) throws Exception {
-        new PredicateExamplesRunner().run();
+    public PredicateExamplesRunner() {
+        super("Predicates", PredicateExample.class);
     }
 
-    public void run() throws Exception {
-        run("Predicate Examples", PredicateExample.class, Predicate.class);
+    public static void main(final String[] args) throws Exception {
+        new PredicateExamplesRunner().generate();
     }
 }

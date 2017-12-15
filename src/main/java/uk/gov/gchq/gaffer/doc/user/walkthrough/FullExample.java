@@ -38,7 +38,6 @@ import uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds;
 import uk.gov.gchq.gaffer.operation.impl.get.GetElements;
 import uk.gov.gchq.gaffer.operation.impl.output.ToCsv;
 import uk.gov.gchq.gaffer.operation.impl.output.ToSet;
-import uk.gov.gchq.gaffer.traffic.ElementGroup;
 import uk.gov.gchq.gaffer.traffic.generator.RoadTrafficCsvElementGenerator;
 import uk.gov.gchq.gaffer.types.function.FreqMapExtractor;
 import uk.gov.gchq.gaffer.user.User;
@@ -65,9 +64,9 @@ public class FullExample extends UserWalkthrough {
         // [graph] Create a graph using our schema and store properties
         // ---------------------------------------------------------
         final Graph graph = new Graph.Builder()
-                .config(StreamUtil.graphConfig(getClass()))
-                .addSchemas(StreamUtil.openStreams(ElementGroup.class, "schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .config(getDefaultGraphConfig())
+                .addSchemas(StreamUtil.openStreams(getClass(), schemaPath))
+                .storeProperties(getDefaultStoreProperties())
                 .build();
         // ---------------------------------------------------------
 
@@ -99,7 +98,7 @@ public class FullExample extends UserWalkthrough {
         }
 
         // ---------------------------------------------------------
-        log("The elements have been added.");
+        print("The elements have been added.");
 
 
         // [get] Get all road junctions in the South West that were heavily used by buses in the year 2000.
@@ -160,13 +159,13 @@ public class FullExample extends UserWalkthrough {
                 .build();
         // ---------------------------------------------------------
 
-        log("GET_JSON", getJson(opChain));
-        log("GET_PYTHON", getAsPython(opChain));
+        print("GET_JSON", getJson(opChain));
+        print("GET_PYTHON", getAsPython(opChain));
 
         final Iterable<? extends String> results = graph.execute(opChain, user);
-        log("\nAll road junctions in the South West that were heavily used by buses in year 2000.");
+        print("\nAll road junctions in the South West that were heavily used by buses in year 2000.");
         for (final String result : results) {
-            log("RESULT", result);
+            print("RESULT", result);
         }
 
         return results;
@@ -174,7 +173,7 @@ public class FullExample extends UserWalkthrough {
 
     public static void main(final String[] args) throws OperationException {
         final UserWalkthrough walkthrough = new FullExample();
-        walkthrough.log(walkthrough.walkthrough());
+        walkthrough.print(walkthrough.walkthrough());
     }
 
     private static Date getDate(final String dateStr) {

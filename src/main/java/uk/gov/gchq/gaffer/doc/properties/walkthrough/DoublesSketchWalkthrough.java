@@ -49,9 +49,9 @@ public class DoublesSketchWalkthrough extends PropertiesWalkthrough {
         /// [graph] create a graph using our schema and store properties
         // ---------------------------------------------------------
         final Graph graph = new Graph.Builder()
-                .config(StreamUtil.graphConfig(getClass()))
-                .addSchemas(StreamUtil.openStreams(getClass(), "properties/doublesSketch/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .config(getDefaultGraphConfig())
+                .addSchemas(StreamUtil.openStreams(getClass(), schemaPath))
+                .storeProperties(getDefaultStoreProperties())
                 .build();
         // ---------------------------------------------------------
 
@@ -75,7 +75,7 @@ public class DoublesSketchWalkthrough extends PropertiesWalkthrough {
 
         graph.execute(addOpChain, user);
         // ---------------------------------------------------------
-        log("Added an edge A-B 1000 times, each time with a DoublesSketch containing a normally distributed"
+        print("Added an edge A-B 1000 times, each time with a DoublesSketch containing a normally distributed"
                 + " (mean 0, standard deviation 1) random double.");
 
 
@@ -83,9 +83,9 @@ public class DoublesSketchWalkthrough extends PropertiesWalkthrough {
         // ---------------------------------------------------------
         CloseableIterable<? extends Element> allEdges = graph.execute(new GetAllElements(), user);
         // ---------------------------------------------------------
-        log("\nAll edges:");
+        print("\nAll edges:");
         for (final Element edge : allEdges) {
-            log("GET_ALL_EDGES_RESULT", edge.toString());
+            print("GET_ALL_EDGES_RESULT", edge.toString());
         }
 
 
@@ -104,8 +104,8 @@ public class DoublesSketchWalkthrough extends PropertiesWalkthrough {
                 + ", 50th percentile: " + quantiles[1]
                 + ", 75th percentile: " + quantiles[2];
         // ---------------------------------------------------------
-        log("\nEdge A-B with an estimate of the median value");
-        log("GET_0.25,0.5,0.75_PERCENTILES_FOR_EDGE_A_B", quantilesEstimate);
+        print("\nEdge A-B with an estimate of the median value");
+        print("GET_0.25,0.5,0.75_PERCENTILES_FOR_EDGE_A_B", quantilesEstimate);
 
 
         // [get cdf] Get the edge A-B and print some values from the cumulative density function
@@ -123,8 +123,8 @@ public class DoublesSketchWalkthrough extends PropertiesWalkthrough {
                 + ", at 1: " + cdf[1]
                 + ", at 2: " + cdf[2];
         // ---------------------------------------------------------
-        log("\nEdge A-B with the cumulative density function values at 0, 1, 2");
-        log("GET_CDF_FOR_EDGE_A_B_RESULT", cdfEstimate);
+        print("\nEdge A-B with the cumulative density function values at 0, 1, 2");
+        print("GET_CDF_FOR_EDGE_A_B_RESULT", cdfEstimate);
         return null;
     }
 }
