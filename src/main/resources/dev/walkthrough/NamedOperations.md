@@ -87,7 +87,9 @@ ${END_CODE}
 
 Then add a named operation to the cache with the AddNamedOperation operation:
 
+${START_JAVA_CODE}
 ${ADD_NAMED_OPERATION_SNIPPET}
+${END_CODE}
 
 The above named operation has been configured to have a score of 2. If you have
 the OperationChainLimiter GraphHook configured then this score will be used by
