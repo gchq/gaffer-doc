@@ -61,7 +61,7 @@ public abstract class PredicateExample extends Example {
             try {
                 resultTypeValue = getTypeValue(predicate.test(input));
             } catch (final Exception e) {
-                resultTypeValue = new Pair<>(e.toString());
+                resultTypeValue = new Pair<>("", e.getClass().getSimpleName() + ": " + e.getMessage());
             }
 
             print("<tr><td>" + inputTypeValue.getFirst() + "</td><td>" + inputTypeValue.getSecond() + "</td><td>" + resultTypeValue.getSecond() + "</td></tr>");
