@@ -50,14 +50,14 @@ public class GetWalksExample extends OperationExample {
 
     @Override
     public void runExamples() {
-//        getWalks();
-//        getWalksWithLoops();
-//        getWalksWithSelfLoops();
-//        getWalksWithIncomingOutgoingFlags();
-//        getWalksWithMultipleGroups();
-//        getWalksWithFiltering();
-//        getWalksWithEntities();
-//        getWalksWithAdditionalOperations();
+        getWalks();
+        getWalksWithLoops();
+        getWalksWithSelfLoops();
+        getWalksWithIncomingOutgoingFlags();
+        getWalksWithMultipleGroups();
+        getWalksWithFiltering();
+        getWalksWithEntities();
+        getWalksWithAdditionalOperations();
         getWalksWithFilteringOnCardinalityEntities();
     }
 
