@@ -15,6 +15,9 @@
  */
 package uk.gov.gchq.gaffer.doc.operation;
 
+import com.google.common.collect.Lists;
+
+import uk.gov.gchq.gaffer.data.element.comparison.ElementPropertyComparator;
 import uk.gov.gchq.gaffer.data.element.function.ElementFilter;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.ViewElementDefinition;
@@ -24,6 +27,7 @@ import uk.gov.gchq.gaffer.operation.OperationException;
 import uk.gov.gchq.gaffer.operation.data.EntitySeed;
 import uk.gov.gchq.gaffer.operation.graph.SeededGraphFilters;
 import uk.gov.gchq.gaffer.operation.impl.GetWalks;
+import uk.gov.gchq.gaffer.operation.impl.compare.Sort;
 import uk.gov.gchq.gaffer.operation.impl.get.GetElements;
 import uk.gov.gchq.koryphe.impl.predicate.IsMoreThan;
 
@@ -48,6 +52,8 @@ public class GetWalksExample extends OperationExample {
         getWalksWithIncomingOutgoingFlags();
         getWalksWithMultipleGroups();
         getWalksWithFiltering();
+        getWalksWithEntities();
+        getWalksWithAdditionalOperations();
     }
 
     public Iterable<Walk> getWalks() {
@@ -210,5 +216,68 @@ public class GetWalksExample extends OperationExample {
                 "which start from vertex 8, with the added restriction that all " +
                 "edges must be traversed using the source as the matched vertex. " +
                 "This demonstrates the behaviour when self loops exist in the graph.");
+    }
+
+    public Iterable<Walk> getWalksWithEntities() {
+        // ---------------------------------------------------------
+        final OperationChain<Iterable<Walk>> opChain = new OperationChain.Builder()
+                .first(new GetWalks.Builder()
+                        .operations(new GetElements.Builder()
+                                        .view(new View.Builder().edge("edge")
+                                                .entities(Lists.newArrayList("entity", "entity1"))
+                                                .build())
+                                        .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
+                                        .build(),
+                                new GetElements.Builder()
+                                        .view(new View.Builder().edge("edge1")
+                                                .entity("entity1")
+                                                .build())
+                                        .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.INCOMING)
+                                        .build(),
+                                new GetElements.Builder()
+                                        .view(new View.Builder()
+                                                .entities(Lists.newArrayList("entity", "entity1"))
+                                                .build())
+                                        .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.INCOMING)
+                                        .build())
+                        .input(new EntitySeed(1))
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+
+        return runExample(opChain, "Gets all of the Walks of length 2 " +
+                "which start from vertex 1, with all of the entities which are attached " +
+                "to the vertices found along the way.");
+    }
+
+    public Iterable<Walk> getWalksWithAdditionalOperations() {
+        // ---------------------------------------------------------
+        final OperationChain<Iterable<Walk>> opChain = new OperationChain.Builder()
+                .first(new GetWalks.Builder()
+                        .operations(new OperationChain(new GetElements.Builder()
+                                        .view(new View.Builder()
+                                                .edges(Lists.newArrayList("edge", "edge1"))
+                                                .build())
+                                        .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.INCOMING)
+                                        .build(),
+                                        new Sort.Builder()
+                                                .comparators(new ElementPropertyComparator.Builder()
+                                                        .property("count")
+                                                        .build())
+                                                .build()),
+                                new GetElements.Builder()
+                                        .view(new View.Builder()
+                                                .edge("edge1")
+                                                .build())
+                                        .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.INCOMING)
+                                        .build())
+                        .input(new EntitySeed(5))
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+
+        return runExample(opChain, "Gets all of the Walks of length 2 " +
+                "which start from vertex 5, where an additional operation is inserted " +
+                "between the GetElements operations used to retrieve elements.");
     }
 }
