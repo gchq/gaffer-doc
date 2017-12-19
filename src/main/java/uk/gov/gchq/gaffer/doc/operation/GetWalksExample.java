@@ -17,6 +17,7 @@ package uk.gov.gchq.gaffer.doc.operation;
 
 import com.google.common.collect.Lists;
 
+import uk.gov.gchq.gaffer.commonutil.CollectionUtil;
 import uk.gov.gchq.gaffer.data.element.comparison.ElementPropertyComparator;
 import uk.gov.gchq.gaffer.data.element.function.ElementFilter;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
@@ -29,6 +30,9 @@ import uk.gov.gchq.gaffer.operation.graph.SeededGraphFilters;
 import uk.gov.gchq.gaffer.operation.impl.GetWalks;
 import uk.gov.gchq.gaffer.operation.impl.compare.Sort;
 import uk.gov.gchq.gaffer.operation.impl.get.GetElements;
+import uk.gov.gchq.gaffer.operation.impl.output.ToEntitySeeds;
+import uk.gov.gchq.gaffer.sketches.clearspring.cardinality.predicate.HyperLogLogPlusIsLessThan;
+import uk.gov.gchq.koryphe.impl.predicate.IsEqual;
 import uk.gov.gchq.koryphe.impl.predicate.IsMoreThan;
 
 public class GetWalksExample extends OperationExample {
@@ -46,14 +50,15 @@ public class GetWalksExample extends OperationExample {
 
     @Override
     public void runExamples() {
-        getWalks();
-        getWalksWithLoops();
-        getWalksWithSelfLoops();
-        getWalksWithIncomingOutgoingFlags();
-        getWalksWithMultipleGroups();
-        getWalksWithFiltering();
-        getWalksWithEntities();
-        getWalksWithAdditionalOperations();
+//        getWalks();
+//        getWalksWithLoops();
+//        getWalksWithSelfLoops();
+//        getWalksWithIncomingOutgoingFlags();
+//        getWalksWithMultipleGroups();
+//        getWalksWithFiltering();
+//        getWalksWithEntities();
+//        getWalksWithAdditionalOperations();
+        getWalksWithFilteringOnCardinalityEntities();
     }
 
     public Iterable<Walk> getWalks() {
@@ -84,7 +89,7 @@ public class GetWalksExample extends OperationExample {
                                         .view(new View.Builder().edge("edge", new ViewElementDefinition.Builder()
                                                 .preAggregationFilter(new ElementFilter.Builder()
                                                         .select("count")
-                                                        .execute(new IsMoreThan(3))
+                                                        .execute(new IsMoreThan(3L))
                                                         .build())
                                                 .build())
                                                 .build())
@@ -94,7 +99,7 @@ public class GetWalksExample extends OperationExample {
                                         .view(new View.Builder().edge("edge1", new ViewElementDefinition.Builder()
                                                 .preAggregationFilter(new ElementFilter.Builder()
                                                         .select("count")
-                                                        .execute(new IsMoreThan(8))
+                                                        .execute(new IsMoreThan(8L))
                                                         .build())
                                                 .build())
                                                 .build())
@@ -279,5 +284,55 @@ public class GetWalksExample extends OperationExample {
         return runExample(opChain, "Gets all of the Walks of length 2 " +
                 "which start from vertex 5, where an additional operation is inserted " +
                 "between the GetElements operations used to retrieve elements.");
+    }
+
+    public Iterable<Walk> getWalksWithFilteringOnCardinalityEntities() {
+        // ---------------------------------------------------------
+        final OperationChain<Iterable<Walk>> opChain = new OperationChain.Builder()
+                .first(new GetWalks.Builder()
+                        .operations(new OperationChain.Builder().first(new GetElements.Builder()
+                                        .view(new View.Builder()
+                                                .entity("cardinality", new ViewElementDefinition.Builder()
+                                                        .preAggregationFilter(new ElementFilter.Builder()
+                                                                .select("edgeGroup")
+                                                                .execute(new IsEqual(CollectionUtil.treeSet("edge")))
+                                                                .build())
+                                                        .groupBy()
+                                                        .postAggregationFilter(new ElementFilter.Builder()
+                                                                .select("hllp")
+                                                                .execute(new HyperLogLogPlusIsLessThan(2))
+                                                                .build())
+                                                        .build())
+                                                .build())
+                                        .build())
+                                        .then(new GetElements.Builder()
+                                                .view(new View.Builder()
+                                                        .edges(Lists.newArrayList("edge", "edge1"))
+                                                        .entities(Lists.newArrayList("entity", "entity1"))
+                                                        .build())
+                                                .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.INCOMING)
+                                                .build())
+                                        .build(),
+                                new GetElements.Builder()
+                                        .view(new View.Builder()
+                                                .edges(Lists.newArrayList("edge", "edge1"))
+                                                .entities(Lists.newArrayList("entity", "entity1"))
+                                                .build())
+                                        .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.INCOMING)
+                                        .build(),
+                                new GetElements.Builder()
+                                        .view(new View.Builder()
+                                                .entities(Lists.newArrayList("entity", "entity1"))
+                                                .build())
+                                        .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.INCOMING)
+                                        .build())
+                        .input(new EntitySeed(5))
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+
+        return runExample(opChain, "Gets all of the Walks of length 2 " +
+                "which start from vertex 5, where the results of the first hop are " +
+                "filtered based on the cardinality entities in the graph.");
     }
 }
