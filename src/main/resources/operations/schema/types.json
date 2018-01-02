@@ -13,6 +13,27 @@
           "class": "uk.gov.gchq.koryphe.impl.predicate.IsTrue"
         }
       ]
+    },
+    "count": {
+      "class": "java.lang.Integer",
+      "aggregateFunction": {
+        "class": "uk.gov.gchq.koryphe.impl.binaryoperator.Sum"
+      }
+    },
+    "set": {
+      "class": "java.util.TreeSet",
+      "aggregateFunction": {
+        "class": "uk.gov.gchq.koryphe.impl.binaryoperator.CollectionConcat"
+      }
+    },
+    "hllp": {
+      "class": "com.clearspring.analytics.stream.cardinality.HyperLogLogPlus",
+      "aggregateFunction": {
+        "class": "uk.gov.gchq.gaffer.sketches.clearspring.cardinality.binaryoperator.HyperLogLogPlusAggregator"
+      },
+      "serialiser": {
+        "class": "uk.gov.gchq.gaffer.sketches.clearspring.cardinality.serialisation.HyperLogLogPlusSerialiser"
+      }
     }
   }
 }
