@@ -45,7 +45,7 @@ public class ElementWithVaryingGroupsGenerator implements OneToManyElementGenera
                     .source(Integer.parseInt(t[0]))
                     .dest(Integer.parseInt(t[1]))
                     .directed(true)
-                    .property("count", Long.parseLong(t[2]))
+                    .property("count", Integer.parseInt(t[2]))
                     .build();
 
             elements.add(element);
@@ -56,7 +56,7 @@ public class ElementWithVaryingGroupsGenerator implements OneToManyElementGenera
             element = new Entity.Builder()
                     .group("entity" + groupModifier)
                     .vertex(Integer.parseInt(t[0]))
-                    .property("count", Long.parseLong(t[1]))
+                    .property("count", Integer.parseInt(t[1]))
                     .build();
             elements.add(element);
         }
@@ -86,7 +86,7 @@ public class ElementWithVaryingGroupsGenerator implements OneToManyElementGenera
                 .group("cardinality")
                 .property("edgeGroup", CollectionUtil.treeSet(edge.getGroup()))
                 .property("hllp", hllp)
-                .property("count", 1L)
+                .property("count", 1)
                 .build();
     }
 }

@@ -4,13 +4,13 @@
       "vertex": "int",
       "description": "test entity",
       "properties": {
-        "count": "count.long"
+        "count": "count"
       }
     },
     "entity1": {
       "vertex": "int",
       "properties": {
-        "count": "count.long"
+        "count": "count"
       }
     },
     "cardinality": {
@@ -19,7 +19,7 @@
       "properties": {
         "edgeGroup": "set",
         "hllp": "hllp",
-        "count": "count.long"
+        "count": "count"
       },
       "groupBy": [
         "edgeGroup"
@@ -33,7 +33,7 @@
       "directed": "true",
       "description": "test edge",
       "properties": {
-        "count": "count.long"
+        "count": "count"
       }
     },
     "edge1": {
@@ -41,7 +41,7 @@
       "destination": "int",
       "directed": "true",
       "properties": {
-        "count": "count.long"
+        "count": "count"
       }
     }
   }
