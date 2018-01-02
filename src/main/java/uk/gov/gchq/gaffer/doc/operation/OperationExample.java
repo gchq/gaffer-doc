@@ -369,7 +369,7 @@ public abstract class OperationExample extends Example {
     }
 
     protected void printSimpleGraphAsAscii() {
-        print("Using this complex directed graph:");
+        print("Using this directed graph:");
         print("\n```");
         print("");
         print("    --> 4 <--");
@@ -382,7 +382,7 @@ public abstract class OperationExample extends Example {
     }
 
     protected void printComplexGraphAsAscii() {
-        print("Using this directed graph:");
+        print("Using this complex directed graph:");
         print("\n```");
         print("");
         print("                 --> 7 <--");
