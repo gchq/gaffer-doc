@@ -1,5 +1,5 @@
-package uk.gov.gchq.gaffer.doc.dev.walkthrough;/*
- * Copyright 2017 Crown Copyright
+/*
+ * Copyright 2018 Crown Copyright
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,8 @@ package uk.gov.gchq.gaffer.doc.dev.walkthrough;/*
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package uk.gov.gchq.gaffer.doc.dev.walkthrough;
 
 import com.google.common.collect.Maps;
 import org.apache.commons.io.IOUtils;
