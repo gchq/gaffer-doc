@@ -42,10 +42,10 @@ import java.io.IOException;
 import java.util.Map;
 
 public class NamedViews extends DevWalkthrough {
+
     public NamedViews() {
         super("NamedViews", "RoadAndRoadUseWithTimesAndCardinalities");
     }
-
 
     @Override
     public CloseableIterable<? extends Element> run() throws OperationException, IOException {
@@ -126,16 +126,13 @@ public class NamedViews extends DevWalkthrough {
         String viewString = "{" +
                 "      \"edges\" : {" +
                 "        \"RoadUse\" : {  " +
-                "           \"preAggregationFilterFunctions\" : [ {\n" +
-                "               \"predicate\" : {\n" +
-                "                   \"class\" : \"uk.gov.gchq.koryphe.impl.predicate.IsMoreThan\",\n" +
-                "                   \"orEqualTo\" : false,\n" +
-                "                     \"value\": \"${isMoreThanParam}\"\n" +
-                //"                     \"value\": {\n" +
-                //"                        \"java.lang.Long\": 1\n" +
-                //"                      }\n" +
-                "             },\n" +
-                "             \"selection\" : [ \"${selectionParam}\" ]\n" +
+                "           \"preAggregationFilterFunctions\" : [ {" +
+                "               \"predicate\" : {" +
+                "                   \"class\" : \"uk.gov.gchq.koryphe.impl.predicate.IsMoreThan\"," +
+                "                   \"orEqualTo\" : false," +
+                "                     \"value\": \"${isMoreThanParam}\"" +
+                "                 }," +
+                "             \"selection\" : [ \"${selectionParam}\" ]" +
                 "         } ] }" +
                 "      }," +
                 "      \"entities\" : { }" +
