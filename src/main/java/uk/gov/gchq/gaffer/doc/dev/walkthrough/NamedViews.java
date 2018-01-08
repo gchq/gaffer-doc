@@ -32,6 +32,7 @@ import uk.gov.gchq.gaffer.named.view.AddNamedView;
 import uk.gov.gchq.gaffer.named.view.GetAllNamedViews;
 import uk.gov.gchq.gaffer.operation.OperationChain;
 import uk.gov.gchq.gaffer.operation.OperationException;
+import uk.gov.gchq.gaffer.operation.data.EntitySeed;
 import uk.gov.gchq.gaffer.operation.impl.add.AddElements;
 import uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements;
 import uk.gov.gchq.gaffer.operation.impl.get.GetElements;
@@ -106,6 +107,7 @@ public class NamedViews extends DevWalkthrough {
                 .view(new NamedView.Builder()
                         .name("RoadUse edges")
                         .build())
+                .input(new EntitySeed("10"))
                 .build();
         // ---------------------------------------------------------
 
@@ -122,36 +124,42 @@ public class NamedViews extends DevWalkthrough {
         // with parameters
         // ---------------------------------------------------------
         String viewString = "{" +
-                "  \"operations\" : [ {" +
-                "    \"class\" : \"uk.gov.gchq.gaffer.operation.impl.get.GetElements\"," +
-                "    \"view\" : {" +
                 "      \"edges\" : {" +
                 "        \"RoadUse\" : {  " +
-                "           \"postAggregationFilterFunctions\" : [ {\n" +
+                "           \"preAggregationFilterFunctions\" : [ {\n" +
                 "               \"predicate\" : {\n" +
                 "                   \"class\" : \"uk.gov.gchq.koryphe.impl.predicate.IsMoreThan\",\n" +
                 "                   \"orEqualTo\" : false,\n" +
-                "                   \"value\" : { ${countIsMoreThan}}\n" +
+                "                     \"value\": \"${isMoreThanParam}\"\n" +
+                //"                     \"value\": {\n" +
+                //"                        \"java.lang.Long\": 1\n" +
+                //"                      }\n" +
                 "             },\n" +
-                "             \"selection\" : [ \"count\" ]\n" +
+                "             \"selection\" : [ \"${selectionParam}\" ]\n" +
                 "         } ] }" +
                 "      }," +
                 "      \"entities\" : { }" +
-                "    }" +
-                "  }]" +
                 "}";
 
         ViewParameterDetail param = new ViewParameterDetail.Builder()
-                .defaultValue(2L)
-                .description("Count param")
+                .description("Selection param")
+                .valueClass(String.class)
+                .required(true)
+                .build();
+
+        ViewParameterDetail param1 = new ViewParameterDetail.Builder()
+                .description("isMoreThan param")
+                .defaultValue(0L)
                 .valueClass(Long.class)
                 .build();
+
         Map<String, ViewParameterDetail> paramDetailMap = Maps.newHashMap();
-        paramDetailMap.put("countIsMoreThan", param);
+        paramDetailMap.put("selectionParam", param);
+        paramDetailMap.put("isMoreThanParam", param1);
 
         final AddNamedView addNamedViewWithParams = new AddNamedView.Builder()
+                .name("customCountView")
                 .description("named View with count param")
-                .name("custom edge count View")
                 .view(viewString)
                 .parameters(paramDetailMap)
                 .overwrite(false)
@@ -162,13 +170,15 @@ public class NamedViews extends DevWalkthrough {
         // [create named operation with parameters] create the named operation with a parameter
         // ---------------------------------------------------------
         Map<String, Object> paramMap = Maps.newHashMap();
-        paramMap.put("countIsMoreThan", 1L);
+        paramMap.put("selectionParam", "count");
+        paramMap.put("isMoreThanParam", 1L);
 
         final GetElements operationUsingParams = new GetElements.Builder()
                 .view(new NamedView.Builder()
-                        .name("custom edge count View")
+                        .name("customCountView")
                         .parameters(paramMap)
                         .build())
+                .input(new EntitySeed("10"))
                 .build();
         // ---------------------------------------------------------
 
@@ -183,5 +193,10 @@ public class NamedViews extends DevWalkthrough {
         }
 
         return namedViewResultsWithParams;
+    }
+
+    public static void main(final String[] args) throws OperationException, IOException {
+        final NamedViews walkthrough = new NamedViews();
+        walkthrough.run();
     }
 }
