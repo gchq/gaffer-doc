@@ -32,7 +32,8 @@ The query is form a follows:
 - We may get duplicates at this point so we will add all the road vertices to a Set using ToSet (this is not recommended for a large number of results).
 - Then we will continue on down RoadHasJunction edges.
 - At this point we now have all the Junctions in the South West.
-- We will then query for the JunctionUse entity to find out if the junction was heavily used by buses in the year 2000.
+- We will then query for the JunctionUse entity to find out the number of buses.
+- Next we will sort the entities based on the number of buses and we will just keep the top 2 results.
 - Finally, just to demonstrate another operation, we will convert the results into a simple CSV of junction and bus count.
 
 and here is the code in Java, JSON and Python:
@@ -41,6 +42,10 @@ ${START_JAVA_CODE}
 ${GET_SNIPPET}
 ${JSON_CODE}
 ${GET_JSON}
+${FULL_JSON_CODE}
+${GET_FULL_JSON}
+${PYTHON_CODE}
+${GET_PYTHON}
 ${END_CODE}
 
 We have a python shell for connecting to the Gaffer REST API. You can

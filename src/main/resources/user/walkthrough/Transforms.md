@@ -17,6 +17,8 @@ ${START_JAVA_CODE}
 ${TRANSFORM_SNIPPET}
 ${JSON_CODE}
 ${TRANSFORM_JSON}
+${FULL_JSON_CODE}
+${TRANSFORM_FULL_JSON}
 ${END_CODE}
 
 Here you can see we `select` the inputs for the function; the `”SOURCE”` vertex, the `”DESTINATION”` vertex and `”count”` property. We `project` the result into a transient property named `”description”`.
@@ -36,6 +38,10 @@ ${START_JAVA_CODE}
 ${GET_SNIPPET}
 ${JSON_CODE}
 ${GET_JSON}
+${FULL_JSON_CODE}
+${GET_FULL_JSON}
+${PYTHON_CODE}
+${GET_PYTHON}
 ${END_CODE}
 
 This produces the following result:
@@ -54,6 +60,10 @@ ${START_JAVA_CODE}
 ${GET_WITH_NO_COUNT_SNIPPET}
 ${JSON_CODE}
 ${GET_WITH_NO_COUNT_JSON}
+${FULL_JSON_CODE}
+${GET_WITH_NO_COUNT_FULL_JSON}
+${PYTHON_CODE}
+${GET_WITH_NO_COUNT_PYTHON}
 ${END_CODE}
 
 The count property has been removed from the results:

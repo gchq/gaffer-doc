@@ -42,6 +42,7 @@ public abstract class SparkOperationExample extends OperationExample {
                 .set(SparkConstants.SERIALIZER, SparkConstants.DEFAULT_SERIALIZER)
                 .set(SparkConstants.KRYO_REGISTRATOR, SparkConstants.DEFAULT_KRYO_REGISTRATOR)
                 .set(SparkConstants.DRIVER_ALLOW_MULTIPLE_CONTEXTS, "true");
+        skipPython();
     }
 
     public SparkOperationExample(final Class<? extends Operation> opClass) {
@@ -86,12 +87,6 @@ public abstract class SparkOperationExample extends OperationExample {
         final Context context = super.createContext();
         SparkContextUtil.addSparkSession(context, sparkSession);
         return context;
-    }
-
-    @Override
-    protected String getPython(final Object object) {
-        // skip
-        return null;
     }
 
     protected void createSparkSession() {

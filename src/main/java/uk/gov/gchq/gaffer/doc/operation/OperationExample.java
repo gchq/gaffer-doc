@@ -29,7 +29,9 @@ import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.graph.Walk;
 import uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator;
 import uk.gov.gchq.gaffer.doc.operation.generator.ElementWithVaryingGroupsGenerator;
+import uk.gov.gchq.gaffer.doc.util.DocUtil;
 import uk.gov.gchq.gaffer.doc.util.Example;
+import uk.gov.gchq.gaffer.doc.walkthrough.WalkthroughStrSubstitutor;
 import uk.gov.gchq.gaffer.graph.Graph;
 import uk.gov.gchq.gaffer.graph.GraphConfig;
 import uk.gov.gchq.gaffer.operation.Operation;
@@ -260,7 +262,7 @@ public abstract class OperationExample extends Example {
             final String resultStr = dataset.showString(100, 20);
             print(resultStr.substring(0, resultStr.length() - 2));
         } else if (result instanceof Schema) {
-            print(getJson(result));
+            print(DocUtil.getJson(result));
         } else if (null != result) {
             print(result.toString());
         } else {
@@ -268,8 +270,8 @@ public abstract class OperationExample extends Example {
         }
 
         try {
-            final String json = getJson(result);
-            print("\n{%- language name=\"JSON\", type=\"json\" -%}");
+            final String json = DocUtil.getFullJson(result);
+            print(WalkthroughStrSubstitutor.JSON_CODE_MARKER);
             print(json);
         } catch (final Exception e) {
             // ignore error - just don't display the json

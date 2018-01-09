@@ -16,20 +16,14 @@
 package uk.gov.gchq.gaffer.doc.util;
 
 import com.google.common.collect.Lists;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import uk.gov.gchq.gaffer.commonutil.CommonConstants;
 import uk.gov.gchq.gaffer.commonutil.pair.Pair;
 import uk.gov.gchq.gaffer.doc.walkthrough.WalkthroughStrSubstitutor;
-import uk.gov.gchq.gaffer.exception.SerialisationException;
-import uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser;
 import uk.gov.gchq.koryphe.tuple.MapTuple;
 import uk.gov.gchq.koryphe.tuple.Tuple;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Locale;
 
 public abstract class Example {
@@ -38,10 +32,10 @@ public abstract class Example {
     public static final String METHOD_DIVIDER = DIVIDER + "\n";
     public static final String KORYPHE_JAVA_DOC_URL_PREFIX = "ref://../../javadoc/koryphe/";
     public static final String JAVA_DOC_URL_PREFIX = "ref://../../javadoc/gaffer/";
-    public static final String SKIP_PYTHON_PROPERTY = "gaffer.doc.skipPython";
     private final Class<?> classForExample;
     private final String description;
     private StringBuilder output = new StringBuilder();
+    private boolean skipPython;
 
     public Example(final Class<?> classForExample) {
         this(classForExample, "");
@@ -89,6 +83,10 @@ public abstract class Example {
 
     public Class<?> getClassForExample() {
         return classForExample;
+    }
+
+    protected void skipPython() {
+        this.skipPython = true;
     }
 
     protected abstract void runExamples();
@@ -170,12 +168,16 @@ public abstract class Example {
         print(WalkthroughStrSubstitutor.START_JAVA_CODE_MARKER);
         print(java);
         print(WalkthroughStrSubstitutor.JSON_CODE_MARKER);
-        print(getJson(obj));
+        print(DocUtil.getJson(obj));
+        print(WalkthroughStrSubstitutor.FULL_JSON_CODE_MARKER);
+        print(DocUtil.getFullJson(obj));
 
-        final String python = getPython(obj);
-        if (null != python) {
-            print(WalkthroughStrSubstitutor.PYTHON_CODE_MARKER);
-            print(python);
+        if (!skipPython) {
+            final String python = DocUtil.getPython(obj);
+            if (null != python) {
+                print(WalkthroughStrSubstitutor.PYTHON_CODE_MARKER);
+                print(python);
+            }
         }
 
         print(WalkthroughStrSubstitutor.END_MARKER_MARKER);
@@ -193,66 +195,6 @@ public abstract class Example {
         print("\n\n```java");
         print(java);
         print("```\n");
-    }
-
-    protected String getPython(final Object object) {
-        final boolean skipPythonOnError = Boolean.parseBoolean(System.getProperty(SKIP_PYTHON_PROPERTY));
-        final String json = getRawJson(object);
-        final ProcessBuilder pb = new ProcessBuilder("python3", "-u", "gaffer-python-shell/src/gafferpy/fromJson.py", json);
-
-        final Process p;
-        try {
-            p = pb.start();
-        } catch (final IOException e) {
-            if (skipPythonOnError) {
-                return "";
-            }
-            throw new RuntimeException("Unable to run python3", e);
-        }
-
-        try {
-            p.waitFor();
-        } catch (final InterruptedException e) {
-            if (skipPythonOnError) {
-                return "";
-            }
-            throw new RuntimeException("Python failed to complete", e);
-        }
-
-        if (p.exitValue() > 0) {
-            try {
-                throw new RuntimeException("Error in python: " + IOUtils.toString(p.getErrorStream()) + "\nUnable to convert json: " + json);
-            } catch (final IOException e) {
-                if (skipPythonOnError) {
-                    return "";
-                }
-                throw new RuntimeException("Unable to read error from Python", e);
-            }
-        }
-        try {
-            return IOUtils.toString(p.getInputStream());
-        } catch (final IOException e) {
-            if (skipPythonOnError) {
-                return "";
-            }
-            throw new RuntimeException("Unable to read result from python", e);
-        }
-    }
-
-    protected String getJson(final Object object) {
-        try {
-            return new String(JSONSerialiser.serialise(object, true), CommonConstants.UTF_8);
-        } catch (final SerialisationException | UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    protected String getRawJson(final Object object) {
-        try {
-            return new String(JSONSerialiser.serialise(object), CommonConstants.UTF_8);
-        } catch (final SerialisationException | UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     protected void print(final String message) {
