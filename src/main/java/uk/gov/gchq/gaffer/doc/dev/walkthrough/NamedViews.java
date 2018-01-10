@@ -167,7 +167,7 @@ public class NamedViews extends DevWalkthrough {
 
         graph.execute(addNamedViewWithParams, user);
 
-        // [create named operation with parameters] create the named operation with a parameter
+        // [create named view with parameters] create the named operation with a parameter
         // ---------------------------------------------------------
         Map<String, Object> paramMap = Maps.newHashMap();
         paramMap.put("selectionParam", "count");
