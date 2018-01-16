@@ -131,9 +131,8 @@ public class NamedViews extends DevWalkthrough {
                 "                   \"class\" : \"uk.gov.gchq.koryphe.impl.predicate.IsMoreThan\"," +
                 "                   \"orEqualTo\" : false," +
                 "                     \"value\": {" +
-                "                         \"java.lang.Long\" : 1" +
+                "                         \"java.lang.Long\" : \"${isMoreThanParam}\"" +
                 "                       }" +
-                //"                     \"value\": \"${isMoreThanParam}\"" +
                 "                 }," +
                 "             \"selection\" : [ \"${selectionParam}\" ]" +
                 "         } ] }" +
