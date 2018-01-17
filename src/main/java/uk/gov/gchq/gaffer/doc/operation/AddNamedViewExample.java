@@ -56,8 +56,7 @@ public class AddNamedViewExample extends OperationExample {
                 .view(new View.Builder().edge("testEdge").build())
                 .parameters(paramMap)
                 .build();
-
-        showExample(op, null);
         // ---------------------------------------------------------
+        showExample(op, null);
     }
 }

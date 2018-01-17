@@ -37,8 +37,7 @@ public class GetAllNamedViewsExample extends OperationExample {
         // ---------------------------------------------------------
         final GetAllNamedViews op = new GetAllNamedViews.Builder()
                 .build();
-
-        showExample(op, null);
         // ---------------------------------------------------------
+        showExample(op, null);
     }
 }

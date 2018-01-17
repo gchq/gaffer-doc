@@ -38,8 +38,7 @@ public class DeleteNamedViewExample extends OperationExample {
         final DeleteNamedView op = new DeleteNamedView.Builder()
                 .name("testNamedView")
                 .build();
-
-        showExample(op, null);
         // ---------------------------------------------------------
+        showExample(op, null);
     }
 }
