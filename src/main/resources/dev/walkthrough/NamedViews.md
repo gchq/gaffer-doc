@@ -2,12 +2,12 @@ ${HEADER}
 
 ${CODE_LINK}
 
-This example explains how to configure your Gaffer Graph to allow named views to be used. 
-Named views enable encapsulation of a View into a new single NamedView.
-The NamedView can be used in conjunction with other Views.
+This example explains how to configure your Gaffer Graph to allow NamedViews to be used. 
+Named views enable encapsulation of a View, or multiple Views, into a new single NamedView.
+A NamedView can be used in conjunction with other Views.
 There are various possible uses for NamedViews, including:
  * Making it simpler to reuse frequently used Views.
- * Share commonly used same Views with other users.
+ * Share commonly used Views with other users.
  
 In addition to the NamedView there are a set of operations which manage named views (AddNamedView, GetAllNamedViews, DeleteNamedView).
 
@@ -59,13 +59,14 @@ When adding a NamedView with parameters the View must be specified as a JSON str
 parameter names enclosed with '${' and '}'. For each parameter, a ViewParameterDetail object must be created which gives a description, a class type
 and an optional default for the Parameter, and also indicates whether the parameter must be provided (ie. there is no default).
 
-The following code adds a NamedView with a 'countIsMoreThan' parameter that allows the minimum edge count for the View to be set:
+The following code adds a NamedView with a 'countIsMoreThan' parameter that allows the minimum edge count for the View to be set, along
+with a 'selectionParam' parameter that allows the user to set the selection for the View:
 
 ${START_JAVA_CODE}
 ${ADD_NAMED_VIEW_WITH_PARAMETERS_SNIPPET}
 ${END_CODE}
 
-A view can then be created, with a value provided for the 'countIsMoreThan' parameter:
+A view can then be created, with a value provided for the 'countIsMoreThan' and 'selectionParam' parameter:
 
 ${START_JAVA_CODE}
 ${CREATE_NAMED_VIEW_WITH_PARAMETERS_SNIPPET}
