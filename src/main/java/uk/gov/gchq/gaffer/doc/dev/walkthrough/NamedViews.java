@@ -165,6 +165,7 @@ public class NamedViews extends DevWalkthrough {
                 .build();
 
         graph.execute(addNamedViewWithParams, user);
+        // ---------------------------------------------------------
 
         // [create named view with parameters] create the named operation with a parameter
         // ---------------------------------------------------------
