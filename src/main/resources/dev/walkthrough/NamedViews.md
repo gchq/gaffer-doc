@@ -14,6 +14,8 @@ In addition to the NamedView there are a set of operations which manage named vi
 ## Configuration
 You will need to configure what cache to use for storing NamedViews. For more information on the cache service, see [Cache](cache.md).
 
+Please note; If you want to change the region for NamedViews you can do so by specifying it within the cache.ccf file using region jcs.region.namedViewsRegion.
+
 ## Using Named Views
 We will now go through some examples using NamedViews.
 
