@@ -13,6 +13,10 @@ ${START_JAVA_CODE}
 ${GET_SIMPLE_SNIPPET}
 ${JSON_CODE}
 ${GET_SIMPLE_JSON}
+${FULL_JSON_CODE}
+${GET_SIMPLE_FULL_JSON}
+${PYTHON_CODE}
+${GET_SIMPLE_PYTHON}
 ${END_CODE}
 
 Here are the result Edges with the counts aggregated:
@@ -30,6 +34,10 @@ ${START_JAVA_CODE}
 ${GET_SNIPPET}
 ${JSON_CODE}
 ${GET_JSON}
+${FULL_JSON_CODE}
+${GET_FULL_JSON}
+${PYTHON_CODE}
+${GET_PYTHON}
 ${END_CODE}
 
 Our ViewElementDefinition allows us to perform post Aggregation filtering using an IsMoreThan Predicate.

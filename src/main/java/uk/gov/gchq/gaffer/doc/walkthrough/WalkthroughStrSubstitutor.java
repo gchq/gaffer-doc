@@ -71,6 +71,7 @@ public abstract class WalkthroughStrSubstitutor {
 
     public static final String START_JSON_CODE_MARKER = "\n{% codetabs name=\"JSON\", type=\"json\" -%}";
     public static final String JSON_CODE_MARKER = "\n{%- language name=\"JSON\", type=\"json\" -%}";
+    public static final String FULL_JSON_CODE_MARKER = "\n{%- language name=\"Full JSON\", type=\"json\" -%}";
 
     public static final String START_PYTHON_CODE_MARKER = "\n{% codetabs name=\"Python\", type=\"python\" -%}";
     public static final String PYTHON_CODE_MARKER = "\n{%- language name=\"Python\", type=\"py\" -%}";
@@ -175,6 +176,7 @@ public abstract class WalkthroughStrSubstitutor {
         putParam(params, "JAVA_CODE", JAVA_CODE_MARKER);
         putParam(params, "START_JSON_CODE", START_JSON_CODE_MARKER);
         putParam(params, "JSON_CODE", JSON_CODE_MARKER);
+        putParam(params, "FULL_JSON_CODE", FULL_JSON_CODE_MARKER);
         putParam(params, "START_PYTHON_CODE", START_PYTHON_CODE_MARKER);
         putParam(params, "PYTHON_CODE", PYTHON_CODE_MARKER);
         putParam(params, "END_CODE", END_MARKER_MARKER);

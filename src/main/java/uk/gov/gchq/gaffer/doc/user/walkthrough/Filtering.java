@@ -97,7 +97,7 @@ public class Filtering extends UserWalkthrough {
                 .build();
         final CloseableIterable<? extends Element> results = graph.execute(getElements, user);
         // ---------------------------------------------------------
-        print("GET_SIMPLE_JSON", getJson(getElements));
+        printJsonAndPython("GET_SIMPLE", getElements);
         for (final Element e : results) {
             print("GET_ELEMENTS_RESULT", e.toString());
         }
@@ -118,7 +118,7 @@ public class Filtering extends UserWalkthrough {
                 .build();
         final CloseableIterable<? extends Element> filteredResults = graph.execute(getEdgesWithCountMoreThan2, user);
         // ---------------------------------------------------------
-        print("GET_JSON", getJson(getEdgesWithCountMoreThan2));
+        printJsonAndPython("GET", getEdgesWithCountMoreThan2);
         print("\nAll edges containing the vertex 10 with an aggregated count more than than 2\n");
         for (final Element e : filteredResults) {
             print("GET_ELEMENTS_WITH_COUNT_MORE_THAN_2_RESULT", e.toString());
@@ -128,7 +128,6 @@ public class Filtering extends UserWalkthrough {
     }
 
     public static void main(final String[] args) throws OperationException, IOException {
-        final Filtering walkthrough = new Filtering();
-        walkthrough.run();
+        System.out.println(new Filtering().walkthrough());
     }
 }

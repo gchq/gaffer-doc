@@ -18,7 +18,6 @@ package uk.gov.gchq.gaffer.doc.user.walkthrough;
 import org.apache.commons.io.IOUtils;
 
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
-import uk.gov.gchq.gaffer.commonutil.StringUtil;
 import uk.gov.gchq.gaffer.commonutil.iterable.CloseableIterable;
 import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.element.function.ElementAggregator;
@@ -27,7 +26,6 @@ import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.ViewElementDefinition;
 import uk.gov.gchq.gaffer.doc.user.generator.RoadAndRoadUseWithTimesElementGenerator;
 import uk.gov.gchq.gaffer.graph.Graph;
-import uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser;
 import uk.gov.gchq.gaffer.operation.OperationChain;
 import uk.gov.gchq.gaffer.operation.OperationException;
 import uk.gov.gchq.gaffer.operation.impl.add.AddElements;
@@ -130,11 +128,11 @@ public class Aggregation extends UserWalkthrough {
                 .view(new View.Builder()
                         .edge("RoadUse", new ViewElementDefinition.Builder()
                                 .preAggregationFilter(new ElementFilter.Builder()
-                                                .select("startDate")
-                                                .execute(new IsMoreThan(MAY_01_2000, true))
-                                                .select("endDate")
-                                                .execute(new IsLessThan(MAY_02_2000, false))
-                                                .build()
+                                        .select("startDate")
+                                        .execute(new IsMoreThan(MAY_01_2000, true))
+                                        .select("endDate")
+                                        .execute(new IsLessThan(MAY_02_2000, false))
+                                        .build()
                                 )
                                 .groupBy() // set the group by properties to 'none'
                                 .build())
@@ -158,11 +156,11 @@ public class Aggregation extends UserWalkthrough {
                 .view(new View.Builder()
                         .edge("RoadUse", new ViewElementDefinition.Builder()
                                 .preAggregationFilter(new ElementFilter.Builder()
-                                                .select("startDate")
-                                                .execute(new IsMoreThan(MAY_01_2000, true))
-                                                .select("endDate")
-                                                .execute(new IsLessThan(MAY_03_2000, false))
-                                                .build()
+                                        .select("startDate")
+                                        .execute(new IsMoreThan(MAY_01_2000, true))
+                                        .select("endDate")
+                                        .execute(new IsLessThan(MAY_03_2000, false))
+                                        .build()
                                 )
                                 .groupBy() // set the group by properties to 'none'
                                 .aggregator(new ElementAggregator.Builder()
@@ -173,7 +171,7 @@ public class Aggregation extends UserWalkthrough {
                         .build())
                 .build();
 
-        print("GET_ALL_EDGES_SUMMARISED_IN_TIME_WINDOW_RESULT_WITH_MIN_COUNT_JSON", StringUtil.toString(JSONSerialiser.serialise(edgesSummarisedInTimeWindowWithMinCountOperation, true)));
+        printJson("GET_ALL_EDGES_SUMMARISED_IN_TIME_WINDOW_RESULT_WITH_MIN_COUNT", edgesSummarisedInTimeWindowWithMinCountOperation);
 
         final CloseableIterable<? extends Element> edgesSummarisedInTimeWindowWithMinCount = graph.execute(edgesSummarisedInTimeWindowWithMinCountOperation, user);
         // ---------------------------------------------------------
@@ -186,8 +184,7 @@ public class Aggregation extends UserWalkthrough {
     }
 
     public static void main(final String[] args) throws OperationException, IOException {
-        final Aggregation walkthrough = new Aggregation();
-        walkthrough.run();
+        System.out.println(new Aggregation().walkthrough());
     }
 
     private static Date getDate(final String dateStr) {
