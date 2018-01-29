@@ -69,10 +69,4 @@ public abstract class FunctionExample extends Example {
         print("</table>\n");
         print(METHOD_DIVIDER);
     }
-
-    @Override
-    protected String getPython(final Object object) {
-        // Functions have not yet been written in the python shell.
-        return null;
-    }
 }

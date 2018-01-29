@@ -17,16 +17,15 @@
 package uk.gov.gchq.gaffer.doc.user.walkthrough;
 
 import com.google.common.collect.Lists;
-import org.hamcrest.core.IsCollectionContaining;
 import org.junit.Test;
 
 import uk.gov.gchq.gaffer.operation.OperationException;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
 public class FullExampleTest {
 
@@ -43,15 +42,12 @@ public class FullExampleTest {
     }
 
     private void verifyResults(final Iterable<? extends String> resultsItr) {
-        final String[] expectedResults = {
+        final List<String> expectedResults = Arrays.asList(
                 "Junction,Bus Count",
-                "M5:LA Boundary,1067",
                 "M4:LA Boundary,1958",
                 "M32:2,1411"
-        };
+        );
 
-        final List<String> results = Lists.newArrayList(resultsItr);
-        assertEquals(expectedResults.length, results.size());
-        assertThat(results, IsCollectionContaining.hasItems(expectedResults));
+        assertEquals(expectedResults, Lists.newArrayList(resultsItr));
     }
 }

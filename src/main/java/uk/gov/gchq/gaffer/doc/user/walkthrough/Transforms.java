@@ -107,7 +107,7 @@ public class Transforms extends UserWalkthrough {
                 .project("description")
                 .build();
         // ---------------------------------------------------------
-        print("TRANSFORM_JSON", getJson(descriptionTransformer));
+        printJson("TRANSFORM", descriptionTransformer);
 
         // [get] Add the element transformer to the view and run the query
         // ---------------------------------------------------------
@@ -122,7 +122,7 @@ public class Transforms extends UserWalkthrough {
                 .build();
         final CloseableIterable<? extends Element> resultsWithDescription = graph.execute(getEdgesWithDescription, user);
         // ---------------------------------------------------------
-        print("GET_JSON", getJson(getEdgesWithDescription));
+        printJsonAndPython("GET", getEdgesWithDescription);
         print("\nWe can add a new property to the edges that is calculated from the aggregated values of other properties\n");
         for (final Element e : resultsWithDescription) {
             print("GET_ELEMENTS_WITH_DESCRIPTION_RESULT", e.toString());
@@ -143,7 +143,7 @@ public class Transforms extends UserWalkthrough {
                 .build();
         final CloseableIterable<? extends Element> resultsWithDescriptionAndNoCount = graph.execute(getEdgesWithDescriptionAndNoCount, user);
         // ---------------------------------------------------------
-        print("GET_WITH_NO_COUNT_JSON", getJson(getEdgesWithDescriptionAndNoCount));
+        printJsonAndPython("GET_WITH_NO_COUNT", getEdgesWithDescriptionAndNoCount);
         print("\nAnd the result without the count property:\n");
         for (final Element e : resultsWithDescriptionAndNoCount) {
             print("GET_ELEMENTS_WITH_DESCRIPTION_AND_NO_COUNT_RESULT", e.toString());
@@ -153,7 +153,6 @@ public class Transforms extends UserWalkthrough {
     }
 
     public static void main(final String[] args) throws OperationException, IOException {
-        final Transforms walkthrough = new Transforms();
-        walkthrough.run();
+        System.out.println(new Transforms().walkthrough());
     }
 }
