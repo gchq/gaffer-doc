@@ -21,6 +21,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
+import uk.gov.gchq.gaffer.data.element.comparison.ElementPropertyComparator;
 import uk.gov.gchq.gaffer.data.element.function.ElementFilter;
 import uk.gov.gchq.gaffer.data.element.function.ElementTransformer;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.GlobalViewElementDefinition;
@@ -33,6 +34,7 @@ import uk.gov.gchq.gaffer.operation.OperationException;
 import uk.gov.gchq.gaffer.operation.data.EntitySeed;
 import uk.gov.gchq.gaffer.operation.graph.SeededGraphFilters;
 import uk.gov.gchq.gaffer.operation.impl.add.AddElements;
+import uk.gov.gchq.gaffer.operation.impl.compare.Sort;
 import uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements;
 import uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds;
 import uk.gov.gchq.gaffer.operation.impl.get.GetElements;
@@ -41,20 +43,14 @@ import uk.gov.gchq.gaffer.operation.impl.output.ToSet;
 import uk.gov.gchq.gaffer.traffic.generator.RoadTrafficCsvElementGenerator;
 import uk.gov.gchq.gaffer.types.function.FreqMapExtractor;
 import uk.gov.gchq.gaffer.user.User;
-import uk.gov.gchq.koryphe.impl.predicate.IsLessThan;
 import uk.gov.gchq.koryphe.impl.predicate.IsMoreThan;
+import uk.gov.gchq.koryphe.impl.predicate.range.InDateRangeDual;
 import uk.gov.gchq.koryphe.predicate.PredicateMap;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class FullExample extends UserWalkthrough {
-    public static final Date JAN_01_2000 = getDate("2000-01-01");
-    public static final Date JAN_01_2001 = getDate("2001-01-01");
-
     public FullExample() {
         super("Full Example", "FullExample", null);
     }
@@ -128,17 +124,18 @@ public class FullExample extends UserWalkthrough {
                                         .build())
                                 .entity("JunctionUse", new ViewElementDefinition.Builder()
                                         .preAggregationFilter(new ElementFilter.Builder()
-                                                .select("startDate")
-                                                .execute(new IsMoreThan(JAN_01_2000, true))
-                                                .select("endDate")
-                                                .execute(new IsLessThan(JAN_01_2001, false))
+                                                .select("startDate", "endDate")
+                                                .execute(new InDateRangeDual.Builder()
+                                                        .start("2000/01/01")
+                                                        .end("2001/01/01")
+                                                        .build())
                                                 .build())
                                         .postAggregationFilter(new ElementFilter.Builder()
                                                 .select("countByVehicleType")
                                                 .execute(new PredicateMap<>("BUS", new IsMoreThan(1000L)))
                                                 .build())
 
-                                                // Extract the bus count out of the frequency map and store in transient property "busCount"
+                                        // Extract the bus count out of the frequency map and store in transient property "busCount"
                                         .transientProperty("busCount", Long.class)
                                         .transformer(new ElementTransformer.Builder()
                                                 .select("countByVehicleType")
@@ -149,7 +146,16 @@ public class FullExample extends UserWalkthrough {
                                 .build())
                         .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
                         .build())
-                        // Convert the result entities to a simple CSV in format: Junction,busCount.
+                .then(new Sort.Builder()
+                        .comparators(new ElementPropertyComparator.Builder()
+                                .groups("JunctionUse")
+                                .property("busCount")
+                                .reverse(true)
+                                .build())
+                        .resultLimit(2)
+                        .deduplicate(true)
+                        .build())
+                // Convert the result entities to a simple CSV in format: Junction,busCount.
                 .then(new ToCsv.Builder()
                         .generator(new CsvGenerator.Builder()
                                 .vertex("Junction")
@@ -159,8 +165,7 @@ public class FullExample extends UserWalkthrough {
                 .build();
         // ---------------------------------------------------------
 
-        print("GET_JSON", getJson(opChain));
-        print("GET_PYTHON", getAsPython(opChain));
+        printJsonAndPython("GET", opChain);
 
         final Iterable<? extends String> results = graph.execute(opChain, user);
         print("\nAll road junctions in the South West that were heavily used by buses in year 2000.");
@@ -172,15 +177,6 @@ public class FullExample extends UserWalkthrough {
     }
 
     public static void main(final String[] args) throws OperationException {
-        final UserWalkthrough walkthrough = new FullExample();
-        walkthrough.print(walkthrough.walkthrough());
-    }
-
-    private static Date getDate(final String dateStr) {
-        try {
-            return new SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
-        } catch (final ParseException e) {
-            throw new IllegalArgumentException("Unable to parse date", e);
-        }
+        System.out.println(new FullExample().walkthrough());
     }
 }

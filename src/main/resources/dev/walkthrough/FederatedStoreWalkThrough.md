@@ -36,7 +36,9 @@ ${END_CODE}
 ${START_JAVA_CODE}
 ${FEDERATEDSTORE_PROPERTIES_SNIPPET}
 ${JSON_CODE}
-${fedPropJson}
+${FED_PROP_JSON}
+${FULL_JSON_CODE}
+${FED_PROP_FULL_JSON}
 ${END_CODE}
 
 ## Add Graphs
@@ -55,7 +57,9 @@ A graph is added into the `FederatedStore` using the `AddGraph` operation. To lo
 ${START_JAVA_CODE}
 ${ADD_ANOTHER_GRAPH_SNIPPET}
 ${JSON_CODE}
-${addGraphJson}
+${ADD_GRAPH_JSON}
+${FULL_JSON_CODE}
+${ADD_GRAPH_FULL_JSON}
 ${END_CODE}
 
 ## Remove Graphs
@@ -66,7 +70,9 @@ However the user can only delete graphs they have access to view.
 ${START_JAVA_CODE}
 ${REMOVE_GRAPH_SNIPPET}
 ${JSON_CODE}
-${removeGraphJson}
+${REMOVE_GRAPH_JSON}
+${FULL_JSON_CODE}
+${REMOVE_GRAPH_FULL_JSON}
 ${END_CODE}
 
 ## Get GraphIds
@@ -76,14 +82,16 @@ To get a list of all the sub-graphs within the `FederatedStore` you can perform 
 ${START_JAVA_CODE}
 ${GET_ALL_GRAPH_IDS_SNIPPET}
 ${JSON_CODE}
-${getAllGraphIdsJson}
+${GET_ALL_GRAPH_IDS_JSON}
+${FULL_JSON_CODE}
+${GET_ALL_GRAPH_IDS_FULL_JSON}
 ${END_CODE}
 
 
 and the result is:
 
 ```
-${graphIds}
+${GRAPH_IDS}
 ```
 
 ## Perform Operations
@@ -101,19 +109,27 @@ It is advised to keep groups to within one sub-graph or limit queries to one of 
 ${START_JAVA_CODE}
 ${ADD_ELEMENTS_SNIPPET}
 ${JSON_CODE}
-${addElementsJson}
+${ADD_ELEMENTS_JSON}
+${FULL_JSON_CODE}
+${ADD_ELEMENTS_FULL_JSON}
+${PYTHON_CODE}
+${ADD_ELEMENTS_PYTHON}
 ${END_CODE}
 
 ${START_JAVA_CODE}
 ${GET_ELEMENTS_SNIPPET}
 ${JSON_CODE}
-${getElementsJson}
+${GET_ELEMENTS_JSON}
+${FULL_JSON_CODE}
+${GET_ELEMENTS_FULL_JSON}
+${PYTHON_CODE}
+${GET_ELEMENTS_PYTHON}
 ${END_CODE}
 
 and the results are:
 
 ```
-${elements}
+${ELEMENTS}
 ```
 
 ${START_JAVA_CODE}
@@ -123,7 +139,7 @@ ${END_CODE}
 and the results are:
 
 ```
-${elementsFromAccumuloGraph}
+${ELEMENTS_FROM_ACCUMULO_GRAPH}
 ```
 
 ## Select Graphs for Operations
@@ -132,7 +148,9 @@ Operations can be performed against specific sub-graphs by settings the option "
 ${START_JAVA_CODE}
 ${SELECT_GRAPHS_FOR_OPERATIONS_SNIPPET}
 ${JSON_CODE}
-${selectGraphsForOperationsJson}
+${SELECT_GRAPHS_FOR_OPERATIONS_JSON}
+${FULL_JSON_CODE}
+${SELECT_GRAPHS_FOR_OPERATIONS_FULL_JSON}
 ${END_CODE}
 
 ## Do Not Skip Failed Execution
@@ -144,7 +162,9 @@ has the option "gaffer.federatedstore.operation.skipFailedFederatedStoreExecute"
 ${START_JAVA_CODE}
 ${DO_NOT_SKIP_FAILED_EXECUTION_SNIPPET}
 ${JSON_CODE}
-${doNotSkipFailedExecutionJson}
+${DO_NOT_SKIP_FAILED_EXECUTION_JSON}
+${FULL_JSON_CODE}
+${DO_NOT_SKIP_FAILED_EXECUTION_FULL_JSON}
 ${END_CODE}
 
 
@@ -162,7 +182,9 @@ By default the "isPublic" parameter is false.
 ${START_JAVA_CODE}
 ${ADD_PUBLIC_GRAPH_SNIPPET}
 ${JSON_CODE}
-${addPublicGraphJson}
+${ADD_PUBLIC_GRAPH_JSON}
+${FULL_JSON_CODE}
+${ADD_PUBLIC_GRAPH_FULL_JSON}
 ${END_CODE}
 
 ### Private Access
@@ -172,7 +194,9 @@ If authorisations is not specified it is private to the user that added it to Fe
 ${START_JAVA_CODE}
 ${ADD_PRIVATE_GRAPH_SNIPPET}
 ${JSON_CODE}
-${addPrivateGraphJson}
+${ADD_PRIVATE_GRAPH_JSON}
+${FULL_JSON_CODE}
+${ADD_PRIVATE_GRAPH_FULL_JSON}
 ${END_CODE}
 
 ### Secure Access
@@ -182,7 +206,9 @@ By assigning the parameter "graphAuths", all users that has one of the listed au
 ${START_JAVA_CODE}
 ${ADD_SECURE_GRAPH_SNIPPET}
 ${JSON_CODE}
-${addSecureGraphJson}
+${ADD_SECURE_GRAPH_JSON}
+${FULL_JSON_CODE}
+${ADD_SECURE_GRAPH_FULL_JSON}
 ${END_CODE}
 
 ## Disallow Public Access
@@ -192,7 +218,9 @@ However public access can be disallow by setting the property `gaffer.federateds
 ${START_JAVA_CODE}
 ${DISALLOW_PUBLIC_ACCESS_SNIPPET}
 ${JSON_CODE}
-${disallowPublicAccessJson}
+${DISALLOW_PUBLIC_ACCESS_JSON}
+${FULL_JSON_CODE}
+${DISALLOW_PUBLIC_ACCESS_FULL_JSON}
 ${END_CODE}
 
 ## Limit Custom Properties
@@ -204,6 +232,8 @@ Users that do not match this authorisation can only specify using `StoreProperti
 ${START_JAVA_CODE}
 ${LIMIT_CUSTOM_PROPERTIES_SNIPPET}
 ${JSON_CODE}
-${limitCustomPropertiesJson}
+${LIMIT_CUSTOM_PROPERTIES_JSON}
+${FULL_JSON_CODE}
+${LIMIT_CUSTOM_PROPERTIES_FULL_JSON}
 ${END_CODE}
 
