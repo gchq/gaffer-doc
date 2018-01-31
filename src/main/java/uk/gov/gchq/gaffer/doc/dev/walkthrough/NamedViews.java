@@ -88,20 +88,21 @@ public class NamedViews extends DevWalkthrough {
                         .build())
                 .overwrite(false)
                 .build();
-
-        graph.execute(addNamedView, user);
         // ---------------------------------------------------------
+        printJsonAndPython("ADD_NAMED_VIEW", addNamedView);
+        graph.execute(addNamedView, user);
 
         // [get all named views] Get all named views
         // ---------------------------------------------------------
-        final CloseableIterable<NamedViewDetail> namedViewDetails = graph.execute(new GetAllNamedViews(), user);
-
+        final GetAllNamedViews getAllNamedViews = new GetAllNamedViews();
         // ---------------------------------------------------------
+        printJsonAndPython("GET_ALL_NAMED_VIEWS", new GetAllNamedViews());
+        final CloseableIterable<NamedViewDetail> namedViewDetails = graph.execute(getAllNamedViews, user);
         for (final NamedViewDetail detail : namedViewDetails) {
-            print("ALL_NAMED_VIEWS", detail.toString());
+            print("ALL_NAMED_VIEW", detail.toString());
         }
 
-        // [create get elements operation] create the operation using the NamedView
+        // [get elements with named view] create the operation using the NamedView
         // ---------------------------------------------------------
         final GetElements operation = new GetElements.Builder()
                 .view(new NamedView.Builder()
@@ -110,20 +111,16 @@ public class NamedViews extends DevWalkthrough {
                 .input(new EntitySeed("10"))
                 .build();
         // ---------------------------------------------------------
-
-        // [execute get elements operation] Get the results
-        // ---------------------------------------------------------
+        printJsonAndPython("GET_ELEMENTS_WITH_NAMED_VIEW", operation);
         final CloseableIterable<? extends Element> namedViewResults = graph.execute(operation, user);
-
-        // ---------------------------------------------------------
         for (final Object result : namedViewResults) {
-            print("OPERATION_USING_NAMED_VIEW_RESULTS", result.toString());
+            print("GET_ELEMENTS_WITH_NAMED_VIEW_RESULTS", result.toString());
         }
 
         // [add named view with parameters] create an operation chain to be executed as a named operation
         // with parameters
         // ---------------------------------------------------------
-        String viewString = "{" +
+        final String viewJson = "{" +
                 "      \"edges\" : {" +
                 "        \"RoadUse\" : {  " +
                 "           \"preAggregationFilterFunctions\" : [ {" +
@@ -131,47 +128,46 @@ public class NamedViews extends DevWalkthrough {
                 "                   \"class\" : \"uk.gov.gchq.koryphe.impl.predicate.IsMoreThan\"," +
                 "                   \"orEqualTo\" : false," +
                 "                     \"value\": {" +
-                "                         \"java.lang.Long\" : \"${isMoreThanParam}\"" +
+                "                         \"java.lang.Long\" : \"${isMoreThan}\"" +
                 "                       }" +
                 "                 }," +
-                "             \"selection\" : [ \"${selectionParam}\" ]" +
+                "             \"selection\" : [ \"${property}\" ]" +
                 "         } ] }" +
                 "      }," +
                 "      \"entities\" : { }" +
                 "}";
-
-        ViewParameterDetail param = new ViewParameterDetail.Builder()
-                .description("Selection param")
+        final ViewParameterDetail propertyParam = new ViewParameterDetail.Builder()
+                .description("Property to select")
                 .valueClass(String.class)
                 .required(true)
                 .build();
 
-        ViewParameterDetail param1 = new ViewParameterDetail.Builder()
-                .description("isMoreThan param")
+        final ViewParameterDetail valueParam = new ViewParameterDetail.Builder()
+                .description("Value for the is more than predicate")
                 .defaultValue(0L)
                 .valueClass(Long.class)
                 .build();
 
-        Map<String, ViewParameterDetail> paramDetailMap = Maps.newHashMap();
-        paramDetailMap.put("selectionParam", param);
-        paramDetailMap.put("isMoreThanParam", param1);
+        final Map<String, ViewParameterDetail> paramDetailMap = Maps.newHashMap();
+        paramDetailMap.put("property", propertyParam);
+        paramDetailMap.put("isMoreThan", valueParam);
 
         final AddNamedView addNamedViewWithParams = new AddNamedView.Builder()
                 .name("customCountView")
                 .description("named View with count param")
-                .view(viewString)
+                .view(viewJson)
                 .parameters(paramDetailMap)
-                .overwrite(false)
+                .overwrite(true)
                 .build();
 
         graph.execute(addNamedViewWithParams, user);
         // ---------------------------------------------------------
 
-        // [create named view with parameters] create the named operation with a parameter
+        // [get elements with named view with parameters] create the named operation with a parameter
         // ---------------------------------------------------------
-        Map<String, Object> paramMap = Maps.newHashMap();
-        paramMap.put("selectionParam", "count");
-        paramMap.put("isMoreThanParam", 1L);
+        final Map<String, Object> paramMap = Maps.newHashMap();
+        paramMap.put("property", "count");
+        paramMap.put("isMoreThan", 1L);
 
         final GetElements operationUsingParams = new GetElements.Builder()
                 .view(new NamedView.Builder()
@@ -181,22 +177,16 @@ public class NamedViews extends DevWalkthrough {
                 .input(new EntitySeed("10"))
                 .build();
         // ---------------------------------------------------------
-
-        // [execute get elements operation with parameters] Get the results
-        // ---------------------------------------------------------
-
+        printJsonAndPython("GET_ELEMENTS_WITH_NAMED_VIEW_WITH_PARAMETERS", operationUsingParams);
         final CloseableIterable<? extends Element> namedViewResultsWithParams = graph.execute(operationUsingParams, user);
-        // ---------------------------------------------------------
-
         for (final Object result : namedViewResultsWithParams) {
-            print("OPERATION_USING_NAMED_VIEW_WITH_PARAMETERS_RESULTS", result.toString());
+            print("GET_ELEMENTS_WITH_NAMED_VIEW_WITH_PARAMETERS_RESULTS", result.toString());
         }
 
         return namedViewResultsWithParams;
     }
 
     public static void main(final String[] args) throws OperationException, IOException {
-        final NamedViews walkthrough = new NamedViews();
-        walkthrough.run();
+        System.out.println(new NamedViews().walkthrough());
     }
 }

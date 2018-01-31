@@ -25,7 +25,7 @@ public class DeleteNamedViewExample extends OperationExample {
     }
 
     public DeleteNamedViewExample() {
-        super(DeleteNamedView.class, "See [NamedViews](../developer-guide/namedviews.md) for information on configuring NamedViews for your Gaffer graph, along with working examples..");
+        super(DeleteNamedView.class, "See [NamedViews](../developer-guide/namedviews.md) for information on configuring NamedViews for your Gaffer graph, along with working examples.");
     }
 
     @Override
