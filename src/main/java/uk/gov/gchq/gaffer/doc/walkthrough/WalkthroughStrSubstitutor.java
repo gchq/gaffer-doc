@@ -107,7 +107,7 @@ public abstract class WalkthroughStrSubstitutor {
         final Class<?> exampleClass = example.getClass();
         final Map<String, String> params = new HashMap<>();
         putParam(params, "HEADER", "# " + example.getHeader());
-        putParam(params, "CODE_LINK", "The code for this example is " + getGitHubCodeLink(example.getClass(), example.walkthroughId) + ".");
+        putParam(params, "CODE_LINK", "The code for this example is " + getGitHubCodeLink(example.getClass(), "") + ".");
         putParam(params, "DATA", getBlockFromResource(example.dataPath, exampleClass));
         if (null != example.elementGenerator) {
             putParam(params, "ELEMENT_GENERATOR_JAVA", JavaSourceUtil.getJava(example.elementGenerator.getName(), null));

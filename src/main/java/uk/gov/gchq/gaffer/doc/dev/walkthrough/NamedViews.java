@@ -159,9 +159,9 @@ public class NamedViews extends DevWalkthrough {
                 .parameters(paramDetailMap)
                 .overwrite(true)
                 .build();
-
-        graph.execute(addNamedViewWithParams, user);
         // ---------------------------------------------------------
+        printJsonAndPython("ADD_NAMED_VIEW_WITH_PARAMETERS", addNamedViewWithParams);
+        graph.execute(addNamedViewWithParams, user);
 
         // [get elements with named view with parameters] create the named operation with a parameter
         // ---------------------------------------------------------

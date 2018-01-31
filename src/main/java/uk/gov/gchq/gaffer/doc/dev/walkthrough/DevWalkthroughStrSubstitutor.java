@@ -29,8 +29,8 @@ public abstract class DevWalkthroughStrSubstitutor extends WalkthroughStrSubstit
 
     public static Map<String, String> createParameterMap(final DevWalkthrough example) {
         final Map<String, String> params = new HashMap<>();
-        putParam(params, "VISIBILITY_AGGREGATOR_LINK", getGitHubCodeLink(VisibilityAggregator.class, example.getWalkthroughId()));
-        putParam(params, "VISIBILITY_SERIALISER_LINK", getGitHubCodeLink(VisibilitySerialiser.class, example.getWalkthroughId()));
+        putParam(params, "VISIBILITY_AGGREGATOR_LINK", getGitHubCodeLink(VisibilityAggregator.class, ""));
+        putParam(params, "VISIBILITY_SERIALISER_LINK", getGitHubCodeLink(VisibilitySerialiser.class, ""));
         putParam(params, "RESULT_CACHE_EXPORT_OPERATIONS", getJsonBlockFromResource("ResultCacheExportOperations.json", example.getClass()));
         putParam(params, "CACHE_STORE_PROPERTIES", getPropertiesBlockFromResource("cache-store.properties", example.getClass()));
         return params;
