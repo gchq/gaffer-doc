@@ -49,9 +49,9 @@ public class LongsSketchWalkthrough extends PropertiesWalkthrough {
         /// [graph] create a graph using our schema and store properties
         // ---------------------------------------------------------
         final Graph graph = new Graph.Builder()
-                .config(StreamUtil.graphConfig(getClass()))
-                .addSchemas(StreamUtil.openStreams(getClass(), "properties/longsSketch/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .config(getDefaultGraphConfig())
+                .addSchemas(StreamUtil.openStreams(getClass(), schemaPath))
+                .storeProperties(getDefaultStoreProperties())
                 .build();
         // ---------------------------------------------------------
 
@@ -75,16 +75,16 @@ public class LongsSketchWalkthrough extends PropertiesWalkthrough {
 
         graph.execute(addOpChain, user);
         // ---------------------------------------------------------
-        log("Added an edge A-B 1000 times, each time with a LongsSketchWalkthrough containing a random long between 0 and 9.");
+        print("Added an edge A-B 1000 times, each time with a LongsSketchWalkthrough containing a random long between 0 and 9.");
 
 
         // [get] Get all edges
         // ---------------------------------------------------------
         final CloseableIterable<? extends Element> allEdges = graph.execute(new GetAllElements(), user);
         // ---------------------------------------------------------
-        log("\nAll edges:");
+        print("\nAll edges:");
         for (final Element edge : allEdges) {
-            log("GET_ALL_EDGES_RESULT", edge.toString());
+            print("GET_ALL_EDGES_RESULT", edge.toString());
         }
 
 
@@ -101,8 +101,8 @@ public class LongsSketchWalkthrough extends PropertiesWalkthrough {
         final String estimates = "Edge A-B: 1L seen approximately " + longsSketch.getEstimate(1L)
                 + " times, 9L seen approximately " + longsSketch.getEstimate(9L) + " times.";
         // ---------------------------------------------------------
-        log("\nEdge A-B with estimates of the frequencies of 1 and 9");
-        log("GET_FREQUENCIES_OF_1_AND_9_FOR_EDGE_A_B", estimates);
+        print("\nEdge A-B with estimates of the frequencies of 1 and 9");
+        print("GET_FREQUENCIES_OF_1_AND_9_FOR_EDGE_A_B", estimates);
         return null;
     }
 }

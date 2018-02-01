@@ -15,25 +15,23 @@
  */
 package uk.gov.gchq.gaffer.doc.operation;
 
-import uk.gov.gchq.gaffer.doc.util.Example;
 import uk.gov.gchq.gaffer.doc.util.ExampleDocRunner;
-import uk.gov.gchq.gaffer.operation.Operation;
 
 /**
  * This runner will run all operation examples.
  */
 public class OperationExamplesRunner extends ExampleDocRunner {
-    public static void main(final String[] args) throws Exception {
-        new OperationExamplesRunner().run();
+    public OperationExamplesRunner() {
+        super("Operations", OperationExample.class);
     }
 
-    public void run() throws Exception {
-        run("Operation Examples", OperationExample.class, Operation.class);
+    public static void main(final String[] args) throws Exception {
+        new OperationExamplesRunner().generate();
     }
 
     @Override
-    protected void printTableOfContents(final Class<? extends Example> exampleParentClass) throws InstantiationException, IllegalAccessException {
-        super.printTableOfContents(exampleParentClass);
-        log("In addition to these core operations, stores can implement their own specific operations. See [Accumulo operation examples](accumulo-operation-examples.md).\n");
+    protected String getTableOfContents() throws InstantiationException, IllegalAccessException {
+        return super.getTableOfContents()
+                + "In addition to these core operations, stores can implement their own specific operations. See [Accumulo operations](accumulo-operations.md).\n";
     }
 }

@@ -11,7 +11,7 @@ When you construct your Gaffer graph you must provide all the Schema parts. Thes
 We will talk through some more of the features you can add to your Schemas to make them more readable and to model your data more accurately.
 
 
-#### Elements schema
+## Elements schema
 The elements schema is designed to be a high level document describing what information your Graph contains - like the different types of edges and entities and the list of properties associated with each.
 Essentially this part of the schema should just be a list of all the entities and edges in the graph. 
 Edges describe the relationship between a source vertex and a destination vertex. 
@@ -34,7 +34,7 @@ Edges and Entities can optionally have the following fields:
 - properties - Properties are be defined by a map of key-value pairs of property names to property types. The property type should be described in the Types schema.
 - groupBy - by default Gaffer will use the element group and it's vertices to group similar elements together in order to aggregate and summarise the elements. This groupBy field allows you to specify extra properties that should be used in addition to the element group and vertices to control when similar elements should be grouped together and summarised.
 - visibilityProperty - if you are using visibility properties in your graph, then ensure the sensitive elements have a visibility property and then set this visibilityProperty field to that property name so Gaffer knows to restrict access to this element.
-- timestampProperty - if you are using timestamp property in your graph, then set this timestampProperty field to that property name so Gaffer knows to treat that property specially.
+- timestampProperty - if you are using the timestamp property in your graph, then set this timestampProperty field to that property name so Gaffer Stores know to treat that property specially. This property allows Store implementations like Accumulo and HBase to optimise the way the timestamp property is persisted. Setting the timestampProperty is optional and does not affect the queries available to users. In some stores using it may have a very slight performance improvement due to the lazy loading of properties. See the [Accumulo Guide](../stores/accumulo-store.html#timestamp) or [HBase Guide](../stores/hbase-store.html#timestamp) for more information.
 - aggregate - this is true by default. If you would like to disable aggregation for this element group set this to false.
 
 These 2 optional fields are for advanced users. They can go in the Elements Schema however, we have split them out into separate Schema files Validation and Aggregation so the logic doesn't complicate the Elements schema.
@@ -55,7 +55,7 @@ The multi property aggregate function defined here overrides the relevant single
 ${AGGREGATION_JSON}
 
 
-#### Types
+## Types
 All types used in the elements schema must be defined in the types parts of the schema. These Types explain to Gaffer what types of properties to expect and how to deal with them.
 
 For each type you must provide the following information:
@@ -73,7 +73,7 @@ Here are some example Types
 ${TYPES_JSON}
 
 
-##### Serialisers
+### Serialisers
 Gaffer will automatically choose serialisers for you for some core types.
 Where possible you should let Gaffer choose for you, as it will choose the optimal
 serialiser for the type and your usage.
@@ -95,9 +95,9 @@ ordered.
  - for groupBy properties we recommend using a serialiser that is ordered, however it is not essential. In fact it will not cause any problems at present. In the future we plan to add features that would only be available to you if your groupBy properties are serialised using ordered serialisers.
  - all other properties can be serialised with ordered/unordered serialisers.
 
-#### Full Schema
+## Full Schema
 Once the schema has been loaded into a graph the parent elements are merged into the children for performance reasons. This is what the full schema created from the above example schema parts looks like:
 
-```json
+${START_JSON_CODE}
 ${SCHEMA}
-```
+${END_CODE}

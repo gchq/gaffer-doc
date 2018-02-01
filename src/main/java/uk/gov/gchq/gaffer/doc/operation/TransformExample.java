@@ -22,7 +22,7 @@ import uk.gov.gchq.koryphe.impl.function.ToString;
 public class TransformExample extends OperationExample {
 
     public static void main(final String[] args) {
-        new TransformExample().run();
+        new TransformExample().runAndPrint();
     }
 
     public TransformExample() {

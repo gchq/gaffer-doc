@@ -21,7 +21,7 @@ import uk.gov.gchq.gaffer.operation.impl.add.AddElementsFromSocket;
 
 public class AddElementsFromSocketExample extends OperationExample {
     public static void main(final String[] args) throws OperationException {
-        new AddElementsFromSocketExample().run();
+        new AddElementsFromSocketExample().runAndPrint();
     }
 
     public AddElementsFromSocketExample() {

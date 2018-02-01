@@ -16,12 +16,18 @@
 package uk.gov.gchq.gaffer.doc.util;
 
 import com.google.common.collect.Sets;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.reflections.Reflections;
 import org.reflections.util.ClasspathHelper;
 
-import uk.gov.gchq.gaffer.cache.CacheServiceLoader;
-import uk.gov.gchq.gaffer.cache.exception.CacheOperationException;
+import uk.gov.gchq.gaffer.commonutil.CommonConstants;
+import uk.gov.gchq.gaffer.commonutil.StreamUtil;
+import uk.gov.gchq.gaffer.doc.DocGenerator;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.util.ArrayList;
@@ -29,67 +35,122 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
+
+import static uk.gov.gchq.gaffer.doc.util.DocUtil.toFileName;
+import static uk.gov.gchq.gaffer.doc.util.DocUtil.toFolderName;
+import static uk.gov.gchq.gaffer.doc.util.DocUtil.toMdFileName;
 
 /**
  * This runner will run a suite of examples.
  */
-public abstract class ExampleDocRunner {
-    private static final String EXAMPLE_DIVIDER = "\n\n";
+public abstract class ExampleDocRunner implements DocGenerator {
+    private final String title;
+    private final String outputPath;
+    private final String resourcePrefix;
+    private final LinkedHashSet<Example> examples;
 
-    public void run(final String title, final Class<? extends Example> exampleParentClass, final Class<?> classForExample) throws Exception {
-        log("# " + title);
-        printEditWarning();
-        printTableOfContents(exampleParentClass);
+    protected ExampleDocRunner(final String title, final Class<? extends Example> exampleParentClass) {
+        this.title = title;
+        this.outputPath = toFolderName(GETTING_STARTED_FOLDER + title);
+        this.resourcePrefix = toFileName(title);
 
-        final Set<Object> classes = Sets.newHashSet((Iterable) getSubClasses(classForExample));
-        for (final Class<? extends Example> aClass : getSubClasses(exampleParentClass, getClass().getPackage().getName())) {
-            // Clear the caches so the output is not dependent on what's been run before
-            try {
-                if (CacheServiceLoader.getService() != null) {
-                    CacheServiceLoader.getService().clearCache("NamedOperation");
-                    CacheServiceLoader.getService().clearCache("JobTracker");
-                }
-            } catch (final CacheOperationException e) {
-                throw new RuntimeException(e);
-            }
+        this.examples = getSubClassInstances(exampleParentClass);
+    }
 
-            final Example example = aClass.newInstance();
-            classes.remove(example.getClassForExample());
-            example.run();
-            log(EXAMPLE_DIVIDER);
+    @Override
+    public void generate() {
+        try {
+            _generate();
+        } catch (final Exception e) {
+            throw new RuntimeException("Unable to generate documentation for: " + title, e);
         }
     }
 
-    protected void log(final String msg) {
-        System.out.println(msg);
+    public void _generate() throws Exception {
+        FileUtils.writeStringToFile(
+                new File(outputPath + toMdFileName("contents")),
+                getTableOfContents()
+        );
+        for (final Example example : examples) {
+            DocUtil.clearCache();
+            example.run();
+            FileUtils.writeStringToFile(
+                    new File(outputPath + toMdFileName(example.getClass().getSimpleName().replace("Example", ""))),
+                    example.getOutput());
+        }
     }
 
-    protected void printEditWarning() {
-        log("_This page has been generated from code. To make any changes please update the example [code](https://github.com/gchq/gaffer-doc/tree/master/src/main/java/uk/gov/gchq/gaffer/doc), run it and replace the content of this page with the output._\n\n");
+    protected String getIntro() {
+        return loadFile("Intro.md");
     }
 
-    protected void printTableOfContents(final Class<? extends Example> exampleParentClass) throws InstantiationException, IllegalAccessException {
+    protected String loadFile(final String filename) {
+        final String fileContents;
+        try (final InputStream stream = StreamUtil.openStream(getClass(), toFolderName(resourcePrefix) + filename)) {
+            fileContents = new String(IOUtils.toByteArray(stream), CommonConstants.UTF_8);
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return fileContents + "\n";
+    }
+
+    protected String getTableOfContents() throws InstantiationException, IllegalAccessException {
+        final StringBuilder contents = new StringBuilder();
+        contents.append("# ").append(title).append("\n");
+        contents.append(getIntro());
+
         int index = 1;
-        for (final Class<? extends Example> aClass : getSubClasses(exampleParentClass, getClass().getPackage().getName())) {
-            final String opClass = aClass.newInstance().getClassForExample().getSimpleName();
-            log(index + ". [" + opClass + "](#" + opClass.toLowerCase(Locale.getDefault()) + "-example)");
+        for (final Example example : examples) {
+            final String header = example.getClassForExample().getSimpleName().replace("Example", "");
+            contents
+                    .append(index).append(". [").append(header).append("](")
+                    .append(toMdFileName(header))
+                    .append(")\n");
             index++;
         }
-        log("\n");
+        contents.append("\n");
+
+        return contents.toString();
     }
 
-    private static <CLASS> List<Class<? extends CLASS>> getSubClasses(final Class<CLASS> clazz) {
-        return getSubClasses(clazz, null);
+    @Override
+    public String getSummary() {
+        final StringBuilder summary = new StringBuilder();
+
+        final String folderPrefix = "getting-started/" + toFolderName(title);
+
+        summary.append("  * [").append(title).append("](").append(folderPrefix).append(toMdFileName("contents")).append(")\n");
+        for (final Example example : examples) {
+            final String header;
+            header = example.getClassForExample().getSimpleName().replace("Example", "");
+            summary
+                    .append("    * [").append(header).append("](")
+                    .append(folderPrefix).append(toMdFileName(header))
+                    .append(")\n");
+        }
+        return summary.toString();
     }
 
+    private <CLASS> LinkedHashSet<CLASS> getSubClassInstances(final Class<?> exampleParentClass) {
+        final LinkedHashSet<CLASS> instances = new LinkedHashSet<>();
+        for (final Class<?> exampleClass : getSubClasses(exampleParentClass, getClass().getPackage().getName())) {
+            try {
+                instances.add((CLASS) exampleClass.newInstance());
+            } catch (final InstantiationException | IllegalAccessException e) {
+                throw new RuntimeException("Unable to instantiate example: " + exampleClass.getName(), e);
+            }
+        }
+        return instances;
+    }
 
-    private static <CLASS> List<Class<? extends CLASS>> getSubClasses(final Class<CLASS> clazz, final String packageName) {
+    private <CLASS> LinkedHashSet<Class<? extends CLASS>> getSubClasses(final Class<?> clazz, final String packageName) {
         final Set<URL> urls = new HashSet<>(ClasspathHelper.forPackage("gaffer"));
 
-        final List<Class<? extends CLASS>> classes = new ArrayList<>(new Reflections(urls).getSubTypesOf(clazz));
+        final List<Class<? extends CLASS>> classes = new ArrayList(new Reflections(urls).getSubTypesOf(clazz));
         keepPublicConcreteClasses(classes);
         keepClassesInPackage(classes, packageName);
         Collections.sort(classes, new Comparator<Class>() {
@@ -99,7 +160,7 @@ public abstract class ExampleDocRunner {
             }
         });
 
-        return classes;
+        return Sets.newLinkedHashSet((Iterable) classes);
     }
 
     private static void keepClassesInPackage(final List classes, final String packageName) {

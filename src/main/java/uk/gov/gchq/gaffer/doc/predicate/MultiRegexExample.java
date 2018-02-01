@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 
 public class MultiRegexExample extends PredicateExample {
     public static void main(final String[] args) {
-        new MultiRegexExample().run();
+        new MultiRegexExample().runAndPrint();
     }
 
     public MultiRegexExample() {

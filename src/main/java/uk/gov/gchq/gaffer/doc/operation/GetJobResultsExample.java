@@ -30,7 +30,7 @@ public class GetJobResultsExample extends OperationExample {
     private String jobId;
 
     public static void main(final String[] args) throws OperationException {
-        new GetJobResultsExample().run();
+        new GetJobResultsExample().runAndPrint();
     }
 
     public GetJobResultsExample() {

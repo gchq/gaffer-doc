@@ -33,7 +33,7 @@ implement your own UserFactory class that creates a new User instance based on
 the user making the REST API request. This could may involve making a call to your LDAP server.
 For example you could use the authorization header in the request:
 
-```java
+${START_JAVA_CODE}
 public class LdapUserFactory implements UserFactory {
 
     @Context
@@ -51,4 +51,4 @@ public class LdapUserFactory implements UserFactory {
                 .build();
     }
 }
-```
+${END_CODE}

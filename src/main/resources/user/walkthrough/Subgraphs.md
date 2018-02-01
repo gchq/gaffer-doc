@@ -19,14 +19,16 @@ Although this results several operations in chain, each operation is quite simpl
 
 The full chain looks like:
 
+${START_JAVA_CODE}
 ${GET_SNIPPET}
+${END_CODE}
 
 For each 'hop' we use a different View, to specify the edges we wish to hop down and different filters to apply. 
 The export operations will export the currently result and pass the result onto the next operation. This is why we have the slightly strange DiscardOutput operation before we return the final results. 
 
 The result is the full set of traversed Edges:
 
-```csv
+```
 ${SUB_GRAPH}
 ```
 

@@ -19,7 +19,7 @@ import uk.gov.gchq.koryphe.impl.predicate.IsMoreThan;
 
 public class IsMoreThanExample extends PredicateExample {
     public static void main(final String[] args) {
-        new IsMoreThanExample().run();
+        new IsMoreThanExample().runAndPrint();
     }
 
     public IsMoreThanExample() {

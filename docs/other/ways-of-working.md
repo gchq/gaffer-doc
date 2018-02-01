@@ -16,7 +16,7 @@ The reasoning behind code changes should be documented in the GitHub issue.
 All resolved issues should be included in the next GitHub milestone, this enables releases to be linked to the included issues.
 If a code change requires users of Gaffer to make changes in order for them to adopt it then the issue should be labelled 'migration-required' and a comment should be added similar to:
 
-```md
+```
 ### Migration Steps
 
 [Description of what needs to be done to adopt the code change with examples]
@@ -91,7 +91,7 @@ In particular:
 
       // When
       [Invoke the test method]
-  
+
       // Then
       [assert the method did what was expected]
   }

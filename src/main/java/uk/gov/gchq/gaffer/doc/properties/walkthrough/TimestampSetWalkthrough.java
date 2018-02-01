@@ -50,9 +50,9 @@ public class TimestampSetWalkthrough extends PropertiesWalkthrough {
         /// [graph] create a graph using our schema and store properties
         // ---------------------------------------------------------
         final Graph graph = new Graph.Builder()
-                .config(StreamUtil.graphConfig(getClass()))
-                .addSchemas(StreamUtil.openStreams(getClass(), "properties/timestampSet/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .config(getDefaultGraphConfig())
+                .addSchemas(StreamUtil.openStreams(getClass(), schemaPath))
+                .storeProperties(getDefaultStoreProperties())
                 .build();
         // ---------------------------------------------------------
 
@@ -76,16 +76,16 @@ public class TimestampSetWalkthrough extends PropertiesWalkthrough {
 
         graph.execute(addOpChain, user);
         // ---------------------------------------------------------
-        log("Added an edge A-B 25 times, each time with a RBMBackedTimestampSet containing a random time in 2017.");
+        print("Added an edge A-B 25 times, each time with a RBMBackedTimestampSet containing a random time in 2017.");
 
 
         // [get] Get all edges
         // ---------------------------------------------------------
         CloseableIterable<? extends Element> allEdges = graph.execute(new GetAllElements(), user);
         // ---------------------------------------------------------
-        log("\nAll edges:");
+        print("\nAll edges:");
         for (final Element edge : allEdges) {
-            log("GET_ALL_EDGES_RESULT", edge.toString());
+            print("GET_ALL_EDGES_RESULT", edge.toString());
         }
 
 
@@ -105,8 +105,8 @@ public class TimestampSetWalkthrough extends PropertiesWalkthrough {
         final String earliestLatestNumber = "Edge A-B was first seen at " + earliest + ", last seen at " + latest
                 + ", and there were " + totalNumber + " timestamps it was active.";
         // ---------------------------------------------------------
-        log("\nEdge A-B with the first seen time, last seen time and the number of times it was active:");
-        log("GET_FIRST_SEEN_LAST_SEEN_AND_NUMBER_OF_TIMES_FOR_EDGE_A_B", earliestLatestNumber);
+        print("\nEdge A-B with the first seen time, last seen time and the number of times it was active:");
+        print("GET_FIRST_SEEN_LAST_SEEN_AND_NUMBER_OF_TIMES_FOR_EDGE_A_B", earliestLatestNumber);
 
 
         return null;

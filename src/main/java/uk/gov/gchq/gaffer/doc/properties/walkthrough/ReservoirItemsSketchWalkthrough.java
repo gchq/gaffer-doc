@@ -51,9 +51,9 @@ public class ReservoirItemsSketchWalkthrough extends PropertiesWalkthrough {
         /// [graph] create a graph using our schema and store properties
         // ---------------------------------------------------------
         final Graph graph = new Graph.Builder()
-                .config(StreamUtil.graphConfig(getClass()))
-                .addSchemas(StreamUtil.openStreams(getClass(), "properties/reservoirItemsSketch/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .config(getDefaultGraphConfig())
+                .addSchemas(StreamUtil.openStreams(getClass(), schemaPath))
+                .storeProperties(getDefaultStoreProperties())
                 .build();
         // ---------------------------------------------------------
 
@@ -77,7 +77,7 @@ public class ReservoirItemsSketchWalkthrough extends PropertiesWalkthrough {
 
         graph.execute(addOpChain, user);
         // ---------------------------------------------------------
-        log("Added the edge A-B 1000 times each time with a ReservoirItemsSketchWalkthrough<String> containing a random string."
+        print("Added the edge A-B 1000 times each time with a ReservoirItemsSketchWalkthrough<String> containing a random string."
                 + " Also added 500 edges X-Y0, X-Y1, ..., X-Y499 each and for each an Entity on X with a"
                 + " ReservoirItemsSketchWalkthrough<String> containing the destination node.");
 
@@ -91,9 +91,9 @@ public class ReservoirItemsSketchWalkthrough extends PropertiesWalkthrough {
                 .build();
         final CloseableIterable<? extends Element> allEdges = graph.execute(getAllEdges, user);
         // ---------------------------------------------------------
-        log("\nThe red edge A-B:");
+        print("\nThe red edge A-B:");
         for (final Element edge : allEdges) {
-            log("GET_A-B_EDGE_RESULT", edge.toString());
+            print("GET_A-B_EDGE_RESULT", edge.toString());
         }
 
 
@@ -116,8 +116,8 @@ public class ReservoirItemsSketchWalkthrough extends PropertiesWalkthrough {
             sb.append(samples[i]);
         }
         // ---------------------------------------------------------
-        log("\nEdge A-B with a sample of the strings");
-        log("GET_SAMPLE_FOR_RED_EDGE", sb.toString());
+        print("\nEdge A-B with a sample of the strings");
+        print("GET_SAMPLE_FOR_RED_EDGE", sb.toString());
 
 
         // [get sample for entity x] Get the entity Y and print a sample of the neighbours
@@ -140,8 +140,8 @@ public class ReservoirItemsSketchWalkthrough extends PropertiesWalkthrough {
             sb.append(neighboursSample[i]);
         }
         // ---------------------------------------------------------
-        log("\nEntity for vertex X with a sample of its neighbouring vertices");
-        log("GET_SAMPLES_FOR_X_RESULT", sb.toString());
+        print("\nEntity for vertex X with a sample of its neighbouring vertices");
+        print("GET_SAMPLES_FOR_X_RESULT", sb.toString());
         return null;
     }
 }

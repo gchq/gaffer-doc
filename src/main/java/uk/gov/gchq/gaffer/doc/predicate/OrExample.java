@@ -25,7 +25,7 @@ import uk.gov.gchq.koryphe.tuple.n.Tuple2;
 
 public class OrExample extends PredicateExample {
     public static void main(final String[] args) {
-        new OrExample().run();
+        new OrExample().runAndPrint();
     }
 
     public OrExample() {

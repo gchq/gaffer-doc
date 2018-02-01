@@ -27,7 +27,7 @@ import uk.gov.gchq.koryphe.impl.predicate.IsMoreThan;
 
 public class GetAdjacentIdsExample extends OperationExample {
     public static void main(final String[] args) {
-        new GetAdjacentIdsExample().run();
+        new GetAdjacentIdsExample().runAndPrint();
     }
 
     public GetAdjacentIdsExample() {

@@ -33,7 +33,7 @@ public class SortExample extends OperationExample {
     }
 
     public static void main(final String[] args) throws OperationException {
-        new SortExample().run();
+        new SortExample().runAndPrint();
     }
 
     @Override

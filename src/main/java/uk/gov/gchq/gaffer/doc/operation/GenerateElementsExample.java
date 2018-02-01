@@ -25,7 +25,7 @@ import uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements;
 
 public class GenerateElementsExample extends OperationExample {
     public static void main(final String[] args) throws OperationException {
-        new GenerateElementsExample().run();
+        new GenerateElementsExample().runAndPrint();
     }
 
     public GenerateElementsExample() {
