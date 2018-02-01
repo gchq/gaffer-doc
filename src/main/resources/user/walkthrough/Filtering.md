@@ -64,3 +64,48 @@ For example the IsMoreThan Predicate accepts a single Comparable value. Whereas 
 The Predicate inputs are also documented within the Predicate examples documentation.
 
 For more information on Views and filtering, see [Views](views.md).
+
+## Additional Filtering
+In addition to filtering using a View, there are extra filters that can be applied to specific operations.
+
+### directedType
+GetElements, GetAllElements and GetAdjacentIds have a 'directedType' field that you can configure,
+telling Gaffer that you only want edges that are DIRECTED, UNDIRECTED or EITHER. 
+
+The default value is EITHER.
+
+### includeIncomingOutGoing
+GetElements and GetAdjacentIds have an 'includeIncomingOutGoing' field that you can configure,
+telling Gaffer that you only want edges that are OUTGOING, INCOMING, or EITHER, in relation to your seed.
+This is only applicable to directed edges.
+
+The default value is EITHER.
+
+For example if you have edges:
+- A - B
+- B - C
+- D -> B
+- B -> E
+- F - G
+- H -> I
+
+and you provide a seed B, then:
+
+- OUTGOING would only get back A - B, B - C and B -> E.
+- INCOMING would only get back A - B, B - C and D -> B.
+- EITHER would get back all edges that have a B vertex.
+
+
+### seedMatching
+GetElements has a 'seedMatching' field that you can configure,
+telling Gaffer that you only want edges that are EQUAL or RELATED to your seeds.
+
+The default value is RELATED.
+
+EQUAL will only return Entities and Edges with identifiers that match the seed exactly.
+- if you provide an Entity seed, you will only get back Entities have that the same vertex value.
+- if you provide an Edge seed, you will only get back Edges that have the same source, destination and directed values.
+
+RELATED will return the EQUAL results (as above) and additional Entities and Edges:
+- if you provide an Entity seed, you will also get back Edges that have have the same vertex value as source or destination.
+- if you provide an Edge seed, you will also get back Entities that have have the same source or destination vertices.
