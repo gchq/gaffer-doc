@@ -33,7 +33,7 @@ public class ToVerticesExample extends OperationExample {
     }
 
     public static void main(final String[] args) throws OperationException {
-        new ToVerticesExample().run();
+        new ToVerticesExample().runAndPrint();
     }
 
     @Override

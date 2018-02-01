@@ -32,7 +32,9 @@ This is because the user we ran the query as was not allowed to see edges with a
 
 We can create a user that can see `public` edges only (and not `private` edges) and then run the query as this user.
 
+${START_JAVA_CODE}
 ${GET_PUBLIC_SNIPPET}
+${END_CODE}
 
 If we rerun the query with a public user, we just get back the `public` edges:
 
@@ -42,7 +44,9 @@ ${GET_PUBLIC_EDGES_RESULT}
 
 We can also create a user that can see `private` edges (and therefore `public` ones as well):
 
+${START_JAVA_CODE}
 ${GET_PRIVATE_SNIPPET}
+${END_CODE}
 
 If we rerun the query as the private user, we get back all of the edges:
 

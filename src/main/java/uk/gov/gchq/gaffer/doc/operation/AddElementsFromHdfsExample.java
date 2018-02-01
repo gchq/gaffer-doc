@@ -23,7 +23,7 @@ import uk.gov.gchq.gaffer.hdfs.operation.AddElementsFromHdfs;
 import uk.gov.gchq.gaffer.hdfs.operation.SampleDataForSplitPoints;
 import uk.gov.gchq.gaffer.hdfs.operation.handler.job.initialiser.TextJobInitialiser;
 import uk.gov.gchq.gaffer.operation.OperationException;
-import uk.gov.gchq.gaffer.operation.impl.SplitStore;
+import uk.gov.gchq.gaffer.operation.impl.SplitStoreFromFile;
 import uk.gov.gchq.gaffer.user.User;
 
 import java.nio.file.Paths;
@@ -34,24 +34,32 @@ public class AddElementsFromHdfsExample extends OperationExample {
     private final String[] args = new String[5];
 
     public static void main(final String[] args) throws OperationException {
-        new AddElementsFromHdfsExample().run();
+        new AddElementsFromHdfsExample().runAndPrint();
     }
 
     public AddElementsFromHdfsExample() {
         super(AddElementsFromHdfs.class, "This operation must be run as a Hadoop Job. " +
                 "So you will need to package up a shaded jar containing a main method " +
                 "that creates an instance of Graph and executes the operation. " +
-                "It can then be run with: \n\n"
-                + "```bash\n"
-                + "hadoop jar custom-shaded-jar.jar\n"
-                + "```\n\n"
-                + "When running an " + AddElementsFromHdfs.class.getSimpleName()
-                + " on Accumulo, if you do not specify useProvidedSplits " +
+                "It can then be run with: \n\n" +
+                "```bash\n" +
+                "hadoop jar custom-shaded-jar.jar\n" +
+                "```\n\n" +
+
+                "When running an " + AddElementsFromHdfs.class.getSimpleName() +
+                " on Accumulo, if you do not specify useProvidedSplits " +
                 "and the Accumulo table does not have a full set of split points " +
                 "then this operation will first sample the input data, generate " +
                 "split points and set them on the Accumulo table. " +
-                "It does this by delegating to " + SampleDataForSplitPoints.class.getSimpleName()
-                + " and " + SplitStore.class + ".");
+                "It does this by delegating to " + SampleDataForSplitPoints.class.getSimpleName() +
+                " and " + SplitStoreFromFile.class + ".\n\n" +
+
+                "Specifying the number of reducers within the Job has now been deprecated, " +
+                "and instead it is preferred to set the minimum and/or maximum number of reducers. " +
+                "Most users should not need to set the min or max number of reducers and simply leave the Store to pick the optimal number. " +
+                "The Accumulo Store does this by using the number of tablet servers. " +
+                "If you choose to set a min or max number of reducers then the Store will try to use a number within that range. " +
+                "If there is no optimal number within the provided range an exception is thrown.");
     }
 
     @Override

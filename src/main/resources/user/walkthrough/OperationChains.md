@@ -9,28 +9,43 @@ Operation chains are simply a list of operations in which the operations are exe
 
 So adding elements from a CSV file can now be done as follows:
 
+${START_JAVA_CODE}
 ${ADD_SNIPPET}
+${END_CODE}
 
 This chain consists of 2 operations.
 The first, GenerateElements, which takes the data and an element generator and generates the Gaffer Edges.
 The second, AddElements, simply takes the generated edges and adds them to the graph.
 This operation chain can then be executed on the graph as before.
 
-
 Another example of using an operation chain is when we are traversing the graph.
 
+${START_JAVA_CODE}
 ${GET_SNIPPET}
+${END_CODE}
 
-This operation chain takes starts with a seed vertex traverses down all outgoing edges using the ${GET_ADJACENT_ENTITY_SEEDS_JAVADOC} operation and then returns all the following connected edges using the ${GET_ELEMENTS_JAVADOC} operation. 
-Before returning the results the edges are converted into a csv format (junctionA, junctionB, count) using the ${GENERATE_OBJECTS_JAVADOC} operation.
-In order to convert the edges back into the initial csv format we have implemented the ${OBJECT_GENERATOR_JAVADOC}. 
+This operation chain starts with a seed vertex and traverses down all outgoing edges using the ${GET_ADJACENT_ENTITY_SEEDS_JAVADOC} operation.
+It then returns all the following connected edges using the ${GET_ELEMENTS_JAVADOC} operation:
+
+```
+${RESULT}
+```
+We can continue to add operations to create longer operation chains.
+
+Suppose we want to convert the edges returned back into csv format similar to the input file (junctionA, junctionB, count). Gaffer allows
+us to convert graph elements back into objects using the ${GENERATE_OBJECTS_JAVADOC} operation. We tell Gaffer how to convert the elements
+using an ${OBJECT_GENERATOR_JAVADOC}.
 
 ${CSV_GENERATOR_JAVA}
 
+Now we'll add the operation to the operation chain we executed before (note that this time the return type has changed from Element to String):
+
+${GET_AND_CONVERT_SNIPPET}
+
 When we execute this query we get:
 
-```csv
-${RESULT}
+```
+${CSV_RESULT}
 ```
 
 You can see the data has been converted back into csv.

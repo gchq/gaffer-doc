@@ -46,23 +46,23 @@ public class MultipleEdges extends UserWalkthrough {
         // ---------------------------------------------------------
         final List<Element> elements = new ArrayList<>();
         final RoadAndRoadUseElementGenerator dataGenerator = new RoadAndRoadUseElementGenerator();
-        for (final String line : IOUtils.readLines(StreamUtil.openStream(getClass(), "RoadAndRoadUse/data.txt"))) {
+        for (final String line : IOUtils.readLines(StreamUtil.openStream(getClass(), dataPath))) {
             Iterables.addAll(elements, dataGenerator._apply(line));
         }
         // ---------------------------------------------------------
-        log("Elements generated from the data file.");
+        print("Elements generated from the data file.");
         for (final Element element : elements) {
-            log("GENERATED_EDGES", element.toString());
+            print("GENERATED_EDGES", element.toString());
         }
-        log("");
+        print("");
 
 
         // [graph] Create a graph using our schema and store properties
         // ---------------------------------------------------------
         final Graph graph = new Graph.Builder()
-                .config(StreamUtil.graphConfig(getClass()))
-                .addSchemas(StreamUtil.openStreams(getClass(), "RoadAndRoadUse/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .config(getDefaultGraphConfig())
+                .addSchemas(StreamUtil.openStreams(getClass(), schemaPath))
+                .storeProperties(getDefaultStoreProperties())
                 .build();
         // ---------------------------------------------------------
 
@@ -80,20 +80,20 @@ public class MultipleEdges extends UserWalkthrough {
                 .build();
         graph.execute(addElements, user);
         // ---------------------------------------------------------
-        log("The elements have been added.");
+        print("The elements have been added.");
 
 
         // [get simple] Get all the edges related to vertex 10
         // ---------------------------------------------------------
-        final GetElements getEdges = new GetElements.Builder()
+        final GetElements getElements = new GetElements.Builder()
                 .input(new EntitySeed("10"))
                 .build();
-        final CloseableIterable<? extends Element> edges = graph.execute(getEdges, user);
+        final CloseableIterable<? extends Element> results = graph.execute(getElements, user);
         // ---------------------------------------------------------
-        log("\nAll edges containing vertex 10");
-        log("\nNotice that the edges are aggregated within their groups");
-        for (final Element e : edges) {
-            log("GET_ELEMENTS_RESULT", e.toString());
+        print("\nAll elements containing vertex 10");
+        print("\nNotice that the edges are aggregated within their groups");
+        for (final Element e : results) {
+            print("GET_ELEMENTS_RESULT", e.toString());
         }
 
 
@@ -102,18 +102,18 @@ public class MultipleEdges extends UserWalkthrough {
         final View view = new View.Builder()
                 .edge("RoadHasJunction")
                 .build();
-        final GetElements getRelatedRedEdges = new GetElements.Builder()
+        final GetElements getRoadHasJunctionEdges = new GetElements.Builder()
                 .input(new EntitySeed("10"))
                 .view(view)
                 .build();
-        final CloseableIterable<? extends Element> redResults = graph.execute(getRelatedRedEdges, user);
+        final CloseableIterable<? extends Element> filteredResults = graph.execute(getRoadHasJunctionEdges, user);
         // ---------------------------------------------------------
-        log("\nAll RoadHasJunction edges containing vertex 10\n");
-        for (final Element e : redResults) {
-            log("GET_ROAD_HAS_JUNCTION_EDGES_RESULT", e.toString());
+        print("\nAll RoadHasJunction edges containing vertex 10\n");
+        for (final Element e : filteredResults) {
+            print("GET_ROAD_HAS_JUNCTION_EDGES_RESULT", e.toString());
         }
 
-        return redResults;
+        return filteredResults;
     }
 
     public static void main(final String[] args) throws OperationException, IOException {

@@ -43,7 +43,7 @@ public final class JavaSourceUtil {
             final String javaCode = FileUtils.readFileToString(new File(path));
             return javaCode.substring(javaCode.indexOf("public class "));
         } catch (final IOException e) {
-            throw new RuntimeException("Unable to find the Java source code. This code is used to generate the Wiki and requires access to the Gaffer source code. Please run the code from within the Gaffer parent directory.", e);
+            throw new RuntimeException("Unable to find the Java source code", e);
         }
     }
 
@@ -71,6 +71,6 @@ public final class JavaSourceUtil {
     }
 
     public static String getJavaSnippet(final Class<?> clazz, final String modulePath, final String tag) {
-        return "\n```java\n" + getRawJavaSnippet(clazz, modulePath, "// [" + tag + "]", START_TAG_CODE_SNIPPET_MARKER, TAG_END_CODE_SNIPPET_MARKER) + String.format("%n```");
+        return getRawJavaSnippet(clazz, modulePath, "// [" + tag + "]", START_TAG_CODE_SNIPPET_MARKER, TAG_END_CODE_SNIPPET_MARKER);
     }
 }

@@ -23,7 +23,7 @@ import java.util.Set;
 
 public class CollectionContainsExample extends PredicateExample {
     public static void main(final String[] args) {
-        new CollectionContainsExample().run();
+        new CollectionContainsExample().runAndPrint();
     }
 
     public CollectionContainsExample() {

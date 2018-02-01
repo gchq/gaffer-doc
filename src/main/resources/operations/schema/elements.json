@@ -1,0 +1,48 @@
+{
+  "entities": {
+    "entity": {
+      "vertex": "int",
+      "description": "test entity",
+      "properties": {
+        "count": "count"
+      }
+    },
+    "entity1": {
+      "vertex": "int",
+      "properties": {
+        "count": "count"
+      }
+    },
+    "cardinality": {
+      "description": "An entity that is added to every vertex representing the connectivity of the vertex.",
+      "vertex": "int",
+      "properties": {
+        "edgeGroup": "set",
+        "hllp": "hllp",
+        "count": "count"
+      },
+      "groupBy": [
+        "edgeGroup"
+      ]
+    }
+  },
+  "edges": {
+    "edge": {
+      "source": "int",
+      "destination": "int",
+      "directed": "true",
+      "description": "test edge",
+      "properties": {
+        "count": "count"
+      }
+    },
+    "edge1": {
+      "source": "int",
+      "destination": "int",
+      "directed": "true",
+      "properties": {
+        "count": "count"
+      }
+    }
+  }
+}

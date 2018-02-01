@@ -28,7 +28,7 @@ public class ToArrayExample extends OperationExample {
     }
 
     public static void main(final String[] args) throws OperationException {
-        new ToArrayExample().run();
+        new ToArrayExample().runAndPrint();
     }
 
     @Override

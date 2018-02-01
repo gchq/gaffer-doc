@@ -20,7 +20,7 @@ import uk.gov.gchq.koryphe.impl.predicate.IsTrue;
 
 public class IsTrueExample extends PredicateExample {
     public static void main(final String[] args) {
-        new IsTrueExample().run();
+        new IsTrueExample().runAndPrint();
     }
 
     public IsTrueExample() {

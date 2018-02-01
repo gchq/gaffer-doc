@@ -20,7 +20,7 @@ import uk.gov.gchq.koryphe.tuple.n.Tuple2;
 
 public class IsXMoreThanYExample extends PredicateExample {
     public static void main(final String[] args) {
-        new IsXMoreThanYExample().run();
+        new IsXMoreThanYExample().runAndPrint();
     }
 
     public IsXMoreThanYExample() {

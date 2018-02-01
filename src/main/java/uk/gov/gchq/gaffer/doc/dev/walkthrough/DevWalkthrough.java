@@ -24,7 +24,7 @@ public abstract class DevWalkthrough extends AbstractWalkthrough {
     }
 
     public DevWalkthrough(final String header, final String resourcePrefix, final Class<? extends ElementGenerator> elementGenerator) {
-        super(header, resourcePrefix + "/data.txt", resourcePrefix + "/schema", elementGenerator, null, "dev");
+        super(header, resourcePrefix, elementGenerator, "dev");
     }
 
     @Override

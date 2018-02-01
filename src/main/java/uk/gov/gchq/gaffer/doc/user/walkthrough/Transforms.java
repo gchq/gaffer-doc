@@ -49,23 +49,23 @@ public class Transforms extends UserWalkthrough {
         // ---------------------------------------------------------
         final List<Element> elements = new ArrayList<>();
         final RoadAndRoadUseElementGenerator dataGenerator = new RoadAndRoadUseElementGenerator();
-        for (final String line : IOUtils.readLines(StreamUtil.openStream(getClass(), "RoadAndRoadUse/data.txt"))) {
+        for (final String line : IOUtils.readLines(StreamUtil.openStream(getClass(), dataPath))) {
             Iterables.addAll(elements, dataGenerator._apply(line));
         }
         // ---------------------------------------------------------
-        log("Elements generated from the data file.");
+        print("Elements generated from the data file.");
         for (final Element element : elements) {
-            log("GENERATED_EDGES", element.toString());
+            print("GENERATED_EDGES", element.toString());
         }
-        log("");
+        print("");
 
 
         // [graph] Create a graph using our schema and store properties
         // ---------------------------------------------------------
         final Graph graph = new Graph.Builder()
-                .config(StreamUtil.graphConfig(getClass()))
-                .addSchemas(StreamUtil.openStreams(getClass(), "RoadAndRoadUse/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .config(getDefaultGraphConfig())
+                .addSchemas(StreamUtil.openStreams(getClass(), schemaPath))
+                .storeProperties(getDefaultStoreProperties())
                 .build();
         // ---------------------------------------------------------
 
@@ -83,7 +83,7 @@ public class Transforms extends UserWalkthrough {
                 .build();
         graph.execute(addElements, user);
         // ---------------------------------------------------------
-        log("The elements have been added.");
+        print("The elements have been added.");
 
 
         // [get simple] get all the edges that contain the vertex "1"
@@ -93,9 +93,9 @@ public class Transforms extends UserWalkthrough {
                 .build();
         final CloseableIterable<? extends Element> results = graph.execute(getEdges, user);
         // ---------------------------------------------------------
-        log("\nAll edges containing the vertex 10. The counts and 'things' have been aggregated\n");
+        print("\nAll edges containing the vertex 10. The counts and 'things' have been aggregated\n");
         for (final Element e : results) {
-            log("GET_ELEMENTS_RESULT", e.toString());
+            print("GET_ELEMENTS_RESULT", e.toString());
         }
 
 
@@ -107,53 +107,52 @@ public class Transforms extends UserWalkthrough {
                 .project("description")
                 .build();
         // ---------------------------------------------------------
-
+        printJson("TRANSFORM", descriptionTransformer);
 
         // [get] Add the element transformer to the view and run the query
         // ---------------------------------------------------------
-        final View view = new View.Builder()
-                .edge("RoadUse", new ViewElementDefinition.Builder()
-                        .transientProperty("description", String.class)
-                        .transformer(descriptionTransformer)
-                        .build())
-                .build();
         final GetElements getEdgesWithDescription = new GetElements.Builder()
                 .input(new EntitySeed("10"))
-                .view(view)
+                .view(new View.Builder()
+                        .edge("RoadUse", new ViewElementDefinition.Builder()
+                                .transientProperty("description", String.class)
+                                .transformer(descriptionTransformer)
+                                .build())
+                        .build())
                 .build();
         final CloseableIterable<? extends Element> resultsWithDescription = graph.execute(getEdgesWithDescription, user);
         // ---------------------------------------------------------
-        log("\nWe can add a new property to the edges that is calculated from the aggregated values of other properties\n");
+        printJsonAndPython("GET", getEdgesWithDescription);
+        print("\nWe can add a new property to the edges that is calculated from the aggregated values of other properties\n");
         for (final Element e : resultsWithDescription) {
-            log("GET_ELEMENTS_WITH_DESCRIPTION_RESULT", e.toString());
+            print("GET_ELEMENTS_WITH_DESCRIPTION_RESULT", e.toString());
         }
 
 
         // [get with no count]
         // ---------------------------------------------------------
-        final View viewWithExcludedProperties = new View.Builder()
-                .edge("RoadUse", new ViewElementDefinition.Builder()
-                        .transientProperty("description", String.class)
-                        .transformer(descriptionTransformer)
-                        .excludeProperties("count")
-                        .build())
-                .build();
         final GetElements getEdgesWithDescriptionAndNoCount = new GetElements.Builder()
                 .input(new EntitySeed("10"))
-                .view(viewWithExcludedProperties)
+                .view(new View.Builder()
+                        .edge("RoadUse", new ViewElementDefinition.Builder()
+                                .transientProperty("description", String.class)
+                                .transformer(descriptionTransformer)
+                                .excludeProperties("count")
+                                .build())
+                        .build())
                 .build();
         final CloseableIterable<? extends Element> resultsWithDescriptionAndNoCount = graph.execute(getEdgesWithDescriptionAndNoCount, user);
         // ---------------------------------------------------------
-        log("\nAnd the result without the count property:\n");
+        printJsonAndPython("GET_WITH_NO_COUNT", getEdgesWithDescriptionAndNoCount);
+        print("\nAnd the result without the count property:\n");
         for (final Element e : resultsWithDescriptionAndNoCount) {
-            log("GET_ELEMENTS_WITH_DESCRIPTION_AND_NO_COUNT_RESULT", e.toString());
+            print("GET_ELEMENTS_WITH_DESCRIPTION_AND_NO_COUNT_RESULT", e.toString());
         }
 
         return resultsWithDescriptionAndNoCount;
     }
 
     public static void main(final String[] args) throws OperationException, IOException {
-        final Transforms walkthrough = new Transforms();
-        walkthrough.run();
+        System.out.println(new Transforms().walkthrough());
     }
 }

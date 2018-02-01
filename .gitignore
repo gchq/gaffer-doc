@@ -36,5 +36,4 @@ build
 *.swp
 spark-warehouse
 gaffer-python-shell
-docs/swagger-doc/*
-swagger-doc-config/*
+package-lock.json

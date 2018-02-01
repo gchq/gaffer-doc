@@ -19,7 +19,7 @@ import uk.gov.gchq.koryphe.impl.predicate.IsEqual;
 
 public class IsEqualExample extends PredicateExample {
     public static void main(final String[] args) {
-        new IsEqualExample().run();
+        new IsEqualExample().runAndPrint();
     }
 
     public IsEqualExample() {

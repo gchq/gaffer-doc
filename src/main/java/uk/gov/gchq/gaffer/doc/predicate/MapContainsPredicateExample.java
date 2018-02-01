@@ -27,7 +27,7 @@ public class MapContainsPredicateExample extends PredicateExample {
     final Map<String, String> mapNullA = new HashMap<>();
 
     public static void main(final String[] args) {
-        new MapContainsPredicateExample().run();
+        new MapContainsPredicateExample().runAndPrint();
     }
 
     public MapContainsPredicateExample() {

@@ -23,7 +23,7 @@ import uk.gov.gchq.gaffer.user.User;
 
 public class AddElementsExample extends OperationExample {
     public static void main(final String[] args) throws OperationException {
-        new AddElementsExample().run();
+        new AddElementsExample().runAndPrint();
     }
 
     public AddElementsExample() {
@@ -40,8 +40,8 @@ public class AddElementsExample extends OperationExample {
     }
 
     public void addElements() throws OperationException {
-        log("#### " + getMethodNameAsSentence(0) + "\n");
-        printGraph();
+        print("### " + getMethodNameAsSentence(0) + "\n");
+        printSimpleGraphAsAscii();
 
         final AddElements operation = new AddElements.Builder()
                 .input(new Entity.Builder()
@@ -72,15 +72,15 @@ public class AddElementsExample extends OperationExample {
 
         getGraph().execute(operation, new User("user01"));
 
-        log("Updated graph:");
-        log("```");
-        log("");
-        log("    --> 4 <--");
-        log("  /     ^     \\");
-        log(" /      |      \\");
-        log("1  -->  2  -->  3");
-        log("         \\");
-        log("           -->  5  -->  6");
-        log("```");
+        print("Updated graph:");
+        print("```");
+        print("");
+        print("    --> 4 <--");
+        print("  /     ^     \\");
+        print(" /      |      \\");
+        print("1  -->  2  -->  3");
+        print("         \\");
+        print("           -->  5  -->  6");
+        print("```");
     }
 }

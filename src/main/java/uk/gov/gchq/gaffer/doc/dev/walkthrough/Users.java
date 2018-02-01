@@ -33,15 +33,15 @@ public class Users extends DevWalkthrough {
         /// [user] execute
         // ---------------------------------------------------------
         final Graph graph = new Graph.Builder()
-                .config(StreamUtil.graphConfig(getClass()))
-                .addSchemas(StreamUtil.openStreams(getClass(), "SchemaExample/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .config(getDefaultGraphConfig())
+                .addSchemas(StreamUtil.openStreams(getClass(), schemaPath))
+                .storeProperties(getDefaultStoreProperties())
                 .build();
         // ---------------------------------------------------------
 
         final Schema schema = graph.getSchema();
         try {
-            log("SCHEMA", new String(schema.toJson(true), CommonConstants.UTF_8));
+            print("SCHEMA", new String(schema.toJson(true), CommonConstants.UTF_8));
         } catch (final UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }

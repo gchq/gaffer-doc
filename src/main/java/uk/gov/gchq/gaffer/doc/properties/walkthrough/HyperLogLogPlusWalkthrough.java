@@ -48,9 +48,9 @@ public class HyperLogLogPlusWalkthrough extends PropertiesWalkthrough {
         /// [graph] create a graph using our schema and store properties
         // ---------------------------------------------------------
         final Graph graph = new Graph.Builder()
-                .config(StreamUtil.graphConfig(getClass()))
-                .addSchemas(StreamUtil.openStreams(getClass(), "properties/hyperLogLogPlus/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .config(getDefaultGraphConfig())
+                .addSchemas(StreamUtil.openStreams(getClass(), schemaPath))
+                .storeProperties(getDefaultStoreProperties())
                 .build();
         // ---------------------------------------------------------
 
@@ -74,16 +74,16 @@ public class HyperLogLogPlusWalkthrough extends PropertiesWalkthrough {
 
         graph.execute(addOpChain, user);
         // ---------------------------------------------------------
-        log("Added 1000 entities for vertex A, each time w\nith a HyperLogLogPlus containing a vertex that A was seen in an edge with");
+        print("Added 1000 entities for vertex A, each time w\nith a HyperLogLogPlus containing a vertex that A was seen in an edge with");
 
 
         // [get] Get all entities
         // ---------------------------------------------------------
         CloseableIterable<? extends Element> allEntities = graph.execute(new GetAllElements(), user);
         // ---------------------------------------------------------
-        log("\nAll edges:");
+        print("\nAll edges:");
         for (final Element entity : allEntities) {
-            log("GET_ALL_ENTITIES_RESULT", entity.toString());
+            print("GET_ALL_ENTITIES_RESULT", entity.toString());
         }
 
 
@@ -100,8 +100,8 @@ public class HyperLogLogPlusWalkthrough extends PropertiesWalkthrough {
         final double approxDegree = hyperLogLogPlus.cardinality();
         final String degreeEstimate = "Entity A has approximate degree " + approxDegree;
         // ---------------------------------------------------------
-        log("\nEntity A with an estimate of its degree");
-        log("GET_APPROX_DEGREE_FOR_ENTITY_A", degreeEstimate);
+        print("\nEntity A with an estimate of its degree");
+        print("GET_APPROX_DEGREE_FOR_ENTITY_A", degreeEstimate);
 
         return null;
     }

@@ -21,7 +21,7 @@ import uk.gov.gchq.koryphe.tuple.n.Tuple2;
 
 public class AreEqualExample extends PredicateExample {
     public static void main(final String[] args) {
-        new AreEqualExample().run();
+        new AreEqualExample().runAndPrint();
     }
 
     public AreEqualExample() {

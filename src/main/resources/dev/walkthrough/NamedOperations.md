@@ -12,47 +12,98 @@ There are various possible uses for NamedOperations:
 
 In addition to the NamedOperation there are a set of operations which manage named operations (AddNamedOperation, GetAllNamedOperations, DeleteNamedOperation).
 
-#### Configuration
-You will need to configure what cache to use for storing NamedOperations. 
-There is one central cache service for Gaffer, so the same cache is used for named operations and the job tracker.
-For example, to use the JCS cache service, add a dependency on the jcs-cache-service and set these store.properties:
+## Configuration
+You will need to configure what cache to use for storing NamedOperations. For more information on the cache service, see [Cache](cache.md).
 
-```xml
-<dependency>
-    <groupId>uk.gov.gchq.gaffer</groupId>
-    <artifactId>jcs-cache-service</artifactId>
-    <version>[gaffer.version]</version>
-</dependency>
-```
+Once you have configured the cache service, if you are using the OperationChainLimiter GraphHook then you will also need to configure
+that GraphHook to use the NamedOperationScoreResolver, this will allow you to have custom scores for each named operation.
+The hook configuration should look something like:
 
-```
-gaffer.cache.service.class=uk.gov.gchq.gaffer.cache.impl.JcsCacheService
+${START_JSON_CODE}
+{
+    "class": "uk.gov.gchq.gaffer.graph.hook.OperationChainLimiter",
+    "opScores": {
+      "uk.gov.gchq.gaffer.operation.Operation": 1,
+      "uk.gov.gchq.gaffer.operation.impl.add.AddElements": 2,
+      "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements": 5,
+      "uk.gov.gchq.gaffer.operation.impl.generate.GenerateObjects": 0
+    },
+    "authScores": {
+      "User": 2,
+      "SuperUser": 5
+    },
+    "scoreResolvers": {
+      "uk.gov.gchq.gaffer.named.operation.NamedOperation": {
+        "class": "uk.gov.gchq.gaffer.store.operation.resolver.named.NamedOperationScoreResolver"
+      }
+    }
+}
+${END_CODE}
 
-# Optionally provide custom cache properties
-gaffer.cache.config.file=/path/to/config/file
-```
+and the operation declarations file for registering the ScoreOperationChain operation would then look like:
+${START_JSON_CODE}
+{
+  "operations": [
+    {
+      "operation": "uk.gov.gchq.gaffer.operation.impl.ScoreOperationChain",
+      "handler": {
+        "opScores": {
+          "uk.gov.gchq.gaffer.operation.Operation": 1,
+          "uk.gov.gchq.gaffer.operation.impl.add.AddElements": 2,
+          "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements": 5,
+          "uk.gov.gchq.gaffer.operation.impl.generate.GenerateObjects": 0
+        },
+        "authScores": {
+          "User": 2,
+          "SuperUser": 5
+        },
+        "scoreResolvers": {
+          "uk.gov.gchq.gaffer.named.operation.NamedOperation": {
+            "class": "uk.gov.gchq.gaffer.store.operation.resolver.named.NamedOperationScoreResolver"
+          }
+        }
+      }
+    }
+  ]
+}
+${END_CODE}
 
 
-#### Using Named Operations
+
+## Using Named Operations
 OK, now for some examples of using NamedOperations.
 
 We will use the same basic schema and data from the first developer walkthrough.
 
 Start by creating your user instance and graph as you will have done previously:
 
+${START_JAVA_CODE}
 ${USER_SNIPPET}
+${END_CODE}
 
+${START_JAVA_CODE}
 ${GRAPH_SNIPPET}
+${END_CODE}
 
 Then add a named operation to the cache with the AddNamedOperation operation:
 
+${START_JAVA_CODE}
 ${ADD_NAMED_OPERATION_SNIPPET}
+${END_CODE}
+
+The above named operation has been configured to have a score of 2. If you have
+the OperationChainLimiter GraphHook configured then this score will be used by
+the hook to limit operation chains.
 
 Then create a NamedOperation and execute it
 
+${START_JAVA_CODE}
 ${CREATE_NAMED_OPERATION_SNIPPET}
+${END_CODE}
 
+${START_JAVA_CODE}
 ${EXECUTE_NAMED_OPERATION_SNIPPET}
+${END_CODE}
 
 The results are:
 
@@ -68,15 +119,21 @@ and an optional default for the Parameter, and also indicates whether the parame
 
 The following code adds a NamedOperation with a 'limitParam' parameter that allows the result limit for the OperationChain to be set:
 
+${START_JAVA_CODE}
 ${ADD_NAMED_OPERATION_WITH_PARAMETERS_SNIPPET}
+${END_CODE}
 
 A NamedOperation can then be created, with a value provided for the 'limitParam' parameter:
 
+${START_JAVA_CODE}
 ${CREATE_NAMED_OPERATION_WITH_PARAMETERS_SNIPPET}
+${END_CODE}
 
 and executed:
 
+${START_JAVA_CODE}
 ${EXECUTE_NAMED_OPERATION_WITH_PARAMETERS_SNIPPET}
+${END_CODE}
 
 giving these results:
 
@@ -86,15 +143,14 @@ ${NAMED_OPERATION_WITH_PARAMETER_RESULTS}
 
 Details of all available NamedOperations can be fetched using the GetAllNamedOperations operation:
 
+${START_JAVA_CODE}
 ${GET_ALL_NAMED_OPERATIONS_SNIPPET}
+${END_CODE}
 
-That gives the following results:
+That gives the following result:
 
+```
 ${ALL_NAMED_OPERATIONS}
+```
 
-
-
-
-
-
-
+For other named operation examples see [NamedOperation](../operations/namedoperation.md).

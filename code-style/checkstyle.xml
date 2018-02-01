@@ -73,8 +73,6 @@
             <property name="sortStaticImportsAlphabetically" value="true"/>
         </module>
 
-        <module name="MethodLength"/>
-
         <module name="ParameterNumber">
             <property name="max" value="11"/>
         </module>

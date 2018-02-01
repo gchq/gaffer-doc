@@ -33,7 +33,7 @@ public class MinExample extends OperationExample {
     }
 
     public static void main(final String[] args) throws OperationException {
-        new MinExample().run();
+        new MinExample().runAndPrint();
     }
 
     @Override

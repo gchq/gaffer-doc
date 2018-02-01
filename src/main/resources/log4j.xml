@@ -24,40 +24,8 @@
         </layout>
     </appender>
 
-    <logger name="uk.gov.gchq.gaffer.accumulostore.utils.TableUtils">
-        <level value="WARN"/>
-    </logger>
-
-    <logger name="uk.gov.gchq.gaffer.accumulostore.AccumuloStore">
-        <level value="ERROR"/>
-    </logger>
-
-    <logger name="org.reflections.Reflections">
-        <level value="WARN"/>
-    </logger>
-
-    <logger name="org.apache.hadoop.conf.Configuration">
-        <level value="WARN"/>
-    </logger>
-
-    <logger name="org.apache.hadoop.util.NativeCodeLoader">
-        <level value="ERROR"/>
-    </logger>
-
-    <logger name="org.apache.commons.jcs">
-        <level value="ERROR"/>
-    </logger>
-
-    <logger name="uk.gov.gchq.gaffer.cache">
-        <level value="ERROR"/>
-    </logger>
-
-    <logger name="uk.gov.gchq.gaffer.mapstore.impl.AddElementsHandler">
-        <level value="WARN"/>
-    </logger>
-
     <root>
-        <priority value="info"/>
+        <level value="OFF"/>
         <appender-ref ref="console"/>
     </root>
 </log4j:configuration>
