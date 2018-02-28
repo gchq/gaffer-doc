@@ -23,7 +23,7 @@ There are quite a few different parts to a View, these are:
 If you don't provide a View (or you provide an empty view with no groups) when
 executing an operation you will just get all elements back without any modifications.
 When creating a View the first thing to do is decide which Edges and Entities you would like to be returned.
-Let's assume you want RoadUse, RoadHasJunction, Cardinality. If you provide a Your view would look like this:
+Let's assume you want RoadUse, RoadHasJunction, Cardinality. If you provide a view it would look like this:
 
 ${START_JAVA_CODE}
 ${VIEW_WITH_GROUPS_SNIPPET}
@@ -39,8 +39,8 @@ It is important to use the correct element type when listing the elements.
 RoadUse is an Edge group, so we include it in the View as an Edge. Whereas Cardinality
 is an Entity so we include it as an Entity.
 
-As seen in the Filtering walkthrough we can then apply filters to the different element groups using an ${VIEW_ELEMENT_DEF_JAVADOC}.
-Below you can see we have added a post aggregation filters to the element groups.
+As seen in the Filtering walkthrough we can then apply filters to the different element groups using a ${VIEW_ELEMENT_DEF_JAVADOC}.
+Below you can see we have added a post aggregation filter to the element groups.
 This demonstrates how you can add different filters to different groups and how to add multiple filters.
 
 ${START_JAVA_CODE}
@@ -122,9 +122,9 @@ ${END_CODE}
 
 Global aggregations and transformations work in a similar way to filtering.
 
-Properties can also included/excluded globally, using a similar method to the above for filtering.
+Properties can also be included/excluded globally, using a similar method to the above for filtering.
 
-If we want to only want to return the `"count"` property for all elements this can be done like:
+If we only want to return the `"count"` property for all elements this can be done like:
 
 ${START_JAVA_CODE}
 ${VIEW_WITH_GLOBAL_REMOVED_PROPERTIES_SNIPPET}
