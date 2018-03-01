@@ -33,6 +33,9 @@
         <maven-dependency-plugin.version>3.0.2</maven-dependency-plugin.version>
         <skip.python>false</skip.python>
 
+        <!-- If this is set then the python shell will be copied form the provided local path-->
+        <python-shell.path/>
+
         <scm.url>
             https://github.com/gchq/gaffer-doc
         </scm.url>
@@ -147,6 +150,7 @@
                             </executable>
                             <arguments>
                                 <argument>${gaffer-tools.version}</argument>
+                                <argument>${python-shell.path}</argument>
                             </arguments>
                         </configuration>
                     </execution>
