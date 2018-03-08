@@ -37,3 +37,4 @@ build
 spark-warehouse
 gaffer-python-shell
 package-lock.json
+gaffer-tools.tar.gz
