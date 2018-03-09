@@ -21,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import uk.gov.gchq.gaffer.commonutil.pair.Pair;
 import uk.gov.gchq.gaffer.doc.walkthrough.WalkthroughStrSubstitutor;
+import uk.gov.gchq.koryphe.Since;
 import uk.gov.gchq.koryphe.tuple.MapTuple;
 import uk.gov.gchq.koryphe.tuple.Tuple;
 
@@ -49,6 +50,7 @@ public abstract class Example {
     public void run() {
         print("# " + classForExample.getSimpleName());
         printJavaDocLink();
+        printSince();
         printDescription();
         print("## Examples");
         print("");
@@ -69,6 +71,13 @@ public abstract class Example {
         }
 
         print("See javadoc - [" + classForExample.getName() + "](" + urlPrefix + classForExample.getName().replace(".", "/") + ".html).\n");
+    }
+
+    public void printSince() {
+        final Since anno = getClassForExample().getAnnotation(Since.class);
+        if (null != anno && StringUtils.isNotBlank(anno.value())) {
+            print("Available since version " + anno.value() + "\n");
+        }
     }
 
     protected void printDescription() {
