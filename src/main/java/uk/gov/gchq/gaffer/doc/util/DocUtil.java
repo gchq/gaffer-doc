@@ -125,9 +125,9 @@ public final class DocUtil {
 
         final ProcessBuilder pb;
         if (null == clazz) {
-            pb = new ProcessBuilder("python3", "-u", "gaffer-python-shell/src/gafferpy/fromJson.py", json);
+            pb = new ProcessBuilder("python3", "-u", "gaffer-python-shell/src/fromJsonRunner.py", json);
         } else {
-            pb = new ProcessBuilder("python3", "-u", "gaffer-python-shell/src/gafferpy/fromJson.py", json, clazz.getName());
+            pb = new ProcessBuilder("python3", "-u", "gaffer-python-shell/src/fromJsonRunner.py", json, clazz.getName());
         }
 
         final Process p;

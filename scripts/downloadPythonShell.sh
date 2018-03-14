@@ -30,4 +30,7 @@ if [ ! -f gaffer-python-shell/$gafferToolsVersion ]; then
 
     # Add a marker for the version
     echo '' > gaffer-python-shell/$gafferToolsVersion
+
+    # Add fromJsonRunner
+    echo 'from gafferpy.fromJson import *' > gaffer-python-shell/src/fromJsonRunner.py
 fi
