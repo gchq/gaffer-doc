@@ -20,6 +20,8 @@ import org.graphframes.GraphFrame;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
 import uk.gov.gchq.gaffer.spark.operation.graphframe.GetGraphFrameOfElements;
 
+import static org.apache.spark.sql.functions.log;
+
 public class GetGraphFrameOfElementsExample extends SparkOperationExample {
 
     public static void main(final String[] args) {
