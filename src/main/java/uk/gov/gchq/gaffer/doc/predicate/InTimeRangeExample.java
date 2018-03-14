@@ -45,6 +45,7 @@ public class InTimeRangeExample extends PredicateExample {
         inTimeRangeExclusive();
         withinTheLastWeek();
         exactly7HoursAgo();
+        inDateRangeWithTimeUnitMicroseconds();
     }
 
     public void inTimeRangeWithDayPrecision() {
@@ -159,6 +160,25 @@ public class InTimeRangeExample extends PredicateExample {
                 System.currentTimeMillis() - DateUtil.HOURS_TO_MILLISECONDS * 6 - 10000L,
                 System.currentTimeMillis() - DateUtil.HOURS_TO_MILLISECONDS * 6 + 10000L,
                 System.currentTimeMillis(),
+                null);
+    }
+
+    public void inDateRangeWithTimeUnitMicroseconds() {
+        // ---------------------------------------------------------
+        final InTimeRange function = new InTimeRange.Builder()
+                .start("2017/01/01 01:30:10")
+                .end("2017/01/01 01:30:50")
+                .timeUnit(TimeUnit.MICROSECOND)
+                .build();
+        // ---------------------------------------------------------
+
+        runExample(function,
+                null,
+                getTimestamp("2017/01/01 01:30:09") * 1000,
+                getTimestamp("2017/01/01 01:30:10") * 1000,
+                getTimestamp("2017/01/01 01:30:20") * 1000,
+                getTimestamp("2017/01/01 01:30:50") * 1000,
+                getTimestamp("2017/01/01 01:30:51") * 1000,
                 null);
     }
 
