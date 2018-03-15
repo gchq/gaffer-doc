@@ -31,6 +31,6 @@ if [ ! -f gaffer-python-shell/$gafferToolsVersion ]; then
     # Add a marker for the version
     echo '' > gaffer-python-shell/$gafferToolsVersion
 
-    # Add fromJsonRunner
-    echo 'from gafferpy.fromJson import *' > gaffer-python-shell/src/fromJsonRunner.py
+    # Cp fromJson script so it can be used by Java.
+    cp gaffer-python-shell/src/gafferpy/fromJson.py gaffer-python-shell/src/fromJson.py
 fi
