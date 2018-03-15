@@ -41,7 +41,7 @@ public class IsLongerThanExample extends PredicateExample {
         // ---------------------------------------------------------
 
         runExample(predicate,
-                null,
+                "This will test whether each input has a size/length attribute greater than 5.",
                 "testString",
                 "aTest",
                 new String[5],
@@ -55,7 +55,8 @@ public class IsLongerThanExample extends PredicateExample {
         // ---------------------------------------------------------
 
         runExample(predicate,
-                null,
+                "This will test whether each input has a size/length attribute greater than, " +
+                        "OR equal to 5.",
                 "test",
                 "testString",
                 "aTest",
