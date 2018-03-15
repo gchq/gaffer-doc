@@ -15,6 +15,8 @@
  */
 package uk.gov.gchq.gaffer.doc.function;
 
+import com.google.common.collect.Lists;
+
 import uk.gov.gchq.gaffer.data.element.Edge;
 import uk.gov.gchq.gaffer.data.element.Entity;
 import uk.gov.gchq.gaffer.data.graph.Walk;
@@ -33,48 +35,46 @@ public class LengthExample extends FunctionExample {
 
     @Override
     protected void runExamples() {
-        skipPython();
-        countNumberOfConfiguredOptions();
-        countNumberOfEdgesInAWalk();
+        getLength();
     }
 
-    public void countNumberOfConfiguredOptions() {
+    public void getLength() {
         // ---------------------------------------------------------
         final Length function = new Length();
         // ---------------------------------------------------------
 
-        runExample(function,
-                "This simple example returns the length of the Map, " +
-                        "containing all configured options on the Operation.",
+        runExample(function, null,
+                Lists.newArrayList(new Entity.Builder()
+                                .group("entity")
+                                .vertex("1")
+                                .build(),
+                        new Entity.Builder()
+                                .group("entity")
+                                .vertex("2")
+                                .build(),
+                        new Entity.Builder()
+                                .group("entity")
+                                .vertex("3")
+                                .build(),
+                        new Entity.Builder()
+                                .group("entity")
+                                .vertex("4")
+                                .build(),
+                        new Entity.Builder()
+                                .group("entity")
+                                .vertex("5")
+                                .build()),
                 new GetAllElements.Builder()
                         .option("option1", "value1")
                         .option("option2", "value2")
                         .option("option3", "value3")
-                        .build().getOptions());
-    }
-
-    public void countNumberOfEdgesInAWalk() {
-        // ---------------------------------------------------------
-        final Length function = new Length();
-        // ---------------------------------------------------------
-
-        runExample(function,
-                "This example will, provided a Walk object, return the Length of the Walk, " +
-                        "ie the number of Edges from start to finish.",
+                        .build().getOptions(),
                 new Walk.Builder()
-                        .entity(new Entity.Builder()
-                                .group("BasicEntity")
-                                .vertex("A")
-                                .build())
                         .edge(new Edge.Builder()
                                 .group("BasicEdge")
                                 .source("A")
                                 .dest("B")
                                 .directed(true)
-                                .build())
-                        .entity(new Entity.Builder()
-                                .group("BasicEntity")
-                                .vertex("B")
                                 .build())
                         .edges(new Edge.Builder()
                                         .group("BasicEdge")
@@ -88,20 +88,22 @@ public class LengthExample extends FunctionExample {
                                         .dest("C")
                                         .directed(true)
                                         .build())
-                        .entity(new Entity.Builder()
-                                .group("BasicEntity")
-                                .vertex("C")
-                                .build())
                         .edge(new Edge.Builder()
                                 .group("BasicEdge")
                                 .source("C")
                                 .dest("A")
                                 .directed(true)
                                 .build())
-                        .entity(new Entity.Builder()
-                                .group("BasicEntity")
-                                .vertex("A")
+                        .edge(new Edge.Builder()
+                                .group("BasicEdge")
+                                .source("A")
+                                .dest("E")
+                                .directed(true)
                                 .build())
-                        .build());
+                        .build(),
+                5,
+                "some string",
+                new String[]{"1", "2"},
+                null);
     }
 }

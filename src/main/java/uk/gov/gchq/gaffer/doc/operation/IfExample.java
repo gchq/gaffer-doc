@@ -57,7 +57,7 @@ public class IfExample extends OperationExample {
                         .input(new EntitySeed(2))
                         .build())
                 .then(new If.Builder<>()
-//                        .conditional(new IsShorterThan(5))
+                        .conditional(new IsShorterThan(5))
                         .then(new OperationChain.Builder()
                                 .first(new GetElements())
                                 .then(new Limit<>(5))
