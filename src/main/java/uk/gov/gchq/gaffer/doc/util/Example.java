@@ -36,7 +36,7 @@ public abstract class Example {
     private final Class<?> classForExample;
     private final String description;
     private StringBuilder output = new StringBuilder();
-    private boolean skipPython;
+    private Boolean skipPythonErrors;
 
     public Example(final Class<?> classForExample) {
         this(classForExample, "");
@@ -95,7 +95,7 @@ public abstract class Example {
     }
 
     protected void skipPython() {
-        this.skipPython = true;
+        this.skipPythonErrors = true;
     }
 
     protected abstract void runExamples();
@@ -181,12 +181,10 @@ public abstract class Example {
         print(WalkthroughStrSubstitutor.FULL_JSON_CODE_MARKER);
         print(DocUtil.getFullJson(obj));
 
-        if (!skipPython) {
-            final String python = DocUtil.getPython(obj);
-            if (null != python) {
-                print(WalkthroughStrSubstitutor.PYTHON_CODE_MARKER);
-                print(python);
-            }
+        final String python = DocUtil.getPython(obj, skipPythonErrors);
+        if (StringUtils.isNoneBlank(python)) {
+            print(WalkthroughStrSubstitutor.PYTHON_CODE_MARKER);
+            print(python);
         }
 
         print(WalkthroughStrSubstitutor.END_MARKER_MARKER);
