@@ -37,6 +37,7 @@ public class InTimeRangeDualExample extends PredicateExample {
                         "* yyyy/MM/dd HH:mm\n" +
                         "* yyyy/MM/dd HH:mm:ss\n\n" +
                         "You can use a space, '-', '/', '_', ':', '|', or '.' to separate the parts.");
+        skipPython();
     }
 
     @Override
@@ -47,6 +48,7 @@ public class InTimeRangeDualExample extends PredicateExample {
         inTimeRangeExclusive();
         withinTheLastWeek();
         exactly7HoursAgo();
+        inDateRangeWithTimeUnitMicroseconds();
     }
 
     public void inTimeRangeWithDayPrecision() {
@@ -161,6 +163,26 @@ public class InTimeRangeDualExample extends PredicateExample {
                 new Tuple2<>(now() - DateUtil.HOURS_TO_MILLISECONDS * 7 + 10000L, now() - DateUtil.HOURS_TO_MILLISECONDS * 6 - 10000L),
                 new Tuple2<>(now() - DateUtil.HOURS_TO_MILLISECONDS * 7 + 10000L, now() - DateUtil.HOURS_TO_MILLISECONDS * 6 + 10000L),
                 new Tuple2<>(now() - DateUtil.HOURS_TO_MILLISECONDS * 7 + 10000L, now()),
+                new Tuple2<>(null, null));
+    }
+
+    public void inDateRangeWithTimeUnitMicroseconds() {
+        // ---------------------------------------------------------
+        final InTimeRangeDual function = new InTimeRangeDual.Builder()
+                .start("2017/01/01")
+                .end("2017/02/01")
+                .timeUnit(TimeUnit.MICROSECOND)
+                .build();
+        // ---------------------------------------------------------
+
+        runExample(function,
+                null,
+                new Tuple2<>(getTimestamp("2016/01/01 00:00") * 1000, getTimestamp("2016/02/01 00:00") * 1000),
+                new Tuple2<>(getTimestamp("2017/01/01 00:00") * 1000, getTimestamp("2017/01/01 00:00") * 1000),
+                new Tuple2<>(getTimestamp("2017/01/01 01:00") * 1000, getTimestamp("2017/01/01 01:00") * 1000),
+                new Tuple2<>(getTimestamp("2017/01/01 01:00") * 1000, getTimestamp("2017/01/01 23:59:59") * 1000),
+                new Tuple2<>(getTimestamp("2017/01/01 01:00") * 1000, getTimestamp("2017/02/01 00:00:00") * 1000),
+                new Tuple2<>(getTimestamp("2017/01/01 01:00") * 1000, getTimestamp("2017/02/01 00:00:01") * 1000),
                 new Tuple2<>(null, null));
     }
 
