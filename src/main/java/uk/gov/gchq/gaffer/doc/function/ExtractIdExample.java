@@ -42,7 +42,8 @@ public class ExtractIdExample extends FunctionExample {
         // ---------------------------------------------------------
 
         runExample(function,
-                null,
+                "The function will simply extract the value of the provided Id, for a given Element. " +
+                        "This Id can either be an IdentifierType, or a String representation, eg \"SOURCE\".",
                 new Edge.Builder()
                         .source("src")
                         .dest("dest")
@@ -63,7 +64,7 @@ public class ExtractIdExample extends FunctionExample {
         // ---------------------------------------------------------
 
         runExample(function,
-                null,
+                "This example simply demonstrates the same functionality but on an Entity.",
                 new Entity.Builder()
                         .group("entity")
                         .vertex("v1")

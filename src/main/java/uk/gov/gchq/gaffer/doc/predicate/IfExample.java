@@ -43,7 +43,9 @@ public class IfExample extends PredicateExample {
         final If<Comparable> predicate = new If<>(new IsA(Integer.class), new IsMoreThan(3), new Not<>(new IsA(String.class)));
         // ---------------------------------------------------------
 
-        runExample(predicate, null,
+        runExample(predicate, "This example tests first whether the input is an Integer. " +
+                        "If so, it is then tested to see if the value is greater than 3. " +
+                        "Otherwise, since it is not an Integer, we then test to see if it is NOT a String.",
                 2,
                 3,
                 5,

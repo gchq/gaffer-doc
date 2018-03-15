@@ -39,7 +39,8 @@ public class IfExample extends OperationExample {
     }
 
     public IfExample() {
-        super(If.class, "", true);
+        super(If.class, "Examples for the If Operation. " +
+                "These examples use a modified, more complex graph.", true);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class IfExample extends OperationExample {
                         .input(new EntitySeed(2))
                         .build())
                 .then(new If.Builder<>()
-                        .conditional(new IsShorterThan(5))
+//                        .conditional(new IsShorterThan(5))
                         .then(new OperationChain.Builder()
                                 .first(new GetElements())
                                 .then(new Limit<>(5))
@@ -138,7 +139,8 @@ public class IfExample extends OperationExample {
                         .parameters(parameterValues)
                         .build();
         // ---------------------------------------------------------
-        return runExample(namedOp, null);
+        return runExample(namedOp, "This example then runs the NamedOperation, " +
+                "providing both the input, and the value of the parameter via a Map.");
 
     }
 }

@@ -33,6 +33,7 @@ public class LengthExample extends FunctionExample {
 
     @Override
     protected void runExamples() {
+        skipPython();
         countNumberOfConfiguredOptions();
         countNumberOfEdgesInAWalk();
     }
@@ -43,7 +44,8 @@ public class LengthExample extends FunctionExample {
         // ---------------------------------------------------------
 
         runExample(function,
-                null,
+                "This simple example returns the length of the Map, " +
+                        "containing all configured options on the Operation.",
                 new GetAllElements.Builder()
                         .option("option1", "value1")
                         .option("option2", "value2")
@@ -57,7 +59,8 @@ public class LengthExample extends FunctionExample {
         // ---------------------------------------------------------
 
         runExample(function,
-                null,
+                "This example will, provided a Walk object, return the Length of the Walk, " +
+                        "ie the number of Edges from start to finish.",
                 new Walk.Builder()
                         .entity(new Entity.Builder()
                                 .group("BasicEntity")
