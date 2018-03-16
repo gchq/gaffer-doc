@@ -89,7 +89,7 @@ public class NamedViews extends DevWalkthrough {
                 .overwrite(false)
                 .build();
         // ---------------------------------------------------------
-        printJsonAndPython("ADD_NAMED_VIEW", addNamedView, true);
+        printJsonAndPython("ADD_NAMED_VIEW", addNamedView);
         graph.execute(addNamedView, user);
 
         // [get all named views] Get all named views
@@ -160,7 +160,7 @@ public class NamedViews extends DevWalkthrough {
                 .overwrite(true)
                 .build();
         // ---------------------------------------------------------
-        printJsonAndPython("ADD_NAMED_VIEW_WITH_PARAMETERS", addNamedViewWithParams, true);
+        printJsonAndPython("ADD_NAMED_VIEW_WITH_PARAMETERS", addNamedViewWithParams);
         graph.execute(addNamedViewWithParams, user);
 
         // [get elements with named view with parameters] create the named operation with a parameter
