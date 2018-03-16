@@ -36,7 +36,6 @@ public class AddNamedViewExample extends OperationExample {
 
     public AddNamedViewExample() {
         super(AddNamedView.class, "See [NamedViews](../developer-guide/namedviews.md) for information on configuring NamedViews for your Gaffer graph, along with working examples.");
-        skipPython();
     }
 
     @Override

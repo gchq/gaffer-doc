@@ -35,7 +35,6 @@ public class InTimeRangeExample extends PredicateExample {
                         "* yyyy/MM/dd HH:mm\n" +
                         "* yyyy/MM/dd HH:mm:ss\n\n" +
                         "You can use a space, '-', '/', '_', ':', '|', or '.' to separate the parts.");
-        skipPython();
     }
 
     @Override
