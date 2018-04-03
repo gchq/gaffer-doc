@@ -18,10 +18,14 @@ package uk.gov.gchq.gaffer.doc.operation;
 
 import com.google.common.collect.Maps;
 
+import uk.gov.gchq.gaffer.data.element.function.ElementFilter;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
+import uk.gov.gchq.gaffer.data.elementdefinition.view.ViewElementDefinition;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.ViewParameterDetail;
 import uk.gov.gchq.gaffer.named.view.AddNamedView;
+import uk.gov.gchq.gaffer.named.view.DeleteNamedView;
 import uk.gov.gchq.gaffer.operation.OperationException;
+import uk.gov.gchq.koryphe.impl.predicate.IsMoreThan;
 
 import java.util.Map;
 
@@ -37,26 +41,78 @@ public class AddNamedViewExample extends OperationExample {
     @Override
     protected void runExamples() {
         addNamedView();
+        addNamedViewWithParameter();
     }
 
     public void addNamedView() {
         // ---------------------------------------------------------
+        final AddNamedView op = new AddNamedView.Builder()
+                .name("isMoreThan10")
+                .description("example test NamedView")
+                .overwrite(true)
+                .view(new View.Builder()
+                        .edge("testEdge", new ViewElementDefinition.Builder()
+                                .preAggregationFilter(new ElementFilter.Builder()
+                                        .select("count")
+                                        .execute(new IsMoreThan(10))
+                                        .build())
+                                .build())
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+        runExampleNoResult(op, null);
+
+        try {
+            getGraph().execute(new DeleteNamedView
+                            .Builder()
+                            .name("isMoreThan10").build(),
+                    createContext());
+        } catch (final OperationException e) {
+            throw new RuntimeException("Unable to delete named view: isMoreThan", e);
+        }
+    }
+
+    public void addNamedViewWithParameter() {
+        // ---------------------------------------------------------
+        final String viewJson = "{\"edges\" : {\n" +
+                "  \"testEdge\" : {\n" +
+                "    \"preAggregationFilterFunctions\" : [ {\n" +
+                "      \"selection\" : [ \"count\" ],\n" +
+                "      \"predicate\" : {\n" +
+                "        \"class\" : \"uk.gov.gchq.koryphe.impl.predicate.IsMoreThan\",\n" +
+                "        \"orEqualTo\" : false,\n" +
+                "        \"value\" : \"${countThreshold}\"\n" +
+                "      }\n" +
+                "    } ]\n" +
+                "  }\n" +
+                "}}";
         final ViewParameterDetail param = new ViewParameterDetail.Builder()
                 .defaultValue(1L)
-                .description("Limit param")
+                .description("count threshold")
                 .valueClass(Long.class)
                 .build();
         final Map<String, ViewParameterDetail> paramMap = Maps.newHashMap();
-        paramMap.put("param1", param);
+        paramMap.put("countThreshold", param);
 
         final AddNamedView op = new AddNamedView.Builder()
-                .name("testNamedView")
+                .name("isMoreThan")
                 .description("example test NamedView")
                 .overwrite(true)
-                .view(new View.Builder().edge("testEdge").build())
+                .view(viewJson)
                 .parameters(paramMap)
+                .writeAccessRoles("auth1")
                 .build();
         // ---------------------------------------------------------
-        showExample(op, null);
+        runExampleNoResult(op, null);
+
+        try {
+            getGraph().execute(new DeleteNamedView
+                            .Builder()
+                            .name("isMoreThan").build(),
+                    createContext());
+        } catch (final OperationException e) {
+            throw new RuntimeException("Unable to delete named view: isMoreThan", e);
+        }
     }
 }
+

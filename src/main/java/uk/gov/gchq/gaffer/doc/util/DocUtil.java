@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Crown Copyright
+ * Copyright 2016-2018 Crown Copyright
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,6 +79,7 @@ public final class DocUtil {
     }
 
     public static String getJson(final Object object) {
+        JSONSerialiser.getInstance();
         final boolean fullNameOrig = SimpleClassNameCache.isUseFullNameForSerialisation();
         SimpleClassNameCache.setUseFullNameForSerialisation(false);
         try {
@@ -91,6 +92,7 @@ public final class DocUtil {
     }
 
     public static String getFullJson(final Object object) {
+        JSONSerialiser.getInstance();
         final boolean fullNameOrig = SimpleClassNameCache.isUseFullNameForSerialisation();
         SimpleClassNameCache.setUseFullNameForSerialisation(true);
         try {
@@ -115,19 +117,27 @@ public final class DocUtil {
     }
 
     public static String getPython(final Object object) {
-        return getPython(object, null);
+        return getPython(object, null, null);
+    }
+
+    public static String getPython(final Object object, final Boolean skipPythonErrors) {
+        return getPython(object, null, skipPythonErrors);
     }
 
     public static String getPython(final Object object, final Class<?> clazz) {
-        final boolean skipPythonOnError = Boolean.parseBoolean(System.getProperty(SKIP_PYTHON_PROPERTY));
+        return getPython(object, clazz, null);
+    }
+
+    public static String getPython(final Object object, final Class<?> clazz, final Boolean skipPythonErrors) {
+        final boolean skipPythonOnError = null != skipPythonErrors ? skipPythonErrors : Boolean.parseBoolean(System.getProperty(SKIP_PYTHON_PROPERTY));
         final String json = getRawJson(object);
 
 
         final ProcessBuilder pb;
         if (null == clazz) {
-            pb = new ProcessBuilder("python3", "-u", "gaffer-python-shell/src/gafferpy/fromJson.py", json);
+            pb = new ProcessBuilder("python3", "-u", "gaffer-python-shell/src/fromJson.py", json);
         } else {
-            pb = new ProcessBuilder("python3", "-u", "gaffer-python-shell/src/gafferpy/fromJson.py", json, clazz.getName());
+            pb = new ProcessBuilder("python3", "-u", "gaffer-python-shell/src/fromJson.py", json, clazz.getName());
         }
 
         final Process p;
@@ -150,12 +160,12 @@ public final class DocUtil {
         }
 
         if (p.exitValue() > 0) {
+            if (skipPythonOnError) {
+                return "";
+            }
             try {
                 throw new RuntimeException("Error in python: " + IOUtils.toString(p.getErrorStream()) + "\nUnable to convert json: " + json);
             } catch (final IOException e) {
-                if (skipPythonOnError) {
-                    return "";
-                }
                 throw new RuntimeException("Unable to read error from Python", e);
             }
         }

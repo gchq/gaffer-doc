@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Crown Copyright
+ * Copyright 2016-2018 Crown Copyright
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -148,13 +148,21 @@ public abstract class AbstractWalkthrough {
     }
 
     public void printJsonAndPython(final String key, final Object obj) {
+        printJsonAndPython(key, obj, null);
+    }
+
+    public void printJsonAndPython(final String key, final Object obj, final Boolean skipPythonErrors) {
         printJson(key, obj);
-        print(key + "_PYTHON", DocUtil.getPython(obj));
+        print(key + "_PYTHON", DocUtil.getPython(obj, skipPythonErrors));
     }
 
     public void printJsonAndPythonWithClass(final String key, final Object obj) {
+        printJsonAndPythonWithClass(key, obj, null);
+    }
+
+    public void printJsonAndPythonWithClass(final String key, final Object obj, final Boolean skipPythonErrors) {
         printJson(key, obj);
-        print(key + "_PYTHON", DocUtil.getPython(obj, obj.getClass()));
+        print(key + "_PYTHON", DocUtil.getPython(obj, obj.getClass(), skipPythonErrors));
     }
 
     public Map<String, StringBuilder> getLogCache() {
