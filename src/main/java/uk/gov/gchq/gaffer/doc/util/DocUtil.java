@@ -79,6 +79,7 @@ public final class DocUtil {
     }
 
     public static String getJson(final Object object) {
+        JSONSerialiser.getInstance();
         final boolean fullNameOrig = SimpleClassNameCache.isUseFullNameForSerialisation();
         SimpleClassNameCache.setUseFullNameForSerialisation(false);
         try {
@@ -91,6 +92,7 @@ public final class DocUtil {
     }
 
     public static String getFullJson(final Object object) {
+        JSONSerialiser.getInstance();
         final boolean fullNameOrig = SimpleClassNameCache.isUseFullNameForSerialisation();
         SimpleClassNameCache.setUseFullNameForSerialisation(true);
         try {
