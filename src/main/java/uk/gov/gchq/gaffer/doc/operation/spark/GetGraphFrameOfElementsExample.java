@@ -15,17 +15,17 @@
  */
 package uk.gov.gchq.gaffer.doc.operation.spark;
 
-import org.graphframes.GraphFrame;
-
 import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
 import uk.gov.gchq.gaffer.spark.operation.graphframe.GetGraphFrameOfElements;
-
-import static org.apache.spark.sql.functions.log;
 
 public class GetGraphFrameOfElementsExample extends SparkOperationExample {
 
     public static void main(final String[] args) {
-        new GetGraphFrameOfElementsExample().run();
+        new GetGraphFrameOfElementsExample().runAndPrint();
+    }
+
+    public GetGraphFrameOfElementsExample() {
+        super(GetGraphFrameOfElements.class);
     }
 
     @Override
@@ -34,14 +34,8 @@ public class GetGraphFrameOfElementsExample extends SparkOperationExample {
         endOfMethod();
     }
 
-    public GetGraphFrameOfElementsExample() {
-        super(GetGraphFrameOfElements.class);
-        skipEndOfMethodBreaks = true;
-    }
-
     public void getGraphFrameOfElements() {
         // ---------------------------------------------------------
-
         final GetGraphFrameOfElements operation = new GetGraphFrameOfElements.Builder()
                 .view(new View.Builder()
                         .entity("entity")
@@ -49,22 +43,6 @@ public class GetGraphFrameOfElementsExample extends SparkOperationExample {
                         .build())
                 .build();
         // ---------------------------------------------------------
-        final GraphFrame graphFrame = runExample(operation, null);
-
-        printJava("graphFrame.vertices().filter(\"vertex = 1 OR vertex = 2\").show()");
-        log("The results are: ");
-        log("```");
-        log(graphFrame.vertices()
-                .filter("vertex = 1 OR vertex = 2")
-                .showString(100, 20));
-        log("```");
-
-        printJava("graphFrame.edges().filter(\"count > 1\").show()");
-        log("The results are: ");
-        log("```");
-        log(graphFrame.edges()
-                .filter("count > 1")
-                .showString(100, 20));
-        log("```");
+        runExample(operation, null);
     }
 }

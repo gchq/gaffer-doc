@@ -22,6 +22,7 @@ import org.apache.log4j.Logger;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
+import org.graphframes.GraphFrame;
 
 import uk.gov.gchq.gaffer.commonutil.Required;
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
@@ -261,6 +262,21 @@ public abstract class OperationExample extends Example {
             final Dataset<Row> dataset = ((Dataset) result);
             final String resultStr = dataset.showString(100, 20);
             print(resultStr.substring(0, resultStr.length() - 2));
+        } else if (result instanceof GraphFrame) {
+            printJava("graphFrame.vertices().filter(\"vertex = 1 OR vertex = 2\").show()");
+            print("The results are: ");
+            print("```");
+            print(((GraphFrame) result).vertices()
+                    .filter("vertex = 1 OR vertex = 2")
+                    .showString(100, 20));
+            print("```");
+            printJava("graphFrame.edges().filter(\"count > 1\").show()");
+            print("The results are: ");
+            print("```");
+            print(((GraphFrame) result).edges()
+                    .filter("count > 1")
+                    .showString(100, 20));
+            print("```");
         } else if (result instanceof Schema) {
             print(DocUtil.getJson(result));
         } else if (null != result) {
