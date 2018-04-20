@@ -219,6 +219,7 @@ public class NamedOperations extends DevWalkthrough {
                 "    \"view\" : {\n" +
                 "      \"entities\" : {\n" +
                 "        \"JunctionUse\" : {\n" +
+                "          \"properties\" : [\"${vehicle}\"],\n" +
                 "          \"preAggregationFilterFunctions\" : [ {\n" +
                 "            \"selection\" : [ \"startDate\", \"endDate\" ],\n" +
                 "            \"predicate\" : {\n" +
