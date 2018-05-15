@@ -8,7 +8,7 @@
 5. [Releases](#releases)
 
 ## Git branching model
-We have adopted the following branching strategy: [Git Branching Model](http://nvie.com/files/Git-branching-model.pdf)
+We have adopted the following branching strategy: [Git Branching Model](https://nvie.com/files/Git-branching-model.pdf)
 
 ## Issues 
 Where possible a pull request should correlate to a single GitHub issue. An issue should relate to a single functional or non-functional change - changes to alter/improve other pieces of functionality should be addressed in a separate issue in order to keep reviews atomic.

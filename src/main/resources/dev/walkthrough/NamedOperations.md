@@ -153,4 +153,21 @@ That gives the following result:
 ${ALL_NAMED_OPERATIONS}
 ```
 
+## Full Example
+The full example we saw in the the User Guide, where we extracted junctions heavily used by buses can also be written as a Named Operation.
+To make it more useful, we have parameterised the vehicle type and the number of results to return.
+We have also wrapped the ToCsv operation in an If operation so it can be
+conditionally enabled/disabled.
+
+${START_JAVA_CODE}
+${ADD_FULL_EXAMPLE_NAMED_OPERATION_SNIPPET}
+${JSON_CODE}
+${ADD_FULL_EXAMPLE_NAMED_OPERATION_JSON}
+${FULL_JSON_CODE}
+${ADD_FULL_EXAMPLE_NAMED_OPERATION_FULL_JSON}
+${PYTHON_CODE}
+${ADD_FULL_EXAMPLE_NAMED_OPERATION_PYTHON}
+${END_CODE}
+
+
 For other named operation examples see [NamedOperation](../operations/namedoperation.md).

@@ -184,16 +184,133 @@ public class NamedOperations extends DevWalkthrough {
         final CloseableIterable<? extends Element> namedOperationResults = graph.execute(operationWithParams, user);
         // ---------------------------------------------------------
 
-
         for (final Object result : namedOperationResults) {
             print("NAMED_OPERATION_WITH_PARAMETER_RESULTS", result.toString());
         }
+
+        // [add full example named operation] Add the full example as a named operation, with fullExampleParams to configure the vehicle type and result limit
+        // ---------------------------------------------------------
+        final String fullExampleOpChain = "{\n" +
+                "  \"operations\" : [ {\n" +
+                "    \"class\" : \"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",\n" +
+                "    \"view\" : {\n" +
+                "      \"edges\" : {\n" +
+                "        \"RegionContainsLocation\" : { }\n" +
+                "      }\n" +
+                "    }\n" +
+                "  }, {\n" +
+                "    \"class\" : \"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",\n" +
+                "    \"view\" : {\n" +
+                "      \"edges\" : {\n" +
+                "        \"LocationContainsRoad\" : { }\n" +
+                "      }\n" +
+                "    }\n" +
+                "  }, {\n" +
+                "    \"class\" : \"uk.gov.gchq.gaffer.operation.impl.output.ToSet\"\n" +
+                "  }, {\n" +
+                "    \"class\" : \"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",\n" +
+                "    \"view\" : {\n" +
+                "      \"edges\" : {\n" +
+                "        \"RoadHasJunction\" : { }\n" +
+                "      }\n" +
+                "    }\n" +
+                "  }, {\n" +
+                "    \"class\" : \"uk.gov.gchq.gaffer.operation.impl.get.GetElements\",\n" +
+                "    \"view\" : {\n" +
+                "      \"entities\" : {\n" +
+                "        \"JunctionUse\" : {\n" +
+                "          \"properties\" : [\"${vehicle}\"],\n" +
+                "          \"preAggregationFilterFunctions\" : [ {\n" +
+                "            \"selection\" : [ \"startDate\", \"endDate\" ],\n" +
+                "            \"predicate\" : {\n" +
+                "              \"class\" : \"uk.gov.gchq.koryphe.impl.predicate.range.InDateRangeDual\",\n" +
+                "              \"start\" : \"2000/01/01\",\n" +
+                "              \"end\" : \"2001/01/01\"\n" +
+                "            }\n" +
+                "          } ],\n" +
+                "          \"transientProperties\" : {\n" +
+                "            \"${vehicle}\" : \"Long\"\n" +
+                "          },\n" +
+                "          \"transformFunctions\" : [ {\n" +
+                "            \"selection\" : [ \"countByVehicleType\" ],\n" +
+                "            \"function\" : {\n" +
+                "              \"class\" : \"uk.gov.gchq.gaffer.types.function.FreqMapExtractor\",\n" +
+                "              \"key\" : \"${vehicle}\"\n" +
+                "            },\n" +
+                "            \"projection\" : [ \"${vehicle}\" ]\n" +
+                "          } ]\n" +
+                "        }\n" +
+                "      },\n" +
+                "      \"globalElements\" : [ {\n" +
+                "        \"groupBy\" : [ ]\n" +
+                "      } ]\n" +
+                "    },\n" +
+                "    \"includeIncomingOutGoing\" : \"OUTGOING\"\n" +
+                "  }, {\n" +
+                "    \"class\" : \"uk.gov.gchq.gaffer.operation.impl.compare.Sort\",\n" +
+                "    \"comparators\" : [ {\n" +
+                "      \"class\" : \"uk.gov.gchq.gaffer.data.element.comparison.ElementPropertyComparator\",\n" +
+                "      \"property\" : \"${vehicle}\",\n" +
+                "      \"groups\" : [ \"JunctionUse\" ],\n" +
+                "      \"reversed\" : true\n" +
+                "    } ],\n" +
+                "    \"deduplicate\" : true,\n" +
+                "    \"resultLimit\" : \"${result-limit}\"\n" +
+                "  }, {\n" +
+                "    \"class\" : \"uk.gov.gchq.gaffer.operation.impl.If\",\n" +
+                "    \"condition\" : \"${to-csv}\",\n" +
+                "    \"then\" : {\n" +
+                "        \"class\" : \"uk.gov.gchq.gaffer.operation.impl.output.ToCsv\",\n" +
+                "        \"elementGenerator\" : {\n" +
+                "          \"class\" : \"uk.gov.gchq.gaffer.data.generator.CsvGenerator\",\n" +
+                "          \"fields\" : {\n" +
+                "            \"VERTEX\" : \"Junction\",\n" +
+                "            \"${vehicle}\" : \"${vehicle}\"\n" +
+                "          },\n" +
+                "          \"constants\" : { },\n" +
+                "          \"quoted\" : false,\n" +
+                "          \"commaReplacement\" : \" \"\n" +
+                "        },\n" +
+                "        \"includeHeader\" : true\n" +
+                "    }\n" +
+                "  } ]\n" +
+                "}";
+        final Map<String, ParameterDetail> fullExampleParams = Maps.newHashMap();
+        fullExampleParams.put("vehicle", new ParameterDetail.Builder()
+                .defaultValue("BUS")
+                .description("The type of vehicle: HGVR3, BUS, HGVR4, AMV, HGVR2, HGVA3, PC, HGVA3, PC, HGCA5, HGVA6, CAR, HGV, WM2, LGV")
+                .valueClass(String.class)
+                .required(false)
+                .build());
+        fullExampleParams.put("result-limit", new ParameterDetail.Builder()
+                .defaultValue(2)
+                .description("The maximum number of junctions to return")
+                .valueClass(Integer.class)
+                .required(false)
+                .build());
+        fullExampleParams.put("to-csv", new ParameterDetail.Builder()
+                .defaultValue(false)
+                .description("Enable this parameter to convert the results to a simple CSV in the format: Junction, Count")
+                .valueClass(Boolean.class)
+                .required(false)
+                .build());
+        final AddNamedOperation addFullExampleNamedOperation = new AddNamedOperation.Builder()
+                .name("frequent-vehicles-in-region")
+                .description("Finds the junctions in a region with the most of an individual vehicle (e.g BUS, CAR) in the year 2000. The input is the region.")
+                .overwrite(true)
+                .parameters(fullExampleParams)
+                .operationChain(fullExampleOpChain)
+                .build();
+
+        // ---------------------------------------------------------
+
+        printJsonAndPython("ADD_FULL_EXAMPLE_NAMED_OPERATION", addFullExampleNamedOperation);
 
         return namedOperationResults;
     }
 
     public static void main(final String[] args) throws OperationException, IOException {
-        final NamedOperations walkthrough = new NamedOperations();
-        walkthrough.run();
+        System.out.println(new NamedOperations().walkthrough());
+
     }
 }

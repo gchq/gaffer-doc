@@ -11,7 +11,7 @@ However, at query time you may want to see the summary of the elements over mult
 
 This is how to specify the empty groupBy array for a Edge with group name "Group1":
 
-${START_JAVA_CODE}
+```java
 GetElements op1 = new GetElements.Builder()
         .input(new EntitySeed("A"))
         .view(new View.Builder()
@@ -20,7 +20,10 @@ GetElements op1 = new GetElements.Builder()
                         .build())
                 .build())
         .build();
-${JSON_CODE}
+```
+
+or in json
+```json
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "view" : {
@@ -35,12 +38,12 @@ ${JSON_CODE}
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-${END_CODE}
+```
 
 
 More commonly you will want to set the groupBy array to empty for all groups in your schema. This can be done using the globalElements section in the view:
 
-${START_JAVA_CODE}
+```java
 GetElements op1 = new GetElements.Builder()
         .input(new EntitySeed("A"))
         .view(new View.Builder()
@@ -49,7 +52,11 @@ GetElements op1 = new GetElements.Builder()
                         .build())
                 .build())
         .build();
-${JSON_CODE}
+```
+
+or in json:
+
+```json
 {
   "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
   "view" : {
@@ -62,4 +69,6 @@ ${JSON_CODE}
     "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed"
   } ]
 }
-${END_CODE}
+```
+
+
