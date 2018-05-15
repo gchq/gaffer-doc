@@ -232,10 +232,10 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
                 .graphId("privateGraph")
                 .parentSchemaIds(Lists.newArrayList("roadTraffic"))
                 .parentPropertiesId("mapStore")
-                //.isPublic(false) <-- not specifying also defaults to false.
-                //.graphAuths() <-- leave blank/null or do no specify otherwise private access is lost.
+                        //.isPublic(false) <-- not specifying also defaults to false.
+                        //.graphAuths() <-- leave blank/null or do no specify otherwise private access is lost.
                 .build();
-        federatedGraph.execute(addAnotherGraph, user);
+        federatedGraph.execute(privateGraph, user);
         // ---------------------------------------------------------
 
         improveReadabilityOfJson(privateGraph);
@@ -249,7 +249,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
                 .parentSchemaIds(Lists.newArrayList("roadTraffic"))
                 .parentPropertiesId("mapStore")
                 .graphAuths("Auth1", "Auth2", "Auth3")
-                //.isPublic(false) <-- not specifying also defaults to false.
+                        //.isPublic(false) <-- not specifying also defaults to false.
                 .build();
         federatedGraph.execute(addSecureGraph, user);
         // ---------------------------------------------------------
