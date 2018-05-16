@@ -74,9 +74,15 @@ public abstract class Example {
     }
 
     public void printSince() {
+        final String packageIdentifier;
+        if (getClassForExample().getName().startsWith("uk.gov.gchq.koryphe")) {
+            packageIdentifier = "Koryphe";
+        } else {
+            packageIdentifier = "Gaffer";
+        }
         final Since anno = getClassForExample().getAnnotation(Since.class);
         if (null != anno && StringUtils.isNotBlank(anno.value())) {
-            print("Available since version " + anno.value() + "\n");
+            print("Available since " + packageIdentifier + " version " + anno.value() + "\n");
         }
     }
 
