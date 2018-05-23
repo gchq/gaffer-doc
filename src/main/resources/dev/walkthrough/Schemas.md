@@ -25,6 +25,9 @@ Edges must have the following:
 - destination - similar to source, it can either be the same or a different type.
 - directed - we need to tell Gaffer if the edge is directed or undirected. Currently, the easiest way to do this is to create a type called "true", "false" and define that type in the Type schema as being a boolean with a filter predicate to check the boolean is true or false
 
+When an Edge is undirected, it is bidirectional.  When an undirected Edge is ingested, Gaffer may flip it for consistency so the source is always ordered 'less' than the destination (based on natural ordering).
+It will be aggregated with any other edge that has the same source and destination and is also undirected.  For example an undirected Edge that is added, A -> B, will be aggregated with another Edge of B -> A if they are undirected.
+
 Entities must have a vertex field - this is similar to the source and destination fields on an edge.
 
 
