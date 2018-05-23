@@ -126,7 +126,7 @@ public class Filtering extends UserWalkthrough {
             print("GET_ELEMENTS_WITH_COUNT_MORE_THAN_2_RESULT", e.toString());
         }
 
-        // [get Edges with seedMatching]
+        // [get edges with seedmatching]
         // ---------------------------------------------------------
         final GetElements getEdgesWithSeedMatching = new GetElements.Builder()
                 .input(new EdgeSeed("source", "dest", true))
@@ -135,7 +135,7 @@ public class Filtering extends UserWalkthrough {
         // ---------------------------------------------------------
         printJsonAndPython("GET_EDGES_WITH_SEEDMATCHING", getEdgesWithSeedMatching);
 
-        // [get Edges without seedMatching]
+        // [get edges without seedmatching]
         // ---------------------------------------------------------
         final GetElements getEdgesWithoutSeedMatching = new GetElements.Builder()
                 .input(new EdgeSeed("source", "dest", true))
@@ -146,7 +146,7 @@ public class Filtering extends UserWalkthrough {
         // ---------------------------------------------------------
         printJsonAndPython("GET_EDGES_WITHOUT_SEEDMATCHING", getEdgesWithoutSeedMatching);
 
-        // [get Entities with seedMatching]
+        // [get entities with seedmatching]
         // ---------------------------------------------------------
         final GetElements getEntitiesWithSeedMatching = new GetElements.Builder()
                 .input(new EntitySeed("vertex"))
@@ -155,7 +155,7 @@ public class Filtering extends UserWalkthrough {
         // ---------------------------------------------------------
         printJsonAndPython("GET_ENTITIES_WITH_SEEDMATCHING", getEntitiesWithSeedMatching);
 
-        // [get Entities without seedMatching]
+        // [get entities without seedmatching]
         // ---------------------------------------------------------
         final GetElements getEntitiesWithoutSeedMatching = new GetElements.Builder()
                 .input(new EntitySeed("vertex"))
