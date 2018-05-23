@@ -109,3 +109,55 @@ EQUAL will only return Entities and Edges with identifiers that match the seed e
 RELATED will return the EQUAL results (as above) and additional Entities and Edges:
 - if you provide an Entity seed, you will also get back Edges that have have the same vertex value as source or destination.
 - if you provide an Edge seed, you will also get back Entities that have have the same source or destination vertices.
+
+As the seedMatching flag has now been deprecated, to run equivalent Operations, there are some examples below.  As the default for 
+seedMatching is RELATED, if that is currently used nothing will need to change.
+There is one limitation however, if you have a seedMatching = EQUAL and specify both Edges and Entities that will have to now be
+done under 2 Operations in a chain as there can only be one View applied globally to all input.
+
+OLD:
+${START_JAVA_CODE}
+${GET_EDGES_WITH_SEEDMATCHING_SNIPPET}
+${JSON_CODE}
+${GET_EDGES_WITH_SEEDMATCHING_JSON}
+${FULL_JSON_CODE}
+${GET_EDGES_WITH_SEEDMATCHING_FULL_JSON}
+${PYTHON_CODE}
+${GET_EDGES_WITH_SEEDMATCHING_PYTHON}
+${END_CODE}
+
+NEW:
+${START_JAVA_CODE}
+${GET_EDGES_WITHOUT_SEEDMATCHING_SNIPPET}
+${JSON_CODE}
+${GET_EDGES_WITHOUT_SEEDMATCHING_JSON}
+${FULL_JSON_CODE}
+${GET_EDGES_WITHOUT_SEEDMATCHING_FULL_JSON}
+${PYTHON_CODE}
+${GET_EDGES_WITHOUT_SEEDMATCHING_PYTHON}
+${END_CODE}
+
+For entities it should now be written:
+
+OLD:
+${START_JAVA_CODE}
+${GET_ENTITIES_WITH_SEEDMATCHING_SNIPPET}
+${JSON_CODE}
+${GET_ENTITIES_WITH_SEEDMATCHING_JSON}
+${FULL_JSON_CODE}
+${GET_ENTITIES_WITH_SEEDMATCHING_FULL_JSON}
+${PYTHON_CODE}
+${GET_ENTITIES_WITH_SEEDMATCHING_PYTHON}
+${END_CODE}
+
+NEW:
+${START_JAVA_CODE}
+${GET_ENTITIES_WITHOUT_SEEDMATCHING_SNIPPET}
+${JSON_CODE}
+${GET_ENTITIES_WITHOUT_SEEDMATCHING_JSON}
+${FULL_JSON_CODE}
+${GET_ENTITIES_WITHOUT_SEEDMATCHING_FULL_JSON}
+${PYTHON_CODE}
+${GET_ENTITIES_WITHOUT_SEEDMATCHING_PYTHON}
+${END_CODE}
+

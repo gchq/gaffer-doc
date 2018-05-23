@@ -28,6 +28,8 @@ import uk.gov.gchq.gaffer.data.elementdefinition.view.ViewElementDefinition;
 import uk.gov.gchq.gaffer.doc.user.generator.RoadAndRoadUseElementGenerator;
 import uk.gov.gchq.gaffer.graph.Graph;
 import uk.gov.gchq.gaffer.operation.OperationException;
+import uk.gov.gchq.gaffer.operation.SeedMatching;
+import uk.gov.gchq.gaffer.operation.data.EdgeSeed;
 import uk.gov.gchq.gaffer.operation.data.EntitySeed;
 import uk.gov.gchq.gaffer.operation.impl.add.AddElements;
 import uk.gov.gchq.gaffer.operation.impl.get.GetElements;
@@ -123,6 +125,46 @@ public class Filtering extends UserWalkthrough {
         for (final Element e : filteredResults) {
             print("GET_ELEMENTS_WITH_COUNT_MORE_THAN_2_RESULT", e.toString());
         }
+
+        // [get Edges with seedMatching]
+        // ---------------------------------------------------------
+        final GetElements getEdgesWithSeedMatching = new GetElements.Builder()
+                .input(new EdgeSeed("source", "dest", true))
+                .seedMatching(SeedMatching.SeedMatchingType.EQUAL)
+                .build();
+        // ---------------------------------------------------------
+        printJsonAndPython("GET_EDGES_WITH_SEEDMATCHING", getEdgesWithSeedMatching);
+
+        // [get Edges without seedMatching]
+        // ---------------------------------------------------------
+        final GetElements getEdgesWithoutSeedMatching = new GetElements.Builder()
+                .input(new EdgeSeed("source", "dest", true))
+                .view(new View.Builder()
+                        .edge("group1")
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+        printJsonAndPython("GET_EDGES_WITHOUT_SEEDMATCHING", getEdgesWithoutSeedMatching);
+
+        // [get Entities with seedMatching]
+        // ---------------------------------------------------------
+        final GetElements getEntitiesWithSeedMatching = new GetElements.Builder()
+                .input(new EntitySeed("vertex"))
+                .seedMatching(SeedMatching.SeedMatchingType.EQUAL)
+                .build();
+        // ---------------------------------------------------------
+        printJsonAndPython("GET_ENTITIES_WITH_SEEDMATCHING", getEntitiesWithSeedMatching);
+
+        // [get Entities without seedMatching]
+        // ---------------------------------------------------------
+        final GetElements getEntitiesWithoutSeedMatching = new GetElements.Builder()
+                .input(new EntitySeed("vertex"))
+                .view(new View.Builder()
+                        .entity("group1")
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+        printJsonAndPython("GET_ENTITIES_WITHOUT_SEEDMATCHING", getEntitiesWithoutSeedMatching);
 
         return filteredResults;
     }
