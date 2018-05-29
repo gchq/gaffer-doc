@@ -45,7 +45,7 @@ public class WhileExample extends OperationExample {
     @Override
     protected void runExamples() {
         run3Times();
-        runGetWalks3Times();
+        runAWhileOperationWithinAGetWalks();
         runUntilAnEndResultIsFound();
 
         // TODO: run this example when the bug has been fixed
@@ -67,7 +67,7 @@ public class WhileExample extends OperationExample {
         runExample(operation, "This example will run the GetAdjacentIds operation 3 times");
     }
 
-    public void runGetWalks3Times() {
+    public void runAWhileOperationWithinAGetWalks() {
         // ---------------------------------------------------------
         final GetWalks operation = new Builder()
                 .input(new EntitySeed(1))
