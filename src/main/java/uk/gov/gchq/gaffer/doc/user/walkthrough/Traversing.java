@@ -22,7 +22,6 @@ import uk.gov.gchq.gaffer.commonutil.StreamUtil;
 import uk.gov.gchq.gaffer.commonutil.iterable.CloseableIterable;
 import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.element.id.DirectedType;
-import uk.gov.gchq.gaffer.data.element.id.EntityId;
 import uk.gov.gchq.gaffer.data.graph.Walk;
 import uk.gov.gchq.gaffer.doc.operation.generator.ElementWithVaryingGroupsGenerator;
 import uk.gov.gchq.gaffer.doc.user.generator.RoadAndRoadUseElementGenerator;
@@ -37,17 +36,14 @@ import uk.gov.gchq.gaffer.operation.impl.GetWalks;
 import uk.gov.gchq.gaffer.operation.impl.add.AddElements;
 import uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements;
 import uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds;
-import uk.gov.gchq.gaffer.operation.impl.get.GetAllElements;
 import uk.gov.gchq.gaffer.operation.impl.get.GetElements;
 import uk.gov.gchq.gaffer.operation.impl.output.ToEntitySeeds;
-import uk.gov.gchq.gaffer.operation.impl.output.ToSet;
 import uk.gov.gchq.gaffer.operation.impl.output.ToVertices;
 import uk.gov.gchq.gaffer.user.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Traversing extends UserWalkthrough {
@@ -57,7 +53,7 @@ public class Traversing extends UserWalkthrough {
     }
 
     @Override
-    public CloseableIterable<? extends Element> run() throws Exception {
+    public CloseableIterable<? extends Element> run() throws OperationException {
         // [generate] Create some edges from the complex data file
         // ---------------------------------------------------------
         final ElementWithVaryingGroupsGenerator dataGenerator = new ElementWithVaryingGroupsGenerator();
@@ -131,42 +127,46 @@ public class Traversing extends UserWalkthrough {
 
         // [get adjacent ids simple] simple getAdjacentIds operation example
         // ---------------------------------------------------------
-        final GetAdjacentIds getAdjacentIds = new GetAdjacentIds.Builder()
-                .input(new EntitySeed(2))
+        final OperationChain<CloseableIterable<? extends Element>> getAdjacentIdsOpChain = new OperationChain.Builder()
+                .first(new GetAdjacentIds.Builder()
+                        .input(new EntitySeed(2))
+                        .build())
+                .then(new GetElements())
                 .build();
 
-        final CloseableIterable<? extends EntityId> getAdjacentIdsResults = graph.execute(getAdjacentIds, user);
+        final CloseableIterable<? extends Element> getAdjacentIdsResults = graph.execute(getAdjacentIdsOpChain, user);
 
-        printJsonAndPython("GET_ADJACENT_IDS_SIMPLE", getAdjacentIds);
+        printJsonAndPython("GET_ADJACENT_IDS_SIMPLE", getAdjacentIdsOpChain);
 
-        for (EntityId result : getAdjacentIdsResults) {
+        for (Element result : getAdjacentIdsResults) {
             print("GET_ADJACENT_IDS_SIMPLE_RESULT", result.toString());
         }
         // ---------------------------------------------------------
 
         // [to vertices simple] simple toVertices operation chain example
         // ---------------------------------------------------------
-        final OperationChain<Set<? extends EntitySeed>> opChain = new OperationChain.Builder()
+        final OperationChain<CloseableIterable<? extends Element>> opChain = new OperationChain.Builder()
                 .first(new GetElements.Builder()
-                        .input(new EdgeSeed(2, 3, DirectedType.EITHER))
+                        .input(new EdgeSeed(2, 3, DirectedType.EITHER), new EdgeSeed(2, 5, DirectedType.EITHER))
                         .build())
                 .then(new ToVertices.Builder()
+                        .useMatchedVertex(ToVertices.UseMatchedVertex.OPPOSITE)
                         .edgeVertices(ToVertices.EdgeVertices.NONE)
                         .build())
                 .then(new ToEntitySeeds())
-                .then(new ToSet<>())
+                .then(new GetElements())
                 .build();
 
-        Set<? extends EntitySeed> results = graph.execute(opChain, user);
+        final CloseableIterable<? extends Element> toVerticesResults = graph.execute(opChain, user);
 
         printJsonAndPython("TO_VERTICES_SIMPLE", opChain);
 
-        for (EntitySeed result : results) {
+        for (Element result : toVerticesResults) {
             print("TO_VERTICES_SIMPLE_RESULT", result.toString());
         }
         // ---------------------------------------------------------
 
-        return graph.execute(new GetAllElements(), user);
+        return toVerticesResults;
     }
 
     private List<String> makeWalksPrintable(Iterable<Walk> walks) {
