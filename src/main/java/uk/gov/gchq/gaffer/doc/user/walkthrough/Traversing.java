@@ -120,7 +120,7 @@ public class Traversing extends UserWalkthrough {
 
         printJsonAndPython("GET_WALKS_SIMPLE", getWalks);
 
-        for (String walk : makeWalksPrintable(getWalksResults)) {
+        for (final String walk : makeWalksPrintable(getWalksResults)) {
             print("GET_WALKS_SIMPLE_RESULT", walk);
         }
         // ---------------------------------------------------------
@@ -138,7 +138,7 @@ public class Traversing extends UserWalkthrough {
 
         printJsonAndPython("GET_ADJACENT_IDS_SIMPLE", getAdjacentIdsOpChain);
 
-        for (Element result : getAdjacentIdsResults) {
+        for (final Element result : getAdjacentIdsResults) {
             print("GET_ADJACENT_IDS_SIMPLE_RESULT", result.toString());
         }
         // ---------------------------------------------------------
@@ -161,7 +161,7 @@ public class Traversing extends UserWalkthrough {
 
         printJsonAndPython("TO_VERTICES_SIMPLE", opChain);
 
-        for (Element result : toVerticesResults) {
+        for (final Element result : toVerticesResults) {
             print("TO_VERTICES_SIMPLE_RESULT", result.toString());
         }
         // ---------------------------------------------------------
@@ -169,9 +169,9 @@ public class Traversing extends UserWalkthrough {
         return toVerticesResults;
     }
 
-    private List<String> makeWalksPrintable(Iterable<Walk> walks) {
+    private List<String> makeWalksPrintable(final Iterable<Walk> walks) {
         final List<String> printableWalks = new ArrayList<>();
-        for (Walk walk : walks) {
+        for (final Walk walk : walks) {
             printableWalks.add(Walk.class.getName() + walk.getVerticesOrdered()
                     .stream()
                     .map(Object::toString)
