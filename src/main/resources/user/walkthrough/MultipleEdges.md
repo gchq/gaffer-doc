@@ -30,9 +30,9 @@ ${GENERATED_EDGES}
 
 ### Loading and Querying the Data
 
-We create a Graph and load the data using the ${ADD_ELEMENTS_JAVADOC} Operation exactly the same as in the previous example.
+We create a Graph and load the data using the ${ADD_ELEMENTS_JAVADOC2} Operation exactly the same as in the previous example.
 
-This time we'll run 2 queries using ${GET_ELEMENTS_JAVADOC}.
+This time we'll run 2 queries using ${GET_ELEMENTS_JAVADOC2}.
 
 The first one is exactly the same as last time. We ask for all of the Edges containing the Vertex "10". The result is:
 
@@ -40,7 +40,7 @@ The first one is exactly the same as last time. We ask for all of the Edges cont
 ${GET_ELEMENTS_RESULT}
 ```
 
-Our second query is to return just the "RoadHasJunction" Edges. We still use the ${GET_ELEMENTS_JAVADOC} Operation like before but this time we add a ${VIEW_JAVADOC} to it:
+Our second query is to return just the "RoadHasJunction" Edges. We still use the ${GET_ELEMENTS_JAVADOC2} Operation like before but this time we add a ${VIEW_JAVADOC2} to it:
 
 ${START_JAVA_CODE}
 ${GET_SNIPPET}
@@ -52,4 +52,4 @@ The view has restricted the results so that only the "RoadHasJunction" Edge cont
 ${GET_ROAD_HAS_JUNCTION_EDGES_RESULT}
 ```
 
-We'll explore the ${VIEW_JAVADOC} in more detail over the next few examples. But for now think of it as you are requesting a particular view of your graph, filtering out unwanted elements.
+We'll explore the ${VIEW_JAVADOC2} in more detail over the next few examples. But for now think of it as you are requesting a particular view of your graph, filtering out unwanted elements.

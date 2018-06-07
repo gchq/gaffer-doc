@@ -5,7 +5,7 @@ ${CODE_LINK}
 We'll walk through it in some detail.
 
 First, let’s do the most basic thing; take some data from a csv file, load it into a Gaffer graph and then run a very simple query to return some graph edges. 
-We'll also look at specific examples of an ${ELEMENT_GENERATOR_JAVADOC} and ${SCHEMA_JAVADOC}.
+We'll also look at specific examples of an ${ELEMENT_GENERATOR_JAVADOC2} and ${SCHEMA_JAVADOC2}.
 
 We are going to base the following walkthroughs on Road Traffic data, a simplified version of the ${ROAD_TRAFFIC_EXAMPLE_LINK}. 
 Throughout these walkthroughs we will gradually build up the graph, so as we learn about new features we will add them to our Graph schema. 
@@ -64,7 +64,7 @@ The property `"count"` on the `"RoadUse"` Edges was specified as type `"count.lo
 If we have a `"RoadUse"` Edge with a count that's not a Long or is a Long but has a value less than 0 it will fail validation and won't be added to the Graph.
 Gaffer validation is done using [Java Predicates](https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html)
 
-We also supply a ${SUM_JAVADOC} [BinaryOperator](https://docs.oracle.com/javase/8/docs/api/java/util/function/BinaryOperator.html) to aggregate the count.long type.
+We also supply a ${SUM_JAVADOC2} [BinaryOperator](https://docs.oracle.com/javase/8/docs/api/java/util/function/BinaryOperator.html) to aggregate the count.long type.
 Gaffer allows Edges of the same Group to be aggregated together. This means that when different vehicles travel from junction 10 to junction 11 the edges will be aggregated together and the count property will represent the total number of vehicles that have travelled between the 2 junctions. 
 
 
@@ -76,7 +76,7 @@ Here is our simple Element Generator.
 
 ${ELEMENT_GENERATOR_JAVA}
 
-The `_apply` method takes a line from the data file as a String and returns a Gaffer ${EDGE_JAVADOC}.
+The `_apply` method takes a line from the data file as a String and returns a Gaffer ${EDGE_JAVADOC2}.
 
 First we take a line from the file as a String and split on `","` to get 3 Strings: (Road,JunctionA,JunctionB).
 Then we create a new Edge object with a group `"RoadUse"`. 
@@ -98,7 +98,7 @@ ${GENERATED_EDGES}
 
 ## Creating a Graph
 
-The next thing we do is create an instance of a Gaffer ${GRAPH_JAVADOC}, this is basically just a proxy for your chosen Gaffer Store.
+The next thing we do is create an instance of a Gaffer ${GRAPH_JAVADOC2}, this is basically just a proxy for your chosen Gaffer Store.
 To do this we need to provide 3 things; the schema files we introduced in the previous section, a Graph Configuration and a Store Properties file.
 
 ### The Graph Configuration
@@ -142,13 +142,13 @@ ${START_JAVA_CODE}
 ${USER_SNIPPET}
 ${END_CODE}
 
-That user can then add our Edges to the Graph. To interact with a Gaffer Graph we use an ${OPERATION_JAVADOC}. In this case our Operation is ${ADD_ELEMENTS_JAVADOC}.
+That user can then add our Edges to the Graph. To interact with a Gaffer Graph we use an ${OPERATION_JAVADOC2}. In this case our Operation is ${ADD_ELEMENTS_JAVADOC2}.
 
 ${START_JAVA_CODE}
 ${ADD_SNIPPET}
 ${END_CODE}
 
-Finally, we run a query to return all Edges in our Graph that contain the vertex "10". To do this we use a ${GET_ELEMENTS_JAVADOC} Operation.
+Finally, we run a query to return all Edges in our Graph that contain the vertex "10". To do this we use a ${GET_ELEMENTS_JAVADOC2} Operation.
 
 ${START_JAVA_CODE}
 ${GET_SNIPPET}
