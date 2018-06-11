@@ -5,7 +5,7 @@ Some frequently asked questions and useful tips. There are also some other Opera
 ## Query Summarisation
 A common thing to do in Gaffer is to summarise elements (Edges and Entities) at query time. When we say summarise, the proper Gaffer term is Aggregation.
 
-Elements in Gaffer are often stored in daily time buckets, this means you can query for a summary of the elements that occurred on a particular day, for example the count of edge A->B on Monday. The daily time buckets are controlled by using groupBy properties (see [User Guide Aggregation](https://github.com/gchq/Gaffer/wiki/user-guide#aggregation)).
+Elements in Gaffer are often stored in daily time buckets, this means you can query for a summary of the elements that occurred on a particular day, for example the count of edge A->B on Monday. The daily time buckets are controlled by using groupBy properties (see [User Guide Aggregation](../getting-started/user-guide/aggregation.html)).
 
 However, at query time you may want to see the summary of the elements over multiple days, for example the count of edge A->B summarised from Monday to Friday. This can be done by overriding the groupBy properties and just setting the value to and empty array - telling Gaffer not to group by any properties and just summarise all A->B edges.
 
