@@ -28,7 +28,7 @@ ${GET_ELEMENTS_RESULT}
 Now let’s look at how to filter which Edges are returned based on the aggregated value of their count.
 For example, only return Edges containing vertex `”10”` where the `”count”` > 2.
 
-We do this using a ${VIEW_JAVADOC} and ${VIEW_ELEMENT_DEF_JAVADOC} like this:
+We do this using a ${VIEW_JAVADOC2} and ${VIEW_ELEMENT_DEFINITION_JAVADOC2} like this:
 
 ${START_JAVA_CODE}
 ${GET_SNIPPET}

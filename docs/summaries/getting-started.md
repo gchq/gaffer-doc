@@ -4,7 +4,7 @@
 
 * [User Guide](../getting-started/user-guide/contents.md)
 * [Developer Guide](../getting-started/developer-guide/contents.md)
-* [Properties Guide](../getting-started/properties-guide.md)
+* [Properties Guide](../getting-started/properties-guide/contents.md)
 * [Operations](../getting-started/operations/contents.md)
 * [Accumulo operation](../getting-started/accumulo-operations/contents.md)
 * [Spark operations](../getting-started/spark-operations/contents.md)
