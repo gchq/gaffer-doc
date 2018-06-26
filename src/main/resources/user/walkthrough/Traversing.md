@@ -112,7 +112,7 @@ Here are the results:
 ${TO_VERTICES_SIMPLE_RESULT}
 ```
 
-For more details and for more detailed examples of the ToVertices operation please see [ToVertices](operations/tovertices.md)
-
-This however is quite wasteful and you would be better using GetAdjacentIds, shown below.  One reason it would be useful to use this chained method
+This however is quite wasteful and you would be better using GetAdjacentIds, shown above.  One reason it would be useful to use this chained method
 would be if you need to cache the results from the first hop, for example GetElements -> ExportToSet -> ToVertices -> ToEntitySeeds -> GetElements.
+
+For more details and for more detailed examples of the ToVertices operation please see [ToVertices](operations/tovertices.md)
