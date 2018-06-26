@@ -32,6 +32,6 @@ public class OperationExamplesRunner extends ExampleDocRunner {
     @Override
     protected String getTableOfContents() throws InstantiationException, IllegalAccessException {
         return super.getTableOfContents()
-                + "In addition to these core operations, stores can implement their own specific operations. See [Accumulo operations](accumulo-operations.md).\n";
+                + "In addition to these core operations, stores can implement their own specific operations. See [Accumulo operations](../accumulo-operations/contents.md).\n";
     }
 }

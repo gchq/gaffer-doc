@@ -137,7 +137,7 @@ public abstract class PropertiesWalkthrough extends AbstractWalkthrough {
         for (final BinaryOperator function : AGGREGATE_FUNCTIONS) {
             final Signature signature = Signature.getInputSignature(function);
             if (signature.assignable(clazz).isValid()) {
-                aggregateClasses.add(WalkthroughStrSubstitutor.getJavaDocLink(function.getClass(), false));
+                aggregateClasses.add(WalkthroughStrSubstitutor.getJavaDocLink(function.getClass(), false, 3));
             }
         }
         if (!aggregateClasses.isEmpty()) {
