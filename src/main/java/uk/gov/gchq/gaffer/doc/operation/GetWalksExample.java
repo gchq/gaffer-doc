@@ -315,6 +315,6 @@ public class GetWalksExample extends OperationExample {
 
         return runExample(getWalks, "Gets all of the Walks of length 2 " +
                 "which start from vertex 5, where the results of the first hop are " +
-                "filtered based on the cardinality entities in the graph. IMPORTANT NOTE - you cannot filter the walks based on entity filters at the end of the walk.");
+                "filtered based on the cardinality entities in the graph. IMPORTANT NOTE - you cannot filter walks based on entity filters at the end of a walk.");
     }
 }
