@@ -1,0 +1,42 @@
+{
+  "graphId": "graph1",
+  "hooks": [
+    {
+      "class": "uk.gov.gchq.gaffer.graph.hook.migrate.SchemaMigration",
+      "outputType": "NEW",
+      "edges": [
+        {
+          "oldGroup": "RoadUse",
+          "newGroup": "RoadUseNew",
+          "elementType": "EDGE",
+          "toNew": [
+            {
+              "selection": [
+                "count"
+              ],
+              "function": {
+                "class": "uk.gov.gchq.koryphe.impl.function.ToInteger"
+              },
+              "projection": [
+                "count"
+              ]
+            }
+          ],
+          "toOld": [
+            {
+              "selection": [
+                "count"
+              ],
+              "function": {
+                "class": "uk.gov.gchq.koryphe.impl.function.ToLong"
+              },
+              "projection": [
+                "count"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
