@@ -25,6 +25,11 @@ Edges must have the following:
 - destination - similar to source, it can either be the same or a different type.
 - directed - we need to tell Gaffer if the edge is directed or undirected. Currently, the easiest way to do this is to create a type called "true", "false" and define that type in the Type schema as being a boolean with a filter predicate to check the boolean is true or false
 
+
+When an Edge is undirected in Gaffer, it is treated as if the relationship was bidirectional and the vertices of the edge do not have an authoritative source and destination thus, the undirected edges A -- B and B -- A are equal, and therefore will be aggregated together.
+Gaffer will present the undirected edges Vertices in Natural ordering, so a client will also see the above edge presented as A,B.
+It will be aggregated with any other edge that has the same source and destination and is also undirected.  For example an undirected Edge that is added, A -> B, will be aggregated with another Edge of B -> A if they are undirected.
+
 Entities must have a vertex field - this is similar to the source and destination fields on an edge.
 
 
@@ -34,7 +39,7 @@ Edges and Entities can optionally have the following fields:
 - properties - Properties are be defined by a map of key-value pairs of property names to property types. The property type should be described in the Types schema.
 - groupBy - by default Gaffer will use the element group and it's vertices to group similar elements together in order to aggregate and summarise the elements. This groupBy field allows you to specify extra properties that should be used in addition to the element group and vertices to control when similar elements should be grouped together and summarised.
 - visibilityProperty - if you are using visibility properties in your graph, then ensure the sensitive elements have a visibility property and then set this visibilityProperty field to that property name so Gaffer knows to restrict access to this element.
-- timestampProperty - if you are using the timestamp property in your graph, then set this timestampProperty field to that property name so Gaffer Stores know to treat that property specially. This property allows Store implementations like Accumulo and HBase to optimise the way the timestamp property is persisted. Setting the timestampProperty is optional and does not affect the queries available to users. In some stores using it may have a very slight performance improvement due to the lazy loading of properties. See the [Accumulo Guide](../stores/accumulo-store.html#timestamp) or [HBase Guide](../stores/hbase-store.html#timestamp) for more information.
+- timestampProperty - if you are using the timestamp property in your graph, then set this timestampProperty field to that property name so Gaffer Stores know to treat that property specially. This property allows Store implementations like Accumulo and HBase to optimise the way the timestamp property is persisted. Setting the timestampProperty is optional and does not affect the queries available to users. In some stores using it may have a very slight performance improvement due to the lazy loading of properties. See the [Accumulo Guide](../../stores/accumulo-store.html#timestamp) or [HBase Guide](../../stores/hbase-store.html#timestamp) for more information.
 - aggregate - this is true by default. If you would like to disable aggregation for this element group set this to false.
 
 These 2 optional fields are for advanced users. They can go in the Elements Schema however, we have split them out into separate Schema files Validation and Aggregation so the logic doesn't complicate the Elements schema.

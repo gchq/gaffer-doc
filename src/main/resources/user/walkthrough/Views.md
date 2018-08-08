@@ -5,7 +5,7 @@ ${CODE_LINK}
 In previous sections we have talked about Filtering, Aggregation and Transformations.
 This section just goes into a bit more information about what a View actually is and some of the other features of a View.
 
-When running an Operation, for example GetElements, you can use a ${VIEW_JAVADOC} to filter, aggregate, transform and just generally manipulate the results.
+When running an Operation, for example GetElements, you can use a ${VIEW_JAVADOC2} to filter, aggregate, transform and just generally manipulate the results.
 As with all parts of Gaffer, the View is quite generic and quite powerful, but can be tricky to get going with.
 You can use any of the predefined Functions and Predicates or reference you own (as long as they are on the classpath).
 
@@ -39,7 +39,7 @@ It is important to use the correct element type when listing the elements.
 RoadUse is an Edge group, so we include it in the View as an Edge. Whereas Cardinality
 is an Entity so we include it as an Entity.
 
-As seen in the Filtering walkthrough we can then apply filters to the different element groups using a ${VIEW_ELEMENT_DEF_JAVADOC}.
+As seen in the Filtering walkthrough we can then apply filters to the different element groups using a ${VIEW_ELEMENT_DEFINITION_JAVADOC2}.
 Below you can see we have added a post aggregation filter to the element groups.
 This demonstrates how you can add different filters to different groups and how to add multiple filters.
 

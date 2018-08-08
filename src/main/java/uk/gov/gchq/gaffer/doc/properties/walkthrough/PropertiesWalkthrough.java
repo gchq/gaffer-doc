@@ -118,11 +118,11 @@ public abstract class PropertiesWalkthrough extends AbstractWalkthrough {
             try {
                 final Signature signature = Signature.getInputSignature(function);
                 if (signature.assignable(clazz).isValid()) {
-                    validateClasses.add(WalkthroughStrSubstitutor.getJavaDocLink(function.getClass(), false));
+                    validateClasses.add(WalkthroughStrSubstitutor.getJavaDocLink(function.getClass(), false, 3));
                 }
             } catch (final Exception e) {
                 // just add the function.
-                validateClasses.add(WalkthroughStrSubstitutor.getJavaDocLink(function.getClass(), false));
+                validateClasses.add(WalkthroughStrSubstitutor.getJavaDocLink(function.getClass(), false, 3));
             }
         }
         if (!validateClasses.isEmpty()) {
@@ -137,7 +137,7 @@ public abstract class PropertiesWalkthrough extends AbstractWalkthrough {
         for (final BinaryOperator function : AGGREGATE_FUNCTIONS) {
             final Signature signature = Signature.getInputSignature(function);
             if (signature.assignable(clazz).isValid()) {
-                aggregateClasses.add(WalkthroughStrSubstitutor.getJavaDocLink(function.getClass(), false));
+                aggregateClasses.add(WalkthroughStrSubstitutor.getJavaDocLink(function.getClass(), false, 3));
             }
         }
         if (!aggregateClasses.isEmpty()) {
@@ -177,7 +177,7 @@ public abstract class PropertiesWalkthrough extends AbstractWalkthrough {
         }
         final List<String> toBytesSerialiserClassNames = new ArrayList<>();
         for (final Class toBytesSerialiserClass : toBytesSerialiserClasses) {
-            toBytesSerialiserClassNames.add(WalkthroughStrSubstitutor.getJavaDocLink(toBytesSerialiserClass, false));
+            toBytesSerialiserClassNames.add(WalkthroughStrSubstitutor.getJavaDocLink(toBytesSerialiserClass, false, 3));
         }
 
         if (!toBytesSerialiserClasses.isEmpty()) {
@@ -191,7 +191,7 @@ public abstract class PropertiesWalkthrough extends AbstractWalkthrough {
         final List<String> serialiserClasses = new ArrayList<>();
         for (final Serialiser serialise : SERIALISERS) {
             if (serialise.canHandle(clazz)) {
-                serialiserClasses.add(WalkthroughStrSubstitutor.getJavaDocLink(serialise.getClass(), false));
+                serialiserClasses.add(WalkthroughStrSubstitutor.getJavaDocLink(serialise.getClass(), false, 3));
             }
         }
         if (!serialiserClasses.isEmpty()) {

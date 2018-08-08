@@ -24,8 +24,8 @@ ${START_JAVA_CODE}
 ${GET_SNIPPET}
 ${END_CODE}
 
-This operation chain starts with a seed vertex and traverses down all outgoing edges using the ${GET_ADJACENT_ENTITY_SEEDS_JAVADOC} operation.
-It then returns all the following connected edges using the ${GET_ELEMENTS_JAVADOC} operation:
+This operation chain starts with a seed vertex and traverses down all outgoing edges using the ${GET_ADJACENT_IDS_JAVADOC2} operation.
+It then returns all the following connected edges using the ${GET_ELEMENTS_JAVADOC2} operation:
 
 ```
 ${RESULT}
@@ -33,8 +33,8 @@ ${RESULT}
 We can continue to add operations to create longer operation chains.
 
 Suppose we want to convert the edges returned back into csv format similar to the input file (junctionA, junctionB, count). Gaffer allows
-us to convert graph elements back into objects using the ${GENERATE_OBJECTS_JAVADOC} operation. We tell Gaffer how to convert the elements
-using an ${OBJECT_GENERATOR_JAVADOC}.
+us to convert graph elements back into objects using the ${GENERATE_OBJECTS_JAVADOC2} operation. We tell Gaffer how to convert the elements
+using an ${OBJECT_GENERATOR_JAVADOC2}.
 
 ${CSV_GENERATOR_JAVA}
 
