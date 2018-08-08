@@ -41,7 +41,7 @@ public class ToIntegerExample extends FunctionExample {
 
         runExample(function,
                 null,
-                4, 5L, "aString", Arrays.asList(6, 3), null
+                4, 5L, "5", "aString", Arrays.asList(6, 3), null
         );
     }
 }

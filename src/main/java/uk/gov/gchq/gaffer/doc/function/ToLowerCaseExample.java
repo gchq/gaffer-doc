@@ -1,4 +1,4 @@
-package uk.gov.gchq.gaffer.doc.function;/*
+/*
  * Copyright 2018 Crown Copyright
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,6 +13,8 @@ package uk.gov.gchq.gaffer.doc.function;/*
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package uk.gov.gchq.gaffer.doc.function;
 
 import uk.gov.gchq.koryphe.impl.function.ToLowerCase;
 
