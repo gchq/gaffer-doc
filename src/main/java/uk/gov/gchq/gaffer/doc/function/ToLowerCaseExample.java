@@ -22,7 +22,7 @@ import java.util.Arrays;
 
 public class ToLowerCaseExample extends FunctionExample {
     public static void main(final String[] args) {
-        new TolongExample().runAndPrint();
+        new ToLongExample().runAndPrint();
     }
 
     public ToLowerCaseExample() {
