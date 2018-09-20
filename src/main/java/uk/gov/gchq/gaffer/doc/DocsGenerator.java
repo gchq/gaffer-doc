@@ -20,6 +20,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
+import uk.gov.gchq.gaffer.doc.binaryoperator.BinaryOperatorExamplesRunner;
 import uk.gov.gchq.gaffer.doc.dev.walkthrough.DevWalkthroughRunner;
 import uk.gov.gchq.gaffer.doc.function.FunctionExamplesRunner;
 import uk.gov.gchq.gaffer.doc.operation.OperationExamplesRunner;
@@ -42,6 +43,7 @@ public class DocsGenerator implements DocGenerator {
             new SparkOperationExamplesRunner(),
             new PredicateExamplesRunner(),
             new FunctionExamplesRunner(),
+            new BinaryOperatorExamplesRunner(),
     };
 
     public static void main(final String[] args) throws Exception {
