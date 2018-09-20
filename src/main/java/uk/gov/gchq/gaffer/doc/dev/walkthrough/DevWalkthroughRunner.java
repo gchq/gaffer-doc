@@ -28,6 +28,7 @@ public class DevWalkthroughRunner extends AbstractWalkthroughRunner {
     private static final List<AbstractWalkthrough> EXAMPLES = Arrays.asList(
             new Visibilities(),
             new Schemas(),
+            new SchemaMigrations(),
             new Users(),
             new Cache(),
             new Jobs(),

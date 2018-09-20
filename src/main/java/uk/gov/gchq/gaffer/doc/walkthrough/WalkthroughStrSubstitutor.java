@@ -15,6 +15,7 @@
  */
 package uk.gov.gchq.gaffer.doc.walkthrough;
 
+import com.google.common.base.CaseFormat;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
@@ -58,8 +59,10 @@ import java.util.Map;
 import java.util.function.Function;
 
 public abstract class WalkthroughStrSubstitutor {
-    public static final String JAVA_DOC_URL_PREFIX = "ref://../javadoc/gaffer/";
-    public static final String KORYPHE_JAVA_DOC_URL_PREFIX = "ref://../javadoc/koryphe/";
+    public static final String REF_URL_PREFIX = "ref://";
+    public static final String PARENT_URL = "../";
+    public static final String JAVA_DOC_URL_PREFIX = "javadoc/gaffer/";
+    public static final String KORYPHE_JAVA_DOC_URL_PREFIX = "javadoc/koryphe/";
     public static final String GITHUB_URL_PREFIX = "https://github.com/gchq/gaffer-doc/blob/master";
     public static final String GAFFER_GITHUB_URL_PREFIX = "https://github.com/gchq/Gaffer/blob/master";
     public static final String DOC_URL_PREFIX = "../";
@@ -157,6 +160,14 @@ public abstract class WalkthroughStrSubstitutor {
         return params;
     }
 
+    public static void putJavaDocParam(final Map<String, String> params, final Class<?> clazz) {
+        final String name = CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, clazz.getSimpleName()) + "_JAVADOC";
+        putParam(params, name, getJavaDocLink(clazz));
+        for (int i = 0; i < 4; i++) {
+            putParam(params, name + i, getJavaDocLink(clazz, true, i));
+        }
+    }
+
     public static void putParam(final Map<String, String> params, final String data, final String value) {
         if (null != value) {
             params.put(data, value);
@@ -180,35 +191,35 @@ public abstract class WalkthroughStrSubstitutor {
         putParam(params, "START_PYTHON_CODE", START_PYTHON_CODE_MARKER);
         putParam(params, "PYTHON_CODE", PYTHON_CODE_MARKER);
         putParam(params, "END_CODE", END_MARKER_MARKER);
-        putParam(params, "EDGE_JAVADOC", getJavaDocLink(Edge.class));
-        putParam(params, "USER_JAVADOC", getJavaDocLink(User.class));
-        putParam(params, "STORE_JAVADOC", getJavaDocLink(Store.class));
-        putParam(params, "ACCUMULO_STORE_JAVADOC", getJavaDocLink(AccumuloStore.class));
-        putParam(params, "MOCK_ACCUMULO_STORE_JAVADOC", getJavaDocLink(MockAccumuloStore.class));
-        putParam(params, "GRAPH_JAVADOC", getJavaDocLink(Graph.class));
-        putParam(params, "ELEMENT_GENERATOR_JAVADOC", getJavaDocLink(ElementGenerator.class));
-        putParam(params, "OBJECT_GENERATOR_JAVADOC", getJavaDocLink(ObjectGenerator.class));
-        putParam(params, "ELEMENT_JAVADOC", getJavaDocLink(Element.class));
-        putParam(params, "SCHEMA_JAVADOC", getJavaDocLink(Schema.class));
-        putParam(params, "PROPERTIES_JAVADOC", getJavaDocLink(Properties.class));
-        putParam(params, "ADD_ELEMENTS_JAVADOC", getJavaDocLink(AddElements.class));
-        putParam(params, "OPERATION_JAVADOC", getJavaDocLink(Operation.class));
-        putParam(params, "GET_ELEMENTS_JAVADOC", getJavaDocLink(GetElements.class));
-        putParam(params, "VIEW_JAVADOC", getJavaDocLink(View.class));
-        putParam(params, "SUM_JAVADOC", getJavaDocLink(Sum.class));
-        putParam(params, "EXISTS_JAVADOC", getJavaDocLink(Exists.class));
-        putParam(params, "VIEW_ELEMENT_DEF_JAVADOC", getJavaDocLink(ViewElementDefinition.class));
-        putParam(params, "ELEMENT_TRANSFORMER_JAVADOC", getJavaDocLink(ElementTransformer.class));
-        putParam(params, "FUNCTION_JAVADOC", getJavaDocLink(Function.class));
-        putParam(params, "GET_ADJACENT_ENTITY_SEEDS_JAVADOC", getJavaDocLink(GetAdjacentIds.class));
-        putParam(params, "GENERATE_OBJECTS_JAVADOC", getJavaDocLink(GenerateObjects.class));
-        putParam(params, "ENTITY_SEED_EXTRACTOR_JAVADOC", getJavaDocLink(EntityIdExtractor.class));
-        putParam(params, "FETCH_EXPORT_JAVADOC", getJavaDocLink(GetSetExport.class));
-        putParam(params, "EXPORT_TO_SET_JAVADOC", getJavaDocLink(ExportToSet.class));
-        putParam(params, "EXPORT_TO_GAFFER_RESULT_CACHE_JAVADOC", getJavaDocLink(ExportToGafferResultCache.class));
+        putJavaDocParam(params, Edge.class);
+        putJavaDocParam(params, User.class);
+        putJavaDocParam(params, Store.class);
+        putJavaDocParam(params, AccumuloStore.class);
+        putJavaDocParam(params, MockAccumuloStore.class);
+        putJavaDocParam(params, Graph.class);
+        putJavaDocParam(params, ElementGenerator.class);
+        putJavaDocParam(params, ObjectGenerator.class);
+        putJavaDocParam(params, Element.class);
+        putJavaDocParam(params, Schema.class);
+        putJavaDocParam(params, Properties.class);
+        putJavaDocParam(params, AddElements.class);
+        putJavaDocParam(params, Operation.class);
+        putJavaDocParam(params, GetElements.class);
+        putJavaDocParam(params, View.class);
+        putJavaDocParam(params, Sum.class);
+        putJavaDocParam(params, Exists.class);
+        putJavaDocParam(params, ViewElementDefinition.class);
+        putJavaDocParam(params, ElementTransformer.class);
+        putJavaDocParam(params, Function.class);
+        putJavaDocParam(params, GetAdjacentIds.class);
+        putJavaDocParam(params, GenerateObjects.class);
+        putJavaDocParam(params, EntityIdExtractor.class);
+        putJavaDocParam(params, GetSetExport.class);
+        putJavaDocParam(params, ExportToSet.class);
+        putJavaDocParam(params, ExportToGafferResultCache.class);
         putParam(params, "ACCUMULO_USER_GUIDE", "[Accumulo Store User Guide](https://github.com/gchq/Gaffer/wiki/Accumulo-Store-user-guide)");
         putParam(params, "ACCUMULO_KEY_PACKAGE", getGafferGitHubCodeLink(AccumuloKeyPackage.class, "store-implementations/accumulo-store"));
-        putParam(params, "OPERATION_EXAMPLES_LINK", getDocLink("Operation Examples"));
+        putParam(params, "OPERATION_EXAMPLES_LINK", getDocLink("../Operation Examples"));
 
         return params;
     }
@@ -256,6 +267,10 @@ public abstract class WalkthroughStrSubstitutor {
     }
 
     public static String getJavaDocLink(final Class<?> clazz, final boolean simpleName) {
+        return getJavaDocLink(clazz, simpleName, 1);
+    }
+
+    public static String getJavaDocLink(final Class<?> clazz, final boolean simpleName, final int nestedDepth) {
         final String javaDocUrlPrefix;
         if (clazz.getName().contains("uk.gov.gchq.koryphe")) {
             javaDocUrlPrefix = KORYPHE_JAVA_DOC_URL_PREFIX;
@@ -263,8 +278,10 @@ public abstract class WalkthroughStrSubstitutor {
             javaDocUrlPrefix = JAVA_DOC_URL_PREFIX;
         }
 
+        final String fullJavaDocUrlPrefix = REF_URL_PREFIX + StringUtils.repeat(PARENT_URL, nestedDepth) + javaDocUrlPrefix;
+
         final String displayName = simpleName ? clazz.getSimpleName() : clazz.getName();
-        return "[" + displayName + "](" + javaDocUrlPrefix + clazz.getName().replaceAll("\\.", "/") + ".html)";
+        return "[" + displayName + "](" + fullJavaDocUrlPrefix + clazz.getName().replaceAll("\\.", "/") + ".html)";
     }
 
     public static String getGitHubResourcesLink(final String resourcePath, final String modulePath) {

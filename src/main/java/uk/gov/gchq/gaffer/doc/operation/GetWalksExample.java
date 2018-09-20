@@ -50,14 +50,14 @@ public class GetWalksExample extends OperationExample {
     @Override
     public void runExamples() {
         getWalks();
-        getWalksWithLoops();
-        getWalksWithSelfLoops();
         getWalksWithIncomingOutgoingFlags();
-        getWalksWithMultipleGroups();
         getWalksWithFiltering();
         getWalksWithEntities();
-        getWalksWithAdditionalOperations();
         getWalksWithFilteringOnCardinalityEntities();
+        getWalksWithMultipleGroups();
+        getWalksWithLoops();
+        getWalksWithSelfLoops();
+        getWalksWithAdditionalOperations();
     }
 
     public Iterable<Walk> getWalks() {
@@ -315,6 +315,6 @@ public class GetWalksExample extends OperationExample {
 
         return runExample(getWalks, "Gets all of the Walks of length 2 " +
                 "which start from vertex 5, where the results of the first hop are " +
-                "filtered based on the cardinality entities in the graph.");
+                "filtered based on the cardinality entities in the graph. IMPORTANT NOTE - you cannot filter walks based on entity filters at the end of a walk.");
     }
 }

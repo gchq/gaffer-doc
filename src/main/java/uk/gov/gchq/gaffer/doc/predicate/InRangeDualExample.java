@@ -32,6 +32,9 @@ public class InRangeDualExample extends PredicateExample {
     public void runExamples() {
         inLongRange5To10();
         inLongRange5To10Exclusive();
+        inLongOverlappingRange();
+        inLongEndOverlappingRange();
+        inLongNonOverlappingRange();
         inLongRangeLessThan10();
         inIntegerRange5To10();
         inStringRangeBToD();
@@ -78,6 +81,66 @@ public class InRangeDualExample extends PredicateExample {
                 new Tuple2<>(10L, 20L),
                 new Tuple2<>(6, 7),
                 new Tuple2<>("5", "7"),
+                new Tuple2<>(null, null));
+    }
+
+    public void inLongOverlappingRange() {
+        // ---------------------------------------------------------
+        final InRangeDual function = new InRangeDual.Builder<Long>()
+                .start(5L)
+                .end(10L)
+                .startFullyContained(false)
+                .endFullyContained(false)
+                .build();
+        // ---------------------------------------------------------
+
+        runExample(function,
+                null,
+                new Tuple2<>(1L, 4L),
+                new Tuple2<>(1L, 7L),
+                new Tuple2<>(6L, 7L),
+                new Tuple2<>(7L, 11L),
+                new Tuple2<>(11L, 20L),
+                new Tuple2<>(null, null));
+    }
+
+    public void inLongEndOverlappingRange() {
+        // ---------------------------------------------------------
+        final InRangeDual function = new InRangeDual.Builder<Long>()
+                .start(5L)
+                .end(10L)
+                .startFullyContained(true)
+                .endFullyContained(false)
+                .build();
+        // ---------------------------------------------------------
+
+        runExample(function,
+                null,
+                new Tuple2<>(1L, 4L),
+                new Tuple2<>(1L, 7L),
+                new Tuple2<>(6L, 7L),
+                new Tuple2<>(7L, 11L),
+                new Tuple2<>(11L, 20L),
+                new Tuple2<>(null, null));
+    }
+
+    public void inLongNonOverlappingRange() {
+        // ---------------------------------------------------------
+        final InRangeDual function = new InRangeDual.Builder<Long>()
+                .start(5L)
+                .end(10L)
+                .startFullyContained(true)
+                .endFullyContained(true)
+                .build();
+        // ---------------------------------------------------------
+
+        runExample(function,
+                null,
+                new Tuple2<>(1L, 4L),
+                new Tuple2<>(1L, 7L),
+                new Tuple2<>(6L, 7L),
+                new Tuple2<>(7L, 11L),
+                new Tuple2<>(11L, 20L),
                 new Tuple2<>(null, null));
     }
 

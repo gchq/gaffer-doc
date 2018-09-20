@@ -28,7 +28,7 @@ ${GET_ELEMENTS_RESULT}
 Now let’s look at how to filter which Edges are returned based on the aggregated value of their count.
 For example, only return Edges containing vertex `”10”` where the `”count”` > 2.
 
-We do this using a ${VIEW_JAVADOC} and ${VIEW_ELEMENT_DEF_JAVADOC} like this:
+We do this using a ${VIEW_JAVADOC2} and ${VIEW_ELEMENT_DEFINITION_JAVADOC2} like this:
 
 ${START_JAVA_CODE}
 ${GET_SNIPPET}
@@ -109,3 +109,55 @@ EQUAL will only return Entities and Edges with identifiers that match the seed e
 RELATED will return the EQUAL results (as above) and additional Entities and Edges:
 - if you provide an Entity seed, you will also get back Edges that have have the same vertex value as source or destination.
 - if you provide an Edge seed, you will also get back Entities that have have the same source or destination vertices.
+
+As the seedMatching flag has now been deprecated, to run equivalent Operations, there are some examples below.  As the default for 
+seedMatching is RELATED, if that is currently used nothing will need to change.
+There is one limitation however, if you have a seedMatching = EQUAL and specify both Edges and Entities that will have to now be
+done under 2 Operations in a chain as there can only be one View applied globally to all input.
+
+OLD:
+${START_JAVA_CODE}
+${GET_EDGES_WITH_SEEDMATCHING_SNIPPET}
+${JSON_CODE}
+${GET_EDGES_WITH_SEEDMATCHING_JSON}
+${FULL_JSON_CODE}
+${GET_EDGES_WITH_SEEDMATCHING_FULL_JSON}
+${PYTHON_CODE}
+${GET_EDGES_WITH_SEEDMATCHING_PYTHON}
+${END_CODE}
+
+NEW:
+${START_JAVA_CODE}
+${GET_EDGES_WITHOUT_SEEDMATCHING_SNIPPET}
+${JSON_CODE}
+${GET_EDGES_WITHOUT_SEEDMATCHING_JSON}
+${FULL_JSON_CODE}
+${GET_EDGES_WITHOUT_SEEDMATCHING_FULL_JSON}
+${PYTHON_CODE}
+${GET_EDGES_WITHOUT_SEEDMATCHING_PYTHON}
+${END_CODE}
+
+For entities it should now be written:
+
+OLD:
+${START_JAVA_CODE}
+${GET_ENTITIES_WITH_SEEDMATCHING_SNIPPET}
+${JSON_CODE}
+${GET_ENTITIES_WITH_SEEDMATCHING_JSON}
+${FULL_JSON_CODE}
+${GET_ENTITIES_WITH_SEEDMATCHING_FULL_JSON}
+${PYTHON_CODE}
+${GET_ENTITIES_WITH_SEEDMATCHING_PYTHON}
+${END_CODE}
+
+NEW:
+${START_JAVA_CODE}
+${GET_ENTITIES_WITHOUT_SEEDMATCHING_SNIPPET}
+${JSON_CODE}
+${GET_ENTITIES_WITHOUT_SEEDMATCHING_JSON}
+${FULL_JSON_CODE}
+${GET_ENTITIES_WITHOUT_SEEDMATCHING_FULL_JSON}
+${PYTHON_CODE}
+${GET_ENTITIES_WITHOUT_SEEDMATCHING_PYTHON}
+${END_CODE}
+

@@ -31,8 +31,6 @@ public abstract class Example {
     public static final String CAPITALS_AND_NUMBERS_REGEX = "((?=[A-Z])|(?<=[0-9])(?=[a-zA-Z])|(?<=[a-zA-Z])(?=[0-9]))";
     public static final String DIVIDER = "-----------------------------------------------";
     public static final String METHOD_DIVIDER = DIVIDER + "\n";
-    public static final String KORYPHE_JAVA_DOC_URL_PREFIX = "ref://../../javadoc/koryphe/";
-    public static final String JAVA_DOC_URL_PREFIX = "ref://../../javadoc/gaffer/";
     private final Class<?> classForExample;
     private final String description;
     private StringBuilder output = new StringBuilder();
@@ -63,20 +61,19 @@ public abstract class Example {
     }
 
     public void printJavaDocLink() {
-        final String urlPrefix;
-        if (classForExample.getName().contains("koryphe")) {
-            urlPrefix = KORYPHE_JAVA_DOC_URL_PREFIX;
-        } else {
-            urlPrefix = JAVA_DOC_URL_PREFIX;
-        }
-
-        print("See javadoc - [" + classForExample.getName() + "](" + urlPrefix + classForExample.getName().replace(".", "/") + ".html).\n");
+        print("See javadoc - " + WalkthroughStrSubstitutor.getJavaDocLink(classForExample, false, 2) + "\n");
     }
 
     public void printSince() {
+        final String packageIdentifier;
+        if (getClassForExample().getName().startsWith("uk.gov.gchq.koryphe")) {
+            packageIdentifier = "Koryphe";
+        } else {
+            packageIdentifier = "Gaffer";
+        }
         final Since anno = getClassForExample().getAnnotation(Since.class);
         if (null != anno && StringUtils.isNotBlank(anno.value())) {
-            print("Available since version " + anno.value() + "\n");
+            print("Available since " + packageIdentifier + " version " + anno.value() + "\n");
         }
     }
 
