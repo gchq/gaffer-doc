@@ -13,25 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.gov.gchq.gaffer.doc.operation;
+package uk.gov.gchq.gaffer.doc.binaryoperator;
 
 import uk.gov.gchq.gaffer.doc.util.ExampleDocRunner;
 
 /**
- * This runner will run all operation examples.
+ * This runner will run all binary operator examples.
  */
-public class OperationExamplesRunner extends ExampleDocRunner {
-    public OperationExamplesRunner() {
-        super("Operations", OperationExample.class);
+public class BinaryOperatorExamplesRunner extends ExampleDocRunner {
+    public BinaryOperatorExamplesRunner() {
+        super("Binary Operators", BinaryOperatorExample.class);
     }
 
     public static void main(final String[] args) throws Exception {
-        new OperationExamplesRunner().generate();
-    }
-
-    @Override
-    protected String getTableOfContents() throws InstantiationException, IllegalAccessException {
-        return super.getTableOfContents()
-                + "In addition to these core operations, stores can implement their own specific operations. See [Accumulo operations](../accumulo-operations/contents.md).\n";
+        new BinaryOperatorExamplesRunner().generate();
     }
 }

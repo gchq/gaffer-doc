@@ -2,7 +2,7 @@ ${HEADER}
 
 ${CODE_LINK}
 
-When interacting with Gaffer you need to use a ${USER_JAVADOC}. The user object
+When interacting with Gaffer you need to use a ${USER_JAVADOC2}. The user object
 contains:
 - userId - unique identifier for the user
 - dataAuths - user authorisations for accessing data

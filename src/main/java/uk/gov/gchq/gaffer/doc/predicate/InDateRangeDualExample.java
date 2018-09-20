@@ -49,6 +49,9 @@ public class InDateRangeDualExample extends PredicateExample {
         inDateRangeExclusive();
         withinTheLastWeek();
         exactly7HoursAgo();
+        fullyUncontainedRange();
+        startContainedRange();
+        fullyContainedRange();
     }
 
     public void inDateRangeWithDayPrecision() {
@@ -163,6 +166,67 @@ public class InDateRangeDualExample extends PredicateExample {
                 new Tuple2<>(new Date(now() - DateUtil.HOURS_TO_MILLISECONDS * 7 + 10000L), new Date(now() - DateUtil.HOURS_TO_MILLISECONDS * 6 - 10000L)),
                 new Tuple2<>(new Date(now() - DateUtil.HOURS_TO_MILLISECONDS * 7 + 10000L), new Date(now() - DateUtil.HOURS_TO_MILLISECONDS * 6 + 10000L)),
                 new Tuple2<>(new Date(now() - DateUtil.HOURS_TO_MILLISECONDS * 7 + 10000L), new Date(now())),
+                new Tuple2<>(null, null));
+    }
+
+
+    public void fullyUncontainedRange() {
+        // ---------------------------------------------------------
+        final InDateRangeDual function = new InDateRangeDual.Builder()
+                .start("2017/03/01")
+                .end("2017/08/01")
+                .startFullyContained(false)
+                .endFullyContained(false)
+                .build();
+        // ---------------------------------------------------------
+
+        runExample(function,
+                null,
+                new Tuple2<>(getTimestamp("2017/01/01"), getTimestamp("2017/02/01")),
+                new Tuple2<>(getTimestamp("2017/01/01"), getTimestamp("2017/04/01")),
+                new Tuple2<>(getTimestamp("2017/04/01"), getTimestamp("2017/05/01")),
+                new Tuple2<>(getTimestamp("2017/04/01"), getTimestamp("2017/09/01")),
+                new Tuple2<>(getTimestamp("2017/09/01"), getTimestamp("2017/10/01")),
+                new Tuple2<>(null, null));
+    }
+
+    public void startContainedRange() {
+        // ---------------------------------------------------------
+        final InDateRangeDual function = new InDateRangeDual.Builder()
+                .start("2017/03/01")
+                .end("2017/08/01")
+                .startFullyContained(true)
+                .endFullyContained(false)
+                .build();
+        // ---------------------------------------------------------
+
+        runExample(function,
+                null,
+                new Tuple2<>(getTimestamp("2017/01/01"), getTimestamp("2017/02/01")),
+                new Tuple2<>(getTimestamp("2017/01/01"), getTimestamp("2017/04/01")),
+                new Tuple2<>(getTimestamp("2017/04/01"), getTimestamp("2017/05/01")),
+                new Tuple2<>(getTimestamp("2017/04/01"), getTimestamp("2017/09/01")),
+                new Tuple2<>(getTimestamp("2017/09/01"), getTimestamp("2017/10/01")),
+                new Tuple2<>(null, null));
+    }
+
+    public void fullyContainedRange() {
+        // ---------------------------------------------------------
+        final InDateRangeDual function = new InDateRangeDual.Builder()
+                .start("2017/03/01")
+                .end("2017/08/01")
+                .startFullyContained(true)
+                .endFullyContained(true)
+                .build();
+        // ---------------------------------------------------------
+
+        runExample(function,
+                null,
+                new Tuple2<>(getTimestamp("2017/01/01"), getTimestamp("2017/02/01")),
+                new Tuple2<>(getTimestamp("2017/01/01"), getTimestamp("2017/04/01")),
+                new Tuple2<>(getTimestamp("2017/04/01"), getTimestamp("2017/05/01")),
+                new Tuple2<>(getTimestamp("2017/04/01"), getTimestamp("2017/09/01")),
+                new Tuple2<>(getTimestamp("2017/09/01"), getTimestamp("2017/10/01")),
                 new Tuple2<>(null, null));
     }
 
