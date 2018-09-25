@@ -29,7 +29,6 @@ import java.util.List;
 public class ToSingletonListExample extends OperationExample {
     public ToSingletonListExample() {
         super(ToSingletonList.class);
-        skipPython();
     }
 
     public static void main(final String[] args) throws OperationException {
