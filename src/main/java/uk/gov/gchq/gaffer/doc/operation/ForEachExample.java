@@ -24,34 +24,21 @@ import uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds;
 import uk.gov.gchq.gaffer.operation.impl.output.ToSingletonList;
 import uk.gov.gchq.gaffer.operation.impl.output.ToVertices;
 
-import java.util.List;
-
-public class ToSingletonListExample extends OperationExample {
-    public ToSingletonListExample() {
-        super(ToSingletonList.class);
+public class ForEachExample extends OperationExample {
+    public ForEachExample() {
+        super(ForEach.class);
     }
 
     public static void main(final String[] args) throws OperationException {
-        new ToSingletonListExample().runAndPrint();
+        new ForEachExample().runAndPrint();
     }
 
     @Override
     protected void runExamples() {
-        toSingletonListExample();
-        toSingletonListInChainExample();
+        forEachInChainExample();
     }
 
-    public List<? extends Integer> toSingletonListExample() {
-        // ---------------------------------------------------------
-        final ToSingletonList<Integer> opChain = new ToSingletonList.Builder<Integer>()
-                .input(4)
-                .build();
-        // ---------------------------------------------------------
-
-        return runExample(opChain, null);
-    }
-
-    public Iterable<?> toSingletonListInChainExample() {
+    public Iterable<?> forEachInChainExample() {
         // ---------------------------------------------------------
         final OperationChain<Iterable<?>> opChain = new OperationChain.Builder()
                 .first(new GetAdjacentIds.Builder()
