@@ -50,6 +50,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 public abstract class OperationExample extends Example {
     private static final Logger ROOT_LOGGER = Logger.getRootLogger();
@@ -228,6 +229,10 @@ public abstract class OperationExample extends Example {
                             .stream()
                             .map(Object::toString)
                             .collect(Collectors.joining(" --> ", "[ ", " ]")));
+                } else if (item instanceof Iterable) {
+                    print(StreamSupport.stream(((Iterable) item).spliterator(), false)
+                            .map(Object::toString)
+                            .collect(Collectors.joining(" --> ", "[ ", " ]")).toString());
                 } else {
                     print(item.toString());
                 }
