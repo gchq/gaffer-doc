@@ -30,7 +30,6 @@ public class ReduceExample extends OperationExample {
 
     public ReduceExample() {
         super(Reduce.class);
-        skipPython();
     }
 
     public static void main(final String[] args) throws OperationException {
