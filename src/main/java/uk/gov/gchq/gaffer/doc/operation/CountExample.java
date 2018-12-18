@@ -27,7 +27,7 @@ public class CountExample extends OperationExample {
     }
 
     public CountExample() {
-        super(Count.class, "Counts the number of items");
+        super(Count.class, "Counts the number of items in an iterable");
     }
 
     @Override
@@ -35,12 +35,13 @@ public class CountExample extends OperationExample {
         countAllElements();
     }
 
-    private void countAllElements() {
-        OperationChain countAllElements = new OperationChain.Builder()
+    public Long countAllElements() {
+        // ---------------------------------------------------------
+        OperationChain<Long> countAllElements = new OperationChain.Builder()
                 .first(new GetAllElements())
                 .then(new Count<>())
                 .build();
-
-        runExample(countAllElements, null);
+        // ---------------------------------------------------------
+        return runExample(countAllElements, null);
     }
 }
