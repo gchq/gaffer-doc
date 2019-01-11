@@ -28,9 +28,7 @@ public class ToFreqMapExample extends FunctionExample {
     }
 
     public static void main(final String[] args) {
-        ToFreqMapExample example = new ToFreqMapExample();
-        example.skipPython();
-        example.runAndPrint();
+        new ToFreqMapExample().runAndPrint();
     }
 
 
