@@ -37,7 +37,9 @@ public class ToTypeValueExample extends FunctionExample {
     }
 
     private void toTypeValue() {
+        // ---------------------------------------------------------
         Function ToTypeValue = new ToTypeValue();
+        // ---------------------------------------------------------
 
         super.runExample(
                 ToTypeValue,

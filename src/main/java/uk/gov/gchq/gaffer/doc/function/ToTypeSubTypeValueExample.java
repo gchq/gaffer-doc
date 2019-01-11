@@ -37,7 +37,9 @@ public class ToTypeSubTypeValueExample extends FunctionExample {
     }
 
     private void toTypeSubTypeValue() {
+        // ---------------------------------------------------------
         Function toTypeSubTypeValue = new ToTypeSubTypeValue();
+        // ---------------------------------------------------------
 
         super.runExample(
                 toTypeSubTypeValue,
