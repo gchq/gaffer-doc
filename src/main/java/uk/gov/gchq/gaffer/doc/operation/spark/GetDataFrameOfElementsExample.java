@@ -56,7 +56,7 @@ public class GetDataFrameOfElementsExample extends SparkOperationExample {
 
         // Restrict to entities involving certain vertices
         final Dataset<Row> seeded = df.filter("vertex = 1 OR vertex = 2");
-        String result = seeded.showString(100, 20);
+        String result = seeded.showString(100, 20, false);
         printJava("df.filter(\"vertex = 1 OR vertex = 2\").show();");
         print("The results are:\n");
         print("```");
@@ -65,7 +65,7 @@ public class GetDataFrameOfElementsExample extends SparkOperationExample {
 
         // Filter by property
         final Dataset<Row> filtered = df.filter("count > 1");
-        result = filtered.showString(100, 20);
+        result = filtered.showString(100, 20, false);
         printJava("df.filter(\"count > 1\").show();");
         print("The results are:\n");
         print("```");
@@ -87,7 +87,7 @@ public class GetDataFrameOfElementsExample extends SparkOperationExample {
 
         // Restrict to edges involving given vertices
         final Dataset<Row> seeded = df.filter("src = 1 OR src = 3");
-        String result = seeded.showString(100, 20);
+        String result = seeded.showString(100, 20, false);
         printJava("df.filter(\"src = 1 OR src = 3\").show();");
         print("The results are:\n");
         print("```");
@@ -96,7 +96,7 @@ public class GetDataFrameOfElementsExample extends SparkOperationExample {
 
         // Filter by property
         final Dataset<Row> filtered = df.filter("count > 1");
-        result = filtered.showString(100, 20);
+        result = filtered.showString(100, 20, false);
         printJava("df.filter(\"count > 1\").show();");
         print("The results are:\n");
         print("```");

@@ -58,14 +58,14 @@ public class GetGraphFrameOfElementsExample extends SparkOperationExample {
         print("and results are: ");
         printJava(((GraphFrame) result).vertices()
                 .filter("vertex = 1 OR vertex = 2")
-                .showString(100, 20));
+                .showString(100, 20, false));
 
         print("Or you can inspect the edges like:");
         printJava("graphFrame.edges().filter(\"count > 1\").showString(100, 20)");
         print("and results are: ");
         printJava(((GraphFrame) result).edges()
                 .filter("count > 1")
-                .showString(100, 20));
+                .showString(100, 20, false));
 
         print("There is a whole suite of nice things you can do with GraphFrames, including operations like PageRank.");
         print("");
