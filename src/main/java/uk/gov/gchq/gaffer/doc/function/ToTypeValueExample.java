@@ -38,11 +38,11 @@ public class ToTypeValueExample extends FunctionExample {
 
     private void toTypeValue() {
         // ---------------------------------------------------------
-        Function ToTypeValue = new ToTypeValue();
+        Function toTypeValue = new ToTypeValue();
         // ---------------------------------------------------------
 
         super.runExample(
-                ToTypeValue,
+                toTypeValue,
                 null,
                 "aString", 100L, 25, new TypeValue("type1", "value1"), null
         );
