@@ -264,7 +264,7 @@ public abstract class OperationExample extends Example {
             }
         } else if (result instanceof Dataset) {
             final Dataset<Row> dataset = ((Dataset) result);
-            final String resultStr = dataset.showString(100, 20);
+            final String resultStr = dataset.showString(100, 20, false);
             print(resultStr.substring(0, resultStr.length() - 2));
         } else if (result instanceof Schema) {
             print(DocUtil.getJson(result));
