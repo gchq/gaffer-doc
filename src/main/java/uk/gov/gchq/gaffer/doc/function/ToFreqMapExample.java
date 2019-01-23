@@ -16,9 +16,9 @@
 
 package uk.gov.gchq.gaffer.doc.function;
 
-import uk.gov.gchq.gaffer.operation.serialisation.TypeReferenceImpl.String;
 import uk.gov.gchq.gaffer.types.TypeValue;
 import uk.gov.gchq.gaffer.types.function.ToFreqMap;
+
 import java.util.function.Function;
 
 public class ToFreqMapExample extends FunctionExample {
