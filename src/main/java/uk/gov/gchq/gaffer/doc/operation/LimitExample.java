@@ -28,6 +28,7 @@ public class LimitExample extends OperationExample {
 
     public LimitExample() {
         super(Limit.class);
+        skipPython();
     }
 
     @Override

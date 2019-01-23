@@ -16,7 +16,22 @@
 
 package uk.gov.gchq.gaffer.doc.operation;
 
+import uk.gov.gchq.gaffer.data.element.Element;
+import uk.gov.gchq.gaffer.data.element.Entity;
+import uk.gov.gchq.gaffer.operation.OperationChain;
 import uk.gov.gchq.gaffer.operation.OperationException;
+import uk.gov.gchq.gaffer.operation.impl.get.GetAllElements;
+import uk.gov.gchq.gaffer.operation.impl.join.Join;
+import uk.gov.gchq.gaffer.operation.impl.join.match.MatchKey;
+import uk.gov.gchq.gaffer.operation.impl.join.methods.JoinType;
+import uk.gov.gchq.gaffer.store.operation.handler.join.match.ElementMatch;
+import uk.gov.gchq.gaffer.store.operation.handler.join.merge.ElementMerge;
+import uk.gov.gchq.gaffer.store.operation.handler.join.merge.MergeType;
+import uk.gov.gchq.gaffer.store.operation.handler.join.merge.ResultsWanted;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class JoinExample extends OperationExample {
 
@@ -36,10 +51,35 @@ public class JoinExample extends OperationExample {
                 "describes how the match on the two Elements will be done.  The Merge class will then describe how the Elements will be merged together" +
                 "into a useful Iterable.  Within the Merge method it is possible to select the KEY_ONLY, RELATED_ONLY or BOTH results, and the " +
                 "MergeType (NONE, AGAINST_KEY, BOTH).  The Element aggregation used will be the same as the ingest Aggregator specified in the Schema.");
+        skipPython();
     }
 
     @Override
     protected void runExamples() {
+        leftInnerJoin();
+    }
 
+    public Iterable<? extends Element> leftInnerJoin() {
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        // ---------------------------------------------------------
+        /*final OperationChain<CloseableIterable<? extends Element>> opChain = new OperationChain.Builder()
+                .first(new GetAllElements())
+                .build();*/
+        final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<Element, Element>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.FULL_INNER)
+                        .matchKey(MatchKey.LEFT)
+                        .matchMethod(new ElementMatch("count"))
+                        .mergeMethod(new ElementMerge(ResultsWanted.KEY_ONLY, MergeType.NONE))
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+        return runExample(opChain, null);
+    }
+
+    private Entity getJoinEntity(final String group, final int vertex, final int propVal) {
+        return new Entity.Builder().group(group).vertex(vertex).property("count", propVal).build();
     }
 }
