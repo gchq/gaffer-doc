@@ -19,7 +19,6 @@ package uk.gov.gchq.gaffer.doc.operation;
 import uk.gov.gchq.gaffer.operation.OperationChain;
 import uk.gov.gchq.gaffer.operation.impl.Count;
 import uk.gov.gchq.gaffer.operation.impl.get.GetAllElements;
-import uk.gov.gchq.gaffer.operation.serialisation.TypeReferenceImpl.String;
 
 public class CountExample extends OperationExample {
 
