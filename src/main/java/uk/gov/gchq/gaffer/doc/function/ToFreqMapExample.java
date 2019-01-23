@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Crown Copyright
+ * Copyright 2019 Crown Copyright
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,9 @@
 
 package uk.gov.gchq.gaffer.doc.function;
 
+import uk.gov.gchq.gaffer.operation.serialisation.TypeReferenceImpl.String;
 import uk.gov.gchq.gaffer.types.TypeValue;
 import uk.gov.gchq.gaffer.types.function.ToFreqMap;
-
 import java.util.function.Function;
 
 public class ToFreqMapExample extends FunctionExample {
