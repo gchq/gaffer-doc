@@ -44,7 +44,9 @@ public class JoinExample extends OperationExample {
                 "A left side Iterable must be specified, along with a right side Operation that will produce the second iterable." +
                 "A JoinType will be specified, which will describe the Join on the two iterables.  The possible types are FULL, FULL_INNER," +
                 "FULL_OUTER, OUTER and INNER.  A FULL join will return all Elements from both sides, joining related rows where appropriate." +
-                "A FULL_INNER will return only the related `middle` where both rows have a relationship.  A FULL_OUTER will return only Elements" +
+                "A FULL_INNER will return only the related `middle` where " +
+                "both rows have a relationship based on the ElementMatch.  A " +
+                "FULL_OUTER will return only Elements" +
                 "where there is no relationship between the rows.  An OUTER will return just the side specified by the Key with no relations." +
                 "An INNER will return only the related elements from the `middle` based on the key specified.  A MatchKey will also be " +
                 "specified, which will describe the side in which the Key will be set, the options for this being LEFT or RIGHT.  The Matcher class" +
