@@ -40,8 +40,8 @@ public abstract class SparkOperationExample extends OperationExample {
                 .setMaster("local")
                 .setAppName(getClass().getSimpleName())
                 .set(SparkConstants.SERIALIZER, SparkConstants.DEFAULT_SERIALIZER)
-                .set(SparkConstants.KRYO_REGISTRATOR, SparkConstants.DEFAULT_KRYO_REGISTRATOR)
-                .set(SparkConstants.DRIVER_ALLOW_MULTIPLE_CONTEXTS, "true");
+                .set(SparkConstants.KRYO_REGISTRATOR,
+                        SparkConstants.DEFAULT_KRYO_REGISTRATOR);
         skipPython();
     }
 
