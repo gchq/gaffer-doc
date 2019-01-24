@@ -56,15 +56,20 @@ public class JoinExample extends OperationExample {
 
     @Override
     protected void runExamples() {
-        leftInnerJoin();
+        leftKeyFullInnerJoin();
+        rightKeyFullInnerJoin();
+        leftKeyFullJoin();
+        rightKeyFullJoin();
+        fullOuterJoin();
+        leftKeyOuterJoin();
+        rightKeyOuterJoin();
+        leftKeyInnerJoin();
+        rightKeyInnerJoin();
     }
 
-    public Iterable<? extends Element> leftInnerJoin() {
+    public Iterable<? extends Element> leftKeyFullInnerJoin() {
         List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
         // ---------------------------------------------------------
-        /*final OperationChain<CloseableIterable<? extends Element>> opChain = new OperationChain.Builder()
-                .first(new GetAllElements())
-                .build();*/
         final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<Element, Element>()
                         .input(inputElements)
@@ -78,6 +83,142 @@ public class JoinExample extends OperationExample {
         // ---------------------------------------------------------
         return runExample(opChain, null);
     }
+
+    public Iterable<? extends Element> rightKeyFullInnerJoin() {
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        // ---------------------------------------------------------
+        final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<Element, Element>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.FULL_INNER)
+                        .matchKey(MatchKey.RIGHT)
+                        .matchMethod(new ElementMatch("count"))
+                        .mergeMethod(new ElementMerge(ResultsWanted.KEY_ONLY, MergeType.NONE))
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+        return runExample(opChain, null);
+    }
+
+    public Iterable<? extends Element> leftKeyFullJoin() {
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        // ---------------------------------------------------------
+        final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<Element, Element>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.FULL)
+                        .matchKey(MatchKey.LEFT)
+                        .matchMethod(new ElementMatch("count"))
+                        .mergeMethod(new ElementMerge(ResultsWanted.KEY_ONLY, MergeType.NONE))
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+        return runExample(opChain, null);
+    }
+
+    public Iterable<? extends Element> rightKeyFullJoin() {
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        // ---------------------------------------------------------
+        final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<Element, Element>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.FULL)
+                        .matchKey(MatchKey.RIGHT)
+                        .matchMethod(new ElementMatch("count"))
+                        .mergeMethod(new ElementMerge(ResultsWanted.KEY_ONLY, MergeType.NONE))
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+        return runExample(opChain, null);
+    }
+
+    public Iterable<? extends Element> fullOuterJoin() {
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        // ---------------------------------------------------------
+        final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<Element, Element>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.FULL_OUTER)
+                        .matchMethod(new ElementMatch("count"))
+                        .mergeMethod(new ElementMerge(ResultsWanted.KEY_ONLY, MergeType.NONE))
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+        return runExample(opChain, null);
+    }
+
+    public Iterable<? extends Element> leftKeyOuterJoin() {
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        // ---------------------------------------------------------
+        final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<Element, Element>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.OUTER)
+                        .matchKey(MatchKey.LEFT)
+                        .matchMethod(new ElementMatch("count"))
+                        .mergeMethod(new ElementMerge(ResultsWanted.KEY_ONLY, MergeType.NONE))
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+        return runExample(opChain, null);
+    }
+
+    public Iterable<? extends Element> rightKeyOuterJoin() {
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        // ---------------------------------------------------------
+        final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<Element, Element>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.OUTER)
+                        .matchKey(MatchKey.RIGHT)
+                        .matchMethod(new ElementMatch("count"))
+                        .mergeMethod(new ElementMerge(ResultsWanted.KEY_ONLY, MergeType.NONE))
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+        return runExample(opChain, null);
+    }
+
+    public Iterable<? extends Element> leftKeyInnerJoin() {
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        // ---------------------------------------------------------
+        final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<Element, Element>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.INNER)
+                        .matchKey(MatchKey.LEFT)
+                        .matchMethod(new ElementMatch("count"))
+                        .mergeMethod(new ElementMerge(ResultsWanted.KEY_ONLY, MergeType.NONE))
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+        return runExample(opChain, null);
+    }
+
+    public Iterable<? extends Element> rightKeyInnerJoin() {
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        // ---------------------------------------------------------
+        final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<Element, Element>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.INNER)
+                        .matchKey(MatchKey.RIGHT)
+                        .matchMethod(new ElementMatch("count"))
+                        .mergeMethod(new ElementMerge(ResultsWanted.KEY_ONLY, MergeType.NONE))
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+        return runExample(opChain, null);
+    }
+
 
     private Entity getJoinEntity(final String group, final int vertex, final int propVal) {
         return new Entity.Builder().group(group).vertex(vertex).property("count", propVal).build();
