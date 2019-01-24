@@ -51,7 +51,6 @@ public class JoinExample extends OperationExample {
                 "describes how the match on the two Elements will be done.  The Merge class will then describe how the Elements will be merged together" +
                 "into a useful Iterable.  Within the Merge method it is possible to select the KEY_ONLY, RELATED_ONLY or BOTH results, and the " +
                 "MergeType (NONE, AGAINST_KEY, BOTH).  The Element aggregation used will be the same as the ingest Aggregator specified in the Schema.");
-        skipPython();
     }
 
     @Override
