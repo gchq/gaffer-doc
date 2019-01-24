@@ -40,7 +40,7 @@ public class JoinExample extends OperationExample {
     }
 
     public JoinExample() {
-        super(Join.class, "This Operation can be used to Join two iterables of Elements." +
+        super(Join.class, "This Operation can be used to join two iterables of Elements." +
                 "A left side Iterable must be specified, along with a right side Operation that will produce the second iterable." +
                 "A JoinType will be specified, which will describe the Join on the two iterables.  The possible types are FULL, FULL_INNER," +
                 "FULL_OUTER, OUTER and INNER.  A FULL join will return all Elements from both sides, joining related rows where appropriate." +
