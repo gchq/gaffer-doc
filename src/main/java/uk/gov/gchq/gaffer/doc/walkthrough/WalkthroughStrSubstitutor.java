@@ -217,15 +217,11 @@ public abstract class WalkthroughStrSubstitutor {
         putJavaDocParam(params, GetSetExport.class);
         putJavaDocParam(params, ExportToSet.class);
         putJavaDocParam(params, ExportToGafferResultCache.class);
-        putParam(params, "ACCUMULO_USER_GUIDE", "[Accumulo Store User Guide](https://github.com/gchq/Gaffer/wiki/Accumulo-Store-user-guide)");
+        putParam(params, "ACCUMULO_USER_GUIDE", "[Accumulo Store User Guide](../../stores/accumulo-store)");
         putParam(params, "ACCUMULO_KEY_PACKAGE", getGafferGitHubCodeLink(AccumuloKeyPackage.class, "store-implementations/accumulo-store"));
-        putParam(params, "OPERATION_EXAMPLES_LINK", getDocLink("../Operation Examples"));
+        putParam(params, "OPERATION_EXAMPLES_LINK", "[Operation Examples](../operations/contents)");
 
         return params;
-    }
-
-    public static String getDocLink(final String page) {
-        return "[" + page + "](" + DOC_URL_PREFIX + page.toLowerCase(Locale.getDefault()).replace(" ", "-") + ")";
     }
 
     public static String getJsonBlockFromResource(final String resourcePath, final Class<?> clazz) {
