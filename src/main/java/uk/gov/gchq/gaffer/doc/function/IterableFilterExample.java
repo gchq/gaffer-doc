@@ -17,6 +17,7 @@
 package uk.gov.gchq.gaffer.doc.function;
 
 import com.google.common.collect.Lists;
+
 import uk.gov.gchq.koryphe.impl.function.IterableFilter;
 import uk.gov.gchq.koryphe.impl.predicate.IsMoreThan;
 
