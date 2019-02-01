@@ -10,7 +10,7 @@ public class IterableFilterExample extends FunctionExample {
     }
 
     public IterableFilterExample() {
-        super(IterableFilter.class, "An IterableFilter is useful for applying a provided function, or functions, to each entry of a supplied Iterable.");
+        super(IterableFilter.class, "An IterableFilter applies a given predicate to each element in an Iterable and returns the filtered iterable");
     }
 
     @Override
