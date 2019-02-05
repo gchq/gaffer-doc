@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2019 Crown Copyright
+ * Copyright 2019 Crown Copyright
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,39 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package uk.gov.gchq.gaffer.doc.function;
 
-import uk.gov.gchq.gaffer.data.element.Entity;
-import uk.gov.gchq.gaffer.data.element.function.UnwrapEntityId;
-import uk.gov.gchq.gaffer.operation.data.EntitySeed;
+import com.google.common.collect.Lists;
 
-public class UnwrapEntityIdExample extends FunctionExample {
+import uk.gov.gchq.koryphe.impl.function.IterableFilter;
+import uk.gov.gchq.koryphe.impl.predicate.IsMoreThan;
+
+public class IterableFilterExample extends FunctionExample {
     public static void main(final String[] args) {
-        new UnwrapEntityIdExample().runAndPrint();
+        new IterableFunctionExample().runAndPrint();
     }
 
-    public UnwrapEntityIdExample() {
-        super(UnwrapEntityId.class, "If the object is an EntityId, the vertex value will be unwrapped and returned, otherwise the original object will be returned.");
+    public IterableFilterExample() {
+        super(IterableFilter.class, "An IterableFilter applies a given predicate to each element in an Iterable and returns the filtered iterable");
     }
 
     @Override
-    public void runExamples() {
-        unwrapEntityIds();
+    protected void runExamples() {
+        iterableFilter();
     }
 
-    public void unwrapEntityIds() {
+    public void iterableFilter() {
         // ---------------------------------------------------------
-        final UnwrapEntityId function = new UnwrapEntityId();
+        final IterableFilter<Integer> function = new IterableFilter<>(new IsMoreThan(5));
         // ---------------------------------------------------------
 
         runExample(function,
                 null,
-                new EntitySeed("vertex1"),
-                new EntitySeed("vertex2"),
-                new Entity("group", "vertex2"),
-                "a string",
-                10,
-                null
-        );
+                Lists.newArrayList(1, 2, 3),
+                Lists.newArrayList(5, 10, 15),
+                Lists.newArrayList(7, 9, 11),
+                Lists.newArrayList(1, null, 3),
+                null);
     }
+
 }
