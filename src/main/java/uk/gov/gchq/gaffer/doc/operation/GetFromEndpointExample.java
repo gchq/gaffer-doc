@@ -39,6 +39,6 @@ public class GetFromEndpointExample extends OperationExample {
                 .build();
         // ---------------------------------------------------------
 
-        runExample(get, null);
+        showExample(get, null);
     }
 }
