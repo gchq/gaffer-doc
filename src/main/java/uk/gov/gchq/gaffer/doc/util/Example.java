@@ -1,5 +1,5 @@
 /*
- * Copyright 2016-2018 Crown Copyright
+ * Copyright 2016-2019 Crown Copyright
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import uk.gov.gchq.koryphe.Since;
 import uk.gov.gchq.koryphe.tuple.MapTuple;
 import uk.gov.gchq.koryphe.tuple.Tuple;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 public abstract class Example {
@@ -120,30 +121,7 @@ public abstract class Example {
     protected Pair<String, String> getTypeValue(final Object value) {
         Pair<String, String> typeValue = new Pair<>();
         if (!(value instanceof Tuple) || value instanceof MapTuple) {
-            if (null == value) {
-                typeValue.setFirst("");
-                typeValue.setSecond("null");
-            } else {
-                typeValue.setFirst(value.getClass().getName());
-                if (value instanceof Iterable) {
-                    final StringBuilder valueStr = new StringBuilder();
-                    valueStr.append("[");
-                    for (final Object obj : ((Iterable) value)) {
-                        if (valueStr.length() > 1) {
-                            valueStr.append(", ");
-                        }
-                        if (null == obj) {
-                            valueStr.append("null");
-                        } else {
-                            valueStr.append(StringEscapeUtils.escapeHtml4(obj.toString()));
-                        }
-                    }
-                    valueStr.append("]");
-                    typeValue.setSecond(valueStr.toString());
-                } else {
-                    typeValue.setSecond(StringEscapeUtils.escapeHtml4(value.toString()));
-                }
-            }
+            typeValue = createTypeValue(value);
         } else {
             final StringBuilder typeBuilder = new StringBuilder("[");
             final StringBuilder valueStringBuilder = new StringBuilder("[");
@@ -157,6 +135,8 @@ public abstract class Example {
 
                     if (item instanceof Iterable) {
                         valueStringBuilder.append(Lists.newArrayList((Iterable) item));
+                    } else if (item instanceof Object[]) {
+                        valueStringBuilder.append(Arrays.asList((Object[]) item));
                     } else {
                         valueStringBuilder.append(item);
                     }
@@ -167,6 +147,37 @@ public abstract class Example {
             typeValue.setFirst(typeBuilder.substring(0, typeBuilder.length() - 2) + "]");
             typeValue.setSecond(StringEscapeUtils.escapeHtml4(valueStringBuilder.substring(0, valueStringBuilder.length() - 2) + "]"));
         }
+        return typeValue;
+    }
+
+    private Pair<String, String> createTypeValue(final Object value) {
+        final Pair<String, String> typeValue = new Pair<>();
+        if (null == value) {
+            typeValue.setFirst("");
+            typeValue.setSecond("null");
+        } else {
+            typeValue.setFirst(value.getClass().getName());
+            if (value instanceof Iterable || value instanceof Object[]) {
+                Iterable parsedValue = value instanceof Object[] ? Arrays.asList((Object[]) value) : (Iterable) value;
+                final StringBuilder valueStr = new StringBuilder();
+                valueStr.append("[");
+                for (final Object obj : parsedValue) {
+                    if (valueStr.length() > 1) {
+                        valueStr.append(", ");
+                    }
+                    if (null == obj) {
+                        valueStr.append("null");
+                    } else {
+                        valueStr.append(StringEscapeUtils.escapeHtml4(obj.toString()));
+                    }
+                }
+                valueStr.append("]");
+                typeValue.setSecond(valueStr.toString());
+            } else {
+                typeValue.setSecond(StringEscapeUtils.escapeHtml4(value.toString()));
+            }
+        }
+
         return typeValue;
     }
 
