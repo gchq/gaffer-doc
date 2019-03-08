@@ -25,9 +25,7 @@ import uk.gov.gchq.gaffer.operation.impl.join.Join;
 import uk.gov.gchq.gaffer.operation.impl.join.match.MatchKey;
 import uk.gov.gchq.gaffer.operation.impl.join.methods.JoinType;
 import uk.gov.gchq.gaffer.store.operation.handler.join.match.ElementMatch;
-import uk.gov.gchq.gaffer.store.operation.handler.join.merge.ElementMerge;
-import uk.gov.gchq.gaffer.store.operation.handler.join.merge.MergeType;
-import uk.gov.gchq.gaffer.store.operation.handler.join.merge.ResultsWanted;
+import uk.gov.gchq.koryphe.tuple.MapTuple;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,189 +38,243 @@ public class JoinExample extends OperationExample {
     }
 
     public JoinExample() {
-        super(Join.class, "This operation Joins two iterables together. There are three different types" +
-                " of Join:\n" +
-                "1) FULL - returns all objects in the key, along with any matched objects from the other side\n" +
-                "2) INNER - returns all matching keys with objects on the other side\n" +
-                "3) OUTER - returns all non matching keys\n" +
+        super(Join.class, "This operation joins two iterables together. There are three different types" +
+                " of Join:\n\n" +
+                "* FULL - returns all objects in the key, along with any matched objects from the other side\n" +
+                "* INNER - returns all keys which matched with objects on the other side\n" +
+                "* OUTER - returns all keys which didn't match with objects from the other side\n" +
                 "\n" +
                 "A Join operation can key by the left (input) or right hand side (output of the operation specified)" +
-                " and outputs an iterable of MapTuples. These Tuples contain the left and right outputs and can be iterated over" +
-                " using the Map operation.\n\n" +
+                " and outputs an iterable of MapTuples. These Tuples contain the left and right outputs.\n" +
+                "\n" +
                 "A join operation must be supplied with a match method. This tells the operation how to determine what is and what" +
                 " isn't a match. There are two built in match methods:\n" +
-                "1) ElementMatch - Matches elements of the same id(s), group and group by properties\n" +
-                "2) KeyFunctionMatch - Matches any objects based on two key functions. The first key function applies to whatever the" +
-                " join type is (the object on the left hand side for Left keyed join and vice versa for the right)\n\n" +
+                "\n" +
+                "* ElementMatch - Matches elements of the same id(s), group and group by properties\n" +
+                "* KeyFunctionMatch - Matches any objects based on two key functions. The first key function applies to whatever the" +
+                " join type is (the object on the left hand side for Left keyed join and vice versa for the right).\n" +
+                "\n" +
                 "Once matched, the left and right sides are outputted as MapTuples keyed by \"LEFT\" and \"RIGHT\". The output is" +
-                "flattened by default (one left value for each right value) but this can be turned off using the flatten flag." +
+                " flattened by default (one left value for each right value) but this can be turned off using the flatten flag." +
                 " Setting the flatten flag to false will cause the non keyed side to be summarised in a list.");
     }
 
     @Override
     protected void runExamples() {
-        leftKeyFullInnerJoin();
-        rightKeyFullInnerJoin();
-        leftKeyFullJoin();
-        rightKeyFullJoin();
-        fullOuterJoin();
-        leftKeyOuterJoin();
-        rightKeyOuterJoin();
         leftKeyInnerJoin();
+        flattenedLeftKeyInnerJoin();
         rightKeyInnerJoin();
+        flattenedRightKeyInnerJoin();
+        leftKeyFullJoin();
+        flattenedLeftKeyFullJoin();
+        rightKeyFullJoin();
+        flattenedRightKeyFullJoin();
+        leftKeyOuterJoin();
+        flattenedLeftKeyOuterJoin();
+        rightKeyOuterJoin();
+        flattenedRightKeyOuterJoin();
     }
 
-    public Iterable<? extends Element> leftKeyFullInnerJoin() {
+    public Iterable<? extends MapTuple> leftKeyFullJoin() {
         List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
         // ---------------------------------------------------------
-        final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
-                .first(new Join.Builder<Element, Element>()
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
                         .input(inputElements)
                         .operation(new GetAllElements())
-                        .joinType(JoinType.FULL_INNER)
+                        .joinType(JoinType.FULL)
                         .matchKey(MatchKey.LEFT)
+                        .flatten(false)
                         .matchMethod(new ElementMatch("count"))
-                        .mergeMethod(new ElementMerge(ResultsWanted.KEY_ONLY, MergeType.NONE))
                         .build())
                 .build();
         // ---------------------------------------------------------
         return runExample(opChain, null);
     }
 
-    public Iterable<? extends Element> rightKeyFullInnerJoin() {
+    public Iterable<? extends MapTuple> flattenedLeftKeyFullJoin() {
         List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
         // ---------------------------------------------------------
-        final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
-                .first(new Join.Builder<Element, Element>()
-                        .input(inputElements)
-                        .operation(new GetAllElements())
-                        .joinType(JoinType.FULL_INNER)
-                        .matchKey(MatchKey.RIGHT)
-                        .matchMethod(new ElementMatch("count"))
-                        .mergeMethod(new ElementMerge(ResultsWanted.KEY_ONLY, MergeType.NONE))
-                        .build())
-                .build();
-        // ---------------------------------------------------------
-        return runExample(opChain, null);
-    }
-
-    public Iterable<? extends Element> leftKeyFullJoin() {
-        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
-        // ---------------------------------------------------------
-        final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
-                .first(new Join.Builder<Element, Element>()
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
                         .input(inputElements)
                         .operation(new GetAllElements())
                         .joinType(JoinType.FULL)
                         .matchKey(MatchKey.LEFT)
                         .matchMethod(new ElementMatch("count"))
-                        .mergeMethod(new ElementMerge(ResultsWanted.KEY_ONLY, MergeType.NONE))
                         .build())
                 .build();
         // ---------------------------------------------------------
         return runExample(opChain, null);
     }
 
-    public Iterable<? extends Element> rightKeyFullJoin() {
+
+    public Iterable<? extends MapTuple> rightKeyFullJoin() {
         List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
         // ---------------------------------------------------------
-        final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
-                .first(new Join.Builder<Element, Element>()
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.FULL)
+                        .matchKey(MatchKey.RIGHT)
+                        .flatten(false)
+                        .matchMethod(new ElementMatch("count"))
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+        return runExample(opChain, null);
+    }
+
+    public Iterable<? extends MapTuple> flattenedRightKeyFullJoin() {
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        // ---------------------------------------------------------
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
                         .input(inputElements)
                         .operation(new GetAllElements())
                         .joinType(JoinType.FULL)
                         .matchKey(MatchKey.RIGHT)
                         .matchMethod(new ElementMatch("count"))
-                        .mergeMethod(new ElementMerge(ResultsWanted.KEY_ONLY, MergeType.NONE))
                         .build())
                 .build();
         // ---------------------------------------------------------
         return runExample(opChain, null);
     }
 
-    public Iterable<? extends Element> fullOuterJoin() {
+    public Iterable<? extends MapTuple> leftKeyOuterJoin() {
         List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
         // ---------------------------------------------------------
-        final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
-                .first(new Join.Builder<Element, Element>()
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
                         .input(inputElements)
                         .operation(new GetAllElements())
-                        .joinType(JoinType.FULL_OUTER)
+                        .joinType(JoinType.OUTER)
+                        .matchKey(MatchKey.LEFT)
+                        .flatten(false)
                         .matchMethod(new ElementMatch("count"))
-                        .mergeMethod(new ElementMerge(ResultsWanted.KEY_ONLY, MergeType.NONE))
                         .build())
                 .build();
         // ---------------------------------------------------------
         return runExample(opChain, null);
     }
 
-    public Iterable<? extends Element> leftKeyOuterJoin() {
+    public Iterable<? extends MapTuple> flattenedLeftKeyOuterJoin() {
         List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
         // ---------------------------------------------------------
-        final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
-                .first(new Join.Builder<Element, Element>()
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
                         .input(inputElements)
                         .operation(new GetAllElements())
                         .joinType(JoinType.OUTER)
                         .matchKey(MatchKey.LEFT)
                         .matchMethod(new ElementMatch("count"))
-                        .mergeMethod(new ElementMerge(ResultsWanted.KEY_ONLY, MergeType.NONE))
                         .build())
                 .build();
         // ---------------------------------------------------------
         return runExample(opChain, null);
     }
 
-    public Iterable<? extends Element> rightKeyOuterJoin() {
+    public Iterable<? extends MapTuple> rightKeyOuterJoin() {
         List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
         // ---------------------------------------------------------
-        final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
-                .first(new Join.Builder<Element, Element>()
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.OUTER)
+                        .matchKey(MatchKey.RIGHT)
+                        .flatten(false)
+                        .matchMethod(new ElementMatch("count"))
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+        return runExample(opChain, null);
+    }
+
+    public Iterable<? extends MapTuple> flattenedRightKeyOuterJoin() {
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        // ---------------------------------------------------------
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
                         .input(inputElements)
                         .operation(new GetAllElements())
                         .joinType(JoinType.OUTER)
                         .matchKey(MatchKey.RIGHT)
                         .matchMethod(new ElementMatch("count"))
-                        .mergeMethod(new ElementMerge(ResultsWanted.KEY_ONLY, MergeType.NONE))
                         .build())
                 .build();
         // ---------------------------------------------------------
         return runExample(opChain, null);
     }
 
-    public Iterable<? extends Element> leftKeyInnerJoin() {
+
+    public Iterable<? extends MapTuple> leftKeyInnerJoin() {
         List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
         // ---------------------------------------------------------
-        final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
-                .first(new Join.Builder<Element, Element>()
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
                         .input(inputElements)
                         .operation(new GetAllElements())
                         .joinType(JoinType.INNER)
                         .matchKey(MatchKey.LEFT)
+                        .flatten(false)
                         .matchMethod(new ElementMatch("count"))
-                        .mergeMethod(new ElementMerge(ResultsWanted.KEY_ONLY, MergeType.NONE))
                         .build())
                 .build();
         // ---------------------------------------------------------
         return runExample(opChain, null);
     }
 
-    public Iterable<? extends Element> rightKeyInnerJoin() {
+    public Iterable<? extends MapTuple> rightKeyInnerJoin() {
         List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
         // ---------------------------------------------------------
-        final OperationChain<Iterable<? extends Element>> opChain = new OperationChain.Builder()
-                .first(new Join.Builder<Element, Element>()
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
                         .input(inputElements)
                         .operation(new GetAllElements())
                         .joinType(JoinType.INNER)
                         .matchKey(MatchKey.RIGHT)
+                        .flatten(false)
                         .matchMethod(new ElementMatch("count"))
-                        .mergeMethod(new ElementMerge(ResultsWanted.KEY_ONLY, MergeType.NONE))
                         .build())
                 .build();
         // ---------------------------------------------------------
         return runExample(opChain, null);
     }
+
+    public Iterable<? extends MapTuple> flattenedLeftKeyInnerJoin() {
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        // ---------------------------------------------------------
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.INNER)
+                        .matchMethod(new ElementMatch("count"))
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+        return runExample(opChain, null);
+    }
+
+    public Iterable<? extends MapTuple> flattenedRightKeyInnerJoin() {
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        // ---------------------------------------------------------
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .flatten(true)
+                        .matchKey(MatchKey.RIGHT)
+                        .joinType(JoinType.INNER)
+                        .matchMethod(new ElementMatch("count"))
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+        return runExample(opChain, null);
+    }
+
 
 
     private Entity getJoinEntity(final String group, final int vertex, final int propVal) {
