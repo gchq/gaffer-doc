@@ -40,19 +40,23 @@ public class JoinExample extends OperationExample {
     }
 
     public JoinExample() {
-        super(Join.class, "This Operation can be used to join two iterables of Elements." +
-                "A left side Iterable must be specified, along with a right side Operation that will produce the second iterable." +
-                "A JoinType will be specified, which will describe the Join on the two iterables.  The possible types are FULL, FULL_INNER," +
-                "FULL_OUTER, OUTER and INNER.  A FULL join will return all Elements from both sides, joining related rows where appropriate." +
-                "A FULL_INNER will return only the related `middle` where " +
-                "both rows have a relationship based on the ElementMatch.  A " +
-                "FULL_OUTER will return only Elements" +
-                "where there is no relationship between the rows.  An OUTER will return just the side specified by the Key with no relations." +
-                "An INNER will return only the related elements from the `middle` based on the key specified.  A MatchKey will also be " +
-                "specified, which will describe the side in which the Key will be set, the options for this being LEFT or RIGHT.  The Matcher class" +
-                "describes how the match on the two Elements will be done.  The Merge class will then describe how the Elements will be merged together" +
-                "into a useful Iterable.  Within the Merge method it is possible to select the KEY_ONLY, RELATED_ONLY or BOTH results, and the " +
-                "MergeType (NONE, AGAINST_KEY, BOTH).  The Element aggregation used will be the same as the ingest Aggregator specified in the Schema.");
+        super(Join.class, "This operation Joins two iterables together. There are three different types" +
+                " of Join:\n" +
+                "1) FULL - returns all objects in the key, along with any matched objects from the other side\n" +
+                "2) INNER - returns all matching keys with objects on the other side\n" +
+                "3) OUTER - returns all non matching keys\n" +
+                "\n" +
+                "A Join operation can key by the left (input) or right hand side (output of the operation specified)" +
+                " and outputs an iterable of MapTuples. These Tuples contain the left and right outputs and can be iterated over" +
+                " using the Map operation.\n\n" +
+                "A join operation must be supplied with a match method. This tells the operation how to determine what is and what" +
+                " isn't a match. There are two built in match methods:\n" +
+                "1) ElementMatch - Matches elements of the same id(s), group and group by properties\n" +
+                "2) KeyFunctionMatch - Matches any objects based on two key functions. The first key function applies to whatever the" +
+                " join type is (the object on the left hand side for Left keyed join and vice versa for the right)\n\n" +
+                "Once matched, the left and right sides are outputted as MapTuples keyed by \"LEFT\" and \"RIGHT\". The output is" +
+                "flattened by default (one left value for each right value) but this can be turned off using the flatten flag." +
+                " Setting the flatten flag to false will cause the non keyed side to be summarised in a list.");
     }
 
     @Override
