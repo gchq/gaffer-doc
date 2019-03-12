@@ -33,7 +33,7 @@ import java.util.List;
 
 public class JoinExample extends OperationExample {
 
-    public static void main(final String[] args) throws OperationException {
+    public static void main(final String[] args) {
         new JoinExample().runAndPrint();
     }
 
@@ -73,6 +73,72 @@ public class JoinExample extends OperationExample {
         flattenedLeftKeyOuterJoin();
         rightKeyOuterJoin();
         flattenedRightKeyOuterJoin();
+    }
+
+    public Iterable<? extends MapTuple> leftKeyInnerJoin() {
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        // ---------------------------------------------------------
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.INNER)
+                        .matchKey(MatchKey.LEFT)
+                        .flatten(false)
+                        .matchMethod(new ElementMatch("count"))
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+        return runExample(opChain, null);
+    }
+
+    public Iterable<? extends MapTuple> flattenedLeftKeyInnerJoin() {
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        // ---------------------------------------------------------
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.INNER)
+                        .matchMethod(new ElementMatch("count"))
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+        return runExample(opChain, null);
+    }
+
+    public Iterable<? extends MapTuple> rightKeyInnerJoin() {
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        // ---------------------------------------------------------
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.INNER)
+                        .matchKey(MatchKey.RIGHT)
+                        .flatten(false)
+                        .matchMethod(new ElementMatch("count"))
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+        return runExample(opChain, null);
+    }
+
+    public Iterable<? extends MapTuple> flattenedRightKeyInnerJoin() {
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        // ---------------------------------------------------------
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .flatten(true)
+                        .matchKey(MatchKey.RIGHT)
+                        .joinType(JoinType.INNER)
+                        .matchMethod(new ElementMatch("count"))
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+        return runExample(opChain, null);
     }
 
     public Iterable<? extends MapTuple> leftKeyFullJoin() {
@@ -208,72 +274,6 @@ public class JoinExample extends OperationExample {
         return runExample(opChain, null);
     }
 
-
-    public Iterable<? extends MapTuple> leftKeyInnerJoin() {
-        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
-        // ---------------------------------------------------------
-        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
-                .first(new Join.Builder<>()
-                        .input(inputElements)
-                        .operation(new GetAllElements())
-                        .joinType(JoinType.INNER)
-                        .matchKey(MatchKey.LEFT)
-                        .flatten(false)
-                        .matchMethod(new ElementMatch("count"))
-                        .build())
-                .build();
-        // ---------------------------------------------------------
-        return runExample(opChain, null);
-    }
-
-    public Iterable<? extends MapTuple> rightKeyInnerJoin() {
-        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
-        // ---------------------------------------------------------
-        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
-                .first(new Join.Builder<>()
-                        .input(inputElements)
-                        .operation(new GetAllElements())
-                        .joinType(JoinType.INNER)
-                        .matchKey(MatchKey.RIGHT)
-                        .flatten(false)
-                        .matchMethod(new ElementMatch("count"))
-                        .build())
-                .build();
-        // ---------------------------------------------------------
-        return runExample(opChain, null);
-    }
-
-    public Iterable<? extends MapTuple> flattenedLeftKeyInnerJoin() {
-        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
-        // ---------------------------------------------------------
-        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
-                .first(new Join.Builder<>()
-                        .input(inputElements)
-                        .operation(new GetAllElements())
-                        .joinType(JoinType.INNER)
-                        .matchMethod(new ElementMatch("count"))
-                        .build())
-                .build();
-        // ---------------------------------------------------------
-        return runExample(opChain, null);
-    }
-
-    public Iterable<? extends MapTuple> flattenedRightKeyInnerJoin() {
-        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
-        // ---------------------------------------------------------
-        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
-                .first(new Join.Builder<>()
-                        .input(inputElements)
-                        .operation(new GetAllElements())
-                        .flatten(true)
-                        .matchKey(MatchKey.RIGHT)
-                        .joinType(JoinType.INNER)
-                        .matchMethod(new ElementMatch("count"))
-                        .build())
-                .build();
-        // ---------------------------------------------------------
-        return runExample(opChain, null);
-    }
 
 
 
