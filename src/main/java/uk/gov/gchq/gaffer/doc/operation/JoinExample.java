@@ -19,7 +19,6 @@ package uk.gov.gchq.gaffer.doc.operation;
 import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.element.Entity;
 import uk.gov.gchq.gaffer.operation.OperationChain;
-import uk.gov.gchq.gaffer.operation.OperationException;
 import uk.gov.gchq.gaffer.operation.impl.get.GetAllElements;
 import uk.gov.gchq.gaffer.operation.impl.join.Join;
 import uk.gov.gchq.gaffer.operation.impl.join.match.MatchKey;
@@ -76,7 +75,7 @@ public class JoinExample extends OperationExample {
     }
 
     public Iterable<? extends MapTuple> leftKeyInnerJoin() {
-        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3), getJoinEntity("entity", 6, 30)));
         // ---------------------------------------------------------
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
@@ -93,7 +92,7 @@ public class JoinExample extends OperationExample {
     }
 
     public Iterable<? extends MapTuple> flattenedLeftKeyInnerJoin() {
-        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3), getJoinEntity("entity", 6, 30)));
         // ---------------------------------------------------------
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
@@ -108,7 +107,7 @@ public class JoinExample extends OperationExample {
     }
 
     public Iterable<? extends MapTuple> rightKeyInnerJoin() {
-        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3), getJoinEntity("entity", 6, 30)));
         // ---------------------------------------------------------
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
@@ -125,7 +124,7 @@ public class JoinExample extends OperationExample {
     }
 
     public Iterable<? extends MapTuple> flattenedRightKeyInnerJoin() {
-        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3), getJoinEntity("entity", 6, 30)));
         // ---------------------------------------------------------
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
@@ -142,7 +141,7 @@ public class JoinExample extends OperationExample {
     }
 
     public Iterable<? extends MapTuple> leftKeyFullJoin() {
-        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3), getJoinEntity("entity", 6, 30)));
         // ---------------------------------------------------------
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
@@ -159,7 +158,7 @@ public class JoinExample extends OperationExample {
     }
 
     public Iterable<? extends MapTuple> flattenedLeftKeyFullJoin() {
-        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3), getJoinEntity("entity", 6, 30)));
         // ---------------------------------------------------------
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
@@ -176,7 +175,7 @@ public class JoinExample extends OperationExample {
 
 
     public Iterable<? extends MapTuple> rightKeyFullJoin() {
-        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3), getJoinEntity("entity", 6, 30)));
         // ---------------------------------------------------------
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
@@ -193,7 +192,7 @@ public class JoinExample extends OperationExample {
     }
 
     public Iterable<? extends MapTuple> flattenedRightKeyFullJoin() {
-        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3), getJoinEntity("entity", 6, 30)));
         // ---------------------------------------------------------
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
@@ -209,7 +208,7 @@ public class JoinExample extends OperationExample {
     }
 
     public Iterable<? extends MapTuple> leftKeyOuterJoin() {
-        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3), getJoinEntity("entity", 6, 30)));
         // ---------------------------------------------------------
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
@@ -226,7 +225,7 @@ public class JoinExample extends OperationExample {
     }
 
     public Iterable<? extends MapTuple> flattenedLeftKeyOuterJoin() {
-        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3), getJoinEntity("entity", 6, 30)));
         // ---------------------------------------------------------
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
@@ -242,7 +241,7 @@ public class JoinExample extends OperationExample {
     }
 
     public Iterable<? extends MapTuple> rightKeyOuterJoin() {
-        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3), getJoinEntity("entity", 6, 30)));
         // ---------------------------------------------------------
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
@@ -259,7 +258,7 @@ public class JoinExample extends OperationExample {
     }
 
     public Iterable<? extends MapTuple> flattenedRightKeyOuterJoin() {
-        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3)));
+        List<Element> inputElements = new ArrayList<>(Arrays.asList(getJoinEntity("entity", 1, 3), getJoinEntity("entity", 4, 1), getJoinEntity("entity", 5, 3), getJoinEntity("entity", 6, 30)));
         // ---------------------------------------------------------
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
