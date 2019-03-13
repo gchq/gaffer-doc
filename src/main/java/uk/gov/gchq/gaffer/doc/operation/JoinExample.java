@@ -105,8 +105,10 @@ public class JoinExample extends OperationExample {
         );
         // ---------------------------------------------------------
         try {
+            print("```json");
             print(new String(JSONSerialiser.serialise(inputElements,
                     true)));
+            print("```");
         } catch (final SerialisationException e) {
             // Ignore exception.
         }
