@@ -18,6 +18,8 @@ package uk.gov.gchq.gaffer.doc.operation;
 
 import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.element.Entity;
+import uk.gov.gchq.gaffer.exception.SerialisationException;
+import uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser;
 import uk.gov.gchq.gaffer.operation.OperationChain;
 import uk.gov.gchq.gaffer.operation.impl.get.GetAllElements;
 import uk.gov.gchq.gaffer.operation.impl.join.Join;
@@ -26,10 +28,12 @@ import uk.gov.gchq.gaffer.operation.impl.join.methods.JoinType;
 import uk.gov.gchq.gaffer.store.operation.handler.join.match.ElementMatch;
 import uk.gov.gchq.koryphe.tuple.MapTuple;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class JoinExample extends OperationExample {
+    private List<Element> inputElements = new ArrayList<>();
 
     public static void main(final String[] args) {
         new JoinExample().runAndPrint();
@@ -59,6 +63,7 @@ public class JoinExample extends OperationExample {
 
     @Override
     protected void runExamples() {
+        setAndPrintInputElements();
         leftKeyInnerJoin();
         flattenedLeftKeyInnerJoin();
         rightKeyInnerJoin();
@@ -73,9 +78,10 @@ public class JoinExample extends OperationExample {
         flattenedRightKeyOuterJoin();
     }
 
-    public Iterable<? extends MapTuple> leftKeyInnerJoin() {
+    public void setAndPrintInputElements() {
+        print("Input elements for the following Join examples: \n");
         // ---------------------------------------------------------
-        List<Element> inputElements = Arrays.asList(
+        inputElements = Arrays.asList(
                 new Entity.Builder()
                         .group("entity")
                         .vertex(1)
@@ -96,8 +102,18 @@ public class JoinExample extends OperationExample {
                         .vertex(6)
                         .property("count", 30)
                         .build()
-                );
+        );
+        // ---------------------------------------------------------
+        try {
+            print(new String(JSONSerialiser.serialise(inputElements,
+                    true)));
+        } catch (final SerialisationException e) {
+            // Ignore exception.
+        }
+    }
 
+    public Iterable<? extends MapTuple> leftKeyInnerJoin() {
+        // ---------------------------------------------------------
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
                         .input(inputElements)
@@ -114,29 +130,6 @@ public class JoinExample extends OperationExample {
 
     public Iterable<? extends MapTuple> flattenedLeftKeyInnerJoin() {
         // ---------------------------------------------------------
-        List<Element> inputElements = Arrays.asList(
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(1)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(4)
-                        .property("count", 1)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(5)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(6)
-                        .property("count", 30)
-                        .build()
-        );
-
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
                         .input(inputElements)
@@ -151,29 +144,6 @@ public class JoinExample extends OperationExample {
 
     public Iterable<? extends MapTuple> rightKeyInnerJoin() {
         // ---------------------------------------------------------
-        List<Element> inputElements = Arrays.asList(
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(1)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(4)
-                        .property("count", 1)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(5)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(6)
-                        .property("count", 30)
-                        .build()
-        );
-
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
                         .input(inputElements)
@@ -190,29 +160,6 @@ public class JoinExample extends OperationExample {
 
     public Iterable<? extends MapTuple> flattenedRightKeyInnerJoin() {
         // ---------------------------------------------------------
-        List<Element> inputElements = Arrays.asList(
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(1)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(4)
-                        .property("count", 1)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(5)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(6)
-                        .property("count", 30)
-                        .build()
-        );
-
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
                         .input(inputElements)
@@ -229,29 +176,6 @@ public class JoinExample extends OperationExample {
 
     public Iterable<? extends MapTuple> leftKeyFullJoin() {
         // ---------------------------------------------------------
-        List<Element> inputElements = Arrays.asList(
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(1)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(4)
-                        .property("count", 1)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(5)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(6)
-                        .property("count", 30)
-                        .build()
-        );
-
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
                         .input(inputElements)
@@ -268,29 +192,6 @@ public class JoinExample extends OperationExample {
 
     public Iterable<? extends MapTuple> flattenedLeftKeyFullJoin() {
         // ---------------------------------------------------------
-        List<Element> inputElements = Arrays.asList(
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(1)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(4)
-                        .property("count", 1)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(5)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(6)
-                        .property("count", 30)
-                        .build()
-        );
-
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
                         .input(inputElements)
@@ -307,29 +208,6 @@ public class JoinExample extends OperationExample {
 
     public Iterable<? extends MapTuple> rightKeyFullJoin() {
         // ---------------------------------------------------------
-        List<Element> inputElements = Arrays.asList(
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(1)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(4)
-                        .property("count", 1)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(5)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(6)
-                        .property("count", 30)
-                        .build()
-        );
-
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
                         .input(inputElements)
@@ -346,29 +224,6 @@ public class JoinExample extends OperationExample {
 
     public Iterable<? extends MapTuple> flattenedRightKeyFullJoin() {
         // ---------------------------------------------------------
-        List<Element> inputElements = Arrays.asList(
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(1)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(4)
-                        .property("count", 1)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(5)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(6)
-                        .property("count", 30)
-                        .build()
-        );
-
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
                         .input(inputElements)
@@ -384,29 +239,6 @@ public class JoinExample extends OperationExample {
 
     public Iterable<? extends MapTuple> leftKeyOuterJoin() {
         // ---------------------------------------------------------
-        List<Element> inputElements = Arrays.asList(
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(1)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(4)
-                        .property("count", 1)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(5)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(6)
-                        .property("count", 30)
-                        .build()
-        );
-
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
                         .input(inputElements)
@@ -423,29 +255,6 @@ public class JoinExample extends OperationExample {
 
     public Iterable<? extends MapTuple> flattenedLeftKeyOuterJoin() {
         // ---------------------------------------------------------
-        List<Element> inputElements = Arrays.asList(
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(1)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(4)
-                        .property("count", 1)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(5)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(6)
-                        .property("count", 30)
-                        .build()
-        );
-
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
                         .input(inputElements)
@@ -461,29 +270,6 @@ public class JoinExample extends OperationExample {
 
     public Iterable<? extends MapTuple> rightKeyOuterJoin() {
         // ---------------------------------------------------------
-        List<Element> inputElements = Arrays.asList(
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(1)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(4)
-                        .property("count", 1)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(5)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(6)
-                        .property("count", 30)
-                        .build()
-        );
-
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
                         .input(inputElements)
@@ -500,29 +286,6 @@ public class JoinExample extends OperationExample {
 
     public Iterable<? extends MapTuple> flattenedRightKeyOuterJoin() {
         // ---------------------------------------------------------
-        List<Element> inputElements = Arrays.asList(
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(1)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(4)
-                        .property("count", 1)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(5)
-                        .property("count", 3)
-                        .build(),
-                new Entity.Builder()
-                        .group("entity")
-                        .vertex(6)
-                        .property("count", 30)
-                        .build()
-        );
-
         final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
                 .first(new Join.Builder<>()
                         .input(inputElements)
