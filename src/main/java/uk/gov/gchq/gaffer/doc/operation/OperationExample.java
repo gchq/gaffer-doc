@@ -231,7 +231,7 @@ public abstract class OperationExample extends Example {
                             .collect(Collectors.joining(" --> ", "[ ", " ]")));
                 } else if (item instanceof Iterable) {
                     print(StreamSupport.stream(((Iterable) item).spliterator(), false)
-                            .map(Object::toString)
+                            .map(o -> o == null ? "null" : o.toString())
                             .collect(Collectors.joining(" --> ", "[ ", " ]")).toString());
                 } else {
                     print(item.toString());
