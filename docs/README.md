@@ -92,4 +92,4 @@ We welcome contributions to the project. Detailed information on our ways of wor
 - Push your changes to a fork;
 - Submit a pull request.
 
-<p style="text-align: right">Version 1.8.3</p>
+<p style="text-align: right">Version 1.9.0-RC1</p>
