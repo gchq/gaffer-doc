@@ -20,6 +20,7 @@ import com.google.common.collect.Lists;
 import uk.gov.gchq.gaffer.commonutil.CommonTimeUtil;
 import uk.gov.gchq.gaffer.time.RBMBackedTimestampSet;
 import uk.gov.gchq.gaffer.time.function.MaskTimestampSetByTimeRange;
+import uk.gov.gchq.koryphe.util.TimeUnit;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -40,12 +41,10 @@ public class MaskTimestampSetByTimeRangeExample extends FunctionExample {
     protected void runExamples() {
         setupTimestampSet();
         maskWithStartDate();
-        setupTimestampSet();
         maskWithEndDate();
-        setupTimestampSet();
         maskWithStartAndEndDate();
-        setupTimestampSet();
         maskWithNoStartOrEndDates();
+        maskWithTimeUnit();
     }
 
     private void setupTimestampSet() {
@@ -69,9 +68,7 @@ public class MaskTimestampSetByTimeRangeExample extends FunctionExample {
 
     public void maskWithEndDate() {
         // ---------------------------------------------------------
-        MaskTimestampSetByTimeRange function = new MaskTimestampSetByTimeRange();
-
-        function.setTimeRangeEndEpochMilli(20000);
+        MaskTimestampSetByTimeRange function = new MaskTimestampSetByTimeRange(null, 20000L);
         // ---------------------------------------------------------
 
         runExample(function, null, timestampSet);
@@ -79,8 +76,7 @@ public class MaskTimestampSetByTimeRangeExample extends FunctionExample {
 
     public void maskWithStartDate() {
         // ---------------------------------------------------------
-        MaskTimestampSetByTimeRange function = new MaskTimestampSetByTimeRange();
-        function.setTimeRangeStartEpochMilli(10000);
+        MaskTimestampSetByTimeRange function = new MaskTimestampSetByTimeRange(10000L, null);
         // ---------------------------------------------------------
 
         runExample(function, null, timestampSet);
@@ -89,6 +85,14 @@ public class MaskTimestampSetByTimeRangeExample extends FunctionExample {
     public void maskWithNoStartOrEndDates() {
         // ---------------------------------------------------------
         MaskTimestampSetByTimeRange function = new MaskTimestampSetByTimeRange();
+        // ---------------------------------------------------------
+
+        runExample(function, null, timestampSet);
+    }
+
+    public void maskWithTimeUnit() {
+        // ---------------------------------------------------------
+        MaskTimestampSetByTimeRange function = new MaskTimestampSetByTimeRange(10L, 25L, TimeUnit.SECOND);
         // ---------------------------------------------------------
 
         runExample(function, null, timestampSet);
