@@ -46,7 +46,6 @@ public class CollectionIntersectExample extends BinaryOperatorExample {
                 new Pair(Lists.newArrayList("test1"), Lists.newArrayList("test2", "test3")),
                 new Pair(Lists.newArrayList(1), Lists.newArrayList(1, 2)),
                 new Pair(Lists.newArrayList(), Lists.newArrayList("abc", "cde")),
-                new Pair(Lists.newArrayList(1, 2, 3), Lists.newArrayList(1L, 2L, 3L)),
                 new Pair(Lists.newArrayList("test1"), null),
                 new Pair(Sets.newHashSet("a", "b"), Sets.newHashSet("b", "c"))
         );
