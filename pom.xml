@@ -20,14 +20,14 @@
     <parent>
         <groupId>uk.gov.gchq.gaffer</groupId>
         <artifactId>gaffer2</artifactId>
-        <version>1.9.0</version>
+        <version>1.9.1</version>
     </parent>
 
     <artifactId>doc</artifactId>
 
     <properties>
-        <gaffer.version>1.9.0</gaffer.version>
-        <gaffer-tools.version>1.9.1</gaffer-tools.version>
+        <gaffer.version>1.9.1</gaffer.version>
+        <gaffer-tools.version>1.9.2</gaffer-tools.version>
         <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
         <swagger-maven-plugin.version>3.1.5</swagger-maven-plugin.version>
         <maven-dependency-plugin.version>3.0.2</maven-dependency-plugin.version>
