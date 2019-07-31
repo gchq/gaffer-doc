@@ -27,7 +27,7 @@
 
     <properties>
         <gaffer.version>1.10.0-RC1</gaffer.version>
-        <gaffer-tools.version>1.9.2</gaffer-tools.version>
+        <gaffer-tools.version>1.10.0-RC2</gaffer-tools.version>
         <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
         <swagger-maven-plugin.version>3.1.5</swagger-maven-plugin.version>
         <maven-dependency-plugin.version>3.0.2</maven-dependency-plugin.version>
