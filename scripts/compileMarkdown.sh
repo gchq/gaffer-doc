@@ -20,13 +20,28 @@ done
 set -e
 
 mkdir -p docs/components/tool
-components="ui python-shell deployment slider";
+components="ui python-shell deployment slider analytics/analytics-ui";
 set +e
-for component in $components; do
+for component in ${components}; do
     echo "Fetching component: $component"
-    curl https://raw.githubusercontent.com/gchq/gaffer-tools/master/$component/README.md -o docs/components/tool/$component.md
-    sed -i '' '/This page has been copied from/d' docs/components/tool/$component.md > /dev/null 2>&1
-    sed -i '/This page has been copied from/d' docs/components/tool/$component.md > /dev/null 2>&1
+    shortName=${component##*/}
+    curl https://raw.githubusercontent.com/gchq/gaffer-tools/master/${component}/README.md -o docs/components/tool/${shortName}.md
+    sed -i '' '/This page has been copied from/d' docs/components/tool/${shortName}.md > /dev/null 2>&1
+    sed -i '/This page has been copied from/d' docs/components/tool/${shortName}.md > /dev/null 2>&1
+done
+set -e
+
+set +e
+assets="analytics/analytics-ui/assets/{2_analytics.png,analytic_y_params.png,rest_closed.png,results.png}"
+for asset in `eval echo ${assets}`; do
+    dir=${asset%/*}
+    assetFile=${asset##*/}
+    echo "Creating directory: $dir"
+    mkdir -p docs/components/${dir}
+    echo "Fetching asset: $asset"
+    curl https://raw.githubusercontent.com/gchq/gaffer-tools/master/${asset} -o docs/components/tool/${asset}
+
+    sed -i 's:(.*'${assetFile}'):(./'${asset}'):' docs/components/tool/*.md
 done
 set -e
 
