@@ -37,11 +37,11 @@ for asset in `eval echo ${assets}`; do
     dir=${asset%/*}
     assetFile=${asset##*/}
     echo "Creating directory: $dir"
-    mkdir -p docs/components/${dir}
+    mkdir -p docs/components/tool/${dir}
     echo "Fetching asset: $asset"
     curl https://raw.githubusercontent.com/gchq/gaffer-tools/master/${asset} -o docs/components/tool/${asset}
-
-    sed -i 's:(.*'${assetFile}'):(./'${asset}'):' docs/components/tool/*.md
+    sed -i '' 's:(.*'${assetFile}'):(./'${asset}'):' docs/components/tool/*.md > /dev/null 2>&1
+    sed -i 's:(.*'${assetFile}'):(./'${asset}'):' docs/components/tool/*.md > /dev/null 2>&1
 done
 set -e
 
