@@ -37,8 +37,8 @@ public class DeserialiseXmlExample extends FunctionExample {
         final DeserialiseXml function = new DeserialiseXml();
         // ---------------------------------------------------------
 
-        final String input = "<root><element1><element2 attr=\"attr1\">value1</element2></element1><element1><element2>value2</element2></element1></root>";
-
-        runExample(function, null, input);
+        runExample(function, null, "<element1>value</element1>",
+                "<root><element1>value1</element1><element2>value2</element2></root>",
+                "<root><element1><element2>value1</element2></element1><element1><element2>value2</element2></element1></root>");
     }
 }

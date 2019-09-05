@@ -21,6 +21,7 @@ import uk.gov.gchq.koryphe.impl.binaryoperator.Min;
 import uk.gov.gchq.koryphe.impl.binaryoperator.Sum;
 import uk.gov.gchq.koryphe.impl.function.ApplyBiFunction;
 import uk.gov.gchq.koryphe.tuple.n.Tuple2;
+import uk.gov.gchq.koryphe.tuple.n.Tuple4;
 
 public class ApplyBiFunctionExample extends FunctionExample {
 
@@ -34,32 +35,31 @@ public class ApplyBiFunctionExample extends FunctionExample {
 
     @Override
     protected void runExamples() {
-        applyBiFunctionSum();
-        applyBiFunctionMax();
-        applyBiFunctionMin();
+        applyBiFunctionUsingSum();
+        applyBiFunctionUsingMax();
+        applyBiFunctionUsingMin();
     }
 
-    private void applyBiFunctionSum() {
+    private void applyBiFunctionUsingSum() {
         // ---------------------------------------------------------
         final ApplyBiFunction<Number, Number, Number> function = new ApplyBiFunction<>(new Sum());
         // ---------------------------------------------------------
-        final Tuple2<Number, Number> input = new Tuple2<>(1, 2);
-        runExample(function, null, input);
+        runExample(function, null, new Tuple2<Number, Number>(1, 2), new Tuple4<>(1, 2, 3, 4), new Tuple2<Number, Number>(1.1, 2.2));
     }
 
-    private void applyBiFunctionMax() {
+    private void applyBiFunctionUsingMax() {
         // ---------------------------------------------------------
         final ApplyBiFunction<Comparable, Comparable, Comparable> function = new ApplyBiFunction<>(new Max());
         // ---------------------------------------------------------
         final Tuple2<Number, Number> input = new Tuple2<>(1, 2);
-        runExample(function, null, input);
+        runExample(function, null, new Tuple2<Number, Number>(1, 2), new Tuple4<>(1, 2, 3, 4), new Tuple2<Number, Number>(1.1, 2.2));
     }
 
-    private void applyBiFunctionMin() {
+    private void applyBiFunctionUsingMin() {
         // ---------------------------------------------------------
         final ApplyBiFunction<Comparable, Comparable, Comparable> function = new ApplyBiFunction<>(new Min());
         // ---------------------------------------------------------
         final Tuple2<Number, Number> input = new Tuple2<>(1, 2);
-        runExample(function, null, input);
+        runExample(function, null, new Tuple2<Number, Number>(1, 2), new Tuple4<>(1, 2, 3, 4), new Tuple2<Number, Number>(1.1, 2.2));
     }
 }

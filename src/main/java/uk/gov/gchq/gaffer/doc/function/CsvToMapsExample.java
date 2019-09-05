@@ -37,7 +37,11 @@ public class CsvToMapsExample extends FunctionExample {
         final CsvToMaps function = new CsvToMaps().header("header1", "header2", "header3").firstRow(1);
         // ---------------------------------------------------------
 
-        String input = "header1,header2,header3\nvalue1,value2,value3";
-        runExample(function, null, input);
+        runExample(function, null, "header1,header2,header3\nvalue1,value2,value3",
+                "header1,header2,header3\nvalue1,value2,value3\nvalue4,value5,value6\"",
+                "header1,header2,header3\n,,value3\nvalue4,value5,value6\"",
+                "header1,header2,header3,header4\nvalue1,value2,value3,value4\nvalue5,value6,value7,value8\"",
+                null,
+                "");
     }
 }

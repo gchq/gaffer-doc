@@ -32,22 +32,7 @@ public class CsvLinesToMapsExample extends FunctionExample {
 
     @Override
     protected void runExamples() {
-        csvToMap();
         cstToMapDeliminator();
-    }
-
-    private void csvToMap() {
-        // ---------------------------------------------------------
-        final CsvLinesToMaps function = new CsvLinesToMaps()
-                .header("header1", "header2", "header3")
-                .firstRow(1);
-        // ---------------------------------------------------------
-
-        final List<String> input = Arrays.asList(
-                "header1,header2,header3",
-                "value1,value2,value3"
-        );
-        runExample(function, null, input);
     }
 
     private void cstToMapDeliminator() {

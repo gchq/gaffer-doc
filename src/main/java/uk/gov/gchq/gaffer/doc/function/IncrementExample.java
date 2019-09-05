@@ -40,10 +40,7 @@ public class IncrementExample extends FunctionExample {
         final Increment increment = new Increment(3);
         // ---------------------------------------------------------
 
-        runExample(increment, "return will match input type int", 2);
-        runExample(increment, "return will match input type double", 2.0d);
-        runExample(increment, "return will match input type float", 2.0f);
-        runExample(increment, "return will match input type long", 2L);
+        runExample(increment, "return will match input type int", 2, 2.0d, 2.0f, 2L);
     }
 
     private void addToDouble() {
@@ -51,10 +48,7 @@ public class IncrementExample extends FunctionExample {
         final Increment increment = new Increment(3.0);
         // ---------------------------------------------------------
 
-        runExample(increment, "return will match input type int", 2);
-        runExample(increment, "return will match input type double", 2.0d);
-        runExample(increment, "return will match input type float", 2.0f);
-        runExample(increment, "return will match input type long", 2L);
+        runExample(increment, "return will match input type double", 2, 2.0d, 2.0f, 2L);
     }
 
     private void addToFloat() {
@@ -62,10 +56,7 @@ public class IncrementExample extends FunctionExample {
         final Increment increment = new Increment(3.0f);
         // ---------------------------------------------------------
 
-        runExample(increment, "return will match input type int", 2);
-        runExample(increment, "return will match input type double", 2.0d);
-        runExample(increment, "return will match input type float", 2.0f);
-        runExample(increment, "return will match input type long", 2L);
+        runExample(increment, "return will match input type float", 2, 2.0d, 2.0f, 2L);
     }
 
     private void addToLong() {
@@ -73,9 +64,6 @@ public class IncrementExample extends FunctionExample {
         final Increment increment = new Increment(3L);
         // ---------------------------------------------------------
 
-        runExample(increment, "return will match input type int", 2);
-        runExample(increment, "return will match input type double", 2.0d);
-        runExample(increment, "return will match input type float", 2.0f);
-        runExample(increment, "return will match input type long", 2L);
+        runExample(increment, "return will match input type long", 2, 2.0d, 2.0f, 2L);
     }
 }

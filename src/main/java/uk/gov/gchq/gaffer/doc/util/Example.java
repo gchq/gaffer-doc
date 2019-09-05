@@ -143,6 +143,8 @@ public abstract class Example {
 
                     if (item instanceof Iterable) {
                         valueStringBuilder.append(Lists.newArrayList((Iterable) item));
+                    } else if (item instanceof Byte[]) {
+                        valueStringBuilder.append(Arrays.toString((Byte[]) item));
                     } else if (item instanceof Object[]) {
                         valueStringBuilder.append(Arrays.asList((Object[]) item));
                     } else {

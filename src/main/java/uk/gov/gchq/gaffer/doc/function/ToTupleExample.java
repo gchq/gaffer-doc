@@ -42,13 +42,10 @@ public class ToTupleExample extends FunctionExample {
         final ToTuple function = new ToTuple();
         // ---------------------------------------------------------
 
-        runExample(function, null, Lists.newArrayList(1, 2, 3, 4));
-        runExample(function, null, new int[]{1, 2, 3, 4});
-        runExample(function, null, new Integer[]{1, 2, 3, 4});
         Map<String, Object> input = new HashMap<>();
         input.put("A", 1);
         input.put("B", 2);
         input.put("C", 3);
-        runExample(function, null, input);
+        runExample(function, null, Lists.newArrayList(1, 2, 3, 4), new int[]{1, 2, 3, 4}, new Integer[]{1, 2, 3, 4}, input);
     }
 }

@@ -29,28 +29,36 @@ public class ParseDateExample extends FunctionExample {
 
     @Override
     protected void runExamples() {
-        parseDateGMT4();
-        parseDateGMT0();
+        parseDateGreenwichMeanTimePlus4Hours();
+        parseDateGreenwichMeanTimePlus0Hours();
     }
 
-    private void parseDateGMT4() {
+    private void parseDateGreenwichMeanTimePlus4Hours() {
         // ---------------------------------------------------------
         final ParseDate parseDate = new ParseDate();
         parseDate.setFormat("yyyy-MM-dd HH:mm:ss.SSS");
         parseDate.setTimeZone("Etc/GMT+4");
         // ---------------------------------------------------------
 
-        runExample(parseDate, "date string", "2015-10-21 16:29:00.000");
+        runExample(parseDate, "date string",
+                "2015-10-21 16:29:00.000",
+                "1985-10-26 09:00:00.000",
+                "1885-01-01 12:00:00.000"
+        );
     }
 
-    private void parseDateGMT0() {
+    private void parseDateGreenwichMeanTimePlus0Hours() {
         // ---------------------------------------------------------
         final ParseDate parseDate = new ParseDate();
         parseDate.setFormat("yyyy-MM-dd HH:mm");
         parseDate.setTimeZone("Etc/GMT+0");
         // ---------------------------------------------------------
 
-        runExample(parseDate, "date string", "2015-10-21 16:29");
+        runExample(parseDate, "date string",
+                "2015-10-21 16:29",
+                "1985-10-26 09:00",
+                "1885-01-01 12:00"
+        );
     }
 
 

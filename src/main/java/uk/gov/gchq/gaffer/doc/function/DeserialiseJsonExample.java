@@ -37,8 +37,10 @@ public class DeserialiseJsonExample extends FunctionExample {
         final DeserialiseJson function = new DeserialiseJson();
         // ---------------------------------------------------------
 
-        final String input = "{\"elements\": [{\"value\": \"value1\"}, {\"value\": \"value2\"}]}";
-        runExample(function, null, input);
+        runExample(function, null, "{\"elements\": [{\"value\": \"value1\"}, {\"value\": \"value2\"}]}",
+                "[ \"ListValue1\", \"ListValue2\", \"ListValue3\" ]",
+                "{ \"number\":30 }",
+                "{ \"false\":true }");
     }
 
 }

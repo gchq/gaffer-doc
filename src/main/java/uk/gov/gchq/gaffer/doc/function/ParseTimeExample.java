@@ -31,31 +31,40 @@ public class ParseTimeExample extends FunctionExample {
     protected void runExamples() {
         parseTime();
         parseFormattedTime();
-        parseFormattedGMT();
+        parseFormattedGreenwichMeanTime();
     }
 
     private void parseTime() {
         // ---------------------------------------------------------
         final ParseTime parseTime = new ParseTime();
         // ---------------------------------------------------------
-        runExample(parseTime, null, "2000-01-02 03:04:05.006");
+        runExample(parseTime, null,
+                "2015-10-21 16:29:00.000",
+                "1985-10-26 09:00:00.000",
+                "1885-01-01 12:00:00.000");
     }
 
     private void parseFormattedTime() {
         // ---------------------------------------------------------
         final ParseTime parseTime = new ParseTime().format("yyyy-MM hh:mm");
         // ---------------------------------------------------------
-        runExample(parseTime, null, "2000-01-02 03:04");
+        runExample(parseTime, null, "2015-10 16:29",
+                "1985-10 09:00",
+                "1885-01 12:00",
+                "2015-10-21 16:29");
     }
 
-    private void parseFormattedGMT() {
+    private void parseFormattedGreenwichMeanTime() {
         // ---------------------------------------------------------
         final ParseTime parseTime = new ParseTime()
                 .format("yyyy-MM-dd")
                 .timeUnit("SECOND")
                 .timeZone("GMT");
         // ---------------------------------------------------------
-        runExample(parseTime, null, "2000-01-02 03:04:05.006");
+        runExample(parseTime, null,
+                "2015-10-21 16:29:00.000",
+                "1985-10-26 09:00:00.000",
+                "1885-01-01 12:00:00.000");
     }
 
 

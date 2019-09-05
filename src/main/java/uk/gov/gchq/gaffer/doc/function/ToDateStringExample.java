@@ -41,7 +41,11 @@ public class ToDateStringExample extends FunctionExample {
         final ToDateString function = new ToDateString("yyyy-MM-dd HH:mm:ss.SSS");
         // ---------------------------------------------------------
 
-        runExample(function, null, new Date(499165200L));
+        runExample(function, null, new Date(499165200L),
+                new Date(0L),
+                System.currentTimeMillis(),
+                new Date(-499165200L)
+        );
     }
 
     private void toDateStringShortFormattedToMin() {
@@ -49,7 +53,12 @@ public class ToDateStringExample extends FunctionExample {
         final ToDateString function = new ToDateString("yy-MM-dd HH:mm");
         // ---------------------------------------------------------
 
-        runExample(function, null, new Date(499165200L));
+        runExample(function, null, new Date(499165200L),
+                new Date(0L),
+                System.currentTimeMillis(),
+                new Date(-499165200L),
+                null
+        );
     }
 
     private void toDateStringShortFormattedToDay() {
@@ -57,6 +66,11 @@ public class ToDateStringExample extends FunctionExample {
         final ToDateString function = new ToDateString("yy-MM-dd");
         // ---------------------------------------------------------
 
-        runExample(function, null, new Date(499165200L));
+        runExample(function, null, new Date(499165200L),
+                new Date(0L),
+                System.currentTimeMillis(),
+                new Date(-499165200L),
+                null
+        );
     }
 }

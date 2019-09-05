@@ -16,6 +16,7 @@
 
 package uk.gov.gchq.gaffer.doc.function;
 
+import uk.gov.gchq.gaffer.types.FreqMap;
 import uk.gov.gchq.koryphe.impl.function.MapToTuple;
 
 import java.util.HashMap;
@@ -44,6 +45,11 @@ public class MapToTupleExample extends FunctionExample {
         input.put("B", 2);
         input.put("C", 3);
 
-        runExample(function, null, input);
+        final FreqMap freqMap = new FreqMap(3);
+        freqMap.upsert("value1");
+        freqMap.upsert("value1");
+        freqMap.upsert("value2");
+
+        runExample(function, null, input, freqMap);
     }
 }

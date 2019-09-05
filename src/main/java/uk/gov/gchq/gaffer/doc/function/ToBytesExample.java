@@ -39,7 +39,7 @@ public class ToBytesExample extends FunctionExample {
         final ToBytes toBytes = new ToBytes(StandardCharsets.UTF_16);
         // ---------------------------------------------------------
 
-        runExample(toBytes, null, "example String");
+        runExample(toBytes, null, "example String", "", null, 1);
     }
 
 }
