@@ -38,7 +38,7 @@ public class CurrentTimeExample extends FunctionExample {
         final CurrentTime currentTime = new CurrentTime();
         // ---------------------------------------------------------
 
-        runExample(currentTime, null);
+        runExample(currentTime, null, null);
     }
 
 
