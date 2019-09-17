@@ -28,7 +28,7 @@ public class MapToTupleExample extends FunctionExample {
     }
 
     public MapToTupleExample() {
-        super(uk.gov.gchq.koryphe.impl.function.MapToTuple.class);
+        super(MapToTuple.class);
     }
 
     @Override

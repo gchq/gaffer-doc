@@ -24,7 +24,7 @@ public class DeserialiseXmlExample extends FunctionExample {
     }
 
     public DeserialiseXmlExample() {
-        super(uk.gov.gchq.koryphe.impl.function.DeserialiseXml.class);
+        super(DeserialiseXml.class);
     }
 
     @Override

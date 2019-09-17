@@ -19,7 +19,6 @@ package uk.gov.gchq.gaffer.doc.function;
 import uk.gov.gchq.koryphe.impl.function.CsvLinesToMaps;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class CsvLinesToMapsExample extends FunctionExample {
     public static void main(final String[] args) {
@@ -43,10 +42,41 @@ public class CsvLinesToMapsExample extends FunctionExample {
                 .delimiter('|');
         // ---------------------------------------------------------
 
-        final List<String> input = Arrays.asList(
-                "header1|header2|header3",
-                "value1|value2|value3"
-        );
-        runExample(function, null, input);
+        runExample(function, null,
+                Arrays.asList(
+                        "header1|header2|header3",
+                        "value1|value2|value3"),
+                Arrays.asList(
+                        "header1|header2|header3",
+                        "value1||value3"),
+                Arrays.asList(
+                        "header1|header2|header3",
+                        "value1|value2"),
+                Arrays.asList(
+                        "header1||header3",
+                        "value1|value2|value3"),
+                Arrays.asList(
+                        "header1|header2",
+                        "value1|value2|value3"),
+                Arrays.asList(
+                        "header1|header2|header3",
+                        "value1|value2|value3",
+                        "value4|value5|value6"),
+                Arrays.asList(
+                        "header1|header2|header3",
+                        "",
+                        "value4|value5|value6"),
+                Arrays.asList(
+                        "header1|header2|header3",
+                        null,
+                        "value4|value5|value6"),
+                Arrays.asList(
+                        "",
+                        "value1|value2|value3",
+                        "value4|value5|value6"),
+                Arrays.asList(
+                        null,
+                        "value1|value2|value3",
+                        "value4|value5|value6"));
     }
 }

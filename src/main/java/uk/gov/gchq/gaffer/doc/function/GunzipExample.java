@@ -28,7 +28,7 @@ public class GunzipExample extends FunctionExample {
     }
 
     public GunzipExample() {
-        super(uk.gov.gchq.koryphe.impl.function.Gunzip.class);
+        super(Gunzip.class);
     }
 
     @Override

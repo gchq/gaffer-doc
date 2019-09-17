@@ -24,7 +24,7 @@ public class ParseDateExample extends FunctionExample {
     }
 
     public ParseDateExample() {
-        super(uk.gov.gchq.koryphe.impl.function.ParseDate.class);
+        super(ParseDate.class);
     }
 
     @Override

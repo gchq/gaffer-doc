@@ -26,7 +26,7 @@ public class ToDateStringExample extends FunctionExample {
     }
 
     public ToDateStringExample() {
-        super(uk.gov.gchq.koryphe.impl.function.ToDateString.class);
+        super(ToDateString.class);
     }
 
     @Override

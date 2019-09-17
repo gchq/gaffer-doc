@@ -16,7 +16,14 @@
 
 package uk.gov.gchq.gaffer.doc.function;
 
+import com.google.common.collect.Lists;
+
+import uk.gov.gchq.gaffer.exception.SerialisationException;
+import uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser;
+import uk.gov.gchq.gaffer.operation.data.EntitySeed;
 import uk.gov.gchq.koryphe.impl.function.DeserialiseJson;
+
+import java.util.HashMap;
 
 public class DeserialiseJsonExample extends FunctionExample {
     public static void main(final String[] args) {
@@ -24,7 +31,7 @@ public class DeserialiseJsonExample extends FunctionExample {
     }
 
     public DeserialiseJsonExample() {
-        super(uk.gov.gchq.koryphe.impl.function.DeserialiseJson.class);
+        super(DeserialiseJson.class);
     }
 
     @Override
@@ -37,10 +44,23 @@ public class DeserialiseJsonExample extends FunctionExample {
         final DeserialiseJson function = new DeserialiseJson();
         // ---------------------------------------------------------
 
-        runExample(function, null, "{\"elements\": [{\"value\": \"value1\"}, {\"value\": \"value2\"}]}",
-                "[ \"ListValue1\", \"ListValue2\", \"ListValue3\" ]",
-                "{ \"number\":30 }",
-                "{ \"false\":true }");
+        final HashMap<String, Double> map = new HashMap<>();
+        map.put("key1", 1.0);
+        map.put("key2", 2.2);
+        map.put("key3", 3.3);
+
+        try {
+            runExample(function, null,
+                    "{\"elements\": [{\"value\": \"value1\"}, {\"value\": \"value2\"}]}",
+                    "[ \"ListValue1\", \"ListValue2\", \"ListValue3\" ]",
+                    "{ \"number\":30 }",
+                    "{ \"false\":true }",
+                    new String(JSONSerialiser.serialise(new EntitySeed(1), true)),
+                    new String(JSONSerialiser.serialise(Lists.newArrayList("listValue1", "listValue1", "listValue1"), true)),
+                    new String(JSONSerialiser.serialise(map, true)));
+        } catch (SerialisationException e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -24,7 +24,7 @@ public class Base64DecodeExample extends FunctionExample {
     }
 
     public Base64DecodeExample() {
-        super(uk.gov.gchq.koryphe.impl.function.Base64Decode.class);
+        super(Base64Decode.class);
     }
 
     @Override

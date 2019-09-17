@@ -25,7 +25,7 @@ public class CurrentTimeExample extends FunctionExample {
     }
 
     public CurrentTimeExample() {
-        super(uk.gov.gchq.koryphe.impl.function.CurrentTime.class);
+        super(CurrentTime.class);
     }
 
     @Override

@@ -46,6 +46,6 @@ public class ToTupleExample extends FunctionExample {
         input.put("A", 1);
         input.put("B", 2);
         input.put("C", 3);
-        runExample(function, null, Lists.newArrayList(1, 2, 3, 4), new int[]{1, 2, 3, 4}, new Integer[]{1, 2, 3, 4}, input);
+        runExample(function, null, Lists.newArrayList(1, 2, 3, 4), new Integer[]{1, 2, 3, 4}, input);
     }
 }

@@ -30,7 +30,7 @@ public class ApplyBiFunctionExample extends FunctionExample {
     }
 
     public ApplyBiFunctionExample() {
-        super(uk.gov.gchq.koryphe.impl.function.ApplyBiFunction.class);
+        super(ApplyBiFunction.class);
     }
 
     @Override

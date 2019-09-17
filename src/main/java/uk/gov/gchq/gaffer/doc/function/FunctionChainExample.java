@@ -27,7 +27,7 @@ public class FunctionChainExample extends FunctionExample {
     }
 
     public FunctionChainExample() {
-        super(uk.gov.gchq.koryphe.impl.function.FunctionChain.class);
+        super(FunctionChain.class);
     }
 
     @Override
@@ -42,9 +42,18 @@ public class FunctionChainExample extends FunctionExample {
                 .execute(new Integer[]{1}, new ToSet(), new Integer[]{2})
                 .build();
         // ---------------------------------------------------------
-        final ArrayTuple input = new ArrayTuple("someString", null, null);
 
-        runExample(function, null, input);
+        runExample(function, null
+                , new ArrayTuple("someString", null, null)
+                , new ArrayTuple("SOMESTRING", null, null)
+                , new ArrayTuple("somestring", null, null)
+                , new ArrayTuple("@£$%", null, null)
+                , new ArrayTuple("1234", null, null)
+                , new ArrayTuple("", null, null)
+                , new ArrayTuple(null, null, null)
+                , new ArrayTuple(1234, null, null)
+
+        );
     }
 
 
