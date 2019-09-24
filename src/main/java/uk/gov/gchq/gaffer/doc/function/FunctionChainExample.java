@@ -43,16 +43,15 @@ public class FunctionChainExample extends FunctionExample {
                 .build();
         // ---------------------------------------------------------
 
-        runExample(function, null
-                , new ArrayTuple("someString", null, null)
-                , new ArrayTuple("SOMESTRING", null, null)
-                , new ArrayTuple("somestring", null, null)
-                , new ArrayTuple("@£$%", null, null)
-                , new ArrayTuple("1234", null, null)
-                , new ArrayTuple("", null, null)
-                , new ArrayTuple(null, null, null)
-                , new ArrayTuple(1234, null, null)
-
+        runExample(function, null,
+                new ArrayTuple("someString", null, null),
+                new ArrayTuple("SOMESTRING", null, null),
+                new ArrayTuple("somestring", null, null),
+                new ArrayTuple("@£$%", null, null),
+                new ArrayTuple("1234", null, null),
+                new ArrayTuple("", null, null),
+                new ArrayTuple(null, null, null),
+                new ArrayTuple(1234, null, null)
         );
     }
 

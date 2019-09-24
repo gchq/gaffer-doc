@@ -58,7 +58,7 @@ public class DeserialiseJsonExample extends FunctionExample {
                     new String(JSONSerialiser.serialise(new EntitySeed(1), true)),
                     new String(JSONSerialiser.serialise(Lists.newArrayList("listValue1", "listValue1", "listValue1"), true)),
                     new String(JSONSerialiser.serialise(map, true)));
-        } catch (SerialisationException e) {
+        } catch (final SerialisationException e) {
             e.printStackTrace();
         }
     }
