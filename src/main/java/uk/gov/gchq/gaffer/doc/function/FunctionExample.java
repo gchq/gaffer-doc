@@ -44,7 +44,11 @@ public abstract class FunctionExample extends Example {
         print("\n```");
         final StringBuilder inputClasses = new StringBuilder();
         for (final Class<?> item : Signature.getInputSignature(function).getClasses()) {
-            inputClasses.append(item.getName());
+            if (item.isArray()) {
+                inputClasses.append(item.getComponentType().toString() + "[]");
+            } else {
+                inputClasses.append(item.getName());
+            }
             inputClasses.append(", ");
         }
         print(inputClasses.substring(0, inputClasses.length() - 2));

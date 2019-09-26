@@ -16,6 +16,8 @@
 
 package uk.gov.gchq.gaffer.doc.function;
 
+import org.apache.directory.api.util.Base64;
+
 import uk.gov.gchq.koryphe.impl.function.Base64Decode;
 
 public class Base64DecodeExample extends FunctionExample {
@@ -36,9 +38,10 @@ public class Base64DecodeExample extends FunctionExample {
         // ---------------------------------------------------------
         final Base64Decode function = new Base64Decode();
         // ---------------------------------------------------------
-        byte[] input = "test string".getBytes();
 
-        runExample(function, null, input);
+        final byte[] encoded = new String(Base64.encode("test string".getBytes())).getBytes();
+
+        runExample(function, null, encoded, null);
     }
 
 }

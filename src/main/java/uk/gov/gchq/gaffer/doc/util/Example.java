@@ -165,6 +165,10 @@ public abstract class Example {
         if (null == value) {
             typeValue.setFirst("");
             typeValue.setSecond("null");
+        } else if (value instanceof byte[]) {
+            typeValue.setFirst("byte[]");
+            typeValue.setSecond(new String((byte[]) value));
+            return typeValue;
         } else {
             typeValue.setFirst(value.getClass().getName());
             if (value instanceof Iterable || value instanceof Object[]) {
