@@ -2,7 +2,7 @@ language: java
 cache:
   timeout: 1000
   directories:
-  - $HOME/.m2
+    - $HOME/.m2/repository
 dist: trusty
 jdk:
   - oraclejdk8
@@ -11,7 +11,7 @@ addons:
   apt:
     packages:
       - python3
-
+before_install: ./cd/before_install.sh
 install: ./cd/install.sh
 script: ./cd/verify.sh
 

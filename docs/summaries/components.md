@@ -12,6 +12,7 @@
     * [UI](../components/tool/ui.md)
     * [Deployments](../components/tool/deployment.md)
     * [Slider](../components/tool/slider.md)
+    * [Analytics UI](../components/tool/analytics-ui.md)
 * Examples
     * [Road Traffic Example](../components/example/road-traffic.md)
     * [Federated Example](../components/example/federated-demo.md)
