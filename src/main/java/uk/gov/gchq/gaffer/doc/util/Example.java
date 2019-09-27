@@ -22,11 +22,14 @@ import org.apache.commons.lang3.StringUtils;
 import uk.gov.gchq.gaffer.commonutil.pair.Pair;
 import uk.gov.gchq.gaffer.doc.walkthrough.WalkthroughStrSubstitutor;
 import uk.gov.gchq.koryphe.Since;
+import uk.gov.gchq.koryphe.Summary;
 import uk.gov.gchq.koryphe.tuple.MapTuple;
 import uk.gov.gchq.koryphe.tuple.Tuple;
 
 import java.util.Arrays;
 import java.util.Locale;
+
+import static java.util.Objects.isNull;
 
 public abstract class Example {
     public static final String CAPITALS_AND_NUMBERS_REGEX = "((?=[A-Z])|(?<=[0-9])(?=[a-zA-Z])|(?<=[a-zA-Z])(?=[0-9]))";
@@ -38,12 +41,17 @@ public abstract class Example {
     private Boolean skipPythonErrors;
 
     public Example(final Class<?> classForExample) {
-        this(classForExample, "");
+        this(classForExample, null);
     }
 
     public Example(final Class<?> classForExample, final String description) {
         this.classForExample = classForExample;
-        this.description = description;
+        if (isNull(description)) {
+            final Summary annotation = classForExample.getAnnotation(Summary.class);
+            this.description = isNull(annotation) ? "" : annotation.value();
+        } else {
+            this.description = description;
+        }
     }
 
     public void run() {
@@ -135,6 +143,8 @@ public abstract class Example {
 
                     if (item instanceof Iterable) {
                         valueStringBuilder.append(Lists.newArrayList((Iterable) item));
+                    } else if (item instanceof Byte[]) {
+                        valueStringBuilder.append(Arrays.toString((Byte[]) item));
                     } else if (item instanceof Object[]) {
                         valueStringBuilder.append(Arrays.asList((Object[]) item));
                     } else {
@@ -155,6 +165,10 @@ public abstract class Example {
         if (null == value) {
             typeValue.setFirst("");
             typeValue.setSecond("null");
+        } else if (value instanceof byte[]) {
+            typeValue.setFirst("byte[]");
+            typeValue.setSecond(new String((byte[]) value));
+            return typeValue;
         } else {
             typeValue.setFirst(value.getClass().getName());
             if (value instanceof Iterable || value instanceof Object[]) {
