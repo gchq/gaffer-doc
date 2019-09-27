@@ -16,7 +16,10 @@
 
 package uk.gov.gchq.gaffer.doc.function;
 
+import uk.gov.gchq.gaffer.operation.function.ToEntityId;
+import uk.gov.gchq.gaffer.types.function.ToTypeSubTypeValue;
 import uk.gov.gchq.koryphe.impl.function.FunctionChain;
+import uk.gov.gchq.koryphe.impl.function.ToLowerCase;
 import uk.gov.gchq.koryphe.impl.function.ToSet;
 import uk.gov.gchq.koryphe.impl.function.ToUpperCase;
 import uk.gov.gchq.koryphe.tuple.ArrayTuple;
@@ -32,10 +35,11 @@ public class FunctionChainExample extends FunctionExample {
 
     @Override
     protected void runExamples() {
-        functionChain();
+        functionChainUsingTupleAdaptedFunctions();
+        functionChainUsingStandardFunctions();
     }
 
-    private void functionChain() {
+    private void functionChainUsingTupleAdaptedFunctions() {
         // ---------------------------------------------------------
         final FunctionChain function = new FunctionChain.Builder<>()
                 .execute(new Integer[]{0}, new ToUpperCase(), new Integer[]{1})
@@ -53,6 +57,18 @@ public class FunctionChainExample extends FunctionExample {
                 new ArrayTuple(null, null, null),
                 new ArrayTuple(1234, null, null)
         );
+    }
+
+    private void functionChainUsingStandardFunctions() {
+        // ---------------------------------------------------------
+        final FunctionChain function = new FunctionChain.Builder<>()
+                .execute(new ToLowerCase())
+                .execute(new ToTypeSubTypeValue())
+                .execute(new ToEntityId())
+                .build();
+        // ---------------------------------------------------------
+
+        runExample(function, null, "a string", "UPPER", null, 12);
     }
 
 
