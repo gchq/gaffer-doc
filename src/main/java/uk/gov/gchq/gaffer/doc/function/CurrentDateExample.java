@@ -16,29 +16,31 @@
 
 package uk.gov.gchq.gaffer.doc.function;
 
-import uk.gov.gchq.koryphe.impl.function.DeserialiseXml;
 
-public class DeserialiseXmlExample extends FunctionExample {
+import uk.gov.gchq.koryphe.impl.function.CurrentDate;
+
+public class CurrentDateExample extends FunctionExample {
+
     public static void main(final String[] args) {
-        new DeserialiseXmlExample().runAndPrint();
+        new CurrentDateExample().runAndPrint();
     }
 
-    public DeserialiseXmlExample() {
-        super(DeserialiseXml.class);
+    public CurrentDateExample() {
+        super(CurrentDate.class);
     }
 
     @Override
     protected void runExamples() {
-        parseXml();
+        getCurrentDate();
     }
 
-    private void parseXml() {
+    private void getCurrentDate() {
         // ---------------------------------------------------------
-        final DeserialiseXml function = new DeserialiseXml();
+        final CurrentDate currentDate = new CurrentDate();
         // ---------------------------------------------------------
 
-        runExample(function, null, "<element1>value</element1>",
-                "<root><element1>value1</element1><element2>value2</element2></root>",
-                "<root><element1><element2>value1</element2></element1><element1><element2>value2</element2></element1></root>");
+        runExample(currentDate, null, (Object) null);
     }
+
+
 }
