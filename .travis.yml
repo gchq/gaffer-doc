@@ -12,7 +12,9 @@ addons:
     packages:
       - python3
 before_install: ./cd/before_install.sh
-install: ./cd/install.sh
+install:
+  - ./cd/install_dependencies.sh
+  - ./cd/install.sh
 script: ./cd/verify.sh
 
 deploy:
