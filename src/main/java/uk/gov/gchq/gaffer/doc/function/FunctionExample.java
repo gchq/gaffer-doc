@@ -46,7 +46,10 @@ public abstract class FunctionExample extends Example {
         for (final Class<?> item : Signature.getInputSignature(function).getClasses()) {
             if (item.isArray()) {
                 inputClasses.append(item.getComponentType().toString() + "[]");
-            } else {
+            } else if (Signature.UnknownGenericType.class.equals(item)) {
+                inputClasses.append("java.lang.Object");
+            }
+            else {
                 inputClasses.append(item.getName());
             }
             inputClasses.append(", ");
