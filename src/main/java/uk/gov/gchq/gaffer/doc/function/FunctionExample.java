@@ -48,8 +48,7 @@ public abstract class FunctionExample extends Example {
                 inputClasses.append(item.getComponentType().toString() + "[]");
             } else if (Signature.UnknownGenericType.class.equals(item)) {
                 inputClasses.append("java.lang.Object");
-            }
-            else {
+            } else {
                 inputClasses.append(item.getName());
             }
             inputClasses.append(", ");
