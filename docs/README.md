@@ -92,4 +92,4 @@ We welcome contributions to the project. Detailed information on our ways of wor
 - Push your changes to a fork;
 - Submit a pull request.
 
-<p style="text-align: right">Version 1.13.2</p>
+<p style="text-align: right">Version 1.13.4</p>
