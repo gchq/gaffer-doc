@@ -1,11 +1,11 @@
 Copyright 2016-2020 Crown Copyright
 
-Gaffer (uk.gov.gchq.gaffer:gaffer2:1.15.0):
+Gaffer (uk.gov.gchq.gaffer:gaffer2:1.16.0):
 
 - Apache License, Version 2.0
 
 
-gaffer-tools (uk.gov.gchq.gaffer:gaffer-tools:1.15.0):
+gaffer-tools (uk.gov.gchq.gaffer:gaffer-tools:1.16.0):
 
 - Apache License, Version 2.0
 
