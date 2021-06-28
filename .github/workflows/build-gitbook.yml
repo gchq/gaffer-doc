@@ -22,9 +22,11 @@ jobs:
         java-version: 1.8
     
     - name: ref check
-      if: ${{ github.ref == 'refs/heads/gh-199-migrate-github-actions' }}
+      uses: actions/checkout@v2
+      with:
+        branch: master
       run: echo ${GITHUB_REF}
-        
+
     # - name: Install gitbook-cli
     #   run: npm install -g gitbook-cli
 
