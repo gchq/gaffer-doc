@@ -16,21 +16,25 @@ jobs:
         token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
 
     - name: Setup node
-      uses: actions/setup-node@v1.4.1
+      uses: actions/setup-node@v1
     
     - name: Setup JDK
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
         
-    - name: Install Gitbook cli
+    - name: Install gitbook-cli
       run: npm install -g gitbook-cli
 
     - name: Install and build the Gitbook
       run: mvn -q install -P buildGitbook,travis,build-extras -B -V
 
+  publish:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
     - name: Deploy to GitHub Pages
-      if: success()
       uses: crazy-max/ghaction-github-pages@v2
       with:
         target_branch: gh-pages
