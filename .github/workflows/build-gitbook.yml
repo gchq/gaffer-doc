@@ -20,21 +20,12 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    
-    - name: Checkout master
-      uses: actions/checkout@v2
-      with:
-        ref: master
-        token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
-      
-    - name: ref check
-      run: echo ${GITHUB_REF}
 
-    # - name: Install gitbook-cli
-    #   run: npm install -g gitbook-cli
+    - name: Install gitbook-cli
+      run: npm install -g gitbook-cli
 
-    # - name: Install and build the Gitbook
-    #   run: mvn -q install -P buildGitbook,travis,build-extras -B -V
+    - name: Install and build the Gitbook
+      run: mvn -q install -P buildGitbook,travis,build-extras -B -V
 
     - name: Deploy to GitHub Pages
       if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
@@ -42,6 +33,5 @@ jobs:
       with:
         target_branch: gh-pages
         build_dir: ./_book/
-        dry_run: true
       env:
         GITHUB_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN }}
