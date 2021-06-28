@@ -28,7 +28,7 @@ jobs:
       run: mvn -q install -P buildGitbook,travis,build-extras -B -V
 
     - name: Deploy to GitHub Pages
-      if: ${{ github.ref == 'refs/heads/master' }}
+      if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
       uses: crazy-max/ghaction-github-pages@v2
       with:
         target_branch: gh-pages
