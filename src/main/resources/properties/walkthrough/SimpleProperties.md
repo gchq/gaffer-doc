@@ -4,4 +4,4 @@ Gaffer supports the storage of some common Java objects as properties on entitie
 
 Gaffer also provides a `FreqMap` property. This is a map from string to long.
 
-The [Getting started](https://github.com/gchq/Gaffer/wiki/Getting-Started) documentation includes examples of how to use these properties.
+The [Getting started](../../../../../docs/summaries/getting-started.md) documentation includes examples of how to use these properties.
