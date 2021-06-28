@@ -21,10 +21,13 @@ jobs:
       with:
         java-version: 1.8
     
-    - name: ref check
+    - name: Checkout master
       uses: actions/checkout@v2
       with:
-        branch: master
+        ref: master
+        token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
+      
+    - name: ref check
       run: echo ${GITHUB_REF}
 
     # - name: Install gitbook-cli
@@ -34,7 +37,7 @@ jobs:
     #   run: mvn -q install -P buildGitbook,travis,build-extras -B -V
 
     - name: Deploy to GitHub Pages
-      if: ${{ github.ref == 'refs/heads/master' }}
+      if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
       uses: crazy-max/ghaction-github-pages@v2
       with:
         target_branch: gh-pages
