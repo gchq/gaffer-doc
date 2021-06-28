@@ -35,7 +35,6 @@ jobs:
       with:
         target_branch: gh-pages
         build_dir: ./_book/
-        domain: github.io
         dry_run: true
       env:
         GITHUB_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN }}
