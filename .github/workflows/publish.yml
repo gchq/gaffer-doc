@@ -1,0 +1,39 @@
+name: Publish
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout master
+      uses: actions/checkout@v2
+      with:
+        ref: master
+        token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
+
+    - name: Setup node
+      uses: actions/setup-node@v1.4.1
+    
+    - name: Setup JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+        
+    - name: Install Gitbook cli
+      run: npm install -g gitbook-cli
+
+    - name: Install and build the Gitbook
+      run: mvn -q install -P buildGitbook,travis,build-extras -B -V
+
+    - name: Deploy to GitHub Pages
+      if: success()
+      uses: crazy-max/ghaction-github-pages@v2
+      with:
+        target_branch: gh-pages
+        build_dir: _book
+      env:
+        GITHUB_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN }}
