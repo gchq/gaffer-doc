@@ -22,7 +22,7 @@ jobs:
         java-version: 1.8
     
     - name: ref check
-      if: ${{ github.ref == 'gh-199-migrate-github-actions' }}
+      if: ${{ github.ref == 'refs/heads/gh-199-migrate-github-actions' }}
       run: echo ${GITHUB_REF}
         
     # - name: Install gitbook-cli
@@ -32,7 +32,7 @@ jobs:
     #   run: mvn -q install -P buildGitbook,travis,build-extras -B -V
 
     - name: Deploy to GitHub Pages
-      if: ${{ github.ref == 'master' }}
+      if: ${{ github.ref == 'refs/heads/master' }}
       uses: crazy-max/ghaction-github-pages@v2
       with:
         target_branch: gh-pages
