@@ -11,11 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout master
-      uses: actions/checkout@v2
-      with:
-        ref: master
-        token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
+    - uses: actions/checkout@v2
 
     - name: Setup node
       uses: actions/setup-node@v1
