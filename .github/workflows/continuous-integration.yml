@@ -27,8 +27,8 @@ jobs:
     - name: Install and build the Gitbook
       run: mvn -q install -P buildGitbook,travis,build-extras -B -V
     
-    - name: Check _book
-      run: ls
+    - name: Check event name
+      run: echo $GITHUB_EVENT_NAME
 
     - name: Deploy to GitHub Pages
       uses: crazy-max/ghaction-github-pages@v2
