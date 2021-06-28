@@ -14,14 +14,14 @@ jobs:
         token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
 
     - name: Setup node
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v1
     
     - name: Setup JDK
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
         
-    - name: Install Gitbook cli
+    - name: Install gitbook-cli
       run: npm install -g gitbook-cli
 
     - name: Install and build the Gitbook
