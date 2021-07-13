@@ -20,18 +20,27 @@ import com.google.common.collect.Lists;
 import uk.gov.gchq.gaffer.commonutil.CollectionUtil;
 import uk.gov.gchq.gaffer.data.element.comparison.ElementPropertyComparator;
 import uk.gov.gchq.gaffer.data.element.function.ElementFilter;
+import uk.gov.gchq.gaffer.data.element.function.ExtractProperty;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.ViewElementDefinition;
 import uk.gov.gchq.gaffer.data.graph.Walk;
+import uk.gov.gchq.gaffer.data.graph.function.walk.ExtractWalkEdges;
 import uk.gov.gchq.gaffer.operation.OperationChain;
 import uk.gov.gchq.gaffer.operation.OperationException;
 import uk.gov.gchq.gaffer.operation.data.EntitySeed;
 import uk.gov.gchq.gaffer.operation.graph.SeededGraphFilters;
+import uk.gov.gchq.gaffer.operation.impl.ForEach;
 import uk.gov.gchq.gaffer.operation.impl.GetWalks;
+import uk.gov.gchq.gaffer.operation.impl.Map;
+import uk.gov.gchq.gaffer.operation.impl.Reduce;
 import uk.gov.gchq.gaffer.operation.impl.compare.Sort;
 import uk.gov.gchq.gaffer.operation.impl.get.GetElements;
+import uk.gov.gchq.gaffer.operation.util.Conditional;
 import uk.gov.gchq.gaffer.sketches.clearspring.cardinality.predicate.HyperLogLogPlusIsLessThan;
+import uk.gov.gchq.koryphe.impl.binaryoperator.Sum;
+import uk.gov.gchq.koryphe.impl.function.IterableConcat;
 import uk.gov.gchq.koryphe.impl.predicate.IsEqual;
+import uk.gov.gchq.koryphe.impl.predicate.IsLessThan;
 import uk.gov.gchq.koryphe.impl.predicate.IsMoreThan;
 
 public class GetWalksExample extends OperationExample {
@@ -53,7 +62,8 @@ public class GetWalksExample extends OperationExample {
         getWalksWithIncomingOutgoingFlags();
         getWalksWithFiltering();
         getWalksWithEntities();
-        getWalksWithFilteringOnCardinalityEntities();
+        getWalksWithFilteringOnCardinalityEntitiesFromFirstHop();
+        getWalksWithFilteringOnCardinalityEntitiesContainedInWalk();
         getWalksWithMultipleGroups();
         getWalksWithLoops();
         getWalksWithSelfLoops();
@@ -269,7 +279,7 @@ public class GetWalksExample extends OperationExample {
                 "between the GetElements operations used to retrieve elements.");
     }
 
-    public Iterable<Walk> getWalksWithFilteringOnCardinalityEntities() {
+    public Iterable<Walk> getWalksWithFilteringOnCardinalityEntitiesFromFirstHop() {
         // ---------------------------------------------------------
         final GetWalks getWalks = new GetWalks.Builder()
                 .operations(new OperationChain.Builder()
@@ -315,6 +325,55 @@ public class GetWalksExample extends OperationExample {
 
         return runExample(getWalks, "Gets all of the Walks of length 2 " +
                 "which start from vertex 5, where the results of the first hop are " +
-                "filtered based on the cardinality entities in the graph. IMPORTANT NOTE - you cannot filter walks based on entity filters at the end of a walk.");
+                "filtered based on the cardinality entities in the graph.");
     }
+
+    public Iterable<Walk> getWalksWithFilteringOnCardinalityEntitiesContainedInWalk() {
+        // ---------------------------------------------------------
+        final GetWalks getWalks = new GetWalks.Builder()
+                .operations(new GetElements.Builder()
+                                .view(new View.Builder()
+                                        .edges(Lists.newArrayList("edge", "edge1"))
+                                        .entities(Lists.newArrayList("entity", "entity1"))
+                                        .build())
+                                .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.INCOMING)
+                                .build(),
+                        new GetElements.Builder()
+                                .view(new View.Builder()
+                                        .edges(Lists.newArrayList("edge", "edge1"))
+                                        .entities(Lists.newArrayList("entity", "entity1"))
+                                        .build())
+                                .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.INCOMING)
+                                .build(),
+                        new GetElements.Builder()
+                                .view(new View.Builder()
+                                        .entities(Lists.newArrayList("entity", "entity1"))
+                                        .build())
+                                .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.INCOMING)
+                                .build())
+                .conditional(new Conditional(
+                        new IsLessThan(11),
+                        new OperationChain.Builder()
+                                .first(new Map.Builder<>()
+                                        .first(new ExtractWalkEdges())
+                                        .then(new IterableConcat())
+                                        .build())
+                                .then(new ForEach.Builder<>()
+                                        .operation(new Map.Builder<>()
+                                                .first(new ExtractProperty("count"))
+                                                .build())
+                                        .build())
+                                .then(new Reduce.Builder<>()
+                                        .aggregateFunction(new Sum())
+                                        .build())
+                                .build()))
+                .input(new EntitySeed(5))
+                .build();
+        // ---------------------------------------------------------
+
+        return runExample(getWalks, "Gets all of the Walks of length 2 " +
+                "which start from vertex 5, where each Walk returned in the results " +
+                "is filtered based on total of the walks' edge cardinalities being less than 11.");
+    }
+
 }
