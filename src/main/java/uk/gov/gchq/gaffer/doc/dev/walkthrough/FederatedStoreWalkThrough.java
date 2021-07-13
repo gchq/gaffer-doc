@@ -18,6 +18,7 @@ package uk.gov.gchq.gaffer.doc.dev.walkthrough;
 import com.google.common.collect.Lists;
 import org.apache.commons.io.IOUtils;
 
+import uk.gov.gchq.gaffer.access.predicate.AccessPredicate;
 import uk.gov.gchq.gaffer.cache.impl.HashMapCacheService;
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
 import uk.gov.gchq.gaffer.commonutil.iterable.CloseableIterable;
@@ -41,6 +42,10 @@ import uk.gov.gchq.gaffer.operation.impl.get.GetElements;
 import uk.gov.gchq.gaffer.store.library.HashMapGraphLibrary;
 import uk.gov.gchq.gaffer.store.schema.Schema;
 import uk.gov.gchq.gaffer.user.User;
+import uk.gov.gchq.koryphe.impl.function.CallMethod;
+import uk.gov.gchq.koryphe.impl.predicate.And;
+import uk.gov.gchq.koryphe.impl.predicate.CollectionContains;
+import uk.gov.gchq.koryphe.predicate.AdaptedPredicate;
 
 public class FederatedStoreWalkThrough extends DevWalkthrough {
     public FederatedStoreWalkThrough() {
@@ -232,8 +237,8 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
                 .graphId("privateGraph")
                 .parentSchemaIds(Lists.newArrayList("roadTraffic"))
                 .parentPropertiesId("mapStore")
-                        //.isPublic(false) <-- not specifying also defaults to false.
-                        //.graphAuths() <-- leave blank/null or do no specify otherwise private access is lost.
+                //.isPublic(false) <-- not specifying also defaults to false.
+                //.graphAuths() <-- leave blank/null or do no specify otherwise private access is lost.
                 .build();
         federatedGraph.execute(privateGraph, user);
         // ---------------------------------------------------------
@@ -249,13 +254,41 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
                 .parentSchemaIds(Lists.newArrayList("roadTraffic"))
                 .parentPropertiesId("mapStore")
                 .graphAuths("Auth1", "Auth2", "Auth3")
-                        //.isPublic(false) <-- not specifying also defaults to false.
+                //.isPublic(false) <-- not specifying also defaults to false.
                 .build();
         federatedGraph.execute(addSecureGraph, user);
         // ---------------------------------------------------------
 
         improveReadabilityOfJson(addSecureGraph);
         printJson("ADD_SECURE_GRAPH", addSecureGraph);
+
+
+        // [add access controlled resource secure graph] add a graph to the federated store.
+        // ---------------------------------------------------------
+        AddGraph addAccessControlledResourceSecureGraph = new AddGraph.Builder()
+                .graphId("AccessControlledResourceSecureGraph")
+                .parentSchemaIds(Lists.newArrayList("roadTraffic"))
+                .parentPropertiesId("mapStore")
+                .readAccessPredicate(
+                        new AccessPredicate(
+                                new AdaptedPredicate(
+                                        new CallMethod("getOpAuths"),
+                                        new And(
+                                                new CollectionContains("read-access-auth-1"),
+                                                new CollectionContains("read-access-auth-2")))))
+                .writeAccessPredicate(
+                        new AccessPredicate(
+                                new AdaptedPredicate(
+                                        new CallMethod("getOpAuths"),
+                                        new And(
+                                                new CollectionContains("write-access-auth-1"),
+                                                new CollectionContains("write-access-auth-2")))))
+                .build();
+        federatedGraph.execute(addAccessControlledResourceSecureGraph, user);
+        // ---------------------------------------------------------
+
+        improveReadabilityOfJson(addAccessControlledResourceSecureGraph);
+        printJson("ADD_ACCESS_CONTROLLED_RESOURCE_SECURE_GRAPH", addAccessControlledResourceSecureGraph);
 
 
         // [disallow public access]

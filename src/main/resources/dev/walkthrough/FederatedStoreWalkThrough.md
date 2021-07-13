@@ -16,6 +16,8 @@ This walkthrough explains how to:
    * [Public Access](#public-access)
    * [Private Access](#private-access)
    * [Secure Access](#secure-access)
+     * [Graph Auths](#graph-auths)
+     * [Access Controlled Resource](#access-controlled-resource)
  * [Disallow Public Access](#disallow-public-access)
  * [Limit Custom Properties](#limit-custom-properties)
 
@@ -170,8 +172,8 @@ ${END_CODE}
 
 ## Limit Access with Authentication
 It is possible to have a `FederatedStore` with many sub-graphs, however you
- may wish to limit the users access. This is possible by using authorisations
-  at the time of adding a graph to the FederatedStore, this limits the graphs users
+ may wish to limit user access to some sub-graphs. This is possible by either using authorisations
+  or configurable read and write access predicates at the time of adding the graph to the FederatedStore, this limits the graphs users
    can perform operations on.
 
 ### Public Access
@@ -200,8 +202,10 @@ ${ADD_PRIVATE_GRAPH_FULL_JSON}
 ${END_CODE}
 
 ### Secure Access
-Within the `AddGraph` operation, do not assign the "isPublic" parameter or assign it to false.
-By assigning the parameter "graphAuths", all users that has one of the listed authorisations will have access to that graph.
+Within the `AddGraph` operation, do not assign the "isPublic" parameter or assign it to false, this ensures the settings described in this section are not ignored.
+
+#### Graph Auths
+By assigning the parameter "graphAuths", all users that have one of the listed authorisations will have access to that graph. Note that "graphAuths" is mutually exclusive with the "readAccessPredicate" and "writeAccessPredicate" settings described in the [Access Controlled Resource](#access-controlled-resource) section.
 
 ${START_JAVA_CODE}
 ${ADD_SECURE_GRAPH_SNIPPET}
@@ -209,6 +213,19 @@ ${JSON_CODE}
 ${ADD_SECURE_GRAPH_JSON}
 ${FULL_JSON_CODE}
 ${ADD_SECURE_GRAPH_FULL_JSON}
+${END_CODE}
+
+#### Access Controlled Resource
+Graphs in the Federated Store implement the AccessControlledResource interface allowing configuration of a custom Predicate which is tested against the User to determine whether they can access the graph.
+This example ensures readers of the graph have both the "read-access-auth-1" and "read-access-auth-2" auths and users attempting to remove the graph have both the "write-access-auth-1" and "write-access-auth-2" auths.
+Note that the "readAccessPredicate" and "writeAccessPredicate" fields are mutually exclusive with the "graphAuths" setting described in the [Graph Auths](#graph-auths) section.
+
+${START_JAVA_CODE}
+${ADD_ACCESS_CONTROLLED_RESOURCE_SECURE_GRAPH_SNIPPET}
+${JSON_CODE}
+${ADD_ACCESS_CONTROLLED_RESOURCE_SECURE_GRAPH_JSON}
+${FULL_JSON_CODE}
+${ADD_ACCESS_CONTROLLED_RESOURCE_SECURE_GRAPH_FULL_JSON}
 ${END_CODE}
 
 ## Disallow Public Access
