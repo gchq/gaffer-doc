@@ -19,6 +19,7 @@ package uk.gov.gchq.gaffer.doc.dev.walkthrough;
 import com.google.common.collect.Maps;
 import org.apache.commons.io.IOUtils;
 
+import uk.gov.gchq.gaffer.access.predicate.AccessPredicate;
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
 import uk.gov.gchq.gaffer.commonutil.iterable.CloseableIterable;
 import uk.gov.gchq.gaffer.data.element.Element;
@@ -37,6 +38,10 @@ import uk.gov.gchq.gaffer.operation.impl.add.AddElements;
 import uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements;
 import uk.gov.gchq.gaffer.operation.impl.get.GetElements;
 import uk.gov.gchq.gaffer.user.User;
+import uk.gov.gchq.koryphe.impl.function.CallMethod;
+import uk.gov.gchq.koryphe.impl.predicate.And;
+import uk.gov.gchq.koryphe.impl.predicate.CollectionContains;
+import uk.gov.gchq.koryphe.predicate.AdaptedPredicate;
 
 import java.io.IOException;
 import java.util.Map;
@@ -116,6 +121,53 @@ public class NamedViews extends DevWalkthrough {
         for (final Object result : namedViewResults) {
             print("GET_ELEMENTS_WITH_NAMED_VIEW_RESULTS", result.toString());
         }
+
+
+        // [add named view write access roles] add a NamedView with write access roles security
+        // ---------------------------------------------------------
+        final AddNamedView addNamedViewWriteAccessRoles = new AddNamedView.Builder()
+                .name("RoadUse edges")
+                .description("NamedView to get only RoadUse edges")
+                .view(new View.Builder()
+                        .edge("RoadUse")
+                        .build())
+                .overwrite(true)
+                .writeAccessRoles("write-user")
+                .build();
+        // ---------------------------------------------------------
+        //printJsonAndPython("ADD_NAMED_VIEW_WRITE_ACCESS_ROLES", addNamedViewWriteAccessRoles);
+        graph.execute(addNamedViewWriteAccessRoles, user);
+        printJson("ADD_NAMED_VIEW_WRITE_ACCESS_ROLES", addNamedViewWriteAccessRoles);
+
+        // [add named view access controlled resource] add a NamedView with access controlled resource security
+        // ---------------------------------------------------------
+        final AddNamedView addNamedViewAccessControlledResource = new AddNamedView.Builder()
+                .name("RoadUse edges")
+                .description("NamedView to get only RoadUse edges")
+                .view(new View.Builder()
+                        .edge("RoadUse")
+                        .build())
+                .overwrite(true)
+                .readAccessPredicate(
+                        new AccessPredicate(
+                                new AdaptedPredicate(
+                                        new CallMethod("getOpAuths"),
+                                        new And(
+                                                new CollectionContains("read-access-auth-1"),
+                                                new CollectionContains("read-access-auth-2")))))
+                .writeAccessPredicate(
+                        new AccessPredicate(
+                                new AdaptedPredicate(
+                                        new CallMethod("getOpAuths"),
+                                        new And(
+                                                new CollectionContains("write-access-auth-1"),
+                                                new CollectionContains("write-access-auth-2")))))
+                .build();
+        // ---------------------------------------------------------
+        //printJsonAndPython("ADD_NAMED_VIEW_ACCESS_CONTROLLED_RESOURCE", addNamedViewAccessControlledResource);
+        graph.execute(addNamedViewAccessControlledResource, user);
+        printJson("ADD_NAMED_VIEW_ACCESS_CONTROLLED_RESOURCE", addNamedViewAccessControlledResource);
+
 
         // [add named view with parameters] create an operation chain to be executed as a named operation
         // with parameters
