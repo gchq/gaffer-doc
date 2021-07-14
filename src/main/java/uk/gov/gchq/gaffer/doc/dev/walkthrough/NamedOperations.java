@@ -18,6 +18,7 @@ package uk.gov.gchq.gaffer.doc.dev.walkthrough;
 import com.google.common.collect.Maps;
 import org.apache.commons.io.IOUtils;
 
+import uk.gov.gchq.gaffer.access.predicate.AccessPredicate;
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
 import uk.gov.gchq.gaffer.commonutil.iterable.CloseableIterable;
 import uk.gov.gchq.gaffer.data.element.Element;
@@ -38,6 +39,10 @@ import uk.gov.gchq.gaffer.operation.impl.add.AddElements;
 import uk.gov.gchq.gaffer.operation.impl.generate.GenerateElements;
 import uk.gov.gchq.gaffer.operation.impl.get.GetElements;
 import uk.gov.gchq.gaffer.user.User;
+import uk.gov.gchq.koryphe.impl.function.CallMethod;
+import uk.gov.gchq.koryphe.impl.predicate.And;
+import uk.gov.gchq.koryphe.impl.predicate.CollectionContains;
+import uk.gov.gchq.koryphe.predicate.AdaptedPredicate;
 
 import java.io.IOException;
 import java.util.Map;
@@ -187,6 +192,41 @@ public class NamedOperations extends DevWalkthrough {
         for (final Object result : namedOperationResults) {
             print("NAMED_OPERATION_WITH_PARAMETER_RESULTS", result.toString());
         }
+
+        // [add named operation access controlled resource] create a named operation using access controlled resource predicates
+        // ---------------------------------------------------------
+        final AddNamedOperation addNamedOperationAccessControlledResource = new AddNamedOperation.Builder()
+                .operationChain(new OperationChain.Builder()
+                        .first(new GetElements.Builder()
+                                .view(new View.Builder()
+                                        .edge("RoadUse")
+                                        .build())
+                                .build())
+                        .then(new Limit.Builder<>().resultLimit(10).build())
+                        .build())
+                .description("named operation limit query")
+                .name("access-controlled-2-limit")
+                .score(2)
+                .overwrite()
+                .readAccessPredicate(new AccessPredicate(
+                        new AdaptedPredicate(
+                                new CallMethod("getOpAuths"),
+                                new And(
+                                        new CollectionContains("read-access-auth-1"),
+                                        new CollectionContains("read-access-auth-2")))))
+
+                .writeAccessPredicate(
+                        new AccessPredicate(
+                                new AdaptedPredicate(
+                                        new CallMethod("getOpAuths"),
+                                        new And(
+                                                new CollectionContains("write-access-auth-1"),
+                                                new CollectionContains("write-access-auth-2")))))
+
+                .build();
+
+        graph.execute(addNamedOperationAccessControlledResource, user);
+        // ---------------------------------------------------------
 
         // [add full example named operation] Add the full example as a named operation, with fullExampleParams to configure the vehicle type and result limit
         // ---------------------------------------------------------

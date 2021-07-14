@@ -153,6 +153,26 @@ That gives the following result:
 ${ALL_NAMED_OPERATIONS}
 ```
 
+## Security
+By default, read access to Named Operations is unrestricted and write access is limited to administrators and the Named Operation creator. More fine-grained controls can be configured using the following options.
+
+### Read and Write Access Roles
+Read and write access to Named Operations can be locked down to users who have at least one of the auths listed in the "readAccessRoles" and "writeAccessRoles" settings.
+This example ensures that readers have the "read-user" auth and writers the "write-user" auth.
+
+${START_JAVA_CODE}
+${ADD_NAMED_OPERATION_SNIPPET}
+${END_CODE}
+
+### Access Controlled Resource
+Named Operations implement the AccessControlledResource interface allowing configuration of a custom Predicate which is tested against the User to determine whether they can access the Named Operation.
+This example ensures readers of the Named Operation have both the "read-access-auth-1" and "read-access-auth-2" auths and users attempting to remove the Named Operation have both the "write-access-auth-1" and "write-access-auth-2" auths.
+Note that the "readAccessPredicate" and "writeAccessPredicate" fields are mutually exclusive with the "readAccessRoles" and "writeAccessRoles" settings respectively as described in the [Read and Write Access Roles](#read-and-write-access-roles) section.
+
+${START_JAVA_CODE}
+${ADD_NAMED_OPERATION_ACCESS_CONTROLLED_RESOURCE_SNIPPET}
+${END_CODE}
+
 ## Full Example
 The full example we saw in the the User Guide, where we extracted junctions heavily used by buses can also be written as a Named Operation.
 To make it more useful, we have parameterised the vehicle type and the number of results to return.
