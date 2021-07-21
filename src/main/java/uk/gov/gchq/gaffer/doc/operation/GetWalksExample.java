@@ -373,7 +373,7 @@ public class GetWalksExample extends OperationExample {
 
         return runExample(getWalks, "Gets all of the Walks of length 2 " +
                 "which start from vertex 5, where each Walk returned in the results " +
-                "is filtered based on total of the walks' edge cardinalities being less than 11.");
+                "is filtered based on total of the count property on the walks' edges being less than 11.");
     }
 
 }
