@@ -174,10 +174,9 @@ ${ADD_NAMED_OPERATION_ACCESS_CONTROLLED_RESOURCE_SNIPPET}
 ${END_CODE}
 
 ## Full Example
-The full example we saw in the the User Guide, where we extracted junctions heavily used by buses can also be written as a Named Operation.
-To make it more useful, we have parameterised the vehicle type and the number of results to return.
-We have also wrapped the ToCsv operation in an If operation so it can be
-conditionally enabled/disabled.
+The [complex example](../user-guide/full-example.md#example-complex-query) described in the User Guide where junctions heavily used by buses were extracted can also be written as a Named Operation.
+To make it more useful vehicle type and the number of results to return have been parameterised.
+We have also wrapped the ToCsv operation in an If operation so it can be conditionally enabled/disabled.
 
 ${START_JAVA_CODE}
 ${ADD_FULL_EXAMPLE_NAMED_OPERATION_SNIPPET}

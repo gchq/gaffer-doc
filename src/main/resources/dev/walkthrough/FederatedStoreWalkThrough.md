@@ -205,7 +205,7 @@ ${END_CODE}
 Within the `AddGraph` operation, do not assign the "isPublic" parameter or assign it to false, this ensures the settings described in this section are not ignored.
 
 #### Graph Auths
-By assigning the parameter "graphAuths", all users that have one of the listed authorisations will have access to that graph. Note that "graphAuths" is mutually exclusive with the "readAccessPredicate" and "writeAccessPredicate" settings described in the [Access Controlled Resource](#access-controlled-resource) section.
+By assigning the parameter "graphAuths", all users that have one of the listed authorisations will have access to that graph. Note that "graphAuths" is mutually exclusive with the "readAccessPredicate" setting described in the [Access Controlled Resource](#access-controlled-resource) section.
 
 ${START_JAVA_CODE}
 ${ADD_SECURE_GRAPH_SNIPPET}
@@ -218,7 +218,7 @@ ${END_CODE}
 #### Access Controlled Resource
 Graphs in the Federated Store implement the AccessControlledResource interface allowing configuration of a custom Predicate which is tested against the User to determine whether they can access the graph.
 This example ensures readers of the graph have both the "read-access-auth-1" and "read-access-auth-2" auths and users attempting to remove the graph have both the "write-access-auth-1" and "write-access-auth-2" auths.
-Note that the "readAccessPredicate" and "writeAccessPredicate" fields are mutually exclusive with the "graphAuths" setting described in the [Graph Auths](#graph-auths) section.
+Note that the "readAccessPredicate" field is mutually exclusive with the "graphAuths" setting described in the [Graph Auths](#graph-auths) section.
 
 ${START_JAVA_CODE}
 ${ADD_ACCESS_CONTROLLED_RESOURCE_SECURE_GRAPH_SNIPPET}
@@ -230,7 +230,7 @@ ${END_CODE}
 
 ## Disallow Public Access
 By default the `FederatedStore` will allow graphs to be added with public access.
-However public access can be disallow by setting the property `gaffer.federatedstore.isPublicAllowed` to false.
+Public access can be prevented by setting the property `gaffer.federatedstore.isPublicAllowed` to false.
 
 ${START_JAVA_CODE}
 ${DISALLOW_PUBLIC_ACCESS_SNIPPET}
