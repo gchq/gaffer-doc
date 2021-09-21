@@ -5,7 +5,6 @@
 2. [Issues](#issues)
 3. [Pull requests](#pull-requests)
 4. [Coding style](#coding-style)
-5. [Releases](#releases)
 
 ## Git branching model
 We have adopted the following branching strategy: [Git Branching Model](https://nvie.com/files/Git-branching-model.pdf)
@@ -24,20 +23,24 @@ If a code change requires users of Gaffer to make changes in order for them to a
 
 #### Workflow
 * Assign yourself to the issue
-* Create a new branch off develop using pattern: gh-[issue number]-[issue-title]
-* Commit your changes prefixing your commit title with: gh-[issue-number] - [commit title]
-* Check your changes
-* Create a pull request to merge your branch into develop (and assign label in-review to your issue)
-* The pull request will be reviewed and following any changes and approval your branch will be merged into develop
+* Create a new branch off **develop** using pattern: `gh-[issue number]-[issue-title]`
+* Commit your changes prefixing your descriptive commit title, like so: `gh-[issue-number] - [commit title]`
+* Check and push your changes
+* Create a pull request (PR) to merge your branch into **develop**
+* Assign the in-review label to your issue
+* If you named the branch and PR correctly, the PR should have "Resolve #[issue-number]" automatically added to the description after it is made. If it doesn't, then please add the issue it will resolve as a "Linked issue"
+* The pull request will be reviewed and following any changes and approval your branch will be squashed and merged into **develop**
 * Delete the branch
-* Close the issue - add a comment saying it has been merged into develop
+* The issue will be closed automatically
 
 ## Pull Requests
 Pull requests will undergo an in depth review by a Gaffer committer to check the code changes are compliant with our coding style. This is a community so please be respectful of other members - offer encouragement, support and suggestions. 
 
 As described in our git branching model - please raise pull requests to merge you changes in our **develop** branch.
 
-Please agree to the [GCHQ OSS Contributor License Agreement](https://github.com/GovernmentCommunicationsHeadquarters/Gaffer/wiki/GCHQ-OSS-Contributor-License-Agreement-V1.0) before submitting a pull request.
+When pull requests are accepted, the reviewer should squash and merge them. This is because it keeps the **develop** branch clean and populated with only working commits, rather than intermediate ones. As well as this, it makes everyone's job reviewing pull requests easier as any insecure and unreviewed intermediate commits are not included into the **develop** branch.
+
+Please agree to the [GCHQ OSS Contributor License Agreement](https://github.com/GovernmentCommunicationsHeadquarters/Gaffer/wiki/GCHQ-OSS-Contributor-License-Agreement-V1.0) before submitting a pull request. Signing the CLA is enforced by the cla-assistant.
 
 ## Coding style
 Please ensure your coding style is consistent with rest of the Gaffer project and follow coding standards and best practices.
@@ -96,21 +99,3 @@ In particular:
       [assert the method did what was expected]
   }
   ```
-
-## Releases
-* All issues included in the release should be marked with the relevant milestone
-* When the `develop` branch is ready to be released create a pull request to merge `develop` into `master`
-* Merge the pull request
-* Travis CI will carry out the release in 2 stages
-  * Initially it will see the pom version is a SNAPSHOT, this will trigger it to tag the 
- release based on the SNAPSHOT version or you can define the version by setting the environment variable RELEASE_VERSION in Travis CI settings. 
- After tagging the release it will update the Javadoc and generate the release notes.
- It will then update the `develop` branch and update the pom version to the next SNAPSHOT version.
-  * Travis CI is then automatically triggered on `master` for a second time, now with a pom version that does not contain a SNAPSHOT. 
-  It will now build the binaries and release them to Nexus.
-* Once Travis CI has finished both stages:
-  * Log into Nexus
-  * Go to the staging environment
-  * Select the artifacts
-  * Click 'close'
-  * Click 'release' - this will release them to Maven Central.
