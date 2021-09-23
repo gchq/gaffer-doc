@@ -29,61 +29,41 @@ import java.util.Collections;
 import java.util.List;
 
 public class ReduceRelatedElementsExample extends FunctionExample {
+    private static final String FUNCTION_DESCRIPTION = "This function takes an Iterable of Elements and combines all related elements using the provided aggregator and related group";
 
     public static void main(final String[] args) {
         new ReduceRelatedElementsExample().runAndPrint();
     }
 
     public ReduceRelatedElementsExample() {
-        super(ReduceRelatedElements.class);
+        super(ReduceRelatedElements.class, FUNCTION_DESCRIPTION);
         skipPython();
     }
 
     @Override
     protected void runExamples() {
         basicExample();
+        complexExample();
     }
 
     private void basicExample() {
         // ---------------------------------------------------------
         final List<Element> elements = Arrays.asList(
                 new Edge.Builder()
-                        .source(11)
-                        .dest(2)
-                        .directed(true)
+                        .source("1a")
+                        .dest("2b")
                         .group("basicEdge")
                         .property("visibility", Sets.newHashSet("public"))
                         .build(),
                 new Edge.Builder()
-                        .source(1)
-                        .dest(3)
-                        .directed(true)
-                        .group("basicEdge")
-                        .property("visibility", Sets.newHashSet("public"))
-                        .build(),
-                new Entity.Builder()
-                        .vertex(2)
-                        .group("basicEntity")
-                        .property("visibility", Sets.newHashSet("public"))
-                        .build(),
-                new Edge.Builder()
-                        .source(11)
-                        .dest(1)
-                        .directed(true)
+                        .source("1a")
+                        .dest("1b")
                         .group("relatesTo")
                         .property("visibility", Sets.newHashSet("public"))
                         .build(),
                 new Edge.Builder()
-                        .source(2)
-                        .dest(22)
-                        .directed(true)
-                        .group("relatesTo")
-                        .property("visibility", Sets.newHashSet("public"))
-                        .build(),
-                new Edge.Builder()
-                        .source(3)
-                        .dest(33)
-                        .directed(true)
+                        .source("2a")
+                        .dest("2b")
                         .group("relatesTo")
                         .property("visibility", Sets.newHashSet("private"))
                         .build()
@@ -95,17 +75,88 @@ public class ReduceRelatedElementsExample extends FunctionExample {
         function.setRelatedVertexGroups(Collections.singleton("relatesTo"));
         // ---------------------------------------------------------
 
-        runExample(function, null,  elements, null);
+        String description = "In this small example, vertex 1a is related to vertex 1b, and vertex 2a is related to vertex 2b.  \n"
+                                + "As well as this, vertex 1a is connected to vertex 2b with the basicEdge group.  \n"
+                                + "We setup the function to do a few things.  \n"
+                                + "Firstly, we set the visibility property name, then state we want to concatenate the visibility properties.  \n"
+                                + "Next we set the vertex aggregator to the Max Binary Operator. This will be used to compare and reduce vertices with.  \n"
+                                + "Finally, we assert the vertex groups that describe which vertices are related, in this case 'relatesTo'.  \n\n"
+                                + "In our results we should expect to see that 1b and 2b are source and dest as they were aggregated with the Max operator.  \n"
+                                + "The other properties should be listed in the related properties. As well as this, the visiblities should be concatenated together.  ";
+
+        runExample(function, description,  elements, null);
     }
 
-//    private static final class Longest extends KorypheBinaryOperator<String> {
-//        @Override
-//        protected String _apply(final String s, final String t) {
-//            if (s.length() > t.length()) {
-//                return s;
-//            }
-//
-//            return t;
-//        }
-//    }
+    private void complexExample() {
+        // ---------------------------------------------------------
+        final List<Element> elements = Arrays.asList(
+                new Edge.Builder()
+                        .source("1b")
+                        .dest("2a")
+                        .group("basicEdge")
+                        .property("visibility", Sets.newHashSet("public"))
+                        .build(),
+                new Edge.Builder()
+                        .source("1a")
+                        .dest("3a")
+                        .group("basicEdge")
+                        .property("visibility", Sets.newHashSet("public"))
+                        .build(),
+                new Entity.Builder()
+                        .vertex("2a")
+                        .group("basicEntity")
+                        .property("visibility", Sets.newHashSet("public"))
+                        .build(),
+                new Edge.Builder()
+                        .source("1b")
+                        .dest("1a")
+                        .group("relatesTo")
+                        .property("visibility", Sets.newHashSet("public"))
+                        .build(),
+                new Edge.Builder()
+                        .source("2a")
+                        .dest("2b")
+                        .group("relatesTo")
+                        .property("visibility", Sets.newHashSet("public"))
+                        .build(),
+                new Edge.Builder()
+                        .source("3a")
+                        .dest("3b")
+                        .group("relatesTo")
+                        .property("visibility", Sets.newHashSet("private"))
+                        .build(),
+                new Edge.Builder()
+                        .source("2a")
+                        .dest("3b")
+                        .group("relatesTo")
+                        .property("visibility", Sets.newHashSet("private"))
+                        .build(),
+                new Edge.Builder()
+                        .source("2b")
+                        .dest("3a")
+                        .group("relatesTo")
+                        .property("visibility", Sets.newHashSet("public"))
+                        .build(),
+                new Edge.Builder()
+                        .source("3a")
+                        .dest("4b")
+                        .group("relatesTo")
+                        .property("visibility", Sets.newHashSet("private"))
+                        .build(),
+                new Edge.Builder()
+                        .source("5b")
+                        .dest("4a")
+                        .group("relatesTo")
+                        .property("visibility", Sets.newHashSet("public"))
+                        .build()
+        );
+        final ReduceRelatedElements function = new ReduceRelatedElements();
+        function.setVisibilityProperty("visibility");
+        function.setVisibilityAggregator(new CollectionConcat<>());
+        function.setVertexAggregator(new Max());
+        function.setRelatedVertexGroups(Collections.singleton("relatesTo"));
+        // ---------------------------------------------------------
+
+        runExample(function, null,  elements);
+    }
 }
