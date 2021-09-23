@@ -100,3 +100,23 @@ giving these results:
 ```
 ${GET_ELEMENTS_WITH_NAMED_VIEW_WITH_PARAMETERS_RESULTS}
 ```
+
+## Security
+By default, read access to Named Views is unrestricted and write access is limited to administrators and the Named View creator. More fine-grained controls can be configured using the following options.
+
+### Write Access Roles
+Write access to Named Views can be locked down to users who have at least one of the auths listed in the "writeAccessRoles" setting.
+This example ensures that writers have the "write-user" auth.
+
+${START_JAVA_CODE}
+${ADD_NAMED_VIEW_WRITE_ACCESS_ROLES_SNIPPET}
+${END_CODE}
+
+### Access Controlled Resource
+Named Views implement the AccessControlledResource interface allowing configuration of a custom Predicate which is tested against the User to determine whether they can access the resource.
+This example ensures readers of the Named View have both the "read-access-auth-1" and "read-access-auth-2" auths and users attempting to remove the Named View have both the "write-access-auth-1" and "write-access-auth-2" auths.
+Note that the "writeAccessPredicate" field is mutually exclusive with the "writeAccessRoles" setting described in the [Write Access Roles](#write-access-roles) section.
+
+${START_JAVA_CODE}
+${ADD_NAMED_VIEW_ACCESS_CONTROLLED_RESOURCE_SNIPPET}
+${END_CODE}
