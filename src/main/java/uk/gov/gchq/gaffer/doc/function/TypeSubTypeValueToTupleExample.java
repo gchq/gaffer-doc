@@ -38,7 +38,7 @@ public class TypeSubTypeValueToTupleExample extends FunctionExample {
         // ---------------------------------------------------------
         final TypeSubTypeValueToTuple function = new TypeSubTypeValueToTuple();
         // ---------------------------------------------------------
-        TypeSubTypeValue typeSubTypeValue = new TypeSubTypeValue("type","subType", "value");
+        TypeSubTypeValue typeSubTypeValue = new TypeSubTypeValue("type", "subType", "value");
         runExample(function, null, typeSubTypeValue, null);
     }
 }
