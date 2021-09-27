@@ -292,7 +292,7 @@ public abstract class OperationExample extends Example {
                         .graphId(getClass().getSimpleName())
                         .build())
                 .addSchemas(StreamUtil.openStreams(getClass(), "operations/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .storeProperties(StreamUtil.openStream(getClass(), "singleusemapstore.properties"))
                 .build();
 
         // Create data generator
@@ -333,7 +333,7 @@ public abstract class OperationExample extends Example {
                         .graphId(getClass().getSimpleName())
                         .build())
                 .addSchemas(StreamUtil.openStreams(getClass(), "operations/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .storeProperties(StreamUtil.openStream(getClass(), "singleusemapstore.properties"))
                 .build();
 
         // Create data generator

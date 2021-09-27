@@ -23,7 +23,7 @@ The job result cache is simply a second Gaffer Graph. So, if you are running on 
 
 Two operations are required for exporting and getting results from a Gaffer cache - ExportToGafferResultCache and GetGafferResultCacheExport.
 These two operations need to be registered by providing an Operations Declarations JSON file in your store.properties file.
-To use the Accumulo store as your Gaffer cache the operations declarations JSON file would need to look something like:
+To use the Accumulo or Map store as your Gaffer cache the operations declarations JSON file would need to look something like:
 
 ${RESULT_CACHE_EXPORT_OPERATIONS}
 
@@ -42,7 +42,7 @@ gaffer.store.operation.declarations=/path/to/operations1.json,/path/to/ResultCac
 
 The JSON files can either be placed on your file system or bundled as a resource in your JAR or WAR archive.
 
-For this example the cache-store.properties just references another MockAccumuloStore table:
+For this example the cache-store.properties is another MapStore. It is important that `gaffer.store.mapstore.static` is enabled:
 
 ${CACHE_STORE_PROPERTIES}
 

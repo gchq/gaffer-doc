@@ -18,7 +18,7 @@ Gaffer can be run on various databases, including Accumulo and HBase. It is also
 Gaffer allows you to take data, convert it into a graph, store it in a database and then run queries and analytics on it.
 
 To do this you need to do a few things:
- - Choose a database - called the Gaffer ${STORE_JAVADOC2}. We've provided a few for you and in the following examples we'll be using the ${MOCK_ACCUMULO_STORE_JAVADOC2}. The MockAccumuloStore behaves the same as the full ${ACCUMULO_STORE_JAVADOC2} but means that you can run the code on your local machine in memory without having to have a full Accumulo cluster.
+ - Choose a database - called the Gaffer ${STORE_JAVADOC2}. We've provided a few for you and in the following examples we'll be using the ${MAP_STORE_JAVADOC2}. The MapStore behaves similarly to an ${ACCUMULO_STORE_JAVADOC2} but means that you can run the code on your local machine in memory without having to have a full Accumulo cluster.
  - Write a ${SCHEMA_JAVADOC2}. This is a JSON document that describes your graph and is made up of 2 parts:
    - Elements Schema - the Elements (Edges and Entities) in your Graph; what classes represent your vertices (nodes), what ${PROPERTIES_JAVADOC2} your Elements have and so on.
    - Types Schema - list of all the types schema that are used in your elements schema. For each type it defines the java class and a list of validation functions, how they are aggregated and how they are serialised

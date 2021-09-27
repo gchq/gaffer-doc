@@ -17,8 +17,6 @@ package uk.gov.gchq.gaffer.doc.user.walkthrough;
 
 import org.apache.commons.io.IOUtils;
 
-import uk.gov.gchq.gaffer.accumulostore.AccumuloProperties;
-import uk.gov.gchq.gaffer.accumulostore.SingleUseMockAccumuloStore;
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
 import uk.gov.gchq.gaffer.commonutil.iterable.CloseableIterable;
 import uk.gov.gchq.gaffer.data.element.Element;
@@ -26,6 +24,8 @@ import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
 import uk.gov.gchq.gaffer.doc.user.generator.RoadUseElementGenerator;
 import uk.gov.gchq.gaffer.graph.Graph;
 import uk.gov.gchq.gaffer.graph.GraphConfig;
+import uk.gov.gchq.gaffer.mapstore.MapStoreProperties;
+import uk.gov.gchq.gaffer.mapstore.SingleUseMapStore;
 import uk.gov.gchq.gaffer.operation.OperationException;
 import uk.gov.gchq.gaffer.operation.data.EntitySeed;
 import uk.gov.gchq.gaffer.operation.impl.add.AddElements;
@@ -106,12 +106,8 @@ public class TheBasics extends UserWalkthrough {
                         .build())
                 .build();
 
-        final AccumuloProperties properties = new AccumuloProperties();
-        properties.setStoreClass(SingleUseMockAccumuloStore.class);
-        properties.setInstance("instance1");
-        properties.setZookeepers("zookeeper1");
-        properties.setUser("user01");
-        properties.setPassword("password");
+        final MapStoreProperties properties = new MapStoreProperties();
+        properties.setStoreClass(SingleUseMapStore.class);
 
         graph = new Graph.Builder()
                 .config(config)

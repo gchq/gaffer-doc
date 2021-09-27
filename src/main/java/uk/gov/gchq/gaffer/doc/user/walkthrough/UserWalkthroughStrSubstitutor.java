@@ -31,7 +31,8 @@ public abstract class UserWalkthroughStrSubstitutor extends WalkthroughStrSubsti
     public static Map<String, String> createParameterMap(final UserWalkthrough example) {
         final Map<String, String> params = new HashMap<>();
         putParam(params, "SIMPLE_GRAPH_CONFIGURATION", getJsonBlockFromResource("graphConfig.json", example.getClass()));
-        putParam(params, "SIMPLE_STORE_PROPERTIES", getPropertiesBlockFromResource("mockaccumulostore.properties", example.getClass()));
+        putParam(params, "SIMPLE_STORE_PROPERTIES", getPropertiesBlockFromResource("singleusemapstore.properties", example.getClass()));
+        putParam(params, "ACCUMULO_STORE_PROPERTIES", getPropertiesBlockFromResource("accumulostore.properties", example.getClass()));
         putParam(params, "ROAD_TRAFFIC_EXAMPLE_LINK", getGafferGitHubFileLink("Road Traffic Example", "example/road-traffic/README.md"));
         putParam(params, "CSV_GENERATOR_JAVA", JavaSourceUtil.getJava(RoadUseCsvGenerator.class.getName(), null));
         putParam(params, "DESCRIPTION_TRANSFORM_LINK", getGafferGitHubCodeLink(DescriptionTransform.class, "example/road-traffic/road-traffic-model"));

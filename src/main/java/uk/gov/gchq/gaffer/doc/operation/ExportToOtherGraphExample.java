@@ -96,7 +96,7 @@ public class ExportToOtherGraphExample extends OperationExample {
     public void simpleExportWithCustomGraph() {
         // ---------------------------------------------------------
         final Schema schema = Schema.fromJson(StreamUtil.openStreams(getClass(), "operations/schema"));
-        final StoreProperties storeProperties = StoreProperties.loadStoreProperties(StreamUtil.openStream(getClass(), "othermockaccumulostore.properties"));
+        final StoreProperties storeProperties = new AccumuloProperties();
         final OperationChain<Iterable<? extends Element>> opChain =
                 new OperationChain.Builder()
                         .first(new GetAllElements.Builder()
@@ -173,7 +173,7 @@ public class ExportToOtherGraphExample extends OperationExample {
         final Graph graph = new Graph.Builder()
                 .config(StreamUtil.openStream(getClass(), "graphConfigWithLibrary.json"))
                 .addSchemas(StreamUtil.openStreams(getClass(), "operations/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .storeProperties(new AccumuloProperties())
                 .build();
 
         final OperationChain<Iterable<? extends Element>> opChain =
@@ -222,7 +222,7 @@ public class ExportToOtherGraphExample extends OperationExample {
         final Graph graph = new Graph.Builder()
                 .config(StreamUtil.openStream(getClass(), "graphConfigWithLibrary.json"))
                 .addSchemas(StreamUtil.openStreams(getClass(), "operations/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .storeProperties(new AccumuloProperties())
                 .build();
 
         final OperationChain<Iterable<? extends Element>> opChain =
