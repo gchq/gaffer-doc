@@ -115,7 +115,7 @@ Here is the Store Properties file required to connect to the Map store:
 
 ${SIMPLE_STORE_PROPERTIES}
 
-This contains information specific to the actual instance of the Store you are using. Refer to the documentation for your chosen store for the configurable properties.e.g ${MAP_USER_GUIDE}.
+This contains information specific to the actual instance of the Store you are using. Refer to the documentation for your chosen store for the configurable properties, e.g ${MAP_USER_GUIDE}.
 The important property is 'gaffer.store.class' this tells Gaffer the type of store you wish to use to store your data.
 
 #### Accumulo store properties
