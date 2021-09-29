@@ -206,10 +206,10 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
 
         printJsonAndPython("SELECT_GRAPHS_FOR_OPERATIONS", selectGraphsForOperations);
 
-        // [do not skip failed execution]
+        // [skip failed execution]
         // ---------------------------------------------------------
         GetAllElements doNotSkipFailedExecution = new Builder()
-                .option(FederatedStoreConstants.KEY_SKIP_FAILED_FEDERATED_STORE_EXECUTE, "false")
+                .option(FederatedStoreConstants.KEY_SKIP_FAILED_FEDERATED_STORE_EXECUTE, "true")
                 .build();
         // ---------------------------------------------------------
 

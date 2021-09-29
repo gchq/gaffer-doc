@@ -11,7 +11,7 @@ This walkthrough explains how to:
  * [Get GraphIds](#get-graphids)
  * [Perform Operations](#perform-operations)
  * [Select Graphs for Operations](#select-graphs-for-operations)
- * [Do Not Skip Failed Execution](#do-not-skip-failed-execution)
+ * [Skip Failed Execution](#do-not-skip-failed-execution)
  * [Limit Access with Authentication](#limit-access-with-authentication)
    * [Public Access](#public-access)
    * [Private Access](#private-access)
@@ -155,11 +155,11 @@ ${FULL_JSON_CODE}
 ${SELECT_GRAPHS_FOR_OPERATIONS_FULL_JSON}
 ${END_CODE}
 
-## Do Not Skip Failed Execution
-If the execution against a graph fails, that graph is skipped and the
-`FederatedStore` continues with the remaining graphs. Unless the operation
-has the option "gaffer.federatedstore.operation.skipFailedFederatedStoreExecute"
- set to `false`, in that situation a `OperationException` is thrown.
+## Skip Failed Execution
+If the execution against one of the graphs fails an `OperationException` is thrown,
+unless the operation has the option `gaffer.federatedstore.operation.skipFailedFederatedStoreExecute`
+set to `true`. In that situation that graph is skipped and the
+`FederatedStore` continues with the remaining graphs.
 
 ${START_JAVA_CODE}
 ${DO_NOT_SKIP_FAILED_EXECUTION_SNIPPET}
