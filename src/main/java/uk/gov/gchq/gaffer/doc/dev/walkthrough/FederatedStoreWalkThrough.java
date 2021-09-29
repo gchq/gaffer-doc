@@ -208,12 +208,12 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
 
         // [skip failed execution]
         // ---------------------------------------------------------
-        GetAllElements doNotSkipFailedExecution = new Builder()
+        GetAllElements skipFailedExecution = new Builder()
                 .option(FederatedStoreConstants.KEY_SKIP_FAILED_FEDERATED_STORE_EXECUTE, "true")
                 .build();
         // ---------------------------------------------------------
 
-        printJsonAndPython("DO_NOT_SKIP_FAILED_EXECUTION", doNotSkipFailedExecution);
+        printJsonAndPython("SKIP_FAILED_EXECUTION", skipFailedExecution);
 
 
         // [add public graph] add a graph to the federated store.
