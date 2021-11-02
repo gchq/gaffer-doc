@@ -16,8 +16,6 @@
 package uk.gov.gchq.gaffer.doc.operation.accumulo;
 
 import uk.gov.gchq.gaffer.accumulostore.operation.impl.GetElementsBetweenSets;
-import uk.gov.gchq.gaffer.commonutil.iterable.CloseableIterable;
-import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.element.function.ElementFilter;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.ViewElementDefinition;
@@ -40,7 +38,7 @@ public class GetElementsBetweenSetsExample extends OperationExample {
         getElementsWithinSetOfVertices1And2And4WithCountGreaterThan2();
     }
 
-    public CloseableIterable<? extends Element> getElementsWithinSetOfVertices1And2And4() {
+    public void getElementsWithinSetOfVertices1And2And4() {
         // ---------------------------------------------------------
         final GetElementsBetweenSets operation = new GetElementsBetweenSets.Builder()
                 .input(new EntitySeed(1))
@@ -48,10 +46,16 @@ public class GetElementsBetweenSetsExample extends OperationExample {
                 .build();
         // ---------------------------------------------------------
 
-        return runExample(operation, null);
+        printJavaJsonPython(operation, 3);
+        print("The results are:\n");
+        print("```");
+        print("Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]\n" +
+                "Edge[source=1,destination=2,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>3]]\n" +
+                "Edge[source=1,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]]");
+        print("```");
     }
 
-    public CloseableIterable<? extends Element> getElementsWithinSetOfVertices1And2And4WithCountGreaterThan2() {
+    public void getElementsWithinSetOfVertices1And2And4WithCountGreaterThan2() {
         // ---------------------------------------------------------
         final GetElementsBetweenSets operation = new GetElementsBetweenSets.Builder()
                 .input(new EntitySeed(1))
@@ -73,6 +77,11 @@ public class GetElementsBetweenSetsExample extends OperationExample {
                 .build();
         // ---------------------------------------------------------
 
-        return runExample(operation, null);
+        printJavaJsonPython(operation, 3);
+        print("The results are:\n");
+        print("```");
+        print("Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]\n" +
+                "Edge[source=1,destination=2,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>3]]");
+        print("```");
     }
 }

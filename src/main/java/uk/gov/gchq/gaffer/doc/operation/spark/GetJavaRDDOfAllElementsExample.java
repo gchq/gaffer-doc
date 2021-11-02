@@ -49,7 +49,21 @@ public class GetJavaRDDOfAllElementsExample extends SparkOperationExample {
         final GetJavaRDDOfAllElements operation = new GetJavaRDDOfAllElements();
         // ---------------------------------------------------------
 
-        runExample(operation, null);
+        printJavaJsonPython(operation, 3);
+        print("The results are:\n");
+        print("```");
+        print("Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]\n" +
+                "Edge[source=1,destination=2,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>3]]\n" +
+                "Edge[source=1,destination=4,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>1]]\n" +
+                "Entity[vertex=2,group=entity,properties=Properties[count=<java.lang.Integer>1]]\n" +
+                "Edge[source=2,destination=3,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>2]]\n" +
+                "Edge[source=2,destination=4,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>1]]\n" +
+                "Edge[source=2,destination=5,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>1]]\n" +
+                "Entity[vertex=3,group=entity,properties=Properties[count=<java.lang.Integer>2]]\n" +
+                "Edge[source=3,destination=4,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>4]]\n" +
+                "Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]\n" +
+                "Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]");
+        print("```");
     }
 
     public void getJavaRddOfAllElementsReturningEdgesOnly() {
@@ -61,6 +75,15 @@ public class GetJavaRDDOfAllElementsExample extends SparkOperationExample {
                 .build();
         // ---------------------------------------------------------
 
-        runExample(operation, null);
+        printJavaJsonPython(operation, 3);
+        print("The results are:\n");
+        print("```");
+        print("Edge[source=1,destination=2,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>3]]\n" +
+                "Edge[source=1,destination=4,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>1]]\n" +
+                "Edge[source=2,destination=3,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>2]]\n" +
+                "Edge[source=2,destination=4,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>1]]\n" +
+                "Edge[source=2,destination=5,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>1]]\n" +
+                "Edge[source=3,destination=4,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>4]]");
+        print("```");
     }
 }

@@ -15,9 +15,6 @@
  */
 package uk.gov.gchq.gaffer.doc.operation.spark;
 
-import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Row;
-
 import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
 import uk.gov.gchq.gaffer.operation.OperationException;
 import uk.gov.gchq.gaffer.spark.operation.dataframe.GetDataFrameOfElements;
@@ -52,24 +49,43 @@ public class GetDataFrameOfElementsExample extends SparkOperationExample {
                 .build();
         // ---------------------------------------------------------
 
-        final Dataset<Row> df = runExample(operation, null);
+        printJavaJsonPython(operation, 3);
+        print("The results are:\n");
+        print("```");
+        print("+------+------+-----+\n" +
+                "| group|vertex|count|\n" +
+                "+------+------+-----+\n" +
+                "|entity|     1|    3|\n" +
+                "|entity|     2|    1|\n" +
+                "|entity|     3|    2|\n" +
+                "|entity|     4|    1|\n" +
+                "|entity|     5|    3|\n" +
+                "+------+------+-----");
+        print("```");
 
         // Restrict to entities involving certain vertices
-        final Dataset<Row> seeded = df.filter("vertex = 1 OR vertex = 2");
-        String result = seeded.showString(100, 20, false);
         printJava("df.filter(\"vertex = 1 OR vertex = 2\").show();");
         print("The results are:\n");
         print("```");
-        print(result.substring(0, result.length() - 2));
+        print("+------+------+-----+\n" +
+                "| group|vertex|count|\n" +
+                "+------+------+-----+\n" +
+                "|entity|     1|    3|\n" +
+                "|entity|     2|    1|\n" +
+                "+------+------+-----");
         print("```");
 
         // Filter by property
-        final Dataset<Row> filtered = df.filter("count > 1");
-        result = filtered.showString(100, 20, false);
         printJava("df.filter(\"count > 1\").show();");
         print("The results are:\n");
         print("```");
-        print(result.substring(0, result.length() - 2));
+        print("+------+------+-----+\n" +
+                "| group|vertex|count|\n" +
+                "+------+------+-----+\n" +
+                "|entity|     1|    3|\n" +
+                "|entity|     3|    2|\n" +
+                "|entity|     5|    3|\n" +
+                "+------+------+-----");
         print("```");
     }
 
@@ -82,25 +98,45 @@ public class GetDataFrameOfElementsExample extends SparkOperationExample {
                 .build();
         // ---------------------------------------------------------
 
-        final Dataset<Row> df = runExample(operation, null);
-
+        printJavaJsonPython(operation, 3);
+        print("The results are:\n");
+        print("```");
+        print("+-----+---+---+--------+-------------+-----+\n" +
+                "|group|src|dst|directed|matchedVertex|count|\n" +
+                "+-----+---+---+--------+-------------+-----+\n" +
+                "| edge|  1|  2|    true|         null|    3|\n" +
+                "| edge|  1|  4|    true|         null|    1|\n" +
+                "| edge|  2|  3|    true|         null|    2|\n" +
+                "| edge|  2|  4|    true|         null|    1|\n" +
+                "| edge|  2|  5|    true|         null|    1|\n" +
+                "| edge|  3|  4|    true|         null|    4|\n" +
+                "+-----+---+---+--------+-------------+-----");
+        print("```");
 
         // Restrict to edges involving given vertices
-        final Dataset<Row> seeded = df.filter("src = 1 OR src = 3");
-        String result = seeded.showString(100, 20, false);
         printJava("df.filter(\"src = 1 OR src = 3\").show();");
         print("The results are:\n");
         print("```");
-        print(result.substring(0, result.length() - 2));
+        print("+-----+---+---+--------+-------------+-----+\n" +
+                "|group|src|dst|directed|matchedVertex|count|\n" +
+                "+-----+---+---+--------+-------------+-----+\n" +
+                "| edge|  1|  2|    true|         null|    3|\n" +
+                "| edge|  1|  4|    true|         null|    1|\n" +
+                "| edge|  3|  4|    true|         null|    4|\n" +
+                "+-----+---+---+--------+-------------+-----");
         print("```");
 
         // Filter by property
-        final Dataset<Row> filtered = df.filter("count > 1");
-        result = filtered.showString(100, 20, false);
         printJava("df.filter(\"count > 1\").show();");
         print("The results are:\n");
         print("```");
-        print(result.substring(0, result.length() - 2));
+        print("+-----+---+---+--------+-------------+-----+\n" +
+                "|group|src|dst|directed|matchedVertex|count|\n" +
+                "+-----+---+---+--------+-------------+-----+\n" +
+                "| edge|  1|  2|    true|         null|    3|\n" +
+                "| edge|  2|  3|    true|         null|    2|\n" +
+                "| edge|  3|  4|    true|         null|    4|\n" +
+                "+-----+---+---+--------+-------------+-----");
         print("```");
     }
 }

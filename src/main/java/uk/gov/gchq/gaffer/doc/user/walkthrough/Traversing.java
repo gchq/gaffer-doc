@@ -81,7 +81,7 @@ public class Traversing extends UserWalkthrough {
                         .graphId(getClass().getSimpleName())
                         .build())
                 .addSchemas(StreamUtil.openStreams(getClass(), "operations/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "singleusemapstore.properties"))
+                .storeProperties(getDefaultStoreProperties())
                 .build();
         // ---------------------------------------------------------
 

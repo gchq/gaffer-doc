@@ -22,6 +22,7 @@ import uk.gov.gchq.gaffer.commonutil.StreamUtil;
 import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
 import uk.gov.gchq.gaffer.graph.Graph;
+import uk.gov.gchq.gaffer.mapstore.MapStoreProperties;
 import uk.gov.gchq.gaffer.operation.OperationChain;
 import uk.gov.gchq.gaffer.operation.OperationException;
 import uk.gov.gchq.gaffer.operation.export.graph.ExportToOtherGraph;
@@ -173,7 +174,7 @@ public class ExportToOtherGraphExample extends OperationExample {
         final Graph graph = new Graph.Builder()
                 .config(StreamUtil.openStream(getClass(), "graphConfigWithLibrary.json"))
                 .addSchemas(StreamUtil.openStreams(getClass(), "operations/schema"))
-                .storeProperties(new AccumuloProperties())
+                .storeProperties(new MapStoreProperties())
                 .build();
 
         final OperationChain<Iterable<? extends Element>> opChain =
@@ -222,7 +223,7 @@ public class ExportToOtherGraphExample extends OperationExample {
         final Graph graph = new Graph.Builder()
                 .config(StreamUtil.openStream(getClass(), "graphConfigWithLibrary.json"))
                 .addSchemas(StreamUtil.openStreams(getClass(), "operations/schema"))
-                .storeProperties(new AccumuloProperties())
+                .storeProperties(new MapStoreProperties())
                 .build();
 
         final OperationChain<Iterable<? extends Element>> opChain =

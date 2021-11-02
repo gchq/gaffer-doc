@@ -72,11 +72,11 @@ public abstract class AbstractWalkthrough {
                 .build();
     }
 
-    protected StoreProperties getDefaultStoreProperties() {
+    public static StoreProperties getDefaultStoreProperties() {
         return getMapStoreProperties();
     }
 
-    protected StoreProperties getMapStoreProperties() {
+    public static StoreProperties getMapStoreProperties() {
         final MapStoreProperties properties = new MapStoreProperties();
         properties.setStoreClass(SingleUseMapStore.class);
         properties.set(CacheProperties.CACHE_SERVICE_CLASS, HashMapCacheService.class.getName());
