@@ -46,7 +46,7 @@ public class GetElementsInRangesExample extends OperationExample {
                 .build();
         // ---------------------------------------------------------
 
-        printJavaJsonPython(operation, 3);
+        showExample(operation, null);
         print("The results are:\n");
         print("```");
         print("Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]\n" +
@@ -74,7 +74,7 @@ public class GetElementsInRangesExample extends OperationExample {
                 .build();
         // ---------------------------------------------------------
 
-        printJavaJsonPython(operation, 3);
+        showExample(operation, null);
         print("The results are:\n");
         print("```");
         print("Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]\n" +

@@ -49,7 +49,7 @@ public class GetDataFrameOfElementsExample extends SparkOperationExample {
                 .build();
         // ---------------------------------------------------------
 
-        printJavaJsonPython(operation, 3);
+        showExample(operation, null);
         print("The results are:\n");
         print("```");
         print("+------+------+-----+\n" +
@@ -98,7 +98,7 @@ public class GetDataFrameOfElementsExample extends SparkOperationExample {
                 .build();
         // ---------------------------------------------------------
 
-        printJavaJsonPython(operation, 3);
+        showExample(operation, null);
         print("The results are:\n");
         print("```");
         print("+-----+---+---+--------+-------------+-----+\n" +

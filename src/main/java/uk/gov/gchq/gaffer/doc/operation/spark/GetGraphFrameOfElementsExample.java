@@ -42,11 +42,12 @@ public class GetGraphFrameOfElementsExample extends SparkOperationExample {
                         .build())
                 .build();
         // ---------------------------------------------------------
-        printJavaJsonPython(operation, 3);
+        showExample(operation, null);
 
         print("Then with the graphFrame result you can execute things like:");
         printJava("graphFrame.vertices().filter(\"vertex = 1 OR vertex = 2\").showString(100, 20)");
         print("and results are: ");
+        print("```");
         print("+-------------+--------+---+----+----+-----+------+\n" +
                 "|matchedVertex|directed| id| dst| src|count| group|\n" +
                 "+-------------+--------+---+----+----+-----+------+\n" +
@@ -55,10 +56,12 @@ public class GetGraphFrameOfElementsExample extends SparkOperationExample {
                 "|         null|    null|  1|null|null|    3|entity|\n" +
                 "|         null|    null|  2|null|null|    1|entity|\n" +
                 "+-------------+--------+---+----+----+-----+------+");
+        print("```");
 
         print("Or you can inspect the edges like:");
         printJava("graphFrame.edges().filter(\"count > 1\").showString(100, 20)");
         print("and results are: ");
+        print("```");
         print("+-----+------+-----+---+---+--------+-------------+---+\n" +
                 "|group|vertex|count|src|dst|directed|matchedVertex| id|\n" +
                 "+-----+------+-----+---+---+--------+-------------+---+\n" +
@@ -66,6 +69,7 @@ public class GetGraphFrameOfElementsExample extends SparkOperationExample {
                 "| edge|  null|    2|  2|  3|    true|         null|  3|\n" +
                 "| edge|  null|    4|  3|  4|    true|         null|  6|\n" +
                 "+-----+------+-----+---+---+--------+-------------+---+");
+        print("```");
 
         print("There is a whole suite of nice things you can do with GraphFrames, including operations like PageRank.");
         print("");

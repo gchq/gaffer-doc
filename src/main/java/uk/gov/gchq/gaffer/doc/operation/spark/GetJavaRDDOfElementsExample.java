@@ -51,7 +51,7 @@ public class GetJavaRDDOfElementsExample extends SparkOperationExample {
                 .build();
         // ---------------------------------------------------------
 
-        printJavaJsonPython(operation, 2);
+        showExample(operation, null);
         print("The results are:\n");
         print("```");
         print("Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]\n" +
@@ -94,7 +94,7 @@ public class GetJavaRDDOfElementsExample extends SparkOperationExample {
                 .build();
         // ---------------------------------------------------------
 
-        printJavaJsonPython(operation, 2);
+        showExample(operation, null);
         print("The results are:\n");
         print("```");
         print("Edge[source=1,destination=2,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>3]]\n" +
