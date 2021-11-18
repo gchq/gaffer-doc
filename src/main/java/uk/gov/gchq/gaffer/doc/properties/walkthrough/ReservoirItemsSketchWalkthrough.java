@@ -124,6 +124,9 @@ public class ReservoirItemsSketchWalkthrough extends PropertiesWalkthrough {
         // ---------------------------------------------------------
         final GetElements query2 = new GetElements.Builder()
                 .input(new EntitySeed("X"))
+                .view(new View.Builder()
+                        .entity("blueEntity")
+                        .build())
                 .build();
         final Element entity;
         try (final CloseableIterable<? extends Element> entities = graph.execute(query2, user)) {

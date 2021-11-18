@@ -31,6 +31,7 @@ import uk.gov.gchq.gaffer.doc.operation.generator.ElementGenerator;
 import uk.gov.gchq.gaffer.doc.operation.generator.ElementWithVaryingGroupsGenerator;
 import uk.gov.gchq.gaffer.doc.util.DocUtil;
 import uk.gov.gchq.gaffer.doc.util.Example;
+import uk.gov.gchq.gaffer.doc.walkthrough.AbstractWalkthrough;
 import uk.gov.gchq.gaffer.doc.walkthrough.WalkthroughStrSubstitutor;
 import uk.gov.gchq.gaffer.graph.Graph;
 import uk.gov.gchq.gaffer.graph.GraphConfig;
@@ -292,7 +293,7 @@ public abstract class OperationExample extends Example {
                         .graphId(getClass().getSimpleName())
                         .build())
                 .addSchemas(StreamUtil.openStreams(getClass(), "operations/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .storeProperties(AbstractWalkthrough.getDefaultStoreProperties())
                 .build();
 
         // Create data generator
@@ -333,7 +334,7 @@ public abstract class OperationExample extends Example {
                         .graphId(getClass().getSimpleName())
                         .build())
                 .addSchemas(StreamUtil.openStreams(getClass(), "operations/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .storeProperties(AbstractWalkthrough.getDefaultStoreProperties())
                 .build();
 
         // Create data generator

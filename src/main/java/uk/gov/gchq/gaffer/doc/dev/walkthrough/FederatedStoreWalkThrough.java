@@ -64,10 +64,9 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
 
         final HashMapGraphLibrary library = new HashMapGraphLibrary();
         library.addProperties("mapStore", getMapStoreProperties());
-        library.addProperties("accumuloStore", getAccumuloStoreProperties());
         library.addSchema("roadTraffic", schema);
 
-        // [creating a federatedstore] create a store that federates to a MapStore and AccumuloStore
+        // [creating a federatedstore] create a store that federates to across two MapStores
         // ---------------------------------------------------------
         final Graph federatedGraph = new Graph.Builder()
                 .config(new GraphConfig.Builder()
@@ -88,8 +87,8 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
 
         final User user = new User("user01");
 
-        final AddGraph addMapGraph = new AddGraph.Builder()
-                .graphId("mapGraph")
+        final AddGraph addFirstGraph = new AddGraph.Builder()
+                .graphId("firstGraph")
                 .schema(new Schema.Builder()
                         .json(StreamUtil.openStream(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema/entities.json"))
                         .json(StreamUtil.openStream(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema/types.json"))
@@ -97,18 +96,18 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
                 .storeProperties(getMapStoreProperties())
                 .isPublic(true)
                 .build();
-        federatedGraph.execute(addMapGraph, user);
+        federatedGraph.execute(addFirstGraph, user);
 
-        final AddGraph addAccumuloGraph = new AddGraph.Builder()
-                .graphId("accumuloGraph")
+        final AddGraph addSecondGraph = new AddGraph.Builder()
+                .graphId("secondGraph")
                 .schema(new Schema.Builder()
                         .json(StreamUtil.openStream(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema/edges.json"))
                         .json(StreamUtil.openStream(getClass(), "RoadAndRoadUseWithTimesAndCardinalitiesForFederatedStore/schema/types.json"))
                         .build())
-                .storeProperties(getAccumuloStoreProperties())
+                .storeProperties(getMapStoreProperties())
                 .isPublic(true)
                 .build();
-        federatedGraph.execute(addAccumuloGraph, user);
+        federatedGraph.execute(addSecondGraph, user);
 
         // [add another graph] add a graph to the federated store.
         // ---------------------------------------------------------
@@ -121,7 +120,7 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         // ---------------------------------------------------------
 
         improveReadabilityOfJson(addAnotherGraph);
-        addAccumuloGraph.setGraphAuths(null);
+        addAnotherGraph.setGraphAuths(null);
         printJson("ADD_GRAPH", addAnotherGraph);
 
         // [remove graph] remove a graph from the federated store.
@@ -181,26 +180,26 @@ public class FederatedStoreWalkThrough extends DevWalkthrough {
         printJsonAndPython("GET_ELEMENTS", getOpChain);
 
 
-        // [get elements from accumulo graph]
+        // [get elements from first graph]
         // ---------------------------------------------------------
-        final OperationChain<CloseableIterable<? extends Element>> getOpChainOnAccumuloGraph = new OperationChain.Builder()
+        final OperationChain<CloseableIterable<? extends Element>> getOpChainOnFirstGraph = new OperationChain.Builder()
                 .first(new GetElements.Builder()
                         .input(new EntitySeed("10"))
-                        .option(FederatedStoreConstants.KEY_OPERATION_OPTIONS_GRAPH_IDS, "accumuloGraph")
+                        .option(FederatedStoreConstants.KEY_OPERATION_OPTIONS_GRAPH_IDS, "firstGraph")
                         .build())
                 .build();
 
-        CloseableIterable<? extends Element> elementsFromAccumuloGraph = federatedGraph.execute(getOpChainOnAccumuloGraph, user);
+        CloseableIterable<? extends Element> elementsFromFirstGraph = federatedGraph.execute(getOpChainOnFirstGraph, user);
         // ---------------------------------------------------------
 
-        for (final Element element : elementsFromAccumuloGraph) {
-            print("ELEMENTS_FROM_ACCUMULO_GRAPH", element.toString());
+        for (final Element element : elementsFromFirstGraph) {
+            print("ELEMENTS_FROM_FIRST_GRAPH", element.toString());
         }
 
         // [select graphs for operations]
         // ---------------------------------------------------------
         GetAllElements selectGraphsForOperations = new Builder()
-                .option(FederatedStoreConstants.KEY_OPERATION_OPTIONS_GRAPH_IDS, "graphId1, graphId2")
+                .option(FederatedStoreConstants.KEY_OPERATION_OPTIONS_GRAPH_IDS, "firstGraph, secondGraph")
                 .build();
         // ---------------------------------------------------------
 

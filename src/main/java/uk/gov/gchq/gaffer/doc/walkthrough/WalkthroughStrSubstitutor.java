@@ -21,7 +21,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrSubstitutor;
 
 import uk.gov.gchq.gaffer.accumulostore.AccumuloStore;
-import uk.gov.gchq.gaffer.accumulostore.MockAccumuloStore;
 import uk.gov.gchq.gaffer.accumulostore.key.AccumuloKeyPackage;
 import uk.gov.gchq.gaffer.commonutil.CommonConstants;
 import uk.gov.gchq.gaffer.commonutil.StreamUtil;
@@ -35,6 +34,7 @@ import uk.gov.gchq.gaffer.data.generator.ElementGenerator;
 import uk.gov.gchq.gaffer.data.generator.ObjectGenerator;
 import uk.gov.gchq.gaffer.doc.util.JavaSourceUtil;
 import uk.gov.gchq.gaffer.graph.Graph;
+import uk.gov.gchq.gaffer.mapstore.MapStore;
 import uk.gov.gchq.gaffer.operation.Operation;
 import uk.gov.gchq.gaffer.operation.data.generator.EntityIdExtractor;
 import uk.gov.gchq.gaffer.operation.impl.add.AddElements;
@@ -195,7 +195,7 @@ public abstract class WalkthroughStrSubstitutor {
         putJavaDocParam(params, User.class);
         putJavaDocParam(params, Store.class);
         putJavaDocParam(params, AccumuloStore.class);
-        putJavaDocParam(params, MockAccumuloStore.class);
+        putJavaDocParam(params, MapStore.class);
         putJavaDocParam(params, Graph.class);
         putJavaDocParam(params, ElementGenerator.class);
         putJavaDocParam(params, ObjectGenerator.class);
@@ -218,6 +218,7 @@ public abstract class WalkthroughStrSubstitutor {
         putJavaDocParam(params, ExportToSet.class);
         putJavaDocParam(params, ExportToGafferResultCache.class);
         putParam(params, "ACCUMULO_USER_GUIDE", "[Accumulo Store User Guide](../../stores/accumulo-store)");
+        putParam(params, "MAP_USER_GUIDE", "[Map Store User Guide](../../stores/map-store)");
         putParam(params, "ACCUMULO_KEY_PACKAGE", getGafferGitHubCodeLink(AccumuloKeyPackage.class, "store-implementations/accumulo-store"));
         putParam(params, "OPERATION_EXAMPLES_LINK", "[Operation Examples](../operations/contents)");
 

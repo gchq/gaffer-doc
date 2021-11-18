@@ -111,12 +111,20 @@ ${SIMPLE_GRAPH_CONFIGURATION}
 
 ### The Store Properties
 
-Here is the Store Properties file required to connect to the Mock Accumulo store:
+Here is the Store Properties file required to connect to the Map store:
 
 ${SIMPLE_STORE_PROPERTIES}
 
-This contains information specific to the actual instance of the Store you are using. Refer to the documentation for your chosen store for the configurable properties, e.g ${ACCUMULO_USER_GUIDE}.
+This contains information specific to the actual instance of the Store you are using. Refer to the documentation for your chosen store for the configurable properties, e.g ${MAP_USER_GUIDE}.
 The important property is 'gaffer.store.class' this tells Gaffer the type of store you wish to use to store your data.
+
+#### Accumulo store properties
+
+Here is an example store properties for an Accumulo Store:
+
+${ACCUMULO_STORE_PROPERTIES}
+
+Further documentation can be found in the ${ACCUMULO_USER_GUIDE}.
 
 ### The Graph Object
 
@@ -158,7 +166,7 @@ ${END_CODE}
 
 In this example we've taken some simple pairs of integers in a file and, using an ElementGenerator, converted them into Gaffer Graph Edges with a `”count”` property.
 
-Then we loaded the Edges into a Gaffer Graph backed by a MockAccumuloStore and returned only the Edges containing the Vertex `”10”`. In our Schema we specified that we should sum the "count" property on Edges of the same Group between the same pair of Vertices. We get the following Edges returned, with their "counts" summed:
+Then we loaded the Edges into a Gaffer Graph backed by a MapStore and returned only the Edges containing the Vertex `”10”`. In our Schema we specified that we should sum the "count" property on Edges of the same Group between the same pair of Vertices. We get the following Edges returned, with their "counts" summed:
 
 ```
 ${GET_ELEMENTS_RESULT}

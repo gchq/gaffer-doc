@@ -72,7 +72,9 @@ public abstract class SparkOperationExample extends OperationExample {
         } catch (final Exception e) {
             throw new RuntimeException(e);
         } finally {
-            sparkSession.stop();
+            if (null != sparkSession) {
+                sparkSession.stop();
+            }
             sparkSession = null;
         }
     }

@@ -16,9 +16,7 @@
 package uk.gov.gchq.gaffer.doc.operation.accumulo;
 
 import uk.gov.gchq.gaffer.accumulostore.operation.impl.GetElementsInRanges;
-import uk.gov.gchq.gaffer.commonutil.iterable.CloseableIterable;
 import uk.gov.gchq.gaffer.commonutil.pair.Pair;
-import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.element.id.DirectedType;
 import uk.gov.gchq.gaffer.doc.operation.OperationExample;
 import uk.gov.gchq.gaffer.operation.OperationException;
@@ -41,23 +39,49 @@ public class GetElementsInRangesExample extends OperationExample {
         getAllElementsInTheRangeFromEntity4ToEdge4_5();
     }
 
-    public CloseableIterable<? extends Element> getAllElementsInTheRangeFromEntity1toEntity4() {
+    public void getAllElementsInTheRangeFromEntity1toEntity4() {
         // ---------------------------------------------------------
         final GetElementsInRanges operation = new GetElementsInRanges.Builder()
                 .input(new Pair<>(new EntitySeed(1), new EntitySeed(4)))
                 .build();
         // ---------------------------------------------------------
 
-        return runExample(operation, null);
+        showExample(operation, null);
+        print("The results are:\n");
+        print("```");
+        print("Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]\n" +
+                "Edge[source=1,destination=2,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>3]]\n" +
+                "Edge[source=1,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]]\n" +
+                "Entity[vertex=2,group=entity,properties=Properties[count=<java.lang.Integer>1]]\n" +
+                "Edge[source=2,destination=3,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>2]]\n" +
+                "Edge[source=2,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]]\n" +
+                "Edge[source=2,destination=5,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]]\n" +
+                "Edge[source=1,destination=2,directed=true,matchedVertex=DESTINATION,group=edge,properties=Properties[count=<java.lang.Integer>3]]\n" +
+                "Entity[vertex=3,group=entity,properties=Properties[count=<java.lang.Integer>2]]\n" +
+                "Edge[source=3,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>4]]\n" +
+                "Edge[source=2,destination=3,directed=true,matchedVertex=DESTINATION,group=edge,properties=Properties[count=<java.lang.Integer>2]]\n" +
+                "Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]\n" +
+                "Edge[source=1,destination=4,directed=true,matchedVertex=DESTINATION,group=edge,properties=Properties[count=<java.lang.Integer>1]]\n" +
+                "Edge[source=2,destination=4,directed=true,matchedVertex=DESTINATION,group=edge,properties=Properties[count=<java.lang.Integer>1]]\n" +
+                "Edge[source=3,destination=4,directed=true,matchedVertex=DESTINATION,group=edge,properties=Properties[count=<java.lang.Integer>4]]");
+        print("```");
     }
 
-    public CloseableIterable<? extends Element> getAllElementsInTheRangeFromEntity4ToEdge4_5() {
+    public void getAllElementsInTheRangeFromEntity4ToEdge4_5() {
         // ---------------------------------------------------------
         final GetElementsInRanges operation = new GetElementsInRanges.Builder()
                 .input(new Pair<>(new EntitySeed(4), new EdgeSeed(4, 5, DirectedType.EITHER)))
                 .build();
         // ---------------------------------------------------------
 
-        return runExample(operation, null);
+        showExample(operation, null);
+        print("The results are:\n");
+        print("```");
+        print("Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]\n" +
+                "Edge[source=1,destination=4,directed=true,matchedVertex=DESTINATION,group=edge,properties=Properties[count=<java.lang.Integer>1]]\n" +
+                "Edge[source=2,destination=4,directed=true,matchedVertex=DESTINATION,group=edge,properties=Properties[count=<java.lang.Integer>1]]\n" +
+                "Edge[source=3,destination=4,directed=true,matchedVertex=DESTINATION,group=edge,properties=Properties[count=<java.lang.Integer>4]]\n" +
+                "Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]");
+        print("```");
     }
 }

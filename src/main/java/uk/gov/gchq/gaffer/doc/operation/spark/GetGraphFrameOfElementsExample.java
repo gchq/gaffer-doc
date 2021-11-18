@@ -15,8 +15,6 @@
  */
 package uk.gov.gchq.gaffer.doc.operation.spark;
 
-import org.graphframes.GraphFrame;
-
 import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
 import uk.gov.gchq.gaffer.spark.operation.graphframe.GetGraphFrameOfElements;
 
@@ -44,28 +42,34 @@ public class GetGraphFrameOfElementsExample extends SparkOperationExample {
                         .build())
                 .build();
         // ---------------------------------------------------------
-        runExample(operation, null);
-    }
-
-    @Override
-    public <RESULT_TYPE> void printResult(final RESULT_TYPE result) {
-        if (null == result) {
-            throw new RuntimeException("Operation result was null");
-        }
+        showExample(operation, null);
 
         print("Then with the graphFrame result you can execute things like:");
         printJava("graphFrame.vertices().filter(\"vertex = 1 OR vertex = 2\").showString(100, 20)");
         print("and results are: ");
-        printJava(((GraphFrame) result).vertices()
-                .filter("vertex = 1 OR vertex = 2")
-                .showString(100, 20, false));
+        print("```");
+        print("+-------------+--------+---+----+----+-----+------+\n" +
+                "|matchedVertex|directed| id| dst| src|count| group|\n" +
+                "+-------------+--------+---+----+----+-----+------+\n" +
+                "|         null|    null|  1|null|null| null|  null|\n" +
+                "|         null|    null|  2|null|null| null|  null|\n" +
+                "|         null|    null|  1|null|null|    3|entity|\n" +
+                "|         null|    null|  2|null|null|    1|entity|\n" +
+                "+-------------+--------+---+----+----+-----+------+");
+        print("```");
 
         print("Or you can inspect the edges like:");
         printJava("graphFrame.edges().filter(\"count > 1\").showString(100, 20)");
         print("and results are: ");
-        printJava(((GraphFrame) result).edges()
-                .filter("count > 1")
-                .showString(100, 20, false));
+        print("```");
+        print("+-----+------+-----+---+---+--------+-------------+---+\n" +
+                "|group|vertex|count|src|dst|directed|matchedVertex| id|\n" +
+                "+-----+------+-----+---+---+--------+-------------+---+\n" +
+                "| edge|  null|    3|  1|  2|    true|         null|  1|\n" +
+                "| edge|  null|    2|  2|  3|    true|         null|  3|\n" +
+                "| edge|  null|    4|  3|  4|    true|         null|  6|\n" +
+                "+-----+------+-----+---+---+--------+-------------+---+");
+        print("```");
 
         print("There is a whole suite of nice things you can do with GraphFrames, including operations like PageRank.");
         print("");

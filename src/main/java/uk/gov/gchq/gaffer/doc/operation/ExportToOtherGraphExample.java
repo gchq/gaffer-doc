@@ -22,6 +22,7 @@ import uk.gov.gchq.gaffer.commonutil.StreamUtil;
 import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
 import uk.gov.gchq.gaffer.graph.Graph;
+import uk.gov.gchq.gaffer.mapstore.MapStoreProperties;
 import uk.gov.gchq.gaffer.operation.OperationChain;
 import uk.gov.gchq.gaffer.operation.OperationException;
 import uk.gov.gchq.gaffer.operation.export.graph.ExportToOtherGraph;
@@ -96,7 +97,7 @@ public class ExportToOtherGraphExample extends OperationExample {
     public void simpleExportWithCustomGraph() {
         // ---------------------------------------------------------
         final Schema schema = Schema.fromJson(StreamUtil.openStreams(getClass(), "operations/schema"));
-        final StoreProperties storeProperties = StoreProperties.loadStoreProperties(StreamUtil.openStream(getClass(), "othermockaccumulostore.properties"));
+        final StoreProperties storeProperties = new AccumuloProperties();
         final OperationChain<Iterable<? extends Element>> opChain =
                 new OperationChain.Builder()
                         .first(new GetAllElements.Builder()
@@ -173,7 +174,7 @@ public class ExportToOtherGraphExample extends OperationExample {
         final Graph graph = new Graph.Builder()
                 .config(StreamUtil.openStream(getClass(), "graphConfigWithLibrary.json"))
                 .addSchemas(StreamUtil.openStreams(getClass(), "operations/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .storeProperties(new MapStoreProperties())
                 .build();
 
         final OperationChain<Iterable<? extends Element>> opChain =
@@ -222,7 +223,7 @@ public class ExportToOtherGraphExample extends OperationExample {
         final Graph graph = new Graph.Builder()
                 .config(StreamUtil.openStream(getClass(), "graphConfigWithLibrary.json"))
                 .addSchemas(StreamUtil.openStreams(getClass(), "operations/schema"))
-                .storeProperties(StreamUtil.openStream(getClass(), "mockaccumulostore.properties"))
+                .storeProperties(new MapStoreProperties())
                 .build();
 
         final OperationChain<Iterable<? extends Element>> opChain =

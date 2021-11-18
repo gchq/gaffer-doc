@@ -51,7 +51,15 @@ public class GetJavaRDDOfElementsExample extends SparkOperationExample {
                 .build();
         // ---------------------------------------------------------
 
-        runExample(operation, null);
+        showExample(operation, null);
+        print("The results are:\n");
+        print("```");
+        print("Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]\n" +
+                "Edge[source=1,destination=2,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>3]]\n" +
+                "Entity[vertex=2,group=entity,properties=Properties[count=<java.lang.Integer>1]]\n" +
+                "Edge[source=2,destination=3,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>2]]\n" +
+                "Entity[vertex=3,group=entity,properties=Properties[count=<java.lang.Integer>2]]");
+        print("```");
     }
 
     public void getJavaRddOfElementsWithHadoopConf() {
@@ -86,6 +94,11 @@ public class GetJavaRDDOfElementsExample extends SparkOperationExample {
                 .build();
         // ---------------------------------------------------------
 
-        runExample(operation, null);
+        showExample(operation, null);
+        print("The results are:\n");
+        print("```");
+        print("Edge[source=1,destination=2,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>3]]\n" +
+                "Edge[source=2,destination=3,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>2]]");
+        print("```");
     }
 }

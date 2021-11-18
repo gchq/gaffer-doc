@@ -16,8 +16,6 @@
 package uk.gov.gchq.gaffer.doc.operation.accumulo;
 
 import uk.gov.gchq.gaffer.accumulostore.operation.impl.GetElementsWithinSet;
-import uk.gov.gchq.gaffer.commonutil.iterable.CloseableIterable;
-import uk.gov.gchq.gaffer.data.element.Element;
 import uk.gov.gchq.gaffer.data.element.function.ElementFilter;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.ViewElementDefinition;
@@ -40,17 +38,25 @@ public class GetElementsWithinSetExample extends OperationExample {
         getElementsWithinSetOfVertices1And2And3WithCountGreaterThan2();
     }
 
-    public CloseableIterable<? extends Element> getElementsWithinSetOfVertices1And2And3() {
+    public void getElementsWithinSetOfVertices1And2And3() {
         // ---------------------------------------------------------
         final GetElementsWithinSet operation = new GetElementsWithinSet.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2), new EntitySeed(3))
                 .build();
         // ---------------------------------------------------------
 
-        return runExample(operation, null);
+        showExample(operation, null);
+        print("The results are:\n");
+        print("```");
+        print("Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]\n" +
+                "Edge[source=1,destination=2,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>3]]\n" +
+                "Entity[vertex=2,group=entity,properties=Properties[count=<java.lang.Integer>1]]\n" +
+                "Edge[source=2,destination=3,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>2]]\n" +
+                "Entity[vertex=3,group=entity,properties=Properties[count=<java.lang.Integer>2]]");
+        print("```");
     }
 
-    public CloseableIterable<? extends Element> getElementsWithinSetOfVertices1And2And3WithCountGreaterThan2() {
+    public void getElementsWithinSetOfVertices1And2And3WithCountGreaterThan2() {
         // ---------------------------------------------------------
         final GetElementsWithinSet operation = new GetElementsWithinSet.Builder()
                 .input(new EntitySeed(1), new EntitySeed(2), new EntitySeed(3))
@@ -71,6 +77,11 @@ public class GetElementsWithinSetExample extends OperationExample {
                 .build();
         // ---------------------------------------------------------
 
-        return runExample(operation, null);
+        showExample(operation, null);
+        print("The results are:\n");
+        print("```");
+        print("Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]\n" +
+                "Edge[source=1,destination=2,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>3]]");
+        print("```");
     }
 }

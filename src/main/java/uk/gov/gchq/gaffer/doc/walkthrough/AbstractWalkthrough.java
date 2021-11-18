@@ -15,12 +15,8 @@
  */
 package uk.gov.gchq.gaffer.doc.walkthrough;
 
-import com.google.common.collect.Sets;
 import org.apache.commons.io.IOUtils;
 
-import uk.gov.gchq.gaffer.accumulostore.AccumuloProperties;
-import uk.gov.gchq.gaffer.accumulostore.SingleUseMockAccumuloStore;
-import uk.gov.gchq.gaffer.bitmap.serialisation.json.BitmapJsonModules;
 import uk.gov.gchq.gaffer.cache.impl.HashMapCacheService;
 import uk.gov.gchq.gaffer.cache.util.CacheProperties;
 import uk.gov.gchq.gaffer.commonutil.CommonConstants;
@@ -76,28 +72,16 @@ public abstract class AbstractWalkthrough {
                 .build();
     }
 
-    protected StoreProperties getDefaultStoreProperties() {
-        return getAccumuloStoreProperties();
+    public static StoreProperties getDefaultStoreProperties() {
+        return getMapStoreProperties();
     }
 
-    protected StoreProperties getAccumuloStoreProperties() {
-        final AccumuloProperties properties = new AccumuloProperties();
-        properties.setStoreClass(SingleUseMockAccumuloStore.class);
-        properties.setInstance("instance1");
-        properties.setZookeepers("zookeeper1");
-        properties.setUser("user01");
-        properties.setPassword("password");
-        properties.set(CacheProperties.CACHE_SERVICE_CLASS, HashMapCacheService.class.getName());
-        properties.setJobTrackerEnabled(true);
-        properties.setJsonSerialiserModules(Sets.newHashSet(BitmapJsonModules.class));
-        properties.setOperationDeclarationPaths("sparkAccumuloOperationsDeclarations.json,ResultCacheExportOperations.json,ExportToOtherGraphOperationDeclarations.json,ScoreOperationChainDeclaration.json");
-        return properties;
-    }
-
-    protected StoreProperties getMapStoreProperties() {
+    public static StoreProperties getMapStoreProperties() {
         final MapStoreProperties properties = new MapStoreProperties();
         properties.setStoreClass(SingleUseMapStore.class);
         properties.set(CacheProperties.CACHE_SERVICE_CLASS, HashMapCacheService.class.getName());
+        properties.setJobTrackerEnabled(true);
+        properties.setOperationDeclarationPaths("sparkAccumuloOperationsDeclarations.json,ResultCacheExportOperations.json,ExportToOtherGraphOperationDeclarations.json,ScoreOperationChainDeclaration.json");
         return properties;
     }
 
