@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "gitbook-plugin-expandable-chapters-interactive": "^0.1.0",
+    "gitbook-plugin-codetabs": "^1.0.0",
+    "gitbook-plugin-prism": "^2.4.0",
+    "gitbook-plugin-github": "^3.0.0",
+    "gitbook-plugin-anchorjs": "^2.1.0",
+    "gitbook-plugin-otherlink": "^1.1.0",
+    "honkit": "^3.6.23"
+  },
+  "scripts": {
+    "build": "honkit build",
+    "serve": "honkit serve"
+  }
+}

@@ -1,4 +1,4 @@
-# GitBook ignore file.
+# Honkit ignore file.
 .gitignore
 .bookignore
 _unused/*
