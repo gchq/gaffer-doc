@@ -5,10 +5,26 @@ Gaffer Doc
 
 This repository contains all the documentation for Gaffer, which is published [here](https://gchq.github.io/gaffer-doc/).
 
-To install/configure gitbook see [gitbook.md](gitbook.md).
+# Building the documentation
+Gaffer's documentation is built using [Honkit](https://github.com/honkit/honkit). 
 
-Once you have installed gitbook you can build and serve the full documentation website locally, by running:
+## Prerequisites
+### Node
+You need Node to install and use Honkit.
+
+### Java & Maven
+You need Java 8 and Maven to generate the documentation.
+ 
+## Build the documentation site
+To generate the documentation files, download other documentation sources and compile these into a website using Honkit, run the following:
 
 ```bash
-./scripts/mvnBuildAndServe.sh
+mvn -q install -P buildHonkit -V
+```
+
+## Serve the documentation site
+Once the docs site has been built, it can be served (on `localhost:4000`) by using: 
+
+```bash
+npm run serve
 ```
