@@ -174,7 +174,7 @@
 
     <profiles>
         <profile>
-            <id>buildGitbook</id>
+            <id>buildHonkit</id>
             <build>
                 <plugins>
                     <plugin>
@@ -329,15 +329,30 @@
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>gitbook install</id>
+                                <id>Honkit install</id>
                                 <phase>verify</phase>
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
                                 <configuration>
-                                    <executable>
-                                        ${basedir}/scripts/buildGitbook.sh
-                                    </executable>
+                                    <executable>npm</executable>
+                                    <arguments>
+                                        <argument>install</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>Honkit build</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>npm</executable>
+                                    <arguments>
+                                        <argument>run</argument>
+                                        <argument>build</argument>
+                                    </arguments>
                                 </configuration>
                             </execution>
                         </executions>
@@ -346,7 +361,7 @@
             </build>
         </profile>
         <profile>
-            <id>serveGitbook</id>
+            <id>serveHonkit</id>
             <properties>
                 <skip.surefire.tests>true</skip.surefire.tests>
                 <skip.failsafe.tests>true</skip.failsafe.tests>
@@ -359,15 +374,17 @@
                         <version>${exec-maven-plugin.version}</version>
                         <executions>
                             <execution>
-                                <id>gitbook serve</id>
+                                <id>Honkit serve</id>
                                 <phase>verify</phase>
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
                                 <configuration>
-                                    <executable>
-                                        ${basedir}/scripts/serveGitbook.sh
-                                    </executable>
+                                    <executable>npm</executable>
+                                    <arguments>
+                                        <argument>run</argument>
+                                        <argument>serve</argument>
+                                    </arguments>
                                 </configuration>
                             </execution>
                         </executions>
