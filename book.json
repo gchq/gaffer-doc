@@ -1,5 +1,5 @@
 {
-  "gitbook": "3.x.x",
+  "honkit": "3.x.x",
   "title": "Gaffer Doc",
   "plugins": [
     "expandable-chapters-interactive",

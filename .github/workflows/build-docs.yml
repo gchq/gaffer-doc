@@ -1,4 +1,4 @@
-name: Build and Publish Gitbook
+name: Build and Publish Honkit docs
 
 on:
   push:
