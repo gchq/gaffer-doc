@@ -27,7 +27,6 @@ public class TypeValueToTupleExample extends FunctionExample {
 
     public TypeValueToTupleExample() {
         super(TypeValueToTuple.class);
-        skipPython();
     }
 
     @Override
