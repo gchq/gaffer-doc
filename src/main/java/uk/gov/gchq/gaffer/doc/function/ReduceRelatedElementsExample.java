@@ -37,7 +37,6 @@ public class ReduceRelatedElementsExample extends FunctionExample {
 
     public ReduceRelatedElementsExample() {
         super(ReduceRelatedElements.class, FUNCTION_DESCRIPTION);
-        skipPython();
     }
 
     @Override

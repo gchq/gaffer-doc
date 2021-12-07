@@ -25,7 +25,6 @@ public class ToTrailingWildcardPairExample extends FunctionExample {
 
     public ToTrailingWildcardPairExample() {
         super(ToTrailingWildcardPair.class);
-        skipPython();
     }
 
     @Override
