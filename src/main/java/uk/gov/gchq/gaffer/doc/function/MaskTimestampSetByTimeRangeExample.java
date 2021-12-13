@@ -17,7 +17,7 @@ package uk.gov.gchq.gaffer.doc.function;
 
 import com.google.common.collect.Lists;
 
-import uk.gov.gchq.gaffer.commonutil.CommonTimeUtil;
+import uk.gov.gchq.gaffer.time.CommonTimeUtil;
 import uk.gov.gchq.gaffer.time.RBMBackedTimestampSet;
 import uk.gov.gchq.gaffer.time.function.MaskTimestampSetByTimeRange;
 import uk.gov.gchq.koryphe.util.TimeUnit;
