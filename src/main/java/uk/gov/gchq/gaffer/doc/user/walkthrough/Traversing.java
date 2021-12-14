@@ -179,4 +179,9 @@ public class Traversing extends UserWalkthrough {
         }
         return printableWalks;
     }
+
+    public static void main(final String[] args) throws OperationException, IOException {
+        final Traversing walkthrough = new Traversing();
+        walkthrough.run();
+    }
 }
