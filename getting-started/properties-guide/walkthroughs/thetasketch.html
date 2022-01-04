@@ -1,0 +1,4363 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <title>ThetaSketch · Gaffer Doc</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.6.23">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../../gitbook/gitbook-plugin-expandable-chapters-interactive/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../../gitbook/gitbook-plugin-codetabs/codetabs.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../../gitbook/gitbook-plugin-prism/prism.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="rbmbackedtimestampset.html" />
+    
+    
+    <link rel="prev" href="reservoiritemssketch.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../../">
+            
+                <a href="../../../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../../../summaries/getting-started.html">
+            
+                <a href="../../../summaries/getting-started.html">
+            
+                    
+                    Getting Started
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../../user-guide/contents.html">
+            
+                <a href="../../user-guide/contents.html">
+            
+                    
+                    User Guide
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1.1" data-path="../../user-guide/introduction.html">
+            
+                <a href="../../user-guide/introduction.html">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.2" data-path="../../user-guide/the-basics.html">
+            
+                <a href="../../user-guide/the-basics.html">
+            
+                    
+                    The Basics
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.3" data-path="../../user-guide/multiple-edges.html">
+            
+                <a href="../../user-guide/multiple-edges.html">
+            
+                    
+                    Multiple Edges
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.4" data-path="../../user-guide/filtering.html">
+            
+                <a href="../../user-guide/filtering.html">
+            
+                    
+                    Filtering
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.5" data-path="../../user-guide/transforms.html">
+            
+                <a href="../../user-guide/transforms.html">
+            
+                    
+                    Transforms
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.6" data-path="../../user-guide/operation-chains.html">
+            
+                <a href="../../user-guide/operation-chains.html">
+            
+                    
+                    Operation Chains
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.7" data-path="../../user-guide/aggregation.html">
+            
+                <a href="../../user-guide/aggregation.html">
+            
+                    
+                    Aggregation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.8" data-path="../../user-guide/cardinalities.html">
+            
+                <a href="../../user-guide/cardinalities.html">
+            
+                    
+                    Cardinalities
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.9" data-path="../../user-guide/views.html">
+            
+                <a href="../../user-guide/views.html">
+            
+                    
+                    Views
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.10" data-path="../../user-guide/subgraphs.html">
+            
+                <a href="../../user-guide/subgraphs.html">
+            
+                    
+                    Subgraphs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.11" data-path="../../user-guide/traversing.html">
+            
+                <a href="../../user-guide/traversing.html">
+            
+                    
+                    Traversing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.1.12" data-path="../../user-guide/full-example.html">
+            
+                <a href="../../user-guide/full-example.html">
+            
+                    
+                    Full Example
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../../developer-guide/contents.html">
+            
+                <a href="../../developer-guide/contents.html">
+            
+                    
+                    Developer Guide
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.2.1" data-path="../../developer-guide/introduction.html">
+            
+                <a href="../../developer-guide/introduction.html">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.2" data-path="../../developer-guide/visibilities.html">
+            
+                <a href="../../developer-guide/visibilities.html">
+            
+                    
+                    Visibilities
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.3" data-path="../../developer-guide/schemas.html">
+            
+                <a href="../../developer-guide/schemas.html">
+            
+                    
+                    Schemas
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.4" data-path="../../developer-guide/schema-migration.html">
+            
+                <a href="../../developer-guide/schema-migration.html">
+            
+                    
+                    Schema Migration
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.5" data-path="../../developer-guide/users.html">
+            
+                <a href="../../developer-guide/users.html">
+            
+                    
+                    Users
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.6" data-path="../../developer-guide/cache.html">
+            
+                <a href="../../developer-guide/cache.html">
+            
+                    
+                    Cache
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.7" data-path="../../developer-guide/jobs.html">
+            
+                <a href="../../developer-guide/jobs.html">
+            
+                    
+                    Jobs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.8" data-path="../../developer-guide/namedoperations.html">
+            
+                <a href="../../developer-guide/namedoperations.html">
+            
+                    
+                    NamedOperations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.9" data-path="../../developer-guide/namedviews.html">
+            
+                <a href="../../developer-guide/namedviews.html">
+            
+                    
+                    NamedViews
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2.10" data-path="../../developer-guide/federatedstore.html">
+            
+                <a href="../../developer-guide/federatedstore.html">
+            
+                    
+                    FederatedStore
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3" data-path="../contents.html">
+            
+                <a href="../contents.html">
+            
+                    
+                    Properties Guide
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.1" data-path="../introduction.html">
+            
+                <a href="../introduction.html">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.2" data-path="../simple-properties.html">
+            
+                <a href="../simple-properties.html">
+            
+                    
+                    Simple properties
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.3" data-path="../sketches.html">
+            
+                <a href="../sketches.html">
+            
+                    
+                    Sketches
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.4" data-path="../timestamps.html">
+            
+                <a href="../timestamps.html">
+            
+                    
+                    Timestamps
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.5" >
+            
+                <span>
+            
+                    
+                    Walkthroughs
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.5.1" data-path="hyperloglogplus.html">
+            
+                <a href="hyperloglogplus.html">
+            
+                    
+                    HyperLogLogPlus
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.5.2" data-path="hllsketch.html">
+            
+                <a href="hllsketch.html">
+            
+                    
+                    HllSketch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.5.3" data-path="longssketch.html">
+            
+                <a href="longssketch.html">
+            
+                    
+                    LongsSketch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.5.4" data-path="doublessketch.html">
+            
+                <a href="doublessketch.html">
+            
+                    
+                    DoublesSketch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.5.5" data-path="reservoiritemssketch.html">
+            
+                <a href="reservoiritemssketch.html">
+            
+                    
+                    ReservoirItemsSketch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.3.5.6" data-path="thetasketch.html">
+            
+                <a href="thetasketch.html">
+            
+                    
+                    ThetaSketch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.5.7" data-path="rbmbackedtimestampset.html">
+            
+                <a href="rbmbackedtimestampset.html">
+            
+                    
+                    RBMBackedTimestampSet
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.5.8" data-path="boundedtimestampset.html">
+            
+                <a href="boundedtimestampset.html">
+            
+                    
+                    BoundedTimestampSet
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6" >
+            
+                <span>
+            
+                    
+                    Simple Properties
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.3.6.1" data-path="../simple-properties/string.html">
+            
+                <a href="../simple-properties/string.html">
+            
+                    
+                    String
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6.2" data-path="../simple-properties/long.html">
+            
+                <a href="../simple-properties/long.html">
+            
+                    
+                    Long
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6.3" data-path="../simple-properties/integer.html">
+            
+                <a href="../simple-properties/integer.html">
+            
+                    
+                    Integer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6.4" data-path="../simple-properties/double.html">
+            
+                <a href="../simple-properties/double.html">
+            
+                    
+                    Double
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6.5" data-path="../simple-properties/float.html">
+            
+                <a href="../simple-properties/float.html">
+            
+                    
+                    Float
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6.6" data-path="../simple-properties/byte[].html">
+            
+                <a href="../simple-properties/byte[].html">
+            
+                    
+                    Byte[]
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6.7" data-path="../simple-properties/boolean.html">
+            
+                <a href="../simple-properties/boolean.html">
+            
+                    
+                    Boolean
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6.8" data-path="../simple-properties/date.html">
+            
+                <a href="../simple-properties/date.html">
+            
+                    
+                    Date
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6.9" data-path="../simple-properties/typevalue.html">
+            
+                <a href="../simple-properties/typevalue.html">
+            
+                    
+                    TypeValue
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6.10" data-path="../simple-properties/typesubtypevalue.html">
+            
+                <a href="../simple-properties/typesubtypevalue.html">
+            
+                    
+                    TypeSubTypeValue
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6.11" data-path="../simple-properties/freqmap.html">
+            
+                <a href="../simple-properties/freqmap.html">
+            
+                    
+                    FreqMap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6.12" data-path="../simple-properties/hashmap.html">
+            
+                <a href="../simple-properties/hashmap.html">
+            
+                    
+                    HashMap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6.13" data-path="../simple-properties/treeset.html">
+            
+                <a href="../simple-properties/treeset.html">
+            
+                    
+                    TreeSet
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6.14" data-path="../simple-properties/hyperloglogplus.html">
+            
+                <a href="../simple-properties/hyperloglogplus.html">
+            
+                    
+                    HyperLogLogPlus
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6.15" data-path="../simple-properties/hllsketch.html">
+            
+                <a href="../simple-properties/hllsketch.html">
+            
+                    
+                    HllSketch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6.16" data-path="../simple-properties/longssketch.html">
+            
+                <a href="../simple-properties/longssketch.html">
+            
+                    
+                    LongsSketch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6.17" data-path="../simple-properties/doublessketch.html">
+            
+                <a href="../simple-properties/doublessketch.html">
+            
+                    
+                    DoublesSketch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6.18" data-path="../simple-properties/reservoiritemssketch.html">
+            
+                <a href="../simple-properties/reservoiritemssketch.html">
+            
+                    
+                    ReservoirItemsSketch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6.19" data-path="../simple-properties/sketch.html">
+            
+                <a href="../simple-properties/sketch.html">
+            
+                    
+                    Sketch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6.20" data-path="../simple-properties/rbmbackedtimestampset.html">
+            
+                <a href="../simple-properties/rbmbackedtimestampset.html">
+            
+                    
+                    RBMBackedTimestampSet
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.3.6.21" data-path="../simple-properties/boundedtimestampset.html">
+            
+                <a href="../simple-properties/boundedtimestampset.html">
+            
+                    
+                    BoundedTimestampSet
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4" data-path="../../operations/contents.html">
+            
+                <a href="../../operations/contents.html">
+            
+                    
+                    Operations
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.4.1" data-path="../../operations/addelements.html">
+            
+                <a href="../../operations/addelements.html">
+            
+                    
+                    AddElements
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.2" data-path="../../operations/addelementsfromfile.html">
+            
+                <a href="../../operations/addelementsfromfile.html">
+            
+                    
+                    AddElementsFromFile
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.3" data-path="../../operations/addelementsfromhdfs.html">
+            
+                <a href="../../operations/addelementsfromhdfs.html">
+            
+                    
+                    AddElementsFromHdfs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.4" data-path="../../operations/addelementsfromkafka.html">
+            
+                <a href="../../operations/addelementsfromkafka.html">
+            
+                    
+                    AddElementsFromKafka
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.5" data-path="../../operations/addelementsfromsocket.html">
+            
+                <a href="../../operations/addelementsfromsocket.html">
+            
+                    
+                    AddElementsFromSocket
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.6" data-path="../../operations/addnamedview.html">
+            
+                <a href="../../operations/addnamedview.html">
+            
+                    
+                    AddNamedView
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.7" data-path="../../operations/aggregate.html">
+            
+                <a href="../../operations/aggregate.html">
+            
+                    
+                    Aggregate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.8" data-path="../../operations/cancelscheduledjob.html">
+            
+                <a href="../../operations/cancelscheduledjob.html">
+            
+                    
+                    CancelScheduledJob
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.9" data-path="../../operations/count.html">
+            
+                <a href="../../operations/count.html">
+            
+                    
+                    Count
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.10" data-path="../../operations/countgroups.html">
+            
+                <a href="../../operations/countgroups.html">
+            
+                    
+                    CountGroups
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.11" data-path="../../operations/deletenamedview.html">
+            
+                <a href="../../operations/deletenamedview.html">
+            
+                    
+                    DeleteNamedView
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.12" data-path="../../operations/exporttogafferresultcache.html">
+            
+                <a href="../../operations/exporttogafferresultcache.html">
+            
+                    
+                    ExportToGafferResultCache
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.13" data-path="../../operations/exporttootherauthorisedgraph.html">
+            
+                <a href="../../operations/exporttootherauthorisedgraph.html">
+            
+                    
+                    ExportToOtherAuthorisedGraph
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.14" data-path="../../operations/exporttoothergraph.html">
+            
+                <a href="../../operations/exporttoothergraph.html">
+            
+                    
+                    ExportToOtherGraph
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.15" data-path="../../operations/exporttoset.html">
+            
+                <a href="../../operations/exporttoset.html">
+            
+                    
+                    ExportToSet
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.16" data-path="../../operations/filter.html">
+            
+                <a href="../../operations/filter.html">
+            
+                    
+                    Filter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.17" data-path="../../operations/foreach.html">
+            
+                <a href="../../operations/foreach.html">
+            
+                    
+                    ForEach
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.18" data-path="../../operations/generateelements.html">
+            
+                <a href="../../operations/generateelements.html">
+            
+                    
+                    GenerateElements
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.19" data-path="../../operations/generateobjects.html">
+            
+                <a href="../../operations/generateobjects.html">
+            
+                    
+                    GenerateObjects
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.20" data-path="../../operations/getadjacentids.html">
+            
+                <a href="../../operations/getadjacentids.html">
+            
+                    
+                    GetAdjacentIds
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.21" data-path="../../operations/getallelements.html">
+            
+                <a href="../../operations/getallelements.html">
+            
+                    
+                    GetAllElements
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.22" data-path="../../operations/getalljobdetails.html">
+            
+                <a href="../../operations/getalljobdetails.html">
+            
+                    
+                    GetAllJobDetails
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.23" data-path="../../operations/getallnamedviews.html">
+            
+                <a href="../../operations/getallnamedviews.html">
+            
+                    
+                    GetAllNamedViews
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.24" data-path="../../operations/getelements.html">
+            
+                <a href="../../operations/getelements.html">
+            
+                    
+                    GetElements
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.25" data-path="../../operations/getfromendpoint.html">
+            
+                <a href="../../operations/getfromendpoint.html">
+            
+                    
+                    GetFromEndpoint
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.26" data-path="../../operations/getgafferresultcacheexport.html">
+            
+                <a href="../../operations/getgafferresultcacheexport.html">
+            
+                    
+                    GetGafferResultCacheExport
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.27" data-path="../../operations/getjobdetails.html">
+            
+                <a href="../../operations/getjobdetails.html">
+            
+                    
+                    GetJobDetails
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.28" data-path="../../operations/getjobresults.html">
+            
+                <a href="../../operations/getjobresults.html">
+            
+                    
+                    GetJobResults
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.29" data-path="../../operations/getschema.html">
+            
+                <a href="../../operations/getschema.html">
+            
+                    
+                    GetSchema
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.30" data-path="../../operations/getsetexport.html">
+            
+                <a href="../../operations/getsetexport.html">
+            
+                    
+                    GetSetExport
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.31" data-path="../../operations/gettraits.html">
+            
+                <a href="../../operations/gettraits.html">
+            
+                    
+                    GetTraits
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.32" data-path="../../operations/getwalks.html">
+            
+                <a href="../../operations/getwalks.html">
+            
+                    
+                    GetWalks
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.33" data-path="../../operations/if.html">
+            
+                <a href="../../operations/if.html">
+            
+                    
+                    If
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.34" data-path="../../operations/join.html">
+            
+                <a href="../../operations/join.html">
+            
+                    
+                    Join
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.35" data-path="../../operations/limit.html">
+            
+                <a href="../../operations/limit.html">
+            
+                    
+                    Limit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.36" data-path="../../operations/map.html">
+            
+                <a href="../../operations/map.html">
+            
+                    
+                    Map
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.37" data-path="../../operations/max.html">
+            
+                <a href="../../operations/max.html">
+            
+                    
+                    Max
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.38" data-path="../../operations/min.html">
+            
+                <a href="../../operations/min.html">
+            
+                    
+                    Min
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.39" data-path="../../operations/namedoperation.html">
+            
+                <a href="../../operations/namedoperation.html">
+            
+                    
+                    NamedOperation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.40" data-path="../../operations/reduce.html">
+            
+                <a href="../../operations/reduce.html">
+            
+                    
+                    Reduce
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.41" data-path="../../operations/scoreoperationchain.html">
+            
+                <a href="../../operations/scoreoperationchain.html">
+            
+                    
+                    ScoreOperationChain
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.42" data-path="../../operations/sort.html">
+            
+                <a href="../../operations/sort.html">
+            
+                    
+                    Sort
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.43" data-path="../../operations/toarray.html">
+            
+                <a href="../../operations/toarray.html">
+            
+                    
+                    ToArray
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.44" data-path="../../operations/tocsv.html">
+            
+                <a href="../../operations/tocsv.html">
+            
+                    
+                    ToCsv
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.45" data-path="../../operations/toentityseeds.html">
+            
+                <a href="../../operations/toentityseeds.html">
+            
+                    
+                    ToEntitySeeds
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.46" data-path="../../operations/tolist.html">
+            
+                <a href="../../operations/tolist.html">
+            
+                    
+                    ToList
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.47" data-path="../../operations/tomap.html">
+            
+                <a href="../../operations/tomap.html">
+            
+                    
+                    ToMap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.48" data-path="../../operations/toset.html">
+            
+                <a href="../../operations/toset.html">
+            
+                    
+                    ToSet
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.49" data-path="../../operations/tosingletonlist.html">
+            
+                <a href="../../operations/tosingletonlist.html">
+            
+                    
+                    ToSingletonList
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.50" data-path="../../operations/tostream.html">
+            
+                <a href="../../operations/tostream.html">
+            
+                    
+                    ToStream
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.51" data-path="../../operations/tovertices.html">
+            
+                <a href="../../operations/tovertices.html">
+            
+                    
+                    ToVertices
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.52" data-path="../../operations/transform.html">
+            
+                <a href="../../operations/transform.html">
+            
+                    
+                    Transform
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.4.53" data-path="../../operations/while.html">
+            
+                <a href="../../operations/while.html">
+            
+                    
+                    While
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5" data-path="../../accumulo-operations/contents.html">
+            
+                <a href="../../accumulo-operations/contents.html">
+            
+                    
+                    Accumulo Operations
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.5.1" data-path="../../accumulo-operations/getelementsbetweensets.html">
+            
+                <a href="../../accumulo-operations/getelementsbetweensets.html">
+            
+                    
+                    GetElementsBetweenSets
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5.2" data-path="../../accumulo-operations/getelementsinranges.html">
+            
+                <a href="../../accumulo-operations/getelementsinranges.html">
+            
+                    
+                    GetElementsInRanges
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.5.3" data-path="../../accumulo-operations/getelementswithinset.html">
+            
+                <a href="../../accumulo-operations/getelementswithinset.html">
+            
+                    
+                    GetElementsWithinSet
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6" data-path="../../spark-operations/contents.html">
+            
+                <a href="../../spark-operations/contents.html">
+            
+                    
+                    Spark Operations
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.6.1" data-path="../../spark-operations/getdataframeofelements.html">
+            
+                <a href="../../spark-operations/getdataframeofelements.html">
+            
+                    
+                    GetDataFrameOfElements
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6.2" data-path="../../spark-operations/getgraphframeofelements.html">
+            
+                <a href="../../spark-operations/getgraphframeofelements.html">
+            
+                    
+                    GetGraphFrameOfElements
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6.3" data-path="../../spark-operations/getjavarddofallelements.html">
+            
+                <a href="../../spark-operations/getjavarddofallelements.html">
+            
+                    
+                    GetJavaRDDOfAllElements
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.6.4" data-path="../../spark-operations/getjavarddofelements.html">
+            
+                <a href="../../spark-operations/getjavarddofelements.html">
+            
+                    
+                    GetJavaRDDOfElements
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7" data-path="../../predicates/contents.html">
+            
+                <a href="../../predicates/contents.html">
+            
+                    
+                    Predicates
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.7.1" data-path="../../predicates/ageoff.html">
+            
+                <a href="../../predicates/ageoff.html">
+            
+                    
+                    AgeOff
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.2" data-path="../../predicates/and.html">
+            
+                <a href="../../predicates/and.html">
+            
+                    
+                    And
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.3" data-path="../../predicates/areequal.html">
+            
+                <a href="../../predicates/areequal.html">
+            
+                    
+                    AreEqual
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.4" data-path="../../predicates/arein.html">
+            
+                <a href="../../predicates/arein.html">
+            
+                    
+                    AreIn
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.5" data-path="../../predicates/collectioncontains.html">
+            
+                <a href="../../predicates/collectioncontains.html">
+            
+                    
+                    CollectionContains
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.6" data-path="../../predicates/exists.html">
+            
+                <a href="../../predicates/exists.html">
+            
+                    
+                    Exists
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.7" data-path="../../predicates/hyperloglogplusislessthan.html">
+            
+                <a href="../../predicates/hyperloglogplusislessthan.html">
+            
+                    
+                    HyperLogLogPlusIsLessThan
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.8" data-path="../../predicates/if.html">
+            
+                <a href="../../predicates/if.html">
+            
+                    
+                    If
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.9" data-path="../../predicates/indaterangedual.html">
+            
+                <a href="../../predicates/indaterangedual.html">
+            
+                    
+                    InDateRangeDual
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.10" data-path="../../predicates/indaterange.html">
+            
+                <a href="../../predicates/indaterange.html">
+            
+                    
+                    InDateRange
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.11" data-path="../../predicates/inrangedual.html">
+            
+                <a href="../../predicates/inrangedual.html">
+            
+                    
+                    InRangeDual
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.12" data-path="../../predicates/inrange.html">
+            
+                <a href="../../predicates/inrange.html">
+            
+                    
+                    InRange
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.13" data-path="../../predicates/intimerangedual.html">
+            
+                <a href="../../predicates/intimerangedual.html">
+            
+                    
+                    InTimeRangeDual
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.14" data-path="../../predicates/intimerange.html">
+            
+                <a href="../../predicates/intimerange.html">
+            
+                    
+                    InTimeRange
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.15" data-path="../../predicates/isa.html">
+            
+                <a href="../../predicates/isa.html">
+            
+                    
+                    IsA
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.16" data-path="../../predicates/isequal.html">
+            
+                <a href="../../predicates/isequal.html">
+            
+                    
+                    IsEqual
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.17" data-path="../../predicates/isfalse.html">
+            
+                <a href="../../predicates/isfalse.html">
+            
+                    
+                    IsFalse
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.18" data-path="../../predicates/isin.html">
+            
+                <a href="../../predicates/isin.html">
+            
+                    
+                    IsIn
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.19" data-path="../../predicates/islessthan.html">
+            
+                <a href="../../predicates/islessthan.html">
+            
+                    
+                    IsLessThan
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.20" data-path="../../predicates/islongerthan.html">
+            
+                <a href="../../predicates/islongerthan.html">
+            
+                    
+                    IsLongerThan
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.21" data-path="../../predicates/ismorethan.html">
+            
+                <a href="../../predicates/ismorethan.html">
+            
+                    
+                    IsMoreThan
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.22" data-path="../../predicates/isshorterthan.html">
+            
+                <a href="../../predicates/isshorterthan.html">
+            
+                    
+                    IsShorterThan
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.23" data-path="../../predicates/istrue.html">
+            
+                <a href="../../predicates/istrue.html">
+            
+                    
+                    IsTrue
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.24" data-path="../../predicates/isxlessthany.html">
+            
+                <a href="../../predicates/isxlessthany.html">
+            
+                    
+                    IsXLessThanY
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.25" data-path="../../predicates/isxmorethany.html">
+            
+                <a href="../../predicates/isxmorethany.html">
+            
+                    
+                    IsXMoreThanY
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.26" data-path="../../predicates/mapcontains.html">
+            
+                <a href="../../predicates/mapcontains.html">
+            
+                    
+                    MapContains
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.27" data-path="../../predicates/mapcontainspredicate.html">
+            
+                <a href="../../predicates/mapcontainspredicate.html">
+            
+                    
+                    MapContainsPredicate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.28" data-path="../../predicates/multiregex.html">
+            
+                <a href="../../predicates/multiregex.html">
+            
+                    
+                    MultiRegex
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.29" data-path="../../predicates/not.html">
+            
+                <a href="../../predicates/not.html">
+            
+                    
+                    Not
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.30" data-path="../../predicates/or.html">
+            
+                <a href="../../predicates/or.html">
+            
+                    
+                    Or
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.31" data-path="../../predicates/predicatemap.html">
+            
+                <a href="../../predicates/predicatemap.html">
+            
+                    
+                    PredicateMap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.32" data-path="../../predicates/regex.html">
+            
+                <a href="../../predicates/regex.html">
+            
+                    
+                    Regex
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.7.33" data-path="../../predicates/stringcontains.html">
+            
+                <a href="../../predicates/stringcontains.html">
+            
+                    
+                    StringContains
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8" data-path="../../functions/contents.html">
+            
+                <a href="../../functions/contents.html">
+            
+                    
+                    Functions
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.8.1" data-path="../../functions/applybifunction.html">
+            
+                <a href="../../functions/applybifunction.html">
+            
+                    
+                    ApplyBiFunction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.2" data-path="../../functions/base64decode.html">
+            
+                <a href="../../functions/base64decode.html">
+            
+                    
+                    Base64Decode
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.3" data-path="../../functions/callmethod.html">
+            
+                <a href="../../functions/callmethod.html">
+            
+                    
+                    CallMethod
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.4" data-path="../../functions/cast.html">
+            
+                <a href="../../functions/cast.html">
+            
+                    
+                    Cast
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.5" data-path="../../functions/concat.html">
+            
+                <a href="../../functions/concat.html">
+            
+                    
+                    Concat
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.6" data-path="../../functions/createobject.html">
+            
+                <a href="../../functions/createobject.html">
+            
+                    
+                    CreateObject
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.7" data-path="../../functions/csvgenerator.html">
+            
+                <a href="../../functions/csvgenerator.html">
+            
+                    
+                    CsvGenerator
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.8" data-path="../../functions/csvlinestomaps.html">
+            
+                <a href="../../functions/csvlinestomaps.html">
+            
+                    
+                    CsvLinesToMaps
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.9" data-path="../../functions/csvtomaps.html">
+            
+                <a href="../../functions/csvtomaps.html">
+            
+                    
+                    CsvToMaps
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.10" data-path="../../functions/currentdate.html">
+            
+                <a href="../../functions/currentdate.html">
+            
+                    
+                    CurrentDate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.11" data-path="../../functions/currenttime.html">
+            
+                <a href="../../functions/currenttime.html">
+            
+                    
+                    CurrentTime
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.12" data-path="../../functions/defaultifempty.html">
+            
+                <a href="../../functions/defaultifempty.html">
+            
+                    
+                    DefaultIfEmpty
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.13" data-path="../../functions/defaultifnull.html">
+            
+                <a href="../../functions/defaultifnull.html">
+            
+                    
+                    DefaultIfNull
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.14" data-path="../../functions/deserialisejson.html">
+            
+                <a href="../../functions/deserialisejson.html">
+            
+                    
+                    DeserialiseJson
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.15" data-path="../../functions/deserialisexml.html">
+            
+                <a href="../../functions/deserialisexml.html">
+            
+                    
+                    DeserialiseXml
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.16" data-path="../../functions/dictionarylookup.html">
+            
+                <a href="../../functions/dictionarylookup.html">
+            
+                    
+                    DictionaryLookup
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.17" data-path="../../functions/divideby.html">
+            
+                <a href="../../functions/divideby.html">
+            
+                    
+                    DivideBy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.18" data-path="../../functions/divide.html">
+            
+                <a href="../../functions/divide.html">
+            
+                    
+                    Divide
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.19" data-path="../../functions/extractgroup.html">
+            
+                <a href="../../functions/extractgroup.html">
+            
+                    
+                    ExtractGroup
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.20" data-path="../../functions/extractid.html">
+            
+                <a href="../../functions/extractid.html">
+            
+                    
+                    ExtractId
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.21" data-path="../../functions/extractkeys.html">
+            
+                <a href="../../functions/extractkeys.html">
+            
+                    
+                    ExtractKeys
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.22" data-path="../../functions/extractproperty.html">
+            
+                <a href="../../functions/extractproperty.html">
+            
+                    
+                    ExtractProperty
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.23" data-path="../../functions/extractvalue.html">
+            
+                <a href="../../functions/extractvalue.html">
+            
+                    
+                    ExtractValue
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.24" data-path="../../functions/extractvalues.html">
+            
+                <a href="../../functions/extractvalues.html">
+            
+                    
+                    ExtractValues
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.25" data-path="../../functions/extractwalkedges.html">
+            
+                <a href="../../functions/extractwalkedges.html">
+            
+                    
+                    ExtractWalkEdges
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.26" data-path="../../functions/extractwalkedgesfromhop.html">
+            
+                <a href="../../functions/extractwalkedgesfromhop.html">
+            
+                    
+                    ExtractWalkEdgesFromHop
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.27" data-path="../../functions/extractwalkentities.html">
+            
+                <a href="../../functions/extractwalkentities.html">
+            
+                    
+                    ExtractWalkEntities
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.28" data-path="../../functions/extractwalkentitiesfromhop.html">
+            
+                <a href="../../functions/extractwalkentitiesfromhop.html">
+            
+                    
+                    ExtractWalkEntitiesFromHop
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.29" data-path="../../functions/extractwalkvertex.html">
+            
+                <a href="../../functions/extractwalkvertex.html">
+            
+                    
+                    ExtractWalkVertex
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.30" data-path="../../functions/firstitem.html">
+            
+                <a href="../../functions/firstitem.html">
+            
+                    
+                    FirstItem
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.31" data-path="../../functions/firstvalid.html">
+            
+                <a href="../../functions/firstvalid.html">
+            
+                    
+                    FirstValid
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.32" data-path="../../functions/freqmapextractor.html">
+            
+                <a href="../../functions/freqmapextractor.html">
+            
+                    
+                    FreqMapExtractor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.33" data-path="../../functions/functionchain.html">
+            
+                <a href="../../functions/functionchain.html">
+            
+                    
+                    FunctionChain
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.34" data-path="../../functions/functionmap.html">
+            
+                <a href="../../functions/functionmap.html">
+            
+                    
+                    FunctionMap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.35" data-path="../../functions/gunzip.html">
+            
+                <a href="../../functions/gunzip.html">
+            
+                    
+                    Gunzip
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.36" data-path="../../functions/identity.html">
+            
+                <a href="../../functions/identity.html">
+            
+                    
+                    Identity
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.37" data-path="../../functions/if.html">
+            
+                <a href="../../functions/if.html">
+            
+                    
+                    If
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.38" data-path="../../functions/increment.html">
+            
+                <a href="../../functions/increment.html">
+            
+                    
+                    Increment
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.39" data-path="../../functions/iterableconcat.html">
+            
+                <a href="../../functions/iterableconcat.html">
+            
+                    
+                    IterableConcat
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.40" data-path="../../functions/iterablefilter.html">
+            
+                <a href="../../functions/iterablefilter.html">
+            
+                    
+                    IterableFilter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.41" data-path="../../functions/iterableflatten.html">
+            
+                <a href="../../functions/iterableflatten.html">
+            
+                    
+                    IterableFlatten
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.42" data-path="../../functions/iterablefunction.html">
+            
+                <a href="../../functions/iterablefunction.html">
+            
+                    
+                    IterableFunction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.43" data-path="../../functions/iterablelongest.html">
+            
+                <a href="../../functions/iterablelongest.html">
+            
+                    
+                    IterableLongest
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.44" data-path="../../functions/lastitem.html">
+            
+                <a href="../../functions/lastitem.html">
+            
+                    
+                    LastItem
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.45" data-path="../../functions/length.html">
+            
+                <a href="../../functions/length.html">
+            
+                    
+                    Length
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.46" data-path="../../functions/longest.html">
+            
+                <a href="../../functions/longest.html">
+            
+                    
+                    Longest
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.47" data-path="../../functions/mapfilter.html">
+            
+                <a href="../../functions/mapfilter.html">
+            
+                    
+                    MapFilter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.48" data-path="../../functions/mapgenerator.html">
+            
+                <a href="../../functions/mapgenerator.html">
+            
+                    
+                    MapGenerator
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.49" data-path="../../functions/maptotuple.html">
+            
+                <a href="../../functions/maptotuple.html">
+            
+                    
+                    MapToTuple
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.50" data-path="../../functions/masktimestampsetbytimerange.html">
+            
+                <a href="../../functions/masktimestampsetbytimerange.html">
+            
+                    
+                    MaskTimestampSetByTimeRange
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.51" data-path="../../functions/multiplyby.html">
+            
+                <a href="../../functions/multiplyby.html">
+            
+                    
+                    MultiplyBy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.52" data-path="../../functions/multiply.html">
+            
+                <a href="../../functions/multiply.html">
+            
+                    
+                    Multiply
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.53" data-path="../../functions/multiplylongby.html">
+            
+                <a href="../../functions/multiplylongby.html">
+            
+                    
+                    MultiplyLongBy
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.54" data-path="../../functions/nthitem.html">
+            
+                <a href="../../functions/nthitem.html">
+            
+                    
+                    NthItem
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.55" data-path="../../functions/parsedate.html">
+            
+                <a href="../../functions/parsedate.html">
+            
+                    
+                    ParseDate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.56" data-path="../../functions/parsetime.html">
+            
+                <a href="../../functions/parsetime.html">
+            
+                    
+                    ParseTime
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.57" data-path="../../functions/reducerelatedelements.html">
+            
+                <a href="../../functions/reducerelatedelements.html">
+            
+                    
+                    ReduceRelatedElements
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.58" data-path="../../functions/reversestring.html">
+            
+                <a href="../../functions/reversestring.html">
+            
+                    
+                    ReverseString
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.59" data-path="../../functions/setvalue.html">
+            
+                <a href="../../functions/setvalue.html">
+            
+                    
+                    SetValue
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.60" data-path="../../functions/stringappend.html">
+            
+                <a href="../../functions/stringappend.html">
+            
+                    
+                    StringAppend
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.61" data-path="../../functions/stringjoin.html">
+            
+                <a href="../../functions/stringjoin.html">
+            
+                    
+                    StringJoin
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.62" data-path="../../functions/stringprepend.html">
+            
+                <a href="../../functions/stringprepend.html">
+            
+                    
+                    StringPrepend
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.63" data-path="../../functions/stringregexreplace.html">
+            
+                <a href="../../functions/stringregexreplace.html">
+            
+                    
+                    StringRegexReplace
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.64" data-path="../../functions/stringregexsplit.html">
+            
+                <a href="../../functions/stringregexsplit.html">
+            
+                    
+                    StringRegexSplit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.65" data-path="../../functions/stringreplace.html">
+            
+                <a href="../../functions/stringreplace.html">
+            
+                    
+                    StringReplace
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.66" data-path="../../functions/stringsplit.html">
+            
+                <a href="../../functions/stringsplit.html">
+            
+                    
+                    StringSplit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.67" data-path="../../functions/stringtrim.html">
+            
+                <a href="../../functions/stringtrim.html">
+            
+                    
+                    StringTrim
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.68" data-path="../../functions/stringtruncate.html">
+            
+                <a href="../../functions/stringtruncate.html">
+            
+                    
+                    StringTruncate
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.69" data-path="../../functions/toarray.html">
+            
+                <a href="../../functions/toarray.html">
+            
+                    
+                    ToArray
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.70" data-path="../../functions/tobytes.html">
+            
+                <a href="../../functions/tobytes.html">
+            
+                    
+                    ToBytes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.71" data-path="../../functions/todatestring.html">
+            
+                <a href="../../functions/todatestring.html">
+            
+                    
+                    ToDateString
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.72" data-path="../../functions/tofreqmap.html">
+            
+                <a href="../../functions/tofreqmap.html">
+            
+                    
+                    ToFreqMap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.73" data-path="../../functions/tointeger.html">
+            
+                <a href="../../functions/tointeger.html">
+            
+                    
+                    ToInteger
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.74" data-path="../../functions/tolist.html">
+            
+                <a href="../../functions/tolist.html">
+            
+                    
+                    ToList
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.75" data-path="../../functions/tolong.html">
+            
+                <a href="../../functions/tolong.html">
+            
+                    
+                    ToLong
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.76" data-path="../../functions/tolowercase.html">
+            
+                <a href="../../functions/tolowercase.html">
+            
+                    
+                    ToLowerCase
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.77" data-path="../../functions/tonull.html">
+            
+                <a href="../../functions/tonull.html">
+            
+                    
+                    ToNull
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.78" data-path="../../functions/toset.html">
+            
+                <a href="../../functions/toset.html">
+            
+                    
+                    ToSet
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.79" data-path="../../functions/tostring.html">
+            
+                <a href="../../functions/tostring.html">
+            
+                    
+                    ToString
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.80" data-path="../../functions/totrailingwildcardpair.html">
+            
+                <a href="../../functions/totrailingwildcardpair.html">
+            
+                    
+                    ToTrailingWildcardPair
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.81" data-path="../../functions/totuple.html">
+            
+                <a href="../../functions/totuple.html">
+            
+                    
+                    ToTuple
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.82" data-path="../../functions/totypesubtypevalue.html">
+            
+                <a href="../../functions/totypesubtypevalue.html">
+            
+                    
+                    ToTypeSubTypeValue
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.83" data-path="../../functions/totypevalue.html">
+            
+                <a href="../../functions/totypevalue.html">
+            
+                    
+                    ToTypeValue
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.84" data-path="../../functions/touppercase.html">
+            
+                <a href="../../functions/touppercase.html">
+            
+                    
+                    ToUpperCase
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.85" data-path="../../functions/typesubtypevaluetotuple.html">
+            
+                <a href="../../functions/typesubtypevaluetotuple.html">
+            
+                    
+                    TypeSubTypeValueToTuple
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.86" data-path="../../functions/typevaluetotuple.html">
+            
+                <a href="../../functions/typevaluetotuple.html">
+            
+                    
+                    TypeValueToTuple
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.8.87" data-path="../../functions/unwrapentityid.html">
+            
+                <a href="../../functions/unwrapentityid.html">
+            
+                    
+                    UnwrapEntityId
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9" data-path="../../binary-operators/contents.html">
+            
+                <a href="../../binary-operators/contents.html">
+            
+                    
+                    Binary Operators
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.9.1" data-path="../../binary-operators/and.html">
+            
+                <a href="../../binary-operators/and.html">
+            
+                    
+                    And
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.2" data-path="../../binary-operators/collectionconcat.html">
+            
+                <a href="../../binary-operators/collectionconcat.html">
+            
+                    
+                    CollectionConcat
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.3" data-path="../../binary-operators/collectionintersect.html">
+            
+                <a href="../../binary-operators/collectionintersect.html">
+            
+                    
+                    CollectionIntersect
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.4" data-path="../../binary-operators/first.html">
+            
+                <a href="../../binary-operators/first.html">
+            
+                    
+                    First
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.5" data-path="../../binary-operators/max.html">
+            
+                <a href="../../binary-operators/max.html">
+            
+                    
+                    Max
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.6" data-path="../../binary-operators/min.html">
+            
+                <a href="../../binary-operators/min.html">
+            
+                    
+                    Min
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.7" data-path="../../binary-operators/or.html">
+            
+                <a href="../../binary-operators/or.html">
+            
+                    
+                    Or
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.8" data-path="../../binary-operators/product.html">
+            
+                <a href="../../binary-operators/product.html">
+            
+                    
+                    Product
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.9" data-path="../../binary-operators/stringconcat.html">
+            
+                <a href="../../binary-operators/stringconcat.html">
+            
+                    
+                    StringConcat
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.10" data-path="../../binary-operators/stringdeduplicateconcat.html">
+            
+                <a href="../../binary-operators/stringdeduplicateconcat.html">
+            
+                    
+                    StringDeduplicateConcat
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.9.11" data-path="../../binary-operators/sum.html">
+            
+                <a href="../../binary-operators/sum.html">
+            
+                    
+                    Sum
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../../../summaries/stores.html">
+            
+                <a href="../../../summaries/stores.html">
+            
+                    
+                    Gaffer Stores
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../../../stores/accumulo-store.html">
+            
+                <a href="../../../stores/accumulo-store.html">
+            
+                    
+                    Accumulo Store
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../../../stores/hbase-store.html">
+            
+                <a href="../../../stores/hbase-store.html">
+            
+                    
+                    HBase Store
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="../../../stores/map-store.html">
+            
+                <a href="../../../stores/map-store.html">
+            
+                    
+                    Map Store
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="../../../stores/proxy-store.html">
+            
+                <a href="../../../stores/proxy-store.html">
+            
+                    
+                    Proxy Store
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="../../../stores/parquet-store.html">
+            
+                <a href="../../../stores/parquet-store.html">
+            
+                    
+                    Parquet Store
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.6" data-path="../../../stores/federated-store.html">
+            
+                <a href="../../../stores/federated-store.html">
+            
+                    
+                    Federated Store
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../../../summaries/components.html">
+            
+                <a href="../../../summaries/components.html">
+            
+                    
+                    Components
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" >
+            
+                <span>
+            
+                    
+                    Core
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1.1" data-path="../../../components/core/serialisation.html">
+            
+                <a href="../../../components/core/serialisation.html">
+            
+                    
+                    Serialisation
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.2" data-path="../../../components/core/data.html">
+            
+                <a href="../../../components/core/data.html">
+            
+                    
+                    Data (Functions and Predicates)
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.3" data-path="../../../components/core/operation.html">
+            
+                <a href="../../../components/core/operation.html">
+            
+                    
+                    Operations
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.4" data-path="../../../components/core/store.html">
+            
+                <a href="../../../components/core/store.html">
+            
+                    
+                    Store
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.5" data-path="../../../components/core/graph.html">
+            
+                <a href="../../../components/core/graph.html">
+            
+                    
+                    Graph
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.6" data-path="../../../components/rest-api.html">
+            
+                <a href="../../../components/rest-api.html">
+            
+                    
+                    REST API
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.7" >
+            
+                <a target="_blank" href="ref://swagger-doc">
+            
+                    
+                    REST API Swagger Doc
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" >
+            
+                <span>
+            
+                    
+                    Tools
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.2.1" data-path="../../../components/tool/python-shell.html">
+            
+                <a href="../../../components/tool/python-shell.html">
+            
+                    
+                    Python Shell
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.2" data-path="../../../components/tool/ui.html">
+            
+                <a href="../../../components/tool/ui.html">
+            
+                    
+                    UI
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.3" data-path="../../../components/tool/deployment.html">
+            
+                <a href="../../../components/tool/deployment.html">
+            
+                    
+                    Deployments
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.4" data-path="../../../components/tool/slider.html">
+            
+                <a href="../../../components/tool/slider.html">
+            
+                    
+                    Slider
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.5" data-path="../../../components/tool/analytics-ui.html">
+            
+                <a href="../../../components/tool/analytics-ui.html">
+            
+                    
+                    Analytics UI
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" >
+            
+                <span>
+            
+                    
+                    Examples
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.3.1" data-path="../../../components/example/road-traffic.html">
+            
+                <a href="../../../components/example/road-traffic.html">
+            
+                    
+                    Road Traffic Example
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3.2" data-path="../../../components/example/federated-demo.html">
+            
+                <a href="../../../components/example/federated-demo.html">
+            
+                    
+                    Federated Example
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../../../summaries/javadoc.html">
+            
+                <a href="../../../summaries/javadoc.html">
+            
+                    
+                    Javadoc
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" >
+            
+                <a target="_blank" href="ref://javadoc/gaffer/index.html">
+            
+                    
+                    Gaffer Javadoc
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" >
+            
+                <a target="_blank" href="ref://javadoc/gaffer-tools/index.html">
+            
+                    
+                    Gaffer Tools Javadoc
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" >
+            
+                <a target="_blank" href="ref://javadoc/koryphe/index.html">
+            
+                    
+                    Koryphe Javadoc
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../../../summaries/other.html">
+            
+                <a href="../../../summaries/other.html">
+            
+                    
+                    Other
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../../../other/ways-of-working.html">
+            
+                <a href="../../../other/ways-of-working.html">
+            
+                    
+                    Ways of Working
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../../../other/faqs.html">
+            
+                <a href="../../../other/faqs.html">
+            
+                    
+                    FAQs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../../../other/supported-platforms.html">
+            
+                <a href="../../../other/supported-platforms.html">
+            
+                    
+                    Supported Platforms
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../../.." >ThetaSketch</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="thetasketch">ThetaSketch</h1>
+<p>The code for this example is <a href="https://github.com/gchq/gaffer-doc/blob/master/src/main/java/uk/gov/gchq/gaffer/doc/properties/walkthrough/ThetaSketchWalkthrough.java" target="_blank">ThetaSketchWalkthrough</a>.</p>
+<p>This example demonstrates how the <a href="https://github.com/DataSketches/sketches-core/blob/master/src/main/java/com/yahoo/sketches/theta/Sketch.java" target="_blank">com.yahoo.sketches.theta.Sketch</a> sketch from the Data Sketches library can be used to maintain estimates of the cardinalities of sets. This sketch is similar to a HyperLogLogPlusPlus, but it can also be used to estimate the size of the intersections of sets. We give an example of how this can be used to monitor the changes to the number of edges in the graph over time.</p>
+<h5 id="elements-schema">Elements schema</h5>
+<p>This is our new elements schema. The edge has properties called &apos;startDate&apos; and &apos;endDate&apos;. These will be set to the midnight before the time of the occurrence of the edge and to midnight after the time of the occurrence of the edge. There is also a size property which will be a theta Sketch. This property will be aggregated over the &apos;groupBy&apos; properties of startDate and endDate.</p>
+<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;entities&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;size&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;vertex&quot;</span><span class="token operator">:</span> <span class="token string">&quot;vertex.string&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;properties&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;startDate&quot;</span><span class="token operator">:</span> <span class="token string">&quot;date.earliest&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;endDate&quot;</span><span class="token operator">:</span> <span class="token string">&quot;date.latest&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;size&quot;</span><span class="token operator">:</span> <span class="token string">&quot;thetasketch&quot;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;groupBy&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">&quot;startDate&quot;</span><span class="token punctuation">,</span>
+        <span class="token string">&quot;endDate&quot;</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;edges&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;red&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;source&quot;</span><span class="token operator">:</span> <span class="token string">&quot;vertex.string&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;destination&quot;</span><span class="token operator">:</span> <span class="token string">&quot;vertex.string&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;directed&quot;</span><span class="token operator">:</span> <span class="token string">&quot;false&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;properties&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;startDate&quot;</span><span class="token operator">:</span> <span class="token string">&quot;date.earliest&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;endDate&quot;</span><span class="token operator">:</span> <span class="token string">&quot;date.latest&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;count&quot;</span><span class="token operator">:</span> <span class="token string">&quot;long.count&quot;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;groupBy&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">&quot;startDate&quot;</span><span class="token punctuation">,</span>
+        <span class="token string">&quot;endDate&quot;</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h5 id="types-schema">Types schema</h5>
+<p>We have added a new type - &apos;thetasketch&apos;. This is a <a href="https://github.com/DataSketches/sketches-core/blob/master/src/main/java/com/yahoo/sketches/theta/Sketch.java" target="_blank">com.yahoo.sketches.theta.Sketch</a> object.
+We also added in the <a href="https://github.com/gchq/Gaffer/blob/master/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/datasketches/theta/serialisation/SketchSerialiser.java" target="_blank">serialiser</a> and <a href="https://github.com/gchq/Gaffer/blob/master/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/datasketches/theta/binaryoperator/SketchAggregator.java" target="_blank">aggregator</a> for the Union object. Gaffer will automatically aggregate these sketches, using the provided aggregator, so they will keep up to date as new edges are added to the graph.</p>
+<pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;types&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;vertex.string&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;class&quot;</span><span class="token operator">:</span> <span class="token string">&quot;java.lang.String&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;validateFunctions&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          <span class="token property">&quot;class&quot;</span><span class="token operator">:</span> <span class="token string">&quot;uk.gov.gchq.koryphe.impl.predicate.Exists&quot;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;date.earliest&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;class&quot;</span><span class="token operator">:</span> <span class="token string">&quot;java.util.Date&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;validateFunctions&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          <span class="token property">&quot;class&quot;</span><span class="token operator">:</span> <span class="token string">&quot;uk.gov.gchq.koryphe.impl.predicate.Exists&quot;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;aggregateFunction&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;class&quot;</span><span class="token operator">:</span> <span class="token string">&quot;uk.gov.gchq.koryphe.impl.binaryoperator.Min&quot;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;date.latest&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;class&quot;</span><span class="token operator">:</span> <span class="token string">&quot;java.util.Date&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;validateFunctions&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          <span class="token property">&quot;class&quot;</span><span class="token operator">:</span> <span class="token string">&quot;uk.gov.gchq.koryphe.impl.predicate.Exists&quot;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;aggregateFunction&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;class&quot;</span><span class="token operator">:</span> <span class="token string">&quot;uk.gov.gchq.koryphe.impl.binaryoperator.Max&quot;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;long.count&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;class&quot;</span><span class="token operator">:</span> <span class="token string">&quot;java.lang.Long&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;aggregateFunction&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;class&quot;</span><span class="token operator">:</span> <span class="token string">&quot;uk.gov.gchq.koryphe.impl.binaryoperator.Sum&quot;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;thetasketch&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;class&quot;</span><span class="token operator">:</span> <span class="token string">&quot;com.yahoo.sketches.theta.Sketch&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;aggregateFunction&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;class&quot;</span><span class="token operator">:</span> <span class="token string">&quot;uk.gov.gchq.gaffer.sketches.datasketches.theta.binaryoperator.SketchAggregator&quot;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;serialiser&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;class&quot;</span><span class="token operator">:</span> <span class="token string">&quot;uk.gov.gchq.gaffer.sketches.datasketches.theta.serialisation.SketchSerialiser&quot;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;false&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;class&quot;</span><span class="token operator">:</span> <span class="token string">&quot;java.lang.Boolean&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;validateFunctions&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          <span class="token property">&quot;class&quot;</span><span class="token operator">:</span> <span class="token string">&quot;uk.gov.gchq.koryphe.impl.predicate.IsFalse&quot;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>1000 different edges were added to the graph for the day 09/01/2017 (i.e. the startDate was the midnight at the start of the 9th, and the endDate was the midnight at the end of the 9th). For each edge, an Entity was created, with a vertex called &quot;graph&quot;. This contained a theta Sketch object to which a string consisting of the source and destination was added. 500 edges were added to the graph for the day 10/01/2017. Of these, 250 were the same as edges that had been added in the previous day, but 250 were new. Again, for each edge, an Entity was created for the vertex called &quot;graph&quot;.</p>
+<p>Here is the Entity for the different days:</p>
+<pre class="language-"><code>Entity[vertex=graph,group=size,properties=Properties[size=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>com.yahoo.sketches.theta.DirectCompactOrderedSketch</span><span class="token punctuation">&gt;</span></span>
+### DirectCompactOrderedSketch SUMMARY: 
+   Estimate                : 500.0
+   Upper Bound, 95% conf   : 500.0
+   Lower Bound, 95% conf   : 500.0
+   Theta (double)          : 1.0
+   Theta (long)            : 9223372036854775807
+   Theta (long) hex        : 7fffffffffffffff
+   EstMode?                : false
+   Empty?                  : false
+   Array Size Entries      : 500
+   Retained Entries        : 500
+   Seed Hash               : 93cc
+### END SKETCH SUMMARY
+,endDate=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>java.util.Date</span><span class="token punctuation">&gt;</span></span>Wed Jan 11 00:00:00 UTC 2017,startDate=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>java.util.Date</span><span class="token punctuation">&gt;</span></span>Tue Jan 10 00:00:00 UTC 2017]]
+Entity[vertex=graph,group=size,properties=Properties[size=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>com.yahoo.sketches.theta.DirectCompactOrderedSketch</span><span class="token punctuation">&gt;</span></span>
+### DirectCompactOrderedSketch SUMMARY: 
+   Estimate                : 1000.0
+   Upper Bound, 95% conf   : 1000.0
+   Lower Bound, 95% conf   : 1000.0
+   Theta (double)          : 1.0
+   Theta (long)            : 9223372036854775807
+   Theta (long) hex        : 7fffffffffffffff
+   EstMode?                : false
+   Empty?                  : false
+   Array Size Entries      : 1000
+   Retained Entries        : 1000
+   Seed Hash               : 93cc
+### END SKETCH SUMMARY
+,endDate=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>java.util.Date</span><span class="token punctuation">&gt;</span></span>Tue Jan 10 00:00:00 UTC 2017,startDate=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>java.util.Date</span><span class="token punctuation">&gt;</span></span>Mon Jan 09 00:00:00 UTC 2017]]
+</code></pre><p>This is not very illuminating as this just shows the default <code>toString()</code> method on the sketch. To get value from it we need to call a method on the Sketch object:</p>
+<p><div class="codetabs"><div class="codetabs-header"><div class="tab active" data-codetab="0">Java</div></div><div class="codetabs-body"><div class="tab active" data-codetab="0"><pre class="language-"><code class="lang-java"><span class="token keyword">final</span> <span class="token class-name">GetAllElements</span> getAllEntities2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">GetAllElements<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">view</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">View<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">entity</span><span class="token punctuation">(</span><span class="token string">&quot;size&quot;</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">final</span> <span class="token class-name">CloseableIterable</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Element</span><span class="token punctuation">&gt;</span></span> allEntities2 <span class="token operator">=</span> graph<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span>getAllEntities2<span class="token punctuation">,</span> user<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">final</span> <span class="token class-name">CloseableIterator</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Element</span><span class="token punctuation">&gt;</span></span> it <span class="token operator">=</span> allEntities2<span class="token punctuation">.</span><span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">final</span> <span class="token class-name">Element</span> entityDay1 <span class="token operator">=</span> it<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">final</span> <span class="token class-name">Sketch</span> sketchDay1 <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">Sketch</span><span class="token punctuation">)</span> entityDay1<span class="token punctuation">.</span><span class="token function">getProperty</span><span class="token punctuation">(</span><span class="token string">&quot;size&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">final</span> <span class="token class-name">Element</span> entityDay2 <span class="token operator">=</span> it<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">final</span> <span class="token class-name">Sketch</span> sketchDay2 <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">Sketch</span><span class="token punctuation">)</span> entityDay2<span class="token punctuation">.</span><span class="token function">getProperty</span><span class="token punctuation">(</span><span class="token string">&quot;size&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">final</span> <span class="token keyword">double</span> estimateDay1 <span class="token operator">=</span> sketchDay1<span class="token punctuation">.</span><span class="token function">getEstimate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">final</span> <span class="token keyword">double</span> estimateDay2 <span class="token operator">=</span> sketchDay2<span class="token punctuation">.</span><span class="token function">getEstimate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div></div></div></p>
+<p>The result is:</p>
+<pre class="language-"><code>500.0
+1000.0
+</code></pre><p>Now we can get an estimate for the number of edges in common across the two days:</p>
+<p><div class="codetabs"><div class="codetabs-header"><div class="tab active" data-codetab="0">Java</div></div><div class="codetabs-body"><div class="tab active" data-codetab="0"><pre class="language-"><code class="lang-java"><span class="token keyword">final</span> <span class="token class-name">Intersection</span> intersection <span class="token operator">=</span> <span class="token class-name">Sketches</span><span class="token punctuation">.</span><span class="token function">setOperationBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">buildIntersection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+intersection<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>sketchDay1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+intersection<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>sketchDay2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">final</span> <span class="token keyword">double</span> intersectionSizeEstimate <span class="token operator">=</span> intersection<span class="token punctuation">.</span><span class="token function">getResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getEstimate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div></div></div></p>
+<p>The result is:</p>
+<pre class="language-"><code>250.0
+</code></pre><p>We now get an estimate for the number of edges in total across the two days, by simply aggregating overall the properties:</p>
+<p><div class="codetabs"><div class="codetabs-header"><div class="tab active" data-codetab="0">Java</div></div><div class="codetabs-body"><div class="tab active" data-codetab="0"><pre class="language-"><code class="lang-java"><span class="token keyword">final</span> <span class="token class-name">GetAllElements</span> getAllEntities <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">GetAllElements<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">view</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">View<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">entity</span><span class="token punctuation">(</span><span class="token string">&quot;size&quot;</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ViewElementDefinition<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                        <span class="token punctuation">.</span><span class="token function">groupBy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// set the group by properties to &apos;none&apos;</span>
+                        <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">final</span> <span class="token class-name">Element</span> entity<span class="token punctuation">;</span>
+<span class="token keyword">try</span> <span class="token punctuation">(</span><span class="token keyword">final</span> <span class="token class-name">CloseableIterable</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Element</span><span class="token punctuation">&gt;</span></span> allEntities <span class="token operator">=</span> graph<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span>getAllEntities<span class="token punctuation">,</span> user<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    entity <span class="token operator">=</span> allEntities<span class="token punctuation">.</span><span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">final</span> <span class="token keyword">double</span> unionSizeEstimate <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token class-name">Sketch</span><span class="token punctuation">)</span> entity<span class="token punctuation">.</span><span class="token function">getProperty</span><span class="token punctuation">(</span><span class="token string">&quot;size&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getEstimate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div></div></div></p>
+<p>The result is:</p>
+<pre class="language-"><code>1250.0
+</code></pre>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="reservoiritemssketch.html" class="navigation navigation-prev " aria-label="Previous page: ReservoirItemsSketch">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="rbmbackedtimestampset.html" class="navigation navigation-next " aria-label="Next page: RBMBackedTimestampSet">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"ThetaSketch","level":"1.2.3.5.6","depth":4,"next":{"title":"RBMBackedTimestampSet","level":"1.2.3.5.7","depth":4,"path":"getting-started/properties-guide/walkthroughs/rbmbackedtimestampset.md","ref":"getting-started/properties-guide/walkthroughs/rbmbackedtimestampset.md","articles":[]},"previous":{"title":"ReservoirItemsSketch","level":"1.2.3.5.5","depth":4,"path":"getting-started/properties-guide/walkthroughs/reservoiritemssketch.md","ref":"getting-started/properties-guide/walkthroughs/reservoiritemssketch.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-interactive","codetabs","prism","-highlight","github","anchorjs","otherlink"],"root":"./docs","styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/gchq/gaffer-doc"},"search":{"maxIndexSize":5000000},"otherlink":{},"codetabs":{},"lunr":{"maxIndexSize":5000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"expandable-chapters-interactive":{},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"expandable-chapters":{}},"theme":"default","honkit":"3.x.x","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Gaffer Doc","gitbook":"*"},"file":{"path":"getting-started/properties-guide/walkthroughs/thetasketch.md","mtime":"2022-01-04T15:42:06.982Z","type":"markdown"},"gitbook":{"version":"3.6.23","time":"2022-01-04T15:43:14.417Z"},"basePath":"../../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../../../gitbook/gitbook.js"></script>
+    <script src="../../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-expandable-chapters-interactive/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-codetabs/codetabs.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-anchorjs/anchor.min.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-anchorjs/anchor-style.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-otherlink/js/otherlink.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
