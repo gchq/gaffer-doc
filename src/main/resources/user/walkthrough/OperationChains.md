@@ -40,7 +40,9 @@ ${CSV_GENERATOR_JAVA}
 
 Now we'll add the operation to the operation chain we executed before (note that this time the return type has changed from Element to String):
 
+${START_JAVA_CODE}
 ${GET_AND_CONVERT_SNIPPET}
+${END_CODE}
 
 When we execute this query we get:
 
