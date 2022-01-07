@@ -3,7 +3,9 @@ name: Build and Publish Honkit docs
 on:
   push:
     branches:
-      - master
+      - v1docs
+    paths-ignore:
+      - 'README.md'
   pull_request:
 
 jobs:
@@ -27,11 +29,19 @@ jobs:
     - name: Install and build the Honkit docs
       run: mvn -q install -P buildHonkit -V
 
+    - name: Relocate docs to a subfolder
+      run: |
+          mkdir -p site/v1docs
+          mv _book/* site/v1docs
+
     - name: Deploy to GitHub Pages
-      if: ${{ github.ref == 'refs/heads/master' && github.event_name == 'push' }}
+      if: ${{ github.ref == 'refs/heads/v1docs' && github.event_name == 'push' }}
       uses: crazy-max/ghaction-github-pages@v2
       with:
         target_branch: gh-pages
-        build_dir: ./_book/
+        build_dir: ./site/
+        commit_message: 'Deploy v1docs to GitHub pages'
+        keep_history: true
+        verbose: true
       env:
         GITHUB_TOKEN: ${{ secrets.ADMIN_GITHUB_TOKEN }}
