@@ -1,0 +1,93 @@
+name: Build and Publish using MkDocs
+
+on:
+  push:
+    # Applies only to tags not pushed by GH Actions (see: https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows#triggering-new-workflows-using-a-personal-access-token)
+    tags:
+      - '2.*'
+  workflow_dispatch:
+    # For easily adding a new tag and deploying
+    inputs:
+      version:
+        description: 'New tag to add and deploy'
+        required: true
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    name: Check version is valid
+    if: github.ref == 'refs/heads/v2docs'
+    outputs:
+      version: ${{ steps.version.outputs.value }}
+
+    steps:
+    - name: Set version (user committed tag)
+      if: ${{ github.event_name == 'push' }}
+      run: echo "VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
+
+    - name: Set version (actions workflow)
+      if: ${{ github.event_name == 'workflow_dispatch' }}
+      run: echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+
+    - name: Set version output
+      id: version
+      run: echo "::set-output name=value::$VERSION"
+
+    - name: Verify version regex
+      uses: actions-ecosystem/action-regex-match@v2
+      id: regex-match
+      with:
+        text: ${{ steps.version.outputs.value }}
+        # Ensure version starts with 2
+        regex: '^(2)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
+
+    - name: Fail if incorrect version
+      if: ${{ !steps.regex-match.outputs.match }}
+      run: echo "Version of '$VERSION' is not valid"; exit 1
+
+  add-version:
+    runs-on: ubuntu-latest
+    name: Add version tag
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    needs: check-version
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Configure git
+      run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+
+    - name: Add release tag
+      # Force is used to replace any existing tag for the same version
+      run: git tag -f ${{ needs.check-version.outputs.version }}
+
+    - name: Push tag
+      run: git push -f origin ${{ needs.check-version.outputs.version }}
+
+
+  build-deploy:
+    runs-on: ubuntu-latest
+    name: Build & Deploy
+    needs: check-version
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install mkdocs-material mike
+
+    - name: Configure git and fetch gh-pages
+      run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git fetch origin gh-pages --depth=1
+
+    - name: Build and deploy MkDocs using mike
+      run: mike deploy --push --update-aliases ${{ needs.check-version.outputs.version }} latest
