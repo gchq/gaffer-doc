@@ -1,0 +1,878 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "A number of configured properties can be retrieved from the \"config\" endpoints. If enabled, the \"job\" endpoints allow the retrieval of job details, as well as submitting a new job. \"Operation\" endpoints include information on available ops, individual ops, and execution of ops. \"Properties\" endpoints expose the application-specific properties. The \"status\" endpoint returns information regarding the current status of the service.",
+    "version" : "v2",
+    "title" : "",
+    "termsOfService" : "",
+    "contact" : {
+      "name" : "",
+      "url" : "",
+      "email" : ""
+    },
+    "license" : {
+      "name" : "",
+      "url" : ""
+    }
+  },
+  "host" : "",
+  "basePath" : "/v2",
+  "tags" : [ {
+    "name" : "config"
+  }, {
+    "name" : "job"
+  }, {
+    "name" : "operations"
+  }, {
+    "name" : "properties"
+  }, {
+    "name" : "status"
+  } ],
+  "paths" : {
+    "/graph/config/description" : {
+      "get" : {
+        "tags" : [ "config" ],
+        "summary" : "Gets the Graph description",
+        "description" : "",
+        "operationId" : "getDescription",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "text/plain" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          }
+        }
+      }
+    },
+    "/graph/config/elementGenerators" : {
+      "get" : {
+        "tags" : [ "config" ],
+        "summary" : "Gets available element generators",
+        "description" : "Returns a list of the fully qualified class paths of the elementGenerators available.",
+        "operationId" : "getElementGenerators",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          }
+        }
+      }
+    },
+    "/graph/config/filterFunctions" : {
+      "get" : {
+        "tags" : [ "config" ],
+        "summary" : "Gets available filter functions",
+        "description" : "Returns (in no particular order) the complete list of fully qualified classpaths, of filtering functions that are available to the user.",
+        "operationId" : "getFilterFunction",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          }
+        }
+      }
+    },
+    "/graph/config/filterFunctions/{inputClass}" : {
+      "get" : {
+        "tags" : [ "config" ],
+        "summary" : "Gets available filter functions for the given input class",
+        "description" : "Returns a list of the fully qualified classpaths of all filter functions that are applicable to the queried input class.",
+        "operationId" : "getFilterFunction",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "inputClass",
+          "in" : "path",
+          "description" : "a function input java class",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          },
+          "404" : {
+            "description" : "Function not found"
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          }
+        }
+      }
+    },
+    "/graph/config/graphId" : {
+      "get" : {
+        "tags" : [ "config" ],
+        "summary" : "Gets the Graph Id",
+        "description" : "",
+        "operationId" : "getGraphId",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "text/plain" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          }
+        }
+      }
+    },
+    "/graph/config/objectGenerators" : {
+      "get" : {
+        "tags" : [ "config" ],
+        "summary" : "Gets available object generators",
+        "description" : "Returns a list of the fully qualified class paths of the objectGenerators available.",
+        "operationId" : "getObjectGenerators",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          }
+        }
+      }
+    },
+    "/graph/config/schema" : {
+      "get" : {
+        "tags" : [ "config" ],
+        "summary" : "Gets the schema",
+        "description" : "Returns the full schema for the Store, which should outline the entire list of Elements to be stored in the Graph.",
+        "operationId" : "getSchema",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          }
+        }
+      }
+    },
+    "/graph/config/serialisedFields/{className}" : {
+      "get" : {
+        "tags" : [ "config" ],
+        "summary" : "Gets all serialised fields for a given java class",
+        "description" : "Provides a map of all serialised (ie, not to be ignored) fields, for a given class, alongside information related to the expected type of the class.",
+        "operationId" : "getSerialisedFields",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "className",
+          "in" : "path",
+          "description" : "The name of the Java class, for which the serialised fields should be retrieved",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          },
+          "404" : {
+            "description" : "Class not found"
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          }
+        }
+      }
+    },
+    "/graph/config/serialisedFields/{className}/classes" : {
+      "get" : {
+        "tags" : [ "config" ],
+        "summary" : "Gets all serialised fields and their class type, for a given java class",
+        "description" : "",
+        "operationId" : "getSerialisedFieldClasses",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "className",
+          "in" : "path",
+          "description" : "A java class name",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "type" : "string"
+              }
+            }
+          },
+          "404" : {
+            "description" : "Class not found"
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          }
+        }
+      }
+    },
+    "/graph/config/storeTraits" : {
+      "get" : {
+        "tags" : [ "config" ],
+        "summary" : "Gets all supported store traits",
+        "description" : "Returns a list of traits that the current store can support, such as different types of Aggregation and Filtering.",
+        "operationId" : "getStoreTraits",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string",
+                "enum" : [ "INGEST_AGGREGATION", "QUERY_AGGREGATION", "PRE_AGGREGATION_FILTERING", "POST_AGGREGATION_FILTERING", "POST_TRANSFORMATION_FILTERING", "TRANSFORMATION", "STORE_VALIDATION", "ORDERED", "VISIBILITY", "MATCHED_VERTEX", "DYNAMIC_SCHEMA" ]
+              }
+            }
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          }
+        }
+      }
+    },
+    "/graph/config/transformFunctions" : {
+      "get" : {
+        "tags" : [ "config" ],
+        "summary" : "Gets available transform functions",
+        "description" : "Returns a list of the fully qualified classpaths of all available transform functions, in no particular order.",
+        "operationId" : "getTransformFunctions",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          }
+        }
+      }
+    },
+    "/graph/jobs" : {
+      "get" : {
+        "tags" : [ "job" ],
+        "summary" : "Get the details of all jobs",
+        "description" : "While any Jobs are running, you can check the status of them all using this endpoint.",
+        "operationId" : "details",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/JobDetail"
+              }
+            }
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          },
+          "503" : {
+            "description" : "The job service is not available"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "job" ],
+        "summary" : "Submits the given operation job to the graph",
+        "description" : "A Job essentially runs an OperationChain (OpChain) asynchronously, and caches the results. This endpoint submits a provided Operation or OpChain to the graph for execution, as a Job. This can be useful if an OpChain takes a long time to return results, or you'd like the results to be stored. One small difference is that a JobDetail is returned rather than the results directly, but they can be extracted with the GetJobResults Operation/Endpoint.",
+        "operationId" : "executeJob",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The operation job to be submitted to the graph",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/Operation"
+          }
+        } ],
+        "responses" : {
+          "201" : {
+            "description" : "A new job was successfully submitted",
+            "schema" : {
+              "$ref" : "#/definitions/JobDetail"
+            }
+          },
+          "400" : {
+            "description" : "Error while processing request body"
+          },
+          "403" : {
+            "description" : "The current user cannot perform the requested operation"
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          },
+          "501" : {
+            "description" : "The requested operation is not supported by the target store"
+          },
+          "503" : {
+            "description" : "The job service is not available"
+          }
+        }
+      }
+    },
+    "/graph/jobs/schedule" : {
+      "post" : {
+        "tags" : [ "job" ],
+        "summary" : "Performs the given scheduled operation chain job on the graph",
+        "description" : "",
+        "operationId" : "executeJob",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "201" : {
+            "description" : "A new job was successfully submitted",
+            "schema" : {
+              "$ref" : "#/definitions/JobDetail"
+            }
+          },
+          "400" : {
+            "description" : "Error while processing request body"
+          },
+          "403" : {
+            "description" : "The current user cannot perform the requested operation"
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          },
+          "501" : {
+            "description" : "The requested operation is not supported by the target store"
+          },
+          "503" : {
+            "description" : "The job service is not available"
+          }
+        }
+      }
+    },
+    "/graph/jobs/{id}" : {
+      "get" : {
+        "tags" : [ "job" ],
+        "summary" : "Get the details of a job",
+        "description" : "This endpoint is useful for checking the details of a singular Job, given its Job ID. This shows information such as the current status, the user who executed the Job, startTime etc.",
+        "operationId" : "details",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "A job id, for which the details should be returned",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/JobDetail"
+            }
+          },
+          "404" : {
+            "description" : "Job was not found"
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          },
+          "503" : {
+            "description" : "The job service is not available"
+          }
+        }
+      }
+    },
+    "/graph/jobs/{id}/results" : {
+      "get" : {
+        "tags" : [ "job" ],
+        "summary" : "Get the results of a job",
+        "description" : "Once a Job has FINISHED, this endpoint will extract the results, and display them as one would expect from running an Operation/OpChain.",
+        "operationId" : "results",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "A job id, for which the results should be returned",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          },
+          "503" : {
+            "description" : "The job service is not available"
+          }
+        }
+      }
+    },
+    "/graph/operations" : {
+      "get" : {
+        "tags" : [ "operations" ],
+        "summary" : "Gets all operations supported by the store",
+        "description" : "This endpoint returns a list of the fully qualified classpaths, for all operations supported by the store.",
+        "operationId" : "getOperations",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/graph/operations/details" : {
+      "get" : {
+        "tags" : [ "operations" ],
+        "summary" : "Returns a List containing OperationDetails for all supported operations on the graph",
+        "description" : "",
+        "operationId" : "getOperationDetails",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object"
+            }
+          }
+        }
+      }
+    },
+    "/graph/operations/execute" : {
+      "post" : {
+        "tags" : [ "operations" ],
+        "summary" : "Performs the given operation on the graph",
+        "description" : "Attempts to execute the provided operation on the graph, and returns the result below. Simple examples for each operation can be added using the drop-down below.",
+        "operationId" : "execute",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json", "text/plain" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The operation to be performed on the graph",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/Operation"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "400" : {
+            "description" : "Error while processing request body"
+          },
+          "403" : {
+            "description" : "The current user cannot perform the requested operation"
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          },
+          "501" : {
+            "description" : "The requested operation is not supported by the target store"
+          }
+        }
+      }
+    },
+    "/graph/operations/execute/chunked" : {
+      "post" : {
+        "tags" : [ "operations" ],
+        "summary" : "Performs the given operation on the graph, returning a chunked output",
+        "description" : "<b>WARNING</b> - This does not work in Swagger.",
+        "operationId" : "executeChunked",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json", "text/plain" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "The operation to be performed, returning a chunked output",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/Operation"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "202" : {
+            "description" : "OK"
+          },
+          "400" : {
+            "description" : "Error while processing request body"
+          },
+          "403" : {
+            "description" : "The current user cannot perform the requested operation"
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          },
+          "501" : {
+            "description" : "The requested operation is not supported by the target store"
+          }
+        }
+      }
+    },
+    "/graph/operations/{className}" : {
+      "get" : {
+        "tags" : [ "operations" ],
+        "summary" : "Gets details about the specified operation class",
+        "description" : "This endpoint exposes the fields (and whether or not they are required); a list of all possible Operations that could follow it; and a small example in JSON, which includes the queried Operation class.",
+        "operationId" : "operationDetails",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "className",
+          "in" : "path",
+          "description" : "The fully qualified class name, for which details should be returned",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "403" : {
+            "description" : "The current user cannot perform the requested operation"
+          },
+          "404" : {
+            "description" : "Operation not found"
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          }
+        }
+      }
+    },
+    "/graph/operations/{className}/example" : {
+      "get" : {
+        "tags" : [ "operations" ],
+        "summary" : "Gets example JSON for the specified operation class",
+        "description" : "Returns a fully justified and formatted JSON example of the given Operation, containing a few Operations for demonstration and usage purposes.",
+        "operationId" : "operationExample",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "className",
+          "in" : "path",
+          "description" : "The fully qualified class name, for which a formatted JSON example should be returned",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "403" : {
+            "description" : "The current user cannot perform the requested operation"
+          },
+          "404" : {
+            "description" : "Operation not found"
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          }
+        }
+      }
+    },
+    "/graph/operations/{className}/next" : {
+      "get" : {
+        "tags" : [ "operations" ],
+        "summary" : "Gets all the compatible operations which could follow the provided operation",
+        "description" : "Returns a complete list of all possible compatible operations, that could follow the queried Operation in an OperationChain.",
+        "operationId" : "nextOperations",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "className",
+          "in" : "path",
+          "description" : "The fully qualified class name, for which all possible compatible follow-up operations should be returned",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          },
+          "404" : {
+            "description" : "Operation not found"
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          }
+        }
+      }
+    },
+    "/graph/status" : {
+      "get" : {
+        "tags" : [ "status" ],
+        "summary" : "Returns the status of the service",
+        "description" : "A simple way to check the current status of the application/service.",
+        "operationId" : "status",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/SystemStatus"
+            }
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          },
+          "503" : {
+            "description" : "The service is not available"
+          }
+        }
+      }
+    },
+    "/properties" : {
+      "get" : {
+        "tags" : [ "properties" ],
+        "summary" : "Gets all available properties",
+        "description" : "Retrieves all properties associated with the application, eg. the app title, or the logo hyperlink.",
+        "operationId" : "getProperties",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "object",
+              "additionalProperties" : {
+                "type" : "object"
+              }
+            }
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          }
+        }
+      }
+    },
+    "/properties/{propertyName}" : {
+      "get" : {
+        "tags" : [ "properties" ],
+        "summary" : "Gets the property value for the specified property name",
+        "description" : "Retrieves the value of the provided system property.",
+        "operationId" : "getProperty",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "text/plain", "application/json" ],
+        "parameters" : [ {
+          "name" : "propertyName",
+          "in" : "path",
+          "description" : "The property name for which the value should be retrieved",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "404" : {
+            "description" : "Property not found"
+          },
+          "500" : {
+            "description" : "Something went wrong in the server"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "JobDetail" : {
+      "type" : "object",
+      "properties" : {
+        "parentJobId" : {
+          "type" : "string"
+        },
+        "repeat" : {
+          "$ref" : "#/definitions/Repeat"
+        },
+        "jobId" : {
+          "type" : "string"
+        },
+        "user" : {
+          "$ref" : "#/definitions/User"
+        },
+        "status" : {
+          "type" : "string",
+          "enum" : [ "RUNNING", "FINISHED", "FAILED", "SCHEDULED_PARENT", "CANCELLED" ]
+        },
+        "startTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "endTime" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "opChain" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Operation" : {
+      "type" : "object",
+      "properties" : {
+        "options" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "Repeat" : {
+      "type" : "object",
+      "properties" : {
+        "initialDelay" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "repeatPeriod" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "timeUnit" : {
+          "type" : "string",
+          "enum" : [ "NANOSECONDS", "MICROSECONDS", "MILLISECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS" ]
+        }
+      }
+    },
+    "SystemStatus" : {
+      "type" : "object",
+      "properties" : {
+        "status" : {
+          "type" : "string",
+          "readOnly" : true,
+          "enum" : [ "UP", "DOWN", "UNKNOWN", "OUT_OF_SERVICE" ]
+        }
+      }
+    },
+    "User" : {
+      "type" : "object",
+      "properties" : {
+        "userId" : {
+          "type" : "string"
+        },
+        "dataAuths" : {
+          "type" : "array",
+          "uniqueItems" : true,
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "opAuths" : {
+          "type" : "array",
+          "uniqueItems" : true,
+          "items" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}
