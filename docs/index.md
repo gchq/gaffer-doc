@@ -7,7 +7,7 @@ For information on Deprecated classes which have been removed from Gaffer with v
 
 For a summary of changes in Gaffer 2, [please see the changes page](changes.md).
 
-License
+Licence
 -------
 
-Gaffer is licensed under the Apache 2 license and is covered by [Crown Copyright](https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/copyright-and-re-use/crown-copyright/).
+Gaffer is licensed under the Apache 2 licence and is covered by [Crown Copyright](https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/copyright-and-re-use/crown-copyright/).
