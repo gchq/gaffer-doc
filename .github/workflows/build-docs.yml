@@ -1,0 +1,32 @@
+name: Build docs using MkDocs
+
+on:
+  push:
+    branches:
+      - v2docs
+    paths-ignore:
+      - 'README.md'
+  pull_request:
+    branches:
+      - v2docs
+    paths-ignore:
+      - 'README.md'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build only
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install mkdocs-material
+
+    - name: Build using MkDocs
+      run: mkdocs build
