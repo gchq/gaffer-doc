@@ -7,7 +7,9 @@ Deprecations impacting the serialisers used in schemas are listed first, followe
 ## Serialisers
 
 ### Migrating away from deprecated Serialisers
-Various deprecated serialisers have been removed completely (details below). If any of these are being used in an existing schema, a new schema will need to be created (see below for replacement serialisers to use) and existing graphs migrated. It is important to migrate data, simply replacing serialisers in a schema is not enough because this **will prevent existing data from being read**.
+Various deprecated serialisers have been removed completely (details below). If any of these are being used in an existing schema, a new graph and schema will need to be created (see below for replacement serialisers to use) and data from existing graphs migrated. Data will need to be migrated (export and reimport) from graphs using deprecated serialisers before upgrading to Gaffer v2.
+
+It is essential to migrate data stored using deprecated serialisers. Simply replacing these serialisers is not enough because this **will prevent existing data from being read** and potentially put the backing store into a **corrupted state**.
 
 ### Preservation of ordering
 When using an ordered store (such as Accumulo), all serialisers used on vertices must preserve order. As such, `compactRaw` serialisers (which do not preserve order) cannot be used on vertices in ordered stores.
