@@ -6,7 +6,10 @@ Deprecations impacting the serialisers used in schemas are listed first, followe
 
 ## Serialisers
 
-#### Preservation of ordering
+### Migrating away from deprecated Serialisers
+Various deprecated serialisers have been removed completely (details below). If any of these are being used in an existing schema, a new schema will need to be created (see below for replacement serialisers to use) and existing graphs migrated. It is important to migrate data, simply replacing serialisers in a schema is not enough because this **will prevent existing data from being read**.
+
+### Preservation of ordering
 When using an ordered store (such as Accumulo), all serialisers used on vertices must preserve order. As such, `compactRaw` serialisers (which do not preserve order) cannot be used on vertices in ordered stores.
 
 However, when preserving order is not required, such as for properties, `compactRaw` serialisers are the most effective solution and should always be used. Using an ordered serialiser on a property would reduce performance without providing any benefit. [See the schemas documentation for more detail](https://gchq.github.io/gaffer-doc/v1docs/getting-started/developer-guide/schemas.html#serialisers).
