@@ -11,7 +11,7 @@ The new Gaffer docs are built using [MkDocs](https://www.mkdocs.org) with the [M
 
 ## Prerequisites
 ### Python
-You need Python installed to use MkDocs.
+You need Python (version 3.6 or newer) installed to use MkDocs.
 
 ### MkDocs
 You need MkDocs and the Material theme to generate the documentation. Installing the Material theme will pull in MkDocs as a dependency:
@@ -21,7 +21,7 @@ pip install mkdocs-material
 ```
 
 ### Mike (optional)
-If you want use versioning, you'll need to have `mike` installed:
+We use this for documentation versioning. Running `mike` is handled by GitHub Actions and isn't something most contributors will need to use. If you do want to install `mike`, use:
 
 ```bash
 pip install mike
@@ -35,7 +35,7 @@ mkdocs build
 ```
 
 ## Serve the documentation site
-Docs can be served (on `localhost:8000`) by using: 
+Docs can be served locally (on `localhost:8000`) by using: 
 
 ```bash
 mkdocs serve

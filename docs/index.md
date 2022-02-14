@@ -10,4 +10,4 @@ For a summary of changes in Gaffer 2, [please see the changes page](changes.md).
 Licence
 -------
 
-Gaffer is licensed under the Apache 2 licence and is covered by [Crown Copyright](https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/copyright-and-re-use/crown-copyright/).
+Gaffer is licensed under the Apache 2 licence and is covered by [Crown Copyright](https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/).
