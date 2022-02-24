@@ -4125,7 +4125,7 @@ parquet.add_elements.row_group.size=1073741824
 parquet.add_elements.page.size=4194304
 parquet.add_elements.output_files_per_group=2
 </code></pre><h2 id="schema">Schema</h2>
-<p>See the <a href="https://gchq.github.io/gaffer-doc/getting-started/developer-guide/schemas.html" target="_blank">Getting Started guide to schemas</a> for details of how to write a schema that tells Gaffer what data will be stored, and how to aggregate it. Once the schema has been created, a <code>Graph</code> object can be created using:</p>
+<p>See the <a href="https://gchq.github.io/gaffer-doc/v1docs/getting-started/developer-guide/schemas.html" target="_blank">Getting Started guide to schemas</a> for details of how to write a schema that tells Gaffer what data will be stored, and how to aggregate it. Once the schema has been created, a <code>Graph</code> object can be created using:</p>
 <pre class="language-"><code>Graph graph = new Graph.Builder()
       .config(new GraphConfig.Builder()
           .graphId(uniqueNameOfYourGraph)
@@ -4149,7 +4149,7 @@ graph.execute(addElements, new User());
 </code></pre><p>To insert large data sets the <code>ImportRDDOfElements</code> operation is recommended.</p>
 <p>Note that the Parquet store is designed to support sequential bulk imports of data. It is not designed to continually ingest new data. It is also not designed to allow multiple concurrent ingest operations.</p>
 <h2 id="queries">Queries</h2>
-<p>The <code>ParquetStore</code> currently supports most of the <a href="https://gchq.github.io/gaffer-doc/getting-started/spark-operations/contents.html" target="_blank">standard Gaffer queries</a>.</p>
+<p>The <code>ParquetStore</code> currently supports most of the <a href="https://gchq.github.io/gaffer-doc/v1docs/getting-started/spark-operations/contents.html" target="_blank">standard Gaffer queries</a>.</p>
 <p>The operations that are not currently supported are:</p>
 <ul>
 <li><code>GetAdjacentEntitySeeds</code></li>
