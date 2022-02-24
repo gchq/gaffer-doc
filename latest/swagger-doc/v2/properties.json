@@ -1,4 +1,4 @@
 {
   "gaffer.properties.app.title": "Gaffer REST API",
-  "gaffer.properties.app.doc.url": "https://gchq.github.io/gaffer-doc/v1docs/"
+  "gaffer.properties.app.doc.url": "https://gchq.github.io/gaffer-doc/"
 }
