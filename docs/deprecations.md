@@ -69,11 +69,13 @@ However, when preserving order is not required, such as for properties, `compact
 - The method `deserialise(byte[])` has been marked as deprecated. It cannot be deleted as it is needed to implement the Serialiser interface.
 - It is recommended for speed/performance to use the other implementation with an offset and a length - `deserialise(byte[], int, int)`.
 
-## Changes to Seed Matching and Traits
+## Removal of Seed Matching
 
 ### [`operation.SeedMatching`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/operation/src/main/java/uk/gov/gchq/gaffer/operation/SeedMatching.java)
 - This class has been removed.
-- Use a view instead. See the [Gaffer docs for more detail](https://gchq.github.io/gaffer-doc/v1docs/getting-started/user-guide/filtering.html#seedmatching).
+- Use a View instead. See the [Gaffer v1 docs](https://gchq.github.io/gaffer-doc/v1docs/getting-started/user-guide/filtering.html#seedmatching) for more detail on how to replace seed matching with a view.
+
+## Changes to Store Traits
 
 ### [`store.Store`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/store/src/main/java/uk/gov/gchq/gaffer/store/Store.java)
 - The method `getTraits()` has been removed. Use `Store.execute(Operation, Context)` with the `GetTraits` operation instead.
