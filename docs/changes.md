@@ -29,7 +29,7 @@ Full details TBD.
 ### More Federated Store fixes
 Full details TBD.
 
-## Alha 6
+## Alpha 6
 ### Accumulo 2 Support
 Gaffer 2 will support an Accumulo 2 store, in addition to the Accumulo 1 store.
 ## Alpha 7
