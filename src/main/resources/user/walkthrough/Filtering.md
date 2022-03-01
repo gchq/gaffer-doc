@@ -103,21 +103,21 @@ telling Gaffer that you only want edges that are EQUAL or RELATED to your seeds.
 The default value is RELATED.
 
 EQUAL will only return Entities and Edges with identifiers that match the seed exactly.
-- if you provide an Entity seed, you will only get back Entities have that the same vertex value.
+- if you provide an Entity seed, you will only get back Entities that have the same vertex value.
 - if you provide an Edge seed, you will only get back Edges that have the same source, destination and directed values.
 
 RELATED will return the EQUAL results (as above) and additional Entities and Edges:
-- if you provide an Entity seed, you will also get back Edges that have have the same source or destination as the vertex value.
-- if you provide an Edge seed, you will also get back Entities that have have the same vertex value as the source or destination.
+- if you provide an Entity seed, you will also get back Edges that have the same source or destination as the vertex value.
+- if you provide an Edge seed, you will also get back Entities that have the same vertex value as the source or destination.
 
 #### Deprecation
 As the seedMatching flag has now been deprecated, to run equivalent Operations with EQUAL seedMatching, you must instead use a View.
 As the default for seedMatching is RELATED, if you use this then nothing will change.
 If you instead set seedMatching to EQUAL, then you can refer to the examples below on how to replace with a View:
 
-For edges:
+##### Edges
 
-OLD (SeedMatching):
+SeedMatching:
 ${START_JAVA_CODE}
 ${GET_EDGES_WITH_SEEDMATCHING_SNIPPET}
 ${JSON_CODE}
@@ -128,7 +128,7 @@ ${PYTHON_CODE}
 ${GET_EDGES_WITH_SEEDMATCHING_PYTHON}
 ${END_CODE}
 
-NEW (View):
+View:
 ${START_JAVA_CODE}
 ${GET_EDGES_WITHOUT_SEEDMATCHING_SNIPPET}
 ${JSON_CODE}
@@ -139,9 +139,9 @@ ${PYTHON_CODE}
 ${GET_EDGES_WITHOUT_SEEDMATCHING_PYTHON}
 ${END_CODE}
 
-For entities:
+##### Entities
 
-OLD (SeedMatching):
+SeedMatching:
 ${START_JAVA_CODE}
 ${GET_ENTITIES_WITH_SEEDMATCHING_SNIPPET}
 ${JSON_CODE}
@@ -152,7 +152,7 @@ ${PYTHON_CODE}
 ${GET_ENTITIES_WITH_SEEDMATCHING_PYTHON}
 ${END_CODE}
 
-NEW (View):
+View:
 ${START_JAVA_CODE}
 ${GET_ENTITIES_WITHOUT_SEEDMATCHING_SNIPPET}
 ${JSON_CODE}
@@ -163,12 +163,12 @@ ${PYTHON_CODE}
 ${GET_ENTITIES_WITHOUT_SEEDMATCHING_PYTHON}
 ${END_CODE}
 
+##### Entities and edges
+
 There is one limitation however, if you use seedMatching as EQUAL and specify both Edges and Entities in your input, that will now have to be
 done under 2 Operations within an OperationChain as there can only be one View applied globally to all input. See example below:
 
-For entities and edges:
-
-OLD (SeedMatching):
+SeedMatching:
 ${START_JAVA_CODE}
 ${GET_BOTH_WITH_SEEDMATCHING_SNIPPET}
 ${JSON_CODE}
@@ -179,7 +179,7 @@ ${PYTHON_CODE}
 ${GET_BOTH_WITH_SEEDMATCHING_PYTHON}
 ${END_CODE}
 
-NEW (2 Operations in OperationChain using different Views):
+Two Operations in OperationChain using different Views:
 ${START_JAVA_CODE}
 ${GET_BOTH_WITHOUT_SEEDMATCHING_SNIPPET}
 ${JSON_CODE}
