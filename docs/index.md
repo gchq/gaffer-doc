@@ -5,7 +5,7 @@ Gaffer 2
 
 For information and migration steps for Deprecated classes which have been removed in Gaffer 2 alpha 1, [please see the deprecations page](deprecations.md).
 
-For a summary of the current Gaffer 2 alpha roadmap, [please see the changes page](changes.md).
+For a summary of the current Gaffer 2 alpha roadmap, including migration steps, please see the [Gaffer 2 Changelist](changelist.md).
 
 Licence
 -------
