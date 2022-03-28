@@ -27,6 +27,7 @@ import uk.gov.gchq.gaffer.data.elementdefinition.view.View;
 import uk.gov.gchq.gaffer.data.elementdefinition.view.ViewElementDefinition;
 import uk.gov.gchq.gaffer.doc.user.generator.RoadAndRoadUseElementGenerator;
 import uk.gov.gchq.gaffer.graph.Graph;
+import uk.gov.gchq.gaffer.operation.OperationChain;
 import uk.gov.gchq.gaffer.operation.OperationException;
 import uk.gov.gchq.gaffer.operation.SeedMatching;
 import uk.gov.gchq.gaffer.operation.data.EdgeSeed;
@@ -165,6 +166,34 @@ public class Filtering extends UserWalkthrough {
                 .build();
         // ---------------------------------------------------------
         printJsonAndPython("GET_ENTITIES_WITHOUT_SEEDMATCHING", getEntitiesWithoutSeedMatching);
+
+        // [get both with seedmatching]
+        // ---------------------------------------------------------
+        final GetElements getBothWithSeedMatching = new GetElements.Builder()
+                .input(new EntitySeed("vertex"), new EdgeSeed("source", "dest", true))
+                .seedMatching(SeedMatching.SeedMatchingType.EQUAL)
+                .build();
+        // ---------------------------------------------------------
+        printJsonAndPython("GET_BOTH_WITH_SEEDMATCHING", getBothWithSeedMatching);
+
+        // [get both without seedmatching]
+        // ---------------------------------------------------------
+        final OperationChain getBothWithoutSeedMatching = new OperationChain.Builder()
+                .first(new GetElements.Builder()
+                        .input(new EntitySeed("vertex"))
+                        .view(new View.Builder()
+                                .entity("group1")
+                                .build())
+                        .build())
+                .then(new GetElements.Builder()
+                        .input(new EdgeSeed("source", "dest", true))
+                        .view(new View.Builder()
+                                .edge("group1")
+                                .build())
+                        .build())
+                .build();
+        // ---------------------------------------------------------
+        printJsonAndPython("GET_BOTH_WITHOUT_SEEDMATCHING", getBothWithoutSeedMatching);
 
         return filteredResults;
     }
