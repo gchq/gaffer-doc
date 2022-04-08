@@ -196,7 +196,7 @@ However, when preserving order is not required, such as for properties, `compact
 
 ### [`store.schema.Schema`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/store/src/main/java/uk/gov/gchq/gaffer/store/schema/Schema.java)
 - Schema ID (`gaffer.store.id`) and related methods have been removed. The ID is now defined in `GraphLibrary` when adding the schema.
-- `timestampProperty` and related methods have been removed. Instead, this is specified by setting `"config": {"timestampProperty": "timestamp"}` (where `"timestamp"` is the property name to use as a time stamp) in the Schema. _TODO - add link to example schema or more info._
+- `timestampProperty` and related methods have been removed. Instead, this is specified by setting `"config": {"timestampProperty": "timestamp"}` (where `"timestamp"` is the property name to use as a time stamp) in the Schema. See [this example schema](https://github.com/gchq/Gaffer/blob/gaffer2-2.0.0-alpha-0.1/core/store/src/test/resources/schema-nested/elements.json) for more info.
 - The method `getVertexSerialiserClass()` has been removed. It can be replaced by calling `vertexSerialiser.getClass()` and converting the result as appropriate, e.g. `getVertexSerialiserClass()` used `SimpleClassNameIdResolver.getSimpleClassName(vertexSerialiser.getClass())`.
 
 ### [`store.library.GraphLibrary`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/store/src/main/java/uk/gov/gchq/gaffer/store/library/GraphLibrary.java)
