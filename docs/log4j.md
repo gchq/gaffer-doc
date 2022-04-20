@@ -10,6 +10,10 @@ Log4j version 1 (1.2.17), was used by Gaffer versions 1.21 and below. From Gaffe
 
 Gaffer uses SLF4J ([Simple Logging Facade for Java](https://www.slf4j.org/)) for all logging. This is a framework/abstraction layer which allows for different loggers to be used ([known as bindings](https://www.slf4j.org/manual.html#swapping)). The binding used by Gaffer is `org.slf4j:slf4j-reload4j:jar:1.7.36`.
 
+## Impact of Log4j removal on projects incorporating Gaffer
+
+Gaffer now uses Reload4j via SLF4J. This may impact projects which are using Gaffer if they are using Log4j directly or through a transitive dependency. To help avoid dependency conflicts, we have configured `maven-enforcer-plugin` to block use of Log4j with Gaffer. If you are using Gaffer in your project and your build fails because of this plugin, you will need to add a dependency exclusion to any dependencies which depend transitively on Log4j. These can be found by using the Maven dependency tree (ideally in verbose mode).
+
 ## Dependencies of Gaffer using Log4j 1.2.17
 
 Some major Gaffer dependencies (listed below) use Log4j internally (either directly or through SLF4J). From Gaffer version 1.22 these transitive dependencies are excluded and replaced with Reload4j, such that Log4j does not appear on the classpath at all.
