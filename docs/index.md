@@ -7,6 +7,8 @@ For information on Deprecated classes which have been removed from Gaffer with v
 
 For a summary of changes in Gaffer 2, [please see the changes page](changes.md).
 
+For information on logging in Gaffer and historic use of Log4j, [please see this page](log4j.md).
+
 Licence
 -------
 
