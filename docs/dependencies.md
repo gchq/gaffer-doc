@@ -11,7 +11,7 @@ This page lists the dependencies that have been upgraded as part of Gaffer 2.
  - Avro: 1.7.7 -> 1.8.2
  - Jackson: 2.6.5 -> 2.11.4
  - Hazelcast: 3.8 -> 5.1
- - Spring Boot: 1.3.2 -> 2.5.8
+ - Spring Boot: 1.3.2 -> 2.5.12
  - Spring API Swagger: 2.6.0 -> 3.0.0
  - Commons-codec: 1.6 -> 1.15
  - Commons-io: 2.7 -> 2.11.0
