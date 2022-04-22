@@ -7,6 +7,8 @@ For information and migration steps for Deprecated classes which have been remov
 
 For a summary of the current Gaffer 2 alpha roadmap, including migration steps, please see the [Gaffer 2 Changelist](changelist.md).
 
+For information on logging in Gaffer and historic use of Log4j, [please see this page](log4j.md).
+
 Licence
 -------
 
