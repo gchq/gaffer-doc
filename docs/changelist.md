@@ -12,13 +12,16 @@ The HBase and Parquet stores have been removed from Gaffer in version 2. We made
 
 ## Alpha 2 | [released](https://github.com/gchq/Gaffer/releases/tag/gaffer2-2.0.0-alpha-0.1)
 ### Dependency Upgrades
-Dependencies have been updated, where possible to the latest version, removing vulnerabilities. Please see the [dependencies](dependencies.md) page for full details.  
+Dependencies have been updated, where possible to the latest version, removing vulnerabilities. Please see the [dependencies](dependencies.md) page for full details.
 
 ### Gaffer now builds with Java 8 and Java 11
-There is now a maven profile that will swap dependency versions so you can build Gaffer with Java 11. The code has also been updated to build with both Java versions.  
+There is now a maven profile that will swap dependency versions so you can build Gaffer with Java 11. The code has also been updated to build with both Java versions.
 
 ### Removal of CloseableIterable
-The CloseableIterable class has been removed so Operations like GetAllElements now return an Iterable instead, but the result still implements Closeable.  
+The CloseableIterable class has been removed so Operations like GetAllElements now return an Iterable instead, but the result still implements Closeable.
+
+### Known issues
+The road traffic example rest has a bug in this release that means the example data isn't loaded in. This means that the gafferpy tests will fail as there is no data, but it still works.
 
 ## Future alphas
 ### New Accumulo 2 Store
@@ -28,4 +31,4 @@ There will be a new Accumulo 2 Store added that uses Hadoop 3 and Accumulo 2. Th
 Multiple bug fixes and improvements to the Federated Store. Full details TBD.
 
 ### Named Operation Improvements
-It will be possible for Named Operations to reference each other. This would allow one NamedOperation to be called from inside another. Full details TBD.
+Some changes and improvements to Named Operations are planned. Full details TBD.
