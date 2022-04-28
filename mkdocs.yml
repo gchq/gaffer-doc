@@ -19,8 +19,9 @@ extra:
 
 nav:
     - Home: 'index.md'
+    - Changelist: 'changelist.md'
     - Deprecations: 'deprecations.md'
-    - Changes: 'changes.md'
+    - Dependencies: 'dependencies.md'
 
 theme:
   name: material
