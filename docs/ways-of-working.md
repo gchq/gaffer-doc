@@ -76,3 +76,6 @@ In particular:
       [assertThat the method did what was expected]
   }
   ```
+
+## Gaffer 2
+During the Gaffer 2 development process there is a **v2-alpha** branch, which acts as the **develop** branch for changes that will only be added to Gaffer 2.
