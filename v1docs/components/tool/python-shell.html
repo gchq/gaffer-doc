@@ -6,7 +6,7 @@
         <title>Python Shell · Gaffer Doc</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.6.23">
+        <meta name="generator" content="HonKit 3.7.1">
         
         
         
@@ -4049,7 +4049,11 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <pre class="language-"><code class="lang-bash">python3 src/example.py
+                                <p>To start using the python shell you will need an instance of the REST API running. You can start the Gaffer road-traffic-demo rest server and ui (see ui/README.md) using the command:</p>
+<pre class="language-"><code class="lang-bash">./ui/example/road-traffic/scripts/start.sh
+</code></pre>
+<p>Once this is running you can run the python example by using the command (all commands are run from the root of the python-shell project):</p>
+<pre class="language-"><code class="lang-bash">python3 src/example.py
 python3 src/example_map.py
 </code></pre>
 <p>Alternatively if you have you own REST API running that is authenticated with PKI certificates then you can follow the pki example. Before using the example you will need to export your PKI certificate into a .pem file:</p>
@@ -4094,7 +4098,7 @@ gc <span class="token operator">=</span> gaffer_connector<span class="token punc
     <span class="token punctuation">)</span>
 <span class="token punctuation">)</span>
 </code></pre>
-<p>See <a href="https://gchq.github.io/gaffer-doc/v1docs/getting-started/operation-examples.html" target="_blank">operation examples</a> for more examples of operations in python.</p>
+<p>See <a href="https://gchq.github.io/gaffer-doc/getting-started/operation-examples.html" target="_blank">operation examples</a> for more examples of operations in python.</p>
 <h3 id="installation">Installation</h3>
 <p>We currently don&apos;t release gafferpy on pypi, but there are plently of ways to use it once you have the source code.<br>As well as refering to the Python source files as above, you can also build gafferpy from source (useful for distribution) or install a local copy in develop mode that will update when you change the source code.  </p>
 <h4 id="build-with-bdistwheel">Build with bdist_wheel</h4>
@@ -4129,11 +4133,6 @@ gc <span class="token operator">=</span> gaffer_connector<span class="token punc
 <p>then from within the python-shell folder run:</p>
 <pre class="language-"><code class="lang-bash">python3 -m unittest discover
 </code></pre>
-<h2 id="license">License</h2>
-<p>Copyright 2016 Crown Copyright</p>
-<p>Licensed under the Apache License, Version 2.0 (the &quot;License&quot;); you may not use this file except in compliance with the License. You may obtain a copy of the License at</p>
-<p><a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">http://www.apache.org/licenses/LICENSE-2.0</a></p>
-<p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
 
                                 
                                 </section>
@@ -4173,7 +4172,7 @@ gc <span class="token operator">=</span> gaffer_connector<span class="token punc
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Python Shell","level":"1.4.2.1","depth":3,"next":{"title":"UI","level":"1.4.2.2","depth":3,"path":"components/tool/ui.md","ref":"components/tool/ui.md","articles":[]},"previous":{"title":"Tools","level":"1.4.2","depth":2,"ref":"","articles":[{"title":"Python Shell","level":"1.4.2.1","depth":3,"path":"components/tool/python-shell.md","ref":"components/tool/python-shell.md","articles":[]},{"title":"UI","level":"1.4.2.2","depth":3,"path":"components/tool/ui.md","ref":"components/tool/ui.md","articles":[]},{"title":"Deployments","level":"1.4.2.3","depth":3,"path":"components/tool/deployment.md","ref":"components/tool/deployment.md","articles":[]},{"title":"Slider","level":"1.4.2.4","depth":3,"path":"components/tool/slider.md","ref":"components/tool/slider.md","articles":[]},{"title":"Analytics UI","level":"1.4.2.5","depth":3,"path":"components/tool/analytics-ui.md","ref":"components/tool/analytics-ui.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-interactive","codetabs","prism","-highlight","github","anchorjs","otherlink"],"root":"./docs","styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/gchq/gaffer-doc"},"search":{"maxIndexSize":5000000},"otherlink":{},"codetabs":{},"lunr":{"maxIndexSize":5000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"expandable-chapters-interactive":{},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"expandable-chapters":{}},"theme":"default","honkit":"3.x.x","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Gaffer Doc","gitbook":"*"},"file":{"path":"components/tool/python-shell.md","mtime":"2022-01-10T15:14:38.674Z","type":"markdown"},"gitbook":{"version":"3.6.23","time":"2022-01-10T15:14:56.184Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Python Shell","level":"1.4.2.1","depth":3,"next":{"title":"UI","level":"1.4.2.2","depth":3,"path":"components/tool/ui.md","ref":"components/tool/ui.md","articles":[]},"previous":{"title":"Tools","level":"1.4.2","depth":2,"ref":"","articles":[{"title":"Python Shell","level":"1.4.2.1","depth":3,"path":"components/tool/python-shell.md","ref":"components/tool/python-shell.md","articles":[]},{"title":"UI","level":"1.4.2.2","depth":3,"path":"components/tool/ui.md","ref":"components/tool/ui.md","articles":[]},{"title":"Deployments","level":"1.4.2.3","depth":3,"path":"components/tool/deployment.md","ref":"components/tool/deployment.md","articles":[]},{"title":"Slider","level":"1.4.2.4","depth":3,"path":"components/tool/slider.md","ref":"components/tool/slider.md","articles":[]},{"title":"Analytics UI","level":"1.4.2.5","depth":3,"path":"components/tool/analytics-ui.md","ref":"components/tool/analytics-ui.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-interactive","codetabs","prism","-highlight","github","anchorjs","otherlink"],"root":"./docs","styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/gchq/gaffer-doc"},"search":{"maxIndexSize":5000000},"otherlink":{},"codetabs":{},"lunr":{"maxIndexSize":5000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"expandable-chapters-interactive":{},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"expandable-chapters":{}},"theme":"default","honkit":"3.x.x","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Gaffer Doc","gitbook":"*"},"file":{"path":"components/tool/python-shell.md","mtime":"2022-05-04T13:17:28.612Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-04T13:17:46.580Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>

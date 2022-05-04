@@ -6,7 +6,7 @@
         <title>HBase Store · Gaffer Doc</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.6.23">
+        <meta name="generator" content="HonKit 3.7.1">
         
         
         
@@ -4051,7 +4051,9 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="hbase-store">HBase Store</h1>
+                                <h1 id="deprecated">Deprecated</h1>
+<p>The HBase Store has been <a href="https://github.com/gchq/Gaffer/issues/2556" target="_blank">deprecated</a>. It will be deleted during the Gaffer 2 development process and Gaffer v2.0.0 will not have a HBase Store implementation included with it.  </p>
+<h1 id="hbase-store">HBase Store</h1>
 <ol>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#use-cases">Use cases</a></li>
@@ -4100,16 +4102,16 @@ Please note that currently this store does not implement some of the advanced op
 <p>The next step is to write a store.properties file.</p>
 <h2 id="properties-file">Properties file</h2>
 <p>The next stage is to create a properties file that Gaffer will use to instantiate a connection to your HBase cluster. This requires the following properties:</p>
-<pre class="language-"><code class="lang-properties"><span class="token attr-name">gaffer.store.class</span><span class="token punctuation">=</span><span class="token attr-value">uk.gov.gchq.gaffer.hbasestore.HBaseStore</span>
-<span class="token attr-name">gaffer.store.properties.class</span><span class="token punctuation">=</span><span class="token attr-value">uk.gov.gchq.gaffer.hbasestore.HBaseProperties</span>
+<pre class="language-"><code class="lang-properties"><span class="token key attr-name">gaffer.store.class</span><span class="token punctuation">=</span><span class="token value attr-value">uk.gov.gchq.gaffer.hbasestore.HBaseStore</span>
+<span class="token key attr-name">gaffer.store.properties.class</span><span class="token punctuation">=</span><span class="token value attr-value">uk.gov.gchq.gaffer.hbasestore.HBaseProperties</span>
 
 <span class="token comment"># A comma separated list of zookeepers</span>
 <span class="token comment"># In AWS it will just be something like: ec2-xx-xx-xx-xx.location.compute.amazonaws.com</span>
-<span class="token attr-name">hbase.zookeepers</span><span class="token punctuation">=</span><span class="token attr-value">localhost:2181</span>
+<span class="token key attr-name">hbase.zookeepers</span><span class="token punctuation">=</span><span class="token value attr-value">localhost:2181</span>
 
 <span class="token comment"># Add the hbase-store-[version]-deploy.jar to the cluster - either local file system or hdfs.</span>
 <span class="token comment"># e.g /user/hbase/gaffer/jars/hbase-store-0.7.0-deploy.jar</span>
-<span class="token attr-name">hbase.hdfs.jars.path</span><span class="token punctuation">=</span><span class="token attr-value">[path to jar folder]/hbase-store-[version]-deploy.jar</span>
+<span class="token key attr-name">hbase.hdfs.jars.path</span><span class="token punctuation">=</span><span class="token value attr-value">[path to jar folder]/hbase-store-[version]-deploy.jar</span>
 </code></pre>
 <h2 id="schema">Schema</h2>
 <p>See <a href="https://gchq.github.io/gaffer-doc/v1docs/getting-started/developer-guide/schemas.html" target="_blank">Getting started</a> for details of how to write a schema that tells Gaffer what data will be stored, and how to aggregate it. Once the schema has been created, a <code>Graph</code> object can be created using:</p>
@@ -4335,7 +4337,7 @@ If you run it without any arguments it will tell you how to use it.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"HBase Store","level":"1.3.2","depth":2,"next":{"title":"Map Store","level":"1.3.3","depth":2,"path":"stores/map-store.md","ref":"stores/map-store.md","articles":[]},"previous":{"title":"Accumulo Store","level":"1.3.1","depth":2,"path":"stores/accumulo-store.md","ref":"stores/accumulo-store.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-interactive","codetabs","prism","-highlight","github","anchorjs","otherlink"],"root":"./docs","styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/gchq/gaffer-doc"},"search":{"maxIndexSize":5000000},"otherlink":{},"codetabs":{},"lunr":{"maxIndexSize":5000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"expandable-chapters-interactive":{},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"expandable-chapters":{}},"theme":"default","honkit":"3.x.x","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Gaffer Doc","gitbook":"*"},"file":{"path":"stores/hbase-store.md","mtime":"2022-01-10T15:14:38.658Z","type":"markdown"},"gitbook":{"version":"3.6.23","time":"2022-01-10T15:14:56.184Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"HBase Store","level":"1.3.2","depth":2,"next":{"title":"Map Store","level":"1.3.3","depth":2,"path":"stores/map-store.md","ref":"stores/map-store.md","articles":[]},"previous":{"title":"Accumulo Store","level":"1.3.1","depth":2,"path":"stores/accumulo-store.md","ref":"stores/accumulo-store.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-interactive","codetabs","prism","-highlight","github","anchorjs","otherlink"],"root":"./docs","styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/gchq/gaffer-doc"},"search":{"maxIndexSize":5000000},"otherlink":{},"codetabs":{},"lunr":{"maxIndexSize":5000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"expandable-chapters-interactive":{},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"expandable-chapters":{}},"theme":"default","honkit":"3.x.x","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Gaffer Doc","gitbook":"*"},"file":{"path":"stores/hbase-store.md","mtime":"2022-05-04T13:17:28.628Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-04T13:17:46.580Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

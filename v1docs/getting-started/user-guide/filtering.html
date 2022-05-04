@@ -6,7 +6,7 @@
         <title>Filtering · Gaffer Doc</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.6.23">
+        <meta name="generator" content="HonKit 3.7.1">
         
         
         
@@ -4240,19 +4240,20 @@ telling Gaffer that you only want edges that are EQUAL or RELATED to your seeds.
 <p>The default value is RELATED.</p>
 <p>EQUAL will only return Entities and Edges with identifiers that match the seed exactly.</p>
 <ul>
-<li>if you provide an Entity seed, you will only get back Entities have that the same vertex value.</li>
+<li>if you provide an Entity seed, you will only get back Entities that have the same vertex value.</li>
 <li>if you provide an Edge seed, you will only get back Edges that have the same source, destination and directed values.</li>
 </ul>
 <p>RELATED will return the EQUAL results (as above) and additional Entities and Edges:</p>
 <ul>
-<li>if you provide an Entity seed, you will also get back Edges that have have the same vertex value as source or destination.</li>
-<li>if you provide an Edge seed, you will also get back Entities that have have the same source or destination vertices.</li>
+<li>if you provide an Entity seed, you will also get back Edges that have the same source or destination as the vertex value.</li>
+<li>if you provide an Edge seed, you will also get back Entities that have the same vertex value as the source or destination.</li>
 </ul>
-<p>As the seedMatching flag has now been deprecated, to run equivalent Operations, there are some examples below.  As the default for 
-seedMatching is RELATED, if that is currently used nothing will need to change.
-There is one limitation however, if you have a seedMatching = EQUAL and specify both Edges and Entities that will have to now be
-done under 2 Operations in a chain as there can only be one View applied globally to all input.</p>
-<p>OLD:</p>
+<h4 id="deprecation">Deprecation</h4>
+<p>As the seedMatching flag has now been deprecated, to run equivalent Operations with EQUAL seedMatching, you must instead use a View.
+As the default for seedMatching is RELATED, if you use this then nothing will change.
+If you instead set seedMatching to EQUAL, then you can refer to the examples below on how to replace with a View:</p>
+<h5 id="edges">Edges</h5>
+<p>SeedMatching:</p>
 <p><div class="codetabs"><div class="codetabs-header"><div class="tab active" data-codetab="0">Java</div><div class="tab" data-codetab="1">JSON</div><div class="tab" data-codetab="2">Full JSON</div><div class="tab" data-codetab="3">Python</div></div><div class="codetabs-body"><div class="tab active" data-codetab="0"><pre class="language-"><code class="lang-java"><span class="token keyword">final</span> <span class="token class-name">GetElements</span> getEdgesWithSeedMatching <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">GetElements<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">input</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">EdgeSeed</span><span class="token punctuation">(</span><span class="token string">&quot;source&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;dest&quot;</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">seedMatching</span><span class="token punctuation">(</span><span class="token class-name">SeedMatching<span class="token punctuation">.</span>SeedMatchingType</span><span class="token punctuation">.</span>EQUAL<span class="token punctuation">)</span>
@@ -4287,7 +4288,7 @@ done under 2 Operations in a chain as there can only be one View applied globall
   <span class="token punctuation">]</span><span class="token punctuation">,</span> 
   seed_matching<span class="token operator">=</span><span class="token string">&quot;EQUAL&quot;</span> 
 <span class="token punctuation">)</span></code></pre></div></div></div></p>
-<p>NEW:</p>
+<p>View:</p>
 <p><div class="codetabs"><div class="codetabs-header"><div class="tab active" data-codetab="0">Java</div><div class="tab" data-codetab="1">JSON</div><div class="tab" data-codetab="2">Full JSON</div><div class="tab" data-codetab="3">Python</div></div><div class="codetabs-body"><div class="tab active" data-codetab="0"><pre class="language-"><code class="lang-java"><span class="token keyword">final</span> <span class="token class-name">GetElements</span> getEdgesWithoutSeedMatching <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">GetElements<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">input</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">EdgeSeed</span><span class="token punctuation">(</span><span class="token string">&quot;source&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;dest&quot;</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">view</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">View<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -4340,8 +4341,8 @@ done under 2 Operations in a chain as there can only be one View applied globall
     <span class="token punctuation">)</span> 
   <span class="token punctuation">]</span> 
 <span class="token punctuation">)</span></code></pre></div></div></div></p>
-<p>For entities it should now be written:</p>
-<p>OLD:</p>
+<h5 id="entities">Entities</h5>
+<p>SeedMatching:</p>
 <p><div class="codetabs"><div class="codetabs-header"><div class="tab active" data-codetab="0">Java</div><div class="tab" data-codetab="1">JSON</div><div class="tab" data-codetab="2">Full JSON</div><div class="tab" data-codetab="3">Python</div></div><div class="codetabs-body"><div class="tab active" data-codetab="0"><pre class="language-"><code class="lang-java"><span class="token keyword">final</span> <span class="token class-name">GetElements</span> getEntitiesWithSeedMatching <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">GetElements<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">input</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">EntitySeed</span><span class="token punctuation">(</span><span class="token string">&quot;vertex&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">seedMatching</span><span class="token punctuation">(</span><span class="token class-name">SeedMatching<span class="token punctuation">.</span>SeedMatchingType</span><span class="token punctuation">.</span>EQUAL<span class="token punctuation">)</span>
@@ -4367,7 +4368,7 @@ done under 2 Operations in a chain as there can only be one View applied globall
   <span class="token punctuation">]</span><span class="token punctuation">,</span> 
   seed_matching<span class="token operator">=</span><span class="token string">&quot;EQUAL&quot;</span> 
 <span class="token punctuation">)</span></code></pre></div></div></div></p>
-<p>NEW:</p>
+<p>View:</p>
 <p><div class="codetabs"><div class="codetabs-header"><div class="tab active" data-codetab="0">Java</div><div class="tab" data-codetab="1">JSON</div><div class="tab" data-codetab="2">Full JSON</div><div class="tab" data-codetab="3">Python</div></div><div class="codetabs-body"><div class="tab active" data-codetab="0"><pre class="language-"><code class="lang-java"><span class="token keyword">final</span> <span class="token class-name">GetElements</span> getEntitiesWithoutSeedMatching <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">GetElements<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">input</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">EntitySeed</span><span class="token punctuation">(</span><span class="token string">&quot;vertex&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">view</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">View<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -4408,6 +4409,162 @@ done under 2 Operations in a chain as there can only be one View applied globall
   <span class="token builtin">input</span><span class="token operator">=</span><span class="token punctuation">[</span> 
     g<span class="token punctuation">.</span>EntitySeed<span class="token punctuation">(</span> 
       vertex<span class="token operator">=</span><span class="token string">&quot;vertex&quot;</span> 
+    <span class="token punctuation">)</span> 
+  <span class="token punctuation">]</span> 
+<span class="token punctuation">)</span></code></pre></div></div></div></p>
+<h5 id="entities-and-edges">Entities and edges</h5>
+<p>There is one limitation however, if you use seedMatching as EQUAL and specify both Edges and Entities in your input, that will now have to be
+done under 2 Operations within an OperationChain as there can only be one View applied globally to all input. See example below:</p>
+<p>SeedMatching:</p>
+<p><div class="codetabs"><div class="codetabs-header"><div class="tab active" data-codetab="0">Java</div><div class="tab" data-codetab="1">JSON</div><div class="tab" data-codetab="2">Full JSON</div><div class="tab" data-codetab="3">Python</div></div><div class="codetabs-body"><div class="tab active" data-codetab="0"><pre class="language-"><code class="lang-java"><span class="token keyword">final</span> <span class="token class-name">GetElements</span> getBothWithSeedMatching <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">GetElements<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">input</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">EntitySeed</span><span class="token punctuation">(</span><span class="token string">&quot;vertex&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">EdgeSeed</span><span class="token punctuation">(</span><span class="token string">&quot;source&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;dest&quot;</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">seedMatching</span><span class="token punctuation">(</span><span class="token class-name">SeedMatching<span class="token punctuation">.</span>SeedMatchingType</span><span class="token punctuation">.</span>EQUAL<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div><div class="tab" data-codetab="1"><pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;class&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;GetElements&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;input&quot;</span> <span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;class&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;EntitySeed&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;vertex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;vertex&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;class&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;EdgeSeed&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;source&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;source&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;destination&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;dest&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;matchedVertex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;SOURCE&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;directedType&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;DIRECTED&quot;</span>
+  <span class="token punctuation">}</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;seedMatching&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;EQUAL&quot;</span>
+<span class="token punctuation">}</span></code></pre></div><div class="tab" data-codetab="2"><pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;class&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;uk.gov.gchq.gaffer.operation.impl.get.GetElements&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;input&quot;</span> <span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;class&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;uk.gov.gchq.gaffer.operation.data.EntitySeed&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;vertex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;vertex&quot;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;class&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;uk.gov.gchq.gaffer.operation.data.EdgeSeed&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;source&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;source&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;destination&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;dest&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;matchedVertex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;SOURCE&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;directedType&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;DIRECTED&quot;</span>
+  <span class="token punctuation">}</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;seedMatching&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;EQUAL&quot;</span>
+<span class="token punctuation">}</span></code></pre></div><div class="tab" data-codetab="3"><pre class="language-"><code class="lang-py">g<span class="token punctuation">.</span>GetElements<span class="token punctuation">(</span> 
+  <span class="token builtin">input</span><span class="token operator">=</span><span class="token punctuation">[</span> 
+    g<span class="token punctuation">.</span>EntitySeed<span class="token punctuation">(</span> 
+      vertex<span class="token operator">=</span><span class="token string">&quot;vertex&quot;</span> 
+    <span class="token punctuation">)</span><span class="token punctuation">,</span> 
+    g<span class="token punctuation">.</span>EdgeSeed<span class="token punctuation">(</span> 
+      source<span class="token operator">=</span><span class="token string">&quot;source&quot;</span><span class="token punctuation">,</span> 
+      destination<span class="token operator">=</span><span class="token string">&quot;dest&quot;</span><span class="token punctuation">,</span> 
+      directed_type<span class="token operator">=</span><span class="token string">&quot;DIRECTED&quot;</span><span class="token punctuation">,</span> 
+      matched_vertex<span class="token operator">=</span><span class="token string">&quot;SOURCE&quot;</span> 
+    <span class="token punctuation">)</span> 
+  <span class="token punctuation">]</span><span class="token punctuation">,</span> 
+  seed_matching<span class="token operator">=</span><span class="token string">&quot;EQUAL&quot;</span> 
+<span class="token punctuation">)</span></code></pre></div></div></div></p>
+<p>Two Operations in OperationChain using different Views:</p>
+<p><div class="codetabs"><div class="codetabs-header"><div class="tab active" data-codetab="0">Java</div><div class="tab" data-codetab="1">JSON</div><div class="tab" data-codetab="2">Full JSON</div><div class="tab" data-codetab="3">Python</div></div><div class="codetabs-body"><div class="tab active" data-codetab="0"><pre class="language-"><code class="lang-java"><span class="token keyword">final</span> <span class="token class-name">OperationChain</span> getBothWithoutSeedMatching <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">OperationChain<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">first</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">GetElements<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">input</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">EntitySeed</span><span class="token punctuation">(</span><span class="token string">&quot;vertex&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">view</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">View<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                        <span class="token punctuation">.</span><span class="token function">entity</span><span class="token punctuation">(</span><span class="token string">&quot;group1&quot;</span><span class="token punctuation">)</span>
+                        <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">GetElements<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">input</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">EdgeSeed</span><span class="token punctuation">(</span><span class="token string">&quot;source&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;dest&quot;</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">view</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">View<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                        <span class="token punctuation">.</span><span class="token function">edge</span><span class="token punctuation">(</span><span class="token string">&quot;group1&quot;</span><span class="token punctuation">)</span>
+                        <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div><div class="tab" data-codetab="1"><pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;class&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;OperationChain&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;operations&quot;</span> <span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;class&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;GetElements&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;input&quot;</span> <span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;class&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;EntitySeed&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;vertex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;vertex&quot;</span>
+    <span class="token punctuation">}</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;view&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;entities&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;group1&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;class&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;GetElements&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;input&quot;</span> <span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;class&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;EdgeSeed&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;source&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;source&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;destination&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;dest&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;matchedVertex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;SOURCE&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;directedType&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;DIRECTED&quot;</span>
+    <span class="token punctuation">}</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;view&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;edges&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;group1&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span> <span class="token punctuation">]</span>
+<span class="token punctuation">}</span></code></pre></div><div class="tab" data-codetab="2"><pre class="language-"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">&quot;class&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;uk.gov.gchq.gaffer.operation.OperationChain&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;operations&quot;</span> <span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;class&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;uk.gov.gchq.gaffer.operation.impl.get.GetElements&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;input&quot;</span> <span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;class&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;uk.gov.gchq.gaffer.operation.data.EntitySeed&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;vertex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;vertex&quot;</span>
+    <span class="token punctuation">}</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;view&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;entities&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;group1&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;class&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;uk.gov.gchq.gaffer.operation.impl.get.GetElements&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;input&quot;</span> <span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;class&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;uk.gov.gchq.gaffer.operation.data.EdgeSeed&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;source&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;source&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;destination&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;dest&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;matchedVertex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;SOURCE&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;directedType&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;DIRECTED&quot;</span>
+    <span class="token punctuation">}</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;view&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;edges&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;group1&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span> <span class="token punctuation">]</span>
+<span class="token punctuation">}</span></code></pre></div><div class="tab" data-codetab="3"><pre class="language-"><code class="lang-py">g<span class="token punctuation">.</span>OperationChain<span class="token punctuation">(</span> 
+  operations<span class="token operator">=</span><span class="token punctuation">[</span> 
+    g<span class="token punctuation">.</span>GetElements<span class="token punctuation">(</span> 
+      view<span class="token operator">=</span>g<span class="token punctuation">.</span>View<span class="token punctuation">(</span> 
+        entities<span class="token operator">=</span><span class="token punctuation">[</span> 
+          g<span class="token punctuation">.</span>ElementDefinition<span class="token punctuation">(</span> 
+            group<span class="token operator">=</span><span class="token string">&quot;group1&quot;</span> 
+          <span class="token punctuation">)</span> 
+        <span class="token punctuation">]</span><span class="token punctuation">,</span> 
+        all_edges<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> 
+        all_entities<span class="token operator">=</span><span class="token boolean">False</span> 
+      <span class="token punctuation">)</span><span class="token punctuation">,</span> 
+      <span class="token builtin">input</span><span class="token operator">=</span><span class="token punctuation">[</span> 
+        g<span class="token punctuation">.</span>EntitySeed<span class="token punctuation">(</span> 
+          vertex<span class="token operator">=</span><span class="token string">&quot;vertex&quot;</span> 
+        <span class="token punctuation">)</span> 
+      <span class="token punctuation">]</span> 
+    <span class="token punctuation">)</span><span class="token punctuation">,</span> 
+    g<span class="token punctuation">.</span>GetElements<span class="token punctuation">(</span> 
+      view<span class="token operator">=</span>g<span class="token punctuation">.</span>View<span class="token punctuation">(</span> 
+        edges<span class="token operator">=</span><span class="token punctuation">[</span> 
+          g<span class="token punctuation">.</span>ElementDefinition<span class="token punctuation">(</span> 
+            group<span class="token operator">=</span><span class="token string">&quot;group1&quot;</span> 
+          <span class="token punctuation">)</span> 
+        <span class="token punctuation">]</span><span class="token punctuation">,</span> 
+        all_edges<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">,</span> 
+        all_entities<span class="token operator">=</span><span class="token boolean">False</span> 
+      <span class="token punctuation">)</span><span class="token punctuation">,</span> 
+      <span class="token builtin">input</span><span class="token operator">=</span><span class="token punctuation">[</span> 
+        g<span class="token punctuation">.</span>EdgeSeed<span class="token punctuation">(</span> 
+          source<span class="token operator">=</span><span class="token string">&quot;source&quot;</span><span class="token punctuation">,</span> 
+          destination<span class="token operator">=</span><span class="token string">&quot;dest&quot;</span><span class="token punctuation">,</span> 
+          directed_type<span class="token operator">=</span><span class="token string">&quot;DIRECTED&quot;</span><span class="token punctuation">,</span> 
+          matched_vertex<span class="token operator">=</span><span class="token string">&quot;SOURCE&quot;</span> 
+        <span class="token punctuation">)</span> 
+      <span class="token punctuation">]</span> 
     <span class="token punctuation">)</span> 
   <span class="token punctuation">]</span> 
 <span class="token punctuation">)</span></code></pre></div></div></div></p>
@@ -4454,7 +4611,7 @@ done under 2 Operations in a chain as there can only be one View applied globall
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Filtering","level":"1.2.1.4","depth":3,"next":{"title":"Transforms","level":"1.2.1.5","depth":3,"path":"getting-started/user-guide/transforms.md","ref":"getting-started/user-guide/transforms.md","articles":[]},"previous":{"title":"Multiple Edges","level":"1.2.1.3","depth":3,"path":"getting-started/user-guide/multiple-edges.md","ref":"getting-started/user-guide/multiple-edges.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-interactive","codetabs","prism","-highlight","github","anchorjs","otherlink"],"root":"./docs","styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/gchq/gaffer-doc"},"search":{"maxIndexSize":5000000},"otherlink":{},"codetabs":{},"lunr":{"maxIndexSize":5000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"expandable-chapters-interactive":{},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"expandable-chapters":{}},"theme":"default","honkit":"3.x.x","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Gaffer Doc","gitbook":"*"},"file":{"path":"getting-started/user-guide/filtering.md","mtime":"2022-01-10T15:13:52.462Z","type":"markdown"},"gitbook":{"version":"3.6.23","time":"2022-01-10T15:14:56.184Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Filtering","level":"1.2.1.4","depth":3,"next":{"title":"Transforms","level":"1.2.1.5","depth":3,"path":"getting-started/user-guide/transforms.md","ref":"getting-started/user-guide/transforms.md","articles":[]},"previous":{"title":"Multiple Edges","level":"1.2.1.3","depth":3,"path":"getting-started/user-guide/multiple-edges.md","ref":"getting-started/user-guide/multiple-edges.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-interactive","codetabs","prism","-highlight","github","anchorjs","otherlink"],"root":"./docs","styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/gchq/gaffer-doc"},"search":{"maxIndexSize":5000000},"otherlink":{},"codetabs":{},"lunr":{"maxIndexSize":5000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"expandable-chapters-interactive":{},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"expandable-chapters":{}},"theme":"default","honkit":"3.x.x","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Gaffer Doc","gitbook":"*"},"file":{"path":"getting-started/user-guide/filtering.md","mtime":"2022-05-04T13:16:42.683Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-04T13:17:46.580Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
