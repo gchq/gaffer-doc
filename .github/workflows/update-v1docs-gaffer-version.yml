@@ -36,12 +36,14 @@ jobs:
         git checkout -b ${{ env.VERSION_UPDATE_BRANCH }}
 
         mvn -q org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.parent.version
-        oldVersion=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.parent.version | grep -v '\['`
+        oldGafferVersion=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.parent.version | grep -v '\['`
+        oldGafferToolsVersion=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=gaffer-tools.version | grep -v '\['`
 
-        sed -i'' "s/version>$oldVersion</version>$newVersion</g" pom.xml
-        sed -i'' "s/gaffer2:$oldVersion/gaffer2:$newVersion/g" NOTICES
-        sed -i'' "s/gaffer-tools:$oldVersion/gaffer-tools:$newVersion/g" NOTICES
-        sed -i'' "s/>Version $oldVersion</>Version $newVersion</g" docs/README.md
+        sed -i'' "s/version>$oldGafferVersion</version>$newVersion</g" pom.xml
+        sed -i'' "s/version>$oldGafferToolsVersion</version>$newVersion</g" pom.xml
+        sed -i'' "s/gaffer2:$oldGafferVersion/gaffer2:$newVersion/g" NOTICES
+        sed -i'' "s/gaffer-tools:$oldGafferToolsVersion/gaffer-tools:$newVersion/g" NOTICES
+        sed -i'' "s/>Version $oldGafferVersion</>Version $newVersion</g" docs/README.md
 
         git add .
         git commit -a -m "Updated Gaffer version to $newVersion"
