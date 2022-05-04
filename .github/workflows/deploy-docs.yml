@@ -90,4 +90,4 @@ jobs:
           git fetch origin gh-pages --depth=1
 
     - name: Build and deploy MkDocs using mike
-      run: mike deploy --push --update-aliases ${{ needs.check-version.outputs.version }} latest
+      run: mike deploy --push --no-redirect --update-aliases ${{ needs.check-version.outputs.version }} latest
