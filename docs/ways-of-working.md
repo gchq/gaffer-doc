@@ -41,7 +41,7 @@ As mentioned before, any significant changes in a PR should be accompanied with 
 Smaller changes should be self documented in the tests. With this approach, any large feature or change has user friendly documentation, whereas technical or implementation details are documented for developers by the tests.
 
 ## Coding style
-Please ensure your coding style is consistent with rest of the Gaffer project and the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html#s6.3-static-members). Your changes should pass the checkstyle and spotless plugin checks when running `mvn install`, these check for code formatting and licenses and are part of the continuous integration pipeline.
+Please ensure your coding style is consistent with rest of the Gaffer project and the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html). Your changes should pass the checkstyle and spotless plugin checks when running `mvn install`, these check for code formatting and licenses and are part of the continuous integration pipeline.
 
 ### Javadoc
 Ensure your java code has sufficient javadocs explaining what the section of code does and the intended use of it. Javadocs should be used in addition to clean readable code.
