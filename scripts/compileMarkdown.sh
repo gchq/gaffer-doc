@@ -6,6 +6,9 @@
 
 set -e
 
+gafferVersion=$1
+gafferToolsVersion=$2
+
 mkdir -p docs/getting-started
 mkdir -p docs/components/core
 mkdir -p docs/components/example
@@ -13,7 +16,7 @@ components="core/serialisation core/data core/operation core/store core/graph re
 set +e
 for component in $components; do
     echo "Fetching component: $component"
-    curl https://raw.githubusercontent.com/gchq/Gaffer/master/$component/README.md -o docs/components/$component.md
+    curl https://raw.githubusercontent.com/gchq/Gaffer/gaffer2-$gafferVersion/$component/README.md -o docs/components/$component.md
     sed -i '' '/This page has been copied from/d' docs/components/$component.md > /dev/null 2>&1
     sed -i '/This page has been copied from/d' docs/components/$component.md > /dev/null 2>&1
 done
@@ -25,7 +28,7 @@ set +e
 for component in ${components}; do
     echo "Fetching component: $component"
     shortName=${component##*/}
-    curl https://raw.githubusercontent.com/gchq/gaffer-tools/master/${component}/README.md -o docs/components/tool/${shortName}.md
+    curl https://raw.githubusercontent.com/gchq/gaffer-tools/gaffer-tools-$gafferToolsVersion/${component}/README.md -o docs/components/tool/${shortName}.md
     sed -i '' '/This page has been copied from/d' docs/components/tool/${shortName}.md > /dev/null 2>&1
     sed -i '/This page has been copied from/d' docs/components/tool/${shortName}.md > /dev/null 2>&1
 done
@@ -39,7 +42,7 @@ for asset in `eval echo ${assets}`; do
     echo "Creating directory: $dir"
     mkdir -p docs/components/tool/${dir}
     echo "Fetching asset: $asset"
-    curl https://raw.githubusercontent.com/gchq/gaffer-tools/master/${asset} -o docs/components/tool/${asset}
+    curl https://raw.githubusercontent.com/gchq/gaffer-tools/gaffer-tools-$gafferToolsVersion/${asset} -o docs/components/tool/${asset}
     sed -i '' 's:(.*'${assetFile}'):(./'${asset}'):' docs/components/tool/*.md > /dev/null 2>&1
     sed -i 's:(.*'${assetFile}'):(./'${asset}'):' docs/components/tool/*.md > /dev/null 2>&1
 done
@@ -50,7 +53,7 @@ stores="accumulo-store hbase-store map-store proxy-store parquet-store federated
 set +e
 for store in $stores; do
     echo "Fetching store: $store"
-    curl https://raw.githubusercontent.com/gchq/Gaffer/master/store-implementation/$store/README.md -o docs/stores/$store.md
+    curl https://raw.githubusercontent.com/gchq/Gaffer/gaffer2-$gafferVersion/store-implementation/$store/README.md -o docs/stores/$store.md
     sed -i '' '/The master copy of this page/d' docs/stores/$store.md > /dev/null 2>&1
     sed -i '/The master copy of this page/d' docs/stores/$store.md > /dev/null 2>&1
 done
