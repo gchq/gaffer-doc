@@ -30,7 +30,7 @@ If a code change requires users of Gaffer to make changes in order for them to a
 ## Pull Requests
 Pull requests will undergo a review by a Gaffer committer to check the code changes are compliant with our coding style. This is a community so please be respectful of other members - offer encouragement, support and suggestions. 
 
-As described in our git branching model - please raise pull requests to merge you changes in our **develop** branch.
+As described in our git branching model - please raise pull requests to merge your changes in our **develop** branch.
 
 When pull requests are accepted, the reviewer should squash and merge them. This is because it keeps the **develop** branch clean and populated with only merge commits, rather than intermediate ones. As well as this, it makes everyone's job reviewing pull requests easier as any insecure and unreviewed intermediate commits are not included into the **develop** branch.
 
@@ -41,7 +41,7 @@ As mentioned before, any significant changes in a PR should be accompanied with 
 Smaller changes should be self documented in the tests. With this approach, any large feature or change has user friendly documentation, whereas technical or implementation details are documented for developers by the tests.
 
 ## Coding style
-Please ensure your coding style is consistent with rest of the Gaffer project and the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html). Your changes should pass the checkstyle and spotless plugins that are part of the continuous integration pipeline and check for code formatting and licenses. Before you push your changes you can check the checkstyle plugin passes with `mvn checkstyle:check` and check the spotless plugin passes with `mvn spotless:check`.
+Please ensure your coding style is consistent with the rest of the Gaffer project and the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html). Your changes should pass the checkstyle and spotless plugins that are part of the continuous integration pipeline and check for code formatting and licenses. Before you push your changes you can check the checkstyle plugin passes with `mvn checkstyle:check` and check the spotless plugin passes with `mvn spotless:check`.
 
 ### Javadoc
 Ensure your java code has sufficient javadocs explaining what the section of code does and the intended use of it. Javadocs should be used in addition to clean readable code.
