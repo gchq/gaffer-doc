@@ -28,6 +28,10 @@
                 
             
                 
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-@dogatana/back-to-top-button/plugin.css">
+                
+            
+                
                 <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search/search.css">
                 
             
@@ -4123,7 +4127,7 @@ Then to register this file in your store.properties file you will need to add th
 <p><div class="codetabs"><div class="codetabs-header"><div class="tab active" data-codetab="0">Java</div></div><div class="codetabs-body"><div class="tab active" data-codetab="0"><pre class="language-"><code class="lang-java"><span class="token keyword">final</span> <span class="token class-name">JobDetail</span> initialJobDetail <span class="token operator">=</span> graph<span class="token punctuation">.</span><span class="token function">executeJob</span><span class="token punctuation">(</span>job<span class="token punctuation">,</span> user<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">final</span> <span class="token class-name">String</span> jobId <span class="token operator">=</span> initialJobDetail<span class="token punctuation">.</span><span class="token function">getJobId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div></div></div></p>
 <p>and the results is:</p>
-<pre class="language-"><code>JobDetail[jobId=4ec90530-070d-46dc-bb59-0afe809e15ac,user=User[userId=user01,dataAuths=[],opAuths=[]],status=RUNNING,startTime=1651753034288,opChain=OperationChain[GetElements]]
+<pre class="language-"><code>JobDetail[jobId=d8be35f6-ebc7-403a-8971-17cabda5882d,user=User[userId=user01,dataAuths=[],opAuths=[]],status=RUNNING,startTime=1653323182633,opChain=OperationChain[GetElements]]
 </code></pre><p>As you can see this returns a JobDetail object containing your job id. The GetJobDetails operation allows you to check the status of your Job, e.g:</p>
 <p><div class="codetabs"><div class="codetabs-header"><div class="tab active" data-codetab="0">Java</div></div><div class="codetabs-body"><div class="tab active" data-codetab="0"><pre class="language-"><code class="lang-java"><span class="token keyword">final</span> <span class="token class-name">JobDetail</span> jobDetail <span class="token operator">=</span> graph<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span>
         <span class="token keyword">new</span> <span class="token class-name">GetJobDetails<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -4131,7 +4135,7 @@ Then to register this file in your store.properties file you will need to add th
                 <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
         user<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div></div></div></p>
 <p>and now you can see the job has finished:</p>
-<pre class="language-"><code>JobDetail[jobId=4ec90530-070d-46dc-bb59-0afe809e15ac,user=User[userId=user01,dataAuths=[],opAuths=[]],status=FINISHED,startTime=1651753034288,endTime=1651753034310,opChain=OperationChain[GetElements-&gt;ExportToGafferResultCache]]
+<pre class="language-"><code>JobDetail[jobId=d8be35f6-ebc7-403a-8971-17cabda5882d,user=User[userId=user01,dataAuths=[],opAuths=[]],status=FINISHED,startTime=1653323182633,endTime=1653323182653,opChain=OperationChain[GetElements-&gt;ExportToGafferResultCache]]
 </code></pre><p>You can actually get the details of all running and completed jobs using the GetAllJobDetails operation:</p>
 <p><div class="codetabs"><div class="codetabs-header"><div class="tab active" data-codetab="0">Java</div></div><div class="codetabs-body"><div class="tab active" data-codetab="0"><pre class="language-"><code class="lang-java"><span class="token keyword">final</span> <span class="token class-name">CloseableIterable</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">JobDetail</span><span class="token punctuation">&gt;</span></span> jobDetails <span class="token operator">=</span> graph<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">GetAllJobDetails</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> user<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div></div></div></p>
 <p>Then finally you can get the results of your job using the GetJobResults operation:</p>
@@ -4185,7 +4189,7 @@ Edge[source=10,destination=11,directed=true,matchedVertex=SOURCE,group=RoadUse,p
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Jobs","level":"1.2.2.7","depth":3,"next":{"title":"NamedOperations","level":"1.2.2.8","depth":3,"path":"getting-started/developer-guide/namedoperations.md","ref":"getting-started/developer-guide/namedoperations.md","articles":[]},"previous":{"title":"Cache","level":"1.2.2.6","depth":3,"path":"getting-started/developer-guide/cache.md","ref":"getting-started/developer-guide/cache.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-interactive","codetabs","prism","-highlight","github","anchorjs","otherlink"],"root":"./docs","styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"prism":{},"github":{"url":"https://github.com/gchq/gaffer-doc"},"search":{"maxIndexSize":5000000},"otherlink":{},"codetabs":{},"lunr":{"maxIndexSize":5000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"expandable-chapters-interactive":{},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"expandable-chapters":{}},"theme":"default","honkit":"3.x.x","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Gaffer Doc","gitbook":"*"},"file":{"path":"getting-started/developer-guide/jobs.md","mtime":"2022-05-05T12:17:14.524Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-05T12:18:14.000Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Jobs","level":"1.2.2.7","depth":3,"next":{"title":"NamedOperations","level":"1.2.2.8","depth":3,"path":"getting-started/developer-guide/namedoperations.md","ref":"getting-started/developer-guide/namedoperations.md","articles":[]},"previous":{"title":"Cache","level":"1.2.2.6","depth":3,"path":"getting-started/developer-guide/cache.md","ref":"getting-started/developer-guide/cache.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-interactive","codetabs","prism","-highlight","github","anchorjs","otherlink","@dogatana/back-to-top-button"],"root":"./docs","styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"@dogatana/back-to-top-button":{},"prism":{},"github":{"url":"https://github.com/gchq/gaffer-doc"},"search":{"maxIndexSize":5000000},"otherlink":{},"codetabs":{},"lunr":{"maxIndexSize":5000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"expandable-chapters-interactive":{},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"expandable-chapters":{}},"theme":"default","honkit":"3.x.x","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Gaffer Doc","gitbook":"*"},"file":{"path":"getting-started/developer-guide/jobs.md","mtime":"2022-05-23T16:26:22.876Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-23T16:27:30.178Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
@@ -4256,6 +4260,10 @@ Edge[source=10,destination=11,directed=true,matchedVertex=SOURCE,group=RoadUse,p
     
         
         <script src="../../gitbook/gitbook-plugin-otherlink/js/otherlink.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-@dogatana/back-to-top-button/plugin.js"></script>
         
     
         
