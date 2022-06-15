@@ -1,0 +1,178 @@
+
+Federated Demo
+=============
+
+## Deployment
+Assuming you have Java 8, Maven and Git installed, you can build and run the latest version of the road traffic demo by doing the following:
+
+```bash
+# Clone the Gaffer repository, to reduce the amount you need to download this will only clone the master branch with a depth of 1 so there won't be any history.
+git clone --depth 1 --branch master https://github.com/gchq/Gaffer.git
+cd Gaffer
+
+# Run the start script. This will download several maven dependencies such as tomcat.
+# If you have a snapshot version and want to build all dependencies first then add -am as a script argument
+./example/federated-demo/scripts/start.sh
+```
+
+The rest api will be deployed to localhost:8080/rest.
+
+To add a Map graph, execute this operation (or run addMapEdgesGraph.sh):
+
+```json
+{
+    "class": "uk.gov.gchq.gaffer.federatedstore.operation.AddGraph",
+    "graphId": "mapEdges",
+    "storeProperties": {
+      "gaffer.store.class":"uk.gov.gchq.gaffer.mapstore.MapStore"
+    },
+    "schema": {
+         "edges": {
+             "BasicEdge": {
+               "source": "vertex",
+               "destination": "vertex",
+               "directed": "true",
+               "properties": {
+                 "count": "count"
+               }
+             }
+           },
+
+       "types": {
+         "vertex": {
+           "class": "java.lang.String"
+         },
+         "count": {
+           "class": "java.lang.Integer",
+           "aggregateFunction": {
+             "class": "uk.gov.gchq.koryphe.impl.binaryoperator.Sum"
+           }
+         },
+         "true": {
+           "description": "A simple boolean that must always be true.",
+           "class": "java.lang.Boolean",
+           "validateFunctions": [
+             {
+               "class": "uk.gov.gchq.koryphe.impl.predicate.IsTrue"
+             }
+           ]
+         }
+       }
+     }
+    },
+    "isPublic": true
+}
+```
+
+And to add a second Map graph execute this (or run addMapEntitiesGraph.sh):
+
+```json
+{
+    "class": "uk.gov.gchq.gaffer.federatedstore.operation.AddGraph",
+    "graphId": "mapEntities",
+    "storeProperties": {
+       "gaffer.store.class":"uk.gov.gchq.gaffer.mapstore.MapStore"
+    },
+    "schema": {
+       "entities": {
+         "BasicEntity": {
+           "vertex": "vertex",
+           "properties": {
+             "count": "count"
+           }
+         }
+       },
+       "types": {
+         "vertex": {
+           "class": "java.lang.String"
+         },
+         "count": {
+           "class": "java.lang.Integer",
+           "aggregateFunction": {
+             "class": "uk.gov.gchq.koryphe.impl.binaryoperator.Sum"
+           }
+         }
+       }
+    },
+    "isPublic": true
+}
+```
+
+
+To add some example data execute this json in /graph/operations/execute (or run addElements.sh):
+
+```json
+{
+    "class" : "uk.gov.gchq.gaffer.operation.impl.add.AddElements",
+    "input" : [ {
+     "group" : "BasicEntity",
+     "vertex" : "1",
+     "properties" : {
+       "count" : 1
+     },
+     "class" : "uk.gov.gchq.gaffer.data.element.Entity"
+    }, {
+     "group" : "BasicEdge",
+     "source" : "1",
+     "destination" : "2",
+     "directed" : true,
+     "properties" : {
+       "count" : 1
+     },
+     "class" : "uk.gov.gchq.gaffer.data.element.Edge"
+    } ],
+     "options": {
+      "gaffer.federatedstore.operation.graphIds": "mapEntities,mapEdges"
+      }
+}
+```
+
+Here is an example of an advanced federated operation chain:
+
+```json
+{
+   "class": "uk.gov.gchq.gaffer.operation.OperationChain",
+   "operations": [
+      {
+         "class": "uk.gov.gchq.gaffer.federatedstore.operation.FederatedOperationChain",
+         "operationChain": {
+            "operations": [
+               {
+                  "class": "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements"
+               },
+               {
+                  "class": "uk.gov.gchq.gaffer.operation.impl.Limit",
+                  "resultLimit": 1,
+                  "truncate": true
+               }
+            ]
+         }
+      },
+      {
+         "class": "uk.gov.gchq.gaffer.operation.impl.Limit",
+         "resultLimit": 1,
+         "truncate": true
+      }
+   ]
+}
+```
+
+To fetch the merged schemas you can run:
+
+```json
+{
+   "class": "uk.gov.gchq.gaffer.store.operation.GetSchema",
+   "compact": false
+}
+```
+
+To fetch just a the schema for the mapGraph you can add an option:
+```json
+{
+    "class": "uk.gov.gchq.gaffer.store.operation.GetSchema",
+    "compact": false,
+    "options": {
+        "gaffer.federatedstore.operation.graphIds": "mapEdges"
+    }
+}
+```
