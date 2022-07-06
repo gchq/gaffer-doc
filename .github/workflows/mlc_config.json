@@ -1,0 +1,8 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^\.\.\/v1docs\/"
+    }
+  ],
+  "timeout": "5s"
+}
