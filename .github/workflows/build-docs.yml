@@ -30,3 +30,8 @@ jobs:
 
     - name: Build using MkDocs
       run: mkdocs build
+
+    - name: Check Links
+      uses: byrnereese/github-action-mkdocs-link-check@v1
+      with:
+        use-verbose-mode: 'yes'
