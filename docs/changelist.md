@@ -23,9 +23,9 @@ The CloseableIterable class has been removed so Operations like GetAllElements n
 ### Known issues
 The road traffic example rest has a bug in this release that means the example data isn't loaded in. This means that the gafferpy tests will fail as there is no data, but it still works.
 
-## Future alphas
-### New Accumulo 2 Store
-There will be a new Accumulo 2 Store added that uses Hadoop 3 and Accumulo 2. This store will be able to federate to Gaffer 2 Accumulo 1 stores.
+## Future Alphas
+### Accumulo 2 Support
+The Accumulo store will support Accumulo 2 and Hadoop 3 by default, with support for Accumulo 1 and Hadoop 2 retained. The store will be able to federate with Gaffer Accumulo stores using Accumulo 1. See the [Accumulo Migration page](accumulo-migration.md) for more information.
 
 ### Federated Store improvements and fixes
 Multiple bug fixes and improvements to the Federated Store. Full details TBD.

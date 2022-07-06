@@ -22,6 +22,7 @@ nav:
     - Changelist: 'changelist.md'
     - Deprecations: 'deprecations.md'
     - Dependencies: 'dependencies.md'
+    - 'Accumulo Migration': 'accumulo-migration.md'
     - Ways of Working: 'ways-of-working.md'
 
 theme:
