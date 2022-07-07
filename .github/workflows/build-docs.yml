@@ -30,3 +30,9 @@ jobs:
 
     - name: Build using MkDocs
       run: mkdocs build
+
+    - name: Check Links
+      uses: gaurav-nelson/github-action-markdown-link-check@v1
+      with:
+        use-verbose-mode: 'yes'
+        config-file: .github/workflows/mlc_config.json
