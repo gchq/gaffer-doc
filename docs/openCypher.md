@@ -19,10 +19,11 @@ the data format see [here](https://docs.aws.amazon.com/neptune/latest/userguide/
 - :TYPE     / _type   –   A type for the relationship -> GROUP (Gaffer)
 
 #### Property column headers
+Gaffer replaces "-" with "_" from column headers whilst other non valid characters as outlined within the class 
+[PropertiesUtil](https://github.com/gchq/Gaffer/blob/f16de7c3eccfe7a800cad1d7eea5fbae4cf01d44/core/common-util/src/main/java/uk/gov/gchq/gaffer/commonutil/PropertiesUtil.java#L26) are stripped. 
 Both Entities and Edges can have associated properties. It's possible to specify the type of
 each property provided by using the proceeding format **propertyname:type**, the default is to
-treat each property as a string if a type isn't supplied.
-
+treat each property as a string if a type isn't supplied. 
 #### Supported Data Types and How Gaffer Handles Each
 ###### Serialised to Boolean
   - Bool or Boolean   –   A Boolean field. Allowed values are true and false. Any value other than true is treated as false.
