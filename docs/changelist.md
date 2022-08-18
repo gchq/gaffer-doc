@@ -21,12 +21,21 @@ There is now a maven profile that will swap dependency versions so you can build
 The CloseableIterable class has been removed so Operations like GetAllElements now return an Iterable instead, but the result still implements Closeable.
 
 ### Known issues
-The road traffic example rest has a bug in this release that means the example data isn't loaded in. This means that the gafferpy tests will fail as there is no data, but it still works.
+The Road Traffic example REST has a bug in this release that means the example data isn't loaded in. This means that the gafferpy tests will fail as there is no data, but it still works.
+
+## Alpha 3 | [released](https://github.com/gchq/Gaffer/releases/tag/gaffer2-2.0.0-alpha-0.3)
+### Fixes & Improvements
+The Spring REST Swagger UI and Road Traffic example REST have been fixed and versions of Jersey and Jackson have both been updated.
+
+### Accumulo 2 Support
+The Accumulo store now supports Accumulo 2 and Hadoop 3 by default, with support for Accumulo 1 and Hadoop 2 retained. See the [Accumulo Migration page](accumulo-migration.md) for more information about this change.
+
+### Accumulo Kerberos Authentication Support
+_This will be in an alpha-3.1 release - coming soon._
+
+The Accumulo store will support authenticating to Accumulo and Zookeeper using Kerberos, in addition to username/password.
 
 ## Future Alphas
-### Accumulo 2 Support
-The Accumulo store will support Accumulo 2 and Hadoop 3 by default, with support for Accumulo 1 and Hadoop 2 retained. The store will be able to federate with Gaffer Accumulo stores using Accumulo 1. See the [Accumulo Migration page](accumulo-migration.md) for more information.
-
 ### Federated Store improvements and fixes
 Multiple bug fixes and improvements to the Federated Store. Full details TBD.
 
