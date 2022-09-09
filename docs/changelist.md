@@ -35,7 +35,7 @@ The Accumulo store now supports Accumulo 2 and Hadoop 3 by default, with support
 A new ExportToLocalFile Operation has been added, along with OpenCypher format CSV support.
 
 ### Accumulo Kerberos Authentication Support
-The Accumulo store now supports authenticating to Accumulo and Zookeeper using Kerberos, in addition to username/password. For more information, see the [Kerberos support page](accumulo-kerberos.md)
+The Accumulo store now supports authenticating to Accumulo and HDFS using Kerberos, in addition to username/password. For more information, see the [Kerberos support page](accumulo-kerberos.md)
 
 ## Future Alphas
 ### Federated Store improvements and fixes
