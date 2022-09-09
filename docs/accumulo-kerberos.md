@@ -1,6 +1,6 @@
 # Accumulo Kerberos Support
 
-This page contains information on Kerberos Authentication support for Gaffer's Accumulo Store. This functionality was introduced in version `2.0.0-alpha-3.1` of Gaffer.
+This page contains information on Kerberos Authentication support for Gaffer's Accumulo Store. This functionality was introduced in version `2.0.0-alpha-0.3.1` of Gaffer.
 
 ## Using the Accumulo Store with Kerberos
 
