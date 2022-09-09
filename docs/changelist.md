@@ -30,10 +30,12 @@ The Spring REST Swagger UI and Road Traffic example REST have been fixed and ver
 ### Accumulo 2 Support
 The Accumulo store now supports Accumulo 2 and Hadoop 3 by default, with support for Accumulo 1 and Hadoop 2 retained. See the [Accumulo Migration page](accumulo-migration.md) for more information about this change.
 
-### Accumulo Kerberos Authentication Support
-_This will be in an alpha-3.1 release - coming soon._
+## Alpha 3.1 | [released](https://github.com/gchq/Gaffer/releases/tag/gaffer2-2.0.0-alpha-0.3.1)
+### CSV Export
+A new ExportToLocalFile Operation has been added, along with OpenCypher format CSV support.
 
-The Accumulo store will support authenticating to Accumulo and Zookeeper using Kerberos, in addition to username/password.
+### Accumulo Kerberos Authentication Support
+The Accumulo store now supports authenticating to Accumulo and Zookeeper using Kerberos, in addition to username/password. For more information, see the [Kerberos support page](accumulo-kerberos.md)
 
 ## Future Alphas
 ### Federated Store improvements and fixes
