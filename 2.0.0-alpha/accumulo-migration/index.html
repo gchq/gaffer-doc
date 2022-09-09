@@ -13,7 +13,7 @@
     
     
       
-        <title>Changelist - Gaffer Docs</title>
+        <title>Accumulo Migration - Gaffer Docs</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#gaffer-2-changelist" class="md-skip">
+        <a href="#accumulo-migration" class="md-skip">
           Skip to content
         </a>
       
@@ -111,7 +111,7 @@ Gaffer v2 is currently in <b>Alpha</b>
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Changelist
+              Accumulo Migration
             
           </span>
         </div>
@@ -217,12 +217,10 @@ Gaffer v2 is currently in <b>Alpha</b>
         
   
   
-    
-  
 
 
   <li class="md-tabs__item">
-    <a href="./" class="md-tabs__link md-tabs__link--active">
+    <a href="../changelist/" class="md-tabs__link">
       Changelist
     </a>
   </li>
@@ -255,10 +253,12 @@ Gaffer v2 is currently in <b>Alpha</b>
         
   
   
+    
+  
 
 
   <li class="md-tabs__item">
-    <a href="../accumulo-migration/" class="md-tabs__link">
+    <a href="./" class="md-tabs__link md-tabs__link--active">
       Accumulo Migration
     </a>
   </li>
@@ -352,194 +352,11 @@ Gaffer v2 is currently in <b>Alpha</b>
 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Changelist
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../changelist/" class="md-nav__link">
         Changelist
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#alpha-1-released" class="md-nav__link">
-    Alpha 1 | released
-  </a>
-  
-    <nav class="md-nav" aria-label="Alpha 1 | released">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#removal-of-deprecated-code" class="md-nav__link">
-    Removal of Deprecated code
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#removal-of-hbase-and-parquet-stores" class="md-nav__link">
-    Removal of HBase and Parquet stores
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#alpha-2-released" class="md-nav__link">
-    Alpha 2 | released
-  </a>
-  
-    <nav class="md-nav" aria-label="Alpha 2 | released">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#dependency-upgrades" class="md-nav__link">
-    Dependency Upgrades
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gaffer-now-builds-with-java-8-and-java-11" class="md-nav__link">
-    Gaffer now builds with Java 8 and Java 11
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#removal-of-closeableiterable" class="md-nav__link">
-    Removal of CloseableIterable
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#known-issues" class="md-nav__link">
-    Known issues
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#alpha-3-released" class="md-nav__link">
-    Alpha 3 | released
-  </a>
-  
-    <nav class="md-nav" aria-label="Alpha 3 | released">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#fixes-improvements" class="md-nav__link">
-    Fixes &amp; Improvements
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#accumulo-2-support" class="md-nav__link">
-    Accumulo 2 Support
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#alpha-31-released" class="md-nav__link">
-    Alpha 3.1 | released
-  </a>
-  
-    <nav class="md-nav" aria-label="Alpha 3.1 | released">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#csv-export" class="md-nav__link">
-    CSV Export
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#accumulo-kerberos-authentication-support" class="md-nav__link">
-    Accumulo Kerberos Authentication Support
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#future-alphas" class="md-nav__link">
-    Future Alphas
-  </a>
-  
-    <nav class="md-nav" aria-label="Future Alphas">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#federated-store-improvements-and-fixes" class="md-nav__link">
-    Federated Store improvements and fixes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#named-operation-improvements" class="md-nav__link">
-    Named Operation Improvements
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -580,11 +397,79 @@ Gaffer v2 is currently in <b>Alpha</b>
 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../accumulo-migration/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Accumulo Migration
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Accumulo Migration
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#accumulo-2-hadoop-3-become-default-versions" class="md-nav__link">
+    Accumulo 2 &amp; Hadoop 3 become default versions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#retained-support-for-accumulo-1-hadoop-2" class="md-nav__link">
+    Retained support for Accumulo 1 &amp; Hadoop 2
+  </a>
+  
+    <nav class="md-nav" aria-label="Retained support for Accumulo 1 &amp; Hadoop 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#building-gaffer-with-the-legacy-profile" class="md-nav__link">
+    Building Gaffer with the 'legacy' profile
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migrating-from-accumulo-1-to-2" class="md-nav__link">
+    Migrating from Accumulo 1 to 2
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -646,23 +531,23 @@ Gaffer v2 is currently in <b>Alpha</b>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#alpha-1-released" class="md-nav__link">
-    Alpha 1 | released
-  </a>
-  
-    <nav class="md-nav" aria-label="Alpha 1 | released">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#removal-of-deprecated-code" class="md-nav__link">
-    Removal of Deprecated code
+  <a href="#accumulo-2-hadoop-3-become-default-versions" class="md-nav__link">
+    Accumulo 2 &amp; Hadoop 3 become default versions
   </a>
   
 </li>
+      
+        <li class="md-nav__item">
+  <a href="#retained-support-for-accumulo-1-hadoop-2" class="md-nav__link">
+    Retained support for Accumulo 1 &amp; Hadoop 2
+  </a>
+  
+    <nav class="md-nav" aria-label="Retained support for Accumulo 1 &amp; Hadoop 2">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#removal-of-hbase-and-parquet-stores" class="md-nav__link">
-    Removal of HBase and Parquet stores
+  <a href="#building-gaffer-with-the-legacy-profile" class="md-nav__link">
+    Building Gaffer with the 'legacy' profile
   </a>
   
 </li>
@@ -673,124 +558,9 @@ Gaffer v2 is currently in <b>Alpha</b>
 </li>
       
         <li class="md-nav__item">
-  <a href="#alpha-2-released" class="md-nav__link">
-    Alpha 2 | released
+  <a href="#migrating-from-accumulo-1-to-2" class="md-nav__link">
+    Migrating from Accumulo 1 to 2
   </a>
-  
-    <nav class="md-nav" aria-label="Alpha 2 | released">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#dependency-upgrades" class="md-nav__link">
-    Dependency Upgrades
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gaffer-now-builds-with-java-8-and-java-11" class="md-nav__link">
-    Gaffer now builds with Java 8 and Java 11
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#removal-of-closeableiterable" class="md-nav__link">
-    Removal of CloseableIterable
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#known-issues" class="md-nav__link">
-    Known issues
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#alpha-3-released" class="md-nav__link">
-    Alpha 3 | released
-  </a>
-  
-    <nav class="md-nav" aria-label="Alpha 3 | released">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#fixes-improvements" class="md-nav__link">
-    Fixes &amp; Improvements
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#accumulo-2-support" class="md-nav__link">
-    Accumulo 2 Support
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#alpha-31-released" class="md-nav__link">
-    Alpha 3.1 | released
-  </a>
-  
-    <nav class="md-nav" aria-label="Alpha 3.1 | released">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#csv-export" class="md-nav__link">
-    CSV Export
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#accumulo-kerberos-authentication-support" class="md-nav__link">
-    Accumulo Kerberos Authentication Support
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#future-alphas" class="md-nav__link">
-    Future Alphas
-  </a>
-  
-    <nav class="md-nav" aria-label="Future Alphas">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#federated-store-improvements-and-fixes" class="md-nav__link">
-    Federated Store improvements and fixes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#named-operation-improvements" class="md-nav__link">
-    Named Operation Improvements
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -807,44 +577,24 @@ Gaffer v2 is currently in <b>Alpha</b>
               
                 
 
-  <a href="https://github.com/gchq/gaffer-doc/edit/v2docs/docs/changelist.md" title="Edit this page" class="md-content__button md-icon">
+  <a href="https://github.com/gchq/gaffer-doc/edit/v2docs/docs/accumulo-migration.md" title="Edit this page" class="md-content__button md-icon">
     
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
   </a>
 
 
-<h1 id="gaffer-2-changelist">Gaffer 2 Changelist</h1>
-<p>Below is a summary of intended changes that will be made in Gaffer version 2. <br />
-<strong>Note:</strong> this represents the current roadmap which is not final (also available on <a href="https://github.com/gchq/Gaffer/milestones">GitHub</a>) but <strong>the features may change</strong>.</p>
-<h2 id="alpha-1-released">Alpha 1 | <a href="https://github.com/gchq/Gaffer/releases/tag/gaffer2-2.0.0-alpha-0.1">released</a></h2>
-<h3 id="removal-of-deprecated-code">Removal of Deprecated code</h3>
-<p>All of Gaffer 1's deprecated code has been removed. Please see the <a href="../deprecations/">deprecations</a> page for full details.</p>
-<h3 id="removal-of-hbase-and-parquet-stores">Removal of HBase and Parquet stores</h3>
-<p>The HBase and Parquet stores have been removed from Gaffer in version 2. We made posts for both the <a href="https://github.com/gchq/Gaffer/issues/2367">HBase</a> and <a href="https://github.com/gchq/Gaffer/discussions/2557">Parquet</a> stores to understand the levels of usage. It was then decided to remove both stores as this would make introducing various improvements easier in the long term. HBase and Parquet remain available in Gaffer version 1. In the future, they could be reimplemented for Gaffer 2, though we do not plan to currently.</p>
-<h2 id="alpha-2-released">Alpha 2 | <a href="https://github.com/gchq/Gaffer/releases/tag/gaffer2-2.0.0-alpha-0.2">released</a></h2>
-<h3 id="dependency-upgrades">Dependency Upgrades</h3>
-<p>Dependencies have been updated, where possible to the latest version, removing vulnerabilities. Please see the <a href="../dependencies/">dependencies</a> page for full details.</p>
-<h3 id="gaffer-now-builds-with-java-8-and-java-11">Gaffer now builds with Java 8 and Java 11</h3>
-<p>There is now a maven profile that will swap dependency versions so you can build Gaffer with Java 11. The code has also been updated to build with both Java versions.</p>
-<h3 id="removal-of-closeableiterable">Removal of CloseableIterable</h3>
-<p>The CloseableIterable class has been removed so Operations like GetAllElements now return an Iterable instead, but the result still implements Closeable.</p>
-<h3 id="known-issues">Known issues</h3>
-<p>The Road Traffic example REST has a bug in this release that means the example data isn't loaded in. This means that the gafferpy tests will fail as there is no data, but it still works.</p>
-<h2 id="alpha-3-released">Alpha 3 | <a href="https://github.com/gchq/Gaffer/releases/tag/gaffer2-2.0.0-alpha-0.3">released</a></h2>
-<h3 id="fixes-improvements">Fixes &amp; Improvements</h3>
-<p>The Spring REST Swagger UI and Road Traffic example REST have been fixed and versions of Jersey and Jackson have both been updated.</p>
-<h3 id="accumulo-2-support">Accumulo 2 Support</h3>
-<p>The Accumulo store now supports Accumulo 2 and Hadoop 3 by default, with support for Accumulo 1 and Hadoop 2 retained. See the <a href="../accumulo-migration/">Accumulo Migration page</a> for more information about this change.</p>
-<h2 id="alpha-31-released">Alpha 3.1 | <a href="https://github.com/gchq/Gaffer/releases/tag/gaffer2-2.0.0-alpha-0.3.1">released</a></h2>
-<h3 id="csv-export">CSV Export</h3>
-<p>A new ExportToLocalFile Operation has been added, along with OpenCypher format CSV support.</p>
-<h3 id="accumulo-kerberos-authentication-support">Accumulo Kerberos Authentication Support</h3>
-<p>The Accumulo store now supports authenticating to Accumulo and HDFS using Kerberos, in addition to username/password. For more information, see the <a href="../accumulo-kerberos/">Kerberos support page</a></p>
-<h2 id="future-alphas">Future Alphas</h2>
-<h3 id="federated-store-improvements-and-fixes">Federated Store improvements and fixes</h3>
-<p>Multiple bug fixes and improvements to the Federated Store. Full details TBD.</p>
-<h3 id="named-operation-improvements">Named Operation Improvements</h3>
-<p>Some changes and improvements to Named Operations are planned. Full details TBD.</p>
+<h1 id="accumulo-migration">Accumulo Migration</h1>
+<p>This page contains information on changes to the Accumulo/Hadoop versions supported by Gaffer and how to continue using the previously supported versions.</p>
+<h2 id="accumulo-2-hadoop-3-become-default-versions">Accumulo 2 &amp; Hadoop 3 become default versions</h2>
+<p>From the <code>2.0.0-alpha-3</code> release of Gaffer, the default version of Accumulo has been upgraded to <a href="https://accumulo.apache.org/release/accumulo-2.0.1/">Accumulo 2.0.1</a>. Hadoop has also been upgraded to the latest version (currently 3.3.3). This is because Hadoop 2.x is not compatible with Accumulo 2.</p>
+<h2 id="retained-support-for-accumulo-1-hadoop-2">Retained support for Accumulo 1 &amp; Hadoop 2</h2>
+<p>Support for certain versions of Accumulo 1 and Hadoop 2 (specifically 1.9.3 &amp; 2.6.5) has been retained and can be enabled by using a Maven profile when building from source. This facilitates testing with these versions and creates shaded JARs (e.g. spring-rest exec, accumulo-store iterators) with the appropriate versions of supporting libraries. As described in the source docs, other versions of Accumulo 1.x and Hadoop 2.x might also work.</p>
+<h3 id="building-gaffer-with-the-legacy-profile">Building Gaffer with the 'legacy' profile</h3>
+<p>To build Gaffer using Accumulo 1.9.3 and Hadoop 2.6.5, the 'legacy' Maven profile needs to be used. This is enabled by supplying <code>-Dlegacy=true</code> as an extra argument at the command line when running Maven. For example, <code>mvn clean install -Pcoverage -Dlegacy=true</code> will perform a full build/test of Gaffer with this profile enabled. Java 11 cannot be used with this profile because only Hadoop 3.3.0 and higher support it.</p>
+<p>With the 'legacy' Maven profile active, the filenames of all shaded JARs produced are appended with <code>-legacy</code>. This is to differentiate them from the default shaded JARs which contain different libraries and different library versions. A default Gaffer Accumulo REST API JAR will not work with an Accumulo 1 cluster, and the 'legacy' version will not work with Accumulo 2.</p>
+<h2 id="migrating-from-accumulo-1-to-2">Migrating from Accumulo 1 to 2</h2>
+<p>See <a href="https://accumulo.apache.org/docs/2.x/administration/upgrading">the Accumulo documentation</a> for guidance on upgrading from Accumulo 1 to 2. Of particular significance is the <a href="https://accumulo.apache.org/release/accumulo-2.0.0/#removed-default-dynamic-reloading-classpath-directory-libext">deprecation of the dynamic reloading classpath directory functionality</a> in Accumulo 2. This affects where and how the Gaffer iterators JAR can be installed. See the Accumulo store documentation for these installation details.</p>
+<p>Otherwise, no Accumulo specific Gaffer configuration needs to be changed and migrating from Accumulo 1 to 2 should be as simple as swapping the Gaffer dependency versions/JARs, although this has not been actively tested.</p>
 
 
 
@@ -868,7 +618,7 @@ Gaffer v2 is currently in <b>Alpha</b>
     <nav class="md-footer__inner md-grid" aria-label="Footer" >
       
         
-        <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
+        <a href="../dependencies/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Dependencies" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
           </div>
@@ -877,20 +627,20 @@ Gaffer v2 is currently in <b>Alpha</b>
               <span class="md-footer__direction">
                 Previous
               </span>
-              Home
+              Dependencies
             </div>
           </div>
         </a>
       
       
         
-        <a href="../deprecations/" class="md-footer__link md-footer__link--next" aria-label="Next: Deprecations" rel="next">
+        <a href="../accumulo-kerberos/" class="md-footer__link md-footer__link--next" aria-label="Next: Accumulo Kerberos" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Deprecations
+              Accumulo Kerberos
             </div>
           </div>
           <div class="md-footer__button md-icon">
