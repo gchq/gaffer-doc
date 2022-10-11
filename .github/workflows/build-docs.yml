@@ -28,6 +28,8 @@ jobs:
 
     - name: Install and build the Honkit docs
       run: mvn -q install -P buildHonkit -V
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Relocate docs to a subfolder
       run: |
