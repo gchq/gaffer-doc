@@ -6,7 +6,7 @@
         <title>Data (Functions and Predicates) · Gaffer Doc</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.7.1">
+        <meta name="generator" content="HonKit 3.7.5">
         
         
         
@@ -28,7 +28,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-@dogatana/back-to-top-button/plugin.css">
+                <link rel="stylesheet" href="../../gitbook/@dogatana/honkit-plugin-back-to-top-button/plugin.css">
                 
             
                 
@@ -4063,7 +4063,7 @@
 <p>Gaffer makes use of Java 8&apos;s Function and Predicate interfaces to aggregate, transform and filter data. To allow these Function and Predicate classes to process tuples we make use of the <a href="https://github.com/gchq/koryphe/blob/master/README.md" target="_blank">Koryphe</a> library. Koryphe allows us to wrap the Gaffer Elements in a tuple and pass it any Function or Predicate. </p>
 <p>You can use any of our implementations (see Predicate Examples) or write your own.</p>
 <p>All of the following classes will act on one or more Element identifiers (vertex/source/destination/directed) or properties. If you implement the Java 8 interfaces directly, you would need to add the following JsonType annotation to your class:</p>
-<pre class="language-"><code class="lang-java"><span class="token annotation punctuation">@JsonTypeInfo</span><span class="token punctuation">(</span>use <span class="token operator">=</span> <span class="token class-name">JsonTypeInfo<span class="token punctuation">.</span>Id</span><span class="token punctuation">.</span>CLASS<span class="token punctuation">,</span> include <span class="token operator">=</span> <span class="token class-name">JsonTypeInfo<span class="token punctuation">.</span>As</span><span class="token punctuation">.</span>PROPERTY<span class="token punctuation">,</span> property <span class="token operator">=</span> <span class="token string">&quot;class&quot;</span><span class="token punctuation">)</span>
+<pre class="language-"><code class="lang-java"><span class="token annotation punctuation">@JsonTypeInfo</span><span class="token punctuation">(</span>use <span class="token operator">=</span> <span class="token class-name">JsonTypeInfo<span class="token punctuation">.</span>Id</span><span class="token punctuation">.</span><span class="token constant">CLASS</span><span class="token punctuation">,</span> include <span class="token operator">=</span> <span class="token class-name">JsonTypeInfo<span class="token punctuation">.</span>As</span><span class="token punctuation">.</span><span class="token constant">PROPERTY</span><span class="token punctuation">,</span> property <span class="token operator">=</span> <span class="token string">&quot;class&quot;</span><span class="token punctuation">)</span>
 </code></pre>
 <p>Instead, we recommend you implement the Koryphe interfaces instead, which will add this annotation in for you.</p>
 <h3 id="aggregation">Aggregation</h3>
@@ -4115,7 +4115,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Data (Functions and Predicates)","level":"1.4.1.2","depth":3,"next":{"title":"Operations","level":"1.4.1.3","depth":3,"path":"components/core/operation.md","ref":"components/core/operation.md","articles":[]},"previous":{"title":"Serialisation","level":"1.4.1.1","depth":3,"path":"components/core/serialisation.md","ref":"components/core/serialisation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-interactive","codetabs","prism","-highlight","github","anchorjs","otherlink","@dogatana/back-to-top-button"],"root":"./docs","styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"@dogatana/back-to-top-button":{},"prism":{},"github":{"url":"https://github.com/gchq/gaffer-doc"},"search":{"maxIndexSize":5000000},"otherlink":{},"codetabs":{},"lunr":{"maxIndexSize":5000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"expandable-chapters-interactive":{},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"expandable-chapters":{}},"theme":"default","honkit":"3.x.x","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Gaffer Doc","gitbook":"*"},"file":{"path":"components/core/data.md","mtime":"2022-05-23T16:27:12.260Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-23T16:27:30.178Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Data (Functions and Predicates)","level":"1.4.1.2","depth":3,"next":{"title":"Operations","level":"1.4.1.3","depth":3,"path":"components/core/operation.md","ref":"components/core/operation.md","articles":[]},"previous":{"title":"Serialisation","level":"1.4.1.1","depth":3,"path":"components/core/serialisation.md","ref":"components/core/serialisation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-interactive","codetabs","prism","-highlight","github","anchorjs","otherlink","@dogatana/back-to-top-button"],"root":"./docs","styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"@dogatana/back-to-top-button":{},"prism":{},"github":{"url":"https://github.com/gchq/gaffer-doc"},"search":{"maxIndexSize":5000000},"otherlink":{},"codetabs":{},"lunr":{"maxIndexSize":5000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"expandable-chapters-interactive":{},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"expandable-chapters":{}},"theme":"default","honkit":"3.x.x","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Gaffer Doc","gitbook":"*"},"file":{"path":"components/core/data.md","mtime":"2022-10-11T10:25:58.704Z","type":"markdown"},"gitbook":{"version":"3.7.5","time":"2022-10-11T10:26:11.354Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
@@ -4189,7 +4189,7 @@
         
     
         
-        <script src="../../gitbook/gitbook-plugin-@dogatana/back-to-top-button/plugin.js"></script>
+        <script src="../../gitbook/@dogatana/honkit-plugin-back-to-top-button/plugin.js"></script>
         
     
         

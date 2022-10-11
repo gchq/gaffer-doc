@@ -6,7 +6,7 @@
         <title>Accumulo Store · Gaffer Doc</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.7.1">
+        <meta name="generator" content="HonKit 3.7.5">
         
         
         
@@ -28,7 +28,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-@dogatana/back-to-top-button/plugin.css">
+                <link rel="stylesheet" href="../gitbook/@dogatana/honkit-plugin-back-to-top-button/plugin.css">
                 
             
                 
@@ -4106,12 +4106,12 @@ This jar file will then need to be installed on Accumulo&apos;s tablet servers b
 <li><code>accumulo.password</code>: The password for the above Accumulo user.</li>
 </ul>
 <p>A typical properties file will look like:</p>
-<pre class="language-"><code class="lang-sh">gaffer.store.class<span class="token operator">=</span>gaffer.accumulostore.AccumuloStore
-gaffer.store.properties.class<span class="token operator">=</span>gaffer.accumulostore.AccumuloProperties
-accumulo.instance<span class="token operator">=</span>myInstance
-accumulo.zookeepers<span class="token operator">=</span>server1.com:2181,server2.com:2181,server3.com:2181
-accumulo.user<span class="token operator">=</span>myUser
-accumulo.password<span class="token operator">=</span>myPassword
+<pre class="language-"><code class="lang-sh"><span class="token assign-left variable">gaffer.store.class</span><span class="token operator">=</span>gaffer.accumulostore.AccumuloStore
+<span class="token assign-left variable">gaffer.store.properties.class</span><span class="token operator">=</span>gaffer.accumulostore.AccumuloProperties
+<span class="token assign-left variable">accumulo.instance</span><span class="token operator">=</span>myInstance
+<span class="token assign-left variable">accumulo.zookeepers</span><span class="token operator">=</span>server1.com:2181,server2.com:2181,server3.com:2181
+<span class="token assign-left variable">accumulo.user</span><span class="token operator">=</span>myUser
+<span class="token assign-left variable">accumulo.password</span><span class="token operator">=</span>myPassword
 </code></pre>
 <p>Note that if the graph does not exist, it will be created when a <code>Graph</code> object is instantiated using these properties and the schema (see next section). In this case the user must have permission to create a table. If the graph already exists then the user simply needs permission to read the table. For information about protecting data via setting the visibility, see <a href="#visibility">Visibilty</a>.</p>
 <p>Other properties can be specified in this file. For details see <a href="#advanced-properties">Advanced Properties</a>. To improve query performance, see the property <code>accumulo.batchScannerThreads</code>. Increasing this from the default value of 10 can significantly increase the rate at which data is returned from queries.</p>
@@ -4559,24 +4559,24 @@ Otherwise you can create one by adding a build profile to your maven pom:<pre cl
 <p>If you have existing data, then before doing any form of upgrade or change to your table we strongly recommend using the accumulo shell to clone the table so you have a backup so you can easily restore to that version if things go wrong. 
 Even if you have an error like the one above where all your data is deleted in your table you will still be able to quickly revert back to your backup. 
 Cloning a table in Accumulo is very simple and fast (it doesn&apos;t actually copy the data). If you have a table called &apos;table1&apos;, you can do something like the following in the Accumulo shell:</p>
-<pre class="language-"><code class="lang-bash"><span class="token operator">&gt;</span> offline -t table1
+<pre class="language-"><code class="lang-bash"><span class="token operator">&gt;</span> offline <span class="token parameter variable">-t</span> table1
 <span class="token operator">&gt;</span> clone table table1 table1-backup
-<span class="token operator">&gt;</span> offline -t table1-backup
+<span class="token operator">&gt;</span> offline <span class="token parameter variable">-t</span> table1-backup
 
 <span class="token comment"># Do your upgrades</span>
 <span class="token comment">#   - deploy new gaffer jars to Accumulo&apos;s class path on each node in your cluster</span>
 <span class="token comment">#   - run the AddUpdateTableIterator class to update table1</span>
 
-<span class="token operator">&gt;</span> online -t table1
+<span class="token operator">&gt;</span> online <span class="token parameter variable">-t</span> table1
 
 <span class="token comment"># Check table1 is still healthy:</span>
 <span class="token comment">#   - run a query and check the iterators are successfully aggregating and filtering elements correctly.</span>
 
-<span class="token operator">&gt;</span> droptable -t table1-backup
+<span class="token operator">&gt;</span> droptable <span class="token parameter variable">-t</span> table1-backup
 </code></pre>
 <p>You will need to run the AddUpdateTableIterator utility providing it with your graphId, schema and store properties.
 If you run it without any arguments it will tell you how to use it.</p>
-<pre class="language-"><code class="lang-bash">java -cp <span class="token punctuation">[</span>path to your jar-with-dependencies<span class="token punctuation">]</span>.jar uk.gov.gchq.gaffer.accumulostore.utils.AddUpdateTableIterator
+<pre class="language-"><code class="lang-bash"><span class="token function">java</span> <span class="token parameter variable">-cp</span> <span class="token punctuation">[</span>path to your jar-with-dependencies<span class="token punctuation">]</span>.jar uk.gov.gchq.gaffer.accumulostore.utils.AddUpdateTableIterator
 </code></pre>
 
                                 
@@ -4621,7 +4621,7 @@ If you run it without any arguments it will tell you how to use it.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Accumulo Store","level":"1.3.1","depth":2,"next":{"title":"HBase Store","level":"1.3.2","depth":2,"path":"stores/hbase-store.md","ref":"stores/hbase-store.md","articles":[]},"previous":{"title":"Gaffer Stores","level":"1.3","depth":1,"path":"summaries/stores.md","ref":"summaries/stores.md","articles":[{"title":"Accumulo Store","level":"1.3.1","depth":2,"path":"stores/accumulo-store.md","ref":"stores/accumulo-store.md","articles":[]},{"title":"HBase Store","level":"1.3.2","depth":2,"path":"stores/hbase-store.md","ref":"stores/hbase-store.md","articles":[]},{"title":"Map Store","level":"1.3.3","depth":2,"path":"stores/map-store.md","ref":"stores/map-store.md","articles":[]},{"title":"Proxy Store","level":"1.3.4","depth":2,"path":"stores/proxy-store.md","ref":"stores/proxy-store.md","articles":[]},{"title":"Parquet Store","level":"1.3.5","depth":2,"path":"stores/parquet-store.md","ref":"stores/parquet-store.md","articles":[]},{"title":"Federated Store","level":"1.3.6","depth":2,"path":"stores/federated-store.md","ref":"stores/federated-store.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-interactive","codetabs","prism","-highlight","github","anchorjs","otherlink","@dogatana/back-to-top-button"],"root":"./docs","styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"@dogatana/back-to-top-button":{},"prism":{},"github":{"url":"https://github.com/gchq/gaffer-doc"},"search":{"maxIndexSize":5000000},"otherlink":{},"codetabs":{},"lunr":{"maxIndexSize":5000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"expandable-chapters-interactive":{},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"expandable-chapters":{}},"theme":"default","honkit":"3.x.x","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Gaffer Doc","gitbook":"*"},"file":{"path":"stores/accumulo-store.md","mtime":"2022-05-23T16:27:12.272Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-23T16:27:30.178Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Accumulo Store","level":"1.3.1","depth":2,"next":{"title":"HBase Store","level":"1.3.2","depth":2,"path":"stores/hbase-store.md","ref":"stores/hbase-store.md","articles":[]},"previous":{"title":"Gaffer Stores","level":"1.3","depth":1,"path":"summaries/stores.md","ref":"summaries/stores.md","articles":[{"title":"Accumulo Store","level":"1.3.1","depth":2,"path":"stores/accumulo-store.md","ref":"stores/accumulo-store.md","articles":[]},{"title":"HBase Store","level":"1.3.2","depth":2,"path":"stores/hbase-store.md","ref":"stores/hbase-store.md","articles":[]},{"title":"Map Store","level":"1.3.3","depth":2,"path":"stores/map-store.md","ref":"stores/map-store.md","articles":[]},{"title":"Proxy Store","level":"1.3.4","depth":2,"path":"stores/proxy-store.md","ref":"stores/proxy-store.md","articles":[]},{"title":"Parquet Store","level":"1.3.5","depth":2,"path":"stores/parquet-store.md","ref":"stores/parquet-store.md","articles":[]},{"title":"Federated Store","level":"1.3.6","depth":2,"path":"stores/federated-store.md","ref":"stores/federated-store.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-interactive","codetabs","prism","-highlight","github","anchorjs","otherlink","@dogatana/back-to-top-button"],"root":"./docs","styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"@dogatana/back-to-top-button":{},"prism":{},"github":{"url":"https://github.com/gchq/gaffer-doc"},"search":{"maxIndexSize":5000000},"otherlink":{},"codetabs":{},"lunr":{"maxIndexSize":5000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"expandable-chapters-interactive":{},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"expandable-chapters":{}},"theme":"default","honkit":"3.x.x","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Gaffer Doc","gitbook":"*"},"file":{"path":"stores/accumulo-store.md","mtime":"2022-10-11T10:25:58.720Z","type":"markdown"},"gitbook":{"version":"3.7.5","time":"2022-10-11T10:26:11.354Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -4695,7 +4695,7 @@ If you run it without any arguments it will tell you how to use it.</p>
         
     
         
-        <script src="../gitbook/gitbook-plugin-@dogatana/back-to-top-button/plugin.js"></script>
+        <script src="../gitbook/@dogatana/honkit-plugin-back-to-top-button/plugin.js"></script>
         
     
         

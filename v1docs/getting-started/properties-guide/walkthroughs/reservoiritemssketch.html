@@ -6,7 +6,7 @@
         <title>ReservoirItemsSketch · Gaffer Doc</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.7.1">
+        <meta name="generator" content="HonKit 3.7.5">
         
         
         
@@ -28,7 +28,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../../../gitbook/gitbook-plugin-@dogatana/back-to-top-button/plugin.css">
+                <link rel="stylesheet" href="../../../gitbook/@dogatana/honkit-plugin-back-to-top-button/plugin.css">
                 
             
                 
@@ -4130,7 +4130,7 @@ We also added in the <a href="https://github.com/gchq/Gaffer/blob/master/library
 ]]
 </code></pre><p>This is not very illuminating as this just shows the default <code>toString()</code> method on the sketch. To get value from it we need to call a method on the ReservoirItemsSketch object:</p>
 <p><div class="codetabs"><div class="codetabs-header"><div class="tab active" data-codetab="0">Java</div></div><div class="codetabs-body"><div class="tab active" data-codetab="0"><pre class="language-"><code class="lang-java"><span class="token keyword">final</span> <span class="token class-name">GetElements</span> query <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">GetElements<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-        <span class="token punctuation">.</span><span class="token function">input</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">EdgeSeed</span><span class="token punctuation">(</span><span class="token string">&quot;A&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;B&quot;</span><span class="token punctuation">,</span> <span class="token class-name">DirectedType</span><span class="token punctuation">.</span>UNDIRECTED<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">input</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">EdgeSeed</span><span class="token punctuation">(</span><span class="token string">&quot;A&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;B&quot;</span><span class="token punctuation">,</span> <span class="token class-name">DirectedType</span><span class="token punctuation">.</span><span class="token constant">UNDIRECTED</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">final</span> <span class="token class-name">Element</span> edge<span class="token punctuation">;</span>
 <span class="token keyword">try</span> <span class="token punctuation">(</span><span class="token keyword">final</span> <span class="token class-name">CloseableIterable</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token operator">?</span> <span class="token keyword">extends</span> <span class="token class-name">Element</span><span class="token punctuation">&gt;</span></span> edges <span class="token operator">=</span> graph<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span>query<span class="token punctuation">,</span> user<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -4146,7 +4146,7 @@ We also added in the <a href="https://github.com/gchq/Gaffer/blob/master/library
     sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>samples<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre></div></div></div></p>
 <p>The results contain a random sample of the strings added to the edge:</p>
-<pre class="language-"><code>10 samples: FADEAEDHHH, DHDHFEFBED, CGIEBFIAJI, BEAFFFIGJF, IHCFCGGEAI, HFBDHCCAHE, CBADJDABHC, FDBIIHDAFH, IBBAAFIDEA, IDCEEGFCDB
+<pre class="language-"><code>10 samples: HGDEDFFCBG, BJBGDEAHCF, DDCJEHBFJB, DEEGIGCBEG, GEDBHAIGEJ, IFEBHIBJAD, IBBHCBDCFI, EBEGFFGDBE, FICGHIEIFH, HGDBJIBHBJ
 </code></pre><p>500 edges of group &quot;blue&quot; were also added to the graph (edges X-Y0, X-Y1, ..., X-Y499). For each of these edges, an Entity was created for both the source and destination. Each Entity contained a &apos;neighboursSample&apos; property that contains the vertex at the other end of the edge. We now get the Entity for the vertex X and display the sample of its neighbours:</p>
 <p><div class="codetabs"><div class="codetabs-header"><div class="tab active" data-codetab="0">Java</div></div><div class="codetabs-body"><div class="tab active" data-codetab="0"><pre class="language-"><code class="lang-java"><span class="token keyword">final</span> <span class="token class-name">GetElements</span> query2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">GetElements<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
         <span class="token punctuation">.</span><span class="token function">input</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">EntitySeed</span><span class="token punctuation">(</span><span class="token string">&quot;X&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
@@ -4169,7 +4169,7 @@ sb<span class="token punctuation">.</span><span class="token function">append</s
     sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>neighboursSample<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span></code></pre></div></div></div></p>
 <p>The results are:</p>
-<pre class="language-"><code>10 samples: Y381, Y274, Y366, Y358, Y36, Y138, Y275, Y240, Y376, Y443
+<pre class="language-"><code>10 samples: Y231, Y457, Y427, Y132, Y358, Y140, Y68, Y7, Y418, Y359
 </code></pre>
                                 
                                 </section>
@@ -4213,7 +4213,7 @@ sb<span class="token punctuation">.</span><span class="token function">append</s
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"ReservoirItemsSketch","level":"1.2.3.5.5","depth":4,"next":{"title":"ThetaSketch","level":"1.2.3.5.6","depth":4,"path":"getting-started/properties-guide/walkthroughs/thetasketch.md","ref":"getting-started/properties-guide/walkthroughs/thetasketch.md","articles":[]},"previous":{"title":"DoublesSketch","level":"1.2.3.5.4","depth":4,"path":"getting-started/properties-guide/walkthroughs/doublessketch.md","ref":"getting-started/properties-guide/walkthroughs/doublessketch.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-interactive","codetabs","prism","-highlight","github","anchorjs","otherlink","@dogatana/back-to-top-button"],"root":"./docs","styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"@dogatana/back-to-top-button":{},"prism":{},"github":{"url":"https://github.com/gchq/gaffer-doc"},"search":{"maxIndexSize":5000000},"otherlink":{},"codetabs":{},"lunr":{"maxIndexSize":5000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"expandable-chapters-interactive":{},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"expandable-chapters":{}},"theme":"default","honkit":"3.x.x","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Gaffer Doc","gitbook":"*"},"file":{"path":"getting-started/properties-guide/walkthroughs/reservoiritemssketch.md","mtime":"2022-05-23T16:26:24.396Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-23T16:27:30.178Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"ReservoirItemsSketch","level":"1.2.3.5.5","depth":4,"next":{"title":"ThetaSketch","level":"1.2.3.5.6","depth":4,"path":"getting-started/properties-guide/walkthroughs/thetasketch.md","ref":"getting-started/properties-guide/walkthroughs/thetasketch.md","articles":[]},"previous":{"title":"DoublesSketch","level":"1.2.3.5.4","depth":4,"path":"getting-started/properties-guide/walkthroughs/doublessketch.md","ref":"getting-started/properties-guide/walkthroughs/doublessketch.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-interactive","codetabs","prism","-highlight","github","anchorjs","otherlink","@dogatana/back-to-top-button"],"root":"./docs","styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"@dogatana/back-to-top-button":{},"prism":{},"github":{"url":"https://github.com/gchq/gaffer-doc"},"search":{"maxIndexSize":5000000},"otherlink":{},"codetabs":{},"lunr":{"maxIndexSize":5000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"expandable-chapters-interactive":{},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"expandable-chapters":{}},"theme":"default","honkit":"3.x.x","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Gaffer Doc","gitbook":"*"},"file":{"path":"getting-started/properties-guide/walkthroughs/reservoiritemssketch.md","mtime":"2022-10-11T10:25:16.343Z","type":"markdown"},"gitbook":{"version":"3.7.5","time":"2022-10-11T10:26:11.354Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>
@@ -4287,7 +4287,7 @@ sb<span class="token punctuation">.</span><span class="token function">append</s
         
     
         
-        <script src="../../../gitbook/gitbook-plugin-@dogatana/back-to-top-button/plugin.js"></script>
+        <script src="../../../gitbook/@dogatana/honkit-plugin-back-to-top-button/plugin.js"></script>
         
     
         

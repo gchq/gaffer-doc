@@ -6,7 +6,7 @@
         <title>GetTraits · Gaffer Doc</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.7.1">
+        <meta name="generator" content="HonKit 3.7.5">
         
         
         
@@ -28,7 +28,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-@dogatana/back-to-top-button/plugin.css">
+                <link rel="stylesheet" href="../../gitbook/@dogatana/honkit-plugin-back-to-top-button/plugin.css">
                 
             
                 
@@ -4083,14 +4083,14 @@
   current_traits<span class="token operator">=</span><span class="token boolean">False</span> 
 <span class="token punctuation">)</span></code></pre></div></div></div></p>
 <p>Result:</p>
-<p><div class="codetabs"><div class="codetabs-header"><div class="tab active" data-codetab="0">Java</div><div class="tab" data-codetab="1">JSON</div></div><div class="codetabs-body"><div class="tab active" data-codetab="0"><pre class="language-"><code class="lang-java">POST_TRANSFORMATION_FILTERING
-MATCHED_VERTEX
-PRE_AGGREGATION_FILTERING
-VISIBILITY
-POST_AGGREGATION_FILTERING
-INGEST_AGGREGATION
-QUERY_AGGREGATION
-TRANSFORMATION</code></pre></div><div class="tab" data-codetab="1"><pre class="language-"><code class="lang-json"><span class="token punctuation">[</span> <span class="token string">&quot;POST_TRANSFORMATION_FILTERING&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;MATCHED_VERTEX&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;PRE_AGGREGATION_FILTERING&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;VISIBILITY&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;POST_AGGREGATION_FILTERING&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;INGEST_AGGREGATION&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;QUERY_AGGREGATION&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;TRANSFORMATION&quot;</span> <span class="token punctuation">]</span></code></pre></div></div></div></p>
+<p><div class="codetabs"><div class="codetabs-header"><div class="tab active" data-codetab="0">Java</div><div class="tab" data-codetab="1">JSON</div></div><div class="codetabs-body"><div class="tab active" data-codetab="0"><pre class="language-"><code class="lang-java"><span class="token constant">QUERY_AGGREGATION</span>
+<span class="token constant">PRE_AGGREGATION_FILTERING</span>
+<span class="token constant">POST_AGGREGATION_FILTERING</span>
+<span class="token constant">VISIBILITY</span>
+<span class="token constant">INGEST_AGGREGATION</span>
+<span class="token constant">TRANSFORMATION</span>
+<span class="token constant">POST_TRANSFORMATION_FILTERING</span>
+<span class="token constant">MATCHED_VERTEX</span></code></pre></div><div class="tab" data-codetab="1"><pre class="language-"><code class="lang-json"><span class="token punctuation">[</span> <span class="token string">&quot;QUERY_AGGREGATION&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;PRE_AGGREGATION_FILTERING&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;POST_AGGREGATION_FILTERING&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;VISIBILITY&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;INGEST_AGGREGATION&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;TRANSFORMATION&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;POST_TRANSFORMATION_FILTERING&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;MATCHED_VERTEX&quot;</span> <span class="token punctuation">]</span></code></pre></div></div></div></p>
 <hr>
 <h3 id="get-current-traits">Get current traits</h3>
 <p>This will only return traits that are applicable to your current schema. This schema doesn&apos;t have a visibility property, so the VISIBILITY trait is not returned.</p>
@@ -4114,13 +4114,13 @@ TRANSFORMATION</code></pre></div><div class="tab" data-codetab="1"><pre class="l
   current_traits<span class="token operator">=</span><span class="token boolean">True</span> 
 <span class="token punctuation">)</span></code></pre></div></div></div></p>
 <p>Result:</p>
-<p><div class="codetabs"><div class="codetabs-header"><div class="tab active" data-codetab="0">Java</div><div class="tab" data-codetab="1">JSON</div></div><div class="codetabs-body"><div class="tab active" data-codetab="0"><pre class="language-"><code class="lang-java">POST_TRANSFORMATION_FILTERING
-MATCHED_VERTEX
-PRE_AGGREGATION_FILTERING
-POST_AGGREGATION_FILTERING
-INGEST_AGGREGATION
-QUERY_AGGREGATION
-TRANSFORMATION</code></pre></div><div class="tab" data-codetab="1"><pre class="language-"><code class="lang-json"><span class="token punctuation">[</span> <span class="token string">&quot;POST_TRANSFORMATION_FILTERING&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;MATCHED_VERTEX&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;PRE_AGGREGATION_FILTERING&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;POST_AGGREGATION_FILTERING&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;INGEST_AGGREGATION&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;QUERY_AGGREGATION&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;TRANSFORMATION&quot;</span> <span class="token punctuation">]</span></code></pre></div></div></div></p>
+<p><div class="codetabs"><div class="codetabs-header"><div class="tab active" data-codetab="0">Java</div><div class="tab" data-codetab="1">JSON</div></div><div class="codetabs-body"><div class="tab active" data-codetab="0"><pre class="language-"><code class="lang-java"><span class="token constant">QUERY_AGGREGATION</span>
+<span class="token constant">PRE_AGGREGATION_FILTERING</span>
+<span class="token constant">POST_AGGREGATION_FILTERING</span>
+<span class="token constant">INGEST_AGGREGATION</span>
+<span class="token constant">TRANSFORMATION</span>
+<span class="token constant">POST_TRANSFORMATION_FILTERING</span>
+<span class="token constant">MATCHED_VERTEX</span></code></pre></div><div class="tab" data-codetab="1"><pre class="language-"><code class="lang-json"><span class="token punctuation">[</span> <span class="token string">&quot;QUERY_AGGREGATION&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;PRE_AGGREGATION_FILTERING&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;POST_AGGREGATION_FILTERING&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;INGEST_AGGREGATION&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;TRANSFORMATION&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;POST_TRANSFORMATION_FILTERING&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;MATCHED_VERTEX&quot;</span> <span class="token punctuation">]</span></code></pre></div></div></div></p>
 <hr>
 
                                 
@@ -4165,7 +4165,7 @@ TRANSFORMATION</code></pre></div><div class="tab" data-codetab="1"><pre class="l
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"GetTraits","level":"1.2.4.31","depth":3,"next":{"title":"GetWalks","level":"1.2.4.32","depth":3,"path":"getting-started/operations/getwalks.md","ref":"getting-started/operations/getwalks.md","articles":[]},"previous":{"title":"GetSetExport","level":"1.2.4.30","depth":3,"path":"getting-started/operations/getsetexport.md","ref":"getting-started/operations/getsetexport.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-interactive","codetabs","prism","-highlight","github","anchorjs","otherlink","@dogatana/back-to-top-button"],"root":"./docs","styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"@dogatana/back-to-top-button":{},"prism":{},"github":{"url":"https://github.com/gchq/gaffer-doc"},"search":{"maxIndexSize":5000000},"otherlink":{},"codetabs":{},"lunr":{"maxIndexSize":5000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"expandable-chapters-interactive":{},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"expandable-chapters":{}},"theme":"default","honkit":"3.x.x","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Gaffer Doc","gitbook":"*"},"file":{"path":"getting-started/operations/gettraits.md","mtime":"2022-05-23T16:26:28.397Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-23T16:27:30.178Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"GetTraits","level":"1.2.4.31","depth":3,"next":{"title":"GetWalks","level":"1.2.4.32","depth":3,"path":"getting-started/operations/getwalks.md","ref":"getting-started/operations/getwalks.md","articles":[]},"previous":{"title":"GetSetExport","level":"1.2.4.30","depth":3,"path":"getting-started/operations/getsetexport.md","ref":"getting-started/operations/getsetexport.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-interactive","codetabs","prism","-highlight","github","anchorjs","otherlink","@dogatana/back-to-top-button"],"root":"./docs","styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"@dogatana/back-to-top-button":{},"prism":{},"github":{"url":"https://github.com/gchq/gaffer-doc"},"search":{"maxIndexSize":5000000},"otherlink":{},"codetabs":{},"lunr":{"maxIndexSize":5000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"expandable-chapters-interactive":{},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"expandable-chapters":{}},"theme":"default","honkit":"3.x.x","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Gaffer Doc","gitbook":"*"},"file":{"path":"getting-started/operations/gettraits.md","mtime":"2022-10-11T10:25:19.759Z","type":"markdown"},"gitbook":{"version":"3.7.5","time":"2022-10-11T10:26:11.354Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
@@ -4239,7 +4239,7 @@ TRANSFORMATION</code></pre></div><div class="tab" data-codetab="1"><pre class="l
         
     
         
-        <script src="../../gitbook/gitbook-plugin-@dogatana/back-to-top-button/plugin.js"></script>
+        <script src="../../gitbook/@dogatana/honkit-plugin-back-to-top-button/plugin.js"></script>
         
     
         

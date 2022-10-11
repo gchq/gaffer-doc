@@ -6,7 +6,7 @@
         <title>UI · Gaffer Doc</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.7.1">
+        <meta name="generator" content="HonKit 3.7.5">
         
         
         
@@ -28,7 +28,7 @@
                 
             
                 
-                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-@dogatana/back-to-top-button/plugin.css">
+                <link rel="stylesheet" href="../../gitbook/@dogatana/honkit-plugin-back-to-top-button/plugin.css">
                 
             
                 
@@ -4087,7 +4087,7 @@ See <a href="https://github.com/gchq/gaffer-tools/tree/master/ui" target="_blank
 <p>To deploy it to a server of your choice, take target/ui-[version].war and deploy as per the usual deployment process for your server.</p>
 <p>Alternatively there is a maven profile &quot;standalone-ui&quot; that you can use to start the UI in a standalone tomcat server.
 Note that in order to use the UI it will need to be connected separately to a Gaffer REST API.</p>
-<pre class="language-"><code class="lang-bash">mvn <span class="token function">install</span> -Pquick -Pstandalone-ui -pl ui -am
+<pre class="language-"><code class="lang-bash">mvn <span class="token function">install</span> <span class="token parameter variable">-Pquick</span> -Pstandalone-ui <span class="token parameter variable">-pl</span> ui <span class="token parameter variable">-am</span>
 </code></pre>
 <h2 id="road-traffic-example">Road Traffic example</h2>
 <p>To demo the UI you can connect it to the Gaffer Road Traffic example REST API.</p>
@@ -5034,12 +5034,12 @@ frameworks if appropriate.</p>
     });
 })
 </code></pre><p>you can manually run all the unit tests with the command:</p>
-<pre class="language-"><code class="lang-bash">mvn clean integration-test -pl ui
+<pre class="language-"><code class="lang-bash">mvn clean integration-test <span class="token parameter variable">-pl</span> ui
 </code></pre>
 <p>If you wish to just run a single test spec file then this can be done by
 overriding the jasmine.test.paths maven property and setting it to a
 path to your test spec file (relative to the ui/test/webapp/app directory):</p>
-<pre class="language-"><code class="lang-bash">mvn clean integration-test -pl ui -Djasmine.test.paths<span class="token operator">=</span>gaffer/time-service-spec.js
+<pre class="language-"><code class="lang-bash">mvn clean integration-test <span class="token parameter variable">-pl</span> ui <span class="token parameter variable">-Djasmine.test.paths</span><span class="token operator">=</span>gaffer/time-service-spec.js
 </code></pre>
 <p>You can also run the jasmine continuous integration tool using this command:</p>
 <pre class="language-"><code class="lang-bash">mvn clean <span class="token function">install</span> -Pcontinuous-integration
@@ -5087,7 +5087,7 @@ path to your test spec file (relative to the ui/test/webapp/app directory):</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"UI","level":"1.4.2.2","depth":3,"next":{"title":"Deployments","level":"1.4.2.3","depth":3,"path":"components/tool/deployment.md","ref":"components/tool/deployment.md","articles":[]},"previous":{"title":"Python Shell","level":"1.4.2.1","depth":3,"path":"components/tool/python-shell.md","ref":"components/tool/python-shell.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-interactive","codetabs","prism","-highlight","github","anchorjs","otherlink","@dogatana/back-to-top-button"],"root":"./docs","styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"@dogatana/back-to-top-button":{},"prism":{},"github":{"url":"https://github.com/gchq/gaffer-doc"},"search":{"maxIndexSize":5000000},"otherlink":{},"codetabs":{},"lunr":{"maxIndexSize":5000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"expandable-chapters-interactive":{},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"expandable-chapters":{}},"theme":"default","honkit":"3.x.x","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Gaffer Doc","gitbook":"*"},"file":{"path":"components/tool/ui.md","mtime":"2022-05-23T16:27:12.248Z","type":"markdown"},"gitbook":{"version":"3.7.1","time":"2022-05-23T16:27:30.178Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"UI","level":"1.4.2.2","depth":3,"next":{"title":"Deployments","level":"1.4.2.3","depth":3,"path":"components/tool/deployment.md","ref":"components/tool/deployment.md","articles":[]},"previous":{"title":"Python Shell","level":"1.4.2.1","depth":3,"path":"components/tool/python-shell.md","ref":"components/tool/python-shell.md","articles":[]},"dir":"ltr"},"config":{"plugins":["expandable-chapters-interactive","codetabs","prism","-highlight","github","anchorjs","otherlink","@dogatana/back-to-top-button"],"root":"./docs","styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"@dogatana/back-to-top-button":{},"prism":{},"github":{"url":"https://github.com/gchq/gaffer-doc"},"search":{"maxIndexSize":5000000},"otherlink":{},"codetabs":{},"lunr":{"maxIndexSize":5000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"expandable-chapters-interactive":{},"theme-default":{"styles":{"website":"build/gitbook.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchorjs":{},"expandable-chapters":{}},"theme":"default","honkit":"3.x.x","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"Gaffer Doc","gitbook":"*"},"file":{"path":"components/tool/ui.md","mtime":"2022-10-11T10:25:58.684Z","type":"markdown"},"gitbook":{"version":"3.7.5","time":"2022-10-11T10:26:11.354Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
@@ -5161,7 +5161,7 @@ path to your test spec file (relative to the ui/test/webapp/app directory):</p>
         
     
         
-        <script src="../../gitbook/gitbook-plugin-@dogatana/back-to-top-button/plugin.js"></script>
+        <script src="../../gitbook/@dogatana/honkit-plugin-back-to-top-button/plugin.js"></script>
         
     
         
