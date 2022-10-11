@@ -13,7 +13,13 @@ fetchJavadoc () {
     rm -rf $1
     restUrl='https://api.github.com/repos/gchq/'$1'/commits?sha=gh-pages' #Requests to this API are ratelimited without a token
     commitShaRegex='.*message.*'$2'.,.*.tree...{.*sha....([[:alnum:]]*).,'
-    githubCommitHistory=$(curl -Ss -H "Accept: application/vnd.github.v3+json" $restUrl)
+    if [ -n "$GITHUB_TOKEN" ]; then
+        echo 'GITHUB_TOKEN found, authorising to GitHub API with it'
+        githubCommitHistory=$(curl -Ss -H "Accept: application/vnd.github.v3+json" -H "Authorization: Bearer "$GITHUB_TOKEN $restUrl)
+    else
+        echo 'GITHUB_TOKEN not found, not using GitHub API authorisation'
+        githubCommitHistory=$(curl -Ss -H "Accept: application/vnd.github.v3+json" $restUrl)
+    fi
     commitSha=$(echo $githubCommitHistory | sed -nE 's/.*Updated javadoc - '$2'.,..tree...\{..sha....([[:alnum:]]*).*/\1/p')
 
     if [ -z "$commitSha" ]; then
@@ -21,6 +27,7 @@ fetchJavadoc () {
         echo 'curl output:'$githubCommitHistory
         exit 1
     fi
+    echo 'Found '$1' Javadoc with version '$2
     curl -Ss -L 'https://github.com/gchq/'$1'/archive/'$commitSha'.zip' > $1.zip
     unzip -q $1.zip
     mv *-$commitSha $1
