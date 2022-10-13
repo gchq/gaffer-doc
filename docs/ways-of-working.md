@@ -18,9 +18,9 @@ If a code change requires users of Gaffer to make changes in order for them to a
 ### Workflow
 * Assign yourself to the issue
 * Create a new branch off **develop** using pattern: `gh-[issue number]-[issue-title]`
-* Commit your changes prefixing your descriptive commit title, like so: `gh-[issue-number]: [commit title]`
+* Commit your changes using descriptive commit titles
 * Check and push your changes
-* Create a pull request (PR) to merge your branch into **develop**
+* Create a pull request (PR) to merge your branch into **develop**, prefixing the PR title with "Gh-[issue number]: "
 * If you named the branch and PR correctly, the PR should have "Resolve #[issue-number]" automatically added to the description after it is made. If it doesn't, then please add the issue it will resolve as a "Linked issue"
 * If there is a significant change, please follow the same process to document the change in [gaffer-doc](https://github.com/gchq/gaffer-doc)
 * The pull request will be reviewed and following any changes and approval your branch will be squashed and merged into **develop**
