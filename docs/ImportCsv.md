@@ -1,7 +1,7 @@
 # ImportCsv
 
 The ImportCsv operation allows a user to import data into a running Gaffer instance by simply
-providing the path to a CSV file. The data within the CSV must adhere to the openCypher [format](./openCypher). 
+providing the path to a CSV file. The data within the CSV must adhere to the openCypher [format](./CsvFormat). 
 As described in the previous link there exists small differences in the headers used between Neptune and neo4j, 
 the ImportCsv operation handles both, it also handles both entities and edges specified within the same file.
 
