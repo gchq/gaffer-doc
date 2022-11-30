@@ -8,7 +8,16 @@ markdown_extensions:
       anchor_linenums: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+
 extra:
   social:
     - icon: fontawesome/brands/github
@@ -19,12 +28,32 @@ extra:
 
 nav:
     - Home: 'index.md'
-    - Changelist: 'changelist.md'
-    - Deprecations: 'deprecations.md'
-    - Dependencies: 'dependencies.md'
-    - 'Accumulo Migration': 'accumulo-migration.md'
-    - 'Accumulo Kerberos': 'accumulo-kerberos.md'
-    - Ways of Working: 'ways-of-working.md'
+    - 'Gaffer 2.0':
+      - Changelist: 'gaffer2.0/changelist.md'
+      - Deprecations: 'gaffer2.0/deprecations.md'
+      - Dependencies: 'gaffer2.0/dependencies.md'
+      - 'Accumulo Migration': 'gaffer2.0/accumulo-migration.md'
+      - 'Accumulo Kerberos': 'gaffer2.0/accumulo-kerberos.md'
+      - 'Log4j in Gaffer': 'gaffer2.0/log4j.md'
+    - 'Dev Info':
+      - Ways of Working: 'dev/ways-of-working.md'
+    - 'Reference':
+      - 'Reference Guide': 'reference/intro.md'
+      - Properties:
+        - 'Properties Guide': 'reference/properties-guide/properties.md'
+      - Operations:
+        - 'Operations Guide': 'reference/operations-guide/operations.md'
+        - 'Core Operations': 'reference/operations-guide/core.md'
+        - 'Join Operation': 'reference/operations-guide/join.md'
+        - 'Get Operations': 'reference/operations-guide/get.md'
+        - 'Control Flow Operations': 'reference/operations-guide/flow.md'
+        - 'Job Operations': 'reference/operations-guide/job.md'
+        - 'Named Operations': 'reference/operations-guide/named.md'
+        - 'Export Operations': 'reference/operations-guide/export.md'
+        - 'Generate Operations': 'reference/operations-guide/generate.md'
+        - 'Flink Operations': 'reference/operations-guide/flink.md'
+        - 'HDFS Operations': 'reference/operations-guide/hdfs.md'
+        - 'Misc Operations': 'reference/operations-guide/misc.md'
 
 theme:
   name: material
