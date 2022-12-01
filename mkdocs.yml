@@ -41,6 +41,10 @@ nav:
       - 'Reference Guide': 'reference/intro.md'
       - Properties:
         - 'Properties Guide': 'reference/properties-guide/properties.md'
+      - Predicates:
+        - 'Predicates Guide': 'reference/predicates-guide/predicates.md'
+        - 'Gaffer Predicates': 'reference/predicates-guide/gaffer-predicates.md'
+        - 'Koryphe Predicates': 'reference/predicates-guide/koryphe-predicates.md'
       - Operations:
         - 'Operations Guide': 'reference/operations-guide/operations.md'
         - 'Core Operations': 'reference/operations-guide/core.md'
