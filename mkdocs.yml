@@ -53,6 +53,7 @@ nav:
         - 'Generate Operations': 'reference/operations-guide/generate.md'
         - 'Flink Operations': 'reference/operations-guide/flink.md'
         - 'HDFS Operations': 'reference/operations-guide/hdfs.md'
+        - 'Accumulo Operations': 'reference/operations-guide/accumulo.md'
         - 'Misc Operations': 'reference/operations-guide/misc.md'
 
 theme:
