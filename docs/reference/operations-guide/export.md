@@ -1,6 +1,6 @@
 # Export Operations
 
-These Operations are used for exporting... They are not always available - depends on the operartion.
+These Operations are used for exporting results, either to a temporary cache used within an Operation Chain or to a result cache. Operations using a result cache require this to be enabled for the operation to also be available.
 
 This directed graph is used in all the examples on this page:
 
