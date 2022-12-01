@@ -54,6 +54,7 @@ nav:
         - 'Flink Operations': 'reference/operations-guide/flink.md'
         - 'HDFS Operations': 'reference/operations-guide/hdfs.md'
         - 'Accumulo Operations': 'reference/operations-guide/accumulo.md'
+        - 'Spark Operations': 'reference/operations-guide/spark.md'
         - 'Misc Operations': 'reference/operations-guide/misc.md'
 
 theme:

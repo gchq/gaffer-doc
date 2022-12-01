@@ -104,33 +104,17 @@ Operation | Type
 [`hdfs.operation.AddElementsFromHdfs`](hdfs.md#addelementsfromhdfs) | HDFS
 `hdfs.operation.SampleDataForSplitPoints` | HDFS
 `mapstore.operation.CountAllElementsDefaultView` | Map
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+[`spark.operation.dataframe.GetDataFrameOfElements`](spark.md#getdataframeofelements) | Spark
+[`spark.operation.graphframe.GetGraphFrameOfElements`](spark.md#getgraphframeofelements) | Spark
+[`spark.operation.javardd.GetJavaRDDOfAllElements`](spark.md#getjavarddofallelements) | Spark
+[`spark.operation.javardd.GetJavaRDDOfElements`](spark.md#getjavarddofelements) | Spark
+`spark.operation.javardd.ImportJavaRDDOfElements` | Spark
+`spark.operation.javardd.SplitStoreFromJavaRDDOfElements` | Spark
+`spark.operation.scalardd.GetRDDOfAllElements` | Spark
+`spark.operation.scalardd.GetRDDOfElements` | Spark
+`spark.operation.scalardd.ImportRDDOfElements` | Spark
+`spark.operation.scalardd.SplitStoreFromRDDOfElements` | Spark
+`sparkaccumulo.operation.javardd.GetJavaRDDOfElementsInRanges` | Spark
+`sparkaccumulo.operation.javardd.ImportKeyValueJavaPairRDDToAccumulo` | Spark
+`sparkaccumulo.operation.scalardd.GetRDDOfElementsInRanges` | Spark
+`sparkaccumulo.operation.scalardd.ImportKeyValuePairRDDToAccumulo` | Spark
