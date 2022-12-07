@@ -1,6 +1,6 @@
 # Join Operation
 
-This operation joins two iterables together. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/join/Join.html)
+This operation joins two iterables together. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/join/Join.html)
 
 There are three different types of Join:
 

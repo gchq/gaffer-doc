@@ -1,6 +1,6 @@
 # Named Operations
 
-Named Operations enable encapsulation of an OperationChain into a new single NamedOperation. The NamedOperation can be added to OperationChains and executed, just like any other Operation. They are available when a cache has been configured. [Overview Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/named/operation/NamedOperation.html)
+Named Operations enable encapsulation of an OperationChain into a new single NamedOperation. The NamedOperation can be added to OperationChains and executed, just like any other Operation. They are available when a cache has been configured. [Overview Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/named/operation/NamedOperation.html)
 
 This directed graph is used in all the examples on this page:
 

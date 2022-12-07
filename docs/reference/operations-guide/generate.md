@@ -16,7 +16,7 @@ graph TD
 
 ## GenerateElements
 
-Generates elements from objects using provided generators. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/generate/GenerateElements.html)
+Generates elements from objects using provided generators. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/generate/GenerateElements.html)
 
 ??? example "Example generating elements from Strings"
 
@@ -168,7 +168,7 @@ Generates elements from objects using provided generators. [Javadoc](http://gchq
 
 ## GenerateObjects
 
-Generates objects from elements using provided generators. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/generate/GenerateObjects.html)
+Generates objects from elements using provided generators. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/generate/GenerateObjects.html)
 
 ??? example "Example generating Strings from elements"
 

@@ -61,7 +61,7 @@ Property | Binary Operator
 
 ## Serialiser Support
 
-All advanced properties support the [`NullSerialiser`](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/NullSerialiser.html). FreqMap and HashMap also both support the [`MapSerialiser`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/MapSerialiser.html) serialiser.
+All advanced properties support the [`NullSerialiser`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/NullSerialiser.html). FreqMap and HashMap also both support the [`MapSerialiser`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/MapSerialiser.html) serialiser.
 
 Some of the other properties have (one or more of) their own specialised serialiser(s):
 
@@ -77,7 +77,7 @@ Property | Serialiser
 
 There are two timestamp properties:
 
-- RBMBackedTimestampSet: When this is created, a [TimeBucket](https://github.com/gchq/Gaffer/blob/master/library/time-library/src/main/java/uk/gov/gchq/gaffer/time/CommonTimeUtil.java) is specified, e.g. minute. When a timestamp is added, it is truncated to the nearest start of a bucket (e.g. if the bucket is a minute then the seconds are removed) and then added to the set. Internally the timestamps are stored in a [Roaring Bitmap](http://roaringbitmap.org/).
+- RBMBackedTimestampSet: When this is created, a [TimeBucket](https://github.com/gchq/Gaffer/blob/master/library/time-library/src/main/java/uk/gov/gchq/gaffer/time/CommonTimeUtil.java) is specified, e.g. minute. When a timestamp is added, it is truncated to the nearest start of a bucket (e.g. if the bucket is a minute then the seconds are removed) and then added to the set. Internally the timestamps are stored in a [Roaring Bitmap](https://roaringbitmap.org/).
 - BoundedTimestampSet: This is similar to the above set, except that when it is created a maximum size is specified. If the set grows beyond the maximum size, then a random sample of the timestamps of that size is created. This is useful to avoid the size of the set for entities or edges that are very busy growing too large. By retaining a sample, we maintain an indication of when the entity or edge was active, without retaining all the information. The sample is implemented using a [ReservoirLongsUnion](https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/sampling/ReservoirLongsUnion.java) from the Datasketches library.
 
 ### RBMBackedTimestampSet Example

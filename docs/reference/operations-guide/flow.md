@@ -21,7 +21,7 @@ graph LR
 
 ## If
 
-[Conditional](https://en.wikipedia.org/wiki/Conditional_(computer_programming)) statement which executes a certain operation if the condition is satisfied and a different operation otherwise. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/If.html)
+[Conditional](https://en.wikipedia.org/wiki/Conditional_(computer_programming)) statement which executes a certain operation if the condition is satisfied and a different operation otherwise. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/If.html)
 
 ??? example "Conditionally get elements or limit current results"
 
@@ -528,7 +528,7 @@ graph LR
 
 ## While
 
-Runs an operation repeatedly until a condition is no longer true or a maximum number of runs (repeats) has been reached. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/While.html)
+Runs an operation repeatedly until a condition is no longer true or a maximum number of runs (repeats) has been reached. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/While.html)
 
 ??? example "Run an operation 3 times"
 
@@ -1254,7 +1254,7 @@ Runs an operation repeatedly until a condition is no longer true or a maximum nu
 
 ## ForEach
 
-Runs supplied operation on all items in an Iterable input. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/ForEach.html)
+Runs supplied operation on all items in an Iterable input. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/ForEach.html)
 
 ??? info "ForEach Graph"
     

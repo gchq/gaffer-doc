@@ -16,7 +16,7 @@ graph TD
 
 ## GetElements
 
-Gets elements related to provided seeds. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/get/GetElements.html)
+Gets elements related to provided seeds. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/get/GetElements.html)
 
 ??? example "Example fetching entities and edges by ID"
 
@@ -1242,7 +1242,7 @@ Gets elements related to provided seeds. [Javadoc](http://gchq.github.io/Gaffer/
 
 ## GetAdjacentIds
 
-Performs a single hop down related edges. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/get/GetAdjacentIds.html)
+Performs a single hop down related edges. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/get/GetAdjacentIds.html)
 
 ??? example "Example fetching adjacent IDs from specified vertex"
 
@@ -1473,7 +1473,7 @@ Performs a single hop down related edges. [Javadoc](http://gchq.github.io/Gaffer
 
 ## GetAllElements
 
-Gets all elements, optionally using a provided View. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/get/GetAllElements.html)
+Gets all elements, optionally using a provided View. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/get/GetAllElements.html)
 
 ??? example "Example fetching everything in the graph"
 
@@ -1777,7 +1777,7 @@ Gets all elements, optionally using a provided View. [Javadoc](http://gchq.githu
 
 ## GetWalks
 
-Gets the [walks/paths](https://proofwiki.org/wiki/Definition:Walk_(Graph_Theory)) for a given vertex. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/GetWalks.html)
+Gets the [walks/paths](https://proofwiki.org/wiki/Definition:Walk_(Graph_Theory)) for a given vertex. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/GetWalks.html)
 
 ??? info "GetWalks Graph"
     ``` mermaid

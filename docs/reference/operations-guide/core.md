@@ -16,7 +16,7 @@ graph TD
 
 ## AddElements
 
-Adds elements to a graph. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/add/AddElements.html)
+Adds elements to a graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/add/AddElements.html)
 
 ??? example "Example adding a new entity and edge"
 
@@ -104,7 +104,7 @@ Adds elements to a graph. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaf
 
 ## Aggregate
 
-The Aggregate operation would normally be used in an Operation Chain to aggregate the results of a previous operation. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/function/Aggregate.html)
+The Aggregate operation would normally be used in an Operation Chain to aggregate the results of a previous operation. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/function/Aggregate.html)
 
 ??? example "Example simple aggregate elements"
 
@@ -197,7 +197,7 @@ The Aggregate operation would normally be used in an Operation Chain to aggregat
 
 ## Count
 
-Counts the number of items in an iterable. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/Count.html)
+Counts the number of items in an iterable. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/Count.html)
 
 ??? example "Example counting all elements"
 
@@ -250,7 +250,7 @@ Counts the number of items in an iterable. [Javadoc](http://gchq.github.io/Gaffe
 
 ## CountGroups
 
-Counts the different element groups. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/CountGroups.html)
+Counts the different element groups. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/CountGroups.html)
 
 ??? example "Example counting all element groups"
 
@@ -371,7 +371,7 @@ Counts the different element groups. [Javadoc](http://gchq.github.io/Gaffer/uk/g
 
 ## Filter
 
-Filters elements. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/function/Filter.html)
+Filters elements. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/function/Filter.html)
 
 ??? example "Example filtering for elements with a count more than 2"
 
@@ -600,7 +600,7 @@ Filters elements. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/oper
 
 ## Limit
 
-Limits the number of items. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/Limit.html)
+Limits the number of items. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/Limit.html)
 
 ??? example "Example limiting elements to 3"
 
@@ -817,7 +817,7 @@ Limits the number of items. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/g
 
 ## Min
 
-Extracts the minimum element based on provided Comparators. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/compare/Min.html)
+Extracts the minimum element based on provided Comparators. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/compare/Min.html)
 
 ??? example "Example min count"
 
@@ -1132,7 +1132,7 @@ Extracts the minimum element based on provided Comparators. [Javadoc](http://gch
 
 ## Max
 
-Extracts the maximum element based on provided Comparators. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/compare/Max.html)
+Extracts the maximum element based on provided Comparators. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/compare/Max.html)
 
 ??? example "Example max count"
 
@@ -1447,7 +1447,7 @@ Extracts the maximum element based on provided Comparators. [Javadoc](http://gch
 
 ## Sort
 
-Sorts elements based on provided Comparators and can be used to extract the top 'n' elements. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/compare/Sort.html)
+Sorts elements based on provided Comparators and can be used to extract the top 'n' elements. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/compare/Sort.html)
 
 ??? example "Example sorting on count"
 
@@ -2037,7 +2037,7 @@ Sorts elements based on provided Comparators and can be used to extract the top 
 
 ## Reduce
 
-Reduces an input to an output with a single value using provided function. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/Reduce.html)
+Reduces an input to an output with a single value using provided function. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/Reduce.html)
 
 ??? example "Example of reduce"
 
@@ -2138,7 +2138,7 @@ Reduces an input to an output with a single value using provided function. [Java
 
 ## Map
 
-Maps an input to an output using provided functions. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/Map.html)
+Maps an input to an output using provided functions. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/Map.html)
 
 ??? example "Example extracting from get elements"
 
@@ -2388,7 +2388,7 @@ Maps an input to an output using provided functions. [Javadoc](http://gchq.githu
 
 ## Transform
 
-The Transform operation would normally be used in an Operation Chain to transform the results of a previous operation. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/function/Transform.html)
+The Transform operation would normally be used in an Operation Chain to transform the results of a previous operation. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/function/Transform.html)
 
 ??? example "Example transforming count property into count string property only for edges of type edge"
 
@@ -2448,7 +2448,7 @@ The Transform operation would normally be used in an Operation Chain to transfor
 
 ## ToArray
 
-Converts elements to Array. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToArray.html)
+Converts elements to Array. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToArray.html)
 
 !!! note
     
@@ -2593,7 +2593,7 @@ Converts elements to Array. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/g
 
 ## ToCsv
 
-Converts elements to CSV Strings. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToCsv.html)
+Converts elements to CSV Strings. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToCsv.html)
 
 ??? example "Example ToCsv"
 
@@ -2700,7 +2700,7 @@ Converts elements to CSV Strings. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/
 
 ## ToEntitySeeds
 
-Converts object(s) into EntitySeeds. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToEntitySeeds.html)
+Converts object(s) into EntitySeeds. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToEntitySeeds.html)
 
 ??? example "Example ToEntitySeeds"
 
@@ -2876,7 +2876,7 @@ Converts object(s) into EntitySeeds. [Javadoc](http://gchq.github.io/Gaffer/uk/g
 
 ## ToList
 
-Converts elements to a List. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToList.html)
+Converts elements to a List. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToList.html)
 
 !!! note
     
@@ -3021,7 +3021,7 @@ Converts elements to a List. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/
 
 ## ToMap
 
-Converts elements to a Map of key-value pairs. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToMap.html)
+Converts elements to a Map of key-value pairs. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToMap.html)
 
 ??? example "Example ToMap"
 
@@ -3148,7 +3148,7 @@ Converts elements to a Map of key-value pairs. [Javadoc](http://gchq.github.io/G
 
 ## ToSet
 
-Converts elements to a Set. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToSet.html)
+Converts elements to a Set. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToSet.html)
 
 !!! note
     
@@ -3293,7 +3293,7 @@ Converts elements to a Set. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/g
 
 ## ToSingletonList
 
-Converts a single input of type T to a List. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToSingletonList.html)
+Converts a single input of type T to a List. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToSingletonList.html)
 
 ??? example "Example ToSingletonList"
 
@@ -3424,7 +3424,7 @@ Converts a single input of type T to a List. [Javadoc](http://gchq.github.io/Gaf
 
 ## ToStream
 
-Converts elements to a Stream. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToStream.html)
+Converts elements to a Stream. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToStream.html)
 
 !!! note
     
@@ -3507,7 +3507,7 @@ Converts elements to a Stream. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gch
 
 ## ToVertices
 
-Converts ElementIds into vertices. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToVertices.html)
+Converts ElementIds into vertices. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToVertices.html)
 
 The examples use a ToSet operation after the ToVertices operation to deduplicate the results.
 
@@ -4002,7 +4002,7 @@ The examples use a ToSet operation after the ToVertices operation to deduplicate
 
 ## GetSchema
 
-Gets the Schema of a Graph. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/GetSchema.html)
+Gets the Schema of a Graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/GetSchema.html)
 
 ??? example "Example getting full schema"
 
@@ -4422,7 +4422,7 @@ Gets the Schema of a Graph. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/g
 
 ## GetTraits
 
-Gets the traits of the current store. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/GetTraits.html)
+Gets the traits of the current store. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/GetTraits.html)
 
 ??? example "Example getting all traits"
 

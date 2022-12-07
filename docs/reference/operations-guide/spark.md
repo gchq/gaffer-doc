@@ -18,7 +18,7 @@ graph TD
 
 ## GetDataFrameOfElements
 
-Operation that returns an Apache Spark DataFrame consisting of Elements converted to Rows, fields are ordered according to the ordering of the groups in the view, with Entities first, followed by Edges. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/spark/operation/dataframe/GetDataFrameOfElements.html)
+Operation that returns an Apache Spark DataFrame consisting of Elements converted to Rows, fields are ordered according to the ordering of the groups in the view, with Entities first, followed by Edges. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/spark/operation/dataframe/GetDataFrameOfElements.html)
 
 ??? example "Example getting data frame of elements with entity group"
 
@@ -150,7 +150,7 @@ Operation that returns an Apache Spark DataFrame consisting of Elements converte
 
 ## GetGraphFrameOfElements
 
-Operation which returns an Apache Spark GraphFrame consisting of Elements converted to rows. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/spark/operation/graphframe/GetGraphFrameOfElements.html)
+Operation which returns an Apache Spark GraphFrame consisting of Elements converted to rows. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/spark/operation/graphframe/GetGraphFrameOfElements.html)
 
 ??? example "Example getting graph frame of elements"
 
@@ -214,7 +214,7 @@ Operation which returns an Apache Spark GraphFrame consisting of Elements conver
 
 ## GetJavaRDDOfAllElements
 
-Operation which retrieves all Elements, and returns them inside a JavaRDD. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/spark/operation/javardd/GetJavaRDDOfAllElements.html)
+Operation which retrieves all Elements, and returns them inside a JavaRDD. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/spark/operation/javardd/GetJavaRDDOfAllElements.html)
 
 ??? example "Example getting JavaRDD of all elements"
 
@@ -290,7 +290,7 @@ Operation which retrieves all Elements, and returns them inside a JavaRDD. [Java
 
 ## GetJavaRDDOfElements
 
-Operation which retrieves all the Elements for input seeds, and returns them inside a JavaRDD. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/spark/operation/javardd/GetJavaRDDOfElements.html)
+Operation which retrieves all the Elements for input seeds, and returns them inside a JavaRDD. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/spark/operation/javardd/GetJavaRDDOfElements.html)
 
 ??? example "Example getting JavaRDD of elements with seeds"
 

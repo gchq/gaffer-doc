@@ -16,7 +16,7 @@ graph TD
 
 ## ExportToSet
 
-Exports results to a Set, always available. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/set/ExportToSet.html)
+Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/set/ExportToSet.html)
 
 ??? example "Example of export and get"
 
@@ -590,14 +590,14 @@ Exports results to a Set, always available. [Javadoc](http://gchq.github.io/Gaff
 
 ## GetSetExport
 
-Fetches data from a Set cache, always available. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/set/GetSetExport.html)
+Fetches data from a Set cache, always available. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/set/GetSetExport.html)
 
 !!! example
     See examples for ExportToSet above for usage.
 
 ## ExportToGafferResultCache
 
-Exports to a cache backed by a Gaffer graph. Requires a cache to be configured. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/resultcache/ExportToGafferResultCache.html)
+Exports to a cache backed by a Gaffer graph. Requires a cache to be configured. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/resultcache/ExportToGafferResultCache.html)
 
 ??? example "Example of export and get with result cache"
 
@@ -1308,14 +1308,14 @@ Exports to a cache backed by a Gaffer graph. Requires a cache to be configured. 
 
 ## GetGafferResultCacheExport
 
-Fetches data from a Gaffer result cache. Requires a cache to be configured. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/resultcache/GetGafferResultCacheExport.html)
+Fetches data from a Gaffer result cache. Requires a cache to be configured. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/resultcache/GetGafferResultCacheExport.html)
 
 !!! example
     See examples for ExportToGafferResultCache above for usage.
 
 ## ExportToOtherAuthorisedGraph
 
-These export examples export all edges in the example graph to another Gaffer instance using Operation Auths against the user. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/export/graph/ExportToOtherAuthorisedGraph.html)
+These export examples export all edges in the example graph to another Gaffer instance using Operation Auths against the user. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/export/graph/ExportToOtherAuthorisedGraph.html)
 
 To add this operation to your Gaffer graph you will need to write your own version of [`ExportToOtherAuthorisedGraphOperationDeclarations.json`](https://github.com/gchq/Gaffer/blob/master/example/road-traffic/road-traffic-rest/src/main/resources/ExportToOtherAuthorisedGraphOperationDeclarations.json) containing the user auths, and then set this property:
 
@@ -1457,7 +1457,7 @@ gaffer.store.operation.declarations=/path/to/ExportToOtherAuthorisedGraphOperati
 
 ## ExportToOtherGraph
 
-These export examples export all edges in the example graph to another Gaffer instance. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/export/graph/ExportToOtherGraph.html)
+These export examples export all edges in the example graph to another Gaffer instance. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/export/graph/ExportToOtherGraph.html)
 
 To add this operation to your Gaffer graph you will need to include the `ExportToOtherGraphOperationDeclarations.json` in your store properties, i.e. set this property:
 

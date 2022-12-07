@@ -15,7 +15,7 @@ Gaffer allows sketches to be stored on Entities and Edges. These sketches can be
 
 Gaffer provides serialisers and aggregators for sketches from two different libraries: the [Clearspring](https://github.com/addthis/stream-lib) library and the pre-Apache version of the [Datasketches](https://datasketches.github.io/) library.
 
-For the Clearspring library, a serialiser and an aggregator is provided for the [`HyperLogLogPlus`](https://github.com/addthis/stream-lib/blob/master/src/main/java/com/clearspring/analytics/stream/cardinality/HyperLogLogPlus.java) sketch. This is an implementation of the HyperLogLog++ algorithm described [in this paper](http://static.googleusercontent.com/external_content/untrusted_dlcp/research.google.com/en/us/pubs/archive/40671.pdf).
+For the Clearspring library, a serialiser and an aggregator is provided for the [`HyperLogLogPlus`](https://github.com/addthis/stream-lib/blob/master/src/main/java/com/clearspring/analytics/stream/cardinality/HyperLogLogPlus.java) sketch. This is an implementation of the HyperLogLog++ algorithm described [in this paper](https://static.googleusercontent.com/external_content/untrusted_dlcp/research.google.com/en/us/pubs/archive/40671.pdf).
 
 For the Datasketches library, serialisers and aggregators are provided for several sketches. These sketches include:
 
@@ -77,7 +77,7 @@ Property | Binary Operator
 
 ## Serialiser Support
 
-All advanced properties support the [`NullSerialiser`](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/NullSerialiser.html) and each has (at least one of) their own specialised serialiser(s):
+All advanced properties support the [`NullSerialiser`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/NullSerialiser.html) and each has (at least one of) their own specialised serialiser(s):
 
 Property | Serialiser
 -------- | ---------------

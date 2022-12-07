@@ -16,7 +16,7 @@ graph TD
 
 ## GetAllJobDetails
 
-Gets all running and historic job details for the graph. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/job/GetAllJobDetails.html)
+Gets all running and historic job details for the graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/job/GetAllJobDetails.html)
 
 ??? example "Example GetAllJobDetails"
 
@@ -66,7 +66,7 @@ Gets all running and historic job details for the graph. [Javadoc](http://gchq.g
 
 ## GetJobDetails
 
-Gets the details of a single job. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/job/GetJobDetails.html)
+Gets the details of a single job. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/job/GetJobDetails.html)
 
 ??? example "Example getting job details in an operation chain"
 
@@ -185,7 +185,7 @@ Gets the details of a single job. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/
 
 ## GetJobResults
 
-Gets the results of a job. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/job/GetJobResults.html)
+Gets the results of a job. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/job/GetJobResults.html)
 
 ??? example "Example GetJobResults"
 
@@ -335,7 +335,7 @@ Gets the results of a job. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/ga
 
 ## CancelScheduledJob
 
-Cancels a scheduled job specified by the job id. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/job/CancelScheduledJob.html)
+Cancels a scheduled job specified by the job id. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/job/CancelScheduledJob.html)
 
 ??? example "Example of a scheduled job before being cancelled"
 

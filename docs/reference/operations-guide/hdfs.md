@@ -4,7 +4,7 @@ These Operations are used with HDFS.
 
 ## AddElementsFromHdfs
 
-Operation for adding Elements from HDFS. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/hdfs/operation/AddElementsFromHdfs.html)
+Operation for adding Elements from HDFS. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/hdfs/operation/AddElementsFromHdfs.html)
 
 This operation must be run as a Hadoop Job. So you will need to package up a shaded jar containing a main method that creates an instance of Graph and executes the operation. It can then be run with: 
 

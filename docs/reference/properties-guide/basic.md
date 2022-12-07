@@ -68,12 +68,12 @@ Aggregator | `String` | `Integer` | `Long` | `Float` | `Double` | `Byte[]` | `Bo
 
 ## Serialiser Support
 
-All properties support the [`NullSerialiser`](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/NullSerialiser.html).
+All properties support the [`NullSerialiser`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/NullSerialiser.html).
 
 The type of serialiser used for basic properties is automatically selected by Gaffer, based on the type of Gaffer store used. Specifying the exact serialiser to use is therefore optional.
 
-For `String` there is a [`StringSerialiser`](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/StringSerialiser.html) and a [`StringToStringSerialiser`](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/tostring/StringToStringSerialiser.html).
+For `String` there is a [`StringSerialiser`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/StringSerialiser.html) and a [`StringToStringSerialiser`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/tostring/StringToStringSerialiser.html).
 
-The `Integer` and `Long` properties both have 'Ordered' and 'CompactRaw' serialisers (e.g. [`OrderedIntegerSerialiser`](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/ordered/OrderedIntegerSerialiser.html) & [`CompactRawIntegerSerialiser`](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/raw/CompactRawIntegerSerialiser.html)). The `Float` and `Double` properties only have a single 'Ordered' serialiser each.
+The `Integer` and `Long` properties both have 'Ordered' and 'CompactRaw' serialisers (e.g. [`OrderedIntegerSerialiser`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/ordered/OrderedIntegerSerialiser.html) & [`CompactRawIntegerSerialiser`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/serialisation/implementation/raw/CompactRawIntegerSerialiser.html)). The `Float` and `Double` properties only have a single 'Ordered' serialiser each.
 
 The `Byte[]` and `Boolean` properties each have a specialised serialiser.

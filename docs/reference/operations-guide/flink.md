@@ -8,7 +8,7 @@ gaffer.store.operation.declarations=FlinkOperationDeclarations.json
 
 ## AddElementsFromFile
 
-Adds elements from a file, requires a filename and an elementGenerator. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/add/AddElementsFromFile.html)
+Adds elements from a file, requires a filename and an elementGenerator. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/add/AddElementsFromFile.html)
 
 ### Example
 
@@ -51,7 +51,7 @@ Adds elements from a file, requires a filename and an elementGenerator. [Javadoc
 
 ## AddElementsFromKafka
 
-Adds elements from a Kafka, requires a topic, groupId, bootstrapServers and an elementGenerator. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/add/AddElementsFromKafka.html)
+Adds elements from a Kafka, requires a topic, groupId, bootstrapServers and an elementGenerator. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/add/AddElementsFromKafka.html)
 
 ### Example
 
@@ -98,7 +98,7 @@ Adds elements from a Kafka, requires a topic, groupId, bootstrapServers and an e
 
 ## AddElementsFromSocket
 
-Adds elements from a Socket, requires a hostname, port and an elementGenerator. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/add/AddElementsFromSocket.html)
+Adds elements from a Socket, requires a hostname, port and an elementGenerator. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/add/AddElementsFromSocket.html)
 
 ### Example
 

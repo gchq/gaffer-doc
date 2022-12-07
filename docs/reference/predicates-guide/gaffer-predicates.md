@@ -4,7 +4,7 @@ Predicates which are part of Gaffer.
 
 ## HyperLogLogPlusIsLessThan
 
-Tests a HyperLogLogPlus cardinality is less than a provided value. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/predicate/HyperLogLogPlusIsLessThan.html)
+Tests a HyperLogLogPlus cardinality is less than a provided value. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/predicate/HyperLogLogPlusIsLessThan.html)
 
 Input type: `com.clearspring.analytics.stream.cardinality.HyperLogLogPlus`
 

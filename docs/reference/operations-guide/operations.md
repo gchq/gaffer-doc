@@ -6,7 +6,7 @@ These pages contain examples of most operations in Gaffer. The examples are give
 
 !!! note
 
-    Some Operations below are missing a link because they have not been documented on this site yet. Details may be found in the [Javadoc](http://gchq.github.io/Gaffer/overview-summary.html).
+    Some Operations below are missing a link because they have not been documented on this site yet. Details may be found in the [Javadoc](https://gchq.github.io/Gaffer/overview-summary.html).
 
 Operation | Type
 ------------- | -------------

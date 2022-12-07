@@ -16,7 +16,7 @@ graph TD
 
 ## GetElementsBetweenSets
 
-Gets edges that exist between 2 sets and entities in the first set. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/accumulostore/operation/impl/GetElementsBetweenSets.html)
+Gets edges that exist between 2 sets and entities in the first set. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/accumulostore/operation/impl/GetElementsBetweenSets.html)
 
 ??? example "Example getting elements within set of vertices 1 and 2 and 4"
 
@@ -215,7 +215,7 @@ Gets edges that exist between 2 sets and entities in the first set. [Javadoc](ht
 
 ## GetElementsWithinSet
 
-Gets edges with both vertices in a given set and entities with vertices in a given set. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/accumulostore/operation/impl/GetElementsWithinSet.html)
+Gets edges with both vertices in a given set and entities with vertices in a given set. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/accumulostore/operation/impl/GetElementsWithinSet.html)
 
 ??? example "Example getting elements within set of vertices 1 and 2 and 3"
 
@@ -408,7 +408,7 @@ Gets edges with both vertices in a given set and entities with vertices in a giv
 
 ## GetElementsInRanges
 
-Gets elements that have vertices within a given range. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/accumulostore/operation/impl/GetElementsInRanges.html)
+Gets elements that have vertices within a given range. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/accumulostore/operation/impl/GetElementsInRanges.html)
 
 ??? example "Example getting all elements in the range from entity 1 to entity 4"
 

@@ -16,7 +16,7 @@ graph TD
 
 ## GetFromEndpoint
 
-Gets data from an endpoint. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/get/GetFromEndpoint.html)
+Gets data from an endpoint. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/get/GetFromEndpoint.html)
 
 ### Example
 
@@ -47,7 +47,7 @@ Gets data from an endpoint. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/g
 
 ## ScoreOperationChain
 
-Determines a "score" for an OperationChain. This is used to determine whether a particular user has the required permissions to execute a given OperationChain. [Javadoc](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/ScoreOperationChain.html)
+Determines a "score" for an OperationChain. This is used to determine whether a particular user has the required permissions to execute a given OperationChain. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/ScoreOperationChain.html)
 
 ### Example ScoreOperationChain
 
