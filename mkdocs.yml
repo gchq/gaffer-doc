@@ -41,10 +41,16 @@ nav:
       - 'Reference Guide': 'reference/intro.md'
       - Properties:
         - 'Properties Guide': 'reference/properties-guide/properties.md'
+        - 'Basic Properties': 'reference/properties-guide/basic.md'
+        - 'Advanced Properties': 'reference/properties-guide/advanced.md'
+        - 'Type Properties': 'reference/properties-guide/type.md'
+        - 'Map & Set Properties': 'reference/properties-guide/map-set.md'
       - Predicates:
         - 'Predicates Guide': 'reference/predicates-guide/predicates.md'
         - 'Gaffer Predicates': 'reference/predicates-guide/gaffer-predicates.md'
         - 'Koryphe Predicates': 'reference/predicates-guide/koryphe-predicates.md'
+      - 'Binary Operators':
+        - 'Binary Operators Guide': 'reference/binary-operators-guide/binary-operators.md'
       - Operations:
         - 'Operations Guide': 'reference/operations-guide/operations.md'
         - 'Core Operations': 'reference/operations-guide/core.md'

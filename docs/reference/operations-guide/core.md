@@ -1,6 +1,6 @@
 # Core Operations
 
-These Operations are ... They are always available.
+These Operations form the core of Gaffer. They are always available.
 
 Unless otherwise specified, this directed graph is used in the examples on this page:
 
