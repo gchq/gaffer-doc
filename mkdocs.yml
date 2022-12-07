@@ -51,6 +51,7 @@ nav:
         - 'Koryphe Predicates': 'reference/predicates-guide/koryphe-predicates.md'
       - 'Binary Operators':
         - 'Binary Operators Guide': 'reference/binary-operators-guide/binary-operators.md'
+        - 'Koryphe Operators Guide': 'reference/binary-operators-guide/koryphe-operators.md'
       - Operations:
         - 'Operations Guide': 'reference/operations-guide/operations.md'
         - 'Core Operations': 'reference/operations-guide/core.md'
