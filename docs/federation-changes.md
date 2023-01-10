@@ -1,6 +1,7 @@
 # Federated Store Changes
 
-This page contains information on the changes to Gaffer's Federated Store. This functionality was introduced in version `2.0.0-alpha-0.4` of Gaffer.
+This page contains information on the changes to Gaffer's Federated Store. This functionality was introduced in version `2.0.0-alpha-0.4` of Gaffer.  
+The main changes were the addition of the [Federated Operation](#the-federated-operation), and a change to how results are [merged](#default-results-merging) by default.
 
 ## The Federated Operation
 
@@ -144,3 +145,30 @@ This is no longer supported, and you should instead wrap the chain in a Federate
     "graphIds": [ "graphA" ]
 }
 ```
+
+## Default results merging
+
+As described above, FederatedStores now have `storeConfiguredMergeFunctions` that dictate how the FederatedStore will merge results from different subgraphs dependent on the Operation.  
+
+In places, these new defaults do differ from previous behaviour, hence results will too. This can be overriden on a per Operation basis using the `mergeFunction` parameter described above, or a per store basis by overriding `storeConfiguredMergeFunctions`.  
+The previous behaviour was that all Operation results were concatenated together, this is now a mergeFunction within Gaffer called `ConcatenateMergeFunction`. Therefore, if you wanted a FederatedOperation to use this old behaviour, you can set the `mergeFunction` to `ConcatenateMergeFunction` (as shown [above](#the-federated-operation)).  
+
+### New Merge function examples
+
+By default, `GetElements` results will be merged with `ApplyViewToElementsFunction`. This uses the View from the operation and applies it to all of the results, meaning the results are now aggregated and filtered using the Schema too. This makes the results look like they came from one graph, rather than getting back a list of Elements from different subgraphs.  
+
+By default, `GetTraits` results will be merged with `CollectionIntersect`. This returns the intersection of common store traits from the subgraphs, rather than all of the traits concatenate, meaning it is a better representation of traits all the subgraphs have.  
+
+### Default storeConfiguredMergeFunctions
+
+| Operation         | Merge function              |
+|-------------------|-----------------------------|
+| GetElements       | ApplyViewToElementsFunction |
+| GetAllElements    | ApplyViewToElementsFunction |
+| GetSchema         | MergeSchema                 |
+| GetTraits         | CollectionIntersect         |
+| others            | ConcatenateMergeFunction    |
+
+## Other changes
+
+Previously, if the FederatedStore received an Operation it did not have an OperationHandler for locally, the Operation would fail to execute. Now, the Operation will just be handed over to the subgraphs to be executed, as they may have the correct OperationHandlers. This should make it easier to use a ProxyStore with a FederatedStore, as the FederatedStore will no longer need to have every OperationHandler present on the remote ProxyStore.  
