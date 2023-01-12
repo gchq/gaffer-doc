@@ -1,5 +1,7 @@
 # Introduction
 
-These Reference pages contain documentation for all the Properties, Operations, Predicates, Functions and Binary Operators in Gaffer.
+These Reference pages contain documentation for the Properties, Operations, Predicates, Functions and Binary Operators in Gaffer.
 
-Currently a Work in Progress.
+!!! info
+
+    In general, this documentation covers the most common use cases, it doesn't cover everything. The Javadocs for [Gaffer](https://gchq.github.io/gaffer/) and [Koryphe](https://gchq.github.io/koryphe/) have more specialised information.
