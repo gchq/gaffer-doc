@@ -36,7 +36,8 @@ nav:
       - 'Accumulo Kerberos': 'gaffer2.0/accumulo-kerberos.md'
       - 'Log4j in Gaffer': 'gaffer2.0/log4j.md'
     - 'Dev Info':
-      - Ways of Working: 'dev/ways-of-working.md'
+      - 'Development': 'dev/development.md'
+      - 'Ways of Working': 'dev/ways-of-working.md'
     - 'Reference':
       - 'Reference Guide': 'reference/intro.md'
       - Properties:
