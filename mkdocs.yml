@@ -52,6 +52,10 @@ nav:
       - 'Binary Operators':
         - 'Binary Operators Guide': 'reference/binary-operators-guide/binary-operators.md'
         - 'Koryphe Operators Guide': 'reference/binary-operators-guide/koryphe-operators.md'
+      - Functions:
+        - 'Functions Guide': 'reference/functions-guide/functions.md'
+        - 'Gaffer Functions': 'reference/functions-guide/gaffer-functions.md'
+        - 'Koryphe Functions': 'reference/functions-guide/koryphe-functions.md'
       - Operations:
         - 'Operations Guide': 'reference/operations-guide/operations.md'
         - 'Core Operations': 'reference/operations-guide/core.md'
