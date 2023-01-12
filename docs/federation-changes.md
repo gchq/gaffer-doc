@@ -22,19 +22,23 @@ The Federated Operation has 3 key parameters: `operation`, `graphIds` and `merge
 
 ### Required parameter: operation
 
-This is the Operation you wish to be federated to the subgraphs. This can be a single Operation or an OperationChain. If you use an OperationChain, then the whole chain will be sent together to the subgraphs.  
+This is the Operation you wish to be federated to the subgraphs. This can be a single Operation or an OperationChain. If you use an OperationChain, then the whole chain will be sent to the subgraphs.  
 
 ### Optional parameter: graphIds
 
-This is a list of graph IDs which you want to send the operation to. If you have an OperationChain and wish to send each operation to a different graph, then each operation in the chain will need to be wrapped in a FederatedOperation with the `graphIds` set to the required graph. If instead you want to send the whole OperationChain to the same graphs, then this field can be set on one FederatedOperation where the `operation` is an OperationChain.  
+This is a list of graph IDs which you want to send the operation to.  
 
-If this parameter is not provided, then the default graph IDs for the store will be used. This is the `storeConfiguredGraphIds` for the store if set, if not set then all graphIds will be used.
+If the user does not specify `graphIds` in the Operation, then the `storeConfiguredGraphIds` for that store will be used. If the admin has not configured the `storeConfiguredGraphIds` then all graphIds will be used.  
+
+For information on sending different operations in one chain to different graphs, see [below](#removal-of-federatedoperationchain).  
 
 ### Optional parameter: mergeFunction
 
-The `mergeFunction` parameter is the BiFunction you want to use when merging the results from the subgraphs.  
+The `mergeFunction` parameter is the Function you want to use when merging the results from the subgraphs.  
 
-If this parameter is not provided, then the store's `storeConfiguredMergeFunctions` will be used, which have default values but can be overriden. For example, by default when GetElements is used as the operation inside a FederatedOperation, then `ApplyViewToElementsFunction` will be used to merge the results. Instead, this can be overriden, like in the example to something like `ConcatenateMergeFunction`, or even a custom Function.
+If the user does not specify a `mergeFunction` then it will be selected from the `storeConfiguredMergeFunctions` for that store. If the admin has not configured the `storeConfiguredMergeFunctions`, it will contain pre-populated `mergeFunctions`. Lastly, if a suitable `mergeFunction` is not found then a default `ConcatenateMergeFunction` is used.  
+
+For example, when GetElements is used as the operation inside a FederatedOperation and the user hasn't specified a `mergeFunction`, the pre-populated `ApplyViewToElementsFunction` will be selected from `storeConfiguredMergeFunctions`, unless the admin configured it to use something else.  
 
 
 ## Migrating to a FederatedOperation
@@ -121,6 +125,9 @@ Previously, if you wanted to send an entire OperationChain to a specific graph, 
     "operations": [
         {
             "class": "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements"
+        },
+        {
+            "class": "uk.gov.gchq.gaffer.operation.impl.Count"
         }
     ],
     "options": {
@@ -130,7 +137,7 @@ Previously, if you wanted to send an entire OperationChain to a specific graph, 
 ```
 
 #### New FederatedOperation graphIds on an OperationChain
-This is no longer supported, and you should instead wrap the chain in a FederatedOperation:
+Using the `graphIds` option on an OperationChain, as shown above, is no longer supported. You should instead wrap the chain in a FederatedOperation:
 ``` json
 {
     "class": "uk.gov.gchq.gaffer.federatedstore.operation.FederatedOperation",
@@ -139,6 +146,9 @@ This is no longer supported, and you should instead wrap the chain in a Federate
         "operations": [
             {
                 "class": "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements"
+            },
+            {
+                "class": "uk.gov.gchq.gaffer.operation.impl.Count"
             }
         ]
     },
@@ -155,9 +165,11 @@ The previous behaviour was that all Operation results were concatenated together
 
 ### New Merge function examples
 
-By default, `GetElements` results will be merged with `ApplyViewToElementsFunction`. This uses the View from the operation and applies it to all of the results, meaning the results are now aggregated and filtered using the Schema too. This makes the results look like they came from one graph, rather than getting back a list of Elements from different subgraphs.  
+By default, `GetElements` results will be merged with `ApplyViewToElementsFunction`. This uses the View from the operation and applies it to all of the results, meaning the results are now re-aggregated and re-filtered using the Schema, locally in the FederatedStore. This makes the results look like they came from one graph, rather than getting back a list of Elements from different subgraphs.  
 
-By default, `GetTraits` results will be merged with `CollectionIntersect`. This returns the intersection of common store traits from the subgraphs, rather than all of the traits concatenate, meaning it is a better representation of traits all the subgraphs have.  
+By default, `GetTraits` results will be merged with `CollectionIntersect`. This returns the intersection of common store traits from the subgraphs. This behaviour is the same, but now it can be overriden.  
+
+By default, `GetSchema` results will be merged with `MergeSchema`. This returns an aggregated schema from the subgraphs, unless there is a conflict. This behaviour is the same, but now it can be overriden. For example, you may wish to use the `ConcatenateMergeFunction` if there is a schema conflict.  
 
 ### Default storeConfiguredMergeFunctions
 
@@ -169,6 +181,99 @@ By default, `GetTraits` results will be merged with `CollectionIntersect`. This 
 | GetTraits         | CollectionIntersect         |
 | others            | ConcatenateMergeFunction    |
 
-## Other changes
+## Removal of FederatedOperationChain
 
-Previously, if the FederatedStore received an Operation it did not have an OperationHandler for locally, the Operation would fail to execute. Now, the Operation will just be handed over to the subgraphs to be executed, as they may have the correct OperationHandlers. This should make it easier to use a ProxyStore with a FederatedStore, as the FederatedStore will no longer need to have every OperationHandler present on the remote ProxyStore.  
+The FederatedOperationChain has been removed, and where you would have used it before you should instead use a FederatedOperation with an OperationChain inside.  
+
+This is useful if you have an OperationChain and want to send different parts of the chain to different graphs.
+
+#### Individually sending a sequence of Operations to a subgraph
+You could send a sequence of operations within one chain to the same subgraph using `graphIds`, however, this is not always effecient:
+```json
+{
+    "class": "uk.gov.gchq.gaffer.operation.OperationChain",
+    "operations": [
+        {
+            "class": "uk.gov.gchq.gaffer.federatedstore.operation.FederatedOperation",
+            "operation": {
+                "class": "ExampleOperation1"
+            },
+            "graphIds": [ "graphA" ]
+        },
+        {
+            "class": "uk.gov.gchq.gaffer.federatedstore.operation.FederatedOperation",
+            "operation": {
+                "class": "ExampleOperation2"
+            },
+            "graphIds": [ "graphA" ]
+        },
+        {
+            "class": "uk.gov.gchq.gaffer.federatedstore.operation.FederatedOperation",
+            "operation": {
+                "class": "ExampleOperation3"
+            },
+            "graphIds": [ "graphB" ]
+        }
+    ]
+}
+```
+
+#### Removed FederatedOperationChain sending a sequence of operations to a subgraph
+It is more effecient to group together sequences of Operations that will go to the same subgraph.
+This used to be done with a FederatedOperationChain:
+```json
+{
+    "class": "uk.gov.gchq.gaffer.operation.OperationChain",
+    "operations": [
+        {
+            "class": "uk.gov.gchq.gaffer.federatedstore.operation.FederatedOperationChain",
+            "operations": {
+                [
+                    "class": "ExampleOperation1",
+                    "class": "ExampleOperation2"
+                ]
+            },
+            "options": {
+                "gaffer.federatedstore.operation.graphIds": "graphA"
+            }
+        },
+        {
+            "class": "ExampleOperation3",
+            "options": {
+                "gaffer.federatedstore.operation.graphIds": "graphB"
+            }
+        }
+    ]
+}
+```
+
+
+#### New FederatedOperation sending a sequence of operations to a subgraph
+Now you should instead wrap an OperationChain inside a FederatedOperation:
+```json
+{
+    "class": "uk.gov.gchq.gaffer.operation.OperationChain",
+    "operations": [
+        {
+            "class": "uk.gov.gchq.gaffer.federatedstore.operation.FederatedOperation",
+            "operation": {
+                "class": "uk.gov.gchq.gaffer.operation.OperationChain",
+                "operations": {
+                    [
+                        "class": "ExampleOperation1",
+                        "class": "ExampleOperation2"
+                    ]
+                }
+            },
+            "graphIds": [ "graphA" ]
+        },
+        {
+            "class": "uk.gov.gchq.gaffer.federatedstore.operation.FederatedOperation",
+            "operation": {
+                "class": "ExampleOperation3"
+            },
+            "graphIds": [ "graphB" ]
+        }
+    ]
+}
+```
