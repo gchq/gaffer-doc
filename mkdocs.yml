@@ -35,6 +35,11 @@ nav:
       - 'Accumulo Migration': 'gaffer2.0/accumulo-migration.md'
       - 'Accumulo Kerberos': 'gaffer2.0/accumulo-kerberos.md'
       - 'Log4j in Gaffer': 'gaffer2.0/log4j.md'
+    - 'Getting Started':
+      - 'Quickstart': 'getting-started/quickstart.md'
+      - 'Gaffer Basics': 'getting-started/basics.md'
+      - 'Gaffer Guide': 'getting-started/guide.md'
+      - 'Deploying Gaffer': 'getting-started/deploying.md'
     - 'Dev Info':
       - 'Development': 'dev/development.md'
       - 'Ways of Working': 'dev/ways-of-working.md'
