@@ -1,0 +1,171 @@
+
+# REST-API
+
+## Sketches Library
+
+To learn more about the Sketches library see [advanced properties]() section. 
+The sketches library is included with the Map and Accumulo stores. The 
+[SketchesJsonModules](https://github.com/gchq/Gaffer/blob/v2-alpha/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/serialisation/json/SketchesJsonModules.java) 
+are returned in `String` format by the `getJsonSerialiserModules` method in the 
+[Map](https://github.com/gchq/Gaffer/blob/v2-alpha/store-implementation/map-store/src/main/java/uk/gov/gchq/gaffer/mapstore/MapStoreProperties.java) 
+and [Accumulo](https://github.com/gchq/Gaffer/blob/v2-alpha/store-implementation/accumulo-store/src/main/java/uk/gov/gchq/gaffer/accumulostore/AccumuloProperties.java) 
+property stores. The modules are then loaded by the [JSONSerialiser](https://github.com/gchq/Gaffer/blob/v2-alpha/core/serialisation/src/main/java/uk/gov/gchq/gaffer/jsonserialisation/JSONSerialiser.java) 
+and used during the deserialisation of the REST JSON queries. 
+
+### HyperLogLogPlus
+
+The `HyperLogLogPlus` sketch can be used to store an approximation of
+cardinality of an element. The `JSON` of the query is converted to `Java` 
+`objects` during desialisation using the `JSONSerialiser`. During the 
+deserialsation the `HyperLogLogPlus` object is converted to a `HyperLogLogPlus` 
+object using the `ObjectMapper` module which uses the  
+[HyperLogLogPlusJsonDeserialiser](https://github.com/gchq/Gaffer/blob/v2-alpha/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/serialisation/json/HyperLogLogPlusJsonDeserialiser.java). 
+In order to convert the `offer` values (which are offered to the 
+`HyperLogLogPlus` on instantiation) to `Java` objects, the `JSON` values 
+need to contain the special `string` field **class** containing the class name 
+of the object. The `deserialiser` uses this `class` field when deserialising 
+using the [JSONSerialiser deserialise](https://github.com/gchq/Gaffer/blob/v2-alpha/core/serialisation/src/main/java/uk/gov/gchq/gaffer/jsonserialisation/JSONSerialiser.java) 
+method. The `HyperLogLogPlus` object is instantiated and *offered* the values. 
+The object can then be serialised and stored in the datastore.
+For Gaffer, at present only the [ClearSpring](https://github.com/addthis/stream-lib/blob/master/src/main/java/com/clearspring/analytics/stream/cardinality/HyperLogLogPlus.java) 
+algorithm is used which requires that the object is offered using its `toString` 
+representation of the object.
+> **NOTE: as the algorithm uses the `toString` 
+method, any type introduced must override the `toString` method returning 
+meaningful string value representing the object rather than the default class 
+instance identifier.**
+
+The `HyperLogLogPlusJsonDesialiser` deserialises from `JSON` to `Java` using the 
+[HyperLogLogPlusWithOffers](https://github.com/gchq/Gaffer/blob/v2-alpha/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/serialisation/json/HyperLogLogPlusWithOffers.java) 
+object. The `HyperLogLogPlusWithOffers` includes the following annotation on 
+the `List` field: 
+
+```
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "class")
+private List<?> offers = new ArrayList<>();
+```
+
+This signals to the `Jackson` `ObjectMapper` that it needs to look for the 
+`class` field in each object and translate to the correct object type.
+
+Java types are converted to the correct format by `Jackson` 
+`ObjectMapper` automatically. Here are some examples of the values:
+
+- String:<br>`"offers": ["valueA", "value2",...]`
+- Integer:<br>`"offers": [1, 2,...]`
+- Float:<br>`"offers": [1.1, 2.2,...]`
+- Double:<br>`"offers": [1.1, 2.2,...]`
+- Long:<br>`"offers": [12345678910111121314,...]`
+- Boolean:<br>`"offers": [true,false,...]`
+
+The user defined types require that the `class` field is added to the `JSON` 
+object, so it knows how to convert to the correct format on deserialisation. Here 
+are some examples:
+
+- FreqMap:
+  ```
+  "offers": [
+    {
+      "class": "uk.gov.gchq.gaffer.types.FreqMap",
+      "test": 1
+    },
+    ...
+  ]
+  ```
+- CustomMap:
+  ```
+  "offers": [
+    {
+      "class": "uk.gov.gchq.gaffer.types.CustomMap",
+      "keySerialiser": {
+        "class": "uk.gov.gchq.gaffer.serialisation.implementation.BooleanSerialiser"
+      },
+      "valueSerialiser": {
+        "class": "uk.gov.gchq.gaffer.serialisation.implementation.BooleanSerialiser"
+      },
+      "jsonStorage": []
+    },
+    ...
+  ]
+  ```
+- TypeValue:
+  ```
+  "offers": [
+    {
+      "class" : "uk.gov.gchq.gaffer.types.TypeValue",
+      "type" : "type",
+      "value" : "value"
+    },
+    ...
+  ]
+  ```
+- TypeSubTypeValue:
+  ```
+  "offers": [
+    {
+      "class" : "uk.gov.gchq.gaffer.types.TypeSubTypeValue",
+      "type" : "type",
+      "subType" : "subType",
+      "value" : "value"
+    },
+    ...
+  ]
+  ```
+
+> **NOTE: the subclass fields must also have the `class` field set (for example, 
+the `keySerialiser` `CustoMap` type) if not a standard Java Object so that the 
+Jackson `ObjectMapper` knows how to convert the correct values to Java objects**
+
+#### Composing using Java
+
+If you are composing the `HyperLogLogPlus` with offers using `Java` before 
+converting to `JSON` and sending via `REST`, you need ensure that the `offer` 
+objects are translated to `JSON` with the correct `class` field added. 
+To make sure of this, you could add the `sketches-library` JAR and use the 
+[HyperLogLogPlusWithOffers](https://github.com/gchq/Gaffer/blob/v2-alpha/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/serialisation/json/HyperLogLogPlusWithOffers.java) 
+object to construct your query. This way you know that all the objects have the 
+correct field added. You can then convert the `HyperLogLogPlusWithOffers` to 
+JSON using the 
+[JSONSerialiser serialisation](https://github.com/gchq/Gaffer/blob/v2-alpha/core/serialisation/src/main/java/uk/gov/gchq/gaffer/jsonserialisation/JSONSerialiser.java) 
+method. If you want to create your own class instead, ensure that the `offers` 
+list has the correct annotation so the `class` is added on conversion using by 
+the `Jackson` `ObjectMapper`:
+
+```
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "class")
+private List<?> offers = new ArrayList<>();
+```
+
+#### Composing using Python
+
+To be added.
+
+#### Adding user defined types
+
+To add a user defined type you must ensure that:
+
+- the type is on the `Gaffer` classpath
+- the type must override the `toString` method
+- the type contains the correct annotations if you are converting from `Java` to
+  `JSON` before sending via `REST`
+
+If you are doing the latter, you must include the following annotations:
+
+```
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "class")
+public class ExampleType implements Comparable<ExampleType>, Serializable {
+   
+   private String value...;
+   
+   // getters and setters
+   
+   @Override
+   public String toString() {
+       return ...;
+   }
+}
+```
+
+#### HyperLogLogPlus Example
+
+For a HyperLogLogPlus example [advanced properties]() section.
