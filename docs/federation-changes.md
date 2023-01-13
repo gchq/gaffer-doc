@@ -30,7 +30,7 @@ This is a list of graph IDs which you want to send the operation to.
 
 If the user does not specify `graphIds` in the Operation, then the `storeConfiguredGraphIds` for that store will be used. If the admin has not configured the `storeConfiguredGraphIds` then all graphIds will be used.  
 
-For information on sending different operations in one chain to different graphs, see [below](#removal-of-federatedoperationchain).  
+For information on sending different operations in one chain to different subgraphs, see [below](#removal-of-federatedoperationchain).  
 
 ### Optional parameter: mergeFunction
 
@@ -118,7 +118,7 @@ Despite the option being still supported, we still recommend you migrate to usin
 ### Breaking change
 
 #### No longer supported graphIds option on an OperationChain
-Previously, if you wanted to send an entire OperationChain to a specific graph, you could use the `graphIds` option on the chain, like so:  
+Previously, if you wanted to send an entire OperationChain to a specific subgraph, you could use the `graphIds` option on the chain, like so:  
 ```json
 {
     "class": "uk.gov.gchq.gaffer.operation.OperationChain",
@@ -185,7 +185,7 @@ By default, `GetSchema` results will be merged with `MergeSchema`. This returns 
 
 The FederatedOperationChain has been removed, and where you would have used it before you should instead use a FederatedOperation with an OperationChain inside.  
 
-This is useful if you have an OperationChain and want to send different parts of the chain to different graphs.
+This is useful if you have an OperationChain and want to send different parts of the chain to different subgraphs.
 
 #### Individually sending a sequence of Operations to a subgraph
 You could send a sequence of operations within one chain to the same subgraph using `graphIds`, however, this is not always efficient:
