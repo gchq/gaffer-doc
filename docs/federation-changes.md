@@ -219,7 +219,7 @@ You could send a sequence of operations within one chain to the same subgraph us
 ```
 
 #### Removed FederatedOperationChain sending a sequence of operations to a subgraph
-It is more effecient to group together sequences of Operations that will go to the same subgraph.
+It is more efficient to group together sequences of Operations that will go to the same subgraph.
 This used to be done with a FederatedOperationChain:
 ```json
 {
