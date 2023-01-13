@@ -188,7 +188,7 @@ The FederatedOperationChain has been removed, and where you would have used it b
 This is useful if you have an OperationChain and want to send different parts of the chain to different graphs.
 
 #### Individually sending a sequence of Operations to a subgraph
-You could send a sequence of operations within one chain to the same subgraph using `graphIds`, however, this is not always effecient:
+You could send a sequence of operations within one chain to the same subgraph using `graphIds`, however, this is not always efficient:
 ```json
 {
     "class": "uk.gov.gchq.gaffer.operation.OperationChain",
