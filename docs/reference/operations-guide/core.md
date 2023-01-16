@@ -600,7 +600,7 @@ Filters elements. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/ope
 
 ## Limit
 
-Limits the number of items. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/Limit.html)
+Limits the number of elements returned. This truncates output by default, but optionally an exception can be thrown instead of truncating. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/Limit.html)
 
 ??? example "Example limiting elements to 3"
 
