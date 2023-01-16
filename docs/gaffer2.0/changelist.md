@@ -32,14 +32,15 @@ The Accumulo store now supports Accumulo 2 and Hadoop 3 by default, with support
 
 ## Alpha 3.1 | [released](https://github.com/gchq/Gaffer/releases/tag/gaffer2-2.0.0-alpha-0.3.1)
 ### CSV Export
-A new ExportToLocalFile Operation has been added, along with OpenCypher format CSV support.
+Basic support for importing and exporting OpenCypher format CSVs has been added.
 
 ### Accumulo Kerberos Authentication Support
 The Accumulo store now supports authenticating to Accumulo and HDFS using Kerberos, in addition to username/password. For more information, see the [Kerberos support page](accumulo-kerberos.md)
 
-## Future Alphas
-### Federated Store improvements and fixes
-Multiple bug fixes and improvements to the Federated Store. Full details TBD.
+## Alpha 4 | [released](https://github.com/gchq/Gaffer/releases/tag/gaffer2-2.0.0-alpha-0.4)
+### Federated Store Improvements
+The Federated Operation was added to improve flexibility of using a Federated Store. See the [Federated Store Changes page](federation-changes.md).
 
+## Future Alphas
 ### Named Operation Improvements
 Some changes and improvements to Named Operations are planned. Full details TBD.
