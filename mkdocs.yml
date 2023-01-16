@@ -33,6 +33,7 @@ nav:
       - Deprecations: 'gaffer2.0/deprecations.md'
       - Dependencies: 'gaffer2.0/dependencies.md'
       - 'Accumulo Migration': 'gaffer2.0/accumulo-migration.md'
+      - 'Federation Changes': 'gaffer2.0/federation-changes.md'
       - 'Accumulo Kerberos': 'gaffer2.0/accumulo-kerberos.md'
       - 'Log4j in Gaffer': 'gaffer2.0/log4j.md'
     - 'Getting Started':
