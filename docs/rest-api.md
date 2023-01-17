@@ -17,8 +17,8 @@ and used during the deserialisation of the REST JSON queries.
 The `HyperLogLogPlus` sketch can be used to store an approximation of
 cardinality of an element. The `JSON` of the query is converted to `Java` 
 `objects` during desialisation using the `JSONSerialiser`. During the 
-deserialsation the `HyperLogLogPlus` object is converted to a `HyperLogLogPlus` 
-object using the `ObjectMapper` module which uses the  
+deserialisation the `HyperLogLogPlus` JSON representation is converted to a `HyperLogLogPlus` 
+Java object using the `ObjectMapper` module which uses the  
 [HyperLogLogPlusJsonDeserialiser](https://github.com/gchq/Gaffer/blob/v2-alpha/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/serialisation/json/HyperLogLogPlusJsonDeserialiser.java). 
 In order to convert the `offer` values (which are offered to the 
 `HyperLogLogPlus` on instantiation) to `Java` objects, the `JSON` values 
