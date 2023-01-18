@@ -153,7 +153,8 @@ To add a user defined type you must ensure that:
 - the type contains the correct annotations if you are converting from `Java` to
   `JSON` before sending via `REST`
 
-If you are doing the latter, you must include the following annotations:
+The following user defined type example features the annotation required as 
+well as the `@Override` of the `toString` method:
 
 ```
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "class")
