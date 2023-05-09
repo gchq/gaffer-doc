@@ -2,7 +2,7 @@ site_name: Gaffer Docs
 repo_url: https://github.com/gchq/gaffer-doc
 repo_name: gchq/gaffer-doc
 edit_uri: edit/v2docs/docs/
-copyright: Copyright &copy; 2016-2022 Crown Copyright
+copyright: Copyright &copy; 2016-2023 Crown Copyright
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
@@ -16,6 +16,9 @@ extra:
       name: Gaffer on GitHub
   version:
     provider: mike
+plugins:
+  - git-revision-date-localized:
+      enable_creation_date: true
 
 nav:
     - Home: 'index.md'
@@ -35,6 +38,7 @@ theme:
   features:
     - navigation.tabs
     - navigation.top
+    - content.action.edit
   custom_dir: overrides
   palette:
     - media: "(prefers-color-scheme: light)"
