@@ -11,7 +11,7 @@ To use Gaffer's Accumulo Store with Kerberos authentication:
 - A principal for the system/host Gaffer will be running on must be created in the Key Distribution Center (KDC) database.
 - The Gaffer principal should use the standard [`primary/instance@realm`](https://web.mit.edu/kerberos/krb5-1.5/krb5-1.5.4/doc/krb5-user/What-is-a-Kerberos-Principal_003f.html) format. Using principals without an _instance_ qualification has not been tested.
 - A keytab for the Gaffer principal must be created and transferred to the Gaffer host.
-- The Gaffer principle must have been added as an Accumulo user with suitable permissions granted.
+- The Gaffer principal must have been added as an Accumulo user with suitable permissions granted.
 - Kerberos client utilities should be installed on the host and `krb5.conf` must be correctly configured.
 - An Accumulo client configuration should be available on the host and contain the correct options to enable Kerberos.
 - The Gaffer store.properties should state that Kerberos is to be used, specify the principal name and the keytab path.
