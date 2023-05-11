@@ -30,7 +30,7 @@ This is a list of graph IDs which you want to send the operation to.
 
 If the user does not specify `graphIds` in the Operation, then the `storeConfiguredGraphIds` for that store will be used. If the admin has not configured the `storeConfiguredGraphIds` then all graphIds will be used.  
 
-For information on sending different operations in one chain to different subgraphs, see [below](#removal-of-federatedoperationchain).  
+For information on sending different operations in one chain to different subgraphs, see [below](#breaking-change-removal-of-federatedoperationchain).  
 
 ### Optional parameter: mergeFunction
 
@@ -43,12 +43,14 @@ For example, when GetElements is used as the operation inside a FederatedOperati
 
 ## Migrating to a FederatedOperation
 
-Previously, graphIds were selected with the now deprecated option: `gaffer.federatedstore.operation.graphIds`. This is being partially supported temporarily while users migrate to using a FederatedOperation, but there are some scenarios in which the option will no longer work.
+Previously, graphIds were selected in queries with the now deprecated option: `gaffer.federatedstore.operation.graphIds`. This is being supported while users migrate to using a FederatedOperation.  
 
 ### Sending an Operation to specific stores
 
-As mentioned, the `gaffer.federatedstore.operation.graphIds` option is still being temporarily supported so if you have an Operation using that option, it should continue to work. It will still work if the option is being used **inside** an OperationChain. However, if the option is being used **on** an OperationChain, then see [below](#breaking-change).  
-Despite the option being still supported, we still recommend you migrate to using a FederatedOperation.  
+As mentioned, the `gaffer.federatedstore.operation.graphIds` option is still being supported so if you have an Operation using that option, it will continue to work.  
+Despite the option still being supported, we recommend you migrate to using a FederatedOperation.  
+
+The `gaffer.federatedstore.operation.graphIds` option does not work an OperationChain. Previously, if you wanted to send an entire OperationChain to specific graphs, then you had to use a FederatedOperationChain. This has been replaced by a FederatedOperation with an OperationChain as the payload. For migration, see [below](#breaking-change-removal-of-federatedoperationchain).  
 
 #### Deprecated graphIds option on a single Operation
 ```json
@@ -115,73 +117,7 @@ Despite the option being still supported, we still recommend you migrate to usin
 }
 ```
 
-### Breaking change
-
-#### No longer supported graphIds option on an OperationChain
-Previously, if you wanted to send an entire OperationChain to a specific subgraph, you could use the `graphIds` option on the chain, like so:  
-```json
-{
-    "class": "uk.gov.gchq.gaffer.operation.OperationChain",
-    "operations": [
-        {
-            "class": "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements"
-        },
-        {
-            "class": "uk.gov.gchq.gaffer.operation.impl.Count"
-        }
-    ],
-    "options": {
-        "gaffer.federatedstore.operation.graphIds": "graphA"
-    }
-}
-```
-
-#### New FederatedOperation graphIds on an OperationChain
-Using the `graphIds` option on an OperationChain, as shown above, is no longer supported. You should instead wrap the chain in a FederatedOperation:
-``` json
-{
-    "class": "uk.gov.gchq.gaffer.federatedstore.operation.FederatedOperation",
-    "operation": {
-        "class": "uk.gov.gchq.gaffer.operation.OperationChain",
-        "operations": [
-            {
-                "class": "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements"
-            },
-            {
-                "class": "uk.gov.gchq.gaffer.operation.impl.Count"
-            }
-        ]
-    },
-    "graphIds": [ "graphA" ]
-}
-```
-
-## Default results merging
-
-As described above, FederatedStores now have `storeConfiguredMergeFunctions` that dictate how the FederatedStore will merge results from different subgraphs dependent on the Operation.  
-
-In places, these new defaults do differ from previous behaviour, hence results will too. This can be overriden on a per Operation basis using the `mergeFunction` parameter described above, or a per store basis by overriding `storeConfiguredMergeFunctions`.  
-The previous behaviour was that all Operation results were concatenated together, this is now a mergeFunction within Gaffer called `ConcatenateMergeFunction`. Therefore, if you wanted a FederatedOperation to use this old behaviour, you can set the `mergeFunction` to `ConcatenateMergeFunction` (as shown [above](#the-federated-operation)).  
-
-### New Merge function examples
-
-By default, `GetElements` results will be merged with `ApplyViewToElementsFunction`. This uses the View from the operation and applies it to all of the results, meaning the results are now re-aggregated and re-filtered using the Schema, locally in the FederatedStore. This makes the results look like they came from one graph, rather than getting back a list of Elements from different subgraphs.  
-
-By default, `GetTraits` results will be merged with `CollectionIntersect`. This returns the intersection of common store traits from the subgraphs. This behaviour is the same, but now it can be overriden.  
-
-By default, `GetSchema` results will be merged with `MergeSchema`. This returns an aggregated schema from the subgraphs, unless there is a conflict. This behaviour is the same, but now it can be overriden. For example, you may wish to use the `ConcatenateMergeFunction` if there is a schema conflict.  
-
-### Default storeConfiguredMergeFunctions
-
-| Operation         | Merge function              |
-|-------------------|-----------------------------|
-| GetElements       | ApplyViewToElementsFunction |
-| GetAllElements    | ApplyViewToElementsFunction |
-| GetSchema         | MergeSchema                 |
-| GetTraits         | CollectionIntersect         |
-| others            | ConcatenateMergeFunction    |
-
-## Removal of FederatedOperationChain
+## Breaking change: Removal of FederatedOperationChain
 
 The FederatedOperationChain has been removed, and where you would have used it before you should instead use a FederatedOperation with an OperationChain inside.  
 
@@ -277,3 +213,28 @@ Now you should instead wrap an OperationChain inside a FederatedOperation:
     ]
 }
 ```
+
+## Default results merging
+
+As described above, FederatedStores now have `storeConfiguredMergeFunctions` that dictate how the FederatedStore will merge results from different subgraphs dependent on the Operation.  
+
+In places, these new defaults do differ from previous behaviour, hence results will too. This can be overriden on a per Operation basis using the `mergeFunction` parameter described above, or a per store basis by overriding `storeConfiguredMergeFunctions`.  
+The previous behaviour was that all Operation results were concatenated together, this is now a mergeFunction within Gaffer called `ConcatenateMergeFunction`. Therefore, if you wanted a FederatedOperation to use this old behaviour, you can set the `mergeFunction` to `ConcatenateMergeFunction` (as shown [above](#the-federated-operation)).  
+
+### New Merge function examples
+
+By default, `GetElements` results will be merged with `ApplyViewToElementsFunction`. This uses the View from the operation and applies it to all of the results, meaning the results are now re-aggregated and re-filtered using the Schema, locally in the FederatedStore. This makes the results look like they came from one graph, rather than getting back a list of Elements from different subgraphs.  
+
+By default, `GetTraits` results will be merged with `CollectionIntersect`. This returns the intersection of common store traits from the subgraphs. This behaviour is the same, but now it can be overriden.  
+
+By default, `GetSchema` results will be merged with `MergeSchema`. This returns an aggregated schema from the subgraphs, unless there is a conflict. This behaviour is the same, but now it can be overriden. For example, you may wish to use the `ConcatenateMergeFunction` if there is a schema conflict.  
+
+### Default storeConfiguredMergeFunctions
+
+| Operation         | Merge function              |
+|-------------------|-----------------------------|
+| GetElements       | ApplyViewToElementsFunction |
+| GetAllElements    | ApplyViewToElementsFunction |
+| GetSchema         | MergeSchema                 |
+| GetTraits         | CollectionIntersect         |
+| others            | ConcatenateMergeFunction    |
