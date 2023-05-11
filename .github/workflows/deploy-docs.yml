@@ -74,6 +74,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
     - name: Setup python
       uses: actions/setup-python@v4
@@ -88,7 +90,6 @@ jobs:
       run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git fetch origin gh-pages --depth=1
 
     - name: Build and deploy MkDocs using mike
       run: mike deploy --push --no-redirect --update-aliases ${{ needs.check-version.outputs.version }} latest

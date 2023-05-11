@@ -26,8 +26,13 @@ extra:
   version:
     provider: mike
 plugins:
+  - search
   - git-revision-date-localized:
       enable_creation_date: true
+      timezone: Europe/London
+      strict: true
+      exclude:
+        - index.md
 
 nav:
     - Home: 'index.md'
