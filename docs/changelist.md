@@ -126,5 +126,5 @@ This will mean subgraphs added to FederatedStores can have additional operation 
     }
     ```
 
-    1. Schema left empty for brefity
+    1. Schema left empty for brevity
     2. This example operation enables file import. Read more in the [csv](csv.md) docs.
