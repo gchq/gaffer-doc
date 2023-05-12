@@ -3,7 +3,7 @@
 Gaffer supports both importing from and exporting to csv.  
 
 If you configure your Gaffer graph to support the `ImportFromLocalFile` and `ExportToLocalFile` operations, then it can do this from/to a local file.  
-??? tip
+??? tip "Enabling these operations on your Gaffer graph"
 
     To enable these operations on your Gaffer graph, you would need to add the following to your `operationsDeclarations.json`:
     ```json
