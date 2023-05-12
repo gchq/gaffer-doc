@@ -32,7 +32,7 @@ The Accumulo store now supports Accumulo 2 and Hadoop 3 by default, with support
 
 ## Alpha 3.1 | [released](https://github.com/gchq/Gaffer/releases/tag/gaffer2-2.0.0-alpha-0.3.1)
 ### CSV Export
-Basic support for importing and exporting OpenCypher format CSVs has been added.
+Basic support for importing and exporting [CSVs](csv.md) has been added.
 
 ### Accumulo Kerberos Authentication Support
 The Accumulo store now supports authenticating to Accumulo and HDFS using Kerberos, in addition to username/password. For more information, see the [Kerberos support page](accumulo-kerberos.md)
