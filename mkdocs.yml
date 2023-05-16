@@ -54,7 +54,7 @@ nav:
       - 'Gaffer Guide':
         - 'Gaffer Guide': 'getting-started/guide/guide.md'
         - 'CSV Import and Export': 'getting-started/guide/csv.md'
-        - 'REST API': 'getting-started/guide/rest-api.md'
+        - 'Sketches with the REST API': 'getting-started/guide/rest-api-sketches.md'
       - 'Deploying Gaffer': 'getting-started/deploying.md'
     - 'Dev Info':
       - 'Development': 'dev/development.md'
