@@ -51,7 +51,10 @@ nav:
     - 'Getting Started':
       - 'Quickstart': 'getting-started/quickstart.md'
       - 'Gaffer Basics': 'getting-started/basics.md'
-      - 'Gaffer Guide': 'getting-started/guide.md'
+      - 'Gaffer Guide':
+        - 'Gaffer Guide': 'getting-started/guide/guide.md'
+        - 'CSV Import and Export': 'getting-started/guide/csv.md'
+        - 'REST API': 'getting-started/guide/rest-api.md'
       - 'Deploying Gaffer': 'getting-started/deploying.md'
     - 'Dev Info':
       - 'Development': 'dev/development.md'
