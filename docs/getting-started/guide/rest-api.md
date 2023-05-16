@@ -1,9 +1,10 @@
+# Using Sketches with the REST API
 
-# REST-API
+This page explains some nuances and special steps required when using classes from the Sketches library with the REST API.
 
 ## Sketches Library
 
-To learn more about the Sketches library see [advanced properties]() section. 
+To learn more about the Sketches library see [advanced properties](../../reference/properties-guide/advanced.md) reference page. 
 The sketches library is included with the Map and Accumulo stores. The 
 [SketchesJsonModules](https://github.com/gchq/Gaffer/blob/v2-alpha/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/serialisation/json/SketchesJsonModules.java) 
 are returned in `String` format by the `getJsonSerialiserModules` method in the 
@@ -12,7 +13,7 @@ and [Accumulo](https://github.com/gchq/Gaffer/blob/v2-alpha/store-implementation
 property stores. The modules are then loaded by the [JSONSerialiser](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/jsonserialisation/JSONSerialiser.html) 
 and used during the deserialisation of the REST JSON queries.
 
-### HyperLogLogPlus
+## HyperLogLogPlus
 
 The `HyperLogLogPlus` sketch can be used to store an approximation of 
 cardinality of an element. The `JSON` of the query is converted to `Java` 
@@ -30,13 +31,14 @@ the values. The object can then be serialised and stored in the datastore.
 For Gaffer, at present only the [ClearSpring](https://github.com/addthis/stream-lib/blob/master/src/main/java/com/clearspring/analytics/stream/cardinality/HyperLogLogPlus.java) 
 algorithm is used which requires that the object is offered using its `toString` 
 representation of the object.
-> **NOTE: as the algorithm uses the `toString` method, any user defined type 
-> introduced must override the `toString` method returning meaningful string 
-> value representing the object rather than the default class instance 
-> identifier. User defined types can be introduced by either adding further 
-> [types](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/types/package-summary.html) 
-> to `Gaffer` or by adding a `JAR` with the extra type(s) to the `Gaffer` 
-> classpath on startup**
+???+ note
+    As the algorithm uses the `toString` method, any user defined type 
+    introduced must override the `toString` method returning meaningful string 
+    value representing the object rather than the default class instance 
+    identifier. User defined types can be introduced by either adding further 
+    [types](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/types/package-summary.html) 
+    to `Gaffer` or by adding a `JAR` with the extra type(s) to the `Gaffer` 
+    classpath on startup.
 
 The `HyperLogLogPlusJsonDesialiser` deserialises from `JSON` to `Java` using the 
 [HyperLogLogPlusWithOffers](https://github.com/gchq/Gaffer/blob/v2-alpha/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/serialisation/json/HyperLogLogPlusWithOffers.java) 
@@ -54,73 +56,88 @@ This signals to the `Jackson` `ObjectMapper` that it needs to look for the
 Java types are converted to the correct format by `Jackson` 
 `ObjectMapper` automatically. Here are some examples of the values:
 
-- String:<br>`"offers": ["valueA", "value2",...]`
-- Integer:<br>`"offers": [1, 2,...]`
-- Float:<br>`"offers": [1.1, 2.2,...]`
-- Double:<br>`"offers": [1.1, 2.2,...]`
-- Long:<br>`"offers": [12345678910111121314,...]`
-- Boolean:<br>`"offers": [true,false,...]`
+=== "String"
+    `"offers": ["valueA", "value2",...]`
+
+=== "Integer"
+    `"offers": [1, 2,...]`
+
+=== "Float"
+    `"offers": [1.1, 2.2,...]`
+
+=== "Double"
+    `"offers": [1.1, 2.2,...]`
+
+=== "Long"
+    `"offers": [12345678910111121314,...]`
+
+=== "Boolean"
+    `"offers": [true,false,...]`
 
 The user defined types require that the `class` field is added to the `JSON` 
 object, so it knows how to convert to the correct format on deserialisation. 
 Here are the `Gaffer` user defined types:
 
-- FreqMap:
-  ```
-  "offers": [
-    {
-      "class": "uk.gov.gchq.gaffer.types.FreqMap",
-      "test": 1
-    },
-    ...
-  ]
-  ```
-- CustomMap:
-  ```
-  "offers": [
-    {
-      "class": "uk.gov.gchq.gaffer.types.CustomMap",
-      "keySerialiser": {
-        "class": "uk.gov.gchq.gaffer.serialisation.implementation.BooleanSerialiser"
+=== "FreqMap"
+    ```
+    "offers": [
+      {
+        "class": "uk.gov.gchq.gaffer.types.FreqMap",
+        "test": 1
       },
-      "valueSerialiser": {
-        "class": "uk.gov.gchq.gaffer.serialisation.implementation.BooleanSerialiser"
+      ...
+    ]
+    ```
+
+=== "CustomMap"
+    ```
+    "offers": [
+      {
+        "class": "uk.gov.gchq.gaffer.types.CustomMap",
+        "keySerialiser": {
+          "class": "uk.gov.gchq.gaffer.serialisation.implementation.BooleanSerialiser"
+        },
+        "valueSerialiser": {
+          "class": "uk.gov.gchq.gaffer.serialisation.implementation.BooleanSerialiser"
+        },
+        "jsonStorage": []
       },
-      "jsonStorage": []
-    },
-    ...
-  ]
-  ```
-- TypeValue:
-  ```
-  "offers": [
-    {
-      "class" : "uk.gov.gchq.gaffer.types.TypeValue",
-      "type" : "type",
-      "value" : "value"
-    },
-    ...
-  ]
-  ```
-- TypeSubTypeValue:
-  ```
-  "offers": [
-    {
-      "class" : "uk.gov.gchq.gaffer.types.TypeSubTypeValue",
-      "type" : "type",
-      "subType" : "subType",
-      "value" : "value"
-    },
-    ...
-  ]
-  ```
+      ...
+    ]
+    ```
 
-> **NOTE: the subclass fields must also have the `class` field set (for 
-> example, the `keySerialiser` `CustoMap` type) if not a standard Java Object 
-> so that the Jackson `ObjectMapper` knows how to convert the correct values 
-> to Java objects**
+=== "TypeValue"
+    ```
+    "offers": [
+      {
+        "class" : "uk.gov.gchq.gaffer.types.TypeValue",
+        "type" : "type",
+        "value" : "value"
+      },
+      ...
+    ]
+    ```
 
-#### Composing using Java
+=== "TypeSubTypeValue"
+    ```
+    "offers": [
+      {
+        "class" : "uk.gov.gchq.gaffer.types.TypeSubTypeValue",
+        "type" : "type",
+        "subType" : "subType",
+        "value" : "value"
+      },
+      ...
+    ]
+    ```
+
+???+ note
+    The subclass fields must also have the `class` field set (for 
+    example, the `keySerialiser` `CustoMap` type) if not a standard Java Object 
+    so that the Jackson `ObjectMapper` knows how to convert the correct values 
+    to Java objects.
+
+### Composing using Java
 
 If you are composing the `HyperLogLogPlus` with offers using `Java` before 
 converting to `JSON` and sending via `REST`, you need ensure that the `offer` 
@@ -140,11 +157,15 @@ conversion using by the `Jackson` `ObjectMapper`:
 private List<?> offers = new ArrayList<>();
 ```
 
-#### Composing using Python
+### Composing using Python
 
 To be added.
 
-#### Adding user defined types
+### HyperLogLogPlus Example
+
+For a HyperLogLogPlus example see [this section on the advanced properties](../../reference/properties-guide/advanced.md#hyperloglogplus) reference page.
+
+## Adding user defined types
 
 To add a user defined type you must ensure that:
 
@@ -170,7 +191,3 @@ public class ExampleType implements Comparable<ExampleType>, Serializable {
    }
 }
 ```
-
-#### HyperLogLogPlus Example
-
-For a HyperLogLogPlus example see the [advanced properties]() section.
