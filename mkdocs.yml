@@ -12,7 +12,15 @@ markdown_extensions:
       pygments_lang_class: true
   - pymdownx.inlinehilite
   - pymdownx.snippets
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
   - tables
 extra:
   social:
@@ -22,17 +30,69 @@ extra:
   version:
     provider: mike
 plugins:
+  - search
   - git-revision-date-localized:
       enable_creation_date: true
+      timezone: Europe/London
+      strict: true
+      exclude:
+        - index.md
 
 nav:
     - Home: 'index.md'
-    - Changelist: 'changelist.md'
-    - Deprecations: 'deprecations.md'
-    - Dependencies: 'dependencies.md'
-    - 'Accumulo Migration': 'accumulo-migration.md'
-    - 'Accumulo Kerberos': 'accumulo-kerberos.md'
-    - Ways of Working: 'ways-of-working.md'
+    - 'Gaffer 2.0':
+      - Changelist: 'gaffer2.0/changelist.md'
+      - Deprecations: 'gaffer2.0/deprecations.md'
+      - Dependencies: 'gaffer2.0/dependencies.md'
+      - 'Accumulo Migration': 'gaffer2.0/accumulo-migration.md'
+      - 'Federation Changes': 'gaffer2.0/federation-changes.md'
+      - 'Accumulo Kerberos': 'gaffer2.0/accumulo-kerberos.md'
+      - 'Log4j in Gaffer': 'gaffer2.0/log4j.md'
+    - 'Getting Started':
+      - 'Quickstart': 'getting-started/quickstart.md'
+      - 'Gaffer Basics': 'getting-started/basics.md'
+      - 'Gaffer Guide':
+        - 'Gaffer Guide': 'getting-started/guide/guide.md'
+        - 'CSV Import and Export': 'getting-started/guide/csv.md'
+        - 'Sketches with the REST API': 'getting-started/guide/rest-api-sketches.md'
+      - 'Deploying Gaffer': 'getting-started/deploying.md'
+    - 'Dev Info':
+      - 'Development': 'dev/development.md'
+      - 'Ways of Working': 'dev/ways-of-working.md'
+    - 'Reference':
+      - 'Reference Guide': 'reference/intro.md'
+      - Properties:
+        - 'Properties Guide': 'reference/properties-guide/properties.md'
+        - 'Basic Properties': 'reference/properties-guide/basic.md'
+        - 'Advanced Properties': 'reference/properties-guide/advanced.md'
+        - 'Type Properties': 'reference/properties-guide/type.md'
+        - 'Map & Set Properties': 'reference/properties-guide/map-set.md'
+      - Predicates:
+        - 'Predicates Guide': 'reference/predicates-guide/predicates.md'
+        - 'Gaffer Predicates': 'reference/predicates-guide/gaffer-predicates.md'
+        - 'Koryphe Predicates': 'reference/predicates-guide/koryphe-predicates.md'
+      - 'Binary Operators':
+        - 'Binary Operators Guide': 'reference/binary-operators-guide/binary-operators.md'
+        - 'Koryphe Operators Guide': 'reference/binary-operators-guide/koryphe-operators.md'
+      - Functions:
+        - 'Functions Guide': 'reference/functions-guide/functions.md'
+        - 'Gaffer Functions': 'reference/functions-guide/gaffer-functions.md'
+        - 'Koryphe Functions': 'reference/functions-guide/koryphe-functions.md'
+      - Operations:
+        - 'Operations Guide': 'reference/operations-guide/operations.md'
+        - 'Core Operations': 'reference/operations-guide/core.md'
+        - 'Join Operation': 'reference/operations-guide/join.md'
+        - 'Get Operations': 'reference/operations-guide/get.md'
+        - 'Control Flow Operations': 'reference/operations-guide/flow.md'
+        - 'Job Operations': 'reference/operations-guide/job.md'
+        - 'Named Operations': 'reference/operations-guide/named.md'
+        - 'Export Operations': 'reference/operations-guide/export.md'
+        - 'Generate Operations': 'reference/operations-guide/generate.md'
+        - 'Flink Operations': 'reference/operations-guide/flink.md'
+        - 'HDFS Operations': 'reference/operations-guide/hdfs.md'
+        - 'Accumulo Operations': 'reference/operations-guide/accumulo.md'
+        - 'Spark Operations': 'reference/operations-guide/spark.md'
+        - 'Misc Operations': 'reference/operations-guide/misc.md'
 
 theme:
   name: material

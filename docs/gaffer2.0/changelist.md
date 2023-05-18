@@ -53,7 +53,7 @@ There is now a maven profile that will swap dependency versions so you can build
 The Accumulo store now supports authenticating to Accumulo and HDFS using Kerberos, in addition to username/password. For more information, see the [Kerberos support page](accumulo-kerberos.md).
 
 ### CSV Import and Export
-Basic support for importing and exporting [CSVs](csv.md) has been added.
+Basic support for importing and exporting [CSVs](../getting-started/guide/csv.md) has been added.
 
 ### All operations can now be used within NamedOperations
 Previously, `GetElementsBetweenSets` could not be used within a NamedOperation as it used `inputB`. `GetElementsBetweenSets` and `inputB` have both been deprecated and instead you should use `GetElementsBetweenSetsPairs`.
@@ -127,4 +127,4 @@ This will mean subgraphs added to FederatedStores can have additional operation 
     ```
 
     1. Schema left empty for brevity
-    2. This example operation enables file import. Read more in the [csv](csv.md) docs.
+    2. This example operation enables file import. Read more in the [CSV](../getting-started/guide/csv.md) docs.
