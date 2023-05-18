@@ -429,7 +429,7 @@ Input type: `java.lang.Iterable`
     java.util.Arrays$ArrayList | `[header1|header2|header3, value1|value2]` |  | IllegalArgumentException: CSV has 2 columns, but there are 3 provided column names
     java.util.Arrays$ArrayList | `[header1||header3, value1|value2|value3]` | `uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable` | `[{header3=value3, header2=value2, header1=value1}]`
     java.util.Arrays$ArrayList | `[header1|header2, value1|value2|value3]` | `uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable` | `[{header3=value3, header2=value2, header1=value1}]`
-    java.util.Arrays$ArrayList | `[header1|header2|header3, value1|value2|value3, value4|value5|value6]` | uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable | `[{header3=value3, header2=value2, header1=value1}, {header3=value6, header2=value5, header1=value4}]`
+    java.util.Arrays$ArrayList | `[header1|header2|header3, value1|value2|value3, value4|value5|value6]` | `uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable` | `[{header3=value3, header2=value2, header1=value1}, {header3=value6, header2=value5, header1=value4}]`
     java.util.Arrays$ArrayList | `[header1|header2|header3, , value4|value5|value6]` |  | NoSuchElementException: No more CSV records available
     java.util.Arrays$ArrayList | `[header1|header2|header3, null, value4|value5|value6]` |  | NullPointerException: null
     java.util.Arrays$ArrayList | `[value1|value2|value3, value4|value5|value6]` | `uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable` | `[{header3=value3, header2=value2, header1=value1}, {header3=value6, header2=value5, header1=value4}]`
