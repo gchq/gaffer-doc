@@ -424,16 +424,16 @@ Input type: `java.lang.Iterable`
 
     Input Type | Input | Result Type | Result
     ---------- | ----- | ----------- | ------
-    java.util.Arrays$ArrayList | [header1|header2|header3, value1|value2|value3] | uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable | [{header3=value3, header2=value2, header1=value1}]
-    java.util.Arrays$ArrayList | [header1|header2|header3, value1||value3] | uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable | [{header3=value3, header2=, header1=value1}]
-    java.util.Arrays$ArrayList | [header1|header2|header3, value1|value2] |  | IllegalArgumentException: CSV has 2 columns, but there are 3 provided column names
-    java.util.Arrays$ArrayList | [header1||header3, value1|value2|value3] | uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable | [{header3=value3, header2=value2, header1=value1}]
-    java.util.Arrays$ArrayList | [header1|header2, value1|value2|value3] | uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable | [{header3=value3, header2=value2, header1=value1}]
-    java.util.Arrays$ArrayList | [header1|header2|header3, value1|value2|value3, value4|value5|value6] | uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable | [{header3=value3, header2=value2, header1=value1}, {header3=value6, header2=value5, header1=value4}]
-    java.util.Arrays$ArrayList | [header1|header2|header3, , value4|value5|value6] |  | NoSuchElementException: No more CSV records available
-    java.util.Arrays$ArrayList | [header1|header2|header3, null, value4|value5|value6] |  | NullPointerException: null
-    java.util.Arrays$ArrayList | [value1|value2|value3, value4|value5|value6] | uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable | [{header3=value3, header2=value2, header1=value1}, {header3=value6, header2=value5, header1=value4}]
-    java.util.Arrays$ArrayList | [null, value1|value2|value3, value4|value5|value6] | uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable | [{header3=value3, header2=value2, header1=value1}, {header3=value6, header2=value5, header1=value4}]
+    java.util.Arrays$ArrayList | `[header1|header2|header3, value1|value2|value3]` | `uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable` | `[{header3=value3, header2=value2, header1=value1}]`
+    java.util.Arrays$ArrayList | `[header1|header2|header3, value1||value3]` | `uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable` | `[{header3=value3, header2=, header1=value1}]`
+    java.util.Arrays$ArrayList | `[header1|header2|header3, value1|value2]` |  | IllegalArgumentException: CSV has 2 columns, but there are 3 provided column names
+    java.util.Arrays$ArrayList | `[header1||header3, value1|value2|value3]` | `uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable` | `[{header3=value3, header2=value2, header1=value1}]`
+    java.util.Arrays$ArrayList | `[header1|header2, value1|value2|value3]` | `uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable` | `[{header3=value3, header2=value2, header1=value1}]`
+    java.util.Arrays$ArrayList | `[header1|header2|header3, value1|value2|value3, value4|value5|value6]` | uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable | `[{header3=value3, header2=value2, header1=value1}, {header3=value6, header2=value5, header1=value4}]`
+    java.util.Arrays$ArrayList | `[header1|header2|header3, , value4|value5|value6]` |  | NoSuchElementException: No more CSV records available
+    java.util.Arrays$ArrayList | `[header1|header2|header3, null, value4|value5|value6]` |  | NullPointerException: null
+    java.util.Arrays$ArrayList | `[value1|value2|value3, value4|value5|value6]` | `uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable` | `[{header3=value3, header2=value2, header1=value1}, {header3=value6, header2=value5, header1=value4}]`
+    java.util.Arrays$ArrayList | `[null, value1|value2|value3, value4|value5|value6]` | `uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable` | `[{header3=value3, header2=value2, header1=value1}, {header3=value6, header2=value5, header1=value4}]`
 
 ## CsvToMaps
 
@@ -476,17 +476,10 @@ Input type: `java.lang.String`
 
     Input Type | Input | Result Type | Result
     ---------- | ----- | ----------- | ------
-    java.lang.String | header1,header2,header3
-    value1,value2,value3 | uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable | [{header3=value3, header2=value2, header1=value1}]
-    java.lang.String | header1,header2,header3
-    value1,value2,value3
-    value4,value5,value6" | uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable | [{header3=value3, header2=value2, header1=value1}, {header3=value6", header2=value5, header1=value4}]
-    java.lang.String | header1,header2,header3
-    ,,value3
-    value4,value5,value6" | uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable | [{header3=value3, header2=, header1=}, {header3=value6", header2=value5, header1=value4}]
-    java.lang.String | header1,header2,header3,header4
-    value1,value2,value3,value4
-    value5,value6,value7,value8" |  | NoSuchElementException: null
+    java.lang.String | header1,header2,header3 \n value1,value2,value3 | uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable | [{header3=value3, header2=value2, header1=value1}]
+    java.lang.String | header1,header2,header3 \n value1,value2,value3 \n value4,value5,value6 | uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable | [{header3=value3, header2=value2, header1=value1}, {header3=value6", header2=value5, header1=value4}]
+    java.lang.String | header1,header2,header3 \n ,,value3 \n value4,value5,value6 | uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable | [{header3=value3, header2=, header1=}, {header3=value6", header2=value5, header1=value4}]
+    java.lang.String | header1,header2,header3,header4 \n value1,value2,value3,value4 \n value5,value6,value7,value8 |  | NoSuchElementException: null
      | null |  | null
     java.lang.String |  | uk.gov.gchq.koryphe.util.IterableUtil$MappedIterable | []
 
