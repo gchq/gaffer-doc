@@ -106,7 +106,6 @@ theme:
     - content.action.edit
     - content.code.annotate
     - content.code.copy
-  custom_dir: overrides
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
