@@ -17,7 +17,7 @@ This page lists the dependencies that have been upgraded as part of Gaffer 2.
  - Graphframes: 0.4.0 -> 0.8.1
  - Guava: 13.0.1 -> 30.1.1
  - Hadoop: 2.6.5 -> 3.3.3
- - Hazelcast: 3.8 -> 5.2.2
+ - Hazelcast: 3.8 -> 5.3.0
  - Jackson: 2.6.5 -> 2.13.5
  - Javassist: 3.19.0-GA -> 3.28.0-GA
  - Jersey: 2.25 -> 2.36
