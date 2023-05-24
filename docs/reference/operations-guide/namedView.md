@@ -1,5 +1,9 @@
 # Named View
 
+## Introduction
+
+A Named View is a user-defined View which can be stored in a Gaffer instance, either to ensure similar users  get the same results from a query, or to limit access.
+
 ## AddNamedView
 
 Adds a NamedView to a Graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/named/view/AddNamedView.html)
