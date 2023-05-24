@@ -1,11 +1,16 @@
 # Named Operations
 
+## Introduction
 Named Operations are User-defined Gaffer operations. A Named Operation is created by concatenating standard Gaffer Operations into an OperationChain and then storing this under a new name for reuse. Regrettably, calls to a Named Operation look slightly different to standard Gaffer Operations.
 
 Named Operations are stored in the cache of a Gaffer instance, so this configurable item has to be set up first. Storage in the cache requires the new operation’s name to be unique on that Gaffer instance; and, subject to access permissions, allows it to be used by others. If you have more than one Gaffer instance, a Named Operation on one is not visible on any others without copying across. 
  
 A Named Operation can be included as a step in a higher level OperationChain, but currently it is not possible to call one NamedOperation inside another, as this would require version control to be developed for these assets to ensure they are kept in step.
 
+## Permissions
+Named Operations have separate read and write permissions. TBD link to Named Operations walkthrough page for access doc.
+
+## Example Data
  [Overview Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/named/operation/NamedOperation.html)
 
 This directed graph is used in all the examples on this page:
@@ -19,6 +24,83 @@ graph TD
   2 -- count=1 --> 5(5, count=3)
   3(3, count=2) -- count=4 --> 4
 ```
+## GetAllNamedOperations
+
+This Gaffer Operation lists all NamedOperations associated with a Graph that are available to the user. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/named/operation/GetAllNamedOperations.html)
+
+??? example "Example getting all NamedOperations"
+
+    === "Java"
+
+        ``` java
+        final GetAllNamedOperations operation = new GetAllNamedOperations();
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+        "class" : "uk.gov.gchq.gaffer.named.operation.GetAllNamedOperations"
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+        g.GetAllNamedOperations()
+        ```
+
+    Results:
+
+    === "Java"
+
+        ``` java
+        NamedOperationDetail[inputType=java.lang.Object[],creatorId=user01,operations={"operations":[{"class":"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds","includeIncomingOutGoing":"OUTGOING"}]},readAccessRoles=[read-user],writeAccessRoles=[write-user],score=2]
+        NamedOperationDetail[inputType=java.lang.Object[],creatorId=user01,operations={"operations":[{"class":"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds","includeIncomingOutGoing":"OUTGOING"},{"class":"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds","includeIncomingOutGoing":"OUTGOING"}]},readAccessRoles=[read-user],writeAccessRoles=[write-user]]
+        NamedOperationDetail[inputType=java.lang.Object[],creatorId=user01,operations={    "operations" : [ {      "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds",      "includeIncomingOutGoing" : "OUTGOING"    }, {      "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds",      "includeIncomingOutGoing" : "OUTGOING"    }, {      "class" : "uk.gov.gchq.gaffer.operation.impl.Limit",      "resultLimit" : "${param1}"    } ]},readAccessRoles=[read-user],writeAccessRoles=[write-user],parameters={param1=ParameterDetail[description=Limit param,valueClass=class java.lang.Long,required=false,defaultValue=1]},score=3]
+        ```
+
+    === "JSON"
+
+        ``` json
+        [ {
+        "operationName" : "1-hop",
+        "inputType" : "java.lang.Object[]",
+        "description" : "1 hop query",
+        "creatorId" : "user01",
+        "operations" : "{\"operations\":[{\"class\":\"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",\"includeIncomingOutGoing\":\"OUTGOING\"}]}",
+        "readAccessRoles" : [ "read-user" ],
+        "writeAccessRoles" : [ "write-user" ],
+        "parameters" : null,
+        "score" : 2
+        }, {
+        "operationName" : "2-hop",
+        "inputType" : "java.lang.Object[]",
+        "description" : "2 hop query",
+        "creatorId" : "user01",
+        "operations" : "{\"operations\":[{\"class\":\"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",\"includeIncomingOutGoing\":\"OUTGOING\"},{\"class\":\"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",\"includeIncomingOutGoing\":\"OUTGOING\"}]}",
+        "readAccessRoles" : [ "read-user" ],
+        "writeAccessRoles" : [ "write-user" ],
+        "parameters" : null
+        }, {
+        "operationName" : "2-hop-with-limit",
+        "inputType" : "java.lang.Object[]",
+        "description" : "2 hop query with settable limit",
+        "creatorId" : "user01",
+        "operations" : "{    \"operations\" : [ {      \"class\" : \"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",      \"includeIncomingOutGoing\" : \"OUTGOING\"    }, {      \"class\" : \"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",      \"includeIncomingOutGoing\" : \"OUTGOING\"    }, {      \"class\" : \"uk.gov.gchq.gaffer.operation.impl.Limit\",      \"resultLimit\" : \"${param1}\"    } ]}",
+        "readAccessRoles" : [ "read-user" ],
+        "writeAccessRoles" : [ "write-user" ],
+        "parameters" : {
+            "param1" : {
+            "description" : "Limit param",
+            "defaultValue" : 1,
+            "valueClass" : "java.lang.Long",
+            "required" : false
+            }
+        },
+        "score" : 3
+        } ]
+        ```
 
 ## AddNamedOperation
 
@@ -270,83 +352,6 @@ Adds a new NamedOperation to a Graph. [Javadoc](https://gchq.github.io/Gaffer/uk
         )
         ```
 
-## GetAllNamedOperations
-
-Retrieves all NamedOperations associated with a Graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/named/operation/GetAllNamedOperations.html)
-
-??? example "Example getting all NamedOperations"
-
-    === "Java"
-
-        ``` java
-        final GetAllNamedOperations operation = new GetAllNamedOperations();
-        ```
-
-    === "JSON"
-
-        ``` json
-        {
-        "class" : "uk.gov.gchq.gaffer.named.operation.GetAllNamedOperations"
-        }
-        ```
-
-    === "Python"
-
-        ``` python
-        g.GetAllNamedOperations()
-        ```
-
-    Results:
-
-    === "Java"
-
-        ``` java
-        NamedOperationDetail[inputType=java.lang.Object[],creatorId=user01,operations={"operations":[{"class":"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds","includeIncomingOutGoing":"OUTGOING"}]},readAccessRoles=[read-user],writeAccessRoles=[write-user],score=2]
-        NamedOperationDetail[inputType=java.lang.Object[],creatorId=user01,operations={"operations":[{"class":"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds","includeIncomingOutGoing":"OUTGOING"},{"class":"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds","includeIncomingOutGoing":"OUTGOING"}]},readAccessRoles=[read-user],writeAccessRoles=[write-user]]
-        NamedOperationDetail[inputType=java.lang.Object[],creatorId=user01,operations={    "operations" : [ {      "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds",      "includeIncomingOutGoing" : "OUTGOING"    }, {      "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds",      "includeIncomingOutGoing" : "OUTGOING"    }, {      "class" : "uk.gov.gchq.gaffer.operation.impl.Limit",      "resultLimit" : "${param1}"    } ]},readAccessRoles=[read-user],writeAccessRoles=[write-user],parameters={param1=ParameterDetail[description=Limit param,valueClass=class java.lang.Long,required=false,defaultValue=1]},score=3]
-        ```
-
-    === "JSON"
-
-        ``` json
-        [ {
-        "operationName" : "1-hop",
-        "inputType" : "java.lang.Object[]",
-        "description" : "1 hop query",
-        "creatorId" : "user01",
-        "operations" : "{\"operations\":[{\"class\":\"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",\"includeIncomingOutGoing\":\"OUTGOING\"}]}",
-        "readAccessRoles" : [ "read-user" ],
-        "writeAccessRoles" : [ "write-user" ],
-        "parameters" : null,
-        "score" : 2
-        }, {
-        "operationName" : "2-hop",
-        "inputType" : "java.lang.Object[]",
-        "description" : "2 hop query",
-        "creatorId" : "user01",
-        "operations" : "{\"operations\":[{\"class\":\"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",\"includeIncomingOutGoing\":\"OUTGOING\"},{\"class\":\"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",\"includeIncomingOutGoing\":\"OUTGOING\"}]}",
-        "readAccessRoles" : [ "read-user" ],
-        "writeAccessRoles" : [ "write-user" ],
-        "parameters" : null
-        }, {
-        "operationName" : "2-hop-with-limit",
-        "inputType" : "java.lang.Object[]",
-        "description" : "2 hop query with settable limit",
-        "creatorId" : "user01",
-        "operations" : "{    \"operations\" : [ {      \"class\" : \"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",      \"includeIncomingOutGoing\" : \"OUTGOING\"    }, {      \"class\" : \"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",      \"includeIncomingOutGoing\" : \"OUTGOING\"    }, {      \"class\" : \"uk.gov.gchq.gaffer.operation.impl.Limit\",      \"resultLimit\" : \"${param1}\"    } ]}",
-        "readAccessRoles" : [ "read-user" ],
-        "writeAccessRoles" : [ "write-user" ],
-        "parameters" : {
-            "param1" : {
-            "description" : "Limit param",
-            "defaultValue" : 1,
-            "valueClass" : "java.lang.Long",
-            "required" : false
-            }
-        },
-        "score" : 3
-        } ]
-        ```
 
 ## NamedOperation
 
