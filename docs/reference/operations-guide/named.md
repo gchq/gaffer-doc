@@ -1,6 +1,12 @@
 # Named Operations
 
-Named Operations enable encapsulation of an OperationChain into a new single NamedOperation. The NamedOperation can be added to OperationChains and executed, just like any other Operation. They are available when a cache has been configured. [Overview Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/named/operation/NamedOperation.html)
+Named Operations are User-defined Gaffer operations. A Named Operation is created by concatenating standard Gaffer Operations into an OperationChain and then storing this under a new name for reuse. Regrettably, calls to a Named Operation look slightly different to standard Gaffer Operations.
+
+Named Operations are stored in the cache of a Gaffer instance, so this configurable item has to be set up first. Storage in the cache requires the new operation’s name to be unique on that Gaffer instance; and, subject to access permissions, allows it to be used by others. If you have more than one Gaffer instance, a Named Operation on one is not visible on any others without copying across. 
+ 
+A Named Operation can be included as a step in a higher level OperationChain, but currently it is not possible to call one NamedOperation inside another, as this would require version control to be developed for these assets to ensure they are kept in step.
+
+ [Overview Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/named/operation/NamedOperation.html)
 
 This directed graph is used in all the examples on this page:
 
