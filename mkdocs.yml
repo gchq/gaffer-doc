@@ -22,6 +22,11 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - tables
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+
 extra:
   social:
     - icon: fontawesome/brands/github
@@ -58,6 +63,7 @@ nav:
       - 'Deploying Gaffer': 'getting-started/deploying.md'
     - 'Dev Info':
       - 'Development': 'dev/development.md'
+      - 'Managing Dependencies': 'dev/managing-dependencies.md'
       - 'Ways of Working': 'dev/ways-of-working.md'
     - 'Reference':
       - 'Reference Guide': 'reference/intro.md'
