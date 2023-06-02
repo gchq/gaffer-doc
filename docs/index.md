@@ -1,13 +1,25 @@
+---
+hide:
+  - navigation
+---
+
 Gaffer 2
 ========
 
-*These Docs are a work in progress for Gaffer v2, [the docs for Gaffer v1 can be found here](../v1docs/)*.
+!!! info "Under construction"
 
-For information and migration steps for Deprecated classes which have been removed in Gaffer 2 alpha 1, [please see the deprecations page](gaffer2.0/deprecations.md).
+    This documentation is under construction and focusses on Gaffer version 2.0.0.
+    [The previous docs for Gaffer 1.x can be found here](../v1docs/).
 
-For a summary of the current Gaffer 2 alpha roadmap, including migration steps, please see the [Gaffer 2 Changelist](gaffer2.0/changelist.md).
+Gaffer 2.0.0 was released in May 2023. The final release of Gaffer 1.x was [1.23.0](https://github.com/gchq/Gaffer/releases/tag/gaffer2-1.23.0), there are no further releases to the 1.x branch planned.
 
-For information on logging in Gaffer and historic use of Log4j, [please see this page](gaffer2.0/log4j.md).
+Site Contents
+-------------
+
+- [Gaffer 2.0](gaffer2.0/changelist/) - Information on the Gaffer 2.0 release, including changelogs, deprecation and migration details.
+- [Getting Started](getting-started/quickstart/) - Guides for using and deploying Gaffer.
+- [Developer Info](dev/dev/development/) - Information about developing Gaffer itself.
+- [Reference](reference/intro/) - Documentation for Gaffer Operations, Predicates, Functions, Binary Operators and Properties.
 
 Licence
 -------

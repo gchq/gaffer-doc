@@ -88,4 +88,4 @@ In particular:
   ```
 
 ## Gaffer 2
-During the Gaffer 2 development process there is a **v2-alpha** branch, which acts as the **develop** branch for changes that will only be added to Gaffer 2.
+During the Gaffer 2 development process there was a **v2-alpha** branch, which acted as the **develop** branch for changes staged for Gaffer 2.
