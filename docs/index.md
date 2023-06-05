@@ -11,7 +11,7 @@ Gaffer 2
     This documentation is under construction and focusses on Gaffer version 2.0.0 and above.
     [The previous docs for Gaffer 1.x can be found here](../v1docs/).
 
-Gaffer 2.0.0 was released in May 2023. The final release of Gaffer 1.x was [1.23.0](https://github.com/gchq/Gaffer/releases/tag/gaffer2-1.23.0), there are no further releases to the 1.x branch planned.
+Gaffer [2.0.0](https://github.com/gchq/Gaffer/releases/tag/gaffer2-2.0.0) was released in May 2023. The final release of Gaffer 1.x was [1.23.0](https://github.com/gchq/Gaffer/releases/tag/gaffer2-1.23.0), there are no further releases to the 1.x branch planned.
 
 Site Contents
 -------------
