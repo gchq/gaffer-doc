@@ -9,17 +9,17 @@
       
       
       
-        <link rel="prev" href="../federation-changes/">
+        <link rel="prev" href="../development/">
       
       
-        <link rel="next" href="../log4j/">
+        <link rel="next" href="../ways-of-working/">
       
       <link rel="icon" href="../../assets/logo.svg">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.11">
     
     
       
-        <title>Accumulo Kerberos - Gaffer Docs</title>
+        <title>Managing Dependencies - Gaffer Docs</title>
       
     
     
@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#accumulo-kerberos-support" class="md-skip">
+        <a href="#managing-dependencies-in-gaffer" class="md-skip">
           Skip to content
         </a>
       
@@ -107,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Accumulo Kerberos
+              Managing Dependencies
             
           </span>
         </div>
@@ -217,15 +217,13 @@
         
   
   
-    
-  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../changelist/" class="md-tabs__link md-tabs__link--active">
+      <a href="../../gaffer2.0/changelist/" class="md-tabs__link">
         Gaffer 2.0
       </a>
     </li>
@@ -251,13 +249,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../../dev/development/" class="md-tabs__link">
+      <a href="../development/" class="md-tabs__link md-tabs__link--active">
         Dev Info
       </a>
     </li>
@@ -344,16 +344,14 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
       
       
       
@@ -362,7 +360,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
         <label class="md-nav__title" for="__nav_2">
           <span class="md-nav__icon md-icon"></span>
           Gaffer 2.0
@@ -375,7 +373,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../changelist/" class="md-nav__link">
+      <a href="../../gaffer2.0/changelist/" class="md-nav__link">
         Changelist
       </a>
     </li>
@@ -389,7 +387,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../deprecations/" class="md-nav__link">
+      <a href="../../gaffer2.0/deprecations/" class="md-nav__link">
         Deprecations
       </a>
     </li>
@@ -403,7 +401,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dependencies/" class="md-nav__link">
+      <a href="../../gaffer2.0/dependencies/" class="md-nav__link">
         Dependencies
       </a>
     </li>
@@ -417,7 +415,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../accumulo-migration/" class="md-nav__link">
+      <a href="../../gaffer2.0/accumulo-migration/" class="md-nav__link">
         Accumulo Migration
       </a>
     </li>
@@ -431,7 +429,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../federation-changes/" class="md-nav__link">
+      <a href="../../gaffer2.0/federation-changes/" class="md-nav__link">
         Federation Changes
       </a>
     </li>
@@ -443,121 +441,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Accumulo Kerberos
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../gaffer2.0/accumulo-kerberos/" class="md-nav__link">
         Accumulo Kerberos
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#using-the-accumulo-store-with-kerberos" class="md-nav__link">
-    Using the Accumulo Store with Kerberos
-  </a>
-  
-    <nav class="md-nav" aria-label="Using the Accumulo Store with Kerberos">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    Prerequisites
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#accumulo-user-for-gaffer" class="md-nav__link">
-    Accumulo user for Gaffer
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#accumulo-client-configuration" class="md-nav__link">
-    Accumulo Client configuration
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gaffer-storeproperties-configuration" class="md-nav__link">
-    Gaffer store.properties configuration
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#specifying-a-different-krb5conf" class="md-nav__link">
-    Specifying a different krb5.conf
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#federation-considerations" class="md-nav__link">
-    Federation Considerations
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#hdfs-considerations" class="md-nav__link">
-    HDFS Considerations
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#spark-accumulo-library" class="md-nav__link">
-    Spark Accumulo Library
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    Troubleshooting
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -569,7 +457,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../log4j/" class="md-nav__link">
+      <a href="../../gaffer2.0/log4j/" class="md-nav__link">
         Log4j in Gaffer
       </a>
     </li>
@@ -742,14 +630,16 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
       
       
       
@@ -758,7 +648,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Dev Info
@@ -771,7 +661,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/development/" class="md-nav__link">
+      <a href="../development/" class="md-nav__link">
         Development
       </a>
     </li>
@@ -783,11 +673,112 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../dev/managing-dependencies/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Managing Dependencies
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Managing Dependencies
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#get-a-simple-list-of-direct-dependencies" class="md-nav__link">
+    Get a simple list of direct dependencies
+  </a>
+  
+    <nav class="md-nav" aria-label="Get a simple list of direct dependencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#output-to-file" class="md-nav__link">
+    Output to File
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-a-tree-showing-dependencies" class="md-nav__link">
+    Get a tree showing Dependencies
+  </a>
+  
+    <nav class="md-nav" aria-label="Get a tree showing Dependencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#output-to-file_1" class="md-nav__link">
+    Output to File
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plotting-graphs-of-dependencies" class="md-nav__link">
+    Plotting graphs of dependencies
+  </a>
+  
+    <nav class="md-nav" aria-label="Plotting graphs of dependencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-the-built-in-maven-plugin" class="md-nav__link">
+    Using the built-in Maven plugin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-depgraph-maven-plugin" class="md-nav__link">
+    Using the Depgraph Maven plugin
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -799,7 +790,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dev/ways-of-working/" class="md-nav__link">
+      <a href="../ways-of-working/" class="md-nav__link">
         Ways of Working
       </a>
     </li>
@@ -1437,44 +1428,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#using-the-accumulo-store-with-kerberos" class="md-nav__link">
-    Using the Accumulo Store with Kerberos
+  <a href="#get-a-simple-list-of-direct-dependencies" class="md-nav__link">
+    Get a simple list of direct dependencies
   </a>
   
-    <nav class="md-nav" aria-label="Using the Accumulo Store with Kerberos">
+    <nav class="md-nav" aria-label="Get a simple list of direct dependencies">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    Prerequisites
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#accumulo-user-for-gaffer" class="md-nav__link">
-    Accumulo user for Gaffer
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#accumulo-client-configuration" class="md-nav__link">
-    Accumulo Client configuration
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#gaffer-storeproperties-configuration" class="md-nav__link">
-    Gaffer store.properties configuration
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#specifying-a-different-krb5conf" class="md-nav__link">
-    Specifying a different krb5.conf
+  <a href="#output-to-file" class="md-nav__link">
+    Output to File
   </a>
   
 </li>
@@ -1485,30 +1448,49 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#federation-considerations" class="md-nav__link">
-    Federation Considerations
+  <a href="#get-a-tree-showing-dependencies" class="md-nav__link">
+    Get a tree showing Dependencies
   </a>
+  
+    <nav class="md-nav" aria-label="Get a tree showing Dependencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#output-to-file_1" class="md-nav__link">
+    Output to File
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#hdfs-considerations" class="md-nav__link">
-    HDFS Considerations
+  <a href="#plotting-graphs-of-dependencies" class="md-nav__link">
+    Plotting graphs of dependencies
+  </a>
+  
+    <nav class="md-nav" aria-label="Plotting graphs of dependencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-the-built-in-maven-plugin" class="md-nav__link">
+    Using the built-in Maven plugin
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#spark-accumulo-library" class="md-nav__link">
-    Spark Accumulo Library
+        
+          <li class="md-nav__item">
+  <a href="#using-the-depgraph-maven-plugin" class="md-nav__link">
+    Using the Depgraph Maven plugin
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    Troubleshooting
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1527,7 +1509,7 @@
                   
 
   
-    <a href="https://github.com/gchq/gaffer-doc/edit/v2docs/docs/gaffer2.0/accumulo-kerberos.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/gchq/gaffer-doc/edit/v2docs/docs/dev/managing-dependencies.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -1535,82 +1517,80 @@
   
 
 
-<h1 id="accumulo-kerberos-support">Accumulo Kerberos Support</h1>
-<p>This page contains information on Kerberos Authentication support for Gaffer's Accumulo Store. This functionality was introduced in version <code>2.0.0-alpha-0.3.1</code> of Gaffer.</p>
-<h2 id="using-the-accumulo-store-with-kerberos">Using the Accumulo Store with Kerberos</h2>
-<h3 id="prerequisites">Prerequisites</h3>
-<p>To use Gaffer's Accumulo Store with Kerberos authentication:</p>
-<ul>
-<li>The Accumulo cluster to connect with must be correctly configured to use Kerberos.</li>
-<li>A principal for the system/host Gaffer will be running on must be created in the Key Distribution Center (KDC) database.</li>
-<li>The Gaffer principal should use the standard <a href="https://web.mit.edu/kerberos/krb5-1.5/krb5-1.5.4/doc/krb5-user/What-is-a-Kerberos-Principal_003f.html"><code>primary/instance@realm</code></a> format. Using principals without an <em>instance</em> qualification has not been tested.</li>
-<li>A keytab for the Gaffer principal must be created and transferred to the Gaffer host.</li>
-<li>The Gaffer principal must have been added as an Accumulo user with suitable permissions granted.</li>
-<li>Kerberos client utilities should be installed on the host and <code>krb5.conf</code> must be correctly configured.</li>
-<li>An Accumulo client configuration should be available on the host and contain the correct options to enable Kerberos.</li>
-<li>The Gaffer store.properties should state that Kerberos is to be used, specify the principal name and the keytab path.</li>
-</ul>
-<p>The sections below cover some of these points in more detail.</p>
-<h3 id="accumulo-user-for-gaffer">Accumulo user for Gaffer</h3>
-<p>When Kerberos is used with Accumulo, <a href="https://accumulo.apache.org/docs/2.x/security/kerberos#kerberosauthenticator">any client with a principal can connect without requiring an Accumulo user to have been created previously</a>. This works by creating an Accumulo user automatically when a new client connects. These users are not granted any permissions.</p>
-<p>Users can still be created manually via the Accumulo shell, with Gaffer's full principal (with all components) given as the username. Permissions to create and read tables can then be granted to this user. If this isn't done, Accumulo will create the user automatically when Gaffer first connects. In this case Gaffer will fail to start as the required permissions will not have been granted - they can then be granted via the shell and Gaffer restarted.</p>
-<h3 id="accumulo-client-configuration">Accumulo Client configuration</h3>
-<p>Depending on the version of Accumulo used, an <a href="https://accumulo.apache.org/docs/2.x/security/kerberos#configuration"><code>accumulo-client.properties</code> (2.x)</a> or <a href="https://accumulo.apache.org/1.10/accumulo_user_manual.html#_configuration_3"><code>client.conf</code> (1.x)</a> must be populated as described in the respective version of the Accumulo documentation. The only value which needs to be altered is the Kerberos server primary. This should reflect the primary part of the principals used by the Accumulo cluster.</p>
-<p>The location of this config file can be specified using the <code>ACCUMULO_CLIENT_CONF_PATH</code> environment variable. If this is not set, then <a href="https://accumulo.apache.org/docs/2.x/apidocs/org/apache/accumulo/core/client/ClientConfiguration.html#loadDefault()">default paths will be checked</a>.</p>
-<p>Other than this file, Accumulo libraries and configuration files do not need to be installed on the Gaffer host. </p>
-<h3 id="gaffer-storeproperties-configuration">Gaffer <code>store.properties</code> configuration</h3>
-<p>In addition to the usual <a href="https://gchq.github.io/gaffer-doc/v1docs/stores/accumulo-store.html#properties-file">Accumulo Store settings</a>, these extra options must be specified for Kerberos:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>accumulo.kerberos.enable=true
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>accumulo.kerberos.principal=gaffer/host.domain@REALM.NAME
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>accumulo.kerberos.keytab=/gaffer/config/gaffer.keytab
+<h1 id="managing-dependencies-in-gaffer">Managing dependencies in Gaffer</h1>
+<p>Gaffer is a large project with a lot of dependency and transitive dependency management required. This page covers some ways to get information about and more easily visualise and understand the dependencies for given Maven modules (or even the whole project).</p>
+<p>For more information on how Maven handles dependencies, <a href="https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html">see this Maven guide</a>.</p>
+<h2 id="get-a-simple-list-of-direct-dependencies">Get a simple list of direct dependencies</h2>
+<p>This outputs the direct (non-transitive) dependencies for all Maven modules in the project. For specific modules append <code>-pl :module-name</code> to the command.
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>mvn dependency:list -DexcludeTransitive=true -Dsort=true
 </span></code></pre></div>
-The <code>accumulo.username</code> and <code>accumulo.password</code> values do not need to be set and are ignored when <code>accumulo.kerberos.enable</code> is true.</p>
-<p>The <code>kinit</code> Kerberos command does not need to be used, although it might be useful for ensuring the client principal works correctly. All Kerberos ticket management, renewal and re-login is handled automatically.</p>
-<h3 id="specifying-a-different-krb5conf">Specifying a different <code>krb5.conf</code></h3>
-<p>If the <code>krb5.conf</code> in the default system location is not suitable, or if it's stored in a non-standard location, then 
-custom a custom <code>krb5.conf</code> location can be specified when starting Gaffer by setting the system property value <code>java.security.krb5.conf</code>. The simplest way to do this is by using the option flag <code>-Djava.security.krb5.conf=/my/path/to/krb5.conf</code> when launching the Gaffer JAR.</p>
-<h2 id="federation-considerations">Federation Considerations</h2>
-<p>Due to the way Kerberos is implemented in Accumulo, it is not possible for Gaffer to use multiple principals at the same time. For the <code>FederatedStore</code>, this prevents adding graphs which are on different Accumulo clusters, if those clusters require different principals. In practice this is unlikely to be a problem, as different Accumulo clusters would only need separate client principals if they were on separate Kerberos Realms or using different KDCs.</p>
-<p>This only impacts Accumulo clusters which require Kerberos. It doesn't impact on adding graphs which are stored in clusters using basic authentication and not Kerberos. Nor does it affect adding graphs from a Kerberos cluster and also adding graphs from a non Kerberos cluster in the same <code>FederatedStore</code>.</p>
-<p>If this limitation is a problem, it can be worked around by running additional Gaffer instances and connecting to them using a <code>ProxyStore</code> in the <code>FederatedStore</code>, rather than connecting directly using an <code>AccumuloStore</code>.</p>
-<h2 id="hdfs-considerations">HDFS Considerations</h2>
-<p>When using the <a href="https://gchq.github.io/gaffer-doc/v1docs/getting-started/operations/addelementsfromhdfs.html"><code>AddElementsFromHdfs</code></a> operation Gaffer acts as a HDFS client. When Kerberos is used (<a href="https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SecureMode.html">Hadoop Secure Mode</a>), HDFS clients must have <a href="https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/NativeLibraries.html">native libraries</a> installed and configured correctly; else Hadoop will raise a Runtime Exception stating that "Secure IO is not possible without native code extensions".</p>
-<p>The HDFS client also requires the Hadoop configuration files <code>core-site.xml</code> and <code>hdfs-site.xml</code> to both be present and configured as below. The location of these files can be specified using the <code>HADOOP_CONF_DIR</code> environment variable.</p>
-<div class="language-xml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cm">&lt;!--Properties in core-site.xml--&gt;</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nt">&lt;property&gt;</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">&lt;name&gt;</span>hadoop.security.authentication<span class="nt">&lt;/name&gt;</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">&lt;value&gt;</span>kerberos<span class="nt">&lt;/value&gt;</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nt">&lt;/property&gt;</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="nt">&lt;property&gt;</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="nt">&lt;name&gt;</span>hadoop.security.authorization<span class="nt">&lt;/name&gt;</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="nt">&lt;value&gt;</span>true<span class="nt">&lt;/value&gt;</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="nt">&lt;/property&gt;</span>
+If <code>-DexcludeTransitive=true</code> is not used it will also print transitive dependencies, but without showing where they come from. The tree option (explained below) is better for getting this kind of information.</p>
+<p>For more info, <a href="https://maven.apache.org/plugins/maven-dependency-plugin/list-mojo.html">see the Maven dependency plugin documentation for the 'list' goal</a>.</p>
+<h3 id="output-to-file">Output to File</h3>
+<p>The user property <code>-DoutputFile=deps.txt</code> can be used to place output for each module into the root directory <strong>of that module</strong>. It is also possible to aggregate all results into a single file using <code>mvn dependency:list -B -DappendOutput=true -DoutputFile=$(pwd)/mvn-dep-list.txt</code>.</p>
+<p>However, any files created contain terminal escape characters for adding colour (even when using <code>-B</code> - this is likely a bug). Another option is to use <code>-B</code> to turn off colour, piping the output through <code>sort --unique</code> (which also aggregates the dependencies) and appending that to a file - instead of using the plugin's file output option.</p>
+<h2 id="get-a-tree-showing-dependencies">Get a tree showing Dependencies</h2>
+<p>This produces a tree showing the <strong>resolved</strong> dependencies for all Maven modules in the project. For specific modules append <code>-pl :module-name</code> to the command (as before).
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>mvn dependency:tree
+</span></code></pre></div></p>
+<p>To include <strong>all</strong> dependencies (resolved, transitive and duplicate) in the tree and to see information on versions which have been managed (via <code>dependencyManagement</code>), append <code>-Dverbose</code>.</p>
+<p>This verbose flag is very useful for finding out which dependencies are affected by version management and version conflicts.</p>
+<p>Here's a simplified tree output with the verbose output explained (expand the <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8m0-18A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m1 5h-2v4H7v2h4v4h2v-4h4v-2h-4V7Z"/></svg></span> symbols):
+<div class="language-c highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">uk</span><span class="p">.</span><span class="n">gov</span><span class="p">.</span><span class="n">gchq</span><span class="p">.</span><span class="n">gaffer</span><span class="o">:</span><span class="n">core</span><span class="o">:</span><span class="n">pom</span><span class="o">:</span><span class="mf">2.0.0</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="o">+-</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="n">slf4j</span><span class="o">:</span><span class="n">slf4j</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">1.7.36</span><span class="o">:</span><span class="n">compile</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="o">+-</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="n">slf4j</span><span class="o">:</span><span class="n">slf4j</span><span class="o">-</span><span class="n">reload4j</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">1.7.36</span><span class="o">:</span><span class="n">compile</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="o">|</span><span class="w">  </span><span class="o">+-</span><span class="w"> </span><span class="p">(</span><span class="n">org</span><span class="p">.</span><span class="n">slf4j</span><span class="o">:</span><span class="n">slf4j</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">1.7.36</span><span class="o">:</span><span class="n">compile</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">omitted</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">duplicate</span><span class="p">)</span><span class="w"> </span><span class="c1">// (1)</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="o">|</span><span class="w">  </span><span class="err">\</span><span class="o">-</span><span class="w"> </span><span class="n">ch</span><span class="p">.</span><span class="n">qos</span><span class="p">.</span><span class="n">reload4j</span><span class="o">:</span><span class="n">reload4j</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">1.2.18.3</span><span class="o">:</span><span class="n">compile</span><span class="w"> </span><span class="p">(</span><span class="n">version</span><span class="w"> </span><span class="n">managed</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="mf">1.2.19</span><span class="p">)</span><span class="w"> </span><span class="c1">// (2)</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="o">+-</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="n">junit</span><span class="p">.</span><span class="n">jupiter</span><span class="o">:</span><span class="n">junit</span><span class="o">-</span><span class="n">jupiter</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">5.9.0</span><span class="o">:</span><span class="n">test</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="o">|</span><span class="w">  </span><span class="o">+-</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="n">junit</span><span class="p">.</span><span class="n">jupiter</span><span class="o">:</span><span class="n">junit</span><span class="o">-</span><span class="n">jupiter</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">5.9.0</span><span class="o">:</span><span class="n">test</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="err">\</span><span class="o">-</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="n">mockito</span><span class="o">:</span><span class="n">mockito</span><span class="o">-</span><span class="n">junit</span><span class="o">-</span><span class="n">jupiter</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">4.6.1</span><span class="o">:</span><span class="n">test</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">   </span><span class="o">+-</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="n">mockito</span><span class="o">:</span><span class="n">mockito</span><span class="o">-</span><span class="n">core</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">4.6.1</span><span class="o">:</span><span class="n">test</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">   </span><span class="err">\</span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">org</span><span class="p">.</span><span class="n">junit</span><span class="p">.</span><span class="n">jupiter</span><span class="o">:</span><span class="n">junit</span><span class="o">-</span><span class="n">jupiter</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">5.8.2</span><span class="o">:</span><span class="n">test</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">omitted</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">conflict</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="mf">5.9.0</span><span class="p">)</span><span class="w"> </span><span class="c1">// (3)</span>
+</span></code></pre></div></p>
+<ol>
+<li>This dependency was omitted because it was already resolved (found) earlier. If a dependency with the same version is seen more than once, subsequent instances are ignored as <strong>duplicates</strong>.</li>
+<li>This dependency has had its version changed (managed) from the version defined in the parent transitive dependency's POM to the version for this dependency given in the <code>dependencyManagement</code> section of our POM. The "version managed from" in the brackets is the version which would have been used if it hadn't been overridden by specifying a managed version.</li>
+<li>This dependency was omitted because it was already resolved (found) earlier. If a dependency with different versions is seen more than once, subsequent instances are ignored as <strong>conflicts</strong>. In this case, the conflicting version is a transitive dependency and the resolved dependency is a direct dependency (declared in the module POM) which takes priority.</li>
+</ol>
+<p>This verbose output is also useful for discovering which dependencies need to have exclusions added when using <a href="https://maven.apache.org/guides/introduction/introduction-to-optional-and-excludes-dependencies.html#dependency-exclusions">Maven dependency exclusions</a>. As an example, replacing Log4j with Reload4j can be done be excluding all Log4j dependencies and adding Reload4j as a project dependency (from a Java perspective this works because both use the same package name). This requires an exclusion section to be added for every dependency which includes Log4j as a transitive dependency.</p>
+<p>Without the verbose output, only a single resolved Log4j dependency is shown. In a project with 5 dependencies with Log4j as a sub-dependency, if only the resolved dependency were to be excluded, then another would become the resolved dependency. With this approach, the tree would need to be printed repeatedly until all these dependencies had been seen and excluded. With the verbose output these dependencies are all shown initially.</p>
+<p>For more info, <a href="https://maven.apache.org/plugins/maven-dependency-plugin/tree-mojo.html">see the Maven dependency plugin documentation for the 'tree' goal</a>.</p>
+<h3 id="output-to-file_1">Output to File</h3>
+<p>Unlike <code>dependency:list</code>, the <code>tree</code> plugin goal does output to file correctly. This puts all tree output into a single file called <code>mvn-dep-tree.txt</code> in the current directory:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>mvn dependency:tree -DoutputFile=$(pwd)/mvn-dep-tree.txt -DappendOutput=true
+</span></code></pre></div></p>
+<h2 id="plotting-graphs-of-dependencies">Plotting graphs of dependencies</h2>
+<h3 id="using-the-built-in-maven-plugin">Using the built-in Maven plugin</h3>
+<p>In addition to text output, this can also produce <code>.dot</code> files which can be used to create dependency graph visualisations (in combination with <a href="https://en.wikipedia.org/wiki/Graphviz">Graphviz</a>). The resulting files are simple and lack positioning information. They only work well if the number of dependencies is low (e.g. <code>-Dverbose=true</code> not used).</p>
+<p>This visualisation was produced using the plugin and <a href="https://graphviz.org/docs/layouts/sfdp/">Graphviz <code>sfdp</code></a>.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>mvn<span class="w"> </span>dependency:tree<span class="w"> </span>-DoutputType<span class="o">=</span>dot<span class="w"> </span>-DoutputFile<span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/core.dot<span class="w"> </span>-pl<span class="w"> </span>:core<span class="w"> </span><span class="c1"># Create the .dot file</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>sfdp<span class="w"> </span>-x<span class="w"> </span>-Goverlap<span class="o">=</span><span class="nb">false</span><span class="w"> </span>-Gsplines<span class="o">=</span><span class="nb">true</span><span class="w"> </span>-Tsvg<span class="w"> </span>core.dot<span class="w"> </span>-o<span class="w"> </span>core.svg<span class="w"> </span><span class="c1"># Create the SVG image</span>
 </span></code></pre></div>
-<p>In particular, <code>hdfs-site.xml</code> requires the <code>yarn.resourcemanager.principal</code> property to be set to the HDFS client principal - should be the same one as in the Gaffer Store properties. If this is missing Hadoop will fail to connect and raise an IO Exception with "Can't get Master Kerberos principal for use as renewer".</p>
-<div class="language-xml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cm">&lt;!--Properties in hdfs-site.xml--&gt;</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nt">&lt;property&gt;</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">&lt;name&gt;</span>yarn.resourcemanager.principal<span class="nt">&lt;/name&gt;</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">&lt;value&gt;</span>primary/instance@realm<span class="nt">&lt;/value&gt;</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nt">&lt;/property&gt;</span>
+<p>It has too much empty space to be very useful.</p>
+<p><img alt="Image title" src="../core.svg" /></p>
+<h3 id="using-the-depgraph-maven-plugin">Using the Depgraph Maven plugin</h3>
+<p>A much better tool for creating <code>.dot</code> files is the Depgraph Maven plugin. This creates graphs with optimised node positioning, better formatting and more options than the built-in plugin.</p>
+<p>The main options available are <code>showClassifiers</code>, <code>showDuplicates</code>, <code>showConflicts</code>, <code>showVersions</code>, <code>showGroupIds</code> &amp; <code>showTypes</code>. All of these options are disabled by default, but have been enabled in the Gaffer POM.</p>
+<p>It's important to note that this plugin does not have an equivalent to the verbose mode of <code>dependency:tree</code>, and it does not have a way to shown that a dependency's version has been changed using dependency management.</p>
+<p>For more info on the plugin, see the <a href="https://github.com/ferstl/depgraph-maven-plugin">Depgraph GitHub</a> and <a href="https://ferstl.github.io/depgraph-maven-plugin/graph-mojo.html">plugin docs</a>.</p>
+<p>An example is shown below. The <code>dot</code> tool is also <a href="https://graphviz.org/docs/layouts/dot/">part of Graphviz</a>.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>mvn<span class="w"> </span>depgraph:graph<span class="w"> </span>-pl<span class="w"> </span>:map-store<span class="w"> </span>-Dscope<span class="o">=</span>compile<span class="w"> </span>-DoutputDirectory<span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>dot<span class="w"> </span>-Tsvg<span class="w"> </span>dependency-graph.dot<span class="w"> </span>-o<span class="w"> </span>filename.svg
 </span></code></pre></div>
-<p>Note that the <code>core-site.xml</code> and <code>hdfs-site.xml</code> files are <strong>only</strong> required if <code>AddElementsFromHdfs</code> is going to be used. For Accumulo connections the Hadoop properties (from <code>core-site.xml</code>) used for enabling Kerberos are set automatically in Gaffer's connection code.</p>
-<h2 id="spark-accumulo-library">Spark Accumulo Library</h2>
-<p>The <a href="https://github.com/gchq/Gaffer/tree/master/library/spark">Spark Accumulo Library</a> has not yet been updated to support Kerberos. This prevents <a href="https://gchq.github.io/gaffer-doc/v1docs/getting-started/spark-operations/contents.html">Spark Operations</a> from being used with an <code>AccumuloStore</code> which has Kerberos authentication enabled. It is on the backlog for support to be added in future.</p>
-<h2 id="troubleshooting">Troubleshooting</h2>
-<p>Kerberos is not easy to configure and familiarity with Kerberos concepts is recommended. There are <a href="https://accumulo.apache.org/docs/2.x/security/kerberos#overview">some useful links to introductory information in the Accumulo Kerberos docs</a>.</p>
-<p>Improperly configured DNS will cause problems with Kerberos. Ensure all hostnames used in Principals resolved correctly, include reverse lookup. Due to how the system's hostname is used by the Hadoop Kerberos libraries, a mismatch between the configured hostname and the hostname resolved by a reverse lookup can prevent authentication from working correctly.</p>
-<p>Various environment variables can be set for debugging Kerberos, <a href="https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-common/SecureMode.html#Troubleshooting">see the Hadoop docs for more information</a>. These variables are applicable to Accumulo (<a href="https://accumulo.apache.org/docs/2.x/security/kerberos#debugging">see docs</a>) because its Kerberos implementation uses Hadoop libraries. The Gaffer logging level (set in <code>log4.xml</code>) should be increased to at least <code>INFO</code> when using these environment variables.</p>
+<p>The black dotted lines show duplicates and the red ones show conflicts which were ignored during dependency resolution.</p>
+<p><img alt="Image title" src="../map-store.svg" /></p>
+<p>It's also possible to create an aggregated graph of all dependencies in a project using <code>depgraph:aggregate</code> (which doesn't support showing duplicates or conflicts). For Gaffer this creates <a href="../gaffer-complete.svg">a very large image</a>.</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 18, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 26, 2023</span>
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 9, 2022</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 26, 2023</span>
       
     
   </small>

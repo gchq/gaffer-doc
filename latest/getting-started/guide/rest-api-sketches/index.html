@@ -759,6 +759,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../dev/managing-dependencies/" class="md-nav__link">
+        Managing Dependencies
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../dev/ways-of-working/" class="md-nav__link">
         Ways of Working
       </a>
@@ -1474,8 +1488,8 @@
 The sketches library is included with the Map and Accumulo stores. The 
 <a href="https://github.com/gchq/Gaffer/blob/v2-alpha/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/serialisation/json/SketchesJsonModules.java">SketchesJsonModules</a> 
 are returned in <code>String</code> format by the <code>getJsonSerialiserModules</code> method in the 
-<a href="https://github.com/gchq/Gaffer/blob/v2-alpha/store-implementation/map-store/src/main/java/uk/gov/gchq/gaffer/mapstore/MapStoreProperties.java">Map</a> 
-and <a href="https://github.com/gchq/Gaffer/blob/v2-alpha/store-implementation/accumulo-store/src/main/java/uk/gov/gchq/gaffer/accumulostore/AccumuloProperties.java">Accumulo</a> 
+<a href="https://github.com/gchq/Gaffer/blob/gaffer2-2.0.0/store-implementation/map-store/src/main/java/uk/gov/gchq/gaffer/mapstore/MapStoreProperties.java">Map</a> 
+and <a href="https://github.com/gchq/Gaffer/blob/gaffer2-2.0.0/store-implementation/accumulo-store/src/main/java/uk/gov/gchq/gaffer/accumulostore/AccumuloProperties.java">Accumulo</a> 
 property stores. The modules are then loaded by the <a href="https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/jsonserialisation/JSONSerialiser.html">JSONSerialiser</a> 
 and used during the deserialisation of the REST JSON queries.</p>
 <h2 id="hyperloglogplus">HyperLogLogPlus</h2>
@@ -1484,7 +1498,7 @@ cardinality of an element. The <code>JSON</code> of the query is converted to <c
 <code>objects</code> during desialisation using the <code>JSONSerialiser</code>. During the 
 deserialisation the <code>HyperLogLogPlus</code> JSON representation is converted to a 
 <code>HyperLogLogPlus</code> Java object using the <code>ObjectMapper</code> module which uses the 
-<a href="https://github.com/gchq/Gaffer/blob/v2-alpha/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/serialisation/json/HyperLogLogPlusJsonDeserialiser.java">HyperLogLogPlusJsonDeserialiser</a>. 
+<a href="https://github.com/gchq/Gaffer/blob/gaffer2-2.0.0/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/serialisation/json/HyperLogLogPlusJsonDeserialiser.java">HyperLogLogPlusJsonDeserialiser</a>. 
 In order to convert the <code>offer</code> values (which are offered to the 
 <code>HyperLogLogPlus</code> on instantiation) to <code>Java</code> objects, the <code>JSON</code> values 
 need to contain the special <code>string</code> field <strong>class</strong> containing the class name 
@@ -1506,7 +1520,7 @@ to <code>Gaffer</code> or by adding a <code>JAR</code> with the extra type(s) to
 classpath on startup.</p>
 </details>
 <p>The <code>HyperLogLogPlusJsonDesialiser</code> deserialises from <code>JSON</code> to <code>Java</code> using the 
-<a href="https://github.com/gchq/Gaffer/blob/v2-alpha/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/serialisation/json/HyperLogLogPlusWithOffers.java">HyperLogLogPlusWithOffers</a> 
+<a href="https://github.com/gchq/Gaffer/blob/gaffer2-2.0.0/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/serialisation/json/HyperLogLogPlusWithOffers.java">HyperLogLogPlusWithOffers</a> 
 object. The <code>HyperLogLogPlusWithOffers</code> includes the following annotation on 
 the <code>List</code> field: </p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = &quot;class&quot;)
@@ -1606,7 +1620,7 @@ to Java objects.</p>
 converting to <code>JSON</code> and sending via <code>REST</code>, you need ensure that the <code>offer</code> 
 objects are translated to <code>JSON</code> with the correct <code>class</code> field added. 
 To make sure of this, you could add the <code>sketches-library</code> JAR and use the 
-<a href="https://github.com/gchq/Gaffer/blob/v2-alpha/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/serialisation/json/HyperLogLogPlusWithOffers.java">HyperLogLogPlusWithOffers</a> 
+<a href="https://github.com/gchq/Gaffer/blob/gaffer2-2.0.0/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/serialisation/json/HyperLogLogPlusWithOffers.java">HyperLogLogPlusWithOffers</a> 
 object to construct your query. This way you know that all the objects have the 
 correct field added. You can then convert the <code>HyperLogLogPlusWithOffers</code> to 
 JSON using the 
@@ -1650,7 +1664,7 @@ well as the <code>@Override</code> of the <code>toString</code> method:</p>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 18, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 6, 2023</span>
       
         <br>
         Created:
