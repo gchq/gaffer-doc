@@ -4,7 +4,7 @@ This page contains information on changes to the Accumulo/Hadoop versions suppor
 
 ## Accumulo 2 & Hadoop 3 become default versions
 
-From the `2.0.0-alpha-3` release of Gaffer, the default version of Accumulo has been upgraded to [Accumulo 2.0.1](https://accumulo.apache.org/release/accumulo-2.0.1/). Hadoop has also been upgraded to the latest version (currently 3.3.3). This is because Hadoop 2.x is not compatible with Accumulo 2.
+From the `2.0.0-alpha-0.3` release of Gaffer, the default version of Accumulo has been upgraded to [Accumulo 2.0.1](https://accumulo.apache.org/release/accumulo-2.0.1/). Hadoop has also been upgraded to the latest version (currently 3.3.3). This is because Hadoop 2.x is not compatible with Accumulo 2.
 
 ## Retained support for Accumulo 1 & Hadoop 2
 

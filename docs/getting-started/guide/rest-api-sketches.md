@@ -8,8 +8,8 @@ To learn more about the Sketches library see [advanced properties](../../referen
 The sketches library is included with the Map and Accumulo stores. The 
 [SketchesJsonModules](https://github.com/gchq/Gaffer/blob/v2-alpha/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/serialisation/json/SketchesJsonModules.java) 
 are returned in `String` format by the `getJsonSerialiserModules` method in the 
-[Map](https://github.com/gchq/Gaffer/blob/v2-alpha/store-implementation/map-store/src/main/java/uk/gov/gchq/gaffer/mapstore/MapStoreProperties.java) 
-and [Accumulo](https://github.com/gchq/Gaffer/blob/v2-alpha/store-implementation/accumulo-store/src/main/java/uk/gov/gchq/gaffer/accumulostore/AccumuloProperties.java) 
+[Map](https://github.com/gchq/Gaffer/blob/gaffer2-2.0.0/store-implementation/map-store/src/main/java/uk/gov/gchq/gaffer/mapstore/MapStoreProperties.java) 
+and [Accumulo](https://github.com/gchq/Gaffer/blob/gaffer2-2.0.0/store-implementation/accumulo-store/src/main/java/uk/gov/gchq/gaffer/accumulostore/AccumuloProperties.java) 
 property stores. The modules are then loaded by the [JSONSerialiser](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/jsonserialisation/JSONSerialiser.html) 
 and used during the deserialisation of the REST JSON queries.
 
@@ -20,7 +20,7 @@ cardinality of an element. The `JSON` of the query is converted to `Java`
 `objects` during desialisation using the `JSONSerialiser`. During the 
 deserialisation the `HyperLogLogPlus` JSON representation is converted to a 
 `HyperLogLogPlus` Java object using the `ObjectMapper` module which uses the 
-[HyperLogLogPlusJsonDeserialiser](https://github.com/gchq/Gaffer/blob/v2-alpha/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/serialisation/json/HyperLogLogPlusJsonDeserialiser.java). 
+[HyperLogLogPlusJsonDeserialiser](https://github.com/gchq/Gaffer/blob/gaffer2-2.0.0/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/serialisation/json/HyperLogLogPlusJsonDeserialiser.java). 
 In order to convert the `offer` values (which are offered to the 
 `HyperLogLogPlus` on instantiation) to `Java` objects, the `JSON` values 
 need to contain the special `string` field **class** containing the class name 
@@ -41,7 +41,7 @@ representation of the object.
     classpath on startup.
 
 The `HyperLogLogPlusJsonDesialiser` deserialises from `JSON` to `Java` using the 
-[HyperLogLogPlusWithOffers](https://github.com/gchq/Gaffer/blob/v2-alpha/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/serialisation/json/HyperLogLogPlusWithOffers.java) 
+[HyperLogLogPlusWithOffers](https://github.com/gchq/Gaffer/blob/gaffer2-2.0.0/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/serialisation/json/HyperLogLogPlusWithOffers.java) 
 object. The `HyperLogLogPlusWithOffers` includes the following annotation on 
 the `List` field: 
 
@@ -143,7 +143,7 @@ If you are composing the `HyperLogLogPlus` with offers using `Java` before
 converting to `JSON` and sending via `REST`, you need ensure that the `offer` 
 objects are translated to `JSON` with the correct `class` field added. 
 To make sure of this, you could add the `sketches-library` JAR and use the 
-[HyperLogLogPlusWithOffers](https://github.com/gchq/Gaffer/blob/v2-alpha/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/serialisation/json/HyperLogLogPlusWithOffers.java) 
+[HyperLogLogPlusWithOffers](https://github.com/gchq/Gaffer/blob/gaffer2-2.0.0/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/serialisation/json/HyperLogLogPlusWithOffers.java) 
 object to construct your query. This way you know that all the objects have the 
 correct field added. You can then convert the `HyperLogLogPlusWithOffers` to 
 JSON using the 
