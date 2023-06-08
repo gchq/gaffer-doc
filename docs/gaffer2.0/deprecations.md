@@ -14,66 +14,266 @@ It is essential to migrate data stored using deprecated serialisers. Simply repl
 ### Preservation of ordering
 When using an ordered store (such as Accumulo), all serialisers used on vertices must preserve order. As such, `compactRaw` serialisers (which do not preserve order) cannot be used on vertices in ordered stores.
 
-However, when preserving order is not required, such as for properties, `compactRaw` serialisers are the most effective solution and should always be used. Using an ordered serialiser on a property would reduce performance without providing any benefit. [See the schemas documentation for more detail](https://gchq.github.io/gaffer-doc/v1docs/getting-started/developer-guide/schemas.html#serialisers).
+However, when preserving order is not required, such as for properties, `CompactRaw` serialisers are the most effective solution and should always be used. Using an ordered serialiser on a property would reduce performance without providing any benefit. [See the schemas documentation for more detail](https://gchq.github.io/gaffer-doc/v1docs/getting-started/developer-guide/schemas.html#serialisers).
 
-#### [`serialisation.implementation.raw.RawDateSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/implementation/raw/RawDateSerialiser.java)
-- This class has been removed.
-- Use `uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedDateSerialiser` instead - note that this will preserve order.
+### Removed Serialisers
 
-#### [`serialisation.DateSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/DateSerialiser.java)
-- This has been removed.
-- Use `uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedDateSerialiser` instead - note that this will preserve order. This doesn't implement `.deserialiseString(String)`, instead use `new Date(Long.parseLong(value))` in place of this.
+#### [`serialisation.implementation.raw.RawDateSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/implementation/raw/RawDateSerialiser.java) and [`serialisation.DateSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/DateSerialiser.java)
+Use `uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedDateSerialiser` instead - note that this will preserve order. Neither of these replacement serialisers implement `.deserialiseString(String)`, instead use `new Date(Long.parseLong(String))` in place of this.
 
-#### [`serialisation.implementation.raw.RawDoubleSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/implementation/raw/RawDoubleSerialiser.java)
-- This has been removed.
-- Use `uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedDoubleSerialiser` instead - note that this will preserve order.
+#### [`serialisation.implementation.raw.RawDoubleSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/implementation/raw/RawDoubleSerialiser.java) and [`serialisation.DoubleSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/DoubleSerialiser.java)
+Use `uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedDoubleSerialiser` instead - note that this will preserve order. Neither of these replacement serialisers implement `.deserialiseString(String)`, instead use `Double.parseDouble(String)` in place of this.
 
-#### [`serialisation.DoubleSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/DoubleSerialiser.java)
-- This has been removed.
-- Use `uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedDoubleSerialiser` instead - note that this will preserve order. This doesn't implement `.deserialiseString(String)`, instead use `Double.parseDouble(value)` in place of this.
+#### [`serialisation.implementation.raw.RawFloatSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/implementation/raw/RawFloatSerialiser.java) and [`serialisation.FloatSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/FloatSerialiser.java)
+Use `uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedFloatSerialiser` instead - note that this will preserve order.
 
-#### [`serialisation.implementation.raw.RawFloatSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/implementation/raw/RawFloatSerialiser.java)
-- This has been removed.
-- Use `uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedFloatSerialiser` instead - note that this will preserve order.
+#### [`serialisation.IntegerSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/IntegerSerialiser.java) and [`serialisation.implementation.raw.RawIntegerSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/implementation/raw/RawIntegerSerialiser.java)
+Use `uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedIntegerSerialiser` instead if you need order preserved (e.g. vertex types). If object ordering definitely does **not** need to be preserved (e.g. only property types), `uk.gov.gchq.gaffer.serialisation.implementation.raw.CompactRawIntegerSerialiser` should be used instead. Neither of these replacement serialisers implement `.deserialiseString(String)`, instead use `Integer.parseInt(String)` in place of this.
 
-#### [`serialisation.FloatSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/FloatSerialiser.java)
-- This has been removed.
-- Use `uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedFloatSerialiser` instead - note that this will preserve order.
+#### [`serialisation.LongSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/LongSerialiser.java) and [`serialisation.implementation.raw.RawLongSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/implementation/raw/RawLongSerialiser.java)
+Use `uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedLongSerialiser` instead if you need order preserved (e.g. vertex types). If object ordering definitely does **not** need to be preserved (e.g. only property types), `uk.gov.gchq.gaffer.serialisation.implementation.raw.CompactRawLongSerialiser` could also be used instead.
 
-#### [`serialisation.IntegerSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/IntegerSerialiser.java)
-- This has been removed.
-- Use `uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedIntegerSerialiser` instead, this will preserve order.
-- If object ordering does **not** need to be preserved, `uk.gov.gchq.gaffer.serialisation.implementation.raw.CompactRawIntegerSerialiser` could also be used instead.
-- Neither of these implement `.deserialiseString(String)`, instead use `Integer.parseInt(value)` in place of this.
-
-#### [`serialisation.implementation.raw.RawIntegerSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/implementation/raw/RawIntegerSerialiser.java)
-- This has been removed.
-- Use `uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedIntegerSerialiser` instead, this will preserve order.
-- If object ordering does **not** need to be preserved, `uk.gov.gchq.gaffer.serialisation.implementation.raw.CompactRawIntegerSerialiser` should instead be used.
-
-#### [`serialisation.LongSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/LongSerialiser.java)
-- This has been removed.
-- Use `uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedLongSerialiser` instead, this will preserve order.
-- If object ordering does **not** need to be preserved, `uk.gov.gchq.gaffer.serialisation.implementation.raw.CompactRawLongSerialiser` could also be used instead.
-
-#### [`serialisation.implementation.raw.RawLongSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/implementation/raw/RawLongSerialiser.java)
-- This has been removed.
-- Use `uk.gov.gchq.gaffer.serialisation.implementation.ordered.OrderedLongSerialiser` instead, this will preserve order.
-- If object ordering does **not** need to be preserved, `uk.gov.gchq.gaffer.serialisation.implementation.raw.CompactRawLongSerialiser` should instead be used.
-
-#### [`serialisation.ToBytesSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/ToBytesSerialiser.java)
-- The method `deserialise(byte[])` has been marked as deprecated. It cannot be deleted as it is needed to implement the Serialiser interface.
-- It is recommended for speed/performance to use the other implementation with an offset and a length - `deserialise(byte[], int, int)`.
-
-#### [`serialisation.ToBytesViaStringDeserialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/ToBytesViaStringDeserialiser.java)
-- The method `deserialise(byte[])` has been marked as deprecated. It cannot be deleted as it is needed to implement the Serialiser interface.
-- It is recommended for speed/performance to use the other implementation with an offset and a length - `deserialise(byte[], int, int)`.
+### Changed Serialisers
+#### [`serialisation.ToBytesSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/ToBytesSerialiser.java) and [`serialisation.ToBytesViaStringDeserialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/serialisation/ToBytesViaStringDeserialiser.java)
+In both serialisers, the method `deserialise(byte[])` has been marked as deprecated. It cannot be deleted as it is needed to implement the Serialiser interface. It is recommended for speed/performance to use the other implementation with an offset and a length: `deserialise(byte[], int, int)`.
 
 ## Removal of Seed Matching
 
 ### [`operation.SeedMatching`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/operation/src/main/java/uk/gov/gchq/gaffer/operation/SeedMatching.java)
-- This class has been removed.
-- Use a View instead. See the [Gaffer v1 docs](https://gchq.github.io/gaffer-doc/v1docs/getting-started/user-guide/filtering.html#seedmatching) for more detail on how to replace seed matching with a view.
+SeedMatching has been removed from Gaffer. This was previously used in [get](../reference/operations-guide/get.md) operations, like [`GetElements`](../reference/operations-guide/get.md#getelements), to select whether you wanted your results to contain only Elements that are the same type as the seed, or both Edges and Entities. For more info, see the Gaffer 1.X docs page on [SeedMatching](https://gchq.github.io/gaffer-doc/v1docs/getting-started/user-guide/filtering.html#seedmatching). As described in the Gaffer 1.X docs, `SeedMatching` can be replaced with a `View`. The default behaviour in Gaffer is the same as if you used `seed_matching="RELATED"`, so **if this is the case, there is no migration required**. However, if you used `seed_matching="EQUAL"`, you will need to migrate to a `View`.
+??? example "SeedMatching migration with EdgeSeeds"
+
+    Where SeedMatching was used to only get back Edges from EdgeSeeds
+
+    === "Java"
+
+        ``` java
+        final GetElements getEdgesWithSeedMatching = new GetElements.Builder()
+                .input(new EdgeSeed("source", "dest", true))
+                .seedMatching(SeedMatching.SeedMatchingType.EQUAL)
+                .build();
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+            "class" : "GetElements",
+            "input" : [ {
+                "class" : "EdgeSeed",
+                "source" : "source",
+                "destination" : "dest",
+                "matchedVertex" : "SOURCE",
+                "directedType" : "DIRECTED"
+            } ],
+            "seedMatching" : "EQUAL"
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+        g.GetElements(
+            input=[
+                g.EdgeSeed(
+                    source="source",
+                    destination="dest",
+                    directed_type="DIRECTED",
+                    matched_vertex="SOURCE"
+                )
+            ],
+            seed_matching="EQUAL"
+        )
+        ```
+
+    You should instead specify that in a View
+
+    === "Java"
+
+        ``` java
+        final GetElements getEdgesWithoutSeedMatching = new GetElements.Builder()
+                .input(new EdgeSeed("source", "dest", true))
+                .view(new View.Builder()
+                        .edge("relevantEdgeGroup")
+                        .build())
+                .build();
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+            "class" : "GetElements",
+            "input" : [ {
+                "class" : "EdgeSeed",
+                "source" : "source",
+                "destination" : "dest",
+                "matchedVertex" : "SOURCE",
+                "directedType" : "DIRECTED"
+            } ],
+            "view" : {
+                "edges" : {
+                    "relevantEdgeGroup" : { }
+                }
+            }
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+        g.GetElements(
+            input=[
+                g.EdgeSeed(
+                    source="source",
+                    destination="dest",
+                    directed_type="DIRECTED",
+                    matched_vertex="SOURCE"
+                )
+            ],
+            view=g.View(
+                edges=[g.ElementDefinition(group="relevantEdgeGroup")]
+            )
+        )
+        ```
+
+??? example "SeedMatching migration with EntitySeeds"
+
+    Where SeedMatching was used to only get back Entities from EntitySeeds
+
+    === "Java"
+
+        ``` java
+        final GetElements getEntitiesWithSeedMatching = new GetElements.Builder()
+                .input(new EntitySeed("vertex"))
+                .seedMatching(SeedMatching.SeedMatchingType.EQUAL)
+                .build();
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+            "class" : "GetElements",
+            "input" : [ {
+                "class" : "EntitySeed",
+                "vertex" : "vertex"
+            } ],
+            "seedMatching" : "EQUAL"
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+        g.GetElements(
+            input=[
+                g.EntitySeed(
+                    vertex="vertex"
+                )
+            ],
+            seed_matching="EQUAL"
+        )
+        ```
+
+    You should instead specify that in a View
+
+    === "Java"
+
+        ``` java
+        final GetElements getEntitiesWithoutSeedMatching = new GetElements.Builder()
+                .input(new EntitySeed("vertex"))
+                .view(new View.Builder()
+                        .entity("relevantEntityGroup")
+                        .build())
+                .build();
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+            "class" : "GetElements",
+            "input" : [ {
+                "class" : "EntitySeed",
+                "vertex" : "vertex"
+            } ],
+            "view" : {
+                "entities" : {
+                    "relevantEntityGroup" : { }
+                }
+            }
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+        g.GetElements(
+            input=[
+                g.EntitySeed(
+                    vertex="vertex"
+                )
+            ],
+            view=g.View(
+                entities=[g.ElementDefinition(group="relevantEntityGroup")]
+            )
+        )
+        ```
+
+??? example "SeedMatching migration with EdgeSeeds and EntitySeeds"
+
+    Where SeedMatching was used to only get back only Edges from the provided EdgeSeeds and only Entities from the provided EntitySeeds
+
+    === "Java"
+
+        ``` java
+        final GetElements getBothWithSeedMatching = new GetElements.Builder()
+                .input(new EntitySeed("vertex"), new EdgeSeed("source", "dest", true))
+                .seedMatching(SeedMatching.SeedMatchingType.EQUAL)
+                .build();
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+            "class" : "GetElements",
+            "input" : [ {
+                "class" : "EntitySeed",
+                "vertex" : "vertex"
+            }, {
+                "class" : "EdgeSeed",
+                "source" : "source",
+                "destination" : "dest",
+                "matchedVertex" : "SOURCE",
+                "directedType" : "DIRECTED"
+            } ],
+            "seedMatching" : "EQUAL"
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+        g.GetElements(
+            input=[
+                g.EntitySeed(
+                    vertex="vertex"
+                ),
+                g.EdgeSeed(
+                    source="source",
+                    destination="dest",
+                    directed_type="DIRECTED",
+                    matched_vertex="SOURCE"
+                )
+            ],
+            seed_matching="EQUAL"
+        )
+        ```
+
+    You will instead need to perform multiple Operations and combine the results. To perform the above operation, you would have to combine both previous examples.
+
 
 ## Changes to Store Traits
 
@@ -96,19 +296,34 @@ However, when preserving order is not required, such as for properties, `compact
 ### [`accumulostore.MockAccumuloStore`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/store-implementation/accumulo-store/src/main/java/uk/gov/gchq/gaffer/accumulostore/MockAccumuloStore.java)
 - This class has been removed.
 - For in memory graphs, use `uk.gov.gchq.gaffer.mapstore.MapStore` instead.
-- For tests use `uk.gov.gchq.gaffer.accumulostore.MiniAccumuloStore` instead.
+- For Accumulo specific store tests, use `uk.gov.gchq.gaffer.accumulostore.MiniAccumuloStore` instead.
 
 ### [`commonutil.TestTypes`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/common-util/src/test/java/uk/gov/gchq/gaffer/commonutil/TestTypes.java)
 - This class has been removed.
 - Use the equivalent `TestTypes` class in the store module `uk.gov.gchq.gaffer.store.TestTypes` instead.
 
 ### [`data.elementdefinition.view.NamedViewDetail`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/data/src/main/java/uk/gov/gchq/gaffer/data/elementdefinition/view/NamedViewDetail.java)
-- The method `hasWriteAccess(final String userId, final Set<String> opAuths, final String adminAuth)` has been removed.
-- Use `hasWriteAccess(final User user, final String adminAuth)` instead.
+- The method `hasWriteAccess(String userId, Set<String> opAuths, String adminAuth)` has been removed.
+- Use `hasWriteAccess(User user, String adminAuth)` instead.
 
 ### [`data.elementdefinition.view.ViewElementDefinition`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/data/src/main/java/uk/gov/gchq/gaffer/data/elementdefinition/view/ViewElementDefinition.java)
-- The method `setAggregator(final ElementAggregator aggregator)` has been removed.
+- The method `setAggregator(ElementAggregator aggregator)` has been removed.
 - A `ViewElementDefinition` should be constructed using the builder `uk.gov.gchq.gaffer.data.elementdefinition.view.ViewElementDefinition.Builder` instead.
+
+??? example
+
+    Where `setAggregator` was used previously
+    ``` java
+    final ViewElementDefinition elementDef = new ViewElementDefinition();
+    elementDef.setAggregator(myElementAggregator);
+    ```
+
+    You should now use the Builder
+    ``` java
+    final ViewElementDefinition elementDef = new ViewElementDefinition.Builder()
+            .aggregator(myElementAggregator)
+            .build();
+    ```
 
 ### [`federatedstore.FederatedAccess`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/store-implementation/federated-store/src/main/java/uk/gov/gchq/gaffer/federatedstore/FederatedAccess.java)
 - The method `isAddingUser(User)` has been removed.
@@ -130,12 +345,59 @@ However, when preserving order is not required, such as for properties, `compact
     - `addGraphs(FederatedAccess access, GraphSerialisable... graphs)`
 
 ### [`federatedstore.operation.RemoveGraph`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/store-implementation/federated-store/src/main/java/uk/gov/gchq/gaffer/federatedstore/operation/RemoveGraph.java)
-- The method `Builder.setGraphId(final String graphId)` has been removed.
-- Use `Builder.graphId(final String graphId)` which has identical behaviour instead.
+- The method `Builder.setGraphId(String graphId)` has been removed.
+- Use `Builder.graphId(String graphId)` which has identical behaviour instead.
+
+??? example
+
+    Where `Builder.setGraphId` was used previously
+    ``` java
+    final RemoveGraph removeGraphOp = new RemoveGraph.Builder()
+            .setGraphId("myGraph")
+            .build();
+    ```
+
+    You should now use `Builder.graphId`
+    ``` java
+    final RemoveGraph removeGraphOp = new RemoveGraph.Builder()
+            .graphId("myGraph")
+            .build();
+    ```
 
 ### [`graph.Graph`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/graph/src/main/java/uk/gov/gchq/gaffer/graph/Graph.java)
 - The methods `Builder.graphId`, `Builder.library`, `Builder.view`, `Builder.addHook`, `Builder.addHooks` have all been removed in all forms.
 - Instead of using these methods, use `.config()` to set the `graphConfig`.
+
+??? example
+
+    Where the graph config was added using the `Graph.Builder` before
+    ``` java
+    final Graph myGraph = new Graph.Builder()
+            .graphId("myGraph")
+            .library(myGraphLibrary)
+            .view(myView)
+            .addHook(customHook)
+            .addSchema(mySchema)
+            .storeProperties(storeProperties)
+            .build();
+    ```
+
+    You should now use the `GraphConfig.Builder`
+    ``` java
+    final Graph myGraph = new Graph.Builder()
+            .config(new GraphConfig.Builder()
+                    .graphId("myGraph")
+                    .library(myGraphLibrary)
+                    .view(myView)
+                    .addHook(customHook)
+                    .build()) 
+            .addSchema(mySchema) // (1)
+            .storeProperties(storeProperties) // (2)
+            .build();
+    ```
+
+    1. Schemas are not part of the GraphConfig
+    2. StoreProperties are not part of the GraphConfig
 
 ### [`hdfs.operation.MapReduce`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/library/hdfs-library/src/main/java/uk/gov/gchq/gaffer/hdfs/operation/MapReduce.java)
 - The methods `getNumReduceTasks()` and `setNumReduceTasks(Integer)` have been removed.
@@ -155,11 +417,11 @@ However, when preserving order is not required, such as for properties, `compact
 - `getUserId` and `setUserId` have also been removed. For getting the `UserId`, `getUser().getUserId()` can be used instead. See the [Javadoc for User](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/user/User.html#getUserId--).
 
 ### [`jsonserialisation.JSONSerialiser`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/serialisation/src/main/java/uk/gov/gchq/gaffer/jsonserialisation/JSONSerialiser.java)
-- The method `update(final String jsonSerialiserClass, final String jsonSerialiserModules)` has been removed.
-- Use `update(final String jsonSerialiserClass, final String jsonSerialiserModules, final Boolean strictJson)` instead. Passing `strictJson` as `null` will result in the same behaviour.
+- The method `update(String jsonSerialiserClass, String jsonSerialiserModules)` has been removed.
+- Use `update(String jsonSerialiserClass, String jsonSerialiserModules, Boolean strictJson)` instead. Passing `strictJson` as `null` will result in the same behaviour.
 
 ### [`operation.Operation`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/operation/src/main/java/uk/gov/gchq/gaffer/operation/Operation.java)
-- The method `asOperationChain(final Operation operation)` has been removed.
+- The method `asOperationChain(Operation operation)` has been removed.
 - Use `OperationChain.wrap` with the `Operation` instead.
 
 ### [`operation.impl.GetWalks`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/operation/src/main/java/uk/gov/gchq/gaffer/operation/impl/GetWalks.java)
@@ -171,8 +433,8 @@ However, when preserving order is not required, such as for properties, `compact
 - It is replaced by `SplitStoreFromFile` which is identical except in name.
 
 ### [`operation.impl.join.methods.JoinFunction`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/operation/src/main/java/uk/gov/gchq/gaffer/operation/impl/join/methods/JoinFunction.java)
-- The method `join(final Iterable keys, final String keyName, final String matchingValuesName, final Match match, final Boolean flatten)` which was not implemented has been removed.
- 
+- The method `join(Iterable keys, String keyName, String matchingValuesName, Match match, Boolean flatten)` which was not implemented has been removed.
+
 ### [`rest.SystemProperty`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/rest-api/common-rest/src/main/java/uk/gov/gchq/gaffer/rest/SystemProperty.java)
 - `GRAPH_ID`, `GRAPH_HOOKS_PATH`, `GRAPH_LIBRARY_PATH` and `GRAPH_LIBRARY_CONFIG` have been removed.
 - These config options have been removed in favour of providing a `graphConfig` JSON and using `GRAPH_CONFIG_PATH` instead.
@@ -182,13 +444,14 @@ However, when preserving order is not required, such as for properties, `compact
 - It is replaced by `uk.gov.gchq.gaffer.rest.factory.ExamplesFactory`, which can be used instead.
 
 ### [`store.StoreProperties`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/store/src/main/java/uk/gov/gchq/gaffer/store/StoreProperties.java)
-- Store ID (`gaffer.store.id`) and related methods (`getId()` + `setId(String)`) have been removed.
-- The ID is instead set in `GraphLibrary` when adding (with `add`) the `StoreProperties`.
+- StoreProperties ID (`gaffer.store.id`) and related methods (`getId()`, `setId(String)`) have been removed.
+- The ID of the store properties is instead directly set in the `GraphLibrary` when adding the `StoreProperties` with `GraphLibrary.add(String graphId, String schemaId, Schema schema, String propertiesId, StoreProperties properties)`.
 - See the [Javadoc for GraphLibrary](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/library/GraphLibrary.html) for more detail.
+- If you aren't using a `GraphLibrary`, this change shouldn't effect you as store properties ID is only used in `GraphLibrary`.
 
 ### [`store.Context`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/store/src/main/java/uk/gov/gchq/gaffer/store/Context.java)
-- The private constructor `Context(final User user, final Map<String, Object> config, final String jobId)` has been removed; along with the `jobId(String)` method.
-- Use `Context(final User user, final Map<String, Object> config)` instead. This does not support supplying the Job ID, this will be set automatically. To get the Job ID use `.getJobId()`.
+- The private constructor `Context(User user, Map<String, Object> config, String jobId)` has been removed; along with the `jobId(String)` method.
+- Use `Context(User user, Map<String, Object> config)` instead. This does not support supplying the Job ID, this will be set automatically. To get the Job ID use `.getJobId()`.
 
 ### [`store.schema.TypeDefinition`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/store/src/main/java/uk/gov/gchq/gaffer/store/schema/TypeDefinition.java)
 - The method `getSerialiserClass()` has been removed. Instead, use `getSerialiser()` with `.getClass()` and related methods.
@@ -200,18 +463,18 @@ However, when preserving order is not required, such as for properties, `compact
 - The method `getVertexSerialiserClass()` has been removed. It can be replaced by calling `vertexSerialiser.getClass()` and converting the result as appropriate, e.g. `getVertexSerialiserClass()` used `SimpleClassNameIdResolver.getSimpleClassName(vertexSerialiser.getClass())`.
 
 ### [`store.library.GraphLibrary`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/store/src/main/java/uk/gov/gchq/gaffer/store/library/GraphLibrary.java)
-- The method `addSchema(final Schema schema)` has been removed. Use `addSchema(final String id, final Schema schema)` instead.
-- The method `addProperties(final StoreProperties properties)` has been removed. Use `addProperties(final String id, final StoreProperties properties)` instead.
-- Both of these now require the schema ID to be supplied.
+- The method `addSchema(Schema schema)` has been removed. Use `addSchema(String id, Schema schema)` instead.
+- The method `addProperties(StoreProperties properties)` has been removed. Use `addProperties(String id, StoreProperties properties)` instead.
+- Both of these now require the ID to be supplied.
 
 ### [`store.operation.OperationChainValidator`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/store/src/main/java/uk/gov/gchq/gaffer/store/operation/OperationChainValidator.java)
-- The method `validateViews(final Operation op, final ValidationResult validationResult, final Schema schemaNotUsed, final Store store)` has been removed. Use `validateViews(final Operation op, final User user, final Store store, final ValidationResult validationResult)` instead, passing `user` as `null` will result in the same behaviour.
-- The method `validateComparables(final Operation op, final ValidationResult validationResult, final Schema schemaNotUsed, final Store store)` has been removed. Use `validateComparables(final Operation op, final User user, final Store store, final ValidationResult validationResult)` instead, passing `user` as `null` will result in the same behaviour.
+- The method `validateViews(Operation op, ValidationResult validationResult, Schema schemaNotUsed, Store store)` has been removed. Use `validateViews(Operation op, User user, Store store, ValidationResult validationResult)` instead, passing `user` as `null` will result in the same behaviour.
+- The method `validateComparables(Operation op, ValidationResult validationResult, Schema schemaNotUsed, Store store)` has been removed. Use `validateComparables(Operation op, User user, Store store, ValidationResult validationResult)` instead, passing `user` as `null` will result in the same behaviour.
 
 ### [`store.operation.handler.named.cache.NamedViewCache`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/store/src/main/java/uk/gov/gchq/gaffer/store/operation/handler/named/cache/NamedViewCache.java)
-- The method `deleteNamedView(final String name)` has been removed. Use `deleteNamedView(final String name, final User user)` instead, passing `user` as `null` will result in the same behaviour.
-- The method `getNamedView(final String name)` has been removed. Use `getNamedView(final String name, final User user)` instead.
-- The method `getAllNamedViews()` has been removed. Use `getAllNamedViews(final User user)` instead.
+- The method `deleteNamedView(String name)` has been removed. Use `deleteNamedView(String name, User user)` instead, passing `user` as `null` will result in the same behaviour.
+- The method `getNamedView(String name)` has been removed. Use `getNamedView(String name, User user)` instead.
+- The method `getAllNamedViews()` has been removed. Use `getAllNamedViews(User user)` instead.
 
 ### [`types.IntegerFreqMap`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/type/src/main/java/uk/gov/gchq/gaffer/types/IntegerFreqMap.java)
 - This class has been removed.

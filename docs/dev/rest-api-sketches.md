@@ -8,10 +8,10 @@ use cardinality, see the [cardinality](../getting-started/guide/cardinality.md) 
 To learn more about the Sketches library see [advanced properties](../../reference/properties-guide/advanced.md) reference page. 
 The sketches library is included by default with the Map and Accumulo stores. This is because the `sketches-library` is a dependency in each of
 the respective store modules' poms. As well as this, the serialisation is handled by the fact the 
-[SketchesJsonModules](https://github.com/gchq/Gaffer/blob/v2-alpha/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/serialisation/json/SketchesJsonModules.java) 
+[SketchesJsonModules](https://github.com/gchq/Gaffer/blob/gaffer2-2.0.0/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/serialisation/json/SketchesJsonModules.java) 
 is returned by the `getJsonSerialiserModules` method in both the 
-[Map](https://github.com/gchq/Gaffer/blob/a91ce4cd1e04dd0a2dfdf9633b513768fccd3507/store-implementation/map-store/src/main/java/uk/gov/gchq/gaffer/mapstore/MapStoreProperties.java#L127) 
-and [Accumulo](https://github.com/gchq/Gaffer/blob/a91ce4cd1e04dd0a2dfdf9633b513768fccd3507/store-implementation/accumulo-store/src/main/java/uk/gov/gchq/gaffer/accumulostore/AccumuloProperties.java#L468) 
+[Map](https://github.com/gchq/Gaffer/blob/gaffer2-2.0.0/store-implementation/map-store/src/main/java/uk/gov/gchq/gaffer/mapstore/MapStoreProperties.java#L127) 
+and [Accumulo](https://github.com/gchq/Gaffer/blob/gaffer2-2.0.0/store-implementation/accumulo-store/src/main/java/uk/gov/gchq/gaffer/accumulostore/AccumuloProperties.java#L468) 
 property classes. The modules are then loaded by the [JSONSerialiser](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/jsonserialisation/JSONSerialiser.html) 
 and used during the deserialisation of the REST JSON queries.
 
