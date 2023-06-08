@@ -54,11 +54,12 @@ nav:
       - 'Gaffer Guide':
         - 'Gaffer Guide': 'getting-started/guide/guide.md'
         - 'CSV Import and Export': 'getting-started/guide/csv.md'
-        - 'Sketches with the REST API': 'getting-started/guide/rest-api-sketches.md'
+        - 'Cardinality': 'getting-started/guide/cardinality.md'
       - 'Deploying Gaffer': 'getting-started/deploying.md'
     - 'Dev Info':
       - 'Development': 'dev/development.md'
       - 'Ways of Working': 'dev/ways-of-working.md'
+      - 'Sketches custom deserialisation': 'dev/rest-api-sketches.md'
     - 'Reference':
       - 'Reference Guide': 'reference/intro.md'
       - Properties:
