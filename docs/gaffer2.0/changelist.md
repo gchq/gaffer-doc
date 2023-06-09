@@ -109,13 +109,13 @@ This will mean subgraphs added to FederatedStores can have additional operation 
     {
         "class": "AddGraph",
         "graphId": "myGraph",
-        "schema": {}, // (1)
+        "schema": {}, // (1)!
         "storeProperties": {
             "gaffer.store.class": "MapStore",
             "gaffer.store.operation.declarations.json": {
                 "operations": [
                     {
-                        "operation": "ImportFromLocalFile", // (2)
+                        "operation": "ImportFromLocalFile", // (2)!
                         "handler": {
                             "class": "ImportFromLocalFileHandler"
                         }

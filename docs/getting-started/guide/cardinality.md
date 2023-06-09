@@ -69,16 +69,17 @@ Adding a cardinality entity between vertex 'A' and 'B' using `AddElements`. For 
 === "Java"
 
     ``` java
-    final HllSketch hll = new HllSketch(10); // (1)
-    hll.update("B"); // (2)
+    final HllSketch hll = new HllSketch(10); // (1)!
+    hll.update("B"); // (2)!
     new AddElements.Builder()
                 .input(new Entity.Builder()
                                 .group("cardinality")
                                 .vertex("A")
-                                .property("approxCardinality", hll) // (3)
+                                .property("approxCardinality", hll) // (3)!
                                 .build())
                 .build();
     ```
+
     1. Create the HllSketch object and define the precision values. By default, logK = 10.  
     2. Update the sketch with the connected entity's vertex value, this adds it to the HllSketch's bit hash.  
     3. When adding the cardinality entity, set the property.  
@@ -95,13 +96,14 @@ Adding a cardinality entity between vertex 'A' and 'B' using `AddElements`. For 
             "properties": {
                 "approxCardinality": {
                     "org.apache.datasketches.hll.HllSketch": {
-                        "values": ["B"] // (1)
+                        "values": ["B"] // (1)!
                     }
                 }
             }
         }]
     }
     ```
+
     1. You can directly add the values in the json and the deserialiser and aggregator will ensure it is properly added to the object.  
 
 
@@ -114,12 +116,13 @@ Adding a cardinality entity between vertex 'A' and 'B' using `AddElements`. For 
                 vertex="A",
                 group="cardinality",
                 properties={
-                    "hll": g.hll_sketch(["B"]) # (1)
+                    "hll": g.hll_sketch(["B"]) # (1)!
                 }
             )
         ]
     )
     ```
+
     1. The `g.hll_sketch` helper function lets you directly add the values. The deserialiser and aggregator will ensure it is properly added to the object.  
 
 ### Automatically adding cardinality entities
@@ -131,17 +134,18 @@ Rather than using the `AddElements` operation to manually add cardinality entiti
     ``` java
     new OperationChain.Builder()
             .first(new GenerateElements.Builder<Element>()
-                    .input(new Edge("edgeGroup1", "A", "B", true)) // (1)
-                    .generator(new HllSketchEntityGenerator() // (2)
-                        .cardinalityPropertyName("approxCardinality") // (3)
-                        .group("cardinality") // (4)
-                        .edgeGroupProperty("edgeGroup") // (5)
-                        .propertiesToCopy(...) // (6)
+                    .input(new Edge("edgeGroup1", "A", "B", true)) // (1)!
+                    .generator(new HllSketchEntityGenerator() // (2)!
+                        .cardinalityPropertyName("approxCardinality") // (3)!
+                        .group("cardinality") // (4)!
+                        .edgeGroupProperty("edgeGroup") // (5)!
+                        .propertiesToCopy(...) // (6)!
                     )
                     .build())
-            .then(new AddElements()) // (7)
+            .then(new AddElements()) // (7)!
             .build();
     ```
+
     1. The input of edges is added to the OperationChain. Here we make one Edge between "A" and "B", with group = "edgeGroup".  
     2. The input is streamed into the `HllSketchEntityGenerator`, which will return the edge as well as the two cardinality entities.  
     3. The name of the property where we should store the cardinality.  
@@ -240,7 +244,7 @@ Depending on how you query Gaffer, approximate cardinality will be displayed in 
         "properties": {
             "approxCardinality": {
                 "org.apache.datasketches.hll.HllSketch": {
-                    "cardinality": 1.0, "bytes": "AgEHCgMIAQBejtgF"
+                    "bytes": "AgEHCgMIAQBejtgF", "cardinality": 1.0
                 }
             }
         }
@@ -261,8 +265,8 @@ Depending on how you query Gaffer, approximate cardinality will be displayed in 
         'properties': {
             'approxCardinality': {
                 'org.apache.datasketches.hll.HllSketch': {
-                    'cardinality': 1.0,
-                    'bytes': 'AgEHCgMIAQBejtgF'
+                    'bytes': 'AgEHCgMIAQBejtgF',
+                    'cardinality': 1.0
                 }
             }
         }
