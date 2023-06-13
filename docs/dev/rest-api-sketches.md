@@ -17,7 +17,7 @@ and used during the deserialisation of the REST JSON queries.
 
 ## HyperLogLog sketches
 
-Gaffer currently supports the [Datasketches HllSketch](https://github.com/apache/datasketches-java/blob/master/src/main/java/org/apache/datasketches/hll/HllSketch.java) and [ClearSpring HyperLogLogPlus](https://github.com/addthis/stream-lib/blob/master/src/main/java/com/clearspring/analytics/stream/cardinality/HyperLogLogPlus.java) algorithms. We recommend the Datasketches HllSketch to users as it has better performance, as shown in the datasketches [documentation](https://datasketches.apache.org/docs/HLL/Hll_vs_CS_Hllpp.html).  
+Gaffer currently supports the [Datasketches HllSketch](https://github.com/apache/datasketches-java/blob/master/src/main/java/org/apache/datasketches/hll/HllSketch.java) and [Clearspring HyperLogLogPlus](https://github.com/addthis/stream-lib/blob/master/src/main/java/com/clearspring/analytics/stream/cardinality/HyperLogLogPlus.java) algorithms. The Clearspring HyperLogLogPlus has been **deprecated in Gaffer** and we recommend the Datasketches HllSketch to users for the reasons described in the [advanced properties guide](../reference/properties-guide/advanced.md#hyperloglogplus).  
 
 The `HllSketch` and `HyperLogLogPlus` sketches can be used to store an approximation of 
 cardinality of an element. The JSON of the query is converted to Java 

@@ -13,9 +13,7 @@ Gaffer allows sketches to be stored on Entities and Edges. These sketches can be
 - Using a reservoir items sketch to store a sample of all the distinct labels associated to an edge.
 - Using theta sketches to estimate the number of distinct edges seen on a particular day, the number seen on the previous day and the overlap between the two days.
 
-Gaffer provides serialisers and aggregators for sketches from two different libraries: the Apache version of the [Datasketches](https://datasketches.apache.org/) library and the [Clearspring](https://github.com/addthis/stream-lib) library which has been **deprecated in Gaffer**.
-
-For the Clearspring library, a serialiser and an aggregator is provided for the [`HyperLogLogPlus`](https://github.com/addthis/stream-lib/blob/master/src/main/java/com/clearspring/analytics/stream/cardinality/HyperLogLogPlus.java) sketch. This is an implementation of the HyperLogLog++ algorithm described [in this paper](https://static.googleusercontent.com/external_content/untrusted_dlcp/research.google.com/en/us/pubs/archive/40671.pdf).
+Gaffer provides serialisers and aggregators for sketches from two different libraries: the Apache version of the [Datasketches](https://datasketches.apache.org/) library and the [Clearspring](https://github.com/addthis/stream-lib). The Clearspring HyperLogLogPlus has been **deprecated in Gaffer** and we recommend the Datasketches HllSketch to users for the reasons described [below](#hyperloglogplus).  
 
 For the Datasketches library, serialisers and aggregators are provided for several sketches. These sketches include:
 
@@ -26,6 +24,8 @@ For the Datasketches library, serialisers and aggregators are provided for sever
 - [Theta sketches](https://datasketches.apache.org/docs/Theta/ThetaSketchFramework.html) for estimating the union and intersection of sets (see for example class [org.apache.datasketches.theta.Sketch](https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/theta/Sketch.java)).
 
 Most of the Datasketches sketches come in two forms: a standard sketch form and a "union" form. The latter is technically not a sketch. It is an operator that allows efficient union operations of two sketches. It also allows updating the sketch with individual items. In order to obtain estimates from it, it is necessary to first obtain a sketch from it, using a method called `getResult()`. There are some interesting trade-offs in the serialisation and aggregation speeds between the sketches and the unions. If in doubt, use the standard sketches. Examples are provided for the standard sketches, but not for the unions.
+
+For the deprecated Clearspring library, a serialiser and an aggregator is provided for the [`HyperLogLogPlus`](https://github.com/addthis/stream-lib/blob/master/src/main/java/com/clearspring/analytics/stream/cardinality/HyperLogLogPlus.java) sketch. This is an implementation of the HyperLogLog++ algorithm described [in this paper](https://static.googleusercontent.com/external_content/untrusted_dlcp/research.google.com/en/us/pubs/archive/40671.pdf).
 
 ### Class List
 
@@ -98,7 +98,7 @@ This section contains examples for how to use the advanced properties.
 This example demonstrates how the HyperLogLogPlus sketch property from the Clearspring library can be used to maintain an estimate of the degree of a vertex.
 
 !!! warning
-    We recommend using Datasketches' [`HllSketch`](#hllsketch) for approximate cardinality rather than Clearspring's `HyperLogLogPlus`. This is because it has better performance as shown in the Datasketches [documentation](https://datasketches.apache.org/docs/HLL/Hll_vs_CS_Hllpp.html).  
+    As of 2.1.0, we have **deprecated** the use of Clearspring's `HyperLogLogPlus` within Gaffer and recommend using Datasketches' [`HllSketch`](#hllsketch) for approximate cardinality instead. This is because `HllSketch` has better performance as shown in the Datasketches [documentation](https://datasketches.apache.org/docs/HLL/Hll_vs_CS_Hllpp.html).
 
 ??? example "Example storing an estimate of the degree of a vertex using HyperLogLogPlus"
 

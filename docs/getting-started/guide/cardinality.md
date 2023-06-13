@@ -4,7 +4,7 @@ This page will describe what cardinality is, how to add it to your Gaffer graph 
 
 ## What is Cardinality?
 
-Cardinality represents the number of unique Edges that are connected to a given Entity, also known as the degree of an Entity.
+In Gaffer, cardinality represents the number of unique vertices that are connected to a given vertex.
 
 ``` mermaid
 graph TD
@@ -18,7 +18,7 @@ graph TD
   3 --> 5
 ```
 
-For very large graphs, updating this number accurately would be very costly in compute. This is because for each new Edge that is added, we would have to check both connected Entities to see if they are already connected to the other Entity, and this could be costly for Entities with a high cardinality. Instead, Gaffer uses approximate cardinality making use of a [HyperLogLog Sketch](https://datasketches.apache.org/docs/HLL/HLL.html), which estimates the cardinality with relatively low error.
+For very large graphs, updating this number accurately would be very costly in compute. This is because for each new Edge that is added, we would have to check both connected Entities to see if they are already connected to the other Entity, and this could be costly for Entities with a high cardinality. Instead, Gaffer uses approximate cardinality making use of a [HyperLogLog Sketch](https://datasketches.apache.org/docs/HLL/HLL.html), which estimates the cardinality with relatively low error. In Gaffer, where you see the term "cardinality" used, it is referring to this approximate cardinality backed by a sketch.
 
 ## How to add cardinality to your graph
 
@@ -214,12 +214,12 @@ Depending on how you query Gaffer, approximate cardinality will be displayed in 
         element = elements.iterator().next();
     }
     final HllSketch hllSketch = (HllSketch) element.getProperty("approxCardinality");
-    final double approxDegree = hllSketch.getEstimate();
-    final String degreeEstimate = "Entity A has approximate degree " + approxDegree;
+    final double approxCardinality = hllSketch.getEstimate();
+    final String cardinalityEstimate = "Entity A has approximate cardinality " + approxCardinality;
     ```
     Result:
     ```
-    Entity A has approximate degree 1.0
+    Entity A has approximate cardinality 1.0
     ```
 
 === "JSON"
