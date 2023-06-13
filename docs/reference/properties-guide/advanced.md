@@ -4,39 +4,39 @@ These properties use advanced sketch structures from the Clearspring and Dataske
 
 ## Introduction
 
-A sketch is a compact data structure that gives an approximate answer to a question. For example, a HyperLogLog sketch can estimate the cardinality of a set with billions of elements with a small relative error, using orders of magnitude less storage than storing the full set.
+A sketch is a compact data structure that gives an approximate answer to a question. For example, a Hll sketch can estimate the cardinality of a set with billions of elements with a small relative error, using orders of magnitude less storage than storing the full set.
 
 Gaffer allows sketches to be stored on Entities and Edges. These sketches can be continually updated as new data arrives. Here are some example applications of sketches in Gaffer:
 
-- Using a HyperLogLogPlusPlus sketch to provide a very quick estimate of the degree of a node.
+- Using a Hll sketch to provide a very quick estimate of the degree of a node.
 - Using a quantiles sketch to estimate the median score associated to an edge, or the 99th percentile of the scores seen on an edge.
 - Using a reservoir items sketch to store a sample of all the distinct labels associated to an edge.
 - Using theta sketches to estimate the number of distinct edges seen on a particular day, the number seen on the previous day and the overlap between the two days.
 
-Gaffer provides serialisers and aggregators for sketches from two different libraries: the [Clearspring](https://github.com/addthis/stream-lib) library and the pre-Apache version of the [Datasketches](https://datasketches.github.io/) library.
-
-For the Clearspring library, a serialiser and an aggregator is provided for the [`HyperLogLogPlus`](https://github.com/addthis/stream-lib/blob/master/src/main/java/com/clearspring/analytics/stream/cardinality/HyperLogLogPlus.java) sketch. This is an implementation of the HyperLogLog++ algorithm described [in this paper](https://static.googleusercontent.com/external_content/untrusted_dlcp/research.google.com/en/us/pubs/archive/40671.pdf).
+Gaffer provides serialisers and aggregators for sketches from two different libraries: the Apache version of the [Datasketches](https://datasketches.apache.org/) library and the [Clearspring](https://github.com/addthis/stream-lib). The Clearspring HyperLogLogPlus has been **deprecated in Gaffer** and we recommend the Datasketches HllSketch to users for the reasons described [below](#hyperloglogplus).  
 
 For the Datasketches library, serialisers and aggregators are provided for several sketches. These sketches include:
 
-- [HyperLogLog sketches](https://datasketches.apache.org/docs/HLL/HLL.html) for estimating the cardinality of a set (see class [com.yahoo.sketches.hll.HllSketch](https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/hll/HllSketch.java));
-- [Frequency sketches](https://datasketches.apache.org/docs/Frequency/FrequencySketchesOverview.html) for estimating the frequencies of items such as longs and strings respectively (see for example class [com.yahoo.sketches.frequencies.LongsSketch](https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/frequencies/LongsSketch.java));
-- [Quantile sketches](https://datasketches.apache.org/docs/Quantiles/QuantilesOverview.html) for estimating the quantiles of doubles or strings seen on an element (see for example class [com.yahoo.sketches.quantiles.DoublesSketch](https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/quantiles/DoublesSketch.java));
-- [Sampling sketches](https://datasketches.apache.org/docs/Sampling/ReservoirSampling.html) for maintaining samples of items seen on an element (see for example class [com.yahoo.sketches.sampling.ReservoirItemsSketch](https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/sampling/ReservoirItemsSketch.java));
-- [Theta sketches](https://datasketches.apache.org/docs/Theta/ThetaSketchFramework.html) for estimating the union and intersection of sets (see for example class [com.yahoo.sketches.theta.Sketch](https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/theta/Sketch.java)).
+- [HyperLogLog sketches](https://datasketches.apache.org/docs/HLL/HLL.html) for estimating the cardinality of a set (see class [org.apache.datasketches.hll.HllSketch](https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/hll/HllSketch.java));
+- [Frequency sketches](https://datasketches.apache.org/docs/Frequency/FrequencySketchesOverview.html) for estimating the frequencies of items such as longs and strings respectively (see for example class [org.apache.datasketches.frequencies.LongsSketch](https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/frequencies/LongsSketch.java));
+- [Quantile sketches](https://datasketches.apache.org/docs/Quantiles/QuantilesOverview.html) for estimating the quantiles of doubles or strings seen on an element (see for example class [org.apache.datasketches.quantiles.DoublesSketch](https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/quantiles/DoublesSketch.java));
+- [Sampling sketches](https://datasketches.apache.org/docs/Sampling/ReservoirSampling.html) for maintaining samples of items seen on an element (see for example class [org.apache.datasketches.sampling.ReservoirItemsSketch](https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/sampling/ReservoirItemsSketch.java));
+- [Theta sketches](https://datasketches.apache.org/docs/Theta/ThetaSketchFramework.html) for estimating the union and intersection of sets (see for example class [org.apache.datasketches.theta.Sketch](https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/theta/Sketch.java)).
 
 Most of the Datasketches sketches come in two forms: a standard sketch form and a "union" form. The latter is technically not a sketch. It is an operator that allows efficient union operations of two sketches. It also allows updating the sketch with individual items. In order to obtain estimates from it, it is necessary to first obtain a sketch from it, using a method called `getResult()`. There are some interesting trade-offs in the serialisation and aggregation speeds between the sketches and the unions. If in doubt, use the standard sketches. Examples are provided for the standard sketches, but not for the unions.
+
+For the deprecated Clearspring library, a serialiser and an aggregator is provided for the [`HyperLogLogPlus`](https://github.com/addthis/stream-lib/blob/master/src/main/java/com/clearspring/analytics/stream/cardinality/HyperLogLogPlus.java) sketch. This is an implementation of the HyperLogLog++ algorithm described [in this paper](https://static.googleusercontent.com/external_content/untrusted_dlcp/research.google.com/en/us/pubs/archive/40671.pdf).
 
 ### Class List
 
 Property | Full Class
 -------- | ----------
 `HyperLogLogPlus` | `com.clearspring.analytics.stream.cardinality.HyperLogLogPlus`
-`HllSketch` | `com.yahoo.sketches.hll.HllSketch`
-`LongsSketch` | `com.yahoo.sketches.frequencies.LongsSketch`
-`DoublesSketch` | `com.yahoo.sketches.quantiles.DoublesSketch`
-`ReservoirItemsSketch` | `com.yahoo.sketches.sampling.ReservoirItemsSketch`
-`ThetaSketch` | `com.yahoo.sketches.theta.Sketch`
+`HllSketch` | `org.apache.datasketches.hll.HllSketch`
+`LongsSketch` | `org.apache.datasketches.frequencies.LongsSketch`
+`DoublesSketch` | `org.apache.datasketches.quantiles.DoublesSketch`
+`ReservoirItemsSketch` | `org.apache.datasketches.sampling.ReservoirItemsSketch`
+`ThetaSketch` | `org.apache.datasketches.theta.Sketch`
 
 ## Predicate Support
 
@@ -97,12 +97,15 @@ This section contains examples for how to use the advanced properties.
 
 This example demonstrates how the HyperLogLogPlus sketch property from the Clearspring library can be used to maintain an estimate of the degree of a vertex.
 
+!!! warning
+    As of 2.1.0, we have **deprecated** the use of Clearspring's `HyperLogLogPlus` within Gaffer and recommend using Datasketches' [`HllSketch`](#hllsketch) for approximate cardinality instead. This is because `HllSketch` has better performance as shown in the Datasketches [documentation](https://datasketches.apache.org/docs/HLL/Hll_vs_CS_Hllpp.html).
+
 ??? example "Example storing an estimate of the degree of a vertex using HyperLogLogPlus"
 
-    Every time an edge A -> B is added to graph, we also add an Entity for A with a property of a HyperLogLogPlus containing B, and an Entity for B with a property of a HyperLogLogPlus containing A. The aggregator for the HyperLogLogPluses merges them together so that after querying for the Entity for vertex X the HyperLogLogPlus property gives us an estimate of the approximate degree.
+    Every time an Edge `A -> B` is added to graph, we also add an Entity for `A` with a property of type HyperLogLogPlus containing `B`, and an Entity for `B` with a property of type HyperLogLogPlus containing `A`. The aggregator for the HyperLogLogPluses merges the new data with the pre-existing cardinality, so that after querying for the Entity the HyperLogLogPlus property gives us an estimate of the degree.
 
     #### Elements schema
-    This is our new elements schema. The edge has a property called 'approx_cardinality'. This will store the HyperLogLogPlus object.
+    This is our new elements schema. The entity type `cardinality` has a property called 'approxCardinality'. This will store the HyperLogLogPlus object.
 
     ```json
     {
@@ -110,7 +113,7 @@ This example demonstrates how the HyperLogLogPlus sketch property from the Clear
         "cardinality": {
           "vertex": "vertex.string",
           "properties": {
-            "approxCardinality": "hyperloglogplus"
+            "approxCardinality": "hyperLogLogPlus"
           }
         }
       }
@@ -118,7 +121,7 @@ This example demonstrates how the HyperLogLogPlus sketch property from the Clear
     ```
 
     #### Types schema
-    We have added a new type - 'hyperloglogplus'. This is a [`com.clearspring.analytics.stream.cardinality.HyperLogLogPlus`](https://github.com/addthis/stream-lib/blob/master/src/main/java/com/clearspring/analytics/stream/cardinality/HyperLogLogPlus.java) object.
+    We have added a new type - 'hyperLogLogPlus'. This is a [`com.clearspring.analytics.stream.cardinality.HyperLogLogPlus`](https://github.com/addthis/stream-lib/blob/master/src/main/java/com/clearspring/analytics/stream/cardinality/HyperLogLogPlus.java) object.
     We also added in the serialiser and aggregator for the HyperLogLogPlus object. Gaffer will automatically aggregate these sketches, using the provided aggregator, so they will keep up to date as new entities are added to the graph.
 
     ```json
@@ -132,7 +135,7 @@ This example demonstrates how the HyperLogLogPlus sketch property from the Clear
             }
           ]
         },
-        "hyperloglogplus": {
+        "hyperLogLogPlus": {
           "class": "com.clearspring.analytics.stream.cardinality.HyperLogLogPlus",
           "aggregateFunction": {
             "class": "uk.gov.gchq.gaffer.sketches.clearspring.cardinality.binaryoperator.HyperLogLogPlusAggregator"
@@ -145,7 +148,7 @@ This example demonstrates how the HyperLogLogPlus sketch property from the Clear
     }
     ```
 
-    Only one entity is in the graph. This was added 1000 times, and each time it had the 'approxCardinality' property containing a vertex that A had been seen in an Edge with. Here is the Entity:
+    Only one entity is in the graph. This was added 1000 times, and each time it had the 'approxCardinality' property containing a unique vertex. Here is the Entity:
 
     ```
     Entity[vertex=A,group=cardinality,properties=Properties[approxCardinality=<com.clearspring.analytics.stream.cardinality.HyperLogLogPlus>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@39075f64]]
@@ -179,10 +182,10 @@ This example demonstrates how the HllSketch sketch property from the Datasketche
 
 ??? example "Example storing an estimate of the degree of a vertex using HllSketch"
 
-    Every time an edge A -> B is added to graph, we also add an Entity for A with a property of a HllSketch containing B, and an Entity for B with a property of a HllSketch containing A. The aggregator for the HllSketches merges them together so that after querying for the Entity for vertex X the HllSketch property would give us an estimate of the approximate degree.
+    Every time an Edge `A -> B` is added to graph, we also add an Entity for `A` with a property of type HllSketch containing `B`, and an Entity for `B` with a property of type HllSketch containing `A`. The aggregator for the HllSketches merges the new data with the pre-existing cardinality, so that after querying for the Entity the HllSketch property gives us an estimate of the degree.
 
     #### Elements schema
-    This is our new elements schema. The edge has a property called 'approx_cardinality'. This will store the HllSketch object.
+    This is our new elements schema. The entity type `cardinality` has a property called 'approxCardinality'. This will store the HllSketch object.
 
     ```json
     {
@@ -190,7 +193,7 @@ This example demonstrates how the HllSketch sketch property from the Datasketche
         "cardinality": {
           "vertex": "vertex.string",
           "properties": {
-            "approxCardinality": "hllsketch"
+            "approxCardinality": "hllSketch"
           }
         }
       }
@@ -198,7 +201,7 @@ This example demonstrates how the HllSketch sketch property from the Datasketche
     ```
 
     #### Types schema
-    We have added a new type - 'hllsketch'. This is a [`com.yahoo.sketches.hll.HllSketch`](https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/hll/HllSketch.java) object.
+    We have added a new type - `hllSketch`. This is a [`org.apache.datasketches.hll.HllSketch`](https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/hll/HllSketch.java) object.
     We also added in the serialiser and aggregator for the HllSketch object. Gaffer will automatically aggregate these sketches, using the provided aggregator, so they will keep up to date as new entities are added to the graph.
 
     ```json
@@ -212,8 +215,8 @@ This example demonstrates how the HllSketch sketch property from the Datasketche
             }
           ]
         },
-        "hllsketch": {
-          "class": "com.yahoo.sketches.hll.HllSketch",
+        "hllSketch": {
+          "class": "org.apache.datasketches.hll.HllSketch",
           "aggregateFunction": {
             "class": "uk.gov.gchq.gaffer.sketches.datasketches.cardinality.binaryoperator.HllSketchAggregator"
           },
@@ -225,10 +228,10 @@ This example demonstrates how the HllSketch sketch property from the Datasketche
     }
     ```
 
-    Only one entity is in the graph. This was added 1000 times, and each time it had the 'approxCardinality' property containing a vertex that A had been seen in an Edge with. Here is the Entity:
+    Only one entity is in the graph. This was added 1000 times, and each time it had the 'approxCardinality' property containing a unique vertex. Here is the Entity:
 
     ```
-    Entity[vertex=A,group=cardinality,properties=Properties[approxCardinality=<com.yahoo.sketches.hll.HllSketch>### HLL SKETCH SUMMARY: 
+    Entity[vertex=A,group=cardinality,properties=Properties[approxCardinality=<org.apache.datasketches.hll.HllSketch>### HLL SKETCH SUMMARY: 
       Log Config K   : 10
       Hll Target     : HLL_4
       Current Mode   : HLL
@@ -292,7 +295,7 @@ This example demonstrates how the LongsSketch sketch property from the Datasketc
     ```
 
     #### Types schema
-    We have added a new type - 'longs.sketch'. This is a [`com.yahoo.sketches.frequencies.LongsSketch`](https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/frequencies/LongsSketch.java) object.
+    We have added a new type - 'longs.sketch'. This is a [`org.apache.datasketches.frequencies.LongsSketch`](https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/frequencies/LongsSketch.java) object.
     We also added in the serialiser and aggregator for the LongsSketch object. Gaffer will automatically aggregate these sketches, using the provided aggregator, so they will keep up to date as new edges are added to the graph.
 
     ```json
@@ -307,7 +310,7 @@ This example demonstrates how the LongsSketch sketch property from the Datasketc
           ]
         },
         "longs.sketch": {
-          "class": "com.yahoo.sketches.frequencies.LongsSketch",
+          "class": "org.apache.datasketches.frequencies.LongsSketch",
           "aggregateFunction": {
             "class": "uk.gov.gchq.gaffer.sketches.datasketches.frequencies.binaryoperator.LongsSketchAggregator"
           },
@@ -330,7 +333,7 @@ This example demonstrates how the LongsSketch sketch property from the Datasketc
     Only one edge is in the graph. This was added 1000 times, and each time it had the 'longs.sketch' property containing a randomly generated long between 0 and 9 (inclusive). The sketch does not retain all the distinct occurrences of these long values, but allows one to estimate the number of occurrences of the different values. Here is the Edge:
 
     ```
-    Edge[source=A,destination=B,directed=false,matchedVertex=SOURCE,group=red,properties=Properties[longsSketch=<com.yahoo.sketches.frequencies.LongsSketch>FrequentLongsSketch:
+    Edge[source=A,destination=B,directed=false,matchedVertex=SOURCE,group=red,properties=Properties[longsSketch=<org.apache.datasketches.frequencies.LongsSketch>FrequentLongsSketch:
       Stream Length    : 1000
       Max Error Offset : 0
     ReversePurgeLongHashMap:
@@ -396,7 +399,7 @@ This example demonstrates how the DoublesSketch sketch property from the Dataske
     ```
 
     #### Types schema
-    We have added a new type - 'doubles.sketch'. This is a [`com.yahoo.sketches.quantiles.DoublesSketch`](https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/quantiles/DoublesSketch.java) object.
+    We have added a new type - 'doubles.sketch'. This is a [`org.apache.datasketches.quantiles.DoublesSketch`](https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/quantiles/DoublesSketch.java) object.
     We also added in the serialiser and aggregator for the DoublesSketch object. Gaffer will automatically aggregate these sketches, using the provided aggregator, so they will keep up to date as new edges are added to the graph.
 
     ```json
@@ -411,7 +414,7 @@ This example demonstrates how the DoublesSketch sketch property from the Dataske
           ]
         },
         "doubles.sketch": {
-          "class": "com.yahoo.sketches.quantiles.DoublesSketch",
+          "class": "org.apache.datasketches.quantiles.DoublesSketch",
           "aggregateFunction": {
             "class": "uk.gov.gchq.gaffer.sketches.datasketches.quantiles.binaryoperator.DoublesSketchAggregator"
           },
@@ -434,7 +437,7 @@ This example demonstrates how the DoublesSketch sketch property from the Dataske
     Here is the Edge:
 
     ```
-    Edge[source=A,destination=B,directed=false,matchedVertex=SOURCE,group=red,properties=Properties[doublesSketch=<com.yahoo.sketches.quantiles.DirectUpdateDoublesSketchR>
+    Edge[source=A,destination=B,directed=false,matchedVertex=SOURCE,group=red,properties=Properties[doublesSketch=<org.apache.datasketches.quantiles.DirectUpdateDoublesSketchR>
     ### Quantiles DirectUpdateDoublesSketchR SUMMARY: 
       Empty                        : false
       Direct, Capacity bytes       : true, 4128
@@ -543,7 +546,7 @@ This example demonstrates how the ReservoirItemsSketch<String> sketch property f
     ```
 
     #### Types schema
-    We have added a new type - 'reservoir.strings.sketch'. This is a [`com.yahoo.sketches.sampling.ReservoirItemsSketch`](https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/sampling/ReservoirItemsSketch.java) object.
+    We have added a new type - 'reservoir.strings.sketch'. This is a [`org.apache.datasketches.sampling.ReservoirItemsSketch`](https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/sampling/ReservoirItemsSketch.java) object.
     We also added in the serialiser and aggregator for the ReservoirItemsSketch object. Gaffer will automatically aggregate these sketches, using the provided aggregator, so they will keep up to date as new edges are added to the graph.
 
 
@@ -559,7 +562,7 @@ This example demonstrates how the ReservoirItemsSketch<String> sketch property f
           ]
         },
         "reservoir.strings.sketch": {
-          "class": "com.yahoo.sketches.sampling.ReservoirItemsSketch",
+          "class": "org.apache.datasketches.sampling.ReservoirItemsSketch",
           "aggregateFunction": {
             "class": "uk.gov.gchq.gaffer.sketches.datasketches.sampling.binaryoperator.ReservoirItemsSketchAggregator"
           },
@@ -581,7 +584,7 @@ This example demonstrates how the ReservoirItemsSketch<String> sketch property f
 
     An edge A-B of group "red" was added to the graph 1000 times. Each time it had the stringsSample property containing a randomly generated string. Here is the edge:
     ```
-    Edge[source=A,destination=B,directed=false,matchedVertex=SOURCE,group=red,properties=Properties[stringsSample=<com.yahoo.sketches.sampling.ReservoirItemsSketch>
+    Edge[source=A,destination=B,directed=false,matchedVertex=SOURCE,group=red,properties=Properties[stringsSample=<org.apache.datasketches.sampling.ReservoirItemsSketch>
     ### ReservoirItemsSketch SUMMARY: 
       k            : 20
       n            : 1000
@@ -650,7 +653,7 @@ This example demonstrates how the ReservoirItemsSketch<String> sketch property f
 
 ### ThetaSketch
 
-This example demonstrates how the ThetaSketch (`com.yahoo.sketches.theta.Sketch`) sketch property from the Datasketches library can be used to maintain estimates of the cardinalities of sets.
+This example demonstrates how the ThetaSketch (`org.apache.datasketches.theta.Sketch`) sketch property from the Datasketches library can be used to maintain estimates of the cardinalities of sets.
 
 ??? example "Example storing estimates of the cardinalities of sets using ThetaSketch"
 
@@ -695,7 +698,7 @@ This example demonstrates how the ThetaSketch (`com.yahoo.sketches.theta.Sketch`
     ```
 
     #### Types schema
-    We have added a new type - 'thetasketch'. This is a [`com.yahoo.sketches.theta.Sketch`](https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/theta/Sketch.java) object.
+    We have added a new type - 'thetasketch'. This is a [`org.apache.datasketches.theta.Sketch`](https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/theta/Sketch.java) object.
     We also added in the serialiser and aggregator for the Union object. Gaffer will automatically aggregate these sketches, using the provided aggregator, so they will keep up to date as new edges are added to the graph.
 
     ```json
@@ -738,7 +741,7 @@ This example demonstrates how the ThetaSketch (`com.yahoo.sketches.theta.Sketch`
           }
         },
         "thetasketch": {
-          "class": "com.yahoo.sketches.theta.Sketch",
+          "class": "org.apache.datasketches.theta.Sketch",
           "aggregateFunction": {
             "class": "uk.gov.gchq.gaffer.sketches.datasketches.theta.binaryoperator.SketchAggregator"
           },
@@ -763,7 +766,7 @@ This example demonstrates how the ThetaSketch (`com.yahoo.sketches.theta.Sketch`
     Here is the Entity for the different days:
 
     ```
-    Entity[vertex=graph,group=size,properties=Properties[size=<com.yahoo.sketches.theta.DirectCompactOrderedSketch>
+    Entity[vertex=graph,group=size,properties=Properties[size=<org.apache.datasketches.theta.DirectCompactOrderedSketch>
     ### DirectCompactOrderedSketch SUMMARY: 
       Estimate                : 500.0
       Upper Bound, 95% conf   : 500.0
@@ -778,7 +781,7 @@ This example demonstrates how the ThetaSketch (`com.yahoo.sketches.theta.Sketch`
       Seed Hash               : 93cc
     ### END SKETCH SUMMARY
     ,endDate=<java.util.Date>Wed Jan 11 00:00:00 GMT 2017,startDate=<java.util.Date>Tue Jan 10 00:00:00 GMT 2017]]
-    Entity[vertex=graph,group=size,properties=Properties[size=<com.yahoo.sketches.theta.DirectCompactOrderedSketch>
+    Entity[vertex=graph,group=size,properties=Properties[size=<org.apache.datasketches.theta.DirectCompactOrderedSketch>
     ### DirectCompactOrderedSketch SUMMARY: 
       Estimate                : 1000.0
       Upper Bound, 95% conf   : 1000.0

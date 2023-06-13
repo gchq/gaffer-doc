@@ -38,13 +38,13 @@ Here's a simplified tree output with the verbose output explained (expand the :m
 uk.gov.gchq.gaffer:core:pom:2.0.0
 +- org.slf4j:slf4j-api:jar:1.7.36:compile
 +- org.slf4j:slf4j-reload4j:jar:1.7.36:compile
-|  +- (org.slf4j:slf4j-api:jar:1.7.36:compile - omitted for duplicate) // (1)
-|  \- ch.qos.reload4j:reload4j:jar:1.2.18.3:compile (version managed from 1.2.19) // (2)
+|  +- (org.slf4j:slf4j-api:jar:1.7.36:compile - omitted for duplicate) // (1)!
+|  \- ch.qos.reload4j:reload4j:jar:1.2.18.3:compile (version managed from 1.2.19) // (2)!
 +- org.junit.jupiter:junit-jupiter:jar:5.9.0:test
 |  +- org.junit.jupiter:junit-jupiter-api:jar:5.9.0:test
 \- org.mockito:mockito-junit-jupiter:jar:4.6.1:test
    +- org.mockito:mockito-core:jar:4.6.1:test
-   \- (org.junit.jupiter:junit-jupiter-api:jar:5.8.2:test - omitted for conflict with 5.9.0) // (3)
+   \- (org.junit.jupiter:junit-jupiter-api:jar:5.8.2:test - omitted for conflict with 5.9.0) // (3)!
 ```
 
 1. This dependency was omitted because it was already resolved (found) earlier. If a dependency with the same version is seen more than once, subsequent instances are ignored as **duplicates**.

@@ -391,8 +391,8 @@ SeedMatching has been removed from Gaffer. This was previously used in [get](../
                     .view(myView)
                     .addHook(customHook)
                     .build()) 
-            .addSchema(mySchema) // (1)
-            .storeProperties(storeProperties) // (2)
+            .addSchema(mySchema) // (1)!
+            .storeProperties(storeProperties) // (2)!
             .build();
     ```
 

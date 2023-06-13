@@ -35,15 +35,15 @@ Importing is done with an OperationChain in multiple parts:
     "class": "OperationChain",
     "operations": [
         {
-            "class": "ImportFromLocalFile", // (1)
+            "class": "ImportFromLocalFile", // (1)!
             "filePath": "mydata.csv"
         },
         {
-            "class": "GenerateElements", // (2)
+            "class": "GenerateElements", // (2)!
             "elementGenerator": "Neo4jCsvElementGenerator"
         },
         {
-            "class": "AddElements" // (3)
+            "class": "AddElements" // (3)!
         }
     ]
 }
