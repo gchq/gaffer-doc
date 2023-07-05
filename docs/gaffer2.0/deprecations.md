@@ -287,6 +287,74 @@ SeedMatching has been removed from Gaffer. This was previously used in [get](../
 ### [`federatedstore.FederatedStore`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/store-implementation/federated-store/src/main/java/uk/gov/gchq/gaffer/federatedstore/FederatedStore.java)
 - The methods `getTraits()` and `getTraits(GetTraits, Context)` have been removed. Use `Store.execute(Operation, Context)` with the `GetTraits` operation instead.
 
+## Changes to Schemas
+
+Deprecated methods in `store.schema.TypeDefinition` and `store.schema.Schema` have been removed ([see below sections](#storeschematypedefinition)).
+
+### Elements Schema
+
+Specifying a property name to use as a time stamp is now set under `config`.
+
+Previously set at the top level:
+```
+{
+  "entities": {
+    ...
+  },
+  "edges": {
+    ...
+  },
+  "timestampProperty": "timestamp"
+}
+```
+
+Now set in `config`:
+```
+{
+  "entities": {
+    ...
+  },
+  "edges": {
+    ...
+  },
+  "config": {
+    "timestampProperty": "timestamp"
+  }
+}
+```
+
+### Types Schema
+
+Specifying a serialiser class using deprecated `serialiserClass` is no longer possible. Instead, use `class` in `serialiser`. Deprecated `vertexSerialiserClass` has also been removed.
+
+Old, deprecated, and now removed approach:
+```
+{
+  "types": {
+    "example.map": {
+      "description": "Map type description",
+      "class": "java.util.LinkedHashMap",
+      "serialiserClass": "uk.gov.gchq.gaffer.serialisation.implementation.MapSerialiser"
+    }
+  }
+}
+```
+
+Now set in `serialiser`:
+```
+{
+  "types": {
+    "example.map": {
+      "description": "Map type description",
+      "class": "java.util.LinkedHashMap",
+      "serialiser": {
+        "class": "uk.gov.gchq.gaffer.serialisation.implementation.MapSerialiser"
+      }
+    }
+  }
+}
+```
+
 ## All other Deprecations
 
 ### [`accumulostore.AccumuloProperties`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/store-implementation/accumulo-store/src/main/java/uk/gov/gchq/gaffer/accumulostore/AccumuloProperties.java)
@@ -447,7 +515,7 @@ SeedMatching has been removed from Gaffer. This was previously used in [get](../
 - StoreProperties ID (`gaffer.store.id`) and related methods (`getId()`, `setId(String)`) have been removed.
 - The ID of the store properties is instead directly set in the `GraphLibrary` when adding the `StoreProperties` with `GraphLibrary.add(String graphId, String schemaId, Schema schema, String propertiesId, StoreProperties properties)`.
 - See the [Javadoc for GraphLibrary](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/library/GraphLibrary.html) for more detail.
-- If you aren't using a `GraphLibrary`, this change shouldn't effect you as store properties ID is only used in `GraphLibrary`.
+- If you aren't using a `GraphLibrary`, this change shouldn't affect you as store properties ID is only used in `GraphLibrary`.
 
 ### [`store.Context`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/store/src/main/java/uk/gov/gchq/gaffer/store/Context.java)
 - The private constructor `Context(User user, Map<String, Object> config, String jobId)` has been removed; along with the `jobId(String)` method.
