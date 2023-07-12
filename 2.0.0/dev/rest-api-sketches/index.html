@@ -9,17 +9,17 @@
       
       
       
-        <link rel="prev" href="../development/">
+        <link rel="prev" href="../ways-of-working/">
       
       
-        <link rel="next" href="../ways-of-working/">
+        <link rel="next" href="../../reference/intro/">
       
       <link rel="icon" href="../../assets/logo.svg">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.11">
     
     
       
-        <title>Managing Dependencies - Gaffer Docs</title>
+        <title>Sketches custom deserialisation - Gaffer Docs</title>
       
     
     
@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#managing-dependencies-in-gaffer" class="md-skip">
+        <a href="#using-sketches-with-the-rest-api" class="md-skip">
           Skip to content
         </a>
       
@@ -107,7 +107,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Managing Dependencies
+              Sketches custom deserialisation
             
           </span>
         </div>
@@ -673,112 +673,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Managing Dependencies
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../managing-dependencies/" class="md-nav__link">
         Managing Dependencies
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#get-a-simple-list-of-direct-dependencies" class="md-nav__link">
-    Get a simple list of direct dependencies
-  </a>
-  
-    <nav class="md-nav" aria-label="Get a simple list of direct dependencies">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#output-to-file" class="md-nav__link">
-    Output to File
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#get-a-tree-showing-dependencies" class="md-nav__link">
-    Get a tree showing Dependencies
-  </a>
-  
-    <nav class="md-nav" aria-label="Get a tree showing Dependencies">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#output-to-file_1" class="md-nav__link">
-    Output to File
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#plotting-graphs-of-dependencies" class="md-nav__link">
-    Plotting graphs of dependencies
-  </a>
-  
-    <nav class="md-nav" aria-label="Plotting graphs of dependencies">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#using-the-built-in-maven-plugin" class="md-nav__link">
-    Using the built-in Maven plugin
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#using-the-depgraph-maven-plugin" class="md-nav__link">
-    Using the Depgraph Maven plugin
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -802,11 +701,113 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../rest-api-sketches/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Sketches custom deserialisation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Sketches custom deserialisation
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sketches-library" class="md-nav__link">
+    Sketches Library
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hyperloglog-sketches" class="md-nav__link">
+    HyperLogLog sketches
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-cardinality-values-over-json" class="md-nav__link">
+    Creating cardinality values over JSON
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating cardinality values over JSON">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#primitive-data-types-over-json" class="md-nav__link">
+    Primitive data types over JSON
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-primitive-data-types-over-json" class="md-nav__link">
+    Non-primitive data types over JSON
+  </a>
+  
+    <nav class="md-nav" aria-label="Non-primitive data types over JSON">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#composing-using-java" class="md-nav__link">
+    Composing using Java
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#composing-using-python" class="md-nav__link">
+    Composing using Python
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-user-defined-vertex-types-into-offers" class="md-nav__link">
+    Adding user defined vertex types into offers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1442,16 +1443,52 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#get-a-simple-list-of-direct-dependencies" class="md-nav__link">
-    Get a simple list of direct dependencies
+  <a href="#sketches-library" class="md-nav__link">
+    Sketches Library
   </a>
   
-    <nav class="md-nav" aria-label="Get a simple list of direct dependencies">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hyperloglog-sketches" class="md-nav__link">
+    HyperLogLog sketches
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-cardinality-values-over-json" class="md-nav__link">
+    Creating cardinality values over JSON
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating cardinality values over JSON">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#output-to-file" class="md-nav__link">
-    Output to File
+  <a href="#primitive-data-types-over-json" class="md-nav__link">
+    Primitive data types over JSON
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-primitive-data-types-over-json" class="md-nav__link">
+    Non-primitive data types over JSON
+  </a>
+  
+    <nav class="md-nav" aria-label="Non-primitive data types over JSON">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#composing-using-java" class="md-nav__link">
+    Composing using Java
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#composing-using-python" class="md-nav__link">
+    Composing using Python
   </a>
   
 </li>
@@ -1460,45 +1497,10 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#get-a-tree-showing-dependencies" class="md-nav__link">
-    Get a tree showing Dependencies
-  </a>
-  
-    <nav class="md-nav" aria-label="Get a tree showing Dependencies">
-      <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#output-to-file_1" class="md-nav__link">
-    Output to File
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#plotting-graphs-of-dependencies" class="md-nav__link">
-    Plotting graphs of dependencies
-  </a>
-  
-    <nav class="md-nav" aria-label="Plotting graphs of dependencies">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#using-the-built-in-maven-plugin" class="md-nav__link">
-    Using the built-in Maven plugin
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#using-the-depgraph-maven-plugin" class="md-nav__link">
-    Using the Depgraph Maven plugin
+  <a href="#adding-user-defined-vertex-types-into-offers" class="md-nav__link">
+    Adding user defined vertex types into offers
   </a>
   
 </li>
@@ -1523,7 +1525,7 @@
                   
 
   
-    <a href="https://github.com/gchq/gaffer-doc/edit/v2docs/docs/dev/managing-dependencies.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/gchq/gaffer-doc/edit/v2docs/docs/dev/rest-api-sketches.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -1531,69 +1533,220 @@
   
 
 
-<h1 id="managing-dependencies-in-gaffer">Managing dependencies in Gaffer</h1>
-<p>Gaffer is a large project with a lot of dependency and transitive dependency management required. This page covers some ways to get information about and more easily visualise and understand the dependencies for given Maven modules (or even the whole project).</p>
-<p>For more information on how Maven handles dependencies, <a href="https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html">see this Maven guide</a>.</p>
-<h2 id="get-a-simple-list-of-direct-dependencies">Get a simple list of direct dependencies</h2>
-<p>This outputs the direct (non-transitive) dependencies for all Maven modules in the project. For specific modules append <code>-pl :module-name</code> to the command.
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>mvn dependency:list -DexcludeTransitive=true -Dsort=true
+<h1 id="using-sketches-with-the-rest-api">Using Sketches with the REST API</h1>
+<p>This page explains some nuances and special steps required when using classes from the Sketches library with the REST API. If you just want to know how to use the sketches libraries to
+use cardinality, see the <a href="../../getting-started/guide/cardinality/">cardinality</a> docs page.</p>
+<h2 id="sketches-library">Sketches Library</h2>
+<p>To learn more about the Sketches library see <a href="../../reference/properties-guide/advanced.md">advanced properties</a> reference page. 
+The sketches library is included by default with the Map and Accumulo stores. This is because the <code>sketches-library</code> is a dependency in each of
+the respective store modules' poms. As well as this, the serialisation is handled by the fact the 
+<a href="https://github.com/gchq/Gaffer/blob/gaffer2-2.0.0/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/serialisation/json/SketchesJsonModules.java">SketchesJsonModules</a> 
+is returned by the <code>getJsonSerialiserModules</code> method in both the 
+<a href="https://github.com/gchq/Gaffer/blob/gaffer2-2.0.0/store-implementation/map-store/src/main/java/uk/gov/gchq/gaffer/mapstore/MapStoreProperties.java#L127">Map</a> 
+and <a href="https://github.com/gchq/Gaffer/blob/gaffer2-2.0.0/store-implementation/accumulo-store/src/main/java/uk/gov/gchq/gaffer/accumulostore/AccumuloProperties.java#L468">Accumulo</a> 
+property classes. The modules are then loaded by the <a href="https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/jsonserialisation/JSONSerialiser.html">JSONSerialiser</a> 
+and used during the deserialisation of the REST JSON queries.</p>
+<h2 id="hyperloglog-sketches">HyperLogLog sketches</h2>
+<p>Gaffer currently supports the <a href="https://github.com/apache/datasketches-java/blob/master/src/main/java/org/apache/datasketches/hll/HllSketch.java">Datasketches HllSketch</a> and <a href="https://github.com/addthis/stream-lib/blob/master/src/main/java/com/clearspring/analytics/stream/cardinality/HyperLogLogPlus.java">Clearspring HyperLogLogPlus</a> algorithms. The Clearspring HyperLogLogPlus has been <strong>deprecated in Gaffer</strong> and we recommend the Datasketches HllSketch to users for the reasons described in the <a href="../../reference/properties-guide/advanced/#hyperloglogplus">advanced properties guide</a>.  </p>
+<p>The <code>HllSketch</code> and <code>HyperLogLogPlus</code> sketches can be used to store an approximation of 
+cardinality of an element. The JSON of the query is converted to Java 
+objects during deserialisation using the <code>JSONSerialiser</code>. During the 
+deserialisation, the sketch's JSON representation is converted to a Java 
+object using the <code>ObjectMapper</code> module which uses the relevant deserialiser (
+<a href="https://github.com/gchq/Gaffer/blob/develop/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/serialisation/json/HyperLogLogPlusJsonDeserialiser.java">HyperLogLogPlusJsonDeserialiser</a> or <a href="https://github.com/gchq/Gaffer/blob/develop/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/datasketches/cardinality/serialisation/json/HllSketchJsonDeserialiser.java">HllSketchJsonDeserialiser</a>).</p>
+<h2 id="creating-cardinality-values-over-json">Creating cardinality values over JSON</h2>
+<p>When adding or updating a cardinality object over the rest api, you specify the vertex values to add to the sketch. 
+This is done by either using the <code>offers</code> field with <code>HyperLogLogPlus</code>, or the <code>values</code> field with <code>HllSketch</code>. 
+The HyperLogLog object is then instantiated and updated with
+the values. The object can then be serialised and stored in the datastore. 
+The vertex object is serialised using the <code>toString</code> representation of the object.</p>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>As the algorithms use the <code>toString</code> method, any user defined type 
+introduced must override the <code>toString</code> method returning meaningful string 
+value representing the object rather than the default class instance 
+identifier. User defined types can be introduced by either adding further 
+<a href="https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/types/package-summary.html">types</a> 
+to Gaffer or by adding a jar with the extra type(s) to the Gaffer 
+classpath on startup.</p>
+</details>
+<p>Depending on whether you are using <code>HyperLogLogPlus</code> or <code>HllSketch</code>, either the 
+<a href="https://github.com/gchq/Gaffer/blob/develop/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/clearspring/cardinality/serialisation/json/HyperLogLogPlusWithOffers.java"><code>HyperLogLogPlusWithOffers</code></a> or the 
+<a href="https://github.com/gchq/Gaffer/blob/develop/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/datasketches/cardinality/serialisation/json/HllSketchWithValues.java"><code>HllSketchWithValues</code></a> 
+respectively is responsible for the JSON deserialisation.
+The helper classes wrap the underlying sketch and includes the following annotation on 
+the <code>offers</code>/<code>values</code> field:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nd">@JsonTypeInfo</span><span class="p">(</span><span class="n">use</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonTypeInfo</span><span class="p">.</span><span class="na">Id</span><span class="p">.</span><span class="na">CLASS</span><span class="p">,</span><span class="w"> </span><span class="n">property</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;class&quot;</span><span class="p">)</span>
 </span></code></pre></div>
-If <code>-DexcludeTransitive=true</code> is not used it will also print transitive dependencies, but without showing where they come from. The tree option (explained below) is better for getting this kind of information.</p>
-<p>For more info, <a href="https://maven.apache.org/plugins/maven-dependency-plugin/list-mojo.html">see the Maven dependency plugin documentation for the 'list' goal</a>.</p>
-<h3 id="output-to-file">Output to File</h3>
-<p>The user property <code>-DoutputFile=deps.txt</code> can be used to place output for each module into the root directory <strong>of that module</strong>. It is also possible to aggregate all results into a single file using <code>mvn dependency:list -B -DappendOutput=true -DoutputFile=$(pwd)/mvn-dep-list.txt</code>.</p>
-<p>However, any files created contain terminal escape characters for adding colour (even when using <code>-B</code> - this is likely a bug). Another option is to use <code>-B</code> to turn off colour, piping the output through <code>sort --unique</code> (which also aggregates the dependencies) and appending that to a file - instead of using the plugin's file output option.</p>
-<h2 id="get-a-tree-showing-dependencies">Get a tree showing Dependencies</h2>
-<p>This produces a tree showing the <strong>resolved</strong> dependencies for all Maven modules in the project. For specific modules append <code>-pl :module-name</code> to the command (as before).
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>mvn dependency:tree
-</span></code></pre></div></p>
-<p>To include <strong>all</strong> dependencies (resolved, transitive and duplicate) in the tree and to see information on versions which have been managed (via <code>dependencyManagement</code>), append <code>-Dverbose</code>.</p>
-<p>This verbose flag is very useful for finding out which dependencies are affected by version management and version conflicts.</p>
-<p>Here's a simplified tree output with the verbose output explained (expand the <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8m0-18A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2m1 5h-2v4H7v2h4v4h2v-4h4v-2h-4V7Z"/></svg></span> symbols):
-<div class="language-c highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">uk</span><span class="p">.</span><span class="n">gov</span><span class="p">.</span><span class="n">gchq</span><span class="p">.</span><span class="n">gaffer</span><span class="o">:</span><span class="n">core</span><span class="o">:</span><span class="n">pom</span><span class="o">:</span><span class="mf">2.0.0</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="o">+-</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="n">slf4j</span><span class="o">:</span><span class="n">slf4j</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">1.7.36</span><span class="o">:</span><span class="n">compile</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="o">+-</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="n">slf4j</span><span class="o">:</span><span class="n">slf4j</span><span class="o">-</span><span class="n">reload4j</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">1.7.36</span><span class="o">:</span><span class="n">compile</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="o">|</span><span class="w">  </span><span class="o">+-</span><span class="w"> </span><span class="p">(</span><span class="n">org</span><span class="p">.</span><span class="n">slf4j</span><span class="o">:</span><span class="n">slf4j</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">1.7.36</span><span class="o">:</span><span class="n">compile</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">omitted</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">duplicate</span><span class="p">)</span><span class="w"> </span><span class="c1">// (1)!</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="o">|</span><span class="w">  </span><span class="err">\</span><span class="o">-</span><span class="w"> </span><span class="n">ch</span><span class="p">.</span><span class="n">qos</span><span class="p">.</span><span class="n">reload4j</span><span class="o">:</span><span class="n">reload4j</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">1.2.18.3</span><span class="o">:</span><span class="n">compile</span><span class="w"> </span><span class="p">(</span><span class="n">version</span><span class="w"> </span><span class="n">managed</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="mf">1.2.19</span><span class="p">)</span><span class="w"> </span><span class="c1">// (2)!</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="o">+-</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="n">junit</span><span class="p">.</span><span class="n">jupiter</span><span class="o">:</span><span class="n">junit</span><span class="o">-</span><span class="n">jupiter</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">5.9.0</span><span class="o">:</span><span class="n">test</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="o">|</span><span class="w">  </span><span class="o">+-</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="n">junit</span><span class="p">.</span><span class="n">jupiter</span><span class="o">:</span><span class="n">junit</span><span class="o">-</span><span class="n">jupiter</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">5.9.0</span><span class="o">:</span><span class="n">test</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="err">\</span><span class="o">-</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="n">mockito</span><span class="o">:</span><span class="n">mockito</span><span class="o">-</span><span class="n">junit</span><span class="o">-</span><span class="n">jupiter</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">4.6.1</span><span class="o">:</span><span class="n">test</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">   </span><span class="o">+-</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="n">mockito</span><span class="o">:</span><span class="n">mockito</span><span class="o">-</span><span class="n">core</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">4.6.1</span><span class="o">:</span><span class="n">test</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">   </span><span class="err">\</span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">org</span><span class="p">.</span><span class="n">junit</span><span class="p">.</span><span class="n">jupiter</span><span class="o">:</span><span class="n">junit</span><span class="o">-</span><span class="n">jupiter</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">5.8.2</span><span class="o">:</span><span class="n">test</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">omitted</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">conflict</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="mf">5.9.0</span><span class="p">)</span><span class="w"> </span><span class="c1">// (3)!</span>
-</span></code></pre></div></p>
-<ol>
-<li>This dependency was omitted because it was already resolved (found) earlier. If a dependency with the same version is seen more than once, subsequent instances are ignored as <strong>duplicates</strong>.</li>
-<li>This dependency has had its version changed (managed) from the version defined in the parent transitive dependency's POM to the version for this dependency given in the <code>dependencyManagement</code> section of our POM. The "version managed from" in the brackets is the version which would have been used if it hadn't been overridden by specifying a managed version.</li>
-<li>This dependency was omitted because it was already resolved (found) earlier. If a dependency with different versions is seen more than once, subsequent instances are ignored as <strong>conflicts</strong>. In this case, the conflicting version is a transitive dependency and the resolved dependency is a direct dependency (declared in the module POM) which takes priority.</li>
-</ol>
-<p>This verbose output is also useful for discovering which dependencies need to have exclusions added when using <a href="https://maven.apache.org/guides/introduction/introduction-to-optional-and-excludes-dependencies.html#dependency-exclusions">Maven dependency exclusions</a>. As an example, replacing Log4j with Reload4j can be done be excluding all Log4j dependencies and adding Reload4j as a project dependency (from a Java perspective this works because both use the same package name). This requires an exclusion section to be added for every dependency which includes Log4j as a transitive dependency.</p>
-<p>Without the verbose output, only a single resolved Log4j dependency is shown. In a project with 5 dependencies with Log4j as a sub-dependency, if only the resolved dependency were to be excluded, then another would become the resolved dependency. With this approach, the tree would need to be printed repeatedly until all these dependencies had been seen and excluded. With the verbose output these dependencies are all shown initially.</p>
-<p>For more info, <a href="https://maven.apache.org/plugins/maven-dependency-plugin/tree-mojo.html">see the Maven dependency plugin documentation for the 'tree' goal</a>.</p>
-<h3 id="output-to-file_1">Output to File</h3>
-<p>Unlike <code>dependency:list</code>, the <code>tree</code> plugin goal does output to file correctly. This puts all tree output into a single file called <code>mvn-dep-tree.txt</code> in the current directory:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>mvn dependency:tree -DoutputFile=$(pwd)/mvn-dep-tree.txt -DappendOutput=true
-</span></code></pre></div></p>
-<h2 id="plotting-graphs-of-dependencies">Plotting graphs of dependencies</h2>
-<h3 id="using-the-built-in-maven-plugin">Using the built-in Maven plugin</h3>
-<p>In addition to text output, this can also produce <code>.dot</code> files which can be used to create dependency graph visualisations (in combination with <a href="https://en.wikipedia.org/wiki/Graphviz">Graphviz</a>). The resulting files are simple and lack positioning information. They only work well if the number of dependencies is low (e.g. <code>-Dverbose=true</code> not used).</p>
-<p>This visualisation was produced using the plugin and <a href="https://graphviz.org/docs/layouts/sfdp/">Graphviz <code>sfdp</code></a>.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>mvn<span class="w"> </span>dependency:tree<span class="w"> </span>-DoutputType<span class="o">=</span>dot<span class="w"> </span>-DoutputFile<span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/core.dot<span class="w"> </span>-pl<span class="w"> </span>:core<span class="w"> </span><span class="c1"># Create the .dot file</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>sfdp<span class="w"> </span>-x<span class="w"> </span>-Goverlap<span class="o">=</span><span class="nb">false</span><span class="w"> </span>-Gsplines<span class="o">=</span><span class="nb">true</span><span class="w"> </span>-Tsvg<span class="w"> </span>core.dot<span class="w"> </span>-o<span class="w"> </span>core.svg<span class="w"> </span><span class="c1"># Create the SVG image</span>
+<p>This signals to the Jackson <code>ObjectMapper</code> that it needs to look for the 
+<code>class</code> field in each object and translate to the correct object type.</p>
+<h3 id="primitive-data-types-over-json">Primitive data types over JSON</h3>
+<p>Primitive types are converted to the correct format by Jackson 
+<code>ObjectMapper</code> automatically. Here are some examples of the values:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">String</label><label for="__tabbed_1_2">Long</label><label for="__tabbed_1_3">Double</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><code>"values": ["valueA", "value2",...]</code></p>
+</div>
+<div class="tabbed-block">
+<p><code>"values": [1, 2,...]</code></p>
+</div>
+<div class="tabbed-block">
+<p><code>"values": [1.1, 2.2,...]</code></p>
+</div>
+</div>
+</div>
+<h3 id="non-primitive-data-types-over-json">Non-primitive data types over JSON</h3>
+<p>In order to convert non-primitive vertex values (like <code>TypeSubTypeValue</code>) to Java objects, the JSON values need to contain the special field <strong>class</strong> 
+containing the class name of the object. The <code>deserialiser</code> uses this <code>class</code> 
+field when deserialising using the <a href="https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/jsonserialisation/JSONSerialiser.html">JSONSerialiser</a> 
+<code>deserialise</code> method. </p>
+<p>Here are the Gaffer user defined types:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:4"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><input id="__tabbed_2_4" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">FreqMap</label><label for="__tabbed_2_2">CustomMap</label><label for="__tabbed_2_3">TypeValue</label><label for="__tabbed_2_4">TypeSubTypeValue</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">&quot;values&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uk.gov.gchq.gaffer.types.FreqMap&quot;</span><span class="p">,</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">&quot;test&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="err">...</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">]</span>
 </span></code></pre></div>
-<p>It has too much empty space to be very useful.</p>
-<p><img alt="Image title" src="../core.svg" /></p>
-<h3 id="using-the-depgraph-maven-plugin">Using the Depgraph Maven plugin</h3>
-<p>A much better tool for creating <code>.dot</code> files is the Depgraph Maven plugin. This creates graphs with optimised node positioning, better formatting and more options than the built-in plugin.</p>
-<p>The main options available are <code>showClassifiers</code>, <code>showDuplicates</code>, <code>showConflicts</code>, <code>showVersions</code>, <code>showGroupIds</code> &amp; <code>showTypes</code>. All of these options are disabled by default, but have been enabled in the Gaffer POM.</p>
-<p>It's important to note that this plugin does not have an equivalent to the verbose mode of <code>dependency:tree</code>, and it does not have a way to shown that a dependency's version has been changed using dependency management.</p>
-<p>For more info on the plugin, see the <a href="https://github.com/ferstl/depgraph-maven-plugin">Depgraph GitHub</a> and <a href="https://ferstl.github.io/depgraph-maven-plugin/graph-mojo.html">plugin docs</a>.</p>
-<p>An example is shown below. The <code>dot</code> tool is also <a href="https://graphviz.org/docs/layouts/dot/">part of Graphviz</a>.</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>mvn<span class="w"> </span>depgraph:graph<span class="w"> </span>-pl<span class="w"> </span>:map-store<span class="w"> </span>-Dscope<span class="o">=</span>compile<span class="w"> </span>-DoutputDirectory<span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>dot<span class="w"> </span>-Tsvg<span class="w"> </span>dependency-graph.dot<span class="w"> </span>-o<span class="w"> </span>filename.svg
+</div>
+<div class="tabbed-block">
+<div class="language-json highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">&quot;values&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uk.gov.gchq.gaffer.types.CustomMap&quot;</span><span class="p">,</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">&quot;keySerialiser&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">      </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uk.gov.gchq.gaffer.serialisation.implementation.BooleanSerialiser&quot;</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">&quot;valueSerialiser&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">      </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uk.gov.gchq.gaffer.serialisation.implementation.BooleanSerialiser&quot;</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="p">},</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="nt">&quot;jsonStorage&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">  </span><span class="err">...</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="p">]</span>
 </span></code></pre></div>
-<p>The black dotted lines show duplicates and the red ones show conflicts which were ignored during dependency resolution.</p>
-<p><img alt="Image title" src="../map-store.svg" /></p>
-<p>It's also possible to create an aggregated graph of all dependencies in a project using <code>depgraph:aggregate</code> (which doesn't support showing duplicates or conflicts). For Gaffer this creates <a href="../gaffer-complete.svg">a very large image</a>.</p>
+</div>
+<div class="tabbed-block">
+<div class="language-json highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">&quot;values&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uk.gov.gchq.gaffer.types.TypeValue&quot;</span><span class="p">,</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;type&quot;</span><span class="p">,</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;value&quot;</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="err">...</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">]</span>
+</span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-json highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">&quot;values&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="p">{</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nt">&quot;class&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uk.gov.gchq.gaffer.types.TypeSubTypeValue&quot;</span><span class="p">,</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;type&quot;</span><span class="p">,</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="nt">&quot;subType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;subType&quot;</span><span class="p">,</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="nt">&quot;value&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;value&quot;</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="err">...</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="p">]</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
+<details class="note" open="open">
+<summary>Note</summary>
+<p>The subclass fields must also have the <code>class</code> field set (for 
+example, the <code>keySerialiser</code> in the <code>CustomMap</code> type) if not a standard Java Object 
+so that the Jackson <code>ObjectMapper</code> knows how to convert the correct values 
+to Java objects.</p>
+</details>
+<h4 id="composing-using-java">Composing using Java</h4>
+<p>If you are composing the <code>HllSketch</code> with values using Java, before 
+converting to JSON and sending via REST, you need ensure that the <code>values</code> 
+objects are translated to JSON with the correct <code>class</code> field added. 
+To make sure of this, you could add the <code>sketches-library</code> JAR and use the 
+<a href="https://github.com/gchq/Gaffer/blob/develop/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/datasketches/cardinality/serialisation/json/HllSketchWithValues.java">HllSketchWithValues</a> 
+object to construct your query (or the equivalent for HyperLogLogPlus). 
+This way you know that all the objects have the 
+correct field added. You can then convert the <code>HllSketchWithValues</code> to 
+JSON using the 
+<a href="https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/jsonserialisation/JSONSerialiser.html">JSONSerialiser</a>
+<code>serialisation</code> method:
+<div class="language-java highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kd">final</span><span class="w"> </span><span class="n">HllSketchWithValues</span><span class="w"> </span><span class="n">hllSketchWithValues</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSONSerialiser</span><span class="p">.</span><span class="na">deserialise</span><span class="p">(</span><span class="n">treeNode</span><span class="p">.</span><span class="na">toString</span><span class="p">(),</span><span class="w"> </span><span class="n">HllSketchWithValues</span><span class="p">.</span><span class="na">class</span><span class="p">);</span>
+</span></code></pre></div>
+If you want to create your own class instead, rather than using 
+<code>HllSketchWithValues</code>, ensure 
+that the <code>values</code> list has the correct annotation so the <code>class</code> is added on 
+conversion using by the Jackson <code>ObjectMapper</code>:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nd">@JsonTypeInfo</span><span class="p">(</span><span class="n">use</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonTypeInfo</span><span class="p">.</span><span class="na">Id</span><span class="p">.</span><span class="na">CLASS</span><span class="p">,</span><span class="w"> </span><span class="n">property</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;class&quot;</span><span class="p">)</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kd">private</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span><span class="w"> </span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+</span></code></pre></div>
+<h4 id="composing-using-python">Composing using Python</h4>
+<p>An example of using Python to add a <code>HyperLogLogPlus</code> property with a <code>TypeSubTypeValue</code> offer:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">g</span><span class="o">.</span><span class="n">AddElements</span><span class="p">(</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>            <span class="nb">input</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>                <span class="n">g</span><span class="o">.</span><span class="n">Entity</span><span class="p">(</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>                    <span class="n">vertex</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>                    <span class="n">group</span><span class="o">=</span><span class="s2">&quot;cardinality&quot;</span><span class="p">,</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>                    <span class="n">properties</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>                        <span class="s2">&quot;hllp&quot;</span><span class="p">:</span> <span class="n">g</span><span class="o">.</span><span class="n">hyper_log_log_plus</span><span class="p">([</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>                            <span class="p">{</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>                                <span class="s2">&quot;class&quot;</span> <span class="p">:</span> <span class="s2">&quot;uk.gov.gchq.gaffer.types.TypeSubTypeValue&quot;</span><span class="p">,</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>                                <span class="s2">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;t&quot;</span><span class="p">,</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>                                <span class="s2">&quot;subType&quot;</span> <span class="p">:</span> <span class="s2">&quot;st&quot;</span><span class="p">,</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>                                <span class="s2">&quot;value&quot;</span> <span class="p">:</span> <span class="s2">&quot;B&quot;</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>                            <span class="p">}</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>                        <span class="p">])</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>                    <span class="p">}</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>                <span class="p">)</span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>            <span class="p">]</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>        <span class="p">)</span>
+</span></code></pre></div></p>
+<p>An example of using Python to add a <code>HllSketch</code> property with a <code>TypeSubTypeValue</code> offer:
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">g</span><span class="o">.</span><span class="n">AddElements</span><span class="p">(</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>            <span class="nb">input</span><span class="o">=</span><span class="p">[</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>                <span class="n">g</span><span class="o">.</span><span class="n">Entity</span><span class="p">(</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>                    <span class="n">vertex</span><span class="o">=</span><span class="s2">&quot;A&quot;</span><span class="p">,</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>                    <span class="n">group</span><span class="o">=</span><span class="s2">&quot;cardinality&quot;</span><span class="p">,</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>                    <span class="n">properties</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>                        <span class="s2">&quot;hllSketch&quot;</span><span class="p">:</span> <span class="n">g</span><span class="o">.</span><span class="n">hll_sketch</span><span class="p">([</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>                            <span class="p">{</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>                                <span class="s2">&quot;class&quot;</span> <span class="p">:</span> <span class="s2">&quot;uk.gov.gchq.gaffer.types.TypeSubTypeValue&quot;</span><span class="p">,</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>                                <span class="s2">&quot;type&quot;</span> <span class="p">:</span> <span class="s2">&quot;t&quot;</span><span class="p">,</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>                                <span class="s2">&quot;subType&quot;</span> <span class="p">:</span> <span class="s2">&quot;st&quot;</span><span class="p">,</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>                                <span class="s2">&quot;value&quot;</span> <span class="p">:</span> <span class="s2">&quot;B&quot;</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>                            <span class="p">}</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>                        <span class="p">])</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>                    <span class="p">}</span>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>                <span class="p">)</span>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>            <span class="p">]</span>
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>        <span class="p">)</span>
+</span></code></pre></div></p>
+<h3 id="adding-user-defined-vertex-types-into-offers">Adding user defined vertex types into offers</h3>
+<p>To add a user defined type you must ensure that:</p>
+<ul>
+<li>the type is on the Gaffer classpath</li>
+<li>the type must override the <code>toString</code> method</li>
+<li>the type contains the correct annotations if you are converting from Java to
+  JSON before sending via REST</li>
+</ul>
+<p>The following user defined type example features the annotation required as 
+well as the <code>@Override</code> of the <code>toString</code> method:</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nd">@JsonTypeInfo</span><span class="p">(</span><span class="n">use</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JsonTypeInfo</span><span class="p">.</span><span class="na">Id</span><span class="p">.</span><span class="na">CLASS</span><span class="p">,</span><span class="w"> </span><span class="n">property</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;class&quot;</span><span class="p">)</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ExampleType</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Comparable</span><span class="o">&lt;</span><span class="n">ExampleType</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">Serializable</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">   </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">value</span><span class="p">...;</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">   </span><span class="c1">// getters and setters</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">   </span><span class="nd">@Override</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">   </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">toString</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">       </span><span class="k">return</span><span class="w"> </span><span class="p">...;</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">   </span><span class="p">}</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="p">}</span>
+</span></code></pre></div>
 
   <hr>
 <div class="md-source-file">
@@ -1604,7 +1757,7 @@ If <code>-DexcludeTransitive=true</code> is not used it will also print transiti
       
         <br>
         Created:
-        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 26, 2023</span>
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 13, 2023</span>
       
     
   </small>

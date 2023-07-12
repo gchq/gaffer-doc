@@ -589,8 +589,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../getting-started/guide/rest-api-sketches/" class="md-nav__link">
-        Sketches with the REST API
+      <a href="../../getting-started/guide/cardinality/" class="md-nav__link">
+        Cardinality
       </a>
     </li>
   
@@ -792,6 +792,20 @@
     <li class="md-nav__item">
       <a href="../ways-of-working/" class="md-nav__link">
         Ways of Working
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rest-api-sketches/" class="md-nav__link">
+        Sketches custom deserialisation
       </a>
     </li>
   
@@ -1539,13 +1553,13 @@ If <code>-DexcludeTransitive=true</code> is not used it will also print transiti
 <div class="language-c highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">uk</span><span class="p">.</span><span class="n">gov</span><span class="p">.</span><span class="n">gchq</span><span class="p">.</span><span class="n">gaffer</span><span class="o">:</span><span class="n">core</span><span class="o">:</span><span class="n">pom</span><span class="o">:</span><span class="mf">2.0.0</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="o">+-</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="n">slf4j</span><span class="o">:</span><span class="n">slf4j</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">1.7.36</span><span class="o">:</span><span class="n">compile</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="o">+-</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="n">slf4j</span><span class="o">:</span><span class="n">slf4j</span><span class="o">-</span><span class="n">reload4j</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">1.7.36</span><span class="o">:</span><span class="n">compile</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="o">|</span><span class="w">  </span><span class="o">+-</span><span class="w"> </span><span class="p">(</span><span class="n">org</span><span class="p">.</span><span class="n">slf4j</span><span class="o">:</span><span class="n">slf4j</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">1.7.36</span><span class="o">:</span><span class="n">compile</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">omitted</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">duplicate</span><span class="p">)</span><span class="w"> </span><span class="c1">// (1)</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="o">|</span><span class="w">  </span><span class="err">\</span><span class="o">-</span><span class="w"> </span><span class="n">ch</span><span class="p">.</span><span class="n">qos</span><span class="p">.</span><span class="n">reload4j</span><span class="o">:</span><span class="n">reload4j</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">1.2.18.3</span><span class="o">:</span><span class="n">compile</span><span class="w"> </span><span class="p">(</span><span class="n">version</span><span class="w"> </span><span class="n">managed</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="mf">1.2.19</span><span class="p">)</span><span class="w"> </span><span class="c1">// (2)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="o">|</span><span class="w">  </span><span class="o">+-</span><span class="w"> </span><span class="p">(</span><span class="n">org</span><span class="p">.</span><span class="n">slf4j</span><span class="o">:</span><span class="n">slf4j</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">1.7.36</span><span class="o">:</span><span class="n">compile</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">omitted</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">duplicate</span><span class="p">)</span><span class="w"> </span><span class="c1">// (1)!</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="o">|</span><span class="w">  </span><span class="err">\</span><span class="o">-</span><span class="w"> </span><span class="n">ch</span><span class="p">.</span><span class="n">qos</span><span class="p">.</span><span class="n">reload4j</span><span class="o">:</span><span class="n">reload4j</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">1.2.18.3</span><span class="o">:</span><span class="n">compile</span><span class="w"> </span><span class="p">(</span><span class="n">version</span><span class="w"> </span><span class="n">managed</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="mf">1.2.19</span><span class="p">)</span><span class="w"> </span><span class="c1">// (2)!</span>
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="o">+-</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="n">junit</span><span class="p">.</span><span class="n">jupiter</span><span class="o">:</span><span class="n">junit</span><span class="o">-</span><span class="n">jupiter</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">5.9.0</span><span class="o">:</span><span class="n">test</span>
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="o">|</span><span class="w">  </span><span class="o">+-</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="n">junit</span><span class="p">.</span><span class="n">jupiter</span><span class="o">:</span><span class="n">junit</span><span class="o">-</span><span class="n">jupiter</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">5.9.0</span><span class="o">:</span><span class="n">test</span>
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="err">\</span><span class="o">-</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="n">mockito</span><span class="o">:</span><span class="n">mockito</span><span class="o">-</span><span class="n">junit</span><span class="o">-</span><span class="n">jupiter</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">4.6.1</span><span class="o">:</span><span class="n">test</span>
 </span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">   </span><span class="o">+-</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="n">mockito</span><span class="o">:</span><span class="n">mockito</span><span class="o">-</span><span class="n">core</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">4.6.1</span><span class="o">:</span><span class="n">test</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">   </span><span class="err">\</span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">org</span><span class="p">.</span><span class="n">junit</span><span class="p">.</span><span class="n">jupiter</span><span class="o">:</span><span class="n">junit</span><span class="o">-</span><span class="n">jupiter</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">5.8.2</span><span class="o">:</span><span class="n">test</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">omitted</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">conflict</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="mf">5.9.0</span><span class="p">)</span><span class="w"> </span><span class="c1">// (3)</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">   </span><span class="err">\</span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">org</span><span class="p">.</span><span class="n">junit</span><span class="p">.</span><span class="n">jupiter</span><span class="o">:</span><span class="n">junit</span><span class="o">-</span><span class="n">jupiter</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="mf">5.8.2</span><span class="o">:</span><span class="n">test</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">omitted</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">conflict</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="mf">5.9.0</span><span class="p">)</span><span class="w"> </span><span class="c1">// (3)!</span>
 </span></code></pre></div></p>
 <ol>
 <li>This dependency was omitted because it was already resolved (found) earlier. If a dependency with the same version is seen more than once, subsequent instances are ignored as <strong>duplicates</strong>.</li>
@@ -1586,7 +1600,7 @@ If <code>-DexcludeTransitive=true</code> is not used it will also print transiti
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 26, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 13, 2023</span>
       
         <br>
         Created:

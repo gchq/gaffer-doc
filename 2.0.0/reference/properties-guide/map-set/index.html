@@ -589,8 +589,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/guide/rest-api-sketches/" class="md-nav__link">
-        Sketches with the REST API
+      <a href="../../../getting-started/guide/cardinality/" class="md-nav__link">
+        Cardinality
       </a>
     </li>
   
@@ -689,6 +689,20 @@
     <li class="md-nav__item">
       <a href="../../../dev/ways-of-working/" class="md-nav__link">
         Ways of Working
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/rest-api-sketches/" class="md-nav__link">
+        Sketches custom deserialisation
       </a>
     </li>
   
@@ -1708,7 +1722,7 @@
 <p>There are two timestamp properties:</p>
 <ul>
 <li>RBMBackedTimestampSet: When this is created, a <a href="https://github.com/gchq/Gaffer/blob/master/library/time-library/src/main/java/uk/gov/gchq/gaffer/time/CommonTimeUtil.java">TimeBucket</a> is specified, e.g. minute. When a timestamp is added, it is truncated to the nearest start of a bucket (e.g. if the bucket is a minute then the seconds are removed) and then added to the set. Internally the timestamps are stored in a <a href="https://roaringbitmap.org/">Roaring Bitmap</a>.</li>
-<li>BoundedTimestampSet: This is similar to the above set, except that when it is created a maximum size is specified. If the set grows beyond the maximum size, then a random sample of the timestamps of that size is created. This is useful to avoid the size of the set for entities or edges that are very busy growing too large. By retaining a sample, we maintain an indication of when the entity or edge was active, without retaining all the information. The sample is implemented using a <a href="https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/sampling/ReservoirLongsUnion.java">ReservoirLongsUnion</a> from the Datasketches library.</li>
+<li>BoundedTimestampSet: This is similar to the above set, except that when it is created a maximum size is specified. If the set grows beyond the maximum size, then a random sample of the timestamps of that size is created. This is useful to avoid the size of the set for entities or edges that are very busy growing too large. By retaining a sample, we maintain an indication of when the entity or edge was active, without retaining all the information. The sample is implemented using a <a href="https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/sampling/ReservoirLongsUnion.java">ReservoirLongsUnion</a> from the Datasketches library.</li>
 </ul>
 <h3 id="rbmbackedtimestampset-example">RBMBackedTimestampSet Example</h3>
 <p>This example demonstrates how the RBMBackedTimestampSet property can be used to maintain a set of the timestamps at which an element was seen active.</p>
@@ -1834,7 +1848,7 @@ We also added in the serialiser and aggregator for the RBMBackedTimestampSet obj
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 18, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 13, 2023</span>
       
         <br>
         Created:

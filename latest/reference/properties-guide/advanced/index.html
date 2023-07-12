@@ -589,8 +589,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../getting-started/guide/rest-api-sketches/" class="md-nav__link">
-        Sketches with the REST API
+      <a href="../../../getting-started/guide/cardinality/" class="md-nav__link">
+        Cardinality
       </a>
     </li>
   
@@ -689,6 +689,20 @@
     <li class="md-nav__item">
       <a href="../../../dev/ways-of-working/" class="md-nav__link">
         Ways of Working
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/rest-api-sketches/" class="md-nav__link">
+        Sketches custom deserialisation
       </a>
     </li>
   
@@ -1820,25 +1834,25 @@
 <h1 id="advanced-properties">Advanced Properties</h1>
 <p>These properties use advanced sketch structures from the Clearspring and Datasketches libraries.</p>
 <h2 id="introduction">Introduction</h2>
-<p>A sketch is a compact data structure that gives an approximate answer to a question. For example, a HyperLogLog sketch can estimate the cardinality of a set with billions of elements with a small relative error, using orders of magnitude less storage than storing the full set.</p>
+<p>A sketch is a compact data structure that gives an approximate answer to a question. For example, a Hll sketch can estimate the cardinality of a set with billions of elements with a small relative error, using orders of magnitude less storage than storing the full set.</p>
 <p>Gaffer allows sketches to be stored on Entities and Edges. These sketches can be continually updated as new data arrives. Here are some example applications of sketches in Gaffer:</p>
 <ul>
-<li>Using a HyperLogLogPlusPlus sketch to provide a very quick estimate of the degree of a node.</li>
+<li>Using a Hll sketch to provide a very quick estimate of the degree of a node.</li>
 <li>Using a quantiles sketch to estimate the median score associated to an edge, or the 99th percentile of the scores seen on an edge.</li>
 <li>Using a reservoir items sketch to store a sample of all the distinct labels associated to an edge.</li>
 <li>Using theta sketches to estimate the number of distinct edges seen on a particular day, the number seen on the previous day and the overlap between the two days.</li>
 </ul>
-<p>Gaffer provides serialisers and aggregators for sketches from two different libraries: the <a href="https://github.com/addthis/stream-lib">Clearspring</a> library and the pre-Apache version of the <a href="https://datasketches.github.io/">Datasketches</a> library.</p>
-<p>For the Clearspring library, a serialiser and an aggregator is provided for the <a href="https://github.com/addthis/stream-lib/blob/master/src/main/java/com/clearspring/analytics/stream/cardinality/HyperLogLogPlus.java"><code>HyperLogLogPlus</code></a> sketch. This is an implementation of the HyperLogLog++ algorithm described <a href="https://static.googleusercontent.com/external_content/untrusted_dlcp/research.google.com/en/us/pubs/archive/40671.pdf">in this paper</a>.</p>
+<p>Gaffer provides serialisers and aggregators for sketches from two different libraries: the Apache version of the <a href="https://datasketches.apache.org/">Datasketches</a> library and the <a href="https://github.com/addthis/stream-lib">Clearspring</a>. The Clearspring HyperLogLogPlus has been <strong>deprecated in Gaffer</strong> and we recommend the Datasketches HllSketch to users for the reasons described <a href="#hyperloglogplus">below</a>.  </p>
 <p>For the Datasketches library, serialisers and aggregators are provided for several sketches. These sketches include:</p>
 <ul>
-<li><a href="https://datasketches.apache.org/docs/HLL/HLL.html">HyperLogLog sketches</a> for estimating the cardinality of a set (see class <a href="https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/hll/HllSketch.java">com.yahoo.sketches.hll.HllSketch</a>);</li>
-<li><a href="https://datasketches.apache.org/docs/Frequency/FrequencySketchesOverview.html">Frequency sketches</a> for estimating the frequencies of items such as longs and strings respectively (see for example class <a href="https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/frequencies/LongsSketch.java">com.yahoo.sketches.frequencies.LongsSketch</a>);</li>
-<li><a href="https://datasketches.apache.org/docs/Quantiles/QuantilesOverview.html">Quantile sketches</a> for estimating the quantiles of doubles or strings seen on an element (see for example class <a href="https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/quantiles/DoublesSketch.java">com.yahoo.sketches.quantiles.DoublesSketch</a>);</li>
-<li><a href="https://datasketches.apache.org/docs/Sampling/ReservoirSampling.html">Sampling sketches</a> for maintaining samples of items seen on an element (see for example class <a href="https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/sampling/ReservoirItemsSketch.java">com.yahoo.sketches.sampling.ReservoirItemsSketch</a>);</li>
-<li><a href="https://datasketches.apache.org/docs/Theta/ThetaSketchFramework.html">Theta sketches</a> for estimating the union and intersection of sets (see for example class <a href="https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/theta/Sketch.java">com.yahoo.sketches.theta.Sketch</a>).</li>
+<li><a href="https://datasketches.apache.org/docs/HLL/HLL.html">HyperLogLog sketches</a> for estimating the cardinality of a set (see class <a href="https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/hll/HllSketch.java">org.apache.datasketches.hll.HllSketch</a>);</li>
+<li><a href="https://datasketches.apache.org/docs/Frequency/FrequencySketchesOverview.html">Frequency sketches</a> for estimating the frequencies of items such as longs and strings respectively (see for example class <a href="https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/frequencies/LongsSketch.java">org.apache.datasketches.frequencies.LongsSketch</a>);</li>
+<li><a href="https://datasketches.apache.org/docs/Quantiles/QuantilesOverview.html">Quantile sketches</a> for estimating the quantiles of doubles or strings seen on an element (see for example class <a href="https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/quantiles/DoublesSketch.java">org.apache.datasketches.quantiles.DoublesSketch</a>);</li>
+<li><a href="https://datasketches.apache.org/docs/Sampling/ReservoirSampling.html">Sampling sketches</a> for maintaining samples of items seen on an element (see for example class <a href="https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/sampling/ReservoirItemsSketch.java">org.apache.datasketches.sampling.ReservoirItemsSketch</a>);</li>
+<li><a href="https://datasketches.apache.org/docs/Theta/ThetaSketchFramework.html">Theta sketches</a> for estimating the union and intersection of sets (see for example class <a href="https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/theta/Sketch.java">org.apache.datasketches.theta.Sketch</a>).</li>
 </ul>
 <p>Most of the Datasketches sketches come in two forms: a standard sketch form and a "union" form. The latter is technically not a sketch. It is an operator that allows efficient union operations of two sketches. It also allows updating the sketch with individual items. In order to obtain estimates from it, it is necessary to first obtain a sketch from it, using a method called <code>getResult()</code>. There are some interesting trade-offs in the serialisation and aggregation speeds between the sketches and the unions. If in doubt, use the standard sketches. Examples are provided for the standard sketches, but not for the unions.</p>
+<p>For the deprecated Clearspring library, a serialiser and an aggregator is provided for the <a href="https://github.com/addthis/stream-lib/blob/master/src/main/java/com/clearspring/analytics/stream/cardinality/HyperLogLogPlus.java"><code>HyperLogLogPlus</code></a> sketch. This is an implementation of the HyperLogLog++ algorithm described <a href="https://static.googleusercontent.com/external_content/untrusted_dlcp/research.google.com/en/us/pubs/archive/40671.pdf">in this paper</a>.</p>
 <h3 id="class-list">Class List</h3>
 <table>
 <thead>
@@ -1854,23 +1868,23 @@
 </tr>
 <tr>
 <td><code>HllSketch</code></td>
-<td><code>com.yahoo.sketches.hll.HllSketch</code></td>
+<td><code>org.apache.datasketches.hll.HllSketch</code></td>
 </tr>
 <tr>
 <td><code>LongsSketch</code></td>
-<td><code>com.yahoo.sketches.frequencies.LongsSketch</code></td>
+<td><code>org.apache.datasketches.frequencies.LongsSketch</code></td>
 </tr>
 <tr>
 <td><code>DoublesSketch</code></td>
-<td><code>com.yahoo.sketches.quantiles.DoublesSketch</code></td>
+<td><code>org.apache.datasketches.quantiles.DoublesSketch</code></td>
 </tr>
 <tr>
 <td><code>ReservoirItemsSketch</code></td>
-<td><code>com.yahoo.sketches.sampling.ReservoirItemsSketch</code></td>
+<td><code>org.apache.datasketches.sampling.ReservoirItemsSketch</code></td>
 </tr>
 <tr>
 <td><code>ThetaSketch</code></td>
-<td><code>com.yahoo.sketches.theta.Sketch</code></td>
+<td><code>org.apache.datasketches.theta.Sketch</code></td>
 </tr>
 </tbody>
 </table>
@@ -1987,24 +2001,28 @@
 <p>This section contains examples for how to use the advanced properties.</p>
 <h3 id="hyperloglogplus">HyperLogLogPlus</h3>
 <p>This example demonstrates how the HyperLogLogPlus sketch property from the Clearspring library can be used to maintain an estimate of the degree of a vertex.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>As of 2.1.0, we have <strong>deprecated</strong> the use of Clearspring's <code>HyperLogLogPlus</code> within Gaffer and recommend using Datasketches' <a href="#hllsketch"><code>HllSketch</code></a> for approximate cardinality instead. This is because <code>HllSketch</code> has better performance as shown in the Datasketches <a href="https://datasketches.apache.org/docs/HLL/Hll_vs_CS_Hllpp.html">documentation</a>.</p>
+</div>
 <details class="example">
 <summary>Example storing an estimate of the degree of a vertex using HyperLogLogPlus</summary>
-<p>Every time an edge A -&gt; B is added to graph, we also add an Entity for A with a property of a HyperLogLogPlus containing B, and an Entity for B with a property of a HyperLogLogPlus containing A. The aggregator for the HyperLogLogPluses merges them together so that after querying for the Entity for vertex X the HyperLogLogPlus property gives us an estimate of the approximate degree.</p>
+<p>Every time an Edge <code>A -&gt; B</code> is added to graph, we also add an Entity for <code>A</code> with a property of type HyperLogLogPlus containing <code>B</code>, and an Entity for <code>B</code> with a property of type HyperLogLogPlus containing <code>A</code>. The aggregator for the HyperLogLogPluses merges the new data with the pre-existing cardinality, so that after querying for the Entity the HyperLogLogPlus property gives us an estimate of the degree.</p>
 <h4 id="elements-schema">Elements schema</h4>
-<p>This is our new elements schema. The edge has a property called 'approx_cardinality'. This will store the HyperLogLogPlus object.</p>
+<p>This is our new elements schema. The entity type <code>cardinality</code> has a property called 'approxCardinality'. This will store the HyperLogLogPlus object.</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&quot;entities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">&quot;cardinality&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">      </span><span class="nt">&quot;vertex&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vertex.string&quot;</span><span class="p">,</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">      </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">        </span><span class="nt">&quot;approxCardinality&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hyperloglogplus&quot;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">        </span><span class="nt">&quot;approxCardinality&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hyperLogLogPlus&quot;</span>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">      </span><span class="p">}</span>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="p">}</span>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">}</span>
 </span></code></pre></div>
 <h4 id="types-schema">Types schema</h4>
-<p>We have added a new type - 'hyperloglogplus'. This is a <a href="https://github.com/addthis/stream-lib/blob/master/src/main/java/com/clearspring/analytics/stream/cardinality/HyperLogLogPlus.java"><code>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</code></a> object.
+<p>We have added a new type - 'hyperLogLogPlus'. This is a <a href="https://github.com/addthis/stream-lib/blob/master/src/main/java/com/clearspring/analytics/stream/cardinality/HyperLogLogPlus.java"><code>com.clearspring.analytics.stream.cardinality.HyperLogLogPlus</code></a> object.
 We also added in the serialiser and aggregator for the HyperLogLogPlus object. Gaffer will automatically aggregate these sketches, using the provided aggregator, so they will keep up to date as new entities are added to the graph.</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;types&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -2016,7 +2034,7 @@ We also added in the serialiser and aggregator for the HyperLogLogPlus object. G
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="p">}</span>
 </span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">      </span><span class="p">]</span>
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="p">},</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="nt">&quot;hyperloglogplus&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="nt">&quot;hyperLogLogPlus&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">      </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;com.clearspring.analytics.stream.cardinality.HyperLogLogPlus&quot;</span><span class="p">,</span>
 </span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">      </span><span class="nt">&quot;aggregateFunction&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">        </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uk.gov.gchq.gaffer.sketches.clearspring.cardinality.binaryoperator.HyperLogLogPlusAggregator&quot;</span>
@@ -2028,7 +2046,7 @@ We also added in the serialiser and aggregator for the HyperLogLogPlus object. G
 </span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="p">}</span>
 </span></code></pre></div>
-<p>Only one entity is in the graph. This was added 1000 times, and each time it had the 'approxCardinality' property containing a vertex that A had been seen in an Edge with. Here is the Entity:</p>
+<p>Only one entity is in the graph. This was added 1000 times, and each time it had the 'approxCardinality' property containing a unique vertex. Here is the Entity:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Entity[vertex=A,group=cardinality,properties=Properties[approxCardinality=&lt;com.clearspring.analytics.stream.cardinality.HyperLogLogPlus&gt;com.clearspring.analytics.stream.cardinality.HyperLogLogPlus@39075f64]]
 </span></code></pre></div>
 <p>This is not very illuminating as this just shows the default <code>toString()</code> method on the sketch. We can fetch the cardinality for the vertex using the following code:</p>
@@ -2051,22 +2069,22 @@ We also added in the serialiser and aggregator for the HyperLogLogPlus object. G
 <p>This example demonstrates how the HllSketch sketch property from the Datasketches library can be used to maintain an estimate of the degree of a vertex.</p>
 <details class="example">
 <summary>Example storing an estimate of the degree of a vertex using HllSketch</summary>
-<p>Every time an edge A -&gt; B is added to graph, we also add an Entity for A with a property of a HllSketch containing B, and an Entity for B with a property of a HllSketch containing A. The aggregator for the HllSketches merges them together so that after querying for the Entity for vertex X the HllSketch property would give us an estimate of the approximate degree.</p>
+<p>Every time an Edge <code>A -&gt; B</code> is added to graph, we also add an Entity for <code>A</code> with a property of type HllSketch containing <code>B</code>, and an Entity for <code>B</code> with a property of type HllSketch containing <code>A</code>. The aggregator for the HllSketches merges the new data with the pre-existing cardinality, so that after querying for the Entity the HllSketch property gives us an estimate of the degree.</p>
 <h4 id="elements-schema_1">Elements schema</h4>
-<p>This is our new elements schema. The edge has a property called 'approx_cardinality'. This will store the HllSketch object.</p>
+<p>This is our new elements schema. The entity type <code>cardinality</code> has a property called 'approxCardinality'. This will store the HllSketch object.</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">{</span>
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">&quot;entities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="nt">&quot;cardinality&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">      </span><span class="nt">&quot;vertex&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;vertex.string&quot;</span><span class="p">,</span>
 </span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">      </span><span class="nt">&quot;properties&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">        </span><span class="nt">&quot;approxCardinality&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hllsketch&quot;</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">        </span><span class="nt">&quot;approxCardinality&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hllSketch&quot;</span>
 </span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">      </span><span class="p">}</span>
 </span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="p">}</span>
 </span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="p">}</span>
 </span></code></pre></div>
 <h4 id="types-schema_1">Types schema</h4>
-<p>We have added a new type - 'hllsketch'. This is a <a href="https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/hll/HllSketch.java"><code>com.yahoo.sketches.hll.HllSketch</code></a> object.
+<p>We have added a new type - <code>hllSketch</code>. This is a <a href="https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/hll/HllSketch.java"><code>org.apache.datasketches.hll.HllSketch</code></a> object.
 We also added in the serialiser and aggregator for the HllSketch object. Gaffer will automatically aggregate these sketches, using the provided aggregator, so they will keep up to date as new entities are added to the graph.</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">&quot;types&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -2078,8 +2096,8 @@ We also added in the serialiser and aggregator for the HllSketch object. Gaffer 
 </span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">        </span><span class="p">}</span>
 </span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">      </span><span class="p">]</span>
 </span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">    </span><span class="p">},</span>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">    </span><span class="nt">&quot;hllsketch&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">      </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;com.yahoo.sketches.hll.HllSketch&quot;</span><span class="p">,</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">    </span><span class="nt">&quot;hllSketch&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">      </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;org.apache.datasketches.hll.HllSketch&quot;</span><span class="p">,</span>
 </span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">      </span><span class="nt">&quot;aggregateFunction&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">        </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uk.gov.gchq.gaffer.sketches.datasketches.cardinality.binaryoperator.HllSketchAggregator&quot;</span>
 </span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">      </span><span class="p">},</span>
@@ -2090,8 +2108,8 @@ We also added in the serialiser and aggregator for the HllSketch object. Gaffer 
 </span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="w">  </span><span class="p">}</span>
 </span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="p">}</span>
 </span></code></pre></div>
-<p>Only one entity is in the graph. This was added 1000 times, and each time it had the 'approxCardinality' property containing a vertex that A had been seen in an Edge with. Here is the Entity:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Entity[vertex=A,group=cardinality,properties=Properties[approxCardinality=&lt;com.yahoo.sketches.hll.HllSketch&gt;### HLL SKETCH SUMMARY: 
+<p>Only one entity is in the graph. This was added 1000 times, and each time it had the 'approxCardinality' property containing a unique vertex. Here is the Entity:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Entity[vertex=A,group=cardinality,properties=Properties[approxCardinality=&lt;org.apache.datasketches.hll.HllSketch&gt;### HLL SKETCH SUMMARY: 
 </span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  Log Config K   : 10
 </span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  Hll Target     : HLL_4
 </span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  Current Mode   : HLL
@@ -2143,7 +2161,7 @@ We also added in the serialiser and aggregator for the HllSketch object. Gaffer 
 </span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="p">}</span>
 </span></code></pre></div>
 <h4 id="types-schema_2">Types schema</h4>
-<p>We have added a new type - 'longs.sketch'. This is a <a href="https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/frequencies/LongsSketch.java"><code>com.yahoo.sketches.frequencies.LongsSketch</code></a> object.
+<p>We have added a new type - 'longs.sketch'. This is a <a href="https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/frequencies/LongsSketch.java"><code>org.apache.datasketches.frequencies.LongsSketch</code></a> object.
 We also added in the serialiser and aggregator for the LongsSketch object. Gaffer will automatically aggregate these sketches, using the provided aggregator, so they will keep up to date as new edges are added to the graph.</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">{</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="nt">&quot;types&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -2156,7 +2174,7 @@ We also added in the serialiser and aggregator for the LongsSketch object. Gaffe
 </span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">      </span><span class="p">]</span>
 </span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">    </span><span class="p">},</span>
 </span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">    </span><span class="nt">&quot;longs.sketch&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">      </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;com.yahoo.sketches.frequencies.LongsSketch&quot;</span><span class="p">,</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">      </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;org.apache.datasketches.frequencies.LongsSketch&quot;</span><span class="p">,</span>
 </span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">      </span><span class="nt">&quot;aggregateFunction&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">        </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uk.gov.gchq.gaffer.sketches.datasketches.frequencies.binaryoperator.LongsSketchAggregator&quot;</span>
 </span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">      </span><span class="p">},</span>
@@ -2176,7 +2194,7 @@ We also added in the serialiser and aggregator for the LongsSketch object. Gaffe
 </span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>Only one edge is in the graph. This was added 1000 times, and each time it had the 'longs.sketch' property containing a randomly generated long between 0 and 9 (inclusive). The sketch does not retain all the distinct occurrences of these long values, but allows one to estimate the number of occurrences of the different values. Here is the Edge:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>Edge[source=A,destination=B,directed=false,matchedVertex=SOURCE,group=red,properties=Properties[longsSketch=&lt;com.yahoo.sketches.frequencies.LongsSketch&gt;FrequentLongsSketch:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>Edge[source=A,destination=B,directed=false,matchedVertex=SOURCE,group=red,properties=Properties[longsSketch=&lt;org.apache.datasketches.frequencies.LongsSketch&gt;FrequentLongsSketch:
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>  Stream Length    : 1000
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>  Max Error Offset : 0
 </span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>ReversePurgeLongHashMap:
@@ -2230,7 +2248,7 @@ We also added in the serialiser and aggregator for the LongsSketch object. Gaffe
 </span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="p">}</span>
 </span></code></pre></div>
 <h4 id="types-schema_3">Types schema</h4>
-<p>We have added a new type - 'doubles.sketch'. This is a <a href="https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/quantiles/DoublesSketch.java"><code>com.yahoo.sketches.quantiles.DoublesSketch</code></a> object.
+<p>We have added a new type - 'doubles.sketch'. This is a <a href="https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/quantiles/DoublesSketch.java"><code>org.apache.datasketches.quantiles.DoublesSketch</code></a> object.
 We also added in the serialiser and aggregator for the DoublesSketch object. Gaffer will automatically aggregate these sketches, using the provided aggregator, so they will keep up to date as new edges are added to the graph.</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="p">{</span>
 </span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">  </span><span class="nt">&quot;types&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -2243,7 +2261,7 @@ We also added in the serialiser and aggregator for the DoublesSketch object. Gaf
 </span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="w">      </span><span class="p">]</span>
 </span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="w">    </span><span class="p">},</span>
 </span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">    </span><span class="nt">&quot;doubles.sketch&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="w">      </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;com.yahoo.sketches.quantiles.DoublesSketch&quot;</span><span class="p">,</span>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="w">      </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;org.apache.datasketches.quantiles.DoublesSketch&quot;</span><span class="p">,</span>
 </span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="w">      </span><span class="nt">&quot;aggregateFunction&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a><span class="w">        </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uk.gov.gchq.gaffer.sketches.datasketches.quantiles.binaryoperator.DoublesSketchAggregator&quot;</span>
 </span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a><span class="w">      </span><span class="p">},</span>
@@ -2263,7 +2281,7 @@ We also added in the serialiser and aggregator for the DoublesSketch object. Gaf
 </span><span id="__span-16-29"><a id="__codelineno-16-29" name="__codelineno-16-29" href="#__codelineno-16-29"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>Here is the Edge:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>Edge[source=A,destination=B,directed=false,matchedVertex=SOURCE,group=red,properties=Properties[doublesSketch=&lt;com.yahoo.sketches.quantiles.DirectUpdateDoublesSketchR&gt;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>Edge[source=A,destination=B,directed=false,matchedVertex=SOURCE,group=red,properties=Properties[doublesSketch=&lt;org.apache.datasketches.quantiles.DirectUpdateDoublesSketchR&gt;
 </span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>### Quantiles DirectUpdateDoublesSketchR SUMMARY: 
 </span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>  Empty                        : false
 </span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>  Direct, Capacity bytes       : true, 4128
@@ -2353,7 +2371,7 @@ We also added in the serialiser and aggregator for the DoublesSketch object. Gaf
 </span><span id="__span-22-25"><a id="__codelineno-22-25" name="__codelineno-22-25" href="#__codelineno-22-25"></a><span class="p">}</span>
 </span></code></pre></div>
 <h4 id="types-schema_4">Types schema</h4>
-<p>We have added a new type - 'reservoir.strings.sketch'. This is a <a href="https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/sampling/ReservoirItemsSketch.java"><code>com.yahoo.sketches.sampling.ReservoirItemsSketch</code></a> object.
+<p>We have added a new type - 'reservoir.strings.sketch'. This is a <a href="https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/sampling/ReservoirItemsSketch.java"><code>org.apache.datasketches.sampling.ReservoirItemsSketch</code></a> object.
 We also added in the serialiser and aggregator for the ReservoirItemsSketch object. Gaffer will automatically aggregate these sketches, using the provided aggregator, so they will keep up to date as new edges are added to the graph.</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="p">{</span>
 </span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">  </span><span class="nt">&quot;types&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -2366,7 +2384,7 @@ We also added in the serialiser and aggregator for the ReservoirItemsSketch obje
 </span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="w">      </span><span class="p">]</span>
 </span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a><span class="w">    </span><span class="p">},</span>
 </span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a><span class="w">    </span><span class="nt">&quot;reservoir.strings.sketch&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a><span class="w">      </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;com.yahoo.sketches.sampling.ReservoirItemsSketch&quot;</span><span class="p">,</span>
+</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a><span class="w">      </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;org.apache.datasketches.sampling.ReservoirItemsSketch&quot;</span><span class="p">,</span>
 </span><span id="__span-23-13"><a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a><span class="w">      </span><span class="nt">&quot;aggregateFunction&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-23-14"><a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a><span class="w">        </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uk.gov.gchq.gaffer.sketches.datasketches.sampling.binaryoperator.ReservoirItemsSketchAggregator&quot;</span>
 </span><span id="__span-23-15"><a id="__codelineno-23-15" name="__codelineno-23-15" href="#__codelineno-23-15"></a><span class="w">      </span><span class="p">},</span>
@@ -2386,7 +2404,7 @@ We also added in the serialiser and aggregator for the ReservoirItemsSketch obje
 </span><span id="__span-23-29"><a id="__codelineno-23-29" name="__codelineno-23-29" href="#__codelineno-23-29"></a><span class="p">}</span>
 </span></code></pre></div>
 <p>An edge A-B of group "red" was added to the graph 1000 times. Each time it had the stringsSample property containing a randomly generated string. Here is the edge:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>Edge[source=A,destination=B,directed=false,matchedVertex=SOURCE,group=red,properties=Properties[stringsSample=&lt;com.yahoo.sketches.sampling.ReservoirItemsSketch&gt;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>Edge[source=A,destination=B,directed=false,matchedVertex=SOURCE,group=red,properties=Properties[stringsSample=&lt;org.apache.datasketches.sampling.ReservoirItemsSketch&gt;
 </span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>### ReservoirItemsSketch SUMMARY: 
 </span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>  k            : 20
 </span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>  n            : 1000
@@ -2443,7 +2461,7 @@ We also added in the serialiser and aggregator for the ReservoirItemsSketch obje
 </span></code></pre></div>
 </details>
 <h3 id="thetasketch">ThetaSketch</h3>
-<p>This example demonstrates how the ThetaSketch (<code>com.yahoo.sketches.theta.Sketch</code>) sketch property from the Datasketches library can be used to maintain estimates of the cardinalities of sets.</p>
+<p>This example demonstrates how the ThetaSketch (<code>org.apache.datasketches.theta.Sketch</code>) sketch property from the Datasketches library can be used to maintain estimates of the cardinalities of sets.</p>
 <details class="example">
 <summary>Example storing estimates of the cardinalities of sets using ThetaSketch</summary>
 <p>This sketch is similar to a HyperLogLogPlusPlus, but it can also be used to estimate the size of the intersections of sets. We give an example of how this can be used to monitor the changes to the number of edges in the graph over time.</p>
@@ -2483,7 +2501,7 @@ We also added in the serialiser and aggregator for the ReservoirItemsSketch obje
 </span><span id="__span-29-32"><a id="__codelineno-29-32" name="__codelineno-29-32" href="#__codelineno-29-32"></a><span class="p">}</span>
 </span></code></pre></div>
 <h4 id="types-schema_5">Types schema</h4>
-<p>We have added a new type - 'thetasketch'. This is a <a href="https://github.com/apache/datasketches-java/blob/sketches-core-0.13.4/src/main/java/com/yahoo/sketches/theta/Sketch.java"><code>com.yahoo.sketches.theta.Sketch</code></a> object.
+<p>We have added a new type - 'thetasketch'. This is a <a href="https://github.com/apache/datasketches-java/blob/4.0.0/src/main/java/org/apache/datasketches/theta/Sketch.java"><code>org.apache.datasketches.theta.Sketch</code></a> object.
 We also added in the serialiser and aggregator for the Union object. Gaffer will automatically aggregate these sketches, using the provided aggregator, so they will keep up to date as new edges are added to the graph.</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="p">{</span>
 </span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="w">  </span><span class="nt">&quot;types&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -2524,7 +2542,7 @@ We also added in the serialiser and aggregator for the Union object. Gaffer will
 </span><span id="__span-30-37"><a id="__codelineno-30-37" name="__codelineno-30-37" href="#__codelineno-30-37"></a><span class="w">      </span><span class="p">}</span>
 </span><span id="__span-30-38"><a id="__codelineno-30-38" name="__codelineno-30-38" href="#__codelineno-30-38"></a><span class="w">    </span><span class="p">},</span>
 </span><span id="__span-30-39"><a id="__codelineno-30-39" name="__codelineno-30-39" href="#__codelineno-30-39"></a><span class="w">    </span><span class="nt">&quot;thetasketch&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-30-40"><a id="__codelineno-30-40" name="__codelineno-30-40" href="#__codelineno-30-40"></a><span class="w">      </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;com.yahoo.sketches.theta.Sketch&quot;</span><span class="p">,</span>
+</span><span id="__span-30-40"><a id="__codelineno-30-40" name="__codelineno-30-40" href="#__codelineno-30-40"></a><span class="w">      </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;org.apache.datasketches.theta.Sketch&quot;</span><span class="p">,</span>
 </span><span id="__span-30-41"><a id="__codelineno-30-41" name="__codelineno-30-41" href="#__codelineno-30-41"></a><span class="w">      </span><span class="nt">&quot;aggregateFunction&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-30-42"><a id="__codelineno-30-42" name="__codelineno-30-42" href="#__codelineno-30-42"></a><span class="w">        </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uk.gov.gchq.gaffer.sketches.datasketches.theta.binaryoperator.SketchAggregator&quot;</span>
 </span><span id="__span-30-43"><a id="__codelineno-30-43" name="__codelineno-30-43" href="#__codelineno-30-43"></a><span class="w">      </span><span class="p">},</span>
@@ -2545,7 +2563,7 @@ We also added in the serialiser and aggregator for the Union object. Gaffer will
 </span></code></pre></div>
 <p>1000 different edges were added to the graph for the day 09/01/2017 (i.e. the startDate was the midnight at the start of the 9th, and the endDate was the midnight at the end of the 9th). For each edge, an Entity was created, with a vertex called "graph". This contained a theta Sketch object to which a string consisting of the source and destination was added. 500 edges were added to the graph for the day 10/01/2017. Of these, 250 were the same as edges that had been added in the previous day, but 250 were new. Again, for each edge, an Entity was created for the vertex called "graph".</p>
 <p>Here is the Entity for the different days:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>Entity[vertex=graph,group=size,properties=Properties[size=&lt;com.yahoo.sketches.theta.DirectCompactOrderedSketch&gt;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>Entity[vertex=graph,group=size,properties=Properties[size=&lt;org.apache.datasketches.theta.DirectCompactOrderedSketch&gt;
 </span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>### DirectCompactOrderedSketch SUMMARY: 
 </span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>  Estimate                : 500.0
 </span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>  Upper Bound, 95% conf   : 500.0
@@ -2560,7 +2578,7 @@ We also added in the serialiser and aggregator for the Union object. Gaffer will
 </span><span id="__span-31-13"><a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a>  Seed Hash               : 93cc
 </span><span id="__span-31-14"><a id="__codelineno-31-14" name="__codelineno-31-14" href="#__codelineno-31-14"></a>### END SKETCH SUMMARY
 </span><span id="__span-31-15"><a id="__codelineno-31-15" name="__codelineno-31-15" href="#__codelineno-31-15"></a>,endDate=&lt;java.util.Date&gt;Wed Jan 11 00:00:00 GMT 2017,startDate=&lt;java.util.Date&gt;Tue Jan 10 00:00:00 GMT 2017]]
-</span><span id="__span-31-16"><a id="__codelineno-31-16" name="__codelineno-31-16" href="#__codelineno-31-16"></a>Entity[vertex=graph,group=size,properties=Properties[size=&lt;com.yahoo.sketches.theta.DirectCompactOrderedSketch&gt;
+</span><span id="__span-31-16"><a id="__codelineno-31-16" name="__codelineno-31-16" href="#__codelineno-31-16"></a>Entity[vertex=graph,group=size,properties=Properties[size=&lt;org.apache.datasketches.theta.DirectCompactOrderedSketch&gt;
 </span><span id="__span-31-17"><a id="__codelineno-31-17" name="__codelineno-31-17" href="#__codelineno-31-17"></a>### DirectCompactOrderedSketch SUMMARY: 
 </span><span id="__span-31-18"><a id="__codelineno-31-18" name="__codelineno-31-18" href="#__codelineno-31-18"></a>  Estimate                : 1000.0
 </span><span id="__span-31-19"><a id="__codelineno-31-19" name="__codelineno-31-19" href="#__codelineno-31-19"></a>  Upper Bound, 95% conf   : 1000.0
@@ -2628,7 +2646,7 @@ We also added in the serialiser and aggregator for the Union object. Gaffer will
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 18, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 13, 2023</span>
       
         <br>
         Created:
