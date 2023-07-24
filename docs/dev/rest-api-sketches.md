@@ -5,7 +5,7 @@ use cardinality, see the [cardinality](../getting-started/guide/cardinality.md) 
 
 ## Sketches Library
 
-To learn more about the Sketches library see [advanced properties](../../reference/properties-guide/advanced.md) reference page. 
+To learn more about the Sketches library see [advanced properties](../../reference/properties-guide/advanced) reference page. 
 The sketches library is included by default with the Map and Accumulo stores. This is because the `sketches-library` is a dependency in each of
 the respective store modules' poms. As well as this, the serialisation is handled by the fact the 
 [SketchesJsonModules](https://github.com/gchq/Gaffer/blob/gaffer2-2.0.0/library/sketches-library/src/main/java/uk/gov/gchq/gaffer/sketches/serialisation/json/SketchesJsonModules.java) 
