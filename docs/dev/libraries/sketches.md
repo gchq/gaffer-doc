@@ -1,6 +1,6 @@
 # Sketches Library
 
-This module contains various libraries for sketches.
+The [sketches library](https://github.com/gchq/Gaffer/tree/master/library/sketches-library) module contains various libraries for sketches.
 
 In order to make use of the sketches libraries you will need to include this library as a dependency:
 ```

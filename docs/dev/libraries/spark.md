@@ -1,6 +1,6 @@
 # Spark Library
 
-This module contains various libraries for using Apache Spark with Gaffer.
+The [spark library](https://github.com/gchq/Gaffer/tree/master/library/spark/spark-library) contains various libraries for using Apache Spark with Gaffer.
 
 In order to make use of the spark libraries you will need to include this library as a dependency:
 ```

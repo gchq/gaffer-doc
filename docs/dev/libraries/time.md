@@ -1,6 +1,6 @@
 # Time Library
 
-This library contains classes that represent concepts relating to time.
+The [time library](https://github.com/gchq/Gaffer/tree/master/library/time-library) module contains classes that represent concepts relating to time.
 
 For example, there is a class (`RBMBackedTimestampSet`) that can be used to represent a set of timestamps. Internally this stores its state in a Roaring Bitmap for efficiency reasons.
 There is also a class that stores up to a maximum number N of timestamps. If more than N timestamps are added then a uniform random sample of the timestamps, of size at most N, is stored. Serialisers and aggregators for the above classes are provided.
