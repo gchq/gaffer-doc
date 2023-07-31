@@ -9,6 +9,31 @@ Gaffer currently supplies the following store implementations:
 - [Proxy Store](proxy.md) - Delegates/forwards queries to another Gaffer REST
 - [Federated Store](federated.md) - Federates queries across multiple graphs
 
+## Caches
+
+Gaffer comes with three cache implementations:
+
+- `HashMapCacheService` - Uses a Java `HashMap` as the cache data store. [See Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/cache/impl/HashMapCacheService.html).
+- `JcsCacheService` - Uses Apache Commons JCS for the cache data store. [See Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/cache/impl/JcsCacheService.html).
+- `HazelcastCacheService` - Uses Hazelcast for the cache data store. [See Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/cache/impl/HazelcastCacheService.html).
+
+The `HashMap` cache is not persistent. If using the Hazelcast instance of the Cache service be aware that once the last node shuts down, all data will be lost. This is due to the data being held in memory in a distributed system.
+
+For information on implementing caches, see [the cache developer docs page](../../dev/cache.md).
+
+### Cache configuration
+
+In order for the cache service to run you must select your desired implementation. You do this by adding a line to the `store.properties` file:
+```
+gaffer.cache.service.class=uk.gov.gchq.gaffer.cache.impl.HashMapCacheService
+```
+
+If needed, you can specify a configuration file with properties for the cache itself:
+```
+gaffer.cache.config.file=/path/to/file
+```
+
+
 ## Configuring customisable Operations
 
 Some operations are not available by default and you will need to manually configure them.
@@ -16,13 +41,7 @@ Some operations are not available by default and you will need to manually confi
 These customisable operations can be added to your Gaffer graph by providing config in one or more operation declaration JSON files.
 
 ### Named Operations
-Named Operations depends on the Cache service being active at runtime.
-In order for the cache service to run you must select your desired implementation. You do this by adding another line to the store.properties file:
-```
-gaffer.cache.service.class=uk.gov.gchq.gaffer.cache.impl.HashMapCacheService
-```
-
-To find out more about the different cache services on offer, see the [Cache Guide](cache.md#todo).
+Named Operations depends on the Cache service being active at runtime. See [Caches](#caches) above for how to enable these.
 
 ### ScoreOperationChain
 
