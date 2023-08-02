@@ -67,22 +67,22 @@ nav:
       - 'Ways of Working': 'dev/ways-of-working.md'
       - 'Sketches custom deserialisation': 'dev/rest-api-sketches.md'
       - Components:
-        - 'Cache': 'dev/cache.md'
-        - 'Data': 'dev/data.md'
-        - 'Graph': 'dev/graph.md'
-        - 'Store': 'dev/store.md'
-        - 'Operation': 'dev/operation.md'
-        - 'Serialisation': 'dev/serialisation.md'
-        - 'Integration Tests': 'dev/integration-test.md'
-        - 'Core REST': 'dev/core-rest.md'
-        - 'Spring REST': 'dev/spring-rest.md'
-        - 'Accumulo Store': 'dev/accumulo-store.md'
+        - 'Cache': 'dev/components/cache.md'
+        - 'Data': 'dev/components/data.md'
+        - 'Graph': 'dev/components/graph.md'
+        - 'Store': 'dev/components/store.md'
+        - 'Operation': 'dev/components/operation.md'
+        - 'Serialisation': 'dev/components/serialisation.md'
+        - 'Integration Tests': 'dev/components/integration-test.md'
+        - 'Core REST': 'dev/components/core-rest.md'
+        - 'Spring REST': 'dev/components/spring-rest.md'
+        - 'Accumulo Store': 'dev/components/accumulo-store.md'
         - Libraries:
-          - dev/libraries/bitmap.md
-          - dev/libraries/flink.md
-          - dev/libraries/sketches.md
-          - dev/libraries/spark.md
-          - dev/libraries/time.md
+          - dev/components/libraries/bitmap.md
+          - dev/components/libraries/flink.md
+          - dev/components/libraries/sketches.md
+          - dev/components/libraries/spark.md
+          - dev/components/libraries/time.md
     - 'Reference':
       - 'Reference Guide': 'reference/intro.md'
       - Stores:
