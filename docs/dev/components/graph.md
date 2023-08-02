@@ -13,7 +13,7 @@ But, essentially a graph requires just 3 things: some store properties, a schema
 See the [Graph Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/graph/package-summary.html) for further documentation.
 
 ## Store Properties
-The store properties tells the graph the type of store to connect to along with any required connection details. See the [Stores](../reference/stores-guide/stores.md) reference page for more information on the different Stores for Gaffer.
+The store properties tells the graph the type of store to connect to along with any required connection details. See the [Stores](../../reference/stores-guide/stores.md) reference page for more information on the different Stores for Gaffer.
 
 ## Schema
 The schema is passed to the store to instruct the store how to store and process the data. See [Schemas](https://gchq.github.io/gaffer-doc/v1docs/getting-started/developer-guide/schemas.html) for more information - v1 docs, to be updated and added to this documentation in future.

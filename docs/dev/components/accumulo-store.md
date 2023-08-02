@@ -2,7 +2,7 @@
 
 The [accumulo-store module](https://github.com/gchq/Gaffer/tree/master/core/store) is an implementation of the Store API which uses Apache Accumulo.
 
-This page contains brief details on the internal implementation of the `AccumuloStore`. For information on configuring and using this store, see [the Accumulo Store reference page](../reference/stores-guide/accumulo.md).
+This page contains brief details on the internal implementation of the `AccumuloStore`. For information on configuring and using this store, see [the Accumulo Store reference page](../../reference/stores-guide/accumulo.md).
 
 ## Introduction
 
@@ -21,7 +21,7 @@ The core of the functionality is implemented in the key-packages, the iterators 
 
 ## Key-packages
 
-As noted in the [Key-packages section of the Accumulo Store reference](../reference/stores-guide/accumulo.md#key-packages), key-packages are responsible for converting `Element`s to and from key-value pairs, for creating ranges of keys containing all data relevant to a particular query, and for configuring the Iterators. Gaffer provides two key-packages: `ByteEntityKeyPackage` and `ClassicKeyPackage`. Advanced users are able to create their own key-packages if they wish - see [options for future key-packages](#options-for-future-key-packages) for some ideas.
+As noted in the [Key-packages section of the Accumulo Store reference](../../reference/stores-guide/accumulo.md#key-packages), key-packages are responsible for converting `Element`s to and from key-value pairs, for creating ranges of keys containing all data relevant to a particular query, and for configuring the Iterators. Gaffer provides two key-packages: `ByteEntityKeyPackage` and `ClassicKeyPackage`. Advanced users are able to create their own key-packages if they wish - see [options for future key-packages](#options-for-future-key-packages) for some ideas.
 
 Before these key-packages are described, we review the main design goals:
 

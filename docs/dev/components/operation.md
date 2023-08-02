@@ -71,7 +71,7 @@ public static class Builder extends Operation.BaseBuilder<GetElements, Builder>
 ### Operation Scores
 
 For use with a `ScoreOperationChain`, some `Operation`s may require a custom way of calculating an associated score, therefore an implementation of the `ScoreResolver` interface may be required.
-There is a `DefaultScoreResolver` to which the custom implementation should delegate, in a manner specific to the new Operation. For more info, see [ScoreOperationChain](../reference/stores-guide/stores.md#scoreoperationchain) and [ScoreOperationChainExample](../reference/operations-guide/misc.md#scoreoperationchain).
+There is a `DefaultScoreResolver` to which the custom implementation should delegate, in a manner specific to the new Operation. For more info, see [ScoreOperationChain](/docs/reference/stores-guide/stores.md#scoreoperationchain) and [ScoreOperationChainExample](../../reference/operations-guide/misc.md#scoreoperationchain).
 
 ### Documentation
 

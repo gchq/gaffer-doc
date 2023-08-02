@@ -19,7 +19,7 @@ Gaffer comes with three cache implementations:
 
 The `HashMap` cache is not persistent. If using the Hazelcast instance of the Cache service be aware that once the last node shuts down, all data will be lost. This is due to the data being held in memory in a distributed system.
 
-For information on implementing caches, see [the cache developer docs page](../../dev/cache.md).
+For information on implementing caches, see [the cache developer docs page](../../dev/components/cache.md).
 
 ### Cache configuration
 
