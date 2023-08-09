@@ -56,6 +56,9 @@ nav:
     - 'Getting Started':
       - 'Quickstart': 'getting-started/quickstart.md'
       - 'Gaffer Basics': 'getting-started/basics.md'
+      - 'Example Deployment':
+        - 'Project Setup': 'getting-started/example-deployment/project-setup.md'
+        - 'Writing the Schema': 'getting-started/example-deployment/writing-the-schema.md'
       - 'Gaffer Guide':
         - 'Gaffer Guide': 'getting-started/guide/guide.md'
         - 'CSV Import and Export': 'getting-started/guide/csv.md'
