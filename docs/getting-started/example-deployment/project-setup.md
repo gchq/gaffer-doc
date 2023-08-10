@@ -21,7 +21,8 @@ contribute to the software called 'lop'?" etc.
 To go with the diagram above the following CSV file (both raw and rendered are provided) represents
 the graph in Neo4j syntax.
 
-!!! note "" Please note that Gaffer often requires additional information about the data, such as
+!!! note ""
+    Please note that Gaffer often requires additional information about the data, such as
     `:String` on the column headers, to help with typing of the values. This is demonstrated below
     in the raw file.
 

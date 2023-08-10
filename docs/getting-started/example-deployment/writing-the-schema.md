@@ -112,6 +112,7 @@ extended schema below.
             "source": "id.person.string",
             "destination": "id.software.string",
             "directed": "true",
+            "aggregate": "false",
             "properties": {
                 "weight": "property.float"
             }
@@ -121,6 +122,7 @@ extended schema below.
         "Person": {
             "description": "Entity representing a person vertex",
             "vertex": "id.person.string",
+            "aggregate": "false",
             "properties": {
                 "name": "property.string",
                 "age": "property.integer"
@@ -129,10 +131,86 @@ extended schema below.
         "Software": {
             "description": "Entity representing a software vertex",
             "vertex": "id.software.string",
+            "aggregate": "false",
             "properties": {
                 "name": "property.string",
                 "lang": "property.string"
             }
+        }
+    }
+}
+```
+
+!!! note
+    Take note of the `"aggregate": "false"` setting, this skips any ingest aggregation as it is not
+    required and out of scope of this example. All entity property types must have an aggregation
+    function in Gaffer unless this option is added. Aggregation is covered in more depth later in
+    the documentation.
+
+## Types Schema
+
+The other schema that now needs to be written is the types schema. As you have seen in the elements
+schema there are some place holder types added as the values for many of the keys. These types work
+similary to if you have ever programmed in a strongly typed language, they are essentially the
+wrapper for the value to encapsulate it.
+
+Now starting with the types for the nodes/vertexes, we used two placeholder types, one for the
+`Person` entity and one for the `Software` entity. From the example CSV you can see there is a `_id`
+column that uses a string identifier that is used for the ID of the node (this will also be used by
+the `edge` to identify the source and destination). We will define a type for each node ID using the
+standard java `String` class to encapsulate it, this leads to a basic `type.json` like the
+following.
+
+```json
+{
+    "types": {
+        "id.person.string": {
+            "description": "A basic type to hold the string id of a person entity",
+            "class": "java.lang.String"
+        },
+        "id.software.string": {
+            "description": "A basic type to hold the string id of a person entity",
+            "class": "java.lang.String"
+        }
+    }
+}
+```
+
+The next set of types that need defining are, the ones used for the properties that are attached to
+the nodes/entities. Again we need to take a look back at what our input data looks like, in the CSV
+file we can see there are three different types that are used for the properties which are analogous
+to a `String`, an `Integer` and a `Float`.
+
+!!! tip
+    Of course technically, all of these properties could be encapsulated in a string but assigning a
+    relevant type allows some additional type specific features (covered later) as it would in
+    traditional programming.
+
+If we make a type for each of the possible properties using the standard Java classes we end up with
+the following.
+
+```json
+{
+    "types": {
+        "id.person.string": {
+            "description": "A basic type to hold the string id of a person entity",
+            "class": "java.lang.String"
+        },
+        "id.software.string": {
+            "description": "A basic type to hold the string id of a person entity",
+            "class": "java.lang.String"
+        },
+        "property.string": {
+            "description": "A type to hold string properties of entities",
+            "class": "java.lang.String"
+        },
+        "property.integer": {
+            "description": "A basic type to hold integer properties of entities",
+            "class": "java.lang.Integer"
+        },
+        "property.float": {
+            "description": "A basic type to hold float properties of entities",
+            "class": "java.lang.Float"
         }
     }
 }
