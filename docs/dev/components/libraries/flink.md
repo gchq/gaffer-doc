@@ -3,7 +3,7 @@
 The [flink library](https://github.com/gchq/Gaffer/tree/master/library/flink-library) module contains various libraries for using Apache Flink with Gaffer.
 
 In order to make use of the flink libraries you will need to include this library as a dependency:
-```
+```xml
  <dependency>
   <groupId>uk.gov.gchq.gaffer</groupId>
   <artifactId>flink-library</artifactId>

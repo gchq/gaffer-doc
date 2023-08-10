@@ -23,14 +23,15 @@ Operations must be JSON serialisable in order to be used via the REST API - i.e.
 Operation implementations need to implement the `Operation` interface and the extra interfaces they wish to make use of. For example an operation that takes a single input value should implement the `Input` interface.
 
 Here is a list of some of the common interfaces:
-- uk.gov.gchq.gaffer.operation.io.Input
-- uk.gov.gchq.gaffer.operation.io.Output
-- uk.gov.gchq.gaffer.operation.io.InputOutput - Use this instead of Input and Output if your operation takes both input and output.
-- uk.gov.gchq.gaffer.operation.io.MultiInput - Use this in addition if your operation takes multiple inputs. This will help with JSON serialisation.
-- uk.gov.gchq.gaffer.operation.Validatable
-- uk.gov.gchq.gaffer.operation.graph.OperationView
-- uk.gov.gchq.gaffer.operation.graph.GraphFilters
-- uk.gov.gchq.gaffer.operation.graph.SeededGraphFilters
+
+- `uk.gov.gchq.gaffer.operation.io.Input`
+- `uk.gov.gchq.gaffer.operation.io.Output`
+- `uk.gov.gchq.gaffer.operation.io.InputOutput` - Use this instead of Input and Output if your operation takes both input and output.
+- `uk.gov.gchq.gaffer.operation.io.MultiInput` - Use this in addition if your operation takes multiple inputs. This will help with JSON serialisation.
+- `uk.gov.gchq.gaffer.operation.Validatable`
+- `uk.gov.gchq.gaffer.operation.graph.OperationView`
+- `uk.gov.gchq.gaffer.operation.graph.GraphFilters`
+- `uk.gov.gchq.gaffer.operation.graph.SeededGraphFilters`
 
 Each operation implementation should have a corresponding unit test class that extends the `OperationTest` class.
 

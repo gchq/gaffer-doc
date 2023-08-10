@@ -159,7 +159,7 @@ A common approach is simply to delete data that is older than a certain date. In
 
 - Each element has a property called, for example, "day", which is a `Long` which contains the start of the time window. Every time an element is observed this property is set to the previous midnight expressed in milliseconds since the epoch.
 - In the schema the validation of this property is expressed as follows:
-```sh
+```json
 "long": {
     "class": "java.lang.Long",
     "validateFunctions": [
@@ -289,7 +289,7 @@ java -cp [path to your jar-with-dependencies].jar uk.gov.gchq.gaffer.accumulosto
 
 ## Troubleshooting
 
-**Data hasn't appeared after I performed a bulk import**
+#### Data hasn't appeared after I performed a bulk import
 
 Accumulo's UI often shows that there are zero entries in a table after a bulk import. This is generally because Accumulo does not know how many entries have been added until it has performed a major compaction. Open the Accumulo shell, change to the table you specified in your Accumulo properties file, and type `compact`. You should see compactions starting for that table in Accumulo's UI, and the number of entries should then start to increase.
 
@@ -299,22 +299,22 @@ Next check that the elements you generate pass your validation checks.
 
 If all the above fails, try inserting a small amount of data using `AddElements` to see whether the problem is your bulk import job or your data generation.
 
-**Queries result in no data**
+#### Queries result in no data
 
 Check that you have the correct authorisations to see the data you inserted. Check with the administrator of your Accumulo cluster.
 
-**Spark operations are slow**
+#### Spark operations are slow
 
 Try using a batch scanner to read the data from the tablet server. To enable this for the `GetRDDOfAllElements` or `GetJavaRDDOfAllElements` operation, set the `gaffer.accumulo.spark.rdd.use_batch_scanner` option to true. `GetRDDOfElements` and `GetJavaRDDOfElements` use a batch scanner by default.
 
 If you still don't see a significant improvement, try increasing the value of the `table.scan.max.memory` setting in Accumulo for your table.
 
-**Running accumulo-store Integration Tests and getting error: Error BAD_AUTHORIZATIONS for user root on table integrationTestGraph(ID:1l)**
+#### Error running accumulo-store Integration Tests
 
-This means you have correctly set your user (in this case user 'root') in store.properties as ```accumulo.user=root``` however you have not set the correct scan authorisations for the user 'root' required by the integration tests.
+If you are getting `error: Error BAD_AUTHORIZATIONS for user root on table integrationTestGraph(ID:1l)` this means you have correctly set your user (in this case user 'root') in store.properties as ```accumulo.user=root```, however you have not set the correct scan authorisations for the user 'root' required by the integration tests.
 
-If you have the accumulo cluster shell running, you can set these scan auths directly from the shell by entering the following command:
+If you have the accumulo cluster shell running, you can set these scan auths directly from the shell (as root user) by entering the following command:
 
-```
-root@instance> setauths -u root -s vis1,vis2,publicVisibility,privateVisibility,public,private
+```sh
+setauths -u root -s vis1,vis2,publicVisibility,privateVisibility,public,private
 ```
