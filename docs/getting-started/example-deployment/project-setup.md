@@ -1,32 +1,29 @@
 # Example Deployment
 
-This guide will run through the start up and deployment of a basic Gaffer
-instance. It will cover how to write a basic Gaffer Schema from scratch along
-with using the premade containers to run the Gaffer rest API and Accumulo
-based data store.
+This guide will run through the start up and deployment of a basic Gaffer instance. It will cover
+how to write a basic Gaffer Schema from scratch along with using the premade containers to run the
+Gaffer rest API and Accumulo based data store.
 
 ## The Example Graph
 
-For this basic example we will attempt to recreate the graph in the following
-diagram consisting of two nodes (vertexes) with one directed edge between them.
+For this basic example we will attempt to recreate the graph in the following diagram consisting of
+two nodes (vertexes) with one directed edge between them.
 
 !!! note "diagram here"
 
-This data describes one individual and a single piece of software that has been
-created by that individual. The data will be loaded into the graph from a CSV
-file that follows the Neo4j export syntax, this demonstrates how Gaffer can be
-used and how it can interact, model and query data from other popular graph
-databases. Even with this basic graph we should be able to start building
-queries to ask questions like "Who created the software called 'lop'?" and "How
-much did 'marko' contribute to the software called 'lop'?" etc.
+This data describes one individual and a single piece of software that has been created by that
+individual. The data will be loaded into the graph from a CSV file that follows the Neo4j export
+syntax, this demonstrates how Gaffer can be used and how it can interact, model and query data from
+other popular graph databases. Even with this basic graph we should be able to start building
+queries to ask questions like "Who created the software called 'lop'?" and "How much did 'marko'
+contribute to the software called 'lop'?" etc.
 
-To go with the diagram above the following CSV file (both raw and rendered are
-provided) represents the graph in Neo4j syntax.
+To go with the diagram above the following CSV file (both raw and rendered are provided) represents
+the graph in Neo4j syntax.
 
-!!! note ""
-    Please note that Gaffer often requires additional information about the
-    data, such as `:String` on the column headers, to help with typing of the
-    values. This is demonstrated below in the raw file.
+!!! note "" Please note that Gaffer often requires additional information about the data, such as
+    `:String` on the column headers, to help with typing of the values. This is demonstrated below
+    in the raw file.
 
 === "Table"
     | _id | name  | age | lang | _labels  | _start | _end | _type   | weight |
@@ -45,10 +42,9 @@ provided) represents the graph in Neo4j syntax.
 
 ## Project Setup
 
-First you must set up the files and directories you will need for the instance.
-As it stands there are a couple of different ways to run a Gaffer project this
-example will use a logical structure that suites a stand alone deployment
-consisting of the following file structure:
+First you must set up the files and directories you will need for the instance. As it stands there
+are a couple of different ways to run a Gaffer project this example will use a logical structure
+that suites a stand alone deployment consisting of the following file structure:
 
 !!! example "Example Gaffer project structure"
 
@@ -98,12 +94,9 @@ consisting of the following file structure:
     8. This file controls which containers will be started up and the configuration
     of them to ensure correct ports and files are available.
 
-All the files in the `config/accumulo/` and `config/hdfs/` directories will be
-copied directly from the two locations in the Gaffer docker repo,
-[here](https://github.com/gchq/gaffer-docker/tree/develop/docker/accumulo/conf-2.0.1)
-and
-[here](https://github.com/gchq/gaffer-docker/tree/develop/docker/hdfs/conf).
-The configuration of these are out of scope of this example but are covered in
-other sections of the documentation. The main focus of this guide will be on
-the configuration files under the `config/gaffer/` directory.
-
+All the files in the `config/accumulo/` and `config/hdfs/` directories will be copied directly from
+the two locations in the Gaffer docker repo,
+[here](https://github.com/gchq/gaffer-docker/tree/develop/docker/accumulo/conf-2.0.1) and
+[here](https://github.com/gchq/gaffer-docker/tree/develop/docker/hdfs/conf). The configuration of
+these are out of scope of this example but are covered in other sections of the documentation. The
+main focus of this guide will be on the configuration files under the `config/gaffer/` directory.
