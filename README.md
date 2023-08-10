@@ -8,7 +8,7 @@ This repository contains all the documentation for Gaffer, which is published [h
 # Building the documentation
 For instructions for building Gaffer's v1 documentation, see the v1docs branch.
 The current Gaffer docs are built using [MkDocs](https://www.mkdocs.org) with the [Material theme](https://squidfunk.github.io/mkdocs-material/).
-We use Mike for documentation versioning. Running `mike` is handled by GitHub Actions, so it isn't something most contributors will need to use unless you make changes to that part of the project.
+We use [Mike](https://github.com/jimporter/mike) for documentation versioning. Running `mike` is handled by GitHub Actions, so it isn't something most contributors will need to use unless you make changes to that part of the project.
 
 ## Prerequisites
 ### Python
