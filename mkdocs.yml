@@ -45,6 +45,16 @@ plugins:
 
 nav:
     - Home: 'index.md'
+    - 'Getting Started':
+      - 'Gaffer Basics': 'getting-started/basics.md'
+      - 'Quickstart': 'getting-started/quickstart.md'
+      - 'Example Deployment':
+        - 'Project Setup': 'getting-started/example-deployment/project-setup.md'
+        - 'Writing the Schema': 'getting-started/example-deployment/writing-the-schema.md'
+      - 'Gaffer Guide':
+        - 'Gaffer Guide': 'getting-started/guide/guide.md'
+        - 'CSV Import and Export': 'getting-started/guide/csv.md'
+        - 'Cardinality': 'getting-started/guide/cardinality.md'
     - 'Gaffer 2.0':
       - Changelist: 'gaffer2.0/changelist.md'
       - Deprecations: 'gaffer2.0/deprecations.md'
@@ -53,18 +63,7 @@ nav:
       - 'Federation Changes': 'gaffer2.0/federation-changes.md'
       - 'Accumulo Kerberos': 'gaffer2.0/accumulo-kerberos.md'
       - 'Log4j in Gaffer': 'gaffer2.0/log4j.md'
-    - 'Getting Started':
-      - 'Quickstart': 'getting-started/quickstart.md'
-      - 'Gaffer Basics': 'getting-started/basics.md'
-      - 'Example Deployment':
-        - 'Project Setup': 'getting-started/example-deployment/project-setup.md'
-        - 'Writing the Schema': 'getting-started/example-deployment/writing-the-schema.md'
-      - 'Gaffer Guide':
-        - 'Gaffer Guide': 'getting-started/guide/guide.md'
-        - 'CSV Import and Export': 'getting-started/guide/csv.md'
-        - 'Cardinality': 'getting-started/guide/cardinality.md'
-      - 'Deploying Gaffer': 'getting-started/deploying.md'
-    - 'Dev Info':
+    - 'Developer Docs':
       - 'Development': 'dev/development.md'
       - 'Managing Dependencies': 'dev/managing-dependencies.md'
       - 'Ways of Working': 'dev/ways-of-working.md'

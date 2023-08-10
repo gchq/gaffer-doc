@@ -25,10 +25,17 @@ it to understand how to load and treat the data in the graph. These schemas
 define all aspects of the nodes and edges in the graph, and can even be used to
 automatically do basic analysis or aggregation on queries and ingested data.
 
+You can kind of think of the schema as sort of a filter or validator for the
+incoming data as, a given bit of data must conform with part of the schema or
+it will simply be ingored as it doesn't fit the structure of the graph.
+
 ### Elements Schema
 
-The general format of an element schema are two lists; one of the `"edges"` and
-the other of the `"entities"` like the following:
+All distinct bits of data in a Gaffer graph (e.g. nodes and edges) are refered
+to as 'elements'. The structure and properties of these graph elements are
+defined in the elements schema. The general format of an element schema are two
+lists; one of the `"edges"` and the other of the `"entities"` like the
+following:
 
 !!! example "Basic elements syntax"
 
@@ -56,9 +63,10 @@ the other of the `"entities"` like the following:
     }
     ```
 
-As you can see there are a few fields for both the example "Edge" and "Node",
-many of these require a type (discussed in the next section) which are
-essentially handlers or object types for the value associated with the field.
+As you can see there are a few fields for both the example `"Edge"` and
+`"Node"`, many of these require a type as their value (discussed in the
+[next section](#types-schema)) which, are essentially handlers or object types
+for the value associated with the field.
 
 For an `edge` the following fields are required.
 
@@ -80,7 +88,7 @@ a "description" and "properties" list.
 
 ### Types Schema
 
-Following on from the elements schema the other necessary schema needed for a
+Following on from the elements schema, the other necessary schema needed for a
 Gaffer deployment is the types schema.  The types schema allows user defined
 types for all elements in the graph. It can also demonstrate the power of
 Gaffer as it allows for custom functions classes to be used on the types;
@@ -119,8 +127,9 @@ this will ingest raw JSON to carry out operations on the Gaffer graph. Gaffer
 provides many pre built operations that are available to use and can be chained
 togther for more complex use cases. However, be aware that operation chains are
 usually highly specific to the data and results you wish to extract from the
-graph so please refer to the reference documentation on Gaffer operations for
-more detail on this.
+graph so please refer to the reference guide on
+[Gaffer operations](../reference/operations-guide/operations.md) for more
+detail on this.
 
 !!! example "Example operation chain"
 

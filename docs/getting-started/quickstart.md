@@ -13,14 +13,13 @@ docker run -p 8080:8080 gchq/gaffer-rest:2.0.0
 ```
 
 The Swagger rest API should be available at
-[http://127.0.0.1:8080/rest](http://127.0.0.1:8080/rest) to try out. Be aware
-that, as the image uses the map store backend by default, all graph data will
-be saved in memory so killing the container will mean you will lose any data
-added to the graph.
+[http://127.0.0.1:8080/rest](http://127.0.0.1:8080/rest) to try out.
 
-!!! tip
-    Please see the [possible deployments](#possible-deployments) section
-    for a basic look at the different storage options Gaffer supports.
+Be aware that, as the image uses the map store backend by default, all graph
+data will be saved in memory so killing the container will mean you will lose
+any data added to the graph. Take a look at the
+[possible deployments](#possible-deployments) section for a basic look at the
+different storage options Gaffer supports.
 
 If you wish to add custom schema to try out you can mount these into the
 container at start up to configure the graph. By default the `gaffer-rest`
@@ -62,3 +61,14 @@ started using one or more of the available Gaffer container images.
 
     Please see the `gaffer-docker` documentation for more information on
     available images and deployments.
+
+To change the storage backend for Gaffer the `store.properties` file can be
+configured with the chosen type, please refer to the reference guide for more
+infomation on store properties.
+
+!!! example "Example `store.properties` for MapStore"
+
+    ```properties
+    gaffer.store.class=uk.gov.gchq.gaffer.mapstore.SingleUseMapStore
+    gaffer.store.properties.class=uk.gov.gchq.gaffer.mapstore.MapStoreProperties
+    ```
