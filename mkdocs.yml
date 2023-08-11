@@ -67,6 +67,7 @@ nav:
       - 'Ways of Working': 'dev/ways-of-working.md'
       - 'Sketches custom deserialisation': 'dev/rest-api-sketches.md'
       - Components:
+        - 'Components/Maven Modules': 'dev/components/components.md'
         - 'Cache': 'dev/components/cache.md'
         - 'Data': 'dev/components/data.md'
         - 'Graph': 'dev/components/graph.md'
