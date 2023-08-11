@@ -183,8 +183,8 @@ to a `String`, an `Integer` and a `Float`.
 
 !!! tip
     Of course technically, all of these properties could be encapsulated in a string but assigning a
-    relevant type allows some additional type specific features (covered later) as it would in
-    traditional programming.
+    relevant type allows some additional type specific features when doing things like grouping and
+    aggregation as it would in traditional programming.
 
 If we make a type for each of the possible properties using the standard Java classes we end up with
 the following.
@@ -216,4 +216,52 @@ the following.
 }
 ```
 
+The final thing that we need to add to the schema is a type for the `true` Boolean value that's used
+by the directed field of the edge element. This leaves us with the complete list of types for this
+example.
 
+```json
+{
+    "types": {
+        "id.person.string": {
+            "description": "A basic type to hold the string id of a person entity",
+            "class": "java.lang.String"
+        },
+        "id.software.string": {
+            "description": "A basic type to hold the string id of a person entity",
+            "class": "java.lang.String"
+        },
+        "property.string": {
+            "description": "A type to hold string properties of entities",
+            "class": "java.lang.String"
+        },
+        "property.integer": {
+            "description": "A basic type to hold integer properties of entities",
+            "class": "java.lang.Integer"
+        },
+        "property.float": {
+            "description": "A basic type to hold float properties of entities",
+            "class": "java.lang.Float"
+        },
+        "true": {
+            "description": "A simple boolean that must always be true.",
+            "class": "java.lang.Boolean",
+            "validateFunctions": [
+                {
+                    "class": "uk.gov.gchq.koryphe.impl.predicate.IsTrue"
+                }
+            ]
+        }
+    }
+}
+```
+
+As you can see the Boolean value also demonstrates the validation feature which allows for
+validation of any values using the type. In this example it verifies its true but you could also
+check it exists, see if its less than another value etc. or even run your own custom validator
+class.
+
+!!! tip
+    The Koryphe module provides lots of default functions that can be used to validate and aggregate
+    data, see the [reference guide](../../reference/predicates-guide/koryphe-predicates.md) for more
+    information.

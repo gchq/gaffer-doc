@@ -51,6 +51,9 @@ nav:
       - 'Example Deployment':
         - 'Project Setup': 'getting-started/example-deployment/project-setup.md'
         - 'Writing the Schema': 'getting-started/example-deployment/writing-the-schema.md'
+        - 'Additional Configuration': 'getting-started/example-deployment/additional-config.md'
+        - 'Running the Deployment': 'getting-started/example-deployment/running-the-deployment.md'
+        - 'Using the API': 'getting-started/example-deployment/using-the-api.md'
       - 'Gaffer Guide':
         - 'Gaffer Guide': 'getting-started/guide/guide.md'
         - 'CSV Import and Export': 'getting-started/guide/csv.md'
