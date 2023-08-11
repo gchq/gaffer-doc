@@ -1,6 +1,10 @@
 # Spark Operations
 
-These are special Spark Operations which need to be added/enabled before they can be used. _TBD link to Spark store page_.
+These Operations are part of the Spark library. They are only available if they have been specifically enabled and are only supported by the Accumulo store.
+They are enabled by registering the Spark operations and their handlers with your store. You need to add the following to your store properties file:
+```
+gaffer.store.operation.declarations=sparkAccumuloOperationsDeclarations.json
+```
 
 There is an option to read the RFiles directly rather than the usual approach of obtaining them from Accumulo's tablet servers. This requires the Hadoop user, running the Spark job, to have read access to the RFiles in the Accumulo tablet. Note, however, that data which has not been minor compacted will not be read if this option is used. This functionality is enabled using the option: `gaffer.accumulo.spark.directrdd.use_rfile_reader=true`.
 

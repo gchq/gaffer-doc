@@ -64,7 +64,7 @@ There are two main methods of adding cardinality elements in Gaffer. The first i
 
 ### Manually adding cardinality entities
 
-Adding a cardinality entity between vertex 'A' and 'B' using `AddElements`. For more examples of different property types, see the skectehs [dev docs](../../dev/rest-api-sketches.md#primitive-data-types-over-json) page.
+Adding a cardinality entity between vertex 'A' and 'B' using `AddElements`. For more examples of different property types, see the sketches [dev docs](../../dev/rest-api-sketches.md#primitive-data-types-over-json) page.
 
 === "Java"
 
