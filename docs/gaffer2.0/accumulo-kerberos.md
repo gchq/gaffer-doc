@@ -31,8 +31,8 @@ The location of this config file can be specified using the `ACCUMULO_CLIENT_CON
 
 Other than this file, Accumulo libraries and configuration files do not need to be installed on the Gaffer host. 
 
-###  Gaffer `store.properties` configuration
-In addition to the usual [Accumulo Store settings](https://gchq.github.io/gaffer-doc/v1docs/stores/accumulo-store.html#properties-file), these extra options must be specified for Kerberos:
+### Gaffer `store.properties` configuration
+In addition to the usual [Accumulo Store settings](../reference/stores-guide/accumulo.md#properties-file), these extra options must be specified for Kerberos:
 ```
 accumulo.kerberos.enable=true
 accumulo.kerberos.principal=gaffer/host.domain@REALM.NAME
