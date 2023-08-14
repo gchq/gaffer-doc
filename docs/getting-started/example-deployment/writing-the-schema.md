@@ -144,8 +144,8 @@ extended schema below.
 !!! note
     Take note of the `"aggregate": "false"` setting, this skips any ingest aggregation as it is not
     required and out of scope of this example. All entity property types must have an aggregation
-    function in Gaffer unless this option is added. Aggregation is covered in more depth later in
-    the documentation.
+    function in Gaffer unless this option is added. Aggregation is fairly advanced topic in Gaffer
+    but very powerful it is covered in more depth later in the documentation.
 
 ## Types Schema
 
@@ -182,9 +182,9 @@ file we can see there are three different types that are used for the properties
 to a `String`, an `Integer` and a `Float`.
 
 !!! tip
-    Of course technically, all of these properties could be encapsulated in a string but assigning a
-    relevant type allows some additional type specific features when doing things like grouping and
-    aggregation as it would in traditional programming.
+    Of course technically, all of these properties could be encapsulated in a string but, assigning
+    a relevant type allows some additional type specific features when doing things like grouping
+    and aggregation as it would in traditional programming.
 
 If we make a type for each of the possible properties using the standard Java classes we end up with
 the following.

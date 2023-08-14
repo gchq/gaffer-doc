@@ -19,7 +19,7 @@ queries to ask questions like "Who created the software called 'lop'?" and "How 
 contribute to the software called 'lop'?" etc.
 
 To go with the diagram above the following CSV file (both raw and rendered are provided) represents
-the graph in Neo4j syntax.
+the graph in [Neo4j syntax](https://neo4j.com/labs/apoc/4.4/export/csv/#export-database-csv).
 
 !!! note ""
     Please note that Gaffer often requires additional information about the data, such as

@@ -1,9 +1,5 @@
 # Additional Configuration
 
-!!! info "Work in Progress"
-
-    This page is under construction.
-
 This section will cover the smaller additional config files that go along side the main Gaffer
 schema to tweak other aspects of the Gaffer graph. The location of these files will need to be
 volume mounted into the container for them to be included in the deployment, the [next
@@ -20,7 +16,7 @@ concept from spring boot to allow changing the context root and any properties r
 the example that follows we use it to set the file location properties of where the other config
 files are (inside the container).
 
-```properties
+```properties title="application.properties"
 gaffer.schemas=/gaffer/schema
 gaffer.storeProperties=/gaffer/store/store.properties
 gaffer.graph.config=/gaffer/graph/graphConfig.json
@@ -33,7 +29,7 @@ its used to set the name and description along with any additional hooks to run 
 chain e.g. to impose limits on max results etc. For the example as, it is a very basic graph we just
 set the name and short description.
 
-```json
+```json title="graphConfig.json"
 {
     "graphId": "ExampleGraph",
     "description": "An exmaple graph"
@@ -49,7 +45,7 @@ example we are using an Accumulo store as it is recommended for efficient storag
 large data volumes. It's set up requires a few custom properties which are outlined in the following
 file.
 
-```properties
+```properties title="store.properties"
 gaffer.store.class=uk.gov.gchq.gaffer.accumulostore.AccumuloStore
 gaffer.store.properties.class=uk.gov.gchq.gaffer.accumulostore.AccumuloProperties
 
@@ -73,7 +69,7 @@ to see a list), but its likely you might want to enable others or add your own c
 example will load its data from a local CSV file we can activate a couple of additional operations
 using the following file.
 
-```json
+```json title="operationsDeclarations.json"
 {
     "operations": [
         {
