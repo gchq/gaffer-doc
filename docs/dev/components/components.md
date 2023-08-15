@@ -16,7 +16,7 @@ For more developer information on these key components, see their associated pag
 - [Core REST](core-rest.md): Classes which provide a Gaffer REST API using Jersey/JAX-RS.
 - [Spring REST](spring-rest.md): Implementation of the Gaffer REST API deployed in a Spring Boot container.
 
-## Project Architecture (Maven)
+## Project Structure (Maven)
 
 Gaffer uses Maven and from this perspective the project is made up of multiple Maven modules. All components are Maven modules, but not all modules are components as some are just parent POMs (see below).
 Maven modules are not the same as Java modules (Java 9+), which Gaffer doesn't use or support. [See here for more info on multi-module builds and the Maven reactor](https://maven.apache.org/guides/mini/guide-multiple-modules.html).
@@ -29,7 +29,7 @@ Gaffer's project structure involves three kinds of module/POM, mostly based on t
 
 Parent modules consist of a single POM file (parent POM) which defines various properties, dependencies and settings to be inherited by JAR modules or other parent modules.
 
-JAR modules are not inherited by other modules, and in addition to the POM they contain code which is compiled into artifacts (always 'jar' and sometimes also `war`). Some contain only code used for demos.
+JAR modules are not inherited by other modules, and in addition to the POM they contain code which is compiled into artifacts (always `jar` and sometimes also `war`). Some contain only code used for demos.
 
 WAR only/Demo modules are not inherited by other modules, they contain only a POM and potentially config files and are used for either creating WAR archives for the REST API or are used for running demos using Maven plugins and other modules.
 
