@@ -24,6 +24,6 @@ You will also need to install Docker along with the compose plugin. Information 
 
 To add the gaffer-docker repo to helm run:
 
-```
+```bash
 helm repo add gaffer-docker https://gchq.github.io/gaffer-docker
 ```
