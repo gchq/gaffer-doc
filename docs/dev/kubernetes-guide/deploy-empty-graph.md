@@ -27,7 +27,7 @@ Gaffer can be backed with a number of different technologies to back its store. 
 
 ### Deploy the MapStore
 
-The [MapStore](TODO: link) is just an in-memory store that can be used for demos or if you need something small scale short-term. It is our default store so there is no need for any extra configuration.
+The MapStore is just an in-memory store that can be used for demos or if you need something small scale short-term. It is our default store so there is no need for any extra configuration.
 
 You can install a MapStore by just running:
 
@@ -37,14 +37,14 @@ helm install my-graph gaffer-docker/gaffer
 
 ### Deploy the Accumulo Store
 
-If you want to deploy an [Accumulo Store](TODO: link) with your graph, it is relatively easy to do so with some small additional configuration. Create a file called `accumulo.yaml` and add the following:
+If you want to deploy an Accumulo Store with your graph, it is relatively easy to do so with some small additional configuration. Create a file called `accumulo.yaml` and add the following:
 
 ```yaml
 accumulo:
   enabled: true
 ```
 
-By default, the Gaffer user is created with a password of "gaffer" the CREATE_TABLE system permission with full access to the simpleGraph table which is coupled to the graphId. All the default Accumulo passwords are in place so if you were to deploy this in production, you should consider changing the [default accumulo passwords](TODO: LINK NEW DOC).
+By default, the Gaffer user is created with a password of "gaffer" the CREATE_TABLE system permission with full access to the simpleGraph table which is coupled to the graphId. All the default Accumulo passwords are in place so if you were to deploy this in production, you should consider changing the [default accumulo passwords](change-accumulo-passwords.md).
 
 You can stand up the accumulo store by running:
 
@@ -54,7 +54,7 @@ helm install my-graph gaffer-docker/gaffer -f accumulo.yaml
 
 ### Deploy the Federated Store
 
-If you want to deploy the [Federated Store](TODO: Link), all that you really need to do is set the `store.properties`. To do this add the following to a `federated.yaml` file:
+If you want to deploy the Federated Store, all that you really need to do is set the `store.properties`. To do this add the following to a `federated.yaml` file:
 
 ```yaml
 graph:

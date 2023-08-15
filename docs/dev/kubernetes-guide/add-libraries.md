@@ -9,7 +9,7 @@ By default with the Gaffer deployment you get access to the:
 
 If you want more libraries than this (either one of ours of one of your own) you will need to customise the docker images and use them in place of the defaults.
 
-You will need a basic Gaffer instance deployed on Kubernetes, [here](TODO: LINK NEW DOCS) is how you do that.
+You will need a basic Gaffer instance deployed on Kubernetes, [here](deploy-empty-graph.md) is how you do that.
 
 ## Overwrite the REST war file
 
@@ -49,7 +49,7 @@ docker build -t custom-gaffer-accumulo:latest .
 
 # Switch the images in the deployment
 
-You will need a way of making the custom images visible to the kubernetes cluster. With EKS, you can do this by uploading the images to ECR. There is an example for how to do that in one of our [other guides](TODO: LINK NEW DOCS). With KinD, you just run `kind load docker-image <image:tag>`.
+You will need a way of making the custom images visible to the kubernetes cluster. With EKS, you can do this by uploading the images to ECR. There is an example for how to do that in one of our [other guides](aws-eks-deployment.md). With KinD, you just run `kind load docker-image <image:tag>`.
 
 Once visible you can switch them out. Create a `custom-images.yaml` file with the following contents:
 

@@ -158,7 +158,7 @@ Below are instructions on deploying the different Helm Charts.
     ```
 
     #### Deploy Helm Chart
-    By default the Gaffer graph uses the in-memory MapStore. If you want to use an alternative store, we have a guide for that [here](TODO:link).
+    By default the Gaffer graph uses the in-memory MapStore. If you want to use an alternative store, we have a guide for that [here](deploy-empty-graph.md).
 
     ```bash
     export HADOOP_VERSION=${HADOOP_VERSION:-3.3.3}
