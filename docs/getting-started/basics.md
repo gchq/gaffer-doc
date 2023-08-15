@@ -9,7 +9,21 @@ in a database and then run queries and analytics on it.
 
 The high level interactions of loading data and querying are demonstrated in the diagrams below.
 
-!!! note "diagram here"
+```mermaid
+flowchart TD
+    subgraph Graph Query
+        E((User)) --> F
+        G{{Schema}} --> F
+        F([Query]) ---> H(Gaffer)
+        J(key-value store) <--> H
+        H --> K([Result])
+    end
+    subgraph Data Input
+        A(Data)-->B{{Schema}}
+        B --> C(Gaffer)
+        C --> D(key-value store)
+    end
+```
 
 ## Gaffer Schemas
 
