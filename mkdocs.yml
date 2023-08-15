@@ -66,7 +66,7 @@ nav:
       - "Managing Dependencies": "dev/managing-dependencies/managing-dependencies.md"
       - "Ways of Working": "dev/ways-of-working.md"
       - "Sketches custom deserialisation": "dev/rest-api-sketches.md"
-      - "Docker": "dev/guide/docker.md"
+      - "Docker": "dev/docker.md"
       - Components:
           - "Cache": "dev/components/cache.md"
           - "Data": "dev/components/data.md"
