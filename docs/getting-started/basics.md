@@ -1,9 +1,5 @@
 # Gaffer Basics
 
-!!! info "Work in Progress"
-
-    This page is under construction.
-
 ## What is Gaffer?
 
 Gaffer is a graph database framework, it acts similarly to an interface providing a graph data
@@ -75,8 +71,8 @@ For an `edge` the following fields are required.
 - `destination` - A user defined type for the destination node the edge goes to.
 
 For an entity only one field is actually required outlined, vertex (see below). The example does
-however include some of the common optional fields too such as a "description" and "properties"
-list.
+however include some of the common optional fields too such as a `"properties"` list and
+`"description"`.
 
 - `vertex` - A user defined type for the node/vertex
 

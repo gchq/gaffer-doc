@@ -31,17 +31,15 @@ called something like `elements.json`, the name is not special as all files unde
 directory will be merged into a master schema but its still recommended to use an appropriate name.
 
 As covered in the [Gaffer basics](../basics.md), to write a schema you can see that there are some
-required fields, but largely a schema is highly specific to your input data. To give an idea of how
-a data set could be modelled we will continue with the example CSV data.
+required fields, but largely a schema is highly specific to your input data.
 
 Starting with the `entities` from the example, we can see there will be two distict types of nodes
 in the graph, one representing a `Person` and another for `Software`. These can be added into the
 schema to give something like the the following:
 
-!!! info
+!!! info ""
 
-    The types here such as `id.person.string` will be covered later in the
-    guide.
+    The types here such as `id.person.string` are covered in the [next section](#types-schema).
 
 ```json
 {

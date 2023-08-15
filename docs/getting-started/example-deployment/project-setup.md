@@ -49,7 +49,7 @@ that suites a stand alone deployment consisting of the following file structure:
 
 !!! example "Example Gaffer project structure"
 
-    !!! tip
+    !!! tip ""
         Click the plus symbols for a brief description of each file
 
     ```yaml

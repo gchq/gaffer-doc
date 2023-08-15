@@ -94,10 +94,12 @@ and
 [here](https://github.com/gchq/Gaffer/blob/develop/core/operation/src/main/java/uk/gov/gchq/gaffer/operation/impl/export/localfile/ExportToLocalFile.java)),
 what this file is doing is essentially activating them and setting the handler class for them. The
 `ImportFromLocalFile` usage is demonstrated in the [using the API](./using-the-api.md) section to
-load some data. This operation allows us to pass a local (to the container) CSV file which will be
-read line by line and get a stream of the line strings. This is very useful when we start using
-Operation Chains as we can pass this stream as the input to the next operation in the chain
-similar to shell pipes.
+load some data.
+
+This operation allows us to pass a local (to the container) CSV file which will be read line by line
+and get a stream of the line strings. This is very useful when we start using Operation Chains as,
+we can pass this stream of data as the input to the next operation in the chain similar to shell
+pipes.
 
 !!! note
     The location of the file needs to be set via the store properties file using the
