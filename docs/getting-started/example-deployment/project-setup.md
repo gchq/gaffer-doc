@@ -9,7 +9,19 @@ Gaffer rest API and Accumulo based data store.
 For this basic example we will attempt to recreate the graph in the following diagram consisting of
 two nodes (vertexes) with one directed edge between them.
 
-!!! note "diagram here"
+```mermaid
+graph LR
+    A(("Person
+        name: marko
+        age: 29"))
+    --
+    "Created
+     weight: 0.4"
+    -->
+    B(("Software
+        name: lop
+        lang: java"))
+```
 
 This data describes one individual and a single piece of software that has been created by that
 individual. The data will be loaded into the graph from a CSV file that follows the Neo4j export

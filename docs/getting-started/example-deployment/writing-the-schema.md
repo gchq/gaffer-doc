@@ -4,8 +4,7 @@ In Gaffer JSON based schemas need to be written upfront to model and understand 
 treat the data in the graph. These schemas define all aspects of the nodes and edges in the graph,
 and can even be used to automatically do basic analysis or aggregation on queries and ingested data.
 
-For reference, this guide will use the same CSV data set from the [project
-setup](project-setup.md/#the-example-graph) page.
+For reference, this guide will use the same CSV data set from the [project setup](./project-setup.md#the-example-graph) page.
 
 === "Table"
     | _id | name  | age | lang | _labels  | _start | _end | _type   | weight |
