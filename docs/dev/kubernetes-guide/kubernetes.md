@@ -27,3 +27,7 @@ To add the gaffer-docker repo to helm run:
 ```bash
 helm repo add gaffer-docker https://gchq.github.io/gaffer-docker
 ```
+
+## How to Guides
+
+Within this documentation there are also a number of guides to help you deploy Gaffer on Kubernetes. It is important you look at these before you get started as they provide the initial steps for running these applications.

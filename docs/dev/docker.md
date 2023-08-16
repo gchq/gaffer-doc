@@ -16,7 +16,7 @@ In this directory you can find the Dockerfiles and docker compose files for buil
 - [Gaffer's JupyterHub Options Server](https://github.com/gchq/gaffer-docker/tree/develop/docker/gaffer-jhub-options-server)
 - [Spark](https://github.com/gchq/gaffer-docker/tree/develop/docker/spark-py)
 
-Each directory contains a README with more specific information on what these imates are for and how to build them.
+Each directory contains a README with more specific information on what these images are for and how to build them.
 
 Please note that some of these containers will only be useful if utilised by the Helm Charts under Kubernetes, and may not be possible to run on their own.
 
