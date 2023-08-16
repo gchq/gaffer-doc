@@ -32,8 +32,8 @@ JSON based schemas need to be written upfront for it to understand how to load a
 the graph. These schemas define all aspects of the nodes and edges in the graph, and can even be
 used to automatically do basic analysis or aggregation on queries and ingested data.
 
-You can kind of think of the schema as sort of a filter or validator for the incoming data as, a
-given bit of data must conform with part of the schema or it will simply be ingored as it doesn't
+You can kind of think of the schema as sort of a filter or validator for the incoming data. A
+given bit of data must conform with part of the schema or it will simply be ignored as it doesn't
 fit the structure of the graph.
 
 ### Elements Schema
@@ -70,25 +70,31 @@ like the following:
     ```
 
 As you can see there are a few fields for both the example `"Edge"` and `"Node"`, many of these
-require a type as their value (discussed in the [next section](#types-schema)) which, are
+require a type as their value (discussed in the [next section](#types-schema)) which are
 essentially handlers or object types for the value associated with the field.
 
-For an `edge` the following fields are required.
+For an `edge` the following fields are required:
 
 - `source` - A user defined type for the source node the edge originated from.
 
-- `directed` - Boolean true or false (this is still needs to be user defined in the types schema) to
-    define if the edge is directed or not. When an Edge is undirected in Gaffer, it is treated as if
-    the relationship was bidirectional and the vertices of the edge do not have an authoritative
-    source and destination.
+- `directed` - Boolean true or false to define if the edge is directed or not. When an Edge is
+    undirected in Gaffer, it is treated as if the relationship was bidirectional and the vertices of
+    the edge do not have an authoritative source and destination.
+
+    !!! note ""
+        The type here, `"true"` or `"false"` needs to be defined in the types schema using a class
+        that evaluates to it. This is demonstrated in the [example
+        deployment](./example-deployment/writing-the-schema.md) document.
 
 - `destination` - A user defined type for the destination node the edge goes to.
 
-For an entity only one field is actually required outlined, vertex (see below). The example does
-however include some of the common optional fields too such as a `"properties"` list and
-`"description"`.
+For an `entity` only one field is required:
 
-- `vertex` - A user defined type for the node/vertex
+- `vertex` - A user defined type for the node/vertex.
+
+!!! note ""
+    The example includes some of the common optional fields too such as a `"properties"` list and
+    `"description"`.
 
 ### Types Schema
 
@@ -117,23 +123,25 @@ types; however, this can make it quite complex to write a full schema for a grap
 ## The Rest API
 
 Most of the interaction with a deployed Gaffer graph will be through the rest API. When deployed,
-the rest API will be available at defined address, accessing this address via a browser brings up a
-[Swagger UI](https://swagger.io/) with various GET and POST requests predefined for you to start
-using. Most of the GET requests simply retrieve information about the graph so can be useful to
-ensure your config files have been loaded correctly and the graph is operating normally. The POST
-requests allow you to interact with the graph by loading data and running queries.
+the rest API will be available at a configurable address, accessing this address via a browser
+brings up a [Swagger UI](https://swagger.io/) with various GET and POST requests predefined for you
+to start using.
 
-The main POST request you will use in the API is `/graph/operations/execute`, this will ingest raw
+Most of the GET requests simply retrieve information about the graph so it can be useful to ensure
+your config files have been loaded correctly and the graph is operating normally. The POST requests
+allow you to interact with the graph by loading data and running queries.
+
+The main POST request end point you will use is `/graph/operations/execute`, this will ingest raw
 JSON to carry out operations on the Gaffer graph. Gaffer provides many pre built operations that are
-available to use and can be chained togther for more complex use cases. However, be aware that
+available to use and can be chained together for more complex use cases. However be aware, that
 operation chains are usually highly specific to the data and results you wish to extract from the
 graph so please refer to the reference guide on [Gaffer
 operations](../reference/operations-guide/operations.md) for more detail on this.
 
 !!! example "Example operation chain"
 
-    The following operation chain gets all the elements in the graph then
-    will count them and return the total.
+    The following operation chain gets all the elements in the graph then will count them and
+    return the total.
 
     ```json
     {

@@ -12,9 +12,10 @@ section](./running-the-deployment.md) on running the deployment discusses this i
 ## Application Properties
 
 This is probably the simplest configuration file in the Gaffer deployment. In general it borrows a
-concept from spring boot to allow changing the context root and any properties related to Gaffer. In
-the example that follows we use it to set the file location properties of where the other config
-files are (inside the container).
+concept from [Spring
+Boot](https://www.tutorialspoint.com/spring_boot/spring_boot_application_properties.htm) to allow
+changing the context root and any properties related to Gaffer. In the example that follows we use
+it to set the file location properties of where the other config files are (inside the container).
 
 ```properties title="application.properties"
 gaffer.schemas=/gaffer/schema
@@ -25,7 +26,7 @@ gaffer.graph.config=/gaffer/graph/graphConfig.json
 ## Graph Configuration
 
 The graph configuration file is a JSON file that configures few bits of the Gaffer graph. Primarily
-its used to set the name and description along with any additional hooks to run before an operation
+it is used to set the name and description along with any additional hooks to run before an operation
 chain e.g. to impose limits on max results etc. For the example as, it is a very basic graph we just
 set the name and short description.
 
@@ -39,11 +40,11 @@ set the name and short description.
 ## Store Properties
 
 The store properties file is used to configure how Gaffer will store its data. There are a few
-different stores available for Gaffer, these are explained in more detail in the reference
-documentation, but by default you must provide a store class and a store properties class. For this
-example we are using an Accumulo store as it is recommended for efficient storage and retrieval of
-large data volumes. It's set up requires a few custom properties which are outlined in the following
-file.
+different stores available for Gaffer, these are explained in more detail in the [reference
+documentation](../../reference/stores-guide/stores.md), but by default you must provide a store
+class and a store properties class. For this example we are using an Accumulo store as it is
+recommended for efficient storage and retrieval of large data volumes. It's set up requires a few
+custom properties which are outlined in the following file.
 
 ```properties title="store.properties"
 gaffer.store.class=uk.gov.gchq.gaffer.accumulostore.AccumuloStore
@@ -88,7 +89,7 @@ using the following file.
 }
 ```
 
-The two additional operations already exist in in Gaffer (you can find them in the code base
+The two additional operations already exist in Gaffer (you can find them in the code base
 [here](https://github.com/gchq/Gaffer/blob/develop/core/operation/src/main/java/uk/gov/gchq/gaffer/operation/impl/export/localfile/ImportFromLocalFile.java)
 and
 [here](https://github.com/gchq/Gaffer/blob/develop/core/operation/src/main/java/uk/gov/gchq/gaffer/operation/impl/export/localfile/ExportToLocalFile.java)),
@@ -96,8 +97,8 @@ what this file is doing is essentially activating them and setting the handler c
 `ImportFromLocalFile` usage is demonstrated in the [using the API](./using-the-api.md) section to
 load some data.
 
-This operation allows us to pass a local (to the container) CSV file which will be read line by line
-and get a stream of the line strings. This is very useful when we start using Operation Chains as,
+This operation allows us to pass a local CSV file (in the container) which will be read line by line
+and get a stream of the line strings. This is very useful when we start using Operation Chains as
 we can pass this stream of data as the input to the next operation in the chain similar to shell
 pipes.
 

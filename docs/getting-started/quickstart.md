@@ -59,7 +59,8 @@ of the available Gaffer container images.
     available images and deployments.
 
 To change the storage backend for Gaffer the `store.properties` file can be configured with the
-chosen type, please refer to the reference guide for more infomation on store properties.
+chosen type, please refer to the [reference guide](../reference/stores-guide/stores.md) for more
+infomation on store properties.
 
 !!! example "Example `store.properties` for MapStore"
 

@@ -186,7 +186,7 @@ config file that will run up multiple containers with various bits of configurat
 easier than typing out multiple docker commands!
 
 Some key bits you may want to configure in the file are the shared volumes (under the `volumes`
-section) as, the locations in the example file assume you use the project structure from the
+section). The locations in the example file assume you use the project structure from the
 [example setup](./project-setup.md) but if you change any of the locations then they will need
 updating.
 

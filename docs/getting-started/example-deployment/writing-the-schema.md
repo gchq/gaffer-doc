@@ -33,7 +33,7 @@ As covered in the [Gaffer basics](../basics.md), to write a schema you can see t
 required fields, but largely a schema is highly specific to your input data.
 
 Starting with the `entities` from the example, we can see there will be two distict types of nodes
-in the graph, one representing a `Person` and another for `Software`. These can be added into the
+in the graph; one representing a `Person` and another for `Software`. These can be added into the
 schema to give something like the the following:
 
 !!! info ""
@@ -94,7 +94,7 @@ in the relevant entities. From the example, we can see that the source of a `Cre
 `id.person.string`. Similarly the destination is a `Software` node so we will use its placeholder of
 `id.software.string`.
 
-We must also set whether an edge is directed or not, in this case it is as, only a person can create
+We must also set whether an edge is directed or not, in this case it is as only a person can create
 software not the other way around. To set this we will use the `true` type, but note that this is a
 placeholder and must still be defined in the types.json.
 

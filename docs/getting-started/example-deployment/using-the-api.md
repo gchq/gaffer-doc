@@ -75,7 +75,7 @@ server response section of the Swagger API.
 
 Once data is loaded in the graph its now possible to start querying the data to gain insight and
 perform analytics. Querying in Gaffer can get fairly complex but generally simple queries are made
-up of two parts, a `Get` Operation and a `View`.
+up of two parts; a `Get` Operation and a `View`.
 
 Starting with the `Get` operation, say we want to get all nodes and edges based on their ID. To do
 this we can use the `GetElements` operation and set the `Seed` to the entity (e.g. node) or edge
