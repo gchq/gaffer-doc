@@ -11,16 +11,18 @@ two nodes (vertexes) with one directed edge between them.
 
 ```mermaid
 graph LR
-    A(("Person
+    A(["Person
+
         name: marko
-        age: 29"))
+        age: 29"])
     --
     "Created
      weight: 0.4"
     -->
-    B(("Software
+    B(["Software
+
         name: lop
-        lang: java"))
+        lang: java"])
 ```
 
 This data describes one individual and a single piece of software that has been created by that

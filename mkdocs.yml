@@ -54,10 +54,10 @@ nav:
         - 'Additional Configuration': 'getting-started/example-deployment/additional-config.md'
         - 'Running the Deployment': 'getting-started/example-deployment/running-the-deployment.md'
         - 'Using the API': 'getting-started/example-deployment/using-the-api.md'
-      - 'Gaffer Guide':
-        - 'Gaffer Guide': 'getting-started/guide/guide.md'
-        - 'CSV Import and Export': 'getting-started/guide/csv.md'
-        - 'Cardinality': 'getting-started/guide/cardinality.md'
+      - 'Advanced User Guide':
+        - 'Aggregation': 'getting-started/advanced-guide/aggregation.md'
+        - 'Import and Export': 'getting-started/advanced-guide/import-export.md'
+        - 'Cardinality': 'getting-started/advanced-guide/cardinality.md'
     - 'Gaffer 2.0':
       - Changelist: 'gaffer2.0/changelist.md'
       - Deprecations: 'gaffer2.0/deprecations.md'
