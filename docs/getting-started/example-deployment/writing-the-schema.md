@@ -32,7 +32,7 @@ directory will be merged into a master schema but its still recommended to use a
 As covered in the [Gaffer basics](../basics.md), to write a schema you can see that there are some
 required fields, but largely a schema is highly specific to your input data.
 
-Starting with the `entities` from the example, we can see there will be two distict types of nodes
+Starting with the `entities` from the example, we can see there will be two distinct types of nodes
 in the graph; one representing a `Person` and another for `Software`. These can be added into the
 schema to give something like the the following:
 
@@ -148,7 +148,7 @@ extended schema below.
 
 The other schema that now needs to be written is the types schema. As you have seen in the elements
 schema there are some place holder types added as the values for many of the keys. These types work
-similary to if you have ever programmed in a strongly typed language, they are essentially the
+similarly to if you have ever programmed in a strongly typed language, they are essentially the
 wrapper for the value to encapsulate it.
 
 Now starting with the types for the nodes/vertexes, we used two placeholder types, one for the

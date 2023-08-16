@@ -1,7 +1,7 @@
 # Example Deployment
 
 This guide will run through the start up and deployment of a basic Gaffer instance. It will cover
-how to write a basic Gaffer Schema from scratch along with using the premade containers to run the
+how to write a basic Gaffer Schema from scratch along with using the pre-made containers to run the
 Gaffer rest API and Accumulo based data store.
 
 ## The Example Graph

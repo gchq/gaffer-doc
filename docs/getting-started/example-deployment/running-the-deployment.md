@@ -220,7 +220,7 @@ The web UIs for nodes in cluster can then be accessed at the following addresses
 As you can probably see the example is using a few environment variables in the
 `docker-compose.yaml` file, these set things such as the container versions and a couple of file
 locations. The use of these variables are recommended as it can make it easier to update container
-versions and other aspecs of the containers.
+versions and other aspects of the containers.
 
 A basic set of these environment variables are shown below which can be saved in a `.env` file and
 sourced before running the containers.

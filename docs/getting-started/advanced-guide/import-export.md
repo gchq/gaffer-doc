@@ -143,7 +143,7 @@ Please note that when using these, Gaffer might change your property name header
 [PropertiesUtil](https://github.com/gchq/Gaffer/blob/f16de7c3eccfe7a800cad1d7eea5fbae4cf01d44/core/common-util/src/main/java/uk/gov/gchq/gaffer/commonutil/PropertiesUtil.java#L26).
 
 As shown [later](#neo4j-format) in the examples, OpenCypher formats let you dictate property types
-in the header, like `propertyName:type`. Below is a table that shows which Gaffer tansform function
+in the header, like `propertyName:type`. Below is a table that shows which Gaffer transform function
 is used to deserialise each [OpenCypher data
 type](https://docs.aws.amazon.com/neptune/latest/userguide/bulk-load-tutorial-format-opencypher.html#bulk-load-tutorial-format-opencypher-data-types)
 during import.

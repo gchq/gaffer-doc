@@ -33,7 +33,7 @@ set the name and short description.
 ```json title="graphConfig.json"
 {
     "graphId": "ExampleGraph",
-    "description": "An exmaple graph"
+    "description": "An example graph"
 }
 ```
 

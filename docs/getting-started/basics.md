@@ -38,8 +38,8 @@ fit the structure of the graph.
 
 ### Elements Schema
 
-All distinct bits of data in a Gaffer graph (e.g. nodes and edges) are refered to as 'elements'. The
-structure and properties of these graph elements are defined in the elements schema. The general
+All distinct bits of data in a Gaffer graph (e.g. nodes and edges) are referred to as 'elements'.
+The structure and properties of these graph elements are defined in the elements schema. The general
 format of an element schema are two lists; one of the `"edges"` and the other of the `"entities"`
 like the following:
 
