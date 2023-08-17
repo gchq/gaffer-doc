@@ -213,10 +213,10 @@ using the following file.
 }
 ```
 
-The two additional operations already exist in Gaffer (you can find them in the code base
-[here](https://github.com/gchq/Gaffer/blob/develop/core/operation/src/main/java/uk/gov/gchq/gaffer/operation/impl/export/localfile/ImportFromLocalFile.java)
+The two additional operations already exist in Gaffer (in the code base: 
+[ImportFromLocalFile](https://github.com/gchq/Gaffer/blob/develop/core/operation/src/main/java/uk/gov/gchq/gaffer/operation/impl/export/localfile/ImportFromLocalFile.java)
 and
-[here](https://github.com/gchq/Gaffer/blob/develop/core/operation/src/main/java/uk/gov/gchq/gaffer/operation/impl/export/localfile/ExportToLocalFile.java)),
+[ExportToLocalFile](https://github.com/gchq/Gaffer/blob/develop/core/operation/src/main/java/uk/gov/gchq/gaffer/operation/impl/export/localfile/ExportToLocalFile.java)),
 what this file is doing is essentially activating them and setting the handler class for them. The
 `ImportFromLocalFile` usage is demonstrated in the [using the API](./using-the-api.md) section to
 load some data.
