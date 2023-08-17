@@ -260,5 +260,5 @@ class.
 
 !!! tip
     The Koryphe module provides lots of default functions that can be used to validate and aggregate
-    data, see the [reference guide](../../reference/predicates-guide/koryphe-predicates.md) for more
-    information.
+    data, see the [predicate reference guide](../../reference/predicates-guide/koryphe-predicates.md)
+    for more information.
