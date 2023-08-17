@@ -123,7 +123,7 @@ main focus of this guide will be on the configuration files under the `config/ga
 
 ## Configuration Files
 
-The Gaffer schema files have a full break down in the [next page](./writing-the-schema.md), this
+There's a full [break down of Gaffer schema files on the next page](./writing-the-schema.md), this
 section will instead cover the smaller additional config files that go along side the main Gaffer
 schema to tweak other aspects of the graph. The location of these files will need to be volume
 mounted into the container for them to be included in the deployment which is covered in more detail
