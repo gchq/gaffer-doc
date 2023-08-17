@@ -1,12 +1,10 @@
-# Import and Export
+# CSV Import and Export
 
 !!! info "Work in Progress"
 
     This page is under construction.
 
-    Proposed content: *Guide to cover the available import and export options*.
-
-## Using CSV
+    Proposed content: *Guide to cover the available import and export options for CSV*.
 
 Gaffer supports both importing from and exporting to csv.
 
@@ -37,7 +35,7 @@ operations, then it can do this from/to a local file.
     }
     ```
 
-### CSV Import
+## CSV Import
 
 Importing is done with an OperationChain in multiple parts.
 
@@ -70,7 +68,7 @@ Importing is done with an OperationChain in multiple parts.
    [`NeptuneCsvElementGenerator`](#neptune-format).
 3. Finally, the stream of Gaffer Elements are added with an `AddElements` operation.
 
-### CSV Export
+## CSV Export
 
 Exporting to csv is done with a similar OperationChain.
 
@@ -101,9 +99,9 @@ Exporting to csv is done with a similar OperationChain.
    [`Neo4jCsvGenerator`](#neo4j-format) and [`NeptuneCsvGenerator`](#neptune-format).
 3. Then the `ExportToLocalFile` operation is used to save this string output into a local file.
 
-### Formats
+## Formats
 
-#### Custom formats
+### Custom formats
 
 You can customise CsvGenerator to create a custom export format in a ToCsv operation.
 For example, the following operation.
@@ -133,7 +131,7 @@ Would produce csv rows that look like:
 Currently, custom import formats are not supported. Instead you should use one of the two
 [OpenCypher formats](#opencypher-formats).
 
-#### OpenCypher Formats
+### OpenCypher Formats
 
 Core Gaffer has some generators provided that can import from and export to OpenCypher csvs. These
 will work with other graph databases like Neo4j and Neptune.
@@ -158,7 +156,7 @@ during import.
 | `ToDouble`                | `Double`                                                              |
 | `ParseTime`               | `DateTime`                                                            |
 
-### Neo4j Generators
+## Neo4j Generators
 
 You can import CSV from Neo4j using the `Neo4jCsvElementGenerator` and export using the
 `Neo4jCsvGenerator`. The format used is defined
@@ -180,7 +178,7 @@ You can import CSV from Neo4j using the `Neo4jCsvElementGenerator` and export us
         e1,,,,,v1,v2,Created,0.4
         ```
 
-### Neptune Generators
+## Neptune Generators
 
 You can import csv from Neptune using the `NeptuneCsvElementGenerator` and export using the
 `NeptuneCsvGenerator`. The format used is defined

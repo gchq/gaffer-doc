@@ -30,10 +30,9 @@ docker run -p 8080:8080 -v /path/to/your/schema:/gaffer/schema gchq/gaffer-rest:
 
 !!! info
 
-    The [example deployment](example-deployment/project-setup.md) section
-    provides a full walkthrough of a basic Gaffer deployment, and covers how to
-    write a simple Gaffer Schema to create a custom graph with an Accumulo
-    based data store.
+    The [example deployment](example-deployment/project-setup.md) section provides a full walkthrough
+    of a basic Gaffer deployment, and covers how to write a simple Gaffer Schema to create a custom
+    graph with an Accumulo based data store.
 
 ## Possible Deployments
 
@@ -55,8 +54,8 @@ of the available Gaffer container images.
 
 !!! info
 
-    Please see the `gaffer-docker` documentation for more information on
-    available images and deployments.
+    Please see the `gaffer-docker` documentation for more information on available images and
+    deployments.
 
 To change the storage backend for Gaffer the `store.properties` file can be configured with the
 chosen type, please refer to the [reference guide](../reference/stores-guide/stores.md) for more

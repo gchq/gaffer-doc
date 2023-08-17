@@ -51,12 +51,12 @@ nav:
       - 'Example Deployment':
         - 'Project Setup': 'getting-started/example-deployment/project-setup.md'
         - 'Writing the Schema': 'getting-started/example-deployment/writing-the-schema.md'
-        - 'Additional Configuration': 'getting-started/example-deployment/additional-config.md'
         - 'Running the Deployment': 'getting-started/example-deployment/running-the-deployment.md'
         - 'Using the API': 'getting-started/example-deployment/using-the-api.md'
       - 'Advanced User Guide':
         - 'Aggregation': 'getting-started/advanced-guide/aggregation.md'
-        - 'Import and Export': 'getting-started/advanced-guide/import-export.md'
+        - 'Import and Export':
+          - 'Using CSV': 'getting-started/advanced-guide/import-export/csv.md'
         - 'Cardinality': 'getting-started/advanced-guide/cardinality.md'
     - 'Gaffer 2.0':
       - Changelist: 'gaffer2.0/changelist.md'

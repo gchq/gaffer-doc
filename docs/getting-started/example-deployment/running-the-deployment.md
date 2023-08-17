@@ -92,10 +92,6 @@ the repository.
         hostname: accumulo-master
         environment:
         - ACCUMULO_CONF_DIR=${ACCUMULO_CONF_DIR}
-        # There doesn't seem to be an easy way (with docker-compose) to init our
-        # HDFS instance with the right permissions so that Accumulo can create the
-        # file structure it needs. Using the following workaround to allow
-        # accumulo to "auth" with HDFS as the super user so that it can:
         - HADOOP_USER_NAME=hadoop
         volumes:
         - ./configs/accumulo:${ACCUMULO_CONF_DIR}:ro
@@ -116,10 +112,6 @@ the repository.
         hostname: accumulo-tserver
         environment:
         - ACCUMULO_CONF_DIR=${ACCUMULO_CONF_DIR}
-        # There doesn't seem to be an easy way (with docker-compose) to init our
-        # HDFS instance with the right permissions so that Accumulo can create the
-        # file structure it needs. Using the following workaround to allow
-        # accumulo to "auth" with HDFS as the super user so that it can:
         - HADOOP_USER_NAME=hadoop
         volumes:
         - ./configs/accumulo:${ACCUMULO_CONF_DIR}:ro
@@ -135,10 +127,6 @@ the repository.
         hostname: accumulo-monitor
         environment:
         - ACCUMULO_CONF_DIR=${ACCUMULO_CONF_DIR}
-        # There doesn't seem to be an easy way (with docker-compose) to init our
-        # HDFS instance with the right permissions so that Accumulo can create the
-        # file structure it needs. Using the following workaround to allow
-        # accumulo to "auth" with HDFS as the super user so that it can:
         - HADOOP_USER_NAME=hadoop
         ports:
         - 9995:9995
@@ -156,10 +144,6 @@ the repository.
         hostname: accumulo-gc
         environment:
         - ACCUMULO_CONF_DIR=${ACCUMULO_CONF_DIR}
-        # There doesn't seem to be an easy way (with docker-compose) to init our
-        # HDFS instance with the right permissions so that Accumulo can create the
-        # file structure it needs. Using the following workaround to allow
-        # accumulo to "auth" with HDFS as the super user so that it can:
         - HADOOP_USER_NAME=hadoop
         volumes:
         - ./configs/accumulo:${ACCUMULO_CONF_DIR}:ro
