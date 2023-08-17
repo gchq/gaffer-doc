@@ -2,7 +2,7 @@
 
 By default, the default Gaffer deployment ships with the Graph name "simpleGraph" and description "A graph for demo purposes" These are just placeholders and can be overwritten. This guide will show you how.
 
-The first thing you will need to do is [deply an empty graph](deploy-empty-graph.md).
+The first thing you will need to do is [deploy an empty graph](deploy-empty-graph.md).
 
 ## Changing the description
 

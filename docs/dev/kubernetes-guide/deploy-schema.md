@@ -2,7 +2,7 @@
 
 Gaffer uses schema files to describe the data contained in a Graph. This guide will tell you how to deploy your own schemas with a Gaffer Graph.
 
-The first thing you will need to do is deploy a simple graph. We have a guide for how to do that [here](deploy-empty-graph.md).
+You will first need [a basic Gaffer instance deployed on Kubernetes] (deploy-empty-graph.md).
 
 Once you have that deployed we can change the schema.
 

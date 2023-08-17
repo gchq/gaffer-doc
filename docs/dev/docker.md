@@ -22,4 +22,4 @@ Please note that some of these containers will only be useful if utilised by the
 
 ## Requirements
 
-Before you can build and run these containers you will need to install Docker along with the compose plugin. Information on how to do this can be found in the [docker docs](https://docs.docker.com/get-docker/).
+Before you can build and run these containers you will need to install Docker or a compatible equivalent (e.g. Podman).
