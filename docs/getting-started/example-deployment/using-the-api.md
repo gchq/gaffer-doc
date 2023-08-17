@@ -9,9 +9,8 @@ As covered in the [Gaffer basics](../basics.md) the main POST request used in th
 API and walk through some general operations you might want to use to load data or query.
 
 !!! note
-    Please refer to the reference guide on [Gaffer
-    operations](../../reference/operations-guide/operations.md) for more detail on available
-    operations.
+    The [Gaffer operations reference guide](../../reference/operations-guide/operations.md)
+    has more detail on available operations.
 
 ## Loading Data
 
