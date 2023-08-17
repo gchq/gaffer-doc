@@ -18,23 +18,28 @@ For more developer information on these key components, see their associated pag
 
 ## Project Structure (Maven)
 
-Gaffer uses Maven and from this perspective the project is made up of multiple Maven modules. All components are Maven modules, but not all modules are components as some are just parent POMs (see below).
+Gaffer uses Maven and from this perspective the project is made up of multiple Maven modules. All components are Maven modules, but not all modules are components as some are just parent or aggregator POMs (see below).
 Maven modules are not the same as Java modules (Java 9+), which Gaffer doesn't use or support. [See here for more info on multi-module builds and the Maven reactor](https://maven.apache.org/guides/mini/guide-multiple-modules.html).
 
 Gaffer's project structure involves three kinds of module/POM, mostly based on the [Maven packaging type](https://maven.apache.org/pom.html#Packaging). We can call these:
 
-- Parent modules (`pom`)
+- Parent/Aggregator modules (`pom`)
 - JAR modules (`jar`)
 - WAR only/Demo modules (`war`).
 
-Parent modules consist of a single POM file (parent POM) which defines various properties, dependencies and settings to be inherited by JAR modules or other parent modules.
+Parent modules consist of a single POM file (parent POM) which can define various properties, dependencies and settings to be inherited by JAR modules or other parent modules.
+These also specify the modules below the parent (Maven [aggregation](https://maven.apache.org/pom.html#aggregation-or-multi-module)).
 
 JAR modules are not inherited by other modules, and in addition to the POM they contain code which is compiled into artifacts (always `jar` and sometimes also `war`). Some contain only code used for demos.
 
 WAR only/Demo modules are not inherited by other modules, they contain only a POM and potentially config files and are used for either creating WAR archives for the REST API or are used for running demos using Maven plugins and other modules.
 
 Gaffer has 47 modules in total. When building the complete project, Maven automatically runs the build in a specific order because of dependencies between modules.
-The paths for all POMs in the Gaffer project can be seen by running `find . -name pom.xml` from the project/repository root.
+
+??? tip "Finding and displaying POM structure"
+    The paths for all POMs in the Gaffer project can be seen by running `find . -name pom.xml` from the project/repository root.
+
+    A simple text-based diagram of the Maven project structure can be generated and printed using `mvn org.qunix:structure-maven-plugin:modules -pl :gaffer2`.
 
 The diagram below shows all modules and their type (green diamond for Parent POM, blue for JAR and red for WAR/Demo):
 
