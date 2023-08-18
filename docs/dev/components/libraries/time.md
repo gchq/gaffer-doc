@@ -7,7 +7,7 @@ There is also a class that stores up to a maximum number N of timestamps. If mor
 
 To use this library, you will need to include the following dependency:
 
-```
+```xml
  <dependency>
   <groupId>uk.gov.gchq.gaffer</groupId>
   <artifactId>time-library</artifactId>

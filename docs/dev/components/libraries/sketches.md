@@ -3,7 +3,7 @@
 The [sketches library](https://github.com/gchq/Gaffer/tree/master/library/sketches-library) module contains various libraries for sketches.
 
 In order to make use of the sketches libraries you will need to include this library as a dependency:
-```
+```xml
  <dependency>
   <groupId>uk.gov.gchq.gaffer</groupId>
   <artifactId>sketches-library</artifactId>

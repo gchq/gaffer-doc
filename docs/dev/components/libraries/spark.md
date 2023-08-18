@@ -3,7 +3,7 @@
 The [spark library](https://github.com/gchq/Gaffer/tree/master/library/spark/spark-library) contains various libraries for using Apache Spark with Gaffer.
 
 In order to make use of the spark libraries you will need to include this library as a dependency:
-```
+```xml
  <dependency>
   <groupId>uk.gov.gchq.gaffer</groupId>
   <artifactId>spark-library</artifactId>
@@ -12,7 +12,7 @@ In order to make use of the spark libraries you will need to include this librar
 ```
 
 To use spark with Accumulo you will need to include this dependency:
-```
+```xml
  <dependency>
   <groupId>uk.gov.gchq.gaffer</groupId>
   <artifactId>spark-accumulo-library</artifactId>
