@@ -11,7 +11,7 @@ If you want more libraries than this (either one of ours of one of your own) you
 
 You will need a [basic Gaffer instance deployed on Kubernetes](deploy-empty-graph.md).
 
-## Overwrite the REST war file
+## Add Extra Libraries to Gaffer REST
 
 At the moment, Gaffer uses a runnable jar file located at `/gaffer/jars`. When it runs it includes the `/gaffer/jars/lib` on the classpath. There is nothing in there by default because all the dependencies are bundled in to the JAR. However, if you wanted to add your own jars, you can do it like this:
 

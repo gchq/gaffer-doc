@@ -1,6 +1,6 @@
 # Gaffer in Kubernetes
 
-The [gaffer-docker](https://github.com/gchq/gaffer-docker) repository contains all code needed to run Gaffer using Docker.
+The [gaffer-docker](https://github.com/gchq/gaffer-docker) repository contains all code needed to run Gaffer using Docker and Kubernetes.
 
 All the files needed to get started using Gaffer in Kubernetes are contained in the ['kubernetes'](https://github.com/gchq/gaffer-docker/tree/develop/kubernetes) sub-folder of the [gaffer-docker](https://github.com/gchq/gaffer-docker) repository.
 In this directory you can find the Helm charts required to deploy various applications onto Kubernetes clusters.
@@ -17,7 +17,7 @@ These charts can be accessed by cloning our repository or by using our Helm repo
 
 ## Requirements
 
-Before you can deploy any of these applications you need to have installed Kubernetes. Information on how to do this can be found in the [Kubernetes docs](https://kubernetes.io/docs/setup/).
+Before you can deploy any of these applications you need to have installed a suitable Kubernetes supported tool, e.g. kubeadm or k3s.
 
 You will also need to install a container management engine, for example Docker or Podman, to build, run and manage your containers.
 
