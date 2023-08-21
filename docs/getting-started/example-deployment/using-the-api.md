@@ -1,9 +1,5 @@
 # Using the API
 
-!!! info "Work in Progress"
-
-    This page is under construction.
-
 As covered in the [Gaffer basics](../basics.md) the main POST request used in the API is
 `/graph/operations/execute`. This part of the guide will cover the general usage of this part of the
 API and walk through some general operations you might want to use to load data or query.
@@ -14,8 +10,12 @@ API and walk through some general operations you might want to use to load data 
 
 ## Loading Data
 
-Gaffer supports various aspects of loading data, generally this is done in a few stages which are
-outlined in the following diagram.
+Gaffer supports various methods of loading data and depending on your use case you can even bypass
+it all together to load directly into Accumulo.
+
+This example will focus on using the rest API to add the graph elements. In production this method
+would not be recommended for large volumes of data. However, it is fine for smaller data sets and
+generally can be done in a few stages outlined in the following diagram.
 
 ```mermaid
 flowchart LR

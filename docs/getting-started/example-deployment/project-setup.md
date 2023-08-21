@@ -41,9 +41,9 @@ To go with the diagram above the following CSV file (both raw and rendered are p
 the graph in [Neo4j syntax](https://neo4j.com/labs/apoc/4.4/export/csv/#export-database-csv).
 
 !!! note ""
-    Please note that Gaffer often requires additional information about the data, such as
-    `:String` on the column headers, to help with typing of the values. This is demonstrated below
-    in the raw file.
+    Please note that Gaffer often requires additional information about the data such as,
+    `:String` on the column headers to help with typing of the values. This is demonstrated below
+    in the raw file. There's more detail on this in the [OpenCypher documentation](../advanced-guide/import-export/csv.md#opencypher-formats).
 
 === "Table"
     | _id | name  | age | lang | _labels  | _start | _end | _type   | weight |
@@ -136,10 +136,10 @@ mounted into the container for them to be included in the deployment which is co
 ### Application Properties
 
 This is probably the simplest configuration file in the Gaffer deployment. In general it borrows a
-concept from [Spring
-Boot](https://www.tutorialspoint.com/spring_boot/spring_boot_application_properties.htm) to allow
-changing the context root and any properties related to Gaffer. In the example that follows we use
-it to set the file location properties of where the other config files are (inside the container).
+concept from [Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html)
+to allow changing the context root and any properties related to Gaffer. In the example that follows
+we use it to set the file location properties of where the other config files are (inside the
+container).
 
 ```properties title="application.properties"
 gaffer.schemas=/gaffer/schema
@@ -213,7 +213,7 @@ using the following file.
 }
 ```
 
-The two additional operations already exist in Gaffer (in the code base: 
+The two additional operations already exist in Gaffer (in the code base:
 [ImportFromLocalFile](https://github.com/gchq/Gaffer/blob/develop/core/operation/src/main/java/uk/gov/gchq/gaffer/operation/impl/export/localfile/ImportFromLocalFile.java)
 and
 [ExportToLocalFile](https://github.com/gchq/Gaffer/blob/develop/core/operation/src/main/java/uk/gov/gchq/gaffer/operation/impl/export/localfile/ExportToLocalFile.java)),
