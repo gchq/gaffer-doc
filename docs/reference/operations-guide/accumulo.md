@@ -16,6 +16,9 @@ graph TD
 
 ## GetElementsBetweenSets
 
+!!! warning "Deprecated"
+    Operation has been deprecated in favour of [`GetElementsBetweenSetPairs`](#getelementsbetweensetpairs)
+
 Gets edges that exist between 2 sets and entities in the first set. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/accumulostore/operation/impl/GetElementsBetweenSets.html)
 
 ??? example "Example getting elements within set of vertices 1 and 2 and 4"
@@ -51,20 +54,20 @@ Gets edges that exist between 2 sets and entities in the first set. [Javadoc](ht
     === "Python"
 
         ``` python
-        g.GetElementsBetweenSets( 
-          input=[ 
-            g.EntitySeed( 
-              vertex=1 
-            ) 
-          ], 
-          input_b=[ 
-            g.EntitySeed( 
-              vertex=2 
-            ), 
-            g.EntitySeed( 
-              vertex=4 
-            ) 
-          ] 
+        g.GetElementsBetweenSets(
+          input=[
+            g.EntitySeed(
+              vertex=1
+            )
+          ],
+          input_b=[
+            g.EntitySeed(
+              vertex=2
+            ),
+            g.EntitySeed(
+              vertex=4
+            )
+          ]
         )
         ```
 
@@ -151,56 +154,56 @@ Gets edges that exist between 2 sets and entities in the first set. [Javadoc](ht
     === "Python"
 
         ``` python
-        g.GetElementsBetweenSets( 
-          view=g.View( 
-            entities=[ 
-              g.ElementDefinition( 
-                group="entity", 
-                pre_aggregation_filter_functions=[ 
-                  g.PredicateContext( 
-                    selection=[ 
-                      "count" 
-                    ], 
-                    predicate=g.IsMoreThan( 
-                      value=2, 
-                      or_equal_to=False 
-                    ) 
-                  ) 
-                ] 
-              ) 
-            ], 
-            edges=[ 
-              g.ElementDefinition( 
-                group="edge", 
-                pre_aggregation_filter_functions=[ 
-                  g.PredicateContext( 
-                    selection=[ 
-                      "count" 
-                    ], 
-                    predicate=g.IsMoreThan( 
-                      value=2, 
-                      or_equal_to=False 
-                    ) 
-                  ) 
-                ] 
-              ) 
-            ], 
-            all_edges=False, 
-            all_entities=False 
-          ), 
-          input=[ 
-            g.EntitySeed( 
-              vertex=1 
-            ) 
-          ], 
-          input_b=[ 
-            g.EntitySeed( 
-              vertex=2 
-            ), 
-            g.EntitySeed( 
-              vertex=4 
-            ) 
-          ] 
+        g.GetElementsBetweenSets(
+          view=g.View(
+            entities=[
+              g.ElementDefinition(
+                group="entity",
+                pre_aggregation_filter_functions=[
+                  g.PredicateContext(
+                    selection=[
+                      "count"
+                    ],
+                    predicate=g.IsMoreThan(
+                      value=2,
+                      or_equal_to=False
+                    )
+                  )
+                ]
+              )
+            ],
+            edges=[
+              g.ElementDefinition(
+                group="edge",
+                pre_aggregation_filter_functions=[
+                  g.PredicateContext(
+                    selection=[
+                      "count"
+                    ],
+                    predicate=g.IsMoreThan(
+                      value=2,
+                      or_equal_to=False
+                    )
+                  )
+                ]
+              )
+            ],
+            all_edges=False,
+            all_entities=False
+          ),
+          input=[
+            g.EntitySeed(
+              vertex=1
+            )
+          ],
+          input_b=[
+            g.EntitySeed(
+              vertex=2
+            ),
+            g.EntitySeed(
+              vertex=4
+            )
+          ]
         )
         ```
 
@@ -212,6 +215,42 @@ Gets edges that exist between 2 sets and entities in the first set. [Javadoc](ht
         Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]
         Edge[source=1,destination=2,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>3]]
         ```
+
+## GetElementsBetweenSetsPairs
+
+Returns all the edges that exist between two Sets of Entities.
+
+This operation has been introduced as a replacement to the `GetElementsBetweenSets` operation as that could not be used in operation chains due to it requiring two inputs. Instead this operation requires a single [`Pair`](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/commonutil/pair/Pair.html) input containing two Sets which have the Entity IDs you wish to get the edges between. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/accumulostore/operation/impl/GetElementsBetweenSetsPairs.html)
+
+??? example "Example getting edges between a Set of node 1 and a Set of node 2 and 4"
+
+    === "JSON"
+
+        ```json
+            {
+                "class": "GetElementsBetweenSetsPairs",
+                "input": {
+                    "class": "Pair",
+                    "F": [
+                        {
+                            "class" : "EntitySeed",
+                            "vertex" : 1
+                        }
+                    ],
+                    "S": [
+                        {
+                            "class" : "EntitySeed",
+                            "vertex" : 2
+                        },
+                        {
+                            "class" : "EntitySeed",
+                            "vertex" : 4
+                        }
+                    ]
+                }
+            }
+        ```
+
 
 ## GetElementsWithinSet
 
@@ -248,18 +287,18 @@ Gets edges with both vertices in a given set and entities with vertices in a giv
     === "Python"
 
         ``` python
-        g.GetElementsWithinSet( 
-          input=[ 
-            g.EntitySeed( 
-              vertex=1 
-            ), 
-            g.EntitySeed( 
-              vertex=2 
-            ), 
-            g.EntitySeed( 
-              vertex=3 
-            ) 
-          ] 
+        g.GetElementsWithinSet(
+          input=[
+            g.EntitySeed(
+              vertex=1
+            ),
+            g.EntitySeed(
+              vertex=2
+            ),
+            g.EntitySeed(
+              vertex=3
+            )
+          ]
         )
         ```
 
@@ -346,54 +385,54 @@ Gets edges with both vertices in a given set and entities with vertices in a giv
     === "Python"
 
         ``` python
-        g.GetElementsWithinSet( 
-          view=g.View( 
-            entities=[ 
-              g.ElementDefinition( 
-                group="entity", 
-                pre_aggregation_filter_functions=[ 
-                  g.PredicateContext( 
-                    selection=[ 
-                      "count" 
-                    ], 
-                    predicate=g.IsMoreThan( 
-                      value=2, 
-                      or_equal_to=False 
-                    ) 
-                  ) 
-                ] 
-              ) 
-            ], 
-            edges=[ 
-              g.ElementDefinition( 
-                group="edge", 
-                pre_aggregation_filter_functions=[ 
-                  g.PredicateContext( 
-                    selection=[ 
-                      "count" 
-                    ], 
-                    predicate=g.IsMoreThan( 
-                      value=2, 
-                      or_equal_to=False 
-                    ) 
-                  ) 
-                ] 
-              ) 
-            ], 
-            all_edges=False, 
-            all_entities=False 
-          ), 
-          input=[ 
-            g.EntitySeed( 
-              vertex=1 
-            ), 
-            g.EntitySeed( 
-              vertex=2 
-            ), 
-            g.EntitySeed( 
-              vertex=3 
-            ) 
-          ] 
+        g.GetElementsWithinSet(
+          view=g.View(
+            entities=[
+              g.ElementDefinition(
+                group="entity",
+                pre_aggregation_filter_functions=[
+                  g.PredicateContext(
+                    selection=[
+                      "count"
+                    ],
+                    predicate=g.IsMoreThan(
+                      value=2,
+                      or_equal_to=False
+                    )
+                  )
+                ]
+              )
+            ],
+            edges=[
+              g.ElementDefinition(
+                group="edge",
+                pre_aggregation_filter_functions=[
+                  g.PredicateContext(
+                    selection=[
+                      "count"
+                    ],
+                    predicate=g.IsMoreThan(
+                      value=2,
+                      or_equal_to=False
+                    )
+                  )
+                ]
+              )
+            ],
+            all_edges=False,
+            all_entities=False
+          ),
+          input=[
+            g.EntitySeed(
+              vertex=1
+            ),
+            g.EntitySeed(
+              vertex=2
+            ),
+            g.EntitySeed(
+              vertex=3
+            )
+          ]
         )
         ```
 
@@ -446,17 +485,17 @@ Gets elements that have vertices within a given range. [Javadoc](https://gchq.gi
     === "Python"
 
         ``` python
-        g.GetElementsInRanges( 
-          input=[ 
-            g.SeedPair( 
-              first=g.EntitySeed( 
-                vertex=1 
-              ), 
-              second=g.EntitySeed( 
-                vertex=4 
-              ) 
-            ) 
-          ] 
+        g.GetElementsInRanges(
+          input=[
+            g.SeedPair(
+              first=g.EntitySeed(
+                vertex=1
+              ),
+              second=g.EntitySeed(
+                vertex=4
+              )
+            )
+          ]
         )
         ```
 
@@ -521,20 +560,20 @@ Gets elements that have vertices within a given range. [Javadoc](https://gchq.gi
     === "Python"
 
         ``` python
-        g.GetElementsInRanges( 
-          input=[ 
-            g.SeedPair( 
-              first=g.EntitySeed( 
-                vertex=4 
-              ), 
-              second=g.EdgeSeed( 
-                source=4, 
-                destination=5, 
-                directed_type="EITHER", 
-                matched_vertex="SOURCE" 
-              ) 
-            ) 
-          ] 
+        g.GetElementsInRanges(
+          input=[
+            g.SeedPair(
+              first=g.EntitySeed(
+                vertex=4
+              ),
+              second=g.EdgeSeed(
+                source=4,
+                destination=5,
+                directed_type="EITHER",
+                matched_vertex="SOURCE"
+              )
+            )
+          ]
         )
         ```
 
