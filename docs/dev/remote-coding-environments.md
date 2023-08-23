@@ -2,7 +2,7 @@
 
 Gaffer is now configured for remote coding environemnts such as GitHub
 Codespaces and Gitpod. This addition allows for an easier and faster way to
-contribute to Gaffer with no manual setup or need to download dependices to a
+contribute to Gaffer with no manual setup or need to download dependencies to a
 local machine.
 
 ## GitHub Codespaces
