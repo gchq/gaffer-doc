@@ -10,11 +10,10 @@ To use GitHub Codespaces simply open the gaffer repsoitory and click the "Code"
 button drop down. You'll see an option labeled "Open with codespaces" Click on
 it.
 
-This will launch Codespaces with all the correct configuration needed to
-contribute to the Gaffer repository.
-
-For more information on GitHub Codespaces click
-[here](https://github.com/features/codespaces).
+This will launch a Codespaces environment with all the configuration needed
+to contribute to Gaffer.
+See the [GitHub documentation for more information on Codespaces]
+(https://github.com/features/codespaces).
 
 ## Gitpod
 To use Gitpod you can simply prefix any GitHub URL with **`gitpod.io/#`** and
