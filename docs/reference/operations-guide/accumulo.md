@@ -227,17 +227,20 @@ This operation has been introduced as a replacement to the `GetElementsBetweenSe
     === "JSON"
 
         ```json
-            {
-                "class": "GetElementsBetweenSetsPairs",
-                "input": {
-                    "class": "Pair",
-                    "F": [
+        {
+            "class" : "GetElementsBetweenSetsPairs",
+            "input" : {
+                "class" : "Pair",
+                "first" : {
+                    "Iterable": [
                         {
                             "class" : "EntitySeed",
                             "vertex" : 1
                         }
-                    ],
-                    "S": [
+                    ]
+                },
+                "second" : {
+                    "Iterable": [
                         {
                             "class" : "EntitySeed",
                             "vertex" : 2
@@ -249,8 +252,36 @@ This operation has been introduced as a replacement to the `GetElementsBetweenSe
                     ]
                 }
             }
+        }
         ```
 
+    Results:
+
+    === "JSON"
+
+        ```json
+        [
+            {
+                "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                "group": "entity",
+                "vertex": 1,
+                "properties": {
+                    "count": 3
+                }
+            },
+            {
+                "class": "uk.gov.gchq.gaffer.data.element.Edge",
+                "group": "edge",
+                "source": 1,
+                "destination": 2,
+                "directed": true,
+                "matchedVertex": "SOURCE",
+                "properties": {
+                    "count": 3
+                }
+            }
+        ]
+        ```
 
 ## GetElementsWithinSet
 
