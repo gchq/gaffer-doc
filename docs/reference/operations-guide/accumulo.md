@@ -224,6 +224,24 @@ This operation has been introduced as a replacement to the `GetElementsBetweenSe
 
 ??? example "Example getting edges between a Set of node 1 and a Set of node 2 and 4"
 
+    === "Java"
+
+        ```java
+        // Create and populate first input set
+        final Set inputSet1 = new HashSet();
+        inputSet1.add(new EntitySeed(1));
+
+        // Create and populate second input set
+        final Set inputSet2 = new HashSet();
+        inputSet2.add(new EntitySeed(2));
+        inputSet2.add(new EntitySeed(4));
+
+        // Create operation using the Sets wrapped in a Pair object
+        final GetElementsBetweenSetsPairs operation = new GetElementsBetweenSetsPairs.Builder()
+                .input(new Pair(inputSet1, inputSet2))
+                .build();
+        ```
+
     === "JSON"
 
         ```json
@@ -256,6 +274,13 @@ This operation has been introduced as a replacement to the `GetElementsBetweenSe
         ```
 
     Results:
+
+    === "Java"
+
+        ``` java
+        Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]
+        Edge[source=1,destination=2,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>3]]
+        ```
 
     === "JSON"
 
