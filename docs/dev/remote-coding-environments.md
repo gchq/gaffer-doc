@@ -6,9 +6,8 @@ contribute to Gaffer with no manual setup or need to download dependencies to a
 local machine.
 
 ## GitHub Codespaces
-To use GitHub Codespaces simply open the gaffer repsoitory and click the "Code"
-button drop down. You'll see an option labeled "Open with codespaces" Click on
-it.
+To use GitHub Codespaces simply open the Gaffer repository, click the "Code" button
+drop down, and then the option labeled "Open with Codespaces".
 
 This will launch a Codespaces environment with all the configuration needed
 to contribute to Gaffer.
