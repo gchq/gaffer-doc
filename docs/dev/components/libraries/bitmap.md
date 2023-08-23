@@ -3,7 +3,7 @@
 The [bitmap library](https://github.com/gchq/Gaffer/tree/master/library/bitmap-library) module contains various libraries for Bitmaps.
 
 In order to make use of the bitmap libraries you will need to include this library as a dependency:
-```
+```xml
  <dependency>
   <groupId>uk.gov.gchq.gaffer</groupId>
   <artifactId>bitmap-library</artifactId>
