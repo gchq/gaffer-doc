@@ -6,13 +6,12 @@ contribute to Gaffer with no manual setup or need to download dependencies to a
 local machine.
 
 ## GitHub Codespaces
-To use GitHub Codespaces simply open the Gaffer repository, click the "Code" button
-drop down, and then the option labeled "Open with Codespaces".
+To use GitHub Codespaces simply open the Gaffer repository, click the "Code"
+button drop down, and then the option labeled "Create codespace on develop".
 
-This will launch a Codespaces environment with all the configuration needed
-to contribute to Gaffer.
-See the [GitHub documentation for more information on Codespaces]
-(https://github.com/features/codespaces).
+This will launch a Codespaces environment with all the configuration needed to
+contribute to Gaffer. See the [GitHub documentation for more information on
+Codespaces] (https://github.com/features/codespaces).
 
 ## Gitpod
 To use Gitpod you can simply prefix any GitHub URL with **`gitpod.io/#`** and
@@ -24,4 +23,5 @@ you.
 Once on Gitpod, your environment will be set up with all the correct
 configuration needed to contribute to the Gaffer repository.
 
-For more information on Gitpod click [here](https://www.gitpod.io/).
+See the [Gitpod documentation for more
+information.](https://www.gitpod.io/docs/introduction).
