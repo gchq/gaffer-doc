@@ -20,4 +20,9 @@ A recent Linux distribution is recommended, although it should be possible to bu
 
 ## Contributing
 
-We welcome contributions to the project. See our [ways of working for more detail](ways-of-working.md). All contributors must sign the [GCHQ Contributor Licence Agreement](https://cla-assistant.io/gchq/Gaffer).
+We welcome contributions to the project. See our [ways of working for more
+detail](ways-of-working.md). All contributors must sign the [GCHQ Contributor
+Licence Agreement](https://cla-assistant.io/gchq/Gaffer).
+
+You can quickly and easily contribute towards Gaffer using a [remote coding
+environment](remote-coding-environments.md) such as GitHub Codespaces or Gitpod.
