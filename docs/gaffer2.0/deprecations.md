@@ -370,6 +370,12 @@ Now set in `serialiser`:
 - This class has been removed.
 - Use the equivalent `TestTypes` class in the store module `uk.gov.gchq.gaffer.store.TestTypes` instead.
 
+### [`commonutil.CommonConstants`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/common-util/src/main/java/uk/gov/gchq/gaffer/commonutil/CommonConstants.java)
+- This class has been removed as it was redundant.
+- For the `UTF-8` constant use `StandardCharsets.UTF_8.name()` from built in Java libraries.
+- The above also applies to the `ISO_8859_1` constant from this class.
+- This also allows for more robust error handing, [this commit is an example of a change implementing this](https://github.com/gchq/Gaffer/commit/3999890f3aebadbc5384695123af89a4d9053333#diff-faa371afa5e6d548ff73af92f1f148870424e7858e3fef43b3d25bc5b740c013).
+
 ### [`data.elementdefinition.view.NamedViewDetail`](https://github.com/gchq/Gaffer/blob/gaffer2-1.21.1/core/data/src/main/java/uk/gov/gchq/gaffer/data/elementdefinition/view/NamedViewDetail.java)
 - The method `hasWriteAccess(String userId, Set<String> opAuths, String adminAuth)` has been removed.
 - Use `hasWriteAccess(User user, String adminAuth)` instead.
