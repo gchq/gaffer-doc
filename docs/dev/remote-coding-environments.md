@@ -20,8 +20,13 @@ follow the steps from there. You can also install the
 on your web browser. This adds a button to GitHub that does the prefixing for
 you.
 
-Once on Gitpod, your environment will be set up with all the correct
-configuration needed to contribute to the Gaffer repository.
+Our custom GitPod configuration removes your Git commit email so you
+will need to [re-configure your Git commit
+email](https://www.gitpod.io/docs/configure/authentication/github). You can also
+[configure your Git commit email to be a private GitHub email or a custom email
+too.](https://www.gitpod.io/docs/configure/authentication#how-to-use-a-private-github-email-or-custom-email-for-git-commits).
+Once done your environment will be all set to contribute to the Gaffer
+repository.
 
 See the [Gitpod documentation for more
 information.](https://www.gitpod.io/docs/introduction).
