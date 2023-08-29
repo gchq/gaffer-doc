@@ -31,4 +31,10 @@ helm repo add gaffer-docker https://gchq.github.io/gaffer-docker
 
 ## How to Guides
 
-Within this documentation there are also a number of guides to help you deploy Gaffer on Kubernetes. It is important you look at these before you get started as they provide the initial steps for running these applications.
+There are a number of guides to help you deploy Gaffer on Kubernetes. It is important you look at these before you get started as they provide the initial steps for running these applications.
+
+* [Deploy a simple empty graph](deploy-empty-graph.md)
+* [Add your schema](deploy-schema.md)
+* [Change the graph ID and description](change-graph-metadata.md)
+* [Adding your own libraries and functions](add-libraries.md)
+* [Changing passwords for the Accumulo store](change-accumulo-passwords.md)
