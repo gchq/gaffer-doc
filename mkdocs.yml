@@ -72,6 +72,14 @@ nav:
       - 'Managing Dependencies': 'dev/managing-dependencies/managing-dependencies.md'
       - 'Ways of Working': 'dev/ways-of-working.md'
       - 'Sketches custom deserialisation': 'dev/rest-api-sketches.md'
+      - 'Docker': 'dev/docker.md'
+      - Kubernetes:
+        - 'Kubernetes Guide': 'dev/kubernetes-guide/kubernetes.md'
+        - 'Deploy an Empty Graph': 'dev/kubernetes-guide/deploy-empty-graph.md'
+        - 'Add your schema': 'dev/kubernetes-guide/deploy-schema.md'
+        - 'Change the Graph Id and Description': 'dev/kubernetes-guide/change-graph-metadata.md'
+        - 'Adding your own libraries and functions': 'dev/kubernetes-guide/add-libraries.md'
+        - 'Changing Accumulo Passwords': 'dev/kubernetes-guide/change-accumulo-passwords.md'
       - Components:
         - 'Components/Maven Modules': 'dev/components/components.md'
         - 'Cache': 'dev/components/cache.md'
