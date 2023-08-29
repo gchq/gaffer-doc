@@ -17,7 +17,7 @@ These charts can be accessed by cloning our repository or by using our Helm repo
 
 ## Requirements
 
-Before you can deploy any of these applications you need to have installed a suitable Kubernetes supported tool, e.g. kubeadm or k3s.
+To deploy these applications, you'll need access to a suitable Kubernetes distribution. 
 
 You will also need to install a container management engine, for example Docker or Podman, to build, run and manage your containers.
 
