@@ -36,6 +36,8 @@ You can kind of think of the schema as sort of a filter or validator for the inc
 given bit of data must conform with part of the schema or it will simply be ignored as it doesn't
 fit the structure of the graph.
 
+See [the advanced guide on schemas](../advanced-guide/schema.md) for more comprehensive information.
+
 ### Elements Schema
 
 All distinct bits of data in a Gaffer graph (e.g. nodes and edges) are referred to as 'elements'.
@@ -139,7 +141,7 @@ The main POST request end point you will use is `/graph/operations/execute`, thi
 JSON to carry out operations on the Gaffer graph. Gaffer provides many pre built operations that are
 available to use and can be chained together for more complex use cases. However be aware, that
 operation chains are usually highly specific to the data and results you wish to extract from the
-graph so please refer to the reference guide on [Gaffer
+graph, so please refer to the reference guide on [Gaffer
 operations](../reference/operations-guide/operations.md) for more detail on this.
 
 !!! example "Example operation chain using rest API"
