@@ -14,6 +14,8 @@ graph TD
   3(3, count=2) -- count=4 --> 4
 ```
 
+---
+
 ## GetElementsBetweenSets
 
 !!! warning "Deprecated"
@@ -216,13 +218,15 @@ Gets edges that exist between 2 sets and entities in the first set. [Javadoc](ht
         Edge[source=1,destination=2,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>3]]
         ```
 
+---
+
 ## GetElementsBetweenSetsPairs
 
-Returns all the edges that exist between two Sets of Entities.
+Given a [`Pair`](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/commonutil/pair/Pair.html) containing two sets of [`EntityIds`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/data/element/id/EntityId.html), this returns all edges that exist between the two sets of Entities. Also returns [`Entities`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/data/element/Entity.html) from the first set.
 
 This operation has been introduced as a replacement to the `GetElementsBetweenSets` operation as that could not be used in operation chains due to it requiring two inputs. Instead this operation requires a single [`Pair`](http://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/commonutil/pair/Pair.html) input containing two Sets which have the Entity IDs you wish to get the edges between. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/accumulostore/operation/impl/GetElementsBetweenSetsPairs.html)
 
-??? example "Example getting edges between a Set of node 1 and a Set of node 2 and 4"
+??? example "Example getting edges between a `Set` of node 1 and a `Set` of node 2 and 4"
 
     === "Java"
 
@@ -285,6 +289,7 @@ This operation has been introduced as a replacement to the `GetElementsBetweenSe
         ``` java
         Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]
         Edge[source=1,destination=2,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>3]]
+        Edge[source=1,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]]
         ```
 
     === "JSON"
@@ -309,9 +314,22 @@ This operation has been introduced as a replacement to the `GetElementsBetweenSe
                 "properties": {
                     "count": 3
                 }
+            },
+            {
+                "class": "uk.gov.gchq.gaffer.data.element.Edge",
+                "group": "edge",
+                "source": 1,
+                "destination": 4,
+                "directed": true,
+                "matchedVertex": "SOURCE",
+                "properties": {
+                    "count": 1
+                }
             }
         ]
         ```
+
+---
 
 ## GetElementsWithinSet
 
@@ -505,6 +523,8 @@ Gets edges with both vertices in a given set and entities with vertices in a giv
         Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]
         Edge[source=1,destination=2,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>3]]
         ```
+
+---
 
 ## GetElementsInRanges
 
