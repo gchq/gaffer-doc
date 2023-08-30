@@ -7,16 +7,31 @@ It provides users with a single point of entry for executing operations on a sto
 
 When you instantiate a `Graph`, this doesn't mean you are creating an entirely new graph with its own data, you are simply creating a connection to a store where some data is held.
 
+See the [Graph Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/graph/package-summary.html) for further documentation.
+
+## Creating a Graph
+
 To create an instance of `Graph`, we recommend you use the `Graph.Builder` class. This has several helpful methods to create the graph from various different sources.
 But, essentially a graph requires just 3 things: some store properties, a schema and some graph specific configuration.
 
-See the [Graph Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/graph/package-summary.html) for further documentation.
+An example of creating a basic `Graph` object:
+
+```java
+Graph graph = new Graph.Builder()
+      .config(new GraphConfig.Builder()
+            .graphId("uniqueNameOfYourGraph")
+            .build())
+      .addSchemas(schemas)
+      .storeProperties(storeProperties)
+      .build();
+```
 
 ## Store Properties
 The store properties tells the graph the type of store to connect to along with any required connection details. See the [Stores](../../reference/stores-guide/stores.md) reference page for more information on the different Stores for Gaffer.
 
 ## Schema
-The schema is passed to the store to instruct the store how to store and process the data. See [Schemas](https://gchq.github.io/gaffer-doc/v1docs/getting-started/developer-guide/schemas.html) for more information - v1 docs, to be updated and added to this documentation in future.
+The schema is passed to the store to instruct the store how to store and process the data.
+See [Schemas](../../getting-started/advanced-guide/schema.md) for detailed information on schemas and the [Java API section of that page](../../getting-started/advanced-guide/schema.md#java-api) for lower level info.
 
 ## Graph Configuration
 The graph configuration allows you to apply special customisations to the Graph instance. The only required field is the `graphId`.
