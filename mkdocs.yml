@@ -98,6 +98,26 @@ nav:
           - dev/components/libraries/sketches.md
           - dev/components/libraries/spark.md
           - dev/components/libraries/time.md
+    - User Guide:
+      - 'Gaffer Basics':
+        - 'What is Gaffer?': 'user-guide/gaffer-basics/what-is-gaffer.md'
+        - 'What is Graph?': 'user-guide/gaffer-basics/what-is-graph.md'
+        - 'What is JSON?': 'user-guide/gaffer-basics/what-is-json.md'
+        - 'What is Python?': 'user-guide/gaffer-basics/what-is-python.md'
+      - 'Getting Started':
+        - 'API': 'user-guide/getting-started/api.md'
+        - 'Schema': 'user-guide/getting-started/schema.md'
+      - 'Query':
+        - 'Python Extension':
+          - 'Python Extension Guide': 'user-guide/query/python-extension/python-extension.md'
+          - 'Examples': 'user-guide/query/python-extension/examples.md'
+        - 'API Querying':
+          - 'API Querying Guide': 'user-guide/query/api-querying/api-querying.md'
+          - 'Import/Export Data': 'user-guide/query/api-querying/import-export-data.md'
+          - 'Examples': 'user-guide/query/api-querying/examples.md'
+        - 'Gremlin':
+          - 'Gremlin Guide': 'user-guide/query/gremlin/gremlin.md'
+          - 'Examples': 'user-guide/query/gremlin/examples.md'
     - 'Reference':
       - 'Reference Guide': 'reference/intro.md'
       - Stores:
