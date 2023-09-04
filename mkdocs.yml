@@ -161,8 +161,8 @@ nav:
       - 'Import/Export Data': 'administration-guide/import-export-data.md'
       - 'Named Operations': 'administration-guide/named-operations.md'
       - 'Operation Score': 'administration-guide/operation-score.md'
-      - 'Secuirty':
-        - 'Secuity Guide': 'administration-guide/security/security-guide.md'
+      - 'Security':
+        - 'Security Guide': 'administration-guide/security/security-guide.md'
         - 'User Control': 'administration-guide/security/user-control.md'
     - Change Notes:
       - 'Changelist':
