@@ -146,6 +146,8 @@ nav:
           - 'Spring': 'development-guide/project-structure/maven-dependencies/spring.md'
     - 'Reference':
       - 'Reference Guide': 'reference/intro.md'
+      - 'Glossary': 'reference/glossary.md'
+      - 'Javadoc': 'reference/javadoc.md'
       - Stores:
         - 'Store Guide': 'reference/stores-guide/stores.md'
         - 'Map Store': 'reference/stores-guide/map.md'
