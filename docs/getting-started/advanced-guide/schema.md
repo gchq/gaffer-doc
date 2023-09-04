@@ -24,11 +24,12 @@ Groups must be completely unique and cannot be shared between edges and entities
 ### Edges
 Edges must have the following:
 
-- `source` - The type of object that will be used as the source vertex in your graph. Needs to be a type defined in the [Types schema](#types).
-- `destination` - Similar to source, it can either be the same or a different type.
+- `source` - Type of object to use as the source vertex in your graph. Needs to be a type defined in the [Types schema](#types).
+- `destination` - Type of object to use as the destination vertex in your graph. Can either be the same type as `source`, or a different type.
 - `directed` - Tells Gaffer if the edge is directed or undirected. Needs to be a type which means true or false, see [Types](#true--false) for more info.
 
-When an Edge is undirected in Gaffer (`directed` is `false`), it is treated as if the relationship was bidirectional and the vertices of the edge do not have an authoritative source and destination thus, the undirected edges `A -- B` and `B -- A` are equal, and therefore will be aggregated together.
+When an Edge is undirected in Gaffer (`directed` is `false`), it is treated as if the relationship was bidirectional, and the vertices of the edge do not have an authoritative source and destination.
+Thus, the undirected edges `A -- B` and `B -- A` are equal, and will therefore be aggregated together.
 Gaffer will present the undirected edges Vertices in natural ordering, so a client will also see the above edge presented as `A, B`.
 It will be aggregated with any other edge that has the same source and destination and is also undirected.
 For example an undirected Edge that is added, `A -> B`, will be aggregated with another Edge of `B -> A` if they are undirected.
@@ -44,10 +45,10 @@ Edges and Entities can optionally have the following fields:
 - `description` - A simple string which should provide some context and explain what the element is.
 - `parents` - An array of parent group names. These must relate to the same sort of element as the child, for example an edge cannot have an entity as a parent. Elements can inherit any information from multiple parent elements. Fields will be merged/overridden, so the hierarchy of parents is important. Any fields that are defined in the child element will also merge or override information taken from the parents.
 - `properties` - Properties are defined by a map of key-value pairs of property names to property types. Property types are described in the Types schema.
-- `groupBy` - By default Gaffer uses the element group and its vertices to group similar elements together when aggregating and summarising elements. This groupBy field allows you to specify extra properties (in addition to the element group and vertices) to use for controlling when similar elements should be grouped together and summarised.
-- `visibilityProperty` - When using visibility properties in your graph, ensure the sensitive elements have a visibility property and then set this visibilityProperty field to that property name. This ensures Gaffer knows to restrict access to sensitive elements.
-- `timestampProperty` - When using the timestamp property in your graph, then set this timestampProperty field to that property name, so Gaffer Stores know to treat that property specially. This property allows Store implementations like Accumulo to optimise the way the timestamp property is persisted. For these stores using it can have a very slight performance improvement due to the lazy loading of properties. Setting the timestampProperty is optional and does not affect the queries available to users. For more information [see the timestamp section of the Accumulo Store Reference](../../reference/stores-guide/accumulo.md#timestamp).
-- `aggregate` - True by default. If you would like to disable aggregation for this element group set this to false.
+- `groupBy` - Allows you to specify extra properties (in addition to the element group and vertices) to use for controlling when similar elements should be grouped together and summarised. By default Gaffer uses the element group and its vertices to group similar elements together when aggregating and summarising elements.
+- `visibilityProperty` - Used to specify the property to use as a visibility property when using visibility properties in your graph. If sensitive elements have a visibility property then set this field to that property name. This ensures Gaffer knows to restrict access to sensitive elements.
+- `timestampProperty` - Used to specify timestamp property in your graph, so Gaffer Stores know to treat that property specially. Setting this is optional and does not affect the queries available to users. This property allows Store implementations like Accumulo to optimise the way the timestamp property is persisted. For these stores using it can have a very slight performance improvement due to the lazy loading of properties. For more information [see the timestamp section of the Accumulo Store Reference](../../reference/stores-guide/accumulo.md#timestamp).
+- `aggregate` - Specifies if aggregation is enabled for this element group. True by default. If you would like to disable aggregation, set this to false.
 
 These 2 optional fields are for advanced users. They can go in the Elements Schema, however we have split them out into separate Validation and Aggregation Schema files for this page, so the logic doesn't complicate the Elements schema.
 
@@ -400,7 +401,7 @@ Schemas can be loaded from a JSON file directly using the [`fromJSON()` method o
 Schema mySchema = Schema.fromJson(Paths.get("path/to/schema.json"));
 ```
 
-While it's easiest to create Schemas objects using the JSON approach, you can create them directly from their component classes in Java.
+While it's easiest to create Schema objects using the JSON approach, you can create them directly from their component classes in Java.
 Constructing a Schema from scratch this way would be tedious, but you could use this to create your own solutions for Schema generation by building on these components.
 
 A Schema can be created using its `Builder()` method. [See Schema Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/schema/Schema.html).
