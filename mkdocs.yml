@@ -118,6 +118,32 @@ nav:
         - 'Gremlin':
           - 'Gremlin Guide': 'user-guide/query/gremlin/gremlin.md'
           - 'Examples': 'user-guide/query/gremlin/examples.md'
+    - Development Guide:
+      - 'Getting Started': 'development-guide/getting-started.md'
+      - 'Ways of Working': 'development-guide/ways-of-working.md'
+      - 'Remote Coding Environments': 'development-guide/remote-coding-environments.md'
+      - 'Extending Gaffer': 'development-guide/extending-gaffer.md'
+      - Project Structure:
+        - Components:
+          - 'Components/Maven Modules': 'development-guide/project-structure/components/components.md'
+          - 'Cache': 'development-guide/project-structure/components/cache.md'
+          - 'Data': 'development-guide/project-structure/components/data.md'
+          - 'Graph': 'development-guide/project-structure/components/graph.md'
+          - 'Store': 'development-guide/project-structure/components/store.md'
+          - 'Operation': 'development-guide/project-structure/components/operation.md'
+          - 'Serialisation': 'development-guide/project-structure/components/serialisation.md'
+          - 'Integration Tests': 'development-guide/project-structure/components/integration-test.md'
+          - 'Core REST': 'development-guide/project-structure/components/core-rest.md'
+          - 'Spring REST': 'development-guide/project-structure/components/spring-rest.md'
+          - 'Accumulo Store': 'development-guide/project-structure/components/accumulo-store.md'
+          - Libraries:
+            - development-guide/project-structure/components/libraries/bitmap.md
+            - development-guide/project-structure/components/libraries/flink.md
+            - development-guide/project-structure/components/libraries/sketches.md
+            - development-guide/project-structure/components/libraries/spark.md
+            - development-guide/project-structure/components/libraries/time.md
+        - Maven Dependencies:
+          - 'Spring': 'development-guide/project-structure/maven-dependencies/spring.md'
     - 'Reference':
       - 'Reference Guide': 'reference/intro.md'
       - Stores:
