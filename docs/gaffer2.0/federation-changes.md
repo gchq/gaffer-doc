@@ -246,7 +246,7 @@ By default, `GetSchema` results will be merged with `MergeSchema`. This returns 
 
 All Cache implementations are given a name and you can have multiple caches like NamedOperations, NamedViews, etc.
 
-However within FederatedStore where multiple graphs may exist, by default a cache name has the suffix of `graphId` added for identity and keeping caches for different graphs seperate e.g NamedOperationCache_graph1, NamedOperationCache_graph2, NamedOperationCache_graph3.
+However within FederatedStore where multiple graphs may exist, a cache name has the suffix of `graphId` added by default for identity and keeping caches for different graphs separate, e.g NamedOperationCache_graph1, NamedOperationCache_graph2, NamedOperationCache_graph3.
 
 The User can configure all the cache suffix for a graph in the StoreProperties using a flag that takes priority over graphId.
 
