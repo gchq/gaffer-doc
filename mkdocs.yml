@@ -104,6 +104,7 @@ nav:
         - 'What is a Graph?': 'user-guide/gaffer-basics/what-is-a-graph.md'
         - 'What is JSON?': 'user-guide/gaffer-basics/what-is-json.md'
         - 'What is Python?': 'user-guide/gaffer-basics/what-is-python.md'
+        - 'What is Cardinality?': 'user-guide/gaffer-basics/what-is-cardinality.md'
       - 'Getting Started':
         - 'API': 'user-guide/getting-started/api.md'
         - 'Schema': 'user-guide/getting-started/schema.md'
@@ -150,8 +151,15 @@ nav:
         - Maven Dependencies:
           - 'Spring': 'development-guide/project-structure/maven-dependencies/spring.md'
     - Administration Guide:
-      - 'How to Run Gaffer':
-        - 'Gaffer Docker': 'administration-guide/where-to-run-gaffer/gaffer-docker.md'
+      - 'Getting Started':
+        - 'Docker': 'administration-guide/where-to-run-gaffer/gaffer-docker.md'
+        - 'Kubernetes':
+          - 'Kubernetes Guide': 'administration-guide/where-to-run-gaffer/kubernetes-guide/kubernetes-guide.md'
+          - 'Deploy an Empty Graph': 'administration-guide/where-to-run-gaffer/kubernetes-guide/deploy-empty-graph.md'
+          - 'Add your Schema': 'administration-guide/where-to-run-gaffer/kubernetes-guide/deploy-schema.md'
+          - 'Change the Graph ID and Description': 'administration-guide/where-to-run-gaffer/kubernetes-guide/change-graph-metadata.md'
+          - 'Adding your Own Libraries and Functions': 'administration-guide/where-to-run-gaffer/kubernetes-guide/add-libraries.md'
+          - 'Changing Accumulo Passwords': 'administration-guide/where-to-run-gaffer/kubernetes-guide/change-accumulo-passwords.md'
       - 'Store Setup':
         - 'Store Guide': 'administration-guide/gaffer-stores/store-guide.md'
         - 'Accumulo Store': 'administration-guide/gaffer-stores/accumulo-store.md'
@@ -172,7 +180,13 @@ nav:
     - Change Notes:
       - 'Changelist':
         - 'V2.0 Changes': 'change-notes/changelist/v2-changes.md'
-      - 'Migrating from V1 to V2': 'change-notes/migrating-from-v1-to-v2.md'
+      - 'Migrating from V1 to V2':
+        - 'Depreciations': 'change-notes/migrating-from-v1-to-v2/'
+        - 'Dependencies': 'change-notes/migrating-from-v1-to-v2/'
+        - 'Accumulo Migration': 'change-notes/migrating-from-v1-to-v2/'
+        - 'Federation Changes': 'change-notes/migrating-from-v1-to-v2/'
+        - 'Accumulo Kerberos': 'change-notes/migrating-from-v1-to-v2/'
+        - 'Log4j in Gaffer': 'change-notes/migrating-from-v1-to-v2/'
     - 'Reference':
       - 'Reference Guide': 'reference/intro.md'
       - 'Glossary': 'reference/glossary.md'
