@@ -244,7 +244,7 @@ By default, `GetSchema` results will be merged with `MergeSchema`. This returns 
 
 ## SuffixCacheName 
 
-All Cache implementations are given a name and you can have multiple caches like NamedOperations, NamedViews, ect.
+All Cache implementations are given a name and you can have multiple caches like NamedOperations, NamedViews, etc.
 
 However within FederatedStore where multiple graphs may exist, by default a cache name has the suffix of `graphId` added for identity and keeping caches for different graphs seperate e.g NamedOperationCache_graph1, NamedOperationCache_graph2, NamedOperationCache_graph3.
 
