@@ -99,23 +99,25 @@ nav:
           - dev/components/libraries/spark.md
           - dev/components/libraries/time.md
     - User Guide:
-      - 'Gaffer Basics':
+      - Gaffer Basics:
         - 'What is Gaffer?': 'user-guide/gaffer-basics/what-is-gaffer.md'
         - 'What is Graph?': 'user-guide/gaffer-basics/what-is-graph.md'
         - 'What is JSON?': 'user-guide/gaffer-basics/what-is-json.md'
         - 'What is Python?': 'user-guide/gaffer-basics/what-is-python.md'
-      - 'Getting Started':
+      - Getting Started:
         - 'API': 'user-guide/getting-started/api.md'
         - 'Schema': 'user-guide/getting-started/schema.md'
-      - 'Query':
-        - 'Python Extension':
+      - Querying:
+        - The Rest API:
+          - 'user-guide/query/rest-api/index.md'
+          - 'Operation Chains': 'user-guide/query/rest-api/operation-chains.md'
+          - Import/Export:
+            - 'CSV Data': 'user-guide/query/rest-api/import-export/csv.md'
+          - 'Examples': 'user-guide/query/rest-api/examples.md'
+        - Python Extension:
           - 'Python Extension Guide': 'user-guide/query/python-extension/python-extension.md'
           - 'Examples': 'user-guide/query/python-extension/examples.md'
-        - 'API Querying':
-          - 'API Querying Guide': 'user-guide/query/api-querying/api-querying.md'
-          - 'Import/Export Data': 'user-guide/query/api-querying/import-export-data.md'
-          - 'Examples': 'user-guide/query/api-querying/examples.md'
-        - 'Gremlin':
+        - Gremlin:
           - 'Gremlin Guide': 'user-guide/query/gremlin/gremlin.md'
           - 'Examples': 'user-guide/query/gremlin/examples.md'
     - Development Guide:
@@ -220,6 +222,7 @@ theme:
   features:
     - navigation.tabs
     - navigation.top
+    - navigation.indexes
     - content.action.edit
     - content.code.annotate
     - content.code.copy
