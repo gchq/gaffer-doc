@@ -120,6 +120,11 @@ nav:
           - 'Examples': 'user-guide/query/gremlin/examples.md'
     - Development Guide:
       - 'Getting Started': 'development-guide/getting-started.md'
+      - 'Example Deployment':
+        - 'Project Setup': 'development-guide/example-deployment/project-setup.md' 
+        - 'Writing the Schema': 'development-guide/example-deployment/writing-the-schema.md'
+        - 'Running the Deployment': 'development-guide/example-deployment/running-the-deployment.md'
+        - 'Using the API': 'development-guide/example-deployment/using-the-api.md'
       - 'Ways of Working': 'development-guide/ways-of-working.md'
       - 'Remote Coding Environments': 'development-guide/remote-coding-environments.md'
       - 'Extending Gaffer': 'development-guide/extending-gaffer.md'
