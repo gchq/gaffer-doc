@@ -258,5 +258,5 @@ The User can configure the individual cache suffix for a graph in the StorePrope
 `gaffer.cache.service.named.view.suffix`, 
 `gaffer.cache.service.federated.store.suffix`
 
-This also means two FederatedStores (or any graphs) can be made to share the same cache. In the example of load balancing FederatedStore instances.
+This also means two FederatedStores (or any graphs) can be made to share the same cache, e.g. load balancing FederatedStore instances.
 
