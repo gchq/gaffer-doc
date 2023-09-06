@@ -37,7 +37,7 @@ For example an undirected Edge that is added, `A -> B`, will be aggregated with 
 ### Entities
 Entities must have a `vertex` field, which is similar to the `source` and `destination` fields on an edge.
 For example, modelling `London -> Paris` requires an entity definition to represent the city and an edge definition to represent the relationship.
-In that example the entity `vertex` field and the edge `source` and `destination` fields would all be of the same type.
+In the previous example the entity `vertex` field and the edge `source` and `destination` fields would all be of the same type.
 
 ### Optional Element fields
 Edges and Entities can optionally have the following fields:
