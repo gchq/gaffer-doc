@@ -12,7 +12,7 @@ See the [Graph Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/graph/p
 ## Creating a Graph
 
 To create an instance of `Graph`, we recommend you use the `Graph.Builder` class. This has several helpful methods to create the graph from various different sources.
-But, essentially a graph requires just 3 things: some store properties, a schema and some graph specific configuration.
+Most of the time, a graph requires just 3 things: some store properties, a schema and some graph specific configuration.
 
 An example of creating a basic `Graph` object:
 
@@ -25,6 +25,8 @@ Graph graph = new Graph.Builder()
       .storeProperties(storeProperties)
       .build();
 ```
+
+Instead of a store properties, a store can be passed in directly. This is the easiest way to configure schema-less stores (Proxy and Federated Stores) using Java. See the [Java section of the Proxy Store reference page for an example](../../reference/stores-guide/proxy.md#using-a-proxystore-from-java). Using a Proxy Store will allow for connecting to an existing remote graph through Java, without needing to use the REST API or JSON directly.
 
 ## Store Properties
 The store properties tells the graph the type of store to connect to along with any required connection details. See the [Stores](../../reference/stores-guide/stores.md) reference page for more information on the different Stores for Gaffer.
@@ -39,6 +41,7 @@ The graph configuration allows you to apply special customisations to the Graph 
 To create an instance of `GraphConfig` you can use the `GraphConfig.Builder` class, or create it using a json file.
 
 The `GraphConfig` can be configured with the following:
+
  - `graphId` - The `graphId` is a String field that uniquely identifies a `Graph`. When backed by a Store like Accumulo, this `graphId` is used as the name of the Accumulo table for the `Graph`.
  - `description` - a string describing the `Graph`.
  - `view` - The `Graph View` allows a graph to be configured to only returned a subset of Elements when any Operation is executed. For example if you want your `Graph` to only show data that has a count more than 10 you could add a View to every operation you execute, or you can use this `Graph View` to apply the filter once and it would be merged into to all Operation Views so users only ever see this particular view of the data.

@@ -56,7 +56,7 @@ These 2 optional fields are for advanced users. They can go in the Elements Sche
 - `aggregateFunctions` - An array of selections and binary operators to be applied to an element. This allows you to aggregate based on multiple properties at once. It is important to note that types of properties (groupBy, non-groupBy, visibility) cannot be aggregated in the same aggregate function. The timestamp property is treated as a non-groupBy property. Individual property aggregation is best done as a aggregateFunction in the property type definition in the Types schema.
 
 ### Example Elements Schema
-Here is an example Elements schema:
+This example Elements schema is a subset of the schema used in the [Gaffer Road Traffic example graph](https://github.com/gchq/Gaffer/blob/master/example/road-traffic/README.md).
 
 ```json
 {
@@ -184,7 +184,7 @@ When using an ordered store (a store that implements the ORDERED StoreTrait, suc
 
 ### Example Types Schema
 
-Here is an example Types schema:
+Here is an example Types schema (goes with the example Elements schema above):
 
 ```json
 {
