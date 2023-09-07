@@ -16,7 +16,8 @@ The sections below walkthrough the features of Schemas in detail and explain how
 The Elements schema is designed to be a high level document describing what information your Graph contains, i.e. the different kinds of edges and entities and the list of properties associated with each.
 Essentially this part of the schema should just be a list of all the entities and edges in the graph. 
 Edges describe the relationship between a source vertex and a destination vertex. 
-Entities describe a vertex. We use the term "element" to mean either and edge or and entity.
+Entities describe a vertex. Edges describe the relationship between a source vertex and a destination vertex.
+We use the term "element" to mean either an edge or an entity.
 
 When defining an element we must provide a "group". This is a unique string identifier for each element.
 Groups must be completely unique and cannot be shared between edges and entities.
