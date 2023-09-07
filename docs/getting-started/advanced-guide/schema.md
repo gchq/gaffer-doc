@@ -4,7 +4,7 @@ This page delves into more detail on Schemas. As seen in the other guides, there
 Schemas are often separated into two JSON files (`elements.json` & `types.json`), but it's worth remembering that your schema can be broken up further if required.
 
 For example if you have a Graph that is made up of 5 different data sources, you may find it easier to develop and maintain by splitting your schema into multiple parts, for example 5 Element Schemas and 1 Types schema.
-Alternatively, a single overall schema file could be used for Elements and Types. There's also no requirement to have a single Types schemas.
+Alternatively, a single overall schema file could be used for Elements and Types, as there is no requirement to have a single Types schemas.
 When you construct your Gaffer graph you must provide all the Schema parts. If provided separately, these will then be merged together to form an internal schema used for the Graph.
 
 When using Java directly, you don't need to use JSON files to store you schemas - although this is still recommended. See the [Java API](#java-api) section for more about interacting with Schemas in Java.
