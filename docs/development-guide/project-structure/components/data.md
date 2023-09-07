@@ -8,7 +8,7 @@ It also contains the logic for processing these `Element`s - `ElementAggregator`
 
 Gaffer makes use of Java 8's Function and Predicate interfaces to aggregate, transform and filter data. To allow these Function and Predicate classes to process tuples we make use of the [Koryphe](https://github.com/gchq/koryphe/tree/master) library. Koryphe allows us to wrap the Gaffer Elements in a tuple and pass it any Function or Predicate. 
 
-You can use any of our implementations ([see reference pages](../../reference/intro.md)) or write your own.
+You can use any of our implementations ([see reference pages](../../../reference/intro.md)) or write your own.
 
 All the following classes will act on one or more Element identifiers (vertex/source/destination/directed) or properties. If you implement the Java 8 interfaces directly, you would need to add the following `JsonType` annotation to your class:
 

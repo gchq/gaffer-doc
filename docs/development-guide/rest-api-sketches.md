@@ -1,7 +1,7 @@
 # Using Sketches with the REST API
 
 This page explains some nuances and special steps required when using classes from the Sketches library with the REST API. If you just want to know how to use the sketches libraries to
-use cardinality, see the [cardinality](../getting-started/guide/cardinality.md) docs page.
+use cardinality, see the [cardinality](../user-guide/gaffer-basics/what-is-cardinality.md) docs page.
 
 ## Sketches Library
 

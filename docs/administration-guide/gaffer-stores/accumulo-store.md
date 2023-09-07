@@ -129,7 +129,7 @@ Note that here `elements` could be a never-ending stream of `Element`s and the a
 
 To ingest data via bulk import, a MapReduce job is used to convert your data into files of Accumulo key-value pairs that are pre-sorted to match the distribution of data in Accumulo. Once these files are created, Accumulo moves them from their current location in HDFS to the correct directory within Accumulo's data directory. The data in them is then available for query immediately.
 
-Gaffer provides code to make this as simple as possible. The `AddElementsFromHdfs` operation is used to bulk import data. See [AddElementsFromHdfs](../operations-guide/hdfs.md#addelementsfromhdfs) for examples.
+Gaffer provides code to make this as simple as possible. The `AddElementsFromHdfs` operation is used to bulk import data. See [AddElementsFromHdfs](../../reference/operations-guide/hdfs.md#addelementsfromhdfs) for examples.
 
 ## Visibility
 
@@ -185,7 +185,7 @@ In Gaffer's `AccumuloStore` a key-package contains all the logic for:
 
 A key-package is an implementation of the `AccumuloKeyPackage` interface. Gaffer provides two implementations: `ByteEntityKeyPackage` and `ClassicKeyPackage`. These names are essentially meaningless. The "classic" in `ClassicKeyPackage` refers to the fact that it is similar to the implementation in the first version of Gaffer (known as "Gaffer1").
 
-Both key-packages should provide good performance for most use-cases. There will be slight differences in performance between the two for different types of query. The `ByteEntityKeyPackage` will be slightly faster if the query specifies that only out-going or in-coming edges are required. The `ClassicKeyPackage` will be faster when querying for all edges involving a pair of vertices. See the Key-Packages part of the [Accumulo Store Implementation page](../../dev/components/accumulo-store.md) for more information about these key-packages.
+Both key-packages should provide good performance for most use-cases. There will be slight differences in performance between the two for different types of query. The `ByteEntityKeyPackage` will be slightly faster if the query specifies that only out-going or in-coming edges are required. The `ClassicKeyPackage` will be faster when querying for all edges involving a pair of vertices. See the Key-Packages part of the [Accumulo Store Implementation page](../../development-guide/project-structure/components/accumulo-store.md) for more information about these key-packages.
 
 ## Advanced properties
 

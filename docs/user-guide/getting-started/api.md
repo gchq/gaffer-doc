@@ -18,7 +18,7 @@ JSON to carry out operations on the Gaffer graph. Gaffer provides many pre built
 available to use and can be chained together for more complex use cases. However be aware, that
 operation chains are usually highly specific to the data and results you wish to extract from the
 graph so please refer to the reference guide on [Gaffer
-operations](../reference/operations-guide/operations.md) for more detail on this.
+operations](../../reference/operations-guide/operations.md)
 
 !!! example "Example operation chain using rest API"
 

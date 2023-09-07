@@ -11,7 +11,7 @@ In order to make use of the flink libraries you will need to include this librar
 </dependency>
 ```
 
-For information on registering and using flink operations, see the [Flink Operations guide](../../../reference/operations-guide/flink.md).
+For information on registering and using flink operations, see the [Flink Operations guide](../../../../reference/operations-guide/flink.md).
 
 ## I am getting errors when running the Flink operations on a cluster
 This could be to do with the way the Gaffer Store class is serialised and distributed around the cluster. To distribute the job, Flink requires all of the components of the job to be Serializable.

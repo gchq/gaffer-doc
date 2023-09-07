@@ -1,13 +1,13 @@
 # Stores Guide
 
-A Gaffer Store represents the backing database responsible for storing (or facilitating access to) a graph. Ordinarily a Store provides backing for a single graph. Stores which provide access to other stores can support multiple graphs. So far only the [Federated Store](federated.md) supports this.
+A Gaffer Store represents the backing database responsible for storing (or facilitating access to) a graph. Ordinarily a Store provides backing for a single graph. Stores which provide access to other stores can support multiple graphs. So far only the [Federated Store](federated-store.md) supports this.
 
 Gaffer currently supplies the following store implementations:
 
-- [Map Store](map.md) - Simple in-memory store
-- [Accumulo Store](accumulo.md) - [Apache Accumulo](https://accumulo.apache.org/) backed store
-- [Proxy Store](proxy.md) - Delegates/forwards queries to another Gaffer REST
-- [Federated Store](federated.md) - Federates queries across multiple graphs
+- [Map Store](map-store.md) - Simple in-memory store
+- [Accumulo Store](accumulo-store.md) - [Apache Accumulo](https://accumulo.apache.org/) backed store
+- [Proxy Store](proxy-store.md) - Delegates/forwards queries to another Gaffer REST
+- [Federated Store](federated-store.md) - Federates queries across multiple graphs
 
 ## Caches
 
@@ -19,7 +19,7 @@ Gaffer comes with three cache implementations:
 
 The `HashMap` cache is not persistent. If using the Hazelcast instance of the Cache service be aware that once the last node shuts down, all data will be lost. This is due to the data being held in memory in a distributed system.
 
-For information on implementing caches, see [the cache developer docs page](../../dev/components/cache.md).
+For information on implementing caches, see [the cache developer docs page](../../development-guide/project-structure/components/cache.md).
 
 ### Cache configuration
 
