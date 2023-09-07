@@ -136,7 +136,7 @@ nav:
         - 'Federation Changes': 'change-notes/migrating-from-v1-to-v2/federation-changes.md'
         - 'Accumulo Kerberos': 'change-notes/migrating-from-v1-to-v2/accumulo-kerberos.md'
         - 'Log4j in Gaffer': 'change-notes/migrating-from-v1-to-v2/log4j.md'
-    - 'Reference':
+    - Reference:
       - 'Reference Guide': 'reference/intro.md'
       - 'Glossary': 'reference/glossary.md'
       - 'Javadoc': 'reference/javadoc.md'
@@ -172,7 +172,8 @@ nav:
         - 'Accumulo Operations': 'reference/operations-guide/accumulo.md'
         - 'Spark Operations': 'reference/operations-guide/spark.md'
         - 'Misc Operations': 'reference/operations-guide/misc.md'
-
+      - Endpoints:
+        - 'Endpoints Guide': 'reference/endpoints-guide/endpoints.md'
 theme:
   name: material
   logo: assets/icon.svg
