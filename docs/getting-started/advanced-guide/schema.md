@@ -29,7 +29,7 @@ Edges must have the following:
 - `destination` - Type of object to use as the destination vertex in your graph. Can either be the same type as `source`, or a different type.
 - `directed` - Tells Gaffer if the edge is directed or undirected. Needs to be a type which means true or false, see [Types](#true--false) for more info.
 
-When an Edge is undirected in Gaffer (`directed` is `false`), it is treated as if the relationship was bidirectional, and the vertices of the edge do not have an authoritative source and destination.
+When an Edge is undirected in Gaffer (`directed` is `false`), it is treated as if the relationship was bidirectional, meaning that the vertices of the edge do not have an authoritative source and destination.
 Thus, the undirected edges `A -- B` and `B -- A` are equal, and will therefore be aggregated together.
 Gaffer will present the undirected edges Vertices in natural ordering, so a client will also see the above edge presented as `A, B`.
 It will be aggregated with any other edge that has the same source and destination and is also undirected.
