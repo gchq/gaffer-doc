@@ -30,10 +30,9 @@ Edges must have the following:
 - `directed` - Tells Gaffer if the edge is directed or undirected. Needs to be a type which means true or false, see [Types](#true--false) for more info.
 
 When an Edge is undirected in Gaffer (`directed` is `false`), it is treated as if the relationship was bidirectional, meaning that the vertices of the edge do not have an authoritative source and destination.
-Thus, the undirected edges `A -- B` and `B -- A` are equal, and will therefore be aggregated together.
+Thus, the undirected edges `A -- B` and `B -- A` are equal, and will be aggregated with any other undirected edge with the same source and destination.
 Gaffer will present the undirected edges vertices in natural ordering, so a client will also see the above edge presented as `A, B`.
-It will be aggregated with any other edge that has the same source and destination and is also undirected.
-For example an undirected Edge that is added, `A -> B`, will be aggregated with another Edge of `B -> A` if they are undirected.
+This means when adding an undirected Edge of `A -- B`, it will be aggregated with another existing undirected Edge of `B -- A`.
 
 ### Entities
 Entities must have a `vertex` field, which is similar to the `source` and `destination` fields on an edge.
