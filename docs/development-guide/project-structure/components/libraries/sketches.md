@@ -11,4 +11,4 @@ In order to make use of the sketches libraries you will need to include this lib
 </dependency>
 ```
 
-For information on configuring and using sketches, see the [Cardinality guide](../../../getting-started/guide/cardinality.md#how-to-add-cardinality-to-your-graph) (for configuring `SketchesJsonModules` expand "Additional config").
+For information on configuring and using sketches, see the [Cardinality guide](../../../../user-guide/gaffer-basics/what-is-cardinality.md) (for configuring `SketchesJsonModules` expand "Additional config").

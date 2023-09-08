@@ -20,4 +20,4 @@ To use spark with Accumulo you will need to include this dependency:
 </dependency>
 ```
 
-For information on registering and using spark operations, see the [Spark Operations guide](../../../reference/operations-guide/spark.md).
+For information on registering and using spark operations, see the [Spark Operations guide](../../../../reference/operations-guide/spark.md).

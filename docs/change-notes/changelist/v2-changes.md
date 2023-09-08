@@ -3,12 +3,12 @@
 Below is a summary of changes that have been made in Gaffer version 2.   
 
 ### Accumulo 2 Support
-The Accumulo store now supports Accumulo 2 and Hadoop 3 by default, with support for Accumulo 1 and Hadoop 2 retained. See the [Accumulo Migration page](accumulo-migration.md) for more information about this change.
+The Accumulo store now supports Accumulo 2 and Hadoop 3 by default, with support for Accumulo 1 and Hadoop 2 retained. See the [Accumulo Migration page](../migrating-from-v1-to-v2/accumulo-migration.md) for more information about this change.
 
 ### Federated Store Improvements
 The Federated Operation was added to greatly improve flexibility of using a Federated Store.  
 !!! danger "Breaking change"
-    To migrate, please see the [Federated Store Changes page](federation-changes.md).
+    To migrate, please see the [Federated Store Changes page](../migrating-from-v1-to-v2/federation-changes.md).
 
 ### Cache Improvements and fixes
 All "caches" within Gaffer received a lot of bug fixes which should make them significantly more stable and consistent over time. This should improve usability of FederatedStores, NamedOperations and NamedViews.
@@ -18,12 +18,12 @@ All "caches" within Gaffer received a lot of bug fixes which should make them si
 ### Removal of Deprecated code
 All of Gaffer 1's deprecated code has been removed.  
 !!! danger "Breaking change"
-    To migrate, please see the [deprecations](deprecations.md) page.
+    To migrate, please see the [deprecations](../migrating-from-v1-to-v2/deprecations.md) page.
 
 ### Dependency Upgrades
 Dependencies have been updated, where possible to the latest version, removing vulnerabilities.  
 !!! danger "Breaking change"
-    You will need to migrate your dependencies to be compatible with Gaffer 2's new dependency versions. Please see the [dependencies](dependencies.md) page for full details.
+    You will need to migrate your dependencies to be compatible with Gaffer 2's new dependency versions. Please see the [dependencies](../migrating-from-v1-to-v2/dependencies.md) page for full details.
 
 ### Federated and Proxy store fixes
 A lot of bugs have been fixed that should facilitate FederatedStores with ProxyStores in them.  
@@ -50,10 +50,10 @@ The HBase and Parquet stores have been removed from Gaffer in version 2. We made
 There is now a maven profile that will swap dependency versions so you can build Gaffer with Java 11. The code has also been updated to build with both Java versions.
 
 ### Accumulo Kerberos Authentication Support
-The Accumulo store now supports authenticating to Accumulo and HDFS using Kerberos, in addition to username/password. For more information, see the [Kerberos support page](accumulo-kerberos.md).
+The Accumulo store now supports authenticating to Accumulo and HDFS using Kerberos, in addition to username/password. For more information, see the [Kerberos support page](../migrating-from-v1-to-v2/accumulo-kerberos.md).
 
 ### CSV Import and Export
-Basic support for importing and exporting [CSVs](../getting-started/guide/csv.md) has been added.
+Basic support for importing and exporting [CSVs](../../user-guide/query/api-querying/import-export-data.md) has been added.
 
 ### All operations can now be used within NamedOperations
 Previously, `GetElementsBetweenSets` could not be used within a NamedOperation as it used `inputB`. `GetElementsBetweenSets` and `inputB` have both been deprecated and instead you should use `GetElementsBetweenSetsPairs`.
@@ -127,4 +127,4 @@ This will mean subgraphs added to FederatedStores can have additional operation 
     ```
 
     1. Schema left empty for brevity
-    2. This example operation enables file import. Read more in the [CSV](../getting-started/guide/csv.md) docs.
+    2. This example operation enables file import. Read more in the [CSV](../../user-guide/query/api-querying/import-export-data.md) docs.

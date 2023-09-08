@@ -43,7 +43,7 @@ the graph in [Neo4j syntax](https://neo4j.com/labs/apoc/4.4/export/csv/#export-d
 !!! note ""
     Please note that Gaffer often requires additional information about the data such as,
     `:String` on the column headers to help with typing of the values. This is demonstrated below
-    in the raw file. There's more detail on this in the [OpenCypher documentation](../advanced-guide/import-export/csv.md#opencypher-formats).
+    in the raw file. There's more detail on this in the [OpenCypher documentation](../../user-guide/query/api-querying/import-export-data.md#opencypher-formats).
 
 === "Table"
     | _id | name  | age | lang | _labels  | _start | _end | _type   | weight |
@@ -165,7 +165,7 @@ set the name and short description.
 
 The store properties file is used to configure how Gaffer will store its data. There are a few
 different stores available for Gaffer, these are explained in more detail in the [reference
-documentation](../../reference/stores-guide/stores.md), but by default you must provide a store
+documentation](../../administration-guide/gaffer-stores/store-guide.md), but by default you must provide a store
 class and a store properties class. For this example we are using an Accumulo store as it is
 recommended for efficient storage and retrieval of large data volumes. It's set up requires a few
 custom properties which are outlined in the following file.
