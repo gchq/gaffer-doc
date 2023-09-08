@@ -103,7 +103,7 @@ associated with it. Then we can apply a filter to include only edges where the
 !!! tip
     As you can see filtering is based around predicates which are similar to if
     else statements in traditional programming. For a full list of available
-    predicates refer to the [reference documentation](../../reference/predicates-guide/predicates.md).
+    predicates refer to the [reference documentation](../../../reference/predicates-guide/predicates.md).
 
 ### Filtering Properties
 
@@ -174,8 +174,76 @@ properties are returned.
 
 ## Transformation
 
-!!! warning
-    TODO: Overview of applying transformation to a query
+Its possible to apply a transformation to the output of a query this gives you
+an opportunity to manipulate the results into a more useful output.
+
+When a transform is applied the new results are save into whats known as a
+transient property. A transient property is just a property that is not
+persisted, simply created at query time by a transform function.
+
+To use a transform you must use a transform function, this is a Java class
+that extends the [`java.util.Function`](https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html)
+class to take some input and give a new output. Commonly you would want to
+write your own transform function class as it can be quite specific to your
+graph data and what analytics you want to get out of it. However, there is
+the [Koryphe module](../../../reference/functions-guide/koryphe-functions.md)
+that is included by default with Gaffer which provides a some default functions
+you can make use of.
+
+As an example of transformation we will use the same graph from the [previous
+section](#filtering-properties) to transform the `hours` property into minutes
+and save the returned information into a new `minutes` transient property.
+
+!!! example ""
+    Here you can see we select the inputs for the function as the `"hours"`
+    property we then use the `MultiplyBy` Koryphe function to transform property
+    and project the result into a transient property named `"minutes"`.
+
+    ```json
+    {
+        "class": "GetElements",
+        "input": [
+            {
+                "class": "EntitySeed",
+                "vertex": "John"
+            }
+        ],
+        "view": {
+            "edges": {
+                "Created": {
+                    "transientProperties" : {
+                        "minutes" : "java.lang.Integer"
+                    },
+                    "transformFunctions" : [
+                        {
+                            "selection" : [ "hours" ],
+                            "function" : {
+                                "class" : "MultiplyBy",
+                                "by" : 60
+                            },
+                            "projection" : [ "minutes" ]
+                        }
+                    ]
+                }
+
+            }
+        }
+    }
+    ```
+
+The `selection` in a transform is similar to the way we select properties and
+identifiers in a filter, and as demonstrated you can select (and also project)
+any property but also or any of these unique identifiers:
+
+- `VERTEX` - This is the vertex on an Entity.
+- `SOURCE` - This is the source vertex on an Edge.
+- `DESTINATION` - This is the destination vertex on an Edge.
+- `DIRECTED` - This is the directed field on an Edge.
+- `MATCHED_VERTEX` - This is the vertex that was matched in the query, either
+  the `SOURCE` or the `DESTINATION`.
+- `ADJACENT_MATCHED_VERTEX` - This is the adjacent vertex that was matched in
+  the query, either the `SOURCE` or the `DESTINATION`. For example, if your seed
+  matches the source of the edge This would resolve to the `DESTINATION` value.
 
 ## Aggregation
 
