@@ -51,10 +51,9 @@ nav:
         - 'What is a Graph?': 'user-guide/gaffer-basics/what-is-a-graph.md'
         - 'What is JSON?': 'user-guide/gaffer-basics/what-is-json.md'
         - 'What is Python?': 'user-guide/gaffer-basics/what-is-python.md'
-      - Getting Started:
         - 'What is Cardinality?': 'user-guide/gaffer-basics/what-is-cardinality.md'
         - 'What is Aggregation?': 'user-guide/gaffer-basics/what-is-aggregation.md'
-      - 'Getting Started':
+      - Getting Started:
         - 'API': 'user-guide/getting-started/api.md'
         - 'Schema': 'user-guide/getting-started/schema.md'
       - Querying:

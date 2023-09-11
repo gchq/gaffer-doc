@@ -196,8 +196,8 @@ and save the returned information into a new `minutes` transient property.
 
 !!! example ""
     Here you can see we select the inputs for the function as the `"hours"`
-    property we then use the `MultiplyBy` Koryphe function to transform property
-    and project the result into a transient property named `"minutes"`.
+    property we then use the `MultiplyBy` Koryphe function to transform a
+    property and project the result into a transient property named `"minutes"`.
 
     ```json
     {
@@ -245,8 +245,85 @@ any property but also or any of these unique identifiers:
   the query, either the `SOURCE` or the `DESTINATION`. For example, if your seed
   matches the source of the edge This would resolve to the `DESTINATION` value.
 
-## Aggregation
+## Query-time Aggregation
 
-!!! warning
-    TODO: Overview of applying aggregation in a query
+Gaffer allows grouping results together based on their properties to form a new
+result, this is known as aggregation. Aggregation can be applied at both data
+ingest or query-time, this guide will focus on the latter but an overview of
+both techniques is available in the [gaffer basics
+guide](../../gaffer-basics/what-is-aggregation.md).
 
+Generally to apply aggregation at query-time you must override whats known as
+the `groupBy` property to create your own aggregator in the query. To demonstrate
+this we will use the following example graph.
+
+!!! example ""
+    A simple graph representing commits by a `Person` to a `Repository` with
+    each `Commit` being an edge with properties for the lines `added` and
+    `removed`.
+
+    ```mermaid
+    graph LR
+        A(["Person
+
+            ID: John"])
+        --
+        "Commit
+         added: 10
+         removed: 3"
+        -->
+        B(["Repository
+
+            ID: 1"])
+        A
+        --
+        "Commit
+         added: 3
+         removed: 5"
+        -->
+        B
+    ```
+
+We will use aggregation to group the properties of the `Commit` edges to get a
+total for all the `added` property.
+
+!!! example ""
+    Usually a result would contain all the edges on the `Person` node but instead
+    we have applied aggregation so the result will contain an element with
+    a `Sum` of all the `added` properties.
+
+    ```json
+    {
+        "class": "GetElements",
+        "input": [
+            {
+                "class": "EntitySeed",
+                "vertex": "John"
+            }
+        ],
+        "view": {
+            "edges": {
+                "Commit": {
+                    "groupBy" : [ ],
+                    "aggregator" : {
+                        "operators" : [
+                            {
+                                "selection" : [ "added" ],
+                                "binaryOperator" : {
+                                    "class" : "Sum"
+                                }
+                            }
+                        ]
+                    }
+                }
+
+            }
+        }
+    }
+    ```
+
+!!! tip
+    As with some of the other examples we again use a class from the Koryphe
+    module to help with the aggregation, please see the [reference
+    material](../../../reference/binary-operators-guide/koryphe-operators.md)
+    for a full list and examples.
