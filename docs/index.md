@@ -16,9 +16,9 @@ Gaffer [2.0.0](https://github.com/gchq/Gaffer/releases/tag/gaffer2-2.0.0) was re
 Site Contents
 -------------
 
-- [User Guide](user-guide/gaffer-basics/what-is-gaffer/) - Information about how to use Gaffer.
-- [Development Guide](development-guide/getting-started/) - Information about developing Gaffer itself.
-- [Administration Guide](administration-guide/where-to-run-gaffer/gaffer-docker/) - Information about creating a gaffer instance.
+- [User Guide](user-guide/introduction/) - Information about how to use Gaffer.
+- [Development Guide](development-guide/introduction/) - Information about developing Gaffer itself.
+- [Administration Guide](administration-guide/introduction/) - Information about creating a gaffer instance.
 - [Change Notes](change-notes/changelist/v2-changes/) - Information on the Gaffer 2.0 release, including changelogs, deprecation and migration details.
 - [Reference](reference/intro/) - Documentation for Gaffer Operations, Predicates, Functions, Binary Operators and Properties.
 

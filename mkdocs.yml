@@ -46,6 +46,7 @@ plugins:
 nav:
     - Home: 'index.md'
     - User Guide:
+      - 'Introduction': 'user-guide/introduction.md'
       - 'Gaffer Basics':
         - 'What is Gaffer?': 'user-guide/gaffer-basics/what-is-gaffer.md'
         - 'What is a Graph?': 'user-guide/gaffer-basics/what-is-a-graph.md'
@@ -53,9 +54,8 @@ nav:
         - 'What is Python?': 'user-guide/gaffer-basics/what-is-python.md'
         - 'What is Cardinality?': 'user-guide/gaffer-basics/what-is-cardinality.md'
         - 'What is Aggregation?': 'user-guide/gaffer-basics/what-is-aggregation.md'
-      - 'Getting Started':
-        - 'API': 'user-guide/getting-started/api.md'
-        - 'Schema': 'user-guide/getting-started/schema.md'
+      - 'API': 'user-guide/api.md'
+      - 'Schema': 'user-guide/schema.md'
       - 'Query':
         - 'Python Extension':
           - 'Python Extension Guide': 'user-guide/query/python-extension/python-extension.md'
@@ -68,7 +68,7 @@ nav:
           - 'Gremlin Guide': 'user-guide/query/gremlin/gremlin.md'
           - 'Examples': 'user-guide/query/gremlin/examples.md'
     - Development Guide:
-      - 'Getting Started': 'development-guide/getting-started.md'
+      - 'Introduction': 'development-guide/introduction.md'
       - 'Example Deployment':
         - 'Project Setup': 'development-guide/example-deployment/project-setup.md' 
         - 'Writing the Schema': 'development-guide/example-deployment/writing-the-schema.md'
@@ -100,15 +100,15 @@ nav:
         - Maven Dependencies:
           - 'Spring': 'development-guide/project-structure/maven-dependencies/spring.md'
     - Administration Guide:
-      - 'Getting Started':
-        - 'Docker': 'administration-guide/where-to-run-gaffer/gaffer-docker.md'
-        - 'Kubernetes':
-          - 'Kubernetes Guide': 'administration-guide/where-to-run-gaffer/kubernetes-guide/kubernetes-guide.md'
-          - 'Deploy an Empty Graph': 'administration-guide/where-to-run-gaffer/kubernetes-guide/deploy-empty-graph.md'
-          - 'Add your Schema': 'administration-guide/where-to-run-gaffer/kubernetes-guide/deploy-schema.md'
-          - 'Change the Graph ID and Description': 'administration-guide/where-to-run-gaffer/kubernetes-guide/change-graph-metadata.md'
-          - 'Adding your Own Libraries and Functions': 'administration-guide/where-to-run-gaffer/kubernetes-guide/add-libraries.md'
-          - 'Changing Accumulo Passwords': 'administration-guide/where-to-run-gaffer/kubernetes-guide/change-accumulo-passwords.md'
+      - 'Introduction': 'administration-guide/introduction.md'
+      - 'Docker': 'administration-guide/where-to-run-gaffer/gaffer-docker.md'
+      - 'Kubernetes':
+        - 'Kubernetes Guide': 'administration-guide/where-to-run-gaffer/kubernetes-guide/kubernetes-guide.md'
+        - 'Deploy an Empty Graph': 'administration-guide/where-to-run-gaffer/kubernetes-guide/deploy-empty-graph.md'
+        - 'Add your Schema': 'administration-guide/where-to-run-gaffer/kubernetes-guide/deploy-schema.md'
+        - 'Change the Graph ID and Description': 'administration-guide/where-to-run-gaffer/kubernetes-guide/change-graph-metadata.md'
+        - 'Adding your Own Libraries and Functions': 'administration-guide/where-to-run-gaffer/kubernetes-guide/add-libraries.md'
+        - 'Changing Accumulo Passwords': 'administration-guide/where-to-run-gaffer/kubernetes-guide/change-accumulo-passwords.md'
       - 'Store Setup':
         - 'Store Guide': 'administration-guide/gaffer-stores/store-guide.md'
         - 'Accumulo Store': 'administration-guide/gaffer-stores/accumulo-store.md'
