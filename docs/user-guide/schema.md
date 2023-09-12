@@ -57,7 +57,7 @@ For an `edge` the following fields are required:
     !!! note ""
         The type here, `"true"` or `"false"` needs to be defined in the types schema using a class
         that evaluates to it. This is demonstrated in the [example
-        deployment](../../development-guide/example-deployment/writing-the-schema.md) document.
+        deployment](../development-guide/example-deployment/writing-the-schema.md) document.
 
 - `destination` - A user defined type for the destination node the edge goes to.
 

@@ -29,7 +29,7 @@ standard way to do this is a JSON config file in the schema directory. The filen
 called something like `elements.json`, the name is not special as all files under the `schema`
 directory will be merged into a master schema but its still recommended to use an appropriate name.
 
-As covered in the [Getting Started Schema page](../../user-guide/getting-started/schema.md), to write a schema you can see that there are some
+As covered in the [Getting Started Schema page](../../user-guide/schema.md), to write a schema you can see that there are some
 required fields, but largely a schema is highly specific to your input data.
 
 Starting with the `entities` from the example, we can see there will be two distinct types of nodes
@@ -87,7 +87,7 @@ small we only need to add one edge - the `Created` edge. This is a directed edge
 }
 ```
 
-As discussed in the [user schema guide](../../user-guide/getting-started/schema.md), edges have some mandatory fields. Starting with
+As discussed in the [user schema guide](../../user-guide/schema.md), edges have some mandatory fields. Starting with
 the `source` and `destination` fields, these must match the types associated with the vertex field
 in the relevant entities. From the example, we can see that the source of a `Created` edge is a
 `Person` so we will use the placeholder type we set as the `vertex` field which is
