@@ -63,7 +63,6 @@ nav:
           - 'Filtering': 'user-guide/query/rest-api/filtering.md'
           - Import/Export:
             - 'CSV Data': 'user-guide/query/rest-api/import-export/csv.md'
-          - 'Examples': 'user-guide/query/rest-api/examples.md'
         - Python Extension:
           - 'Python Extension Guide': 'user-guide/query/python-extension/python-extension.md'
           - 'Examples': 'user-guide/query/python-extension/examples.md'
