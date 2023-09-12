@@ -57,18 +57,17 @@ nav:
         - 'API': 'user-guide/getting-started/api.md'
         - 'Schema': 'user-guide/getting-started/schema.md'
       - Querying:
-        - The Rest API:
-          - 'user-guide/query/rest-api/index.md'
-          - 'Operations': 'user-guide/query/rest-api/operations.md'
-          - 'Filtering': 'user-guide/query/rest-api/filtering.md'
+        - Gaffer Query Syntax:
+          - Available APIs:
+            - 'Spring REST': 'user-guide/query/gaffer-syntax/apis/rest-api.md'
+            - 'Python (gafferpy)': 'user-guide/query/gaffer-syntax/apis/python-api.md'
+            - 'Java': 'user-guide/query/gaffer-syntax/apis/java-api.md'
+          - 'Operations': 'user-guide/query/gaffer-syntax/operations.md'
+          - 'Filtering Data': 'user-guide/query/gaffer-syntax/filtering.md'
           - Import/Export:
-            - 'CSV Data': 'user-guide/query/rest-api/import-export/csv.md'
-        - Python Extension:
-          - 'Python Extension Guide': 'user-guide/query/python-extension/python-extension.md'
-          - 'Examples': 'user-guide/query/python-extension/examples.md'
-        - Gremlin:
-          - 'Gremlin Guide': 'user-guide/query/gremlin/gremlin.md'
-          - 'Examples': 'user-guide/query/gremlin/examples.md'
+            - 'Using CSV Data': 'user/guide/query/gaffer-syntax/import-export/csv.md'
+        - Apache Gremlin:
+          - 'Gremlin Support in Gaffer': 'user-guide/query/gremlin/gremlin.md'
     - Development Guide:
       - 'Getting Started': 'development-guide/getting-started.md'
       - 'Example Deployment':
@@ -185,7 +184,6 @@ theme:
   features:
     - navigation.tabs
     - navigation.top
-    - navigation.indexes
     - content.action.edit
     - content.code.annotate
     - content.code.copy

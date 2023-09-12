@@ -1,4 +1,4 @@
-# CSV Import and Export
+# CSV Data Import and Export
 
 Gaffer supports both importing from and exporting to csv. This page will outline
 some of the common methods you can use to do this via the API.
@@ -37,7 +37,7 @@ properties file by using the following property:
 gaffer.store.operation.declarations=/gaffer/store/operationsDeclarations.json
 ```
 
-## CSV Import/Export
+## How to Import and Export
 
 You can use the rest API to add the graph elements. In production this method
 would not be recommended for large volumes of data. However, it is fine for
@@ -192,7 +192,7 @@ You can import CSV from Neo4j using the `Neo4jCsvElementGenerator` and export
 using the `Neo4jCsvGenerator`. The format used is defined
 [here](https://neo4j.com/labs/apoc/4.4/export/csv/#export-database-csv).
 
-???+ note "Example"
+!!! example ""
     === "Table"
         | _id | name  | age | lang | _labels  | _start | _end | _type   | weight |
         |-----|-------|-----|------|----------|--------|------|---------|--------|
@@ -214,7 +214,7 @@ You can import CSV from Neptune using the `NeptuneCsvElementGenerator` and
 export using the `NeptuneCsvGenerator`. The format used is defined
 [here](https://docs.aws.amazon.com/neptune/latest/userguide/bulk-load-tutorial-format-opencypher.html).
 
-???+ note "Example"
+!!! example ""
     === "Table"
         | :ID | name  | age | lang | :LABEL   | :START_ID | :END_ID | :TYPE   | weight |
         |-----|-------|-----|------|----------|-----------|---------|---------|--------|
