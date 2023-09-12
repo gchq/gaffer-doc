@@ -58,6 +58,7 @@ nav:
         - 'Import and Export':
           - 'Using CSV': 'getting-started/advanced-guide/import-export/csv.md'
         - 'Cardinality': 'getting-started/advanced-guide/cardinality.md'
+        - 'Schema': 'getting-started/advanced-guide/schema.md'
     - 'Gaffer 2.0':
       - Changelist: 'gaffer2.0/changelist.md'
       - Deprecations: 'gaffer2.0/deprecations.md'
