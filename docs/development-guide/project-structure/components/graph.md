@@ -7,16 +7,33 @@ It provides users with a single point of entry for executing operations on a sto
 
 When you instantiate a `Graph`, this doesn't mean you are creating an entirely new graph with its own data, you are simply creating a connection to a store where some data is held.
 
-To create an instance of `Graph`, we recommend you use the `Graph.Builder` class. This has several helpful methods to create the graph from various different sources.
-But, essentially a graph requires just 3 things: some store properties, a schema and some graph specific configuration.
-
 See the [Graph Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/graph/package-summary.html) for further documentation.
+
+## Creating a Graph
+
+To create an instance of `Graph`, we recommend you use the `Graph.Builder` class. This has several helpful methods to create the graph from various different sources.
+Most of the time, a graph requires just 3 things: some store properties, a schema and some graph specific configuration.
+
+An example of creating a basic `Graph` object:
+
+```java
+Graph graph = new Graph.Builder()
+      .config(new GraphConfig.Builder()
+            .graphId("uniqueNameOfYourGraph")
+            .build())
+      .addSchemas(schemas)
+      .storeProperties(storeProperties)
+      .build();
+```
+
+Instead of a store properties, a store can be passed in directly. This is the easiest way to configure schema-less stores (Proxy and Federated Stores) using Java. See the [Java section of the Proxy Store reference page for an example](../../../administration-guide/gaffer-stores/proxy-store.md#using-a-proxystore-from-java). Using a Proxy Store will allow for connecting to an existing remote graph through Java, without needing to use the REST API or JSON directly.
 
 ## Store Properties
 The store properties tells the graph the type of store to connect to along with any required connection details. See the [Stores](../../../administration-guide/gaffer-stores/store-guide.md) reference page for more information on the different Stores for Gaffer.
 
 ## Schema
-The schema is passed to the store to instruct the store how to store and process the data. See [Schemas](https://gchq.github.io/gaffer-doc/v1docs/getting-started/developer-guide/schemas.html) for more information - v1 docs, to be updated and added to this documentation in future.
+The schema is passed to the store to instruct the store how to store and process the data.
+See [Schemas](../../../administration-guide/schema.md) for detailed information on schemas and the [Java API section of that page](../../../administration-guide/schema.md#java-api) for lower level info.
 
 ## Graph Configuration
 The graph configuration allows you to apply special customisations to the Graph instance. The only required field is the `graphId`.
@@ -24,6 +41,7 @@ The graph configuration allows you to apply special customisations to the Graph 
 To create an instance of `GraphConfig` you can use the `GraphConfig.Builder` class, or create it using a json file.
 
 The `GraphConfig` can be configured with the following:
+
  - `graphId` - The `graphId` is a String field that uniquely identifies a `Graph`. When backed by a Store like Accumulo, this `graphId` is used as the name of the Accumulo table for the `Graph`.
  - `description` - a string describing the `Graph`.
  - `view` - The `Graph View` allows a graph to be configured to only returned a subset of Elements when any Operation is executed. For example if you want your `Graph` to only show data that has a count more than 10 you could add a View to every operation you execute, or you can use this `Graph View` to apply the filter once and it would be merged into to all Operation Views so users only ever see this particular view of the data.

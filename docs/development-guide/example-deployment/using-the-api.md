@@ -1,6 +1,6 @@
 # Using the API
 
-As covered in the [Getting Started API page](../../user-guide/getting-started/api.md) the main POST request used in the API is
+As covered in the [Getting Started API page](../../user-guide/api.md) the main POST request used in the API is
 `/graph/operations/execute`. This part of the guide will cover the general usage of this part of the
 API and walk through some general operations you might want to use to load data or query.
 
@@ -188,4 +188,4 @@ asking, *"get all the `Created` edges on node `v1` that have a `weight` greater 
 !!! tip
     As you can see filtering is based around predicates which are similar to if else statements in
     traditional programming. For a full list of available predicates refer to the reference
-    [documentation](../../reference//predicates-guide/predicates.md)
+    [documentation](../../reference/predicates-guide/predicates.md).
