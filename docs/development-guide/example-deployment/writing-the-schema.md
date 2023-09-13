@@ -27,14 +27,15 @@ In Gaffer an element refers to any object in the graph, i.e. your nodes (vertexe
 up a graph we need to tell Gaffer what objects are in the graph and the properties they have. The
 standard way to do this is a JSON config file in the schema directory. The filename can just be
 called something like `elements.json`, the name is not special as all files under the `schema`
-directory will be merged into a master schema but its still recommended to use an appropriate name.
+directory will be [merged into a master schema](../advanced-guide/schema.md), but we recommended
+using an appropriate name.
 
 As covered in the [Getting Started Schema page](../../user-guide/schema.md), to write a schema you can see that there are some
 required fields, but largely a schema is highly specific to your input data.
 
 Starting with the `entities` from the example, we can see there will be two distinct types of nodes
 in the graph; one representing a `Person` and another for `Software`. These can be added into the
-schema to give something like the the following:
+schema to give something like the following:
 
 !!! info ""
 
@@ -57,7 +58,7 @@ schema to give something like the the following:
 
 From the basic schema you can see that we have added two entity types for the graph. For now, each
 `entity` just contains a short description and a type associated to the `vertex` key. The type here
-is just a place holder but it has been named appropriately as it's assumed that we will just use the
+is just a placeholder, but it has been named appropriately as it's assumed that we will just use the
 string representation of the node's id (this will be defined in the `types.json` later in the
 guide).
 
@@ -146,8 +147,8 @@ extended schema below.
 
 ## Types Schema
 
-The other schema that now needs to be written is the types schema. As you have seen in the elements
-schema there are some place holder types added as the values for many of the keys. These types work
+The other schema that now needs to be written is the types [schema](../advanced-guide/schema.md). As you have seen in the elements
+schema there are some placeholder types added as the values for many of the keys. These types work
 similarly to if you have ever programmed in a strongly typed language, they are essentially the
 wrapper for the value to encapsulate it.
 
