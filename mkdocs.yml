@@ -42,6 +42,35 @@ plugins:
       strict: true
       exclude:
         - index.md
+  - redirects:
+      redirect_maps:
+        'dev/docker.md': 'administration-guide/where-to-run-gaffer/gaffer-docker.md'
+        'dev/kubernetes-guide/kubernetes.md': 'administration-guide/where-to-run-gaffer/kubernetes-guide/kubernetes-guide.md'
+        'dev/ways-of-working.md': 'development-guide/ways-of-working.md'
+        'dev/components/operation.md': 'development-guide/project-structure/components/operation.md'
+        'dev/components/cache.md': 'development-guide/project-structure/components/cache.md'
+        'dev/components/graph.md': 'development-guide/project-structure/components/graph.md'
+        'dev/components/data.md': 'development-guide/project-structure/components/data.md'
+        'dev/components/store.md': 'development-guide/project-structure/components/store.md'
+        'dev/components/serialisation.md': 'development-guide/project-structure/components/serialisation.md'
+        'dev/components/libraries/sketches.md': 'development-guide/project-structure/components/libraries/sketches.md'
+        'dev/components/libraries/bitmap.md': 'development-guide/project-structure/components/libraries/bitmap.md'
+        'dev/components/libraries/time.md': 'development-guide/project-structure/components/libraries/time.md'
+        'dev/components/libraries/flink.md': 'development-guide/project-structure/components/libraries/flink.md'
+        'dev/components/libraries/spark.md': 'development-guide/project-structure/components/libraries/spark.md'
+        'dev/components/integration-test.md': 'development-guide/project-structure/components/integration-test.md'
+        'dev/components/spring-rest.md': 'development-guide/project-structure/components/spring-rest.md'
+        'dev/components/core-rest.md': 'development-guide/project-structure/components/core-rest.md'
+        'dev/components/accumulo-store.md': 'development-guide/project-structure/components/accumulo-store.md'
+        'reference/stores-guide/stores.md': 'administration-guide/gaffer-stores/store-guide.md'
+        'reference/stores-guide/map.md': 'administration-guide/gaffer-stores/map-store.md'
+        'reference/stores-guide/proxy.md': 'administration-guide/gaffer-stores/proxy-store.md'
+        'reference/stores-guide/federated.md': 'administration-guide/gaffer-stores/federated-store.md'
+        'reference/stores-guide/accumulo.md': 'administration-guide/gaffer-stores/accumulo-store.md'
+        'getting-started/basics.md': 'user-guide/introduction.md'
+        'getting-started/guide/cardinality.md': 'user-guide/gaffer-basics/what-is-cardinality.md'
+        'getting-started/quickstart.md': 'user-guide/introduction.md'
+        'getting-started/guide/guide.md': 'user-guide/introduction.md'
 
 nav:
     - Home: 'index.md'
