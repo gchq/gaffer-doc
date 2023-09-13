@@ -188,4 +188,4 @@ asking, *"get all the `Created` edges on node `v1` that have a `weight` greater 
 !!! tip
     As you can see filtering is based around predicates which are similar to if else statements in
     traditional programming. For a full list of available predicates refer to the reference
-    [documentation](../../reference//predicates-guide/predicates.md)
+    [documentation](../../reference/predicates-guide/predicates.md).
