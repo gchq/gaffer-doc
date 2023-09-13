@@ -31,7 +31,6 @@ a full list of all Operations and example usage.
     To get a list of all available Operations for a graph you can use the
     endpoint `/graph/operations`
 
-
 ## Operation Chains
 
 The Operations in Gaffer can be chained together to form complex queries on the
@@ -40,23 +39,43 @@ Operations together.
 
 As an example of a simple operation, say we want to get all nodes and edges
 based on their ID. To do this we can use the `GetElements` operation and set the
-`Seed` to the entity (e.g. node) or edge where we want to start the search.
+`EntitySeed` to the entity (e.g. node) or edge where we want to start the search.
 
 !!! example ""
 
     Assuming the entity ID we wish to search from is `"v1"`.
 
-    ```json
-    {
-        "class": "GetElements",
-        "input": [
-            {
-                "class": "EntitySeed",
-                "vertex": "v1"
-            }
-        ]
-    }
-    ```
+    === "JSON"
+
+        ```json
+        {
+            "class": "GetElements",
+            "input": [
+                {
+                    "class": "EntitySeed",
+                    "vertex": "v1"
+                }
+            ]
+        }
+        ```
+
+    === "Python"
+
+        ```python
+        elements = g_connector.execute_operation(
+            operation = gaffer.GetElements(input = [gaffer.EntitySeed(vertex = "v1")])
+        )
+        ```
+
+    === "Java"
+
+        ```java
+        final GetElements operation = new GetElements.Builder()
+            .input(new EntitySeed("v1"))
+            .build();
+
+        graph.execute(operation, user);
+        ```
 
 This can then be expanded into a chain by using the output from the
 `GetElements` operation as the input to the `Count` operation to give a total of
@@ -66,25 +85,50 @@ how many entities the `GetElements` returned.
     As you can see we have used the `OperationChain` to run two operations in a
     chain with the output of one being the input of the next.
 
-    ```json
-    {
-        "class" : "OperationChain",
-        "operations" : [
-            {
-                "class": "GetElements",
-                "input": [
-                    {
-                        "class": "EntitySeed",
-                        "vertex": "v1"
-                    }
+    === "JSON"
+
+        ```json
+        {
+            "class" : "OperationChain",
+            "operations" : [
+                {
+                    "class": "GetElements",
+                    "input": [
+                        {
+                            "class": "EntitySeed",
+                            "vertex": "v1"
+                        }
+                    ]
+                },
+                {
+                    "class" : "Count"
+                }
+            ]
+        }
+        ```
+    === "Python"
+
+        ```python
+        count = g_connector.execute_operation_chain(
+            operation_chain = gaffer.OperationChain(
+                operations=[
+                    gaffer.GetElements(input = [gaffer.EntitySeed(vertex = "v1")]),
+                    gaffer.Count()
                 ]
-            },
-            {
-                "class" : "Count"
-            }
-        ]
-    }
-    ```
+            )
+        )
+        ```
+
+    === "Java"
+
+        ```java
+        OperationChain<Long> countElements = new OperationChain.Builder()
+            .first(new GetElements.Builder().input(new EntitySeed("v1")).build())
+            .then(new Count<>())
+            .build();
+
+        Long result = graph.execute(countElements, user);
+        ```
 
 To chain operations its important to take note of what each operations input and
 outputs are, say if you want to chain two together like the following:

@@ -4,6 +4,10 @@ This section covers an overview of the python API extension for Gaffer to
 demonstrate how to get up and running to perform queries from Python code on an
 existing running graph.
 
+!!! tip
+    Please see the handy introduction on [what is python](../../../gaffer-basics/what-is-python.md)
+    if you are new to the language.
+
 ## What is the Python Extension?
 
 Commonly referred to as `gafferpy` this is an API to gaffer that provides
@@ -13,10 +17,10 @@ able to access almost any features or end points available in the main rest API.
 
 ## Installation
 
-Currently there isn't a release of `gafferpy` on pypi; however, the source code
-can still be cloned from the [git
-repository](https://github.com/gchq/gaffer-tools/tree/develop/python-shell) and
-installed via pip.
+Currently there isn't a release of `gafferpy` on pypi or other pip repository;
+however, the source code can still be cloned from the [git repository](https://github.com/gchq/gaffer-tools/tree/develop/python-shell)
+and installed via pip. Please see the readme in the `gafferpy` repository for
+full instructions.
 
 ## How to Query a Graph
 
@@ -31,9 +35,14 @@ g_connector = gaffer_connector.GafferConnector("http://localhost:8080/rest/lates
 ```
 
 Once connected you can access and run the same endpoints and operations as you
-would via the usual rest API. The endpoints are accessed via the
-`GafferConnector` to allow you executing Operation chains to perform queries on
-the graph.
+would via the usual rest API but via their python classes. The endpoints are
+accessed via the `GafferConnector` to allow you executing Operation chains to
+perform queries on the graph.
+
+!!! note
+    There may be of the features of the full rest API not be present in
+    `gafferpy` as always check the [reference guide](../../../../reference/intro.md)
+    first.
 
 !!! example ""
     A simple Operation can be called via the `execute_operation()` function. As
@@ -62,6 +71,5 @@ the graph.
     ```
 
 Along with running Operations you can of course optionally apply some filtering
-provided by a `View`. There are more detail on both
-[filtering](../rest-api/filtering.md) and
-[operations](../rest-api/operations.md) on their respective pages.
+provided by a `View`. There are more detail on both [filtering](../filtering.md)
+and [operations](../operations.md) on their respective pages.

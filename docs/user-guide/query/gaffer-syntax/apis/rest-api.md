@@ -1,13 +1,8 @@
 # Querying Using the Rest API
 
-!!! tip ""
-
-    Please read the getting started guide on the [Gaffer APIs](../../getting-started/api.md)
-    to give a general overview before continuing with this guide.
-
 These sections will cover the usage of the Gaffer rest API to perform queries
 and operations on a graph. This guide should cover a lot of the use cases a user
-may face; however, please refer to the [reference guide](../../../reference/intro.md)
+may face; however, please refer to the [reference guide](../../../../reference/intro.md)
 for a full list of whats possible.
 
 ## What is the Rest API?
@@ -38,10 +33,10 @@ In Gaffer, JSON is the main interchange language which means you can post JSON
 and get response back in it.
 
 !!! tip
-    See the [what is JSON guide](../../gaffer-basics/what-is-json.md) for a
+    See the [what is JSON guide](../../../gaffer-basics/what-is-json.md) for a
     short introduction to the language.
 
 Generally a query consists of two parts an `Operation` or `OperationChain` and
 optionally some sort of filtering provided by a `View`. These parts are
 discussed in more detail further in the guide so please see [the page covering
-Operations](./operations.md) and this page on [filtering using views](./filtering.md).
+Operations](../operations.md) and this page on [filtering using views](../filtering.md).

@@ -53,7 +53,7 @@ flowchart LR
 The operation chain below essentially mirrors the stages in the previous
 diagram. The first stage is taking the raw input data and converting it into
 Gaffer elements via an element generator class. Gaffer includes a few built in
-[generators](../../reference/operations-guide/generate.md) but you can use a
+[generators](../../../../reference/operations-guide/generate.md) but you can use a
 custom class or pre-process the data before passing to Gaffer so that you're
 able to use a default generator. Once the data has been converted to elements it
 needs to be added into the graph. To load elements there is a standard

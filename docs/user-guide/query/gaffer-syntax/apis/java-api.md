@@ -3,7 +3,9 @@
 As Gaffer is written in Java there is native support to allow use of all its
 public classes. Using Gaffer via the Java interface does differ from the rest
 API and `gafferpy` but is fully featured with extensive
-[Javadocs](https://gchq.github.io/Gaffer/overview-summary.html).
+[Javadocs](https://gchq.github.io/Gaffer/overview-summary.html). However, You
+will of course need to be familiar with writing and running Java code in order
+to utilise this form of the API.
 
 ## Querying a Graph
 
@@ -13,3 +15,41 @@ Using Java to Query a graph unlike the other APIs requires a reference to a
 With the other APIs you would connect directly to a running instance via the
 rest interface; however, to do this with Java you would need to configure a
 `Graph` object with a proxy store.
+
+!!! example ""
+    The following example uses the `ProxyStore.Builder()` to configure a `Graph`
+    to connect to the required address (in this case
+    `http://localhost:8080/rest/latest`).
+
+    ```java
+    Graph graph = new Graph.Builder()
+        .store(new ProxyStore.Builder()
+                .graphId(uniqueNameOfYourGraph)
+                .host("localhost")
+                .port(8080)
+                .contextRoot("rest/latest")
+                .build())
+        .build();
+    ```
+
+Once the connection to a graph is made you can run queries and operations on
+it using the available classes and builders.
+
+!!! example ""
+    The following operation chain gets all the elements in the graph then will
+    count them and store the result in a `Long`.
+
+    ```java
+    OperationChain<Long> countAllElements = new OperationChain.Builder()
+        .first(new GetAllElements())
+        .then(new Count<>())
+        .build();
+
+    Long result = graph.execute(countAllElements, user);
+    ```
+
+!!! note
+    One other thing to note about the Java API is that the `execute()` method
+    requires you to have a `User`. This is part of the available fine grain
+    security Gaffer provides see the [admin guide](../../../../administration-guide/security/security-guide.md)
+    for more information.
