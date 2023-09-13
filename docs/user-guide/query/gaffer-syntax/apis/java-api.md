@@ -48,6 +48,10 @@ it using the available classes and builders.
     Long result = graph.execute(countAllElements, user);
     ```
 
+If you're interested in learning more about the `Graph` class please see the
+[developers guide](../../../../development-guide/project-structure/components/graph.md)
+on the subject.
+
 !!! note
     One other thing to note about the Java API is that the `execute()` method
     requires you to have a `User`. This is part of the available fine grain

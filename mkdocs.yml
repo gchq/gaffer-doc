@@ -65,10 +65,10 @@ nav:
           - 'Operations': 'user-guide/query/gaffer-syntax/operations.md'
           - 'Filtering Data': 'user-guide/query/gaffer-syntax/filtering.md'
           - Import/Export:
-            - 'Using CSV Data': 'user/guide/query/gaffer-syntax/import-export/csv.md'
+            - 'Using CSV Data': 'user-guide/query/gaffer-syntax/import-export/csv.md'
         - Apache Gremlin:
           - 'Gremlin Support in Gaffer': 'user-guide/query/gremlin/gremlin.md'
-    - Development Guide:
+    - Developers Guide:
       - 'Getting Started': 'development-guide/getting-started.md'
       - 'Example Deployment':
         - 'Project Setup': 'development-guide/example-deployment/project-setup.md'
