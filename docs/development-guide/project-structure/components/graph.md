@@ -26,14 +26,14 @@ Graph graph = new Graph.Builder()
       .build();
 ```
 
-Instead of a store properties, a store can be passed in directly. This is the easiest way to configure schema-less stores (Proxy and Federated Stores) using Java. See the [Java section of the Proxy Store reference page for an example](../../reference/stores-guide/proxy.md#using-a-proxystore-from-java). Using a Proxy Store will allow for connecting to an existing remote graph through Java, without needing to use the REST API or JSON directly.
+Instead of a store properties, a store can be passed in directly. This is the easiest way to configure schema-less stores (Proxy and Federated Stores) using Java. See the [Java section of the Proxy Store reference page for an example](../../../administration-guide/gaffer-stores/proxy-store.md#using-a-proxystore-from-java). Using a Proxy Store will allow for connecting to an existing remote graph through Java, without needing to use the REST API or JSON directly.
 
 ## Store Properties
 The store properties tells the graph the type of store to connect to along with any required connection details. See the [Stores](../../../administration-guide/gaffer-stores/store-guide.md) reference page for more information on the different Stores for Gaffer.
 
 ## Schema
 The schema is passed to the store to instruct the store how to store and process the data.
-See [Schemas](../../getting-started/advanced-guide/schema.md) for detailed information on schemas and the [Java API section of that page](../../getting-started/advanced-guide/schema.md#java-api) for lower level info.
+See [Schemas](../../../administration-guide/schema.md) for detailed information on schemas and the [Java API section of that page](../../../administration-guide/schema.md#java-api) for lower level info.
 
 ## Graph Configuration
 The graph configuration allows you to apply special customisations to the Graph instance. The only required field is the `graphId`.
