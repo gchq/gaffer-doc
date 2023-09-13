@@ -1,11 +1,11 @@
-# Querying Using Python
+# Using the Python API
 
 This section covers an overview of the python API extension for Gaffer to
 demonstrate how to get up and running to perform queries from Python code on an
 existing running graph.
 
 !!! tip
-    Please see the handy introduction on [what is python](../../../gaffer-basics/what-is-python.md)
+    Please see the handy introduction on [what is python](../gaffer-basics/what-is-python.md)
     if you are new to the language.
 
 ## What is the Python Extension?
@@ -41,7 +41,7 @@ perform queries on the graph.
 
 !!! note
     There may be of the features of the full rest API not be present in
-    `gafferpy` as always check the [reference guide](../../../../reference/intro.md)
+    `gafferpy` as always check the [reference guide](../../reference/intro.md)
     first.
 
 !!! example ""
@@ -71,5 +71,5 @@ perform queries on the graph.
     ```
 
 Along with running Operations you can of course optionally apply some filtering
-provided by a `View`. There are more detail on both [filtering](../filtering.md)
-and [operations](../operations.md) on their respective pages.
+provided by a `View`. There are more detail on both [filtering](../query/gaffer-syntax/filtering.md)
+and [operations](../query/gaffer-syntax/operations.md) on their respective pages.

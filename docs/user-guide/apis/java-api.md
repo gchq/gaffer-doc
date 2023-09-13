@@ -1,4 +1,4 @@
-# Querying Using Java
+# Using the Java API
 
 As Gaffer is written in Java there is native support to allow use of all its
 public classes. Using Gaffer via the Java interface does differ from the rest
@@ -49,11 +49,11 @@ it using the available classes and builders.
     ```
 
 If you're interested in learning more about the `Graph` class please see the
-[developers guide](../../../../development-guide/project-structure/components/graph.md)
+[developers guide](../../development-guide/project-structure/components/graph.md)
 on the subject.
 
 !!! note
     One other thing to note about the Java API is that the `execute()` method
     requires you to have a `User`. This is part of the available fine grain
-    security Gaffer provides see the [admin guide](../../../../administration-guide/security/security-guide.md)
+    security Gaffer provides see the [admin guide](../../administration-guide/security/security-guide.md)
     for more information.

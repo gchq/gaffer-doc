@@ -83,20 +83,19 @@ nav:
         - 'What is Python?': 'user-guide/gaffer-basics/what-is-python.md'
         - 'What is Cardinality?': 'user-guide/gaffer-basics/what-is-cardinality.md'
         - 'What is Aggregation?': 'user-guide/gaffer-basics/what-is-aggregation.md'
-      - 'API': 'user-guide/api.md'
-      - 'Schema': 'user-guide/schema.md'
+      - Available APIs:
+        - 'Spring REST': 'user-guide/apis/rest-api.md'
+        - 'Python (gafferpy)': 'user-guide/apis/python-api.md'
+        - 'Java': 'user-guide/apis/java-api.md'
       - Querying:
         - Gaffer Query Syntax:
-          - Available APIs:
-            - 'Spring REST': 'user-guide/query/gaffer-syntax/apis/rest-api.md'
-            - 'Python (gafferpy)': 'user-guide/query/gaffer-syntax/apis/python-api.md'
-            - 'Java': 'user-guide/query/gaffer-syntax/apis/java-api.md'
           - 'Operations': 'user-guide/query/gaffer-syntax/operations.md'
           - 'Filtering Data': 'user-guide/query/gaffer-syntax/filtering.md'
           - Import/Export:
             - 'Using CSV Data': 'user-guide/query/gaffer-syntax/import-export/csv.md'
         - Apache Gremlin:
           - 'Gremlin Support in Gaffer': 'user-guide/query/gremlin/gremlin.md'
+      - 'Graph Schemas': 'user-guide/schema.md'
     - Developers Guide:
       - 'Introduction': 'development-guide/introduction.md'
       - 'Example Deployment':
