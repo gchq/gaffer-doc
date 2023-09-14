@@ -68,37 +68,92 @@ associated with it. Then we can apply a filter to include only edges where the
     In this scenario it is analogous to asking, *"Get all the `Created` edges on
     node `John` that have a `weight` greater than 0.4"*.
 
-    ```json
-    {
-        "class": "GetElements",
-        "input": [
-            {
-                "class": "EntitySeed",
-                "vertex": "John"
-            }
-        ],
-        "view": {
-            "edges": {
-                "Created": {
-                    "preAggregationFilterFunctions": [
-                        {
-                            "selection": [
-                                "weight"
-                            ],
-                            "predicate": {
-                                "class": "IsMoreThan",
-                                "orEqualTo": false,
-                                "value": {
-                                    "Float": 0.4
+    === "JSON"
+
+        ```json
+        {
+            "class": "GetElements",
+            "input": [
+                {
+                    "class": "EntitySeed",
+                    "vertex": "John"
+                }
+            ],
+            "view": {
+                "edges": {
+                    "Created": {
+                        "preAggregationFilterFunctions": [
+                            {
+                                "selection": [
+                                    "weight"
+                                ],
+                                "predicate": {
+                                    "class": "IsMoreThan",
+                                    "orEqualTo": false,
+                                    "value": {
+                                        "Float": 0.4
+                                    }
                                 }
                             }
-                        }
-                    ]
+                        ]
+                    }
                 }
             }
         }
-    }
-    ```
+        ```
+
+    === "Python"
+
+        ```python
+        elements = g_connector.execute_operation(
+            operation = gaffer.GetElements(
+                input = [gaffer.EntitySeed(vertex = "John")]
+                view = gaffer.View(
+                    edges = [
+                        gaffer.ElementDefinition(
+                            group = 'Created',
+                            pre_aggregation_filter_functions = [
+                                gaffer.PredicateContext(
+                                    selection = ['weight'],
+                                    predicate = gaffer.IsMoreThan(
+                                        value = {'java.lang.Float': 0.4},
+                                        or_equal_to = False
+                                    )
+                                )
+                            ]
+                        )
+                    ]
+                )
+            )
+        )
+        ```
+
+    === "Java"
+
+        ```java
+        // Define the View to use
+        final View viewWithFilters = new View.Builder()
+            .edge("Created", new ViewElementDefinition.Builder()
+                    .preAggregationFilter(new ElementFilter.Builder()
+                            .select("weight")
+                            .execute(new IsMoreThan(0.4))
+                            .build())
+                    .build())
+            .build();
+
+        // Create the operation to execute
+        final GetElements operation = new GetElements.Builder()
+            .input(new EntitySeed("John"))
+            .view(viewWithFilters)
+            .build();
+
+        graph.execute(operation, user);
+        ```
+
+To form relevant filters and queries its almost required that you are aware of
+the graphs schema that is in use as this determines what properties and elements
+you can reference in your queries. For an introduction and background on
+Gaffer schemas [please see the guide](../../schema.md).
 
 !!! tip
     As you can see filtering is based around predicates which are similar to if
@@ -148,29 +203,77 @@ properties are returned.
     edges in the output, and specifically excluding the `age` property from any
     returned `Person` entities.
 
-    ```json
-    {
-        "class": "GetElements",
-        "input": [
-            {
-                "class": "EntitySeed",
-                "vertex": "John"
-            }
-        ],
-        "view": {
-            "edges": {
-                "Created": {
-                    "properties" : [ "hours" ]
+    === "JSON"
+
+        ```json
+        {
+            "class": "GetElements",
+            "input": [
+                {
+                    "class": "EntitySeed",
+                    "vertex": "John"
                 }
-            },
-            "entities" : {
-                "Person" : {
-                    "excludeProperties" : [ "age" ]
+            ],
+            "view": {
+                "edges": {
+                    "Created": {
+                        "properties" : [ "hours" ]
+                    }
+                },
+                "entities" : {
+                    "Person" : {
+                        "excludeProperties" : [ "age" ]
+                    }
                 }
             }
         }
-    }
-    ```
+        ```
+
+    === "Python"
+
+        ```python
+        elements = g_connector.execute_operation(
+            operation = gaffer.GetElements(
+                input = [gaffer.EntitySeed(vertex = "John")]
+                view = gaffer.View(
+                    edges = [
+                        gaffer.ElementDefinition(
+                            group = 'Created',
+                            properties = [ "hours" ]
+                        )
+                    ]
+                    entities = [
+                        gaffer.ElementDefinition(
+                            group = 'Person',
+                            exclude_properties = [ "age" ]
+                        )
+                    ]
+                )
+            )
+        )
+        ```
+
+    === "Java"
+
+        ```java
+        // Define the View to use
+        final View viewWithFilters = new View.Builder()
+            .edge("Created", new ViewElementDefinition.Builder()
+                    .properties("hours")
+                    .build())
+            .entities("Person", new ViewElementDefinition.Builder()
+                    .excludeProperties("age")
+                    .build())
+            .build();
+
+        // Create the operation to execute
+        final GetElements operation = new GetElements.Builder()
+            .input(new EntitySeed("John"))
+            .view(viewWithFilters)
+            .build();
+
+        graph.execute(operation, user);
+        ```
 
 ## Transformation
 
@@ -199,37 +302,81 @@ and save the returned information into a new `minutes` transient property.
     property we then use the `MultiplyBy` Koryphe function to transform a
     property and project the result into a transient property named `"minutes"`.
 
-    ```json
-    {
-        "class": "GetElements",
-        "input": [
-            {
-                "class": "EntitySeed",
-                "vertex": "John"
-            }
-        ],
-        "view": {
-            "edges": {
-                "Created": {
-                    "transientProperties" : {
-                        "minutes" : "java.lang.Integer"
-                    },
-                    "transformFunctions" : [
-                        {
-                            "selection" : [ "hours" ],
-                            "function" : {
-                                "class" : "MultiplyBy",
-                                "by" : 60
-                            },
-                            "projection" : [ "minutes" ]
-                        }
-                    ]
-                }
 
+    === "JSON"
+
+        ```json
+        {
+            "class": "GetElements",
+            "input": [
+                {
+                    "class": "EntitySeed",
+                    "vertex": "John"
+                }
+            ],
+            "view": {
+                "edges": {
+                    "Created": {
+                        "transientProperties" : {
+                            "minutes" : "java.lang.Integer"
+                        },
+                        "transformFunctions" : [
+                            {
+                                "selection" : [ "hours" ],
+                                "function" : {
+                                    "class" : "MultiplyBy",
+                                    "by" : 60
+                                },
+                                "projection" : [ "minutes" ]
+                            }
+                        ]
+                    }
+
+                }
             }
         }
-    }
-    ```
+        ```
+
+    === "Python"
+
+        ```python
+        elements = g_connector.execute_operation(
+            operation = gaffer.GetElements(
+                input = [gaffer.EntitySeed(vertex = "John")]
+                view = gaffer.View(
+                    edges = [
+                        gaffer.ElementDefinition(
+                            group = 'Created',
+                            transient_properties = {'minutes': 'java.lang.Integer'},
+                            transform_functions = [
+                                gaffer.FunctionContext(
+                                    selection = [ "hours" ],
+                                    function = gaffer.MultiplyBy(by = 60),
+                                    projection = [ "minutes" ]
+                                )
+                            ]
+                        )
+                    ]
+                )
+            )
+        )
+        ```
+
+    === "Java"
+
+        ```java
+        final GetElements getEdgesWithMinutes = new GetElements.Builder()
+            .input(new EntitySeed("John"))
+            .view(new View.Builder()
+                    .edge("Created", new ViewElementDefinition.Builder()
+                            .transientProperty("minutes", Integer.class)
+                            .transformer(new MultiplyBy(60))
+                            .build())
+                    .build())
+            .build();
+
+        graph.execute(getEdgesWithMinutes, user);
+        ```
 
 The `selection` in a transform is similar to the way we select properties and
 identifiers in a filter, and as demonstrated you can select (and also project)
@@ -292,35 +439,79 @@ total for all the `added` property.
     we have applied aggregation so the result will contain an element with
     a `Sum` of all the `added` properties.
 
-    ```json
-    {
-        "class": "GetElements",
-        "input": [
-            {
-                "class": "EntitySeed",
-                "vertex": "John"
-            }
-        ],
-        "view": {
-            "edges": {
-                "Commit": {
-                    "groupBy" : [ ],
-                    "aggregator" : {
-                        "operators" : [
-                            {
-                                "selection" : [ "added" ],
-                                "binaryOperator" : {
-                                    "class" : "Sum"
-                                }
-                            }
-                        ]
-                    }
-                }
+    === "JSON"
 
+        ```json
+        {
+            "class": "GetElements",
+            "input": [
+                {
+                    "class": "EntitySeed",
+                    "vertex": "John"
+                }
+            ],
+            "view": {
+                "edges": {
+                    "Commit": {
+                        "groupBy" : [ ],
+                        "aggregator" : {
+                            "operators" : [
+                                {
+                                    "selection" : [ "added" ],
+                                    "binaryOperator" : {
+                                        "class" : "Sum"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+
+                }
             }
         }
-    }
-    ```
+        ```
+
+    === "Python"
+
+        ```python
+        elements = g_connector.execute_operation(
+            operation = gaffer.GetElements(
+                input = [gaffer.EntitySeed(vertex = "John")]
+                view = gaffer.View(
+                    edges = [
+                        gaffer.ElementDefinition(
+                            group = 'Commit',
+                            group_by = [],
+                            aggregate_functions = [
+                                gaffer.BinaryOperatorContext(
+                                    selection=[ "added" ],
+                                    binary_operator = gaffer.Sum()
+                                )
+                            ]
+                        )
+                    ]
+                )
+            )
+        )
+        ```
+
+    === "Java"
+
+        ```java
+        final GetElements getEdgesAggregated = new GetElements.Builder()
+            .input(new EntitySeed("John"))
+            .view(new View.Builder()
+                    .edge("Commit", new ViewElementDefinition.Builder()
+                            .groupBy()
+                            .aggregator(new ElementAggregator.Builder()
+                                .select("added")
+                                .execute(new Sum())
+                                .build()))
+                    .build())
+            .build();
+
+        graph.execute(getEdgesAggregated, user);
+        ```
 
 !!! tip
     As with some of the other examples we again use a class from the Koryphe
