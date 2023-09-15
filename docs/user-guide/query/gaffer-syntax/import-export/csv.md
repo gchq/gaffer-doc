@@ -1,6 +1,6 @@
 # CSV Data Import and Export
 
-Gaffer supports both importing from and exporting to csv. This page will outline
+Gaffer supports both importing from and exporting to csv. This page outlines
 some of the common methods you can use to do this via the API.
 
 ## Using Local Files

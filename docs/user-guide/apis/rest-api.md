@@ -23,11 +23,13 @@ commonly by the provided [Swagger UI](https://swagger.io/).
 If you wish to just query to get some information about the graph instance such
 as, what schema it is using or what available Operations it has then, there
 should already be `GET` endpoints to do that. Executing any of these `GET`
-requests will simply 'get' you some information but wont allow any input.
+requests will simply 'get' you some information, however they may be of limited
+use for a user.
 
-To query and extract custom bits of data from the graph there is an endpoint at
-`/graph/operations/execute`. This is a `POST` request as it allows you to 'post'
-some data to it and get a response back.
+The main endpoint a user will interact with is `/graph/operations/execute`. This
+is a `POST` request as it allows you to 'post' some data to it and get a
+response back. From here is where you can do querying and run operations on the
+graph to and extract data and do analysis with the graph.
 
 In Gaffer, JSON is the main interchange language which means you can post JSON
 and get response back in it.

@@ -14,7 +14,7 @@ Using Java to Query a graph unlike the other APIs requires a reference to a
 
 With the other APIs you would connect directly to a running instance via the
 rest interface; however, to do this with Java you would need to configure a
-`Graph` object with a proxy store.
+`Graph` object with a [proxy store](../../administration-guide/gaffer-stores/proxy-store.md).
 
 !!! example ""
     The following example uses the `ProxyStore.Builder()` to configure a `Graph`
