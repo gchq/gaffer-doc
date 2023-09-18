@@ -53,7 +53,7 @@ There is now a maven profile that will swap dependency versions so you can build
 The Accumulo store now supports authenticating to Accumulo and HDFS using Kerberos, in addition to username/password. For more information, see the [Kerberos support page](../migrating-from-v1-to-v2/accumulo-kerberos.md).
 
 ### CSV Import and Export
-Basic support for importing and exporting [CSVs](../../user-guide/query/gaffer-syntax/import-export/csv.mdS) has been added.
+Basic support for importing and exporting [CSVs](../../user-guide/query/gaffer-syntax/import-export/csv.md) has been added.
 
 ### All operations can now be used within NamedOperations
 Previously, `GetElementsBetweenSets` could not be used within a NamedOperation as it used `inputB`. `GetElementsBetweenSets` and `inputB` have both been deprecated and instead you should use `GetElementsBetweenSetsPairs`.
