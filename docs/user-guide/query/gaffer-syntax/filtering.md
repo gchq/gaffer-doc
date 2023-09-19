@@ -1,6 +1,6 @@
 # Filtering Data
 
-One of the key parts of querying data is being able to filter bits out you may
+One of the key parts of querying data is being able to filter out bits you may
 not want. This page will cover some of the common ways you can filter the
 returned data from an Operation to get the data you want.
 
