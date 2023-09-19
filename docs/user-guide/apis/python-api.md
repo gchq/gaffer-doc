@@ -41,7 +41,7 @@ perform queries on the graph.
 
 !!! note
     Some of the features of the full rest API may not be present in
-    `gafferpy` as always check the [reference guide](../../reference/intro.md)
+    `gafferpy` so always check the [reference guide](../../reference/intro.md)
     first.
 
 !!! example ""
