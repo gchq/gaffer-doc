@@ -8,15 +8,15 @@ Graph databases use nodes (also known as vertexes) to store data entities, and e
 
 Below is a simple example with two nodes representing people who have a relationship of 'friends' connecting them:
 
-```mermaid
-flowchart TD
-    subgraph Relationship
-        E((Person - Dave))
-        -- FRIENDS -->
-        F((Person - Chris))  
-    end
-```
-Figure 1 - Relationship between Dave and Chris.
+!!! example "Relationship between Dave and Chris"
+    ```mermaid 
+    flowchart TD
+        subgraph Relationship
+            E((Person - Dave))
+            -- FRIENDS -->
+            F((Person - Chris))  
+        end
+    ```
 
 ### Traversing a graph
 
@@ -24,19 +24,18 @@ Any graph in a graph database can be traversed along specific edges or the entir
 
 Take the example below which is an extension of the previous graph, as you can see we have added an additional node and relationship into the graph. Suddenly, even with this small example, we can start to draw inferences and analytics about potential connections between nodes. For example, there is a potential connection between nodes 'Dave' and 'Steve' which might mean that if we were a social media company we could prompt "Dave" with a notification to see if they might know "Steve".
 
-```mermaid
-flowchart TD
-    subgraph Relationship
-        E((Person - Dave))
-        -- FRIENDS -->
-        F((Person - Chris)) 
-        -- FRIENDS -->
-        B((Person - Steve)) 
-        B-. POTENTIAL RELATIONSHIP .->E;
-    end
-```
-Figure 2 - Relationship between Dave and Chris. A potential relationship between Steve and Dave.
-
+!!! example "A potential relationship between Steve and Dave"
+    ```mermaid
+    flowchart TD
+        subgraph Relationship
+            E((Person - Dave))
+            -- FRIENDS -->
+            F((Person - Chris)) 
+            -- FRIENDS -->
+            B((Person - Steve)) 
+            B-. POTENTIAL RELATIONSHIP .->E;
+        end
+    ```
 
 ## Key Terms
 
@@ -45,3 +44,4 @@ Figure 2 - Relationship between Dave and Chris. A potential relationship between
 | Node        | A node is an entity within a graph  |
 | Edge        | An edge is a connection between two nodes. |
 | Properties  | A property is a key/value pair that stores data on both edges and entities |
+| Vertex      | Vertex is another term for Node |
