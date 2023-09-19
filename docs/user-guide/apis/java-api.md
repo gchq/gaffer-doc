@@ -3,7 +3,7 @@
 As Gaffer is written in Java there is native support to allow use of all its
 public classes. Using Gaffer via the Java interface does differ from the rest
 API and `gafferpy` but is fully featured with extensive
-[Javadocs](https://gchq.github.io/Gaffer/overview-summary.html). However, You
+[Javadocs](https://gchq.github.io/Gaffer/overview-summary.html). However, you
 will of course need to be familiar with writing and running Java code in order
 to utilise this form of the API.
 
