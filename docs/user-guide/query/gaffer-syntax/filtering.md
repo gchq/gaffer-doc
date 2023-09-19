@@ -280,7 +280,7 @@ properties are returned.
 Its possible to apply a transformation to the output of a query this gives you
 an opportunity to manipulate the results into a more useful output.
 
-When a transform is applied the new results are save into whats known as a
+When a transform is applied the new results are saved into what is known as a
 transient property. A transient property is just a property that is not
 persisted, simply created at query time by a transform function.
 
