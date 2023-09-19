@@ -2,7 +2,7 @@
 
 These sections will cover the usage of the Gaffer rest API to perform queries
 and operations on a graph. This guide should cover a lot of the use cases a user
-may face; however, please refer to the [reference guide](../../reference/intro.md)
+may face; however please refer to the [reference guide](../../reference/intro.md)
 for a full list of whats possible.
 
 ## What is the Rest API?
