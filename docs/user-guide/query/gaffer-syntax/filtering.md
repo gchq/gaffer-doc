@@ -166,7 +166,7 @@ If you are only interested in specific properties then it is more efficient to
 tell Gaffer to only return those properties. This can be easily achieved by
 applying the `properties` or `excludeProperties` field to a `View`.
 
-If we take a similar example as before but instead add a couple of properties
+If we take a similar example to before but instead add a couple of properties
 to both the `Person` and `Created` elements to give a graph like the following:
 
 ```mermaid
