@@ -5,7 +5,7 @@ not want. This page will cover some of the common ways you can filter the
 returned data from an Operation to get the data you want.
 
 In Gaffer the main way you filter data is by applying whats known as a `View` to
-a returned set of elements. A `View` as the name suggests, allows you to view
+a returned set of elements. A `View`, as the name suggests, allows you to view
 the data in a different way this can be either via a filter, aggregation,
 transformation or just general manipulation of the results.
 
