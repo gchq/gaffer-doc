@@ -55,7 +55,7 @@ perform queries on the graph.
     ```
 
 !!! example ""
-    An Operation chain can be ran using the `execute_operation_chain()` function.
+    An Operation chain can be run using the `execute_operation_chain()` function.
     As an example, the following will get all the elements in a graph then
     count them.
 
