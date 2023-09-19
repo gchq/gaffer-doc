@@ -40,7 +40,7 @@ accessed via the `GafferConnector` to allow you executing Operation chains to
 perform queries on the graph.
 
 !!! note
-    There may be of the features of the full rest API not be present in
+    Some of the features of the full rest API may not be present in
     `gafferpy` as always check the [reference guide](../../reference/intro.md)
     first.
 
