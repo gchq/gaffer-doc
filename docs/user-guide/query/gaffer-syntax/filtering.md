@@ -282,7 +282,7 @@ an opportunity to manipulate the results into a more useful output.
 
 When a transform is applied the new results are saved into what is known as a
 transient property. A transient property is just a property that is not
-persisted, simply created at query time by a transform function.
+persisted; simply created at query time by a transform function.
 
 To use a transform you must use a transform function, this is a Java class
 that extends the [`java.util.Function`](https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html)
