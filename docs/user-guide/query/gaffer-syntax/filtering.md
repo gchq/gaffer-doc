@@ -400,7 +400,7 @@ ingest or query-time, this guide will focus on the latter but an overview of
 both techniques is available in the [gaffer basics
 guide](../../gaffer-basics/what-is-aggregation.md).
 
-Generally to apply aggregation at query-time you must override whats known as
+Generally to apply aggregation at query-time you must override what is known as
 the `groupBy` property to create your own aggregator in the query. To demonstrate
 this we will use the following example graph.
 
