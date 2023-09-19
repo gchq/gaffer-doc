@@ -71,5 +71,5 @@ perform queries on the graph.
     ```
 
 Along with running Operations you can of course optionally apply some filtering
-provided by a `View`. There are more detail on both [filtering](../query/gaffer-syntax/filtering.md)
+using a `View`. There is more detail on both [filtering](../query/gaffer-syntax/filtering.md)
 and [operations](../query/gaffer-syntax/operations.md) on their respective pages.
