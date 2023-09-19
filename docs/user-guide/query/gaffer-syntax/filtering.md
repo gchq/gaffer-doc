@@ -380,7 +380,7 @@ and save the returned information into a new `minutes` transient property.
 
 The `selection` in a transform is similar to the way we select properties and
 identifiers in a filter and as demonstrated you can select (and also project)
-any property but also or any of these unique identifiers:
+any property but also any of these unique identifiers:
 
 - `VERTEX` - This is the vertex on an Entity.
 - `SOURCE` - This is the source vertex on an Edge.
