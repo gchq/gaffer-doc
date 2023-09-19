@@ -1,6 +1,6 @@
 # What is JSON?
 
-JavaScript Object Notation is a commonly used data format used for storing and
+JavaScript Object Notation is a commonly used data format that can be used for storing and
 transporting data; notably the industry standard for modern web requests. It's
 constructed of a set of key value pairs as exampled:
 
