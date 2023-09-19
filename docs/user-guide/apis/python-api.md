@@ -5,7 +5,7 @@ demonstrate how to get up and running to perform queries from Python code on an
 existing running graph.
 
 !!! tip
-    Please see the handy introduction on [what is python](../gaffer-basics/what-is-python.md)
+    Please see the handy introduction to [Python](../gaffer-basics/what-is-python.md)
     if you are new to the language.
 
 ## What is the Python Extension?
