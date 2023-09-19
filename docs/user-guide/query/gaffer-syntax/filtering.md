@@ -195,7 +195,7 @@ graph LR
 ```
 
 Now as before we can run a query on this graph to get the elements relevant to
-the `Person` node however, this time we will filter so that only specific
+the `Person` node. However, this time we will filter so that only specific
 properties are returned.
 
 !!! example ""
