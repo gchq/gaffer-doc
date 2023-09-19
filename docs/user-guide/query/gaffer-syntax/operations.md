@@ -2,7 +2,7 @@
 
 Querying in Gaffer is all mainly based around whats called "Operations". You can
 think of these as lots of small functions/commands that can be either standalone
-or chained together into an Operation Chain to form more complex query
+or be chained together into an Operation Chain to form more complex query
 pipelines.
 
 If you have ever used a shell language such as
