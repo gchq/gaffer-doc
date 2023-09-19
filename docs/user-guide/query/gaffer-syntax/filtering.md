@@ -390,7 +390,7 @@ any property but also any of these unique identifiers:
   the `SOURCE` or the `DESTINATION`.
 - `ADJACENT_MATCHED_VERTEX` - This is the adjacent vertex that was matched in
   the query, either the `SOURCE` or the `DESTINATION`. For example, if your seed
-  matches the source of the edge This would resolve to the `DESTINATION` value.
+  matches the source of the edge this would resolve to the `DESTINATION` value.
 
 ## Query-time Aggregation
 
