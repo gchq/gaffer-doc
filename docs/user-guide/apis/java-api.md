@@ -9,7 +9,7 @@ to utilise this form of the API.
 
 ## Querying a Graph
 
-Using Java to Query a graph unlike the other APIs requires a reference to a
+Using Java to query a graph unlike the other APIs requires a reference to a
 `Graph` object that essentially represents a graph.
 
 With the other APIs you would connect directly to a running instance via the

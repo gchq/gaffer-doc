@@ -55,10 +55,10 @@ graph LR
         ID: 2"])
 ```
 
-Now say the `weight` property could represent how much a `Person` contributed to
-creating something, and so we wanted to find only significant contributions. To
-do this we can apply a filter to act as a threshold to only get edges with a
-`weight` more than a specific value.
+Lets say the `weight` property represents how much a `Person` contributed to
+creating something and that we wanted to only find the most significant
+contributions. To do this we can apply a filter to act as a threshold to only
+get edges with a `weight` more than a specific value.
 
 First we use a simple query to get the node with ID `John` and any edges
 associated with it. Then we can apply a filter to include only edges where the
@@ -150,10 +150,10 @@ associated with it. Then we can apply a filter to include only edges where the
         graph.execute(operation, user);
         ```
 
-To form relevant filters and queries its almost required that you are aware of
-the graphs schema that is in use as this determines what properties and elements
-you can reference in your queries. For an introduction and background on
-Gaffer schemas [please see the guide](../../schema.md).
+To form relevant filters and queries it is usually required that you know the
+graph schema in use. The schema determines what properties and elements you can
+reference in your queries and the general structure of the data in the graph.
+For an introduction and background on Gaffer schemas [please see the guide](../../schema.md).
 
 !!! tip
     As you can see filtering is based around predicates which are similar to if
@@ -277,8 +277,8 @@ properties are returned.
 
 ## Transformation
 
-Its possible to apply a transformation to the output of a query this gives you
-an opportunity to manipulate the results into a more useful output.
+It is possible to apply a transformation to the output of a query which then
+gives you the opportunity to manipulate the results into a more useful output.
 
 When a transform is applied the new results are saved into what is known as a
 transient property. A transient property is just a property that is not
