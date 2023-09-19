@@ -21,7 +21,7 @@ commonly by the provided [Swagger UI](https://swagger.io/).
 ## Querying a Graph
 
 If you wish to just query to get some information about the graph instance such
-as, what schema it is using or what available Operations it has then, there
+as what schema it is using or what available Operations it has then there
 should already be `GET` endpoints to do that. Executing any of these `GET`
 requests will simply 'get' you some information, however they may be of limited
 use for a user.
