@@ -44,8 +44,8 @@ plugins:
         - index.md
   - redirects:
       redirect_maps:
-        'dev/docker.md': 'administration-guide/where-to-run-gaffer/gaffer-docker.md'
-        'dev/kubernetes-guide/kubernetes.md': 'administration-guide/where-to-run-gaffer/kubernetes-guide/kubernetes-guide.md'
+        'dev/docker.md': 'administration-guide/gaffer-deployment/gaffer-docker.md'
+        'dev/kubernetes-guide/kubernetes.md': 'administration-guide/gaffer-deployment/kubernetes-guide/kubernetes-guide.md'
         'dev/ways-of-working.md': 'development-guide/ways-of-working.md'
         'dev/components/operation.md': 'development-guide/project-structure/components/operation.md'
         'dev/components/cache.md': 'development-guide/project-structure/components/cache.md'
@@ -99,7 +99,7 @@ nav:
     - Development Guide:
       - 'Introduction': 'development-guide/introduction.md'
       - 'Example Deployment':
-        - 'Project Setup': 'development-guide/example-deployment/project-setup.md' 
+        - 'Project Setup': 'development-guide/example-deployment/project-setup.md'
         - 'Writing the Schema': 'development-guide/example-deployment/writing-the-schema.md'
         - 'Running the Deployment': 'development-guide/example-deployment/running-the-deployment.md'
         - 'Using the API': 'development-guide/example-deployment/using-the-api.md'
@@ -130,21 +130,23 @@ nav:
           - 'Spring': 'development-guide/project-structure/maven-dependencies/spring.md'
     - Administration Guide:
       - 'Introduction': 'administration-guide/introduction.md'
-      - 'Docker': 'administration-guide/where-to-run-gaffer/gaffer-docker.md'
-      - 'Kubernetes':
-        - 'Kubernetes Guide': 'administration-guide/where-to-run-gaffer/kubernetes-guide/kubernetes-guide.md'
-        - 'Deploy an Empty Graph': 'administration-guide/where-to-run-gaffer/kubernetes-guide/deploy-empty-graph.md'
-        - 'Add your Schema': 'administration-guide/where-to-run-gaffer/kubernetes-guide/deploy-schema.md'
-        - 'Change the Graph ID and Description': 'administration-guide/where-to-run-gaffer/kubernetes-guide/change-graph-metadata.md'
-        - 'Adding your Own Libraries and Functions': 'administration-guide/where-to-run-gaffer/kubernetes-guide/add-libraries.md'
-        - 'Changing Accumulo Passwords': 'administration-guide/where-to-run-gaffer/kubernetes-guide/change-accumulo-passwords.md'
-      - 'Store Setup':
+      - Deployment:
+        - 'Quickstart': 'administration-guide/gaffer-deployment/quickstart.md'
+        - 'Docker Deployment': 'administration-guide/gaffer-deployment/gaffer-docker.md'
+        - 'Kubernetes':
+          - 'Kubernetes Guide': 'administration-guide/gaffer-deployment/kubernetes-guide/kubernetes-guide.md'
+          - 'Deploy an Empty Graph': 'administration-guide/gaffer-deployment/kubernetes-guide/deploy-empty-graph.md'
+          - 'Add your Schema': 'administration-guide/gaffer-deployment/kubernetes-guide/deploy-schema.md'
+          - 'Change the Graph ID and Description': 'administration-guide/gaffer-deployment/kubernetes-guide/change-graph-metadata.md'
+          - 'Adding your Own Libraries and Functions': 'administration-guide/gaffer-deployment/kubernetes-guide/add-libraries.md'
+          - 'Changing Accumulo Passwords': 'administration-guide/gaffer-deployment/kubernetes-guide/change-accumulo-passwords.md'
+      - Store Types:
         - 'Store Guide': 'administration-guide/gaffer-stores/store-guide.md'
         - 'Accumulo Store': 'administration-guide/gaffer-stores/accumulo-store.md'
         - 'Federated Store': 'administration-guide/gaffer-stores/federated-store.md'
         - 'Map Store':  'administration-guide/gaffer-stores/map-store.md'
         - 'Proxy Store': 'administration-guide/gaffer-stores/proxy-store.md'
-      - 'Gaffer Configuration':
+      - Graph Configuration:
         - 'Configuration': 'administration-guide/gaffer-config/config.md'
         - 'Proxy': 'administration-guide/gaffer-config/proxy.md'
         - 'URL': 'administration-guide/gaffer-config/url.md'
