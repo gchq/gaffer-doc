@@ -32,7 +32,7 @@ Inside the gaffer-tools library you'll find a set of examples that show how you 
     get_schema(g_connector)
     ```
 
-In this simple example, you can see the use of a `gaffer_connector` the purpose of this is to orchestrate the connection to a Gaffer REST endpoint. `g` is the main gaffer python module to allow access to various functions to run gaffer operations. This connection works by serialising the python code into JSON and then transferring this to be deserialised and ran in Gaffer.
+In this simple example you can see the use of a `gaffer_connector`; the purpose of this is to orchestrate the connection to a Gaffer REST endpoint.  The main `gaffer` python module (usually imported as `g`) allows access to various functions to run Gaffer operations. This connection works by serialising the python code into JSON and then transferring this to be deserialised and ran in Gaffer.
 
 !!! tip
     A link to the gaffer tools repository can be found here: [GCHQ/gaffer-tools](https://github.com/gchq/gaffer-tools)
