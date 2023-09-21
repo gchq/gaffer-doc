@@ -19,7 +19,7 @@ rest interface; however, to do this with Java you would need to configure a
 !!! example ""
     The following example uses the `ProxyStore.Builder()` to configure a `Graph`
     to connect to the required address (in this case
-    `http://localhost:8080/rest/latest`).
+    `http://localhost:8080/rest`).
 
     ```java
     Graph graph = new Graph.Builder()
@@ -27,7 +27,7 @@ rest interface; however, to do this with Java you would need to configure a
                 .graphId(uniqueNameOfYourGraph)
                 .host("localhost")
                 .port(8080)
-                .contextRoot("rest/latest")
+                .contextRoot("rest")
                 .build())
         .build();
     ```
