@@ -26,13 +26,13 @@ flowchart TD
 
 !!! note
     Knowledge of the [Gaffer schema](../schema.md) in use is usually required to
-    formulate a graph query but technically optional hence the dotted connection.
+    formulate a graph query, but doesn't form part of the query itself - hence the dotted connection.
 
 ## Why would you want to use Gaffer?
 
 Conceptually a graph database/data platform can have a large variety of uses
 where it'll provide specific advantages over other data storage/analytic
-platforms which will be discussed in the ["What is Graph?"](./what-is-a-graph.md)
+platforms which is discussed in the ["What is Graph?"](./what-is-a-graph.md)
 section of these docs. Gaffer provides an extensible and straightforward way to
 insert, manage and query the graph data stored in the underlying storage systems
 (ie. Accumulo) that is native to the community.
