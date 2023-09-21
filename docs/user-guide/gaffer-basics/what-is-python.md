@@ -4,7 +4,11 @@ Python is a popular high level programming language that's seen massive populari
 
 ## Python in Gaffer
 
-Whilst Gaffer is written primarily in Java a Python interface has been provided so that you can programmatically access Gaffer functionality with Python, this can be accessed via the gafferpy library located in the [gaffer-tools repository](https://github.com/gchq/gaffer-tools). This provides a Python 3.6+ compatible import that will allow you to speak directly to the Gaffer REST API, it supports persistent connections to Gaffer, connection via SSL and the associated python functionality to interact with available Gaffer operations.
+Whilst Gaffer is written primarily in Java a Python interface has been provided so that you can programmatically access Gaffer functionality with Python, this can be accessed via the gafferpy library located in the [gaffer-tools repository](https://github.com/gchq/gaffer-tools).
+This provides a Python 3.6+ compatible import that will allow you to speak directly to the Gaffer REST API, it supports persistent connections to Gaffer, connection via SSL and the associated Python functionality to interact with available Gaffer operations.
+
+!!! note
+    See the page on [using the Python API](../apis/python-api.md) in gaffer for further information.
 
 Inside the gaffer-tools library you'll find a set of examples that show how you can interact with Gaffer, here is a basic example of using gafferpy:
 
@@ -28,11 +32,12 @@ Inside the gaffer-tools library you'll find a set of examples that show how you 
         print("Schema:\n{0}\n".format(result))
 
     # Establish connection
-    g_connector = gaffer_connector.GafferConnector("http://localhost:8080/rest/latest")
+    g_connector = gaffer_connector.GafferConnector("http://localhost:8080/rest")
     get_schema(g_connector)
     ```
 
-In this simple example you can see the use of a `gaffer_connector`; the purpose of this is to orchestrate the connection to a Gaffer REST endpoint.  The main `gaffer` python module (usually imported as `g`) allows access to various functions to run Gaffer operations. This connection works by serialising the python code into JSON and then transferring this to be deserialised and ran in Gaffer.
+In this simple example you can see the use of a `gaffer_connector`; the purpose of this is to orchestrate the connection to a Gaffer REST endpoint.
+The main `gaffer` Python module (usually imported as `g`) allows access to various functions to run Gaffer operations. This connection works by serialising the Python code into JSON and then transferring this to be deserialised and ran in Gaffer.
 
 !!! tip
     A link to the gaffer tools repository can be found here: [GCHQ/gaffer-tools](https://github.com/gchq/gaffer-tools)
