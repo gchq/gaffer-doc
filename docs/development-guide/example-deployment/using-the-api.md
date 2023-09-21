@@ -1,8 +1,9 @@
 # Using the API
 
-As covered in the [Getting Started API page](../../user-guide/api.md) the main POST request used in the API is
-`/graph/operations/execute`. This part of the guide will cover the general usage of this part of the
-API and walk through some general operations you might want to use to load data or query.
+As covered in the [Getting Started API page](../../user-guide/apis/rest-api.md) the main POST
+request used in the API is `/graph/operations/execute`. This part of the guide will cover the
+general usage of this part of the API and walk through some general operations you might want to
+use to load data or query.
 
 !!! note
     The [Gaffer operations reference guide](../../reference/operations-guide/operations.md)
@@ -61,7 +62,7 @@ from the neo4j formatted CSV file.
 
 The operation chain above essentially mirrors the stages in the previous diagram. In the example
 chain we first ingest the data via the `ImportFromLocalFile` class (an additional operation we added
-via the `operationsDeclarations.json`, which
+via the `operationsDeclarations.json`), which
 streams the data from the CSV file into the next `GenerateElements` operation.
 
 For the generator we have selected the built in `Neo4jCsvElementGenerator` class, this is already

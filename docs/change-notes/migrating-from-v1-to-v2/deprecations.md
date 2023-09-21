@@ -464,7 +464,7 @@ Now set in `serialiser`:
                     .library(myGraphLibrary)
                     .view(myView)
                     .addHook(customHook)
-                    .build()) 
+                    .build())
             .addSchema(mySchema) // (1)!
             .storeProperties(storeProperties) // (2)!
             .build();
