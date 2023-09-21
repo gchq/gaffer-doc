@@ -35,7 +35,7 @@ where it'll provide specific advantages over other data storage/analytic
 platforms which will be discussed in the ["What is Graph?"](./what-is-a-graph.md)
 section of these docs. Gaffer provides an extensible and straightforward way to
 insert, manage and query the graph data stored in the underlying storage systems
-(ie. Accumulo) that is native to the community.
+(ie. Accumulo).
 
 Gaffer also has some key features not always found in other graph database
 technologies, including but not limited to:
