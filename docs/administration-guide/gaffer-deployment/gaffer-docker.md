@@ -1,7 +1,8 @@
 # Deploying Gaffer via Docker
 
 As demonstrated in the [quickstart](./quickstart.md) its very simple to start up
-a basic in memory gaffer graph using the available docker images.
+a basic in memory gaffer graph using the available OCI (Open Container
+Initiative) images.
 
 However, for large scale graphs with persistent storage you will want to use a
 different storage backend; the recommended one being Accumulo. To do this a
@@ -152,11 +153,68 @@ for more information and configuration options.
 
 #### Hadoop/HDFS
 
-Next we can launch the Hadoop cluster we will use the custom distribution of the
-HDFS image `gchq/hdfs`. As mentioned before this provides a single-node Hadoop
-cluster which we can simply run multiple times and link together to extend into
-a multi-node cluster.
+Next we can launch the Hadoop cluster, we will use the custom distribution of
+the HDFS image `gchq/hdfs`. As mentioned before this provides a single-node
+Hadoop cluster which we can simply run multiple times and link together to
+extend into a multi-node cluster.
+
+To run a Hadoop cluster we first need the configuration files for Hadoop which
+we can then add into the running containers. For the purposes of this example
+we will use the files from the [`gaffer-docker`](https://github.com/gchq/gaffer-docker/tree/develop/docker/hdfs/conf)
+repository, but you may wish to edit these for your deployment and can read
+more in the [official Hadoop docs](https://hadoop.apache.org/docs/r1.2.1/cluster_setup.html#Configuration+Files).
+
+The first Hadoop container we need is a `namenode` container which runs the
+Namenode service essentially acting as a master node. We can run this using
+docker like the following:
 
 ```bash
-docker ...
+docker run \
+       --detach \
+       --hostname hdfs-namenode \
+       --name hdfs-namenode \
+       --publish 9870:9870 \
+       --env HADOOP_CONF_DIR="/etc/hadoop/conf" \
+       --volume /custom/configs/hdfs:/etc/hadoop/conf \
+       --volume /var/log/hadoop \
+       --volume /data1 \
+       --volume /data2 \
+       gchq/hdfs:3.3.3 namenode
 ```
+
+The configuration of the above `docker` command is fairly straight forward, we
+make sure the port we have configured in the `core-site.xml` file is made
+available on the host. We also set up the bind-mount and environment variables
+so the custom configuration files are available and used. Finally there are a
+few defined volumes for data, these can be changed to where ever you might want
+to store the data; it is highly recommended to set these up correctly for your
+available infrastructure.
+
+Once the `namenode` has been created we now need to add the `datanode`(s) these
+are additional nodes in the Hadoop cluster to store data. You can add multiple
+data nodes to distribute the data across volumes and even machines (with some
+additional setup).
+
+To create a `datanode` container its much of the same steps as the `namenode`
+however, we use a different command to run the `datanode` service. We can also
+link the container with the `hdfs-namenode` so they are controlled together via
+docker.
+
+```bash
+docker run \
+       --detach \
+       --link hdfs-namenode \
+       --hostname hdfs-datanode1 \
+       --name hdfs-datanode1 \
+       --env HADOOP_CONF_DIR="/etc/hadoop/conf" \
+       --volume /custom/configs/hdfs:/etc/hadoop/conf \
+       --volume /var/log/hadoop \
+       --volume /data1 \
+       --volume /data2 \
+       gchq/hdfs:3.3.3 datanode
+```
+
+!!! note
+    It is recommended you configure the volumes used by your data nodes to fit
+    your infrastructure and possibly run `datanode` containers across multiple
+    machines and network them together to have full data distribution.
