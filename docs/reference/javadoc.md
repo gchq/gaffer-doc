@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Gaffer Javadoc
 
 Gaffer is primarily written in Java so all of the operations and functions
