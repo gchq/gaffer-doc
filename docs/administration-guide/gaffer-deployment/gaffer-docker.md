@@ -5,14 +5,15 @@ a basic in memory gaffer graph using the available docker images.
 
 However, for large scale graphs with persistent storage you will want to use a
 different storage backend; the recommended one being Accumulo. To do this a
-different deployment of containers is required which this guide will run
-through. How to configure and create custom OCI images of Gaffer will also be
-covered.
+different deployment of containers are required. This guide will run through the
+containers needed for a basic Accumulo cluster and how to configure and create
+custom OCI images of Gaffer.
 
 ## Available OCI Images
 
 Currently there are a few different images that can be used to run a Gaffer
-deployment. The main ones are the following and are all available on [Docker Hub](https://hub.docker.com/u/gchq).
+deployment. The main ones are outlined in the following table and are all
+available on [Docker Hub](https://hub.docker.com/u/gchq).
 
 | Image | Description |
 | ----- | ----------- |
@@ -22,7 +23,7 @@ deployment. The main ones are the following and are all available on [Docker Hub
 | `gchq/gaffer-rest` | This is the REST API image containing the config files that can be used to configure the graph to connect to the chosen store, by default there are some pre-configured config file which can be overridden by a [bind-mount](#volumes-and-bind-mount) of alternatives. |
 
 !!! note
-    There are a few other images provided; however, they are less frequently
+    There are a few other images available; however, they are less frequently
     used or purely example images, please see the [`gaffer-docker`](https://github.com/gchq/gaffer-docker/tree/develop/docker)
     repository for more details.
 
@@ -30,7 +31,7 @@ deployment. The main ones are the following and are all available on [Docker Hub
 
 To change and configure the graph that is deployed you will need to override
 the default files in the images by default. You can of course create a custom
-image with different config files however, its much more flexible to just
+image with different config files however, it can be more flexible to just
 bind-mount over the current files.
 
 To do this you will need to know the location of the files in the image you
@@ -88,10 +89,9 @@ before running a deployment backed by Accumulo you will need to know a bit of
 background on Hadoop to understand how the data will scale and be distributed.
 
 Usually when deploying a container image you simply run the image and everything
-is contained locally to the container (hence the name). For large scale data
-science this less desireable as we will usually want to be able to scale and
-load balance this storage based on the volume we have this is where Hadoop comes
-in.
+is contained locally to the container (hence the name). For larger scale graphs
+this less desireable as we will usually want to be able to scale and load
+balance the storage based on the volume of data; this is where Hadoop comes in.
 
 ### What is Hadoop/Accumulo?
 
@@ -126,12 +126,31 @@ to run is the following:
     - `gc`
 - `gchq/gaffer-rest`
 
+#### ZooKeeper
+
 Starting with [ZooKeeper](https://zookeeper.apache.org/), this is used by
 Accumulo to provide distributed synchronization so is useful to start up first.
 
 ```bash
-docker ...
+docker run \
+       --detach \
+       --hostname zookeeper \
+       --name zookeeper \
+       --env ZOO_SERVERS="server.1=zookeeper:2888:3888;2181" \
+       --env ZOO_4LW_COMMANDS_WHITELIST="*" \
+       --volume /data \
+       --volume /datalog \
+       zookeeper:3.7.1
 ```
+
+The above docker command will run a ZooKeeper container with few bits of
+configuration. The main part that is being set up is the hostname and ports.
+With ZooKeeper you can also do this by providing a `zoo.cfg` file but as there
+is not much to do for a small cluster so we can just pass the configuration in
+via environment variables with `--env`. See the [official ZooKeeper docs](https://zookeeper.apache.org/)
+for more information and configuration options.
+
+#### Hadoop/HDFS
 
 Next we can launch the Hadoop cluster we will use the custom distribution of the
 HDFS image `gchq/hdfs`. As mentioned before this provides a single-node Hadoop

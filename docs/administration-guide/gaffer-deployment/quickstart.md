@@ -22,8 +22,8 @@ section for a basic look at the different storage options Gaffer supports.
 
 If you wish to add custom schema to try out you can mount these into the
 container at start up to configure the graph. By default the `gaffer-rest` image
-looks under `/gaffer/schema` meaning you can mount over this directory with a
-directory containing your custom schema.
+looks under `/gaffer/schema` meaning you can bind-mount over this directory with
+a directory containing your custom schema.
 
 ```bash
 docker run -p 8080:8080 -v /path/to/your/schema:/gaffer/schema gchq/gaffer-rest:2.0.0
@@ -31,8 +31,8 @@ docker run -p 8080:8080 -v /path/to/your/schema:/gaffer/schema gchq/gaffer-rest:
 
 !!! info
     A simple map store based deployment is usually not that useful other than
-    for learning Gaffer and rapid prototyping; please see the subsequent
-    pages in this section for more scalable deployments.
+    for learning Gaffer and rapid prototyping; please see the [subsequent pages](./gaffer-docker.md)
+    in this section for more scalable deployments.
 
 ## Possible Storage Options
 
@@ -58,9 +58,8 @@ using one or more of the available Gaffer container images.
     for more information on the available store types.
 
 To change the storage backend for Gaffer the `store.properties` file can be
-configured with the chosen type. Various other properties and configuration is
-available which is covered in more detail in the
-[Gaffer configuration section](../gaffer-config/config.md).
+configured with the chosen type. Various other properties and configuration are
+available and covered in the [Gaffer configuration section](../gaffer-config/config.md).
 
 !!! example ""
     Example `store.properties` for MapStore
