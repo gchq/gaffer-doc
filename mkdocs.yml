@@ -76,27 +76,27 @@ nav:
     - Home: 'index.md'
     - User Guide:
       - 'Introduction': 'user-guide/introduction.md'
-      - 'Gaffer Basics':
+      - Gaffer Basics:
         - 'What is Gaffer?': 'user-guide/gaffer-basics/what-is-gaffer.md'
         - 'What is a Graph?': 'user-guide/gaffer-basics/what-is-a-graph.md'
         - 'What is JSON?': 'user-guide/gaffer-basics/what-is-json.md'
         - 'What is Python?': 'user-guide/gaffer-basics/what-is-python.md'
         - 'What is Cardinality?': 'user-guide/gaffer-basics/what-is-cardinality.md'
         - 'What is Aggregation?': 'user-guide/gaffer-basics/what-is-aggregation.md'
-      - 'API': 'user-guide/api.md'
-      - 'Schema': 'user-guide/schema.md'
-      - 'Query':
-        - 'Python Extension':
-          - 'Python Extension Guide': 'user-guide/query/python-extension/python-extension.md'
-          - 'Examples': 'user-guide/query/python-extension/examples.md'
-        - 'API Querying':
-          - 'API Querying Guide': 'user-guide/query/api-querying/api-querying.md'
-          - 'Import/Export Data': 'user-guide/query/api-querying/import-export-data.md'
-          - 'Examples': 'user-guide/query/api-querying/examples.md'
-        - 'Gremlin':
-          - 'Gremlin Guide': 'user-guide/query/gremlin/gremlin.md'
-          - 'Examples': 'user-guide/query/gremlin/examples.md'
-    - Development Guide:
+      - Available APIs:
+        - 'Spring REST': 'user-guide/apis/rest-api.md'
+        - 'Python (gafferpy)': 'user-guide/apis/python-api.md'
+        - 'Java': 'user-guide/apis/java-api.md'
+      - Querying:
+        - Gaffer Query Syntax:
+          - 'Operations': 'user-guide/query/gaffer-syntax/operations.md'
+          - 'Filtering Data': 'user-guide/query/gaffer-syntax/filtering.md'
+          - Import/Export:
+            - 'Using CSV Data': 'user-guide/query/gaffer-syntax/import-export/csv.md'
+        - Apache Gremlin:
+          - 'Gremlin Support in Gaffer': 'user-guide/query/gremlin/gremlin.md'
+      - 'Graph Schemas': 'user-guide/schema.md'
+    - Developers Guide:
       - 'Introduction': 'development-guide/introduction.md'
       - 'Example Deployment':
         - 'Project Setup': 'development-guide/example-deployment/project-setup.md'
