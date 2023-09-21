@@ -20,7 +20,7 @@ like the following:
 }
 ```
 
-As you can see its fairly simple, we first define the Operation we wish to use
+Using Operations is fairly simple, we first define the Operation we wish to use
 with the `class` key which needs to be an available Operation in Gaffer. Then
 if applicable, we give the Operation some sort of input using the `input` key.
 Not all Operations require an input but more often that not some user input is
@@ -33,9 +33,9 @@ a full list of all Operations and example usage.
 
 ## Operation Chains
 
-The Operations in Gaffer can be chained together to form complex queries on the
-graph. This page will give some general example usage of how you can chain
-Operations together.
+The Operations in Gaffer can be chained together to form complex graph queries.
+This page will give some general example usage of how you can chain Operations
+together.
 
 As an example of a simple operation, say we want to get all nodes and edges
 based on their ID. To do this we can use the `GetElements` operation and set the
@@ -130,7 +130,7 @@ how many entities the `GetElements` returned.
         Long result = graph.execute(countElements, user);
         ```
 
-To chain operations its important to take note of what each operations input and
+To chain operations it's important to take note of what each operations input and
 outputs are, say if you want to chain two together like the following:
 
 !!! example ""

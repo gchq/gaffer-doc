@@ -54,6 +54,6 @@ on the subject.
 
 !!! note
     One other thing to note about the Java API is that the `execute()` method
-    requires you to have a `User`. This is part of the available fine grain
-    security Gaffer provides see the [admin guide](../../administration-guide/security/security-guide.md)
+    requires you to have a `User`. This is part of Gaffer's fine grain security,
+    see the [admin guide](../../administration-guide/security/security-guide.md)
     for more information.

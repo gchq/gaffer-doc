@@ -288,10 +288,10 @@ To use a transform you must use a transform function, this is a Java class
 that extends the [`java.util.Function`](https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html)
 class to take some input and give a new output. Commonly you would want to
 write your own transform function class as it can be quite specific to your
-graph data and what analytics you want to get out of it. However, there is
-the [Koryphe module](../../../reference/functions-guide/koryphe-functions.md)
-that is included by default with Gaffer which provides a some default functions
-you can make use of.
+graph data and what analytics you want to get out of it. However, the
+[Koryphe module](../../../reference/functions-guide/koryphe-functions.md)
+(included by default with Gaffer) provides some default functions you can
+make use of.
 
 As an example of transformation we will use the same graph from the [previous
 section](#filtering-properties) to transform the `hours` property into minutes
