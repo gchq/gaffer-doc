@@ -33,13 +33,17 @@ notable exceptions.
 ### Supported Data Types
 
 - **Strings** - A simple string of characters e.g. `"A String"`.
-- **Numbers** - Number representations, mostly compliant with ISO 6093 with a
-  few exceptions that we won't go into here.
+- **Numbers** - Number representation e.g. `1`.
 - **Objects** - Nested JSON object e.g. the `"location"` object in the example.
 - **Arrays** - A list of entries, denoted by `[]` e.g. `"interests"` in the
   example.
 - **Booleans** - `true` or `false` values e.g. `"present"` in the example.
 - **Null** - Represents no value e.g. `"appendices"` in the example.
+
+!!! note
+    The JSON in Gaffer is serialised via the Jackson Databind library so please
+    refer to its [documentation for more details](https://github.com/FasterXML/jackson-databind/wiki)
+    on supported JSON data types and features.
 
 ### Unsupported Data Types
 
