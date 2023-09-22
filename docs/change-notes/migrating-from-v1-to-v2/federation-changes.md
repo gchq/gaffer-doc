@@ -242,21 +242,12 @@ By default, `GetSchema` results will be merged with `MergeSchema`. This returns 
 
 
 
-## SuffixCacheName 
+## Cache Name Suffixes
 
-All Cache implementations are given a name and you can have multiple caches like NamedOperations, NamedViews, etc.
+Gaffer Caches now include suffixes in the names of cache entries. This allows for multiple cache entries for different graphs to co-exist using the same cache implementation without any conflicts.
 
-However within FederatedStore where multiple graphs may exist, a cache name has the suffix of `graphId` added by default for identity and keeping caches for different graphs separate, e.g NamedOperationCache_graph1, NamedOperationCache_graph2, NamedOperationCache_graph3.
+These suffixes can be customised which allows for graphs to use the same cache if desired, e.g. load balancing Federated Store instances.
 
-The User can configure all the cache suffix for a graph in the StoreProperties using a flag that takes priority over graphId.
+If you are upgrading from Gaffer 1.x, then you may need to examine how you currently use caches and whether any of your graphs rely on sharing the same cache (e.g. sharing Named Operations between Federated Store sub-graphs).
 
-`gaffer.cache.service.default.suffix`
-
-The User can configure the individual cache suffix for a graph in the StoreProperties using the flags that takes priority over default.suffix.
-`gaffer.cache.service.named.operation.suffix`, 
-`gaffer.cache.service.job.tracker.suffix`, 
-`gaffer.cache.service.named.view.suffix`, 
-`gaffer.cache.service.federated.store.suffix`
-
-This also means two FederatedStores (or any graphs) can be made to share the same cache, e.g. load balancing FederatedStore instances.
-
+For details on configuring cache suffixes, see the cache section of the [Store Guide](../../administration-guide/gaffer-stores/store-guide.md#caches).
