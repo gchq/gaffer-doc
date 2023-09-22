@@ -218,3 +218,78 @@ docker run \
     It is recommended you configure the volumes used by your data nodes to fit
     your infrastructure and possibly run `datanode` containers across multiple
     machines and network them together to have full data distribution.
+
+#### Accumulo
+
+There are a few different containers that need to be started for an Accumulo
+instance. They work on a similar principal to the Hadoop/HDFS containers where
+the configuration is added via a bind-mount and the different services started
+via the command passed to the container.
+
+For Accumulo we will use the `gchq/gaffer` image which includes the libraries
+for both Gaffer and Accumulo. For a deployment of Accumulo generally the
+following nodes/containers are needed:
+
+- `master` - This is the primary coordinating process. Must specify one node.
+  Can specify a few for fault tolerance (note as of Accumulo v2.1 this is
+  referred to as `manager`).
+- `gc` - The Accumulo garbage collector. Must specify one node. Can specify a
+  few for fault tolerance.
+- `monitor` - Node where Accumulo monitoring web server is run.
+- `tserver` - An Accumulo worker process.
+
+=== "master node"
+
+    ```bash
+    docker run \
+           --detach \
+           --hostname accumulo-master \
+           --name accumulo-master \
+           --env ACCUMULO_CONF_DIR="/etc/accumulo/conf" \
+           --env HADOOP_USER_NAME="hadoop" \
+           --volume /custom/configs/accumulo:/etc/accumulo/conf \
+           --volume /var/log/accumulo \
+           gchq/gaffer:2.0.0-accumulo-2.0.1 master
+    ```
+=== "gc node"
+
+    ```bash
+    docker run \
+           --detach \
+           --hostname accumulo-gc \
+           --name accumulo-gc \
+           --env ACCUMULO_CONF_DIR="/etc/accumulo/conf" \
+           --env HADOOP_USER_NAME="hadoop" \
+           --volume /custom/configs/accumulo:/etc/accumulo/conf \
+           --volume /var/log/accumulo \
+           gchq/gaffer:2.0.0-accumulo-2.0.1 gc
+    ```
+
+=== "monitor node"
+
+    ```bash
+    docker run \
+           --detach \
+           --hostname accumulo-monitor \
+           --name accumulo-monitor \
+           --publish 9995:9995 \
+           --env ACCUMULO_CONF_DIR="/etc/accumulo/conf" \
+           --env HADOOP_USER_NAME="hadoop" \
+           --volume /custom/configs/accumulo:/etc/accumulo/conf \
+           --volume /var/log/accumulo \
+           gchq/gaffer:2.0.0-accumulo-2.0.1 monitor
+    ```
+
+=== "tserver node"
+
+    ```bash
+    docker run \
+           --detach \
+           --hostname accumulo-tserver \
+           --name accumulo-tserver \
+           --env ACCUMULO_CONF_DIR="/etc/accumulo/conf" \
+           --env HADOOP_USER_NAME="hadoop" \
+           --volume /custom/configs/accumulo:/etc/accumulo/conf \
+           --volume /var/log/accumulo \
+           gchq/gaffer:2.0.0-accumulo-2.0.1 tserver
+    ```
