@@ -1,7 +1,7 @@
 # Development
 
 This development guide will take you through the steps required to start development work with Gaffer.
-This guide is not for end users of Gaffer and is instead targeted at those who wish to develop Gaffer.
+This guide is not for end users of Gaffer and is instead targeted at those who wish to develop Gaffer or build Gaffer extensions.
 
 ## Source Control
 
