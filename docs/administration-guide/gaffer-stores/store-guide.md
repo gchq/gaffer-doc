@@ -30,7 +30,6 @@ The properties in bold are set based on the type of Gaffer Store, for how to con
 | `gaffer.store.job.executor.threads` | 50 | Number of threads to be used by the Job Tracker [ExecutorService](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/commonutil/ExecutorService.html) |
 | `gaffer.store.admin.auth` | N/A | String for Auth to associate with Administrator Users |
 | `gaffer.store.reflection.packages` | N/A | Reflection Packages to add to Koryphe [ReflectionUtil](https://gchq.github.io/koryphe/uk/gov/gchq/koryphe/util/ReflectionUtil.html) |
-| `gaffer.named.operation.nested` | False | Controls if NamedOperations are allowed to reference/nest other NamedOperations |
 | `gaffer.serialiser.json.class` | `uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser` | Class Name String for setting a custom class extending [JSONSerialiser](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/jsonserialisation/JSONSerialiser.html) |
 | `gaffer.serialiser.json.modules` | N/A | Class Name String for registering classes implementing [JSONSerialiserModules](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/jsonserialisation/JSONSerialiserModules.html) (separate multiple modules with commas) |
 | `gaffer.serialiser.json.strict` | False | Controls if unknown fields should be ignored when serialising JSON (sets [Jackson FAIL_ON_UNKNOWN_PROPERTIES](https://fasterxml.github.io/jackson-databind/javadoc/2.13/com/fasterxml/jackson/databind/DeserializationFeature.html#FAIL_ON_UNKNOWN_PROPERTIES) internally) |
