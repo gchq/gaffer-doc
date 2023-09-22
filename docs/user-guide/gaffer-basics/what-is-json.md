@@ -52,7 +52,7 @@ notable exceptions.
 - **Undefined** - Undefined is a special state where something does not exist,
   this is different to in concept to null.
 
-## How is JSON Used in Gaffer?
+## How is JSON used in Gaffer?
 
 JSON in Gaffer is largely used as an interchange format for data and can be found
 mainly in the API but also in many configuration files. The following sections
@@ -62,12 +62,12 @@ give a quick introduction as to where and how JSON is used in Gaffer.
 
 Gaffer provides a number of communication methods so that you can
 programmatically interact with a graph, as of Version 2.0 this is provided in 3
-ways: A HTTP rest API, a Python API and a Native Java interface. Of these 3 both the
-Python and rest API use JSON as their method of data transportation, although
+ways: A HTTP REST API, a Python API and a Native Java interface. Of these 3 both the
+Python and REST API use JSON as their method of data transportation, although
 the Python API obfuscates JSON behind the `gafferpy` client library.
 
 Here is an example of the structure of an operations request using JSON via the
-rest API:
+REST API:
 
 ```json
 {
