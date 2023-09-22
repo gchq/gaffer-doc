@@ -1,88 +1,29 @@
 # Named Operations
 
-This guide walks you through how to configure your Gaffer Graph to allow you to execute NamedOperations.
+This guide walks you through how to configure your Gaffer Graph to allow you to execute Named Operations.
 
-NamedOperations allow users to encapsulate an OperationChain into a new single NamedOperation.
-When this NamedOperation is executeed, just like any other Operation, it will execute the encapsulated OperationChain.
-NamedOperations can be added to OperationChains and executed as you would any other Operation.
+Named Operations allow users to encapsulate an OperationChain into a new single NamedOperation.
+When this NamedOperation is executed, just like any other Operation, it will execute the encapsulated OperationChain.
+Named Operations can be added to Operation Chains and executed as you would any other Operation.
 
 There are various possible uses for NamedOperations:
-- Making it simpler to run frequently used OperationChains
-- In a controlled way, allowing specific OperationChains to be run by a user that would not normally have permission to run them.
+- Making it simpler to run frequently used Operation Chains
+- In a controlled way, allowing specific Operation Chains to be run by a user that would not normally have permission to run them.
 
-There are several operations which manage NamedOperations. 
-These are `AddNamedOperation`, `GetAllNamedOperations` and `DeleteNamedOperation`. 
+There are [several operations](../reference/operations-guide/named.md) which manage Named Operations. 
+These are `AddNamedOperation`, `GetAllNamedOperations` and `DeleteNamedOperations``.
 
-## Configuration
+## Creating NamedOperations
 
-Your first step will be to configure the cache to use for storing your NamedOperations.
-For details on caches and how to configure them, see the [Stores Guide](../administration-guide/gaffer-stores/store-guide.md/#caches).
+Any Named Operations you create will be stored in a cache, so your first step should be to configure a suitable cache.
+For details on potential caches and how to configure them, see the [Stores Guide](../administration-guide/gaffer-stores/store-guide.md/#caches).
+You will only be able to create NamedOperations once you have configured a cache.
 
-Once this is configured, if you are using the `OperationChainLimiter` GraphHook then you will also need to configure that GraphHook to use the `NamedOperationScoreResolver`. 
-This will then allow you to have custom scores for each NamedOperation.
+!!! Note
+    If you choose a non-persistent cache then any Named Operations will be lost when you shut down your instance of Gaffer.
 
-!!! example "Example hook configuration"
-    
-    Configuration of the hook should look something like this:
-
-    ``` json
-    {
-        "class": "uk.gov.gchq.gaffer.graph.hook.OperationChainLimiter",
-        "opScores": {
-            "uk.gov.gchq.gaffer.operation.Operation": 1,
-            "uk.gov.gchq.gaffer.operation.impl.add.AddElements": 2,
-            "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements": 5,
-            "uk.gov.gchq.gaffer.operation.impl.generate.GenerateObjects": 0
-        },
-        "authScores": {
-            "User": 2,
-            "SuperUser": 5
-        },
-        "scoreResolvers": {
-            "uk.gov.gchq.gaffer.named.operation.NamedOperation": {
-                "class": "uk.gov.gchq.gaffer.store.operation.resolver.named.NamedOperationScoreResolver"
-            }
-        }
-    }
-    ```
-
-!!! example "Example operation declarations file"
-    
-    As a result, the operation declarations file for registering the `ScoreOperationChain` operation would then look like:
-
-    ``` json
-    {
-        "operations": [
-            {
-                "operation": "uk.gov.gchq.gaffer.operation.impl.ScoreOperationChain",
-                "handler": {
-                    "opScores": {
-                        "uk.gov.gchq.gaffer.operation.Operation": 1,
-                        "uk.gov.gchq.gaffer.operation.impl.add.AddElements": 2,
-                        "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements": 5,
-                        "uk.gov.gchq.gaffer.operation.impl.generate.GenerateObjects": 0
-                    },
-                    "authScores": {
-                        "User": 2,
-                        "SuperUser": 5
-                    },
-                    "scoreResolvers": {
-                        "uk.gov.gchq.gaffer.named.operation.NamedOperation": {
-                            "class": "uk.gov.gchq.gaffer.store.operation.resolver.named.NamedOperationScoreResolver"
-                        }
-                    }
-                }
-            }
-        ]
-    }
-    ```
-
-## Using Named Operations
-
-We will now go through an example of using NamedOperations.
-This example uses the same basic schema and data from the [walkthrough](https://github.com/gchq/gaffer-doc/blob/master/src/main/java/uk/gov/gchq/gaffer/doc/dev/walkthrough/NamedOperations.java).
-
-You will first start by creating your user instance and graph:
+Once you have configured your cache, you can then create your first NamedOperation. 
+You can start by creating your user instance and graph:
   
 ``` java
 // Create your user
@@ -108,27 +49,22 @@ final AddNamedOperation addOperation = new AddNamedOperation.Builder()
                         .build())
                 .then(new Limit.Builder<>().resultLimit(10).build())
                 .build())
-        .description("named operation limit query")
-        .name("2-limit")
+        .description("an example named operation")
+        .name("example-named-operation")
         .readAccessRoles("read-user")
         .writeAccessRoles("write-user")
-        .score(2)
         .overwrite()
         .build();
 
 graph.execute(addOperation, user);
 ```
 
-The example NamedOperation above has been congifured to have a score of 2.
-If you have the `OperationChainLimiter` GraphHook configured then this score will be used by
-the hook to limit operation chains.
-
 Following on from this, you would create a NamedOperation and execute it:
 
 ``` java
 final NamedOperation<EntityId, CloseableIterable<? extends Element>> operation =
         new NamedOperation.Builder<EntityId, CloseableIterable<? extends Element>>()
-                .name("2-limit")
+                .name("example-named-operation")
                 .input(new EntitySeed("10"))
                 .build();
 
@@ -229,10 +165,12 @@ NamedOperationDetail[inputType=java.lang.Object[],creatorId=user01,operations={"
 ```
 
 ## Security
+
 By default, read access to NamedOperations is unrestricted and write access is limited to administrators and the NamedOperation creator. 
 More fine-grained controls can be configured using the following options.
 
 ### Read and Write Access Roles
+
 Read and write access to Named Operations can be locked down to users who have at least one of the auths listed in the `readAccessRoles` and `writeAccessRoles` settings.
 This example ensures that readers have the "read-user" auth and writers the "write-user" auth.
 
@@ -246,11 +184,10 @@ final AddNamedOperation addOperation = new AddNamedOperation.Builder()
                         .build())
                 .then(new Limit.Builder<>().resultLimit(10).build())
                 .build())
-        .description("named operation limit query")
-        .name("2-limit")
+        .description("an example named operation")
+        .name("example-named-operation")
         .readAccessRoles("read-user")
         .writeAccessRoles("write-user")
-        .score(2)
         .overwrite()
         .build();
 
@@ -274,9 +211,8 @@ final AddNamedOperation addNamedOperationAccessControlledResource = new AddNamed
                         .build())
                 .then(new Limit.Builder<>().resultLimit(10).build())
                 .build())
-        .description("named operation limit query")
-        .name("access-controlled-2-limit")
-        .score(2)
+        .description("an example named operation")
+        .name("access-controlled-example-named-operation")
         .overwrite()
         .readAccessPredicate(new AccessPredicate(
                 new AdaptedPredicate(
