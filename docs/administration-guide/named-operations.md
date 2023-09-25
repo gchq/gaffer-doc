@@ -11,19 +11,18 @@ There are various possible uses for NamedOperations:
 - In a controlled way, allowing specific Operation Chains to be run by a user that would not normally have permission to run them.
 
 There are [several operations](../reference/operations-guide/named.md) which manage Named Operations. 
-These are `AddNamedOperation`, `GetAllNamedOperations` and `DeleteNamedOperations``.
+These are `AddNamedOperation`, `GetAllNamedOperations` and `DeleteNamedOperations`.
 
 ## Creating NamedOperations
 
 Any Named Operations you create will be stored in a cache, so your first step should be to configure a suitable cache.
 For details on potential caches and how to configure them, see the [Stores Guide](../administration-guide/gaffer-stores/store-guide.md/#caches).
-You will only be able to create NamedOperations once you have configured a cache.
 
 !!! Note
     If you choose a non-persistent cache then any Named Operations will be lost when you shut down your instance of Gaffer.
 
 Once you have configured your cache, you can then create your first NamedOperation. 
-You can start by creating your user instance and graph:
+You should start by creating your user instance and graph:
   
 ``` java
 // Create your user
@@ -37,7 +36,7 @@ final Graph graph = new Graph.Builder()
         .build();
 ```
 
-You would then add a NamedOperation to the cache using `AddNamedOperation`:
+You can then add a NamedOperation to the cache using `AddNamedOperation`:
 
 ``` java
 final AddNamedOperation addOperation = new AddNamedOperation.Builder()
@@ -157,16 +156,9 @@ Details of all available NamedOperations can be fetched using the `GetAllNamedOp
 final CloseableIterable<NamedOperationDetail> details = graph.execute(new GetAllNamedOperations(), user);
 ```
 
-This gives the following result:
-
-```
-NamedOperationDetail[inputType=java.lang.Object[],creatorId=user01,operations={"operations":[{"class":"uk.gov.gchq.gaffer.operation.impl.get.GetElements","view":{"edges":{"RoadUse":{}}}},{"class":"uk.gov.gchq.gaffer.operation.impl.Limit","resultLimit":10,"truncate":true}]},readAccessRoles=[read-user],writeAccessRoles=[write-user],score=2]
-
-```
-
 ## Security
 
-By default, read access to NamedOperations is unrestricted and write access is limited to administrators and the NamedOperation creator. 
+By default, read access to Named Operations is unrestricted while write access is limited to administrators and the NamedOperation creator. 
 More fine-grained controls can be configured using the following options.
 
 ### Read and Write Access Roles
@@ -195,7 +187,7 @@ graph.execute(addOperation, user);
 ```
 
 ### Access Controlled Resource
-NamedOperations implement the `AccessControlledResource` interface allowing configuration of a custom Predicate which is tested against the User to determine whether they can access the Named Operation.
+Named Operations implement the `AccessControlledResource` interface allowing configuration of a custom Predicate which is tested against the User to determine whether they can access the Named Operation.
 
 This example ensures readers of the NamedOperation have both the "read-access-auth-1" and "read-access-auth-2" auths and users attempting to remove the NamedOperation have both the "write-access-auth-1" and "write-access-auth-2" auths.
 
