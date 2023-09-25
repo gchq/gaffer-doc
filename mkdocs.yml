@@ -132,8 +132,10 @@ nav:
       - 'Introduction': 'administration-guide/introduction.md'
       - Deployment:
         - 'Quickstart': 'administration-guide/gaffer-deployment/quickstart.md'
-        - 'Docker Deployment': 'administration-guide/gaffer-deployment/gaffer-docker.md'
-        - 'Kubernetes':
+        - Docker:
+          - 'Gaffer Images': 'administration-guide/gaffer-deployment/gaffer-docker/gaffer-images.md'
+          - 'How to Run an Accumulo Deployment': 'administration-guide/gaffer-deployment/gaffer-docker/how-to-run.md'
+        - Kubernetes:
           - 'Kubernetes Guide': 'administration-guide/gaffer-deployment/kubernetes-guide/kubernetes-guide.md'
           - 'Deploy an Empty Graph': 'administration-guide/gaffer-deployment/kubernetes-guide/deploy-empty-graph.md'
           - 'Add your Schema': 'administration-guide/gaffer-deployment/kubernetes-guide/deploy-schema.md'

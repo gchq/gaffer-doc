@@ -31,7 +31,7 @@ docker run -p 8080:8080 -v /path/to/your/schema:/gaffer/schema gchq/gaffer-rest:
 
 !!! info
     A simple map store based deployment is usually not that useful other than
-    for learning Gaffer and rapid prototyping; please see the [subsequent pages](./gaffer-docker.md)
+    for learning Gaffer and rapid prototyping; please see the [subsequent pages](./gaffer-docker/how-to-run.md)
     in this section for more scalable deployments.
 
 ## Possible Storage Options
