@@ -6,7 +6,7 @@ Named Operations allow users to encapsulate an OperationChain into a new single 
 When this NamedOperation is executed, just like any other Operation, it will execute the encapsulated OperationChain.
 Named Operations can then be added to Operation Chains and executed as you would any other Operation.
 
-There are various possible uses for NamedOperations:
+There are various possible uses for Named Operations:
 
 - Making it simpler to store and run frequently used Operation Chains.
 - In a controlled way, allowing specific Operation Chains to be run by a user that would not normally have permission to run them.
@@ -343,8 +343,6 @@ A NamedOperation can then be created, with a value provided for the result limit
         )
         ```
 
-
-
 This will produce these results:
 
 ```java
@@ -400,8 +398,8 @@ This example ensures that readers have the "read-user" auth and writers the "wri
                             .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
                             .build())
                     .build())
-            .description("an example named operation")
-            .name("example-named-operation")
+            .description("2 hop query")
+            .name("2-hop")
             .readAccessRoles("read-user")
             .writeAccessRoles("write-user")
             .overwrite()
@@ -428,8 +426,8 @@ Note that the `readAccessPredicate` and `writeAccessPredicate` fields are mutual
                             .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
                             .build())
                     .build())
-            .description("an example named operation")
-            .name("access-controlled-example-named-operation")
+            .description("access controlled 2 hop")
+            .name("access-controlled-2-hop-query")
             .overwrite()
             .readAccessPredicate(new AccessPredicate(
                     new AdaptedPredicate(
