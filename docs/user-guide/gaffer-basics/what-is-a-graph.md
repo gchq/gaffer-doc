@@ -36,12 +36,3 @@ Take the example below which is an extension of the previous graph, as you can s
             B-. POTENTIAL RELATIONSHIP .->E;
         end
     ```
-
-## Key Terms
-
-| Term        | Description                          |
-| :---------- | :----------------------------------- |
-| Node        | A node is an entity within a graph  |
-| Edge        | An edge is a connection between two nodes. |
-| Properties  | A property is a key/value pair that stores data on both edges and entities |
-| Vertex      | Vertex is another term for Node |
