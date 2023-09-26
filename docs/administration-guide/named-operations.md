@@ -1,13 +1,14 @@
 # Named Operations
 
-This guide walks you through how to configure your Gaffer Graph to allow you to execute Named Operations.
+This guide walks you through how to configure Gaffer to allow you to execute Named Operations.
 
 Named Operations allow users to encapsulate an OperationChain into a new single NamedOperation.
 When this NamedOperation is executed, just like any other Operation, it will execute the encapsulated OperationChain.
-Named Operations can be added to Operation Chains and executed as you would any other Operation.
+Named Operations can then be added to Operation Chains and executed as you would any other Operation.
 
 There are various possible uses for NamedOperations:
-- Making it simpler to run frequently used Operation Chains
+
+- Making it simpler to store and run frequently used Operation Chains.
 - In a controlled way, allowing specific Operation Chains to be run by a user that would not normally have permission to run them.
 
 There are [several operations](../reference/operations-guide/named.md) which manage Named Operations. 
@@ -23,7 +24,7 @@ For details on potential caches and how to configure them, see the [Stores Guide
 
 Once you have configured your cache, you can then create your first NamedOperation. 
 You should start by creating your user instance and graph:
-  
+
 ``` java
 // Create your user
 final User user = new User("user01");
@@ -36,7 +37,9 @@ final Graph graph = new Graph.Builder()
         .build();
 ```
 
-You can then add a NamedOperation to the cache using `AddNamedOperation`:
+You can then add a NamedOperation to the cache using `AddNamedOperation`.
+Here you are creating an OperationChain which can then be executed as a NamedOperation.
+This example uses data from the Road Traffic dataset.
 
 ``` java
 final AddNamedOperation addOperation = new AddNamedOperation.Builder()
@@ -70,7 +73,7 @@ final NamedOperation<EntityId, CloseableIterable<? extends Element>> operation =
 final CloseableIterable<? extends Element> results = graph.execute(operation, user);
 ```
 
-This will produce the following results:
+For the Road Traffic dataset this will produce the following results:
 
 ```
 Edge[source=11,destination=10,directed=true,matchedVertex=DESTINATION,group=RoadUse,properties=Properties[endDate=<java.util.Date>Wed May 03 23:59:59 BST 2000,count=<java.lang.Long>1,startDate=<java.util.Date>Wed May 03 00:00:00 BST 2000]]
@@ -155,6 +158,8 @@ Details of all available NamedOperations can be fetched using the `GetAllNamedOp
 ``` java
 final CloseableIterable<NamedOperationDetail> details = graph.execute(new GetAllNamedOperations(), user);
 ```
+
+For more examples of Named Operations, please refer to the Reference Guide on [Operations](../reference/operations-guide/named.md).
 
 ## Security
 
