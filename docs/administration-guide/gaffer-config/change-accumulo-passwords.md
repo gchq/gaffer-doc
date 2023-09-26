@@ -2,6 +2,12 @@
 
 When deploying Accumulo - either as part of a Gaffer stack or as a standalone, the passwords for all the users and the instance.secret are set to default values and should be changed. The instance.secret cannot be changed once deployed as it is used in initalisation.
 
+## Standard Deployment
+
+...
+
+## Helm Deployment
+
 When deploying the Accumulo helm chart, the following values are set. If you are using the Gaffer helm chart with the Accumulo integration, the values will be prefixed with "accumulo":
 
 | Name                 | value                                         | default value |

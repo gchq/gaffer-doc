@@ -1,4 +1,4 @@
-# How to Run an Accumulo Deployment?
+# How to Deploy with Accumulo on Docker
 
 After reading the [previous page](./gaffer-images.md) you should have a good
 understanding of what images are available for Gaffer and how to configure them
