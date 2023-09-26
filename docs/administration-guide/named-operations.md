@@ -14,13 +14,25 @@ There are various possible uses for NamedOperations:
 There are [several operations](../reference/operations-guide/named.md) which manage Named Operations. 
 These are `AddNamedOperation`, `GetAllNamedOperations` and `DeleteNamedOperations`.
 
-## Creating NamedOperations
+## Creating Named Operations
 
 Any Named Operations you create will be stored in a cache, so your first step should be to configure a suitable cache.
 For details on potential caches and how to configure them, see the [Stores Guide](../administration-guide/gaffer-stores/store-guide.md/#caches).
 
 !!! Note
     If you choose a non-persistent cache then any Named Operations will be lost when you shut down your instance of Gaffer.
+
+This walkthrough will use this directed graph:
+
+``` mermaid
+graph TD
+  1(1, count=3) -- count=3 --> 2
+  1 -- count=1 --> 4
+  2(2, count=1) -- count=2 --> 3
+  2 -- count=1 --> 4(4, count=1)
+  2 -- count=1 --> 5(5, count=3)
+  3(3, count=2) -- count=4 --> 4
+```
 
 Once you have configured your cache, you can then create your first NamedOperation. 
 You should start by creating your user instance and graph:
@@ -39,47 +51,126 @@ final Graph graph = new Graph.Builder()
 
 You can then add a NamedOperation to the cache using `AddNamedOperation`.
 Here you are creating an OperationChain which can then be executed as a NamedOperation.
-This example uses data from the Road Traffic dataset.
 
-``` java
-final AddNamedOperation addOperation = new AddNamedOperation.Builder()
-        .operationChain(new OperationChain.Builder()
-                .first(new GetElements.Builder()
-                        .view(new View.Builder()
-                                .edge("RoadUse")
+!!! example "Adding a new NamedOperation"
+
+    === "Java"
+
+        ``` java
+        final AddNamedOperation operation = new AddNamedOperation.Builder()
+                .operationChain(new OperationChain.Builder()
+                        .first(new GetAdjacentIds.Builder()
+                                .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
+                                .build())
+                        .then(new GetAdjacentIds.Builder()
+                                .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
                                 .build())
                         .build())
-                .then(new Limit.Builder<>().resultLimit(10).build())
-                .build())
-        .description("an example named operation")
-        .name("example-named-operation")
-        .readAccessRoles("read-user")
-        .writeAccessRoles("write-user")
-        .overwrite()
-        .build();
+                .description("2 hop query")
+                .name("2-hop")
+                .readAccessRoles("read-user")
+                .writeAccessRoles("write-user")
+                .overwrite()
+                .build();
 
-graph.execute(addOperation, user);
-```
+        graph.execute(operation, user);
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+        "class" : "AddNamedOperation",
+        "operationName" : "2-hop",
+        "description" : "2 hop query",
+        "operationChain" : {
+            "operations" : [ {
+            "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds",
+            "includeIncomingOutGoing" : "OUTGOING"
+            }, {
+            "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds",
+            "includeIncomingOutGoing" : "OUTGOING"
+            } ]
+        },
+        "overwriteFlag" : true,
+        "readAccessRoles" : [ "read-user" ],
+        "writeAccessRoles" : [ "write-user" ]
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+        g.AddNamedOperation( 
+        operation_chain=g.OperationChainDAO( 
+            operations=[ 
+            g.GetAdjacentIds( 
+                include_incoming_out_going="OUTGOING" 
+            ), 
+            g.GetAdjacentIds( 
+                include_incoming_out_going="OUTGOING" 
+            ) 
+            ] 
+        ), 
+        operation_name="2-hop", 
+        description="2 hop query", 
+        read_access_roles=[ 
+            "read-user" 
+        ], 
+        write_access_roles=[ 
+            "write-user" 
+        ], 
+        overwrite_flag=True 
+        )
+        ```
 
 Following on from this, you would create a NamedOperation and execute it:
 
-``` java
-final NamedOperation<EntityId, CloseableIterable<? extends Element>> operation =
-        new NamedOperation.Builder<EntityId, CloseableIterable<? extends Element>>()
-                .name("example-named-operation")
-                .input(new EntitySeed("10"))
+!!! example "Running your NamedOperation"
+
+    === "Java"
+
+        ``` java
+        final NamedOperation<EntityId, CloseableIterable<EntityId>> operation =
+        new NamedOperation.Builder<EntityId, CloseableIterable<EntityId>>()
+                .name("2-hop")
+                .input(new EntitySeed(1))
                 .build();
+        ```
 
-final CloseableIterable<? extends Element> results = graph.execute(operation, user);
-```
+    === "JSON"
 
-For the Road Traffic dataset this will produce the following results:
+        ``` json
+        {
+            "class" : "NamedOperation",
+            "input" : [ {
+                "class" : "EntitySeed",
+                "class" : "EntitySeed",
+                "vertex" : 1
+            } ],
+            "operationName" : "2-hop"
+        }
+        ```
 
-```
-Edge[source=11,destination=10,directed=true,matchedVertex=DESTINATION,group=RoadUse,properties=Properties[endDate=<java.util.Date>Wed May 03 23:59:59 BST 2000,count=<java.lang.Long>1,startDate=<java.util.Date>Wed May 03 00:00:00 BST 2000]]
-Edge[source=10,destination=11,directed=true,matchedVertex=SOURCE,group=RoadUse,properties=Properties[endDate=<java.util.Date>Tue May 02 23:59:59 BST 2000,count=<java.lang.Long>1,startDate=<java.util.Date>Tue May 02 00:00:00 BST 2000]]
-Edge[source=10,destination=11,directed=true,matchedVertex=SOURCE,group=RoadUse,properties=Properties[endDate=<java.util.Date>Mon May 01 23:59:59 BST 2000,count=<java.lang.Long>2,startDate=<java.util.Date>Mon May 01 00:00:00 BST 2000]]
+    === "Python"
 
+        ``` python
+        g.NamedOperation( 
+            input=[ 
+                g.EntitySeed( 
+                    vertex=1 
+                ) 
+            ], 
+            operation_name="2-hop" 
+        )
+        ```
+
+
+This produces the following result:
+```java
+EntitySeed[vertex=4]
+EntitySeed[vertex=3]
+EntitySeed[vertex=5]
 ```
 
 Named Operations are able to take parameters which allow the OperationChain that is being executed to be configured.
@@ -89,75 +180,202 @@ When adding a NamedOperation with parameters to an OperationChain it must be spe
 For each parameter, a `ParameterDetail` object must be created which gives a description, a class type and an optional default for that parameter.
 As the default is optional you can alternatively indicate that the parameter must be provided and that there is no default.
 
-The following code adds a NamedOperation with a `limitParam` parameter that allows the result limit for the OperationChain to be set:
+The following code adds a NamedOperation with a parameter that allows the result limit for the OperationChain to be set:
 
-``` java
-String opChainString = "{" +
-        "  \"operations\" : [ {" +
-        "    \"class\" : \"uk.gov.gchq.gaffer.operation.impl.get.GetElements\"," +
-        "    \"view\" : {" +
-        "      \"edges\" : {" +
-        "        \"RoadUse\" : { }" +
-        "      }," +
-        "      \"entities\" : { }" +
-        "    }" +
-        "  }, {" +
-        "    \"class\" : \"uk.gov.gchq.gaffer.operation.impl.Limit\"," +
-        "    \"resultLimit\" : \"${limitParam}\"" +
-        "  } ]" +
-        "}";
+!!! example "Adding a NamedOperation with parameters"
 
-ParameterDetail param = new ParameterDetail.Builder()
-        .defaultValue(1L)
-        .description("Limit param")
-        .valueClass(Long.class)
-        .build();
-Map<String, ParameterDetail> paramDetailMap = Maps.newHashMap();
-paramDetailMap.put("limitParam", param);
+    === "Java"
 
-final AddNamedOperation addOperationWithParams = new AddNamedOperation.Builder()
-        .operationChain(opChainString)
-        .description("named operation limit query")
-        .name("custom-limit")
-        .readAccessRoles("read-user")
-        .writeAccessRoles("write-user")
-        .parameters(paramDetailMap)
-        .overwrite()
-        .build();
+        ``` java
+        final String opChainString = "{" +
+            "    \"operations\" : [ {" +
+            "      \"class\" : \"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\"," +
+            "      \"includeIncomingOutGoing\" : \"OUTGOING\"" +
+            "    }, {" +
+            "      \"class\" : \"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\"," +
+            "      \"includeIncomingOutGoing\" : \"OUTGOING\"" +
+            "    }, {" +
+            "      \"class\" : \"uk.gov.gchq.gaffer.operation.impl.Limit\"," +
+            "      \"resultLimit\" : \"${param1}\"" +
+            "    }" +
+            " ]" +
+            "}";
 
-graph.execute(addOperationWithParams, user);
-```
+        ParameterDetail param = new ParameterDetail.Builder()
+                .defaultValue(1L)
+                .description("Limit param")
+                .valueClass(Long.class)
+                .build();
+        Map<String, ParameterDetail> paramMap = Maps.newHashMap();
+        paramMap.put("param1", param);
 
-A NamedOperation can then be created, with a value provided for the `limitParam` parameter:
+        final AddNamedOperation operation = new AddNamedOperation.Builder()
+                .operationChain(opChainString)
+                .description("2 hop query with settable limit")
+                .name("2-hop-with-limit")
+                .readAccessRoles("read-user")
+                .writeAccessRoles("write-user")
+                .parameters(paramMap)
+                .overwrite()
+                .score(3)
+                .build();
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+            "class" : "AddNamedOperation",
+            "operationName" : "2-hop-with-limit",
+            "description" : "2 hop query with settable limit",
+            "score" : 3,
+            "operationChain" : {
+                "operations" : [ {
+                    "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds",
+                    "includeIncomingOutGoing" : "OUTGOING"
+                }, {
+                    "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds",
+                    "includeIncomingOutGoing" : "OUTGOING"
+                }, {
+                    "class" : "uk.gov.gchq.gaffer.operation.impl.Limit",
+                    "resultLimit" : "${param1}"
+                } ]
+            },
+            "overwriteFlag" : true,
+            "parameters" : {
+                "param1" : {
+                    "description" : "Limit param",
+                    "defaultValue" : 1,
+                    "valueClass" : "Long",
+                    "required" : false
+                }
+            },
+            "readAccessRoles" : [ "read-user" ],
+            "writeAccessRoles" : [ "write-user" ]
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+        g.AddNamedOperation( 
+            operation_chain=g.OperationChainDAO( 
+                operations=[ 
+                    g.GetAdjacentIds( 
+                        include_incoming_out_going="OUTGOING" 
+                    ), 
+                    g.GetAdjacentIds( 
+                        include_incoming_out_going="OUTGOING" 
+                    ), 
+                    g.Limit( 
+                        result_limit="${param1}" 
+                    ) 
+                ] 
+            ), 
+            operation_name="2-hop-with-limit", 
+            description="2 hop query with settable limit", 
+            read_access_roles=[ 
+                "read-user" 
+            ], 
+            write_access_roles=[ 
+                "write-user" 
+            ], 
+            overwrite_flag=True, 
+            score=3, 
+            parameters=[ 
+                g.NamedOperationParameter( 
+                    name="param1", 
+                    value_class="java.lang.Long", 
+                    description="Limit param", 
+                    default_value=1, 
+                    required=False 
+                ) 
+            ] 
+        )
+        ```
+
+A NamedOperation can then be created, with a value provided for the result limit parameter:
  
-``` java
-Map<String, Object> paramMap = Maps.newHashMap();
-paramMap.put("limitParam", 3L);
+!!! example "Running your NamedOperation with parameters"
 
-final NamedOperation<EntityId, CloseableIterable<? extends Element>> operationWithParams =
-        new NamedOperation.Builder<EntityId, CloseableIterable<? extends Element>>()
-                .name("custom-limit")
-                .input(new EntitySeed("10"))
+    === "Java"
+
+        ``` java
+        Map<String, Object> paramMap = Maps.newHashMap();
+        paramMap.put("param1", 2L);
+
+        final NamedOperation<EntityId, CloseableIterable<EntityId>> operation =
+            new NamedOperation.Builder<EntityId, CloseableIterable<EntityId>>()
+                .name("2-hop-with-limit")
+                .input(new EntitySeed(1))
                 .parameters(paramMap)
                 .build();
+        ```
 
-// Execute 
-final CloseableIterable<? extends Element> namedOperationResults = graph.execute(operationWithParams, user);
-```
+    === "JSON"
+
+        ``` json
+        {
+            "class" : "NamedOperation",
+            "input" : [ {
+                "class" : "EntitySeed",
+                "class" : "EntitySeed",
+                "vertex" : 1
+            } ],
+            "operationName" : "2-hop-with-limit",
+            "parameters" : {
+                "param1" : 2
+            }
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+        g.NamedOperation( 
+            input=[ 
+                g.EntitySeed( 
+                    vertex=1 
+                ) 
+            ], 
+            operation_name="2-hop-with-limit", 
+            parameters={'param1': 2} 
+        )
+        ```
+
+
 
 This will produce these results:
 
-```
-Edge[source=11,destination=10,directed=true,matchedVertex=DESTINATION,group=RoadUse,properties=Properties[endDate=<java.util.Date>Wed May 03 23:59:59 BST 2000,count=<java.lang.Long>1,startDate=<java.util.Date>Wed May 03 00:00:00 BST 2000]]
-Edge[source=10,destination=11,directed=true,matchedVertex=SOURCE,group=RoadUse,properties=Properties[endDate=<java.util.Date>Tue May 02 23:59:59 BST 2000,count=<java.lang.Long>1,startDate=<java.util.Date>Tue May 02 00:00:00 BST 2000]]
-Edge[source=10,destination=11,directed=true,matchedVertex=SOURCE,group=RoadUse,properties=Properties[endDate=<java.util.Date>Mon May 01 23:59:59 BST 2000,count=<java.lang.Long>2,startDate=<java.util.Date>Mon May 01 00:00:00 BST 2000]]
+```java
+EntitySeed[vertex=4]
+EntitySeed[vertex=3]
 ```
 
 Details of all available NamedOperations can be fetched using the `GetAllNamedOperations` operation:
 
-``` java
-final CloseableIterable<NamedOperationDetail> details = graph.execute(new GetAllNamedOperations(), user);
-```
+!!! example "Fetching Named Operations"
+
+    === "Java"
+
+        ``` java
+        final GetAllNamedOperations operation = new GetAllNamedOperations();
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+            "class" : "GetAllNamedOperations"
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+            g.GetAllNamedOperations()   
+        ```
+
 
 For more examples of Named Operations, please refer to the Reference Guide on [Operations](../reference/operations-guide/named.md).
 
@@ -171,25 +389,26 @@ More fine-grained controls can be configured using the following options.
 Read and write access to Named Operations can be locked down to users who have at least one of the auths listed in the `readAccessRoles` and `writeAccessRoles` settings.
 This example ensures that readers have the "read-user" auth and writers the "write-user" auth.
 
-``` java
-final AddNamedOperation addOperation = new AddNamedOperation.Builder()
-        .operationChain(new OperationChain.Builder()
-                .first(new GetElements.Builder()
-                        .view(new View.Builder()
-                                .edge("RoadUse")
-                                .build())
-                        .build())
-                .then(new Limit.Builder<>().resultLimit(10).build())
-                .build())
-        .description("an example named operation")
-        .name("example-named-operation")
-        .readAccessRoles("read-user")
-        .writeAccessRoles("write-user")
-        .overwrite()
-        .build();
+!!! example 
+    ``` java
+    final AddNamedOperation addOperation = new AddNamedOperation.Builder()
+            .operationChain(new OperationChain.Builder()
+                    .first(new GetAdjacentIds.Builder()
+                            .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
+                            .build())
+                    .then(new GetAdjacentIds.Builder()
+                            .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
+                            .build())
+                    .build())
+            .description("an example named operation")
+            .name("example-named-operation")
+            .readAccessRoles("read-user")
+            .writeAccessRoles("write-user")
+            .overwrite()
+            .build();
 
-graph.execute(addOperation, user);
-```
+    graph.execute(addOperation, user);
+    ```
 
 ### Access Controlled Resource
 Named Operations implement the `AccessControlledResource` interface allowing configuration of a custom Predicate which is tested against the User to determine whether they can access the Named Operation.
@@ -198,38 +417,39 @@ This example ensures readers of the NamedOperation have both the "read-access-au
 
 Note that the `readAccessPredicate` and `writeAccessPredicate` fields are mutually exclusive with the `readAccessRoles` and `writeAccessRoles` settings respectively as described in the [Read and Write Access Roles](#read-and-write-access-roles) section.
 
-``` java
-final AddNamedOperation addNamedOperationAccessControlledResource = new AddNamedOperation.Builder()
-        .operationChain(new OperationChain.Builder()
-                .first(new GetElements.Builder()
-                        .view(new View.Builder()
-                                .edge("RoadUse")
-                                .build())
-                        .build())
-                .then(new Limit.Builder<>().resultLimit(10).build())
-                .build())
-        .description("an example named operation")
-        .name("access-controlled-example-named-operation")
-        .overwrite()
-        .readAccessPredicate(new AccessPredicate(
-                new AdaptedPredicate(
-                        new CallMethod("getOpAuths"),
-                        new And(
-                                new CollectionContains("read-access-auth-1"),
-                                new CollectionContains("read-access-auth-2")))))
+!!! example
+    ``` java
+    final AddNamedOperation addNamedOperationAccessControlledResource = new AddNamedOperation.Builder()
+            .operationChain(new OperationChain.Builder()
+                    .first(new GetAdjacentIds.Builder()
+                            .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
+                            .build())
+                    .then(new GetAdjacentIds.Builder()
+                            .inOutType(SeededGraphFilters.IncludeIncomingOutgoingType.OUTGOING)
+                            .build())
+                    .build())
+            .description("an example named operation")
+            .name("access-controlled-example-named-operation")
+            .overwrite()
+            .readAccessPredicate(new AccessPredicate(
+                    new AdaptedPredicate(
+                            new CallMethod("getOpAuths"),
+                            new And(
+                                    new CollectionContains("read-access-auth-1"),
+                                    new CollectionContains("read-access-auth-2")))))
 
-        .writeAccessPredicate(
-                new AccessPredicate(
-                        new AdaptedPredicate(
-                                new CallMethod("getOpAuths"),
-                                new And(
-                                        new CollectionContains("write-access-auth-1"),
-                                        new CollectionContains("write-access-auth-2")))))
+            .writeAccessPredicate(
+                    new AccessPredicate(
+                            new AdaptedPredicate(
+                                    new CallMethod("getOpAuths"),
+                                    new And(
+                                            new CollectionContains("write-access-auth-1"),
+                                            new CollectionContains("write-access-auth-2")))))
 
-        .build();
+            .build();
 
-graph.execute(addNamedOperationAccessControlledResource, user);
-```
+    graph.execute(addNamedOperationAccessControlledResource, user);
+    ```
 
 ## Full Example
 The below example uses the Road Traffic Dataset and asks "In the year 2000, which junctions in the South West were heavily used by buses". 
