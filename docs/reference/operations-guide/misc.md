@@ -29,7 +29,7 @@ Gets data from an endpoint. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/
     ```
 
 === "JSON"
-    
+
     ``` json
     {
     "class" : "GetFromEndpoint",
@@ -38,10 +38,10 @@ Gets data from an endpoint. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/
     ```
 
 === "Python"
-    
+
     ``` python
-    g.GetFromEndpoint( 
-    endpoint="https://mydata.io:8443/mydata" 
+    g.GetFromEndpoint(
+    endpoint="https://mydata.io:8443/mydata"
     )
     ```
 
@@ -49,7 +49,7 @@ Gets data from an endpoint. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/
 
 Determines a "score" for an OperationChain. This is used to determine whether a particular user has the required permissions to execute a given OperationChain. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/ScoreOperationChain.html)
 
-This operation requires Store configuration to be set before it can be used. See the [Store Guide](../stores-guide/stores.md#ScoreOperationChain) for how to do this.
+This operation requires Store configuration to be set before it can be used. See the [Store Guide](../../administration-guide/gaffer-stores/store-guide.md#scoreoperationchain) for how to do this.
 
 ### Example ScoreOperationChain
 
@@ -68,7 +68,7 @@ This operation requires Store configuration to be set before it can be used. See
     ```
 
 === "JSON"
-    
+
     ``` json
     {
     "class" : "ScoreOperationChain",
@@ -89,34 +89,34 @@ This operation requires Store configuration to be set before it can be used. See
     ```
 
 === "Python"
-    
+
     ``` python
-    g.ScoreOperationChain( 
-    operation_chain=g.OperationChain( 
-        operations=[ 
-        g.GetElements(), 
-        g.NamedOperation( 
-            operation_name="namedOp" 
-        ), 
-        g.Limit( 
-            result_limit=3, 
-            truncate=True 
-        ) 
-        ] 
-    ) 
+    g.ScoreOperationChain(
+    operation_chain=g.OperationChain(
+        operations=[
+        g.GetElements(),
+        g.NamedOperation(
+            operation_name="namedOp"
+        ),
+        g.Limit(
+            result_limit=3,
+            truncate=True
+        )
+        ]
+    )
     )
     ```
 
 Results:
 
 === "Java"
-    
+
     ``` java
     5
     ```
 
 === "JSON"
-    
+
     ``` json
     5
     ```
@@ -140,7 +140,7 @@ Here we have added a NamedOperation to the NamedOperationCache, with a custom sc
     ```
 
 === "JSON"
-    
+
     ``` json
     {
     "class" : "ScoreOperationChain",
@@ -164,38 +164,38 @@ Here we have added a NamedOperation to the NamedOperationCache, with a custom sc
     ```
 
 === "Python"
-    
+
     ``` python
-    g.ScoreOperationChain( 
-    operation_chain=g.OperationChain( 
-        operations=[ 
-        g.NamedOperation( 
-            input=[ 
-            g.EntitySeed( 
-                vertex=1 
-            ) 
-            ], 
-            operation_name="1-hop" 
-        ), 
-        g.Limit( 
-            result_limit=3, 
-            truncate=True 
-        ) 
-        ] 
-    ) 
+    g.ScoreOperationChain(
+    operation_chain=g.OperationChain(
+        operations=[
+        g.NamedOperation(
+            input=[
+            g.EntitySeed(
+                vertex=1
+            )
+            ],
+            operation_name="1-hop"
+        ),
+        g.Limit(
+            result_limit=3,
+            truncate=True
+        )
+        ]
+    )
     )
     ```
 
 Results:
 
 === "Java"
-    
+
     ``` java
     5
     ```
 
 === "JSON"
-    
+
     ``` json
     5
     ```

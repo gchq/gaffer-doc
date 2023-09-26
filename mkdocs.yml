@@ -42,12 +42,62 @@ plugins:
       strict: true
       exclude:
         - index.md
+  - redirects:
+      redirect_maps:
+        'dev/docker.md': 'administration-guide/where-to-run-gaffer/gaffer-docker.md'
+        'dev/kubernetes-guide/kubernetes.md': 'administration-guide/where-to-run-gaffer/kubernetes-guide/kubernetes-guide.md'
+        'dev/ways-of-working.md': 'development-guide/ways-of-working.md'
+        'dev/components/operation.md': 'development-guide/project-structure/components/operation.md'
+        'dev/components/cache.md': 'development-guide/project-structure/components/cache.md'
+        'dev/components/graph.md': 'development-guide/project-structure/components/graph.md'
+        'dev/components/data.md': 'development-guide/project-structure/components/data.md'
+        'dev/components/store.md': 'development-guide/project-structure/components/store.md'
+        'dev/components/serialisation.md': 'development-guide/project-structure/components/serialisation.md'
+        'dev/components/libraries/sketches.md': 'development-guide/project-structure/components/libraries/sketches.md'
+        'dev/components/libraries/bitmap.md': 'development-guide/project-structure/components/libraries/bitmap.md'
+        'dev/components/libraries/time.md': 'development-guide/project-structure/components/libraries/time.md'
+        'dev/components/libraries/flink.md': 'development-guide/project-structure/components/libraries/flink.md'
+        'dev/components/libraries/spark.md': 'development-guide/project-structure/components/libraries/spark.md'
+        'dev/components/integration-test.md': 'development-guide/project-structure/components/integration-test.md'
+        'dev/components/spring-rest.md': 'development-guide/project-structure/components/spring-rest.md'
+        'dev/components/core-rest.md': 'development-guide/project-structure/components/core-rest.md'
+        'dev/components/accumulo-store.md': 'development-guide/project-structure/components/accumulo-store.md'
+        'reference/stores-guide/stores.md': 'administration-guide/gaffer-stores/store-guide.md'
+        'reference/stores-guide/map.md': 'administration-guide/gaffer-stores/map-store.md'
+        'reference/stores-guide/proxy.md': 'administration-guide/gaffer-stores/proxy-store.md'
+        'reference/stores-guide/federated.md': 'administration-guide/gaffer-stores/federated-store.md'
+        'reference/stores-guide/accumulo.md': 'administration-guide/gaffer-stores/accumulo-store.md'
+        'getting-started/basics.md': 'user-guide/introduction.md'
+        'getting-started/guide/cardinality.md': 'user-guide/gaffer-basics/what-is-cardinality.md'
+        'getting-started/quickstart.md': 'user-guide/introduction.md'
+        'getting-started/guide/guide.md': 'user-guide/introduction.md'
 
 nav:
     - Home: 'index.md'
-    - 'Getting Started':
-      - 'Gaffer Basics': 'getting-started/basics.md'
-      - 'Quickstart': 'getting-started/quickstart.md'
+    - User Guide:
+      - 'Introduction': 'user-guide/introduction.md'
+      - Gaffer Basics:
+        - 'What is Gaffer?': 'user-guide/gaffer-basics/what-is-gaffer.md'
+        - 'What is a Graph?': 'user-guide/gaffer-basics/what-is-a-graph.md'
+        - 'What is JSON?': 'user-guide/gaffer-basics/what-is-json.md'
+        - 'What is Python?': 'user-guide/gaffer-basics/what-is-python.md'
+        - 'What is Cardinality?': 'user-guide/gaffer-basics/what-is-cardinality.md'
+        - 'What is Aggregation?': 'user-guide/gaffer-basics/what-is-aggregation.md'
+      - Available APIs:
+        - 'Spring REST': 'user-guide/apis/rest-api.md'
+        - 'Python (gafferpy)': 'user-guide/apis/python-api.md'
+        - 'Java': 'user-guide/apis/java-api.md'
+      - Querying:
+        - Gaffer Query Syntax:
+          - 'Operations': 'user-guide/query/gaffer-syntax/operations.md'
+          - 'Filtering Data': 'user-guide/query/gaffer-syntax/filtering.md'
+          - Import/Export:
+            - 'Using CSV Data': 'user-guide/query/gaffer-syntax/import-export/csv.md'
+        - Apache Gremlin:
+          - 'Gremlin Support in Gaffer': 'user-guide/query/gremlin/gremlin.md'
+      - 'Graph Schemas': 'user-guide/schema.md'
+    - Developers Guide:
+      - 'Introduction': 'development-guide/introduction.md'
       - 'Example Deployment':
         - 'Project Setup': 'getting-started/example-deployment/project-setup.md'
         - 'Writing the Schema': 'getting-started/example-deployment/writing-the-schema.md'
@@ -68,7 +118,6 @@ nav:
       - 'Log4j in Gaffer': 'gaffer2.0/log4j.md'
     - 'Developer Docs':
       - 'Development': 'dev/development.md'
-      - 'Federated Operation': 'dev/federated-operation.md'
       - 'Remote Coding Environments': 'dev/remote-coding-environments.md'
       - 'Managing Dependencies': 'dev/managing-dependencies/managing-dependencies.md'
       - 'Ways of Working': 'dev/ways-of-working.md'
@@ -93,12 +142,8 @@ nav:
           - dev/components/libraries/time.md
     - 'Reference':
       - 'Reference Guide': 'reference/intro.md'
-      - Stores:
-        - 'Store Guide': 'reference/stores-guide/stores.md'
-        - 'Map Store': 'reference/stores-guide/map.md'
-        - 'Accumulo Store': 'reference/stores-guide/accumulo.md'
-        - 'Proxy Store': 'reference/stores-guide/proxy.md'
-        - 'Federated Store': 'reference/stores-guide/federated.md'
+      - 'Glossary': 'reference/glossary.md'
+      - 'Javadoc': 'reference/javadoc.md'
       - Properties:
         - 'Properties Guide': 'reference/properties-guide/properties.md'
         - 'Basic Properties': 'reference/properties-guide/basic.md'
@@ -131,7 +176,8 @@ nav:
         - 'Accumulo Operations': 'reference/operations-guide/accumulo.md'
         - 'Spark Operations': 'reference/operations-guide/spark.md'
         - 'Misc Operations': 'reference/operations-guide/misc.md'
-
+      - Endpoints:
+        - 'Endpoints Guide': 'reference/endpoints-guide/endpoints.md'
 theme:
   name: material
   logo: assets/icon.svg

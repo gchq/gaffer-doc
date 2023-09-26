@@ -30,7 +30,7 @@ jobs:
       run: pip install -r requirements.txt
 
     - name: Build using MkDocs
-      run: mkdocs build
+      run: mkdocs build -s
 
     - name: Check Links
       uses: gaurav-nelson/github-action-markdown-link-check@v1

@@ -97,7 +97,8 @@ Operation | Type
 `proxystore.operation.GetProxyProperties` | Proxy
 `proxystore.operation.GetProxyUrl` | Proxy
 `accumulostore.operation.hdfs.operation.ImportAccumuloKeyValueFiles` | Accumulo
-[`accumulostore.operation.impl.GetElementsBetweenSets`](accumulo.md#getelementsbetweensets) | Accumulo
+[<s>`accumulostore.operation.impl.GetElementsBetweenSets`</s>](accumulo.md#getelementsbetweensets) | Accumulo
+[`accumulostore.operation.impl.GetElementsBetweenSetsPairs`](accumulo.md#getelementsbetweensetspairs) | Accumulo
 [`accumulostore.operation.impl.GetElementsInRanges`](accumulo.md#getelementsinranges) | Accumulo
 [`accumulostore.operation.impl.GetElementsWithinSet`](accumulo.md#getelementswithinset) | Accumulo
 `accumulostore.operation.impl.SummariseGroupOverRanges` | Accumulo
