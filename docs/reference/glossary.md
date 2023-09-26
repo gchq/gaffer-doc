@@ -1,3 +1,10 @@
+---
+hide:
+  - toc
+---
+
+# Glossary
+
 | Term    | Description                          |
 | :---------- | :----------------------------------- |
 | Node        | A node is an entity within a graph  |
