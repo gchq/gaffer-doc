@@ -99,48 +99,73 @@ nav:
     - Developers Guide:
       - 'Introduction': 'development-guide/introduction.md'
       - 'Example Deployment':
-        - 'Project Setup': 'getting-started/example-deployment/project-setup.md'
-        - 'Writing the Schema': 'getting-started/example-deployment/writing-the-schema.md'
-        - 'Running the Deployment': 'getting-started/example-deployment/running-the-deployment.md'
-        - 'Using the API': 'getting-started/example-deployment/using-the-api.md'
-      - 'Advanced User Guide':
-        - 'Aggregation': 'getting-started/advanced-guide/aggregation.md'
-        - 'Import and Export':
-          - 'Using CSV': 'getting-started/advanced-guide/import-export/csv.md'
-        - 'Cardinality': 'getting-started/advanced-guide/cardinality.md'
-    - 'Gaffer 2.0':
-      - Changelist: 'gaffer2.0/changelist.md'
-      - Deprecations: 'gaffer2.0/deprecations.md'
-      - Dependencies: 'gaffer2.0/dependencies.md'
-      - 'Accumulo Migration': 'gaffer2.0/accumulo-migration.md'
-      - 'Federation Changes': 'gaffer2.0/federation-changes.md'
-      - 'Accumulo Kerberos': 'gaffer2.0/accumulo-kerberos.md'
-      - 'Log4j in Gaffer': 'gaffer2.0/log4j.md'
-    - 'Developer Docs':
-      - 'Development': 'dev/development.md'
-      - 'Remote Coding Environments': 'dev/remote-coding-environments.md'
-      - 'Managing Dependencies': 'dev/managing-dependencies/managing-dependencies.md'
-      - 'Ways of Working': 'dev/ways-of-working.md'
-      - 'Sketches custom deserialisation': 'dev/rest-api-sketches.md'
-      - Components:
-        - 'Components/Maven Modules': 'dev/components/components.md'
-        - 'Cache': 'dev/components/cache.md'
-        - 'Data': 'dev/components/data.md'
-        - 'Graph': 'dev/components/graph.md'
-        - 'Store': 'dev/components/store.md'
-        - 'Operation': 'dev/components/operation.md'
-        - 'Serialisation': 'dev/components/serialisation.md'
-        - 'Integration Tests': 'dev/components/integration-test.md'
-        - 'Core REST': 'dev/components/core-rest.md'
-        - 'Spring REST': 'dev/components/spring-rest.md'
-        - 'Accumulo Store': 'dev/components/accumulo-store.md'
-        - Libraries:
-          - dev/components/libraries/bitmap.md
-          - dev/components/libraries/flink.md
-          - dev/components/libraries/sketches.md
-          - dev/components/libraries/spark.md
-          - dev/components/libraries/time.md
-    - 'Reference':
+        - 'Project Setup': 'development-guide/example-deployment/project-setup.md'
+        - 'Writing the Schema': 'development-guide/example-deployment/writing-the-schema.md'
+        - 'Running the Deployment': 'development-guide/example-deployment/running-the-deployment.md'
+        - 'Using the API': 'development-guide/example-deployment/using-the-api.md'
+      - 'Ways of Working': 'development-guide/ways-of-working.md'
+      - 'Remote Coding Environments': 'development-guide/remote-coding-environments.md'
+      - 'Extending Gaffer': 'development-guide/extending-gaffer.md'
+      - 'Sketches Custom Deserialisation': 'development-guide/rest-api-sketches.md'
+      - Project Structure:
+        - Components:
+          - 'Components/Maven Modules': 'development-guide/project-structure/components/components.md'
+          - 'Cache': 'development-guide/project-structure/components/cache.md'
+          - 'Data': 'development-guide/project-structure/components/data.md'
+          - 'Graph': 'development-guide/project-structure/components/graph.md'
+          - 'Store': 'development-guide/project-structure/components/store.md'
+          - 'Operation': 'development-guide/project-structure/components/operation.md'
+          - 'Serialisation': 'development-guide/project-structure/components/serialisation.md'
+          - 'Integration Tests': 'development-guide/project-structure/components/integration-test.md'
+          - 'Core REST': 'development-guide/project-structure/components/core-rest.md'
+          - 'Spring REST': 'development-guide/project-structure/components/spring-rest.md'
+          - 'Accumulo Store': 'development-guide/project-structure/components/accumulo-store.md'
+          - Libraries:
+            - development-guide/project-structure/components/libraries/bitmap.md
+            - development-guide/project-structure/components/libraries/flink.md
+            - development-guide/project-structure/components/libraries/sketches.md
+            - development-guide/project-structure/components/libraries/spark.md
+            - development-guide/project-structure/components/libraries/time.md
+        - Maven Dependencies:
+          - 'Spring': 'development-guide/project-structure/maven-dependencies/spring.md'
+    - Administration Guide:
+      - 'Introduction': 'administration-guide/introduction.md'
+      - 'Docker': 'administration-guide/where-to-run-gaffer/gaffer-docker.md'
+      - 'Kubernetes':
+        - 'Kubernetes Guide': 'administration-guide/where-to-run-gaffer/kubernetes-guide/kubernetes-guide.md'
+        - 'Deploy an Empty Graph': 'administration-guide/where-to-run-gaffer/kubernetes-guide/deploy-empty-graph.md'
+        - 'Add your Schema': 'administration-guide/where-to-run-gaffer/kubernetes-guide/deploy-schema.md'
+        - 'Change the Graph ID and Description': 'administration-guide/where-to-run-gaffer/kubernetes-guide/change-graph-metadata.md'
+        - 'Adding your Own Libraries and Functions': 'administration-guide/where-to-run-gaffer/kubernetes-guide/add-libraries.md'
+        - 'Changing Accumulo Passwords': 'administration-guide/where-to-run-gaffer/kubernetes-guide/change-accumulo-passwords.md'
+      - 'Store Setup':
+        - 'Store Guide': 'administration-guide/gaffer-stores/store-guide.md'
+        - 'Accumulo Store': 'administration-guide/gaffer-stores/accumulo-store.md'
+        - 'Federated Store': 'administration-guide/gaffer-stores/federated-store.md'
+        - 'Map Store':  'administration-guide/gaffer-stores/map-store.md'
+        - 'Proxy Store': 'administration-guide/gaffer-stores/proxy-store.md'
+      - 'Gaffer Configuration':
+        - 'Configuration': 'administration-guide/gaffer-config/config.md'
+        - 'Proxy': 'administration-guide/gaffer-config/proxy.md'
+        - 'URL': 'administration-guide/gaffer-config/url.md'
+      - 'Schema': 'administration-guide/schema.md'
+      - 'Import/Export Data': 'administration-guide/import-export-data.md'
+      - 'Named Operations': 'administration-guide/named-operations.md'
+      - 'Operation Score': 'administration-guide/operation-score.md'
+      - 'Security':
+        - 'Security Guide': 'administration-guide/security/security-guide.md'
+        - 'User Control': 'administration-guide/security/user-control.md'
+    - Change Notes:
+      - 'Changelist':
+        - 'V2.0 Changes': 'change-notes/changelist/v2-changes.md'
+      - 'Migrating from V1 to V2':
+        - 'Deprecations': 'change-notes/migrating-from-v1-to-v2/deprecations.md'
+        - 'Dependencies': 'change-notes/migrating-from-v1-to-v2/dependencies.md'
+        - 'Accumulo Migration': 'change-notes/migrating-from-v1-to-v2/accumulo-migration.md'
+        - 'Federation Changes': 'change-notes/migrating-from-v1-to-v2/federation-changes.md'
+        - 'Accumulo Kerberos': 'change-notes/migrating-from-v1-to-v2/accumulo-kerberos.md'
+        - 'Log4j in Gaffer': 'change-notes/migrating-from-v1-to-v2/log4j.md'
+    - Reference:
       - 'Reference Guide': 'reference/intro.md'
       - 'Glossary': 'reference/glossary.md'
       - 'Javadoc': 'reference/javadoc.md'

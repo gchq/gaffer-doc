@@ -2,12 +2,12 @@
 
 !!! note
 
-    If you're upgrading from Gaffer 1.x.x you will need to [migrate from using the FederatedOperationChain to using the FederatedOperation](../gaffer2.0/federation-changes.md)
+    If you're upgrading from Gaffer 1.x.x you will need to [migrate from using the FederatedOperationChain to using the FederatedOperation](../../change-notes/migrating-from-v1-to-v2/federation-changes.md)
 
 ## The Federated Operation
 
 The Federated Operation is an operation which can be used against a [Federated
-Store](../reference/stores-guide/federated.md). The operation is used to send a
+Store](../../administration-guide/gaffer-stores/federated-store.md). The operation is used to send a
 single or a chain of operations to one or more graphs within a federated store.
 It can be configured to merge results differently depending on the
 `mergeFunction` passed to it.
