@@ -12,5 +12,4 @@
 | Entity      | An entity represents a point in a graph e.g. a person |
 | Stores      | A Gaffer store represents the backing database responsbile for storing or facilitating access to a graph |
 | Operations  | An operation is an instruction / function that you send to the API to manipulate and query a graph |
-| Edge        | An edge represents the relationship / connection between one or more nodes |
 | Vertex      | A vertex refers to the field in an entity that describes its type |
