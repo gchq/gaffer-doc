@@ -33,16 +33,21 @@ To run an Accumulo cluster on Docker containers, we will need a few different
 containers that will work together. The general set of containers we will need
 to run is the following:
 
-- `zookeeper`
-- `gchq/hdfs`
-    - `namenode`
-    - `datanode` (one or more)
-- `gchq/gaffer` (accumulo)
-    - `master`
-    - `tserver`
-    - `monitor`
-    - `gc`
-- `gchq/gaffer-rest`
+**`zookeeper`**
+
+**`gchq/hdfs`**
+
+- `namenode`
+- `datanode` (one or more)
+
+**`gchq/gaffer`** (accumulo)
+
+- `master`
+- `tserver`
+- `monitor`
+- `gc`
+
+**`gchq/gaffer-rest`**
 
 Before starting any containers we need to create a network so all the containers
 can talk to each other. To do this we simply run the following command to make a
@@ -53,7 +58,7 @@ docker network create gaffer-example
 ```
 
 !!! note
-    If using something like docker compose or host networking (e.g. with
+    If you are using something like docker compose or host networking (e.g. with
     `--net=host`) you can skip the network creation step.
 
 ### ZooKeeper
@@ -85,14 +90,15 @@ for more information and configuration options.
 
 Next we can launch the Hadoop cluster, we will use the custom distribution of
 the HDFS image `gchq/hdfs`. As mentioned before this provides a single-node
-Hadoop cluster which we can simply run multiple times and link together to
-extend into a multi-node cluster.
+Hadoop cluster which we can run multiple times to extend into a multi-node
+cluster.
 
 To run a Hadoop cluster we first need the configuration files for Hadoop which
-we can then add into the running containers. For the purposes of this example
-we will use the files from the [`gaffer-docker`](https://github.com/gchq/gaffer-docker/tree/develop/docker/hdfs/conf)
-repository, but you may wish to edit these for your deployment and can read
-more in the [official Hadoop docs](https://hadoop.apache.org/docs/r1.2.1/cluster_setup.html#Configuration+Files).
+we can then add into the running containers. As a start point you can use the
+files from the
+[`gaffer-docker`](https://github.com/gchq/gaffer-docker/tree/develop/docker/hdfs/conf)
+repository, but you may wish to edit these for your deployment and can read more
+in the [official Hadoop docs](https://hadoop.apache.org/docs/r1.2.1/cluster_setup.html#Configuration+Files).
 
 The first Hadoop container we need is a `namenode` container which runs the
 Namenode service essentially acting as a master node. We can run this using
@@ -261,4 +267,4 @@ docker run \
     The `gaffer-rest` image comes with some default configuration files and
     graph schema, you'll likely want to configure these for your project so
     please see the pages on [gaffer configs](../../gaffer-config/config.md) and
-    [graph schema](../../schema.md) for more information.
+    [graph schema](../../gaffer-config/schema.md) for more information.

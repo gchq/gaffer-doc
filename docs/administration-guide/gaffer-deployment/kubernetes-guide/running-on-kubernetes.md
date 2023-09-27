@@ -45,12 +45,34 @@ the `gaffer-docker` repo:
 helm repo add gaffer-docker https://gchq.github.io/gaffer-docker
 ```
 
-## How to Guides
+## Using Custom Images
 
-There are a number of guides to help you deploy Gaffer on Kubernetes. It is important you look at these before you get started as they provide the initial steps for running these applications.
+You may wish to create custom images that have configuration or additional
+libraries baked in.
 
-* [Deploy a simple empty graph](deploy-empty-graph.md)
-* [Add your schema](deploy-schema.md)
-* [Change the graph ID and description](change-graph-metadata.md)
-* [Adding your own libraries and functions](add-libraries.md)
-* [Changing passwords for the Accumulo store](change-accumulo-passwords.md)
+The [Docker deployment guide](../gaffer-docker/gaffer-images.md#custom-images)
+has information on how to create new images but you will need a way of making
+the custom images visible to the Kubernetes cluster. Once visible you can switch
+them out.
+
+Create a `custom-images.yaml` file with the following contents:
+
+```yaml
+# Add custom REST API image
+api:
+  image:
+    repository: custom-rest
+    tag: latest
+
+# Add custom Accumulo image
+accumulo:
+  image:
+    repository: custom-gaffer-accumulo
+    tag: latest
+```
+
+To switch them run:
+
+```bash
+helm upgrade my-graph gaffer-docker/gaffer -f custom-images.yaml --reuse-values
+```

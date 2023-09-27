@@ -52,7 +52,7 @@ is coupled to the `graphId`.
 
 !!! warning
     All the default Accumulo passwords are in place so if you were to deploy this
-    in production, you should consider changing the [default Accumulo passwords](change-accumulo-passwords.md).
+    in production, you should consider changing the [default Accumulo passwords](../../gaffer-config/change-accumulo-passwords.md).
 
 You can stand up an Accumulo store by running:
 

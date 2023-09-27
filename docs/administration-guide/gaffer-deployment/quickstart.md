@@ -18,7 +18,7 @@ The Swagger rest API should be available at
 Be aware that as the image uses the map store backend by default, all graph
 data will be saved in memory so killing the container will mean you will lose
 any data added to the graph. Take a look at the [possible storage options](#possible-storage-options)
-section for a basic look at the different storage options Gaffer supports.
+section for an overview of the different store types Gaffer supports.
 
 If you wish to add custom schema to try out you can mount these into the
 container at start up to configure the graph. By default the `gaffer-rest` image
@@ -30,8 +30,8 @@ docker run -p 8080:8080 -v /path/to/your/schema:/gaffer/schema gchq/gaffer-rest:
 ```
 
 !!! info
-    A simple map store based deployment is usually not that useful other than
-    for learning Gaffer and rapid prototyping; please see the [subsequent pages](./gaffer-docker/how-to-run.md)
+    A simple map store based deployment is usually only useful for small scale
+    graphs and rapid prototyping; please see the [subsequent pages](./gaffer-docker/how-to-run.md)
     in this section for more scalable deployments.
 
 ## Possible Storage Options

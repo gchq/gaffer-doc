@@ -14,8 +14,8 @@ The sections below walkthrough the features of Schemas in detail and explain how
 
 ## Elements schema
 The Elements schema is designed to be a high level document describing what information your Graph contains, i.e. the different kinds of edges and entities and the list of properties associated with each.
-Essentially this part of the schema should just be a list of all the entities and edges in the graph. 
-Edges describe the relationship between a source vertex and a destination vertex. 
+Essentially this part of the schema should just be a list of all the entities and edges in the graph.
+Edges describe the relationship between a source vertex and a destination vertex.
 Entities describe a vertex. Edges describe the relationship between a source vertex and a destination vertex.
 We use the term "element" to mean either an edge or an entity.
 
@@ -47,7 +47,7 @@ Edges and Entities can optionally have the following fields:
 - `properties` - Properties are defined by a map of key-value pairs of property names to property types. Property types are described in the Types schema.
 - `groupBy` - Allows you to specify extra properties (in addition to the element group and vertices) to use for controlling when similar elements should be grouped together and summarised. By default Gaffer uses the element group and its vertices to group similar elements together when aggregating and summarising elements.
 - `visibilityProperty` - Used to specify the property to use as a visibility property when using visibility properties in your graph. If sensitive elements have a visibility property then set this field to that property name. This ensures Gaffer knows to restrict access to sensitive elements.
-- `timestampProperty` - Used to specify timestamp property in your graph, so Gaffer Stores know to treat that property specially. Setting this is optional and does not affect the queries available to users. This property allows Store implementations like Accumulo to optimise the way the timestamp property is persisted. For these stores using it can have a very slight performance improvement due to the lazy loading of properties. For more information [see the timestamp section of the Accumulo Store Reference](gaffer-stores/accumulo-store.md#timestamp).
+- `timestampProperty` - Used to specify timestamp property in your graph, so Gaffer Stores know to treat that property specially. Setting this is optional and does not affect the queries available to users. This property allows Store implementations like Accumulo to optimise the way the timestamp property is persisted. For these stores using it can have a very slight performance improvement due to the lazy loading of properties. For more information [see the timestamp section of the Accumulo Store Reference](../gaffer-stores/accumulo-store.md#timestamp).
 - `aggregate` - Specifies if aggregation is enabled for this element group. True by default. If you would like to disable aggregation, set this to false.
 
 These 2 optional fields are for advanced users. They can go in the Elements Schema, however we have split them out into separate Validation and Aggregation Schema files for this page, so the logic doesn't complicate the Elements schema.
@@ -392,6 +392,16 @@ Once the schema has been loaded into a graph the parent elements are merged into
 }
 ```
 
+## Helm Deployment
+
+The easiest way to deploy a schema file is to use helms `--set-file` option which lets you set a value from the contents of a file.
+For a Helm deployment to pick up changes to a Schema, you need to run a helm upgrade:
+
+```bash
+helm upgrade my-graph gaffer-docker/gaffer --set-file graph.schema."schema\.json"=./schema.json --reuse-values
+```
+
+The `--reuse-values` argument tells helm to re-use the passwords.
 
 ## Java API
 

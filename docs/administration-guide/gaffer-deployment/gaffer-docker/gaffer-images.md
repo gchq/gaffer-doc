@@ -1,11 +1,11 @@
 # Gaffer Images
 
-As demonstrated in the [quickstart](../quickstart.md) its very simple to start up
-a basic in memory gaffer graph using the available OCI (Open Container
-Initiative) images.
+As demonstrated in the [quickstart](../quickstart.md) its very simple to start
+up a basic in memory gaffer graph using the available Open Container Initiative
+(OCI) images.
 
-However, for large scale graphs with persistent storage you will want to use a
-different storage backend; the recommended one being Accumulo. To do this a
+For large scale graphs with persistent storage you will want to use a different
+storage backend to a Map Store; the recommended one being Accumulo. To do this a
 different deployment of containers are required. This guide will run through the
 containers needed for a basic Accumulo cluster and how to configure and create
 custom images of Gaffer.
@@ -21,7 +21,7 @@ available on [Docker Hub](https://hub.docker.com/u/gchq).
 | `gchq/accumulo` | This image is a containerised deployment of [Apache Accumulo](https://accumulo.apache.org/). This was created as historically there has not been an available official image from the maintainers of Accumulo; however, there has since been an [offical image](https://github.com/apache/accumulo-docker) made available but it is not currently in use in Gaffer. |
 | `gchq/hdfs` | A custom image for running HDFS (Hadoop file system) via a container. Contains an official release of [Apache Hadoop](https://hadoop.apache.org/) which is used as the scalable data storage for Accumulo. |
 | `gchq/gaffer` | This is the main container image for Gaffer that is built on on top of the `gchq/accumulo` image so includes a release of `zookeeper`, `hdfs` and `accumulo` along with the Gaffer libraries. Running this image simply runs the Accumulo instance not a Gaffer instance. |
-| `gchq/gaffer-rest` | This is the REST API image containing the config files that can be used to configure the graph to connect to the chosen store, by default there are some pre-configured config file which can be overridden by a [bind-mount](#volumes-and-bind-mount) of alternatives. |
+| `gchq/gaffer-rest` | This is the REST API image containing the files that can be used to configure the graph to connect to the chosen store, by default there are some pre-configured config files which can be overridden by a [bind-mount](#volumes-and-bind-mount) of alternatives. |
 
 !!! note
     There are a few other images available; however, they are less frequently
@@ -65,19 +65,47 @@ To create a custom image simply make a new `Dockerfile` and use one of the Gaffe
 images as the base image like the following:
 
 ```dockerfile
-FROM gchq/gaffer-rest
+FROM gchq/gaffer-rest:latest
 
 # Copy over the existing directory with store configs in
-COPY custom/configs/gaffer/store /gaffer/store
+COPY ./custom/configs/gaffer/store /gaffer/store
 ```
 
-Then build the new image using a suitable tool or just plain docker from the
+Then build the new image using a suitable tool or just plain Docker from the
 current directory like:
 
 ```bash
 docker build -t my-gaffer-rest .
 ```
 
-!!! tip
-    The `gchq/gaffer-rest` image allows adding additional Jars to the class path
-    by adding them to the `/jars/lib` directory in the image.
+### Adding Additional Libraries
+
+By default with the Gaffer deployment you get access to the:
+
+- Sketches library
+- Time library
+- Bitmap Library
+- JCS cache library
+
+If you want more libraries than this (either one of ours of one of your own) you
+will need to customise the docker images and use them in place of the defaults.
+
+At the moment, the `gchq/gaffer-rest` image uses a runnable jar file located at
+`/gaffer/jars`. When it runs it includes the `/gaffer/jars/lib` on the
+classpath. There is nothing in there by default because all the dependencies are
+bundled in to the JAR. However, if you wanted to add your own jars, you can add
+then to this directory like the following:
+
+```dockerfile
+FROM gchq/gaffer-rest:latest
+COPY ./custom-lib:1.0-SNAPSHOT.jar /gaffer/jars/lib/
+```
+
+To add any libraries to the `gchq/gaffer` image in order to push down any extra
+value objects and filters to Accumulo you have to add the jars to the
+`/opt/accumulo/lib/ext` directory:
+
+```dockerfile
+FROM gchq/gaffer:latest
+COPY ./my-library-1.0-SNAPSHOT.jar /opt/accumulo/lib/ext
+```
