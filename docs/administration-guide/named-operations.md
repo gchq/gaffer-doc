@@ -1,26 +1,27 @@
 # Named Operations
 
-This guide walks you through how to configure Gaffer to allow you to execute Named Operations.
+This guide walks through configuring Gaffer to use Named Operations and how to run them.
 
 Named Operations allow users to encapsulate an OperationChain into a new single NamedOperation.
-When this NamedOperation is executed, just like any other Operation, it will execute the encapsulated OperationChain.
-Named Operations can then be added to Operation Chains and executed as you would any other Operation.
+Named Operations execute the encapsulated Operation Chain and are used just like any other Operation.
 
 There are various possible uses for Named Operations:
 
 - Making it simpler to store and run frequently used Operation Chains.
 - In a controlled way, allowing specific Operation Chains to be run by a user that would not normally have permission to run them.
 
-There are [several operations](../reference/operations-guide/named.md) which manage Named Operations. 
+There are [three operations](../reference/operations-guide/named.md) which manage Named Operations. 
 These are `AddNamedOperation`, `GetAllNamedOperations` and `DeleteNamedOperations`.
 
-## Creating Named Operations
+## Executing Named Operations
 
-Any Named Operations you create will be stored in a cache, so your first step should be to configure a suitable cache.
+All Named Operations are stored in a cache, so your first step should be to configure a suitable cache.
 For details on potential caches and how to configure them, see the [Stores Guide](../administration-guide/gaffer-stores/store-guide.md/#caches).
 
 !!! Note
     If you choose a non-persistent cache then any Named Operations will be lost when you shut down your instance of Gaffer.
+
+This guide assumes that you have set up your graph, if not please refer to our [example deployment](../development-guide/example-deployment/project-setup.md) to get started.
 
 This walkthrough will use this directed graph:
 
@@ -34,23 +35,10 @@ graph TD
   3(3, count=2) -- count=4 --> 4
 ```
 
-Once you have configured your cache, you can then create your first NamedOperation. 
-You should start by creating your user instance and graph:
-
-``` java
-// Create your user
-final User user = new User("user01");
-
-// Build your graph instance
-final Graph graph = new Graph.Builder()
-        .config(getDefaultGraphConfig())
-        .addSchemas(StreamUtil.openStreams(getClass(), schemaPath))
-        .storeProperties(getDefaultStoreProperties())
-        .build();
-```
+Once you have configured your cache, you can then execute your first NamedOperation. 
 
 You can then add a NamedOperation to the cache using `AddNamedOperation`.
-Here you are creating an OperationChain which can then be executed as a NamedOperation.
+Here you are specifying the OperationChain that you want to be used as a NamedOperation.
 
 !!! example "Adding a new NamedOperation"
 
@@ -72,8 +60,6 @@ Here you are creating an OperationChain which can then be executed as a NamedOpe
                 .writeAccessRoles("write-user")
                 .overwrite()
                 .build();
-
-        graph.execute(operation, user);
         ```
 
     === "JSON"
@@ -85,11 +71,11 @@ Here you are creating an OperationChain which can then be executed as a NamedOpe
         "description" : "2 hop query",
         "operationChain" : {
             "operations" : [ {
-            "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds",
-            "includeIncomingOutGoing" : "OUTGOING"
+                "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds",
+                "includeIncomingOutGoing" : "OUTGOING"
             }, {
-            "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds",
-            "includeIncomingOutGoing" : "OUTGOING"
+                "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds",
+                "includeIncomingOutGoing" : "OUTGOING"
             } ]
         },
         "overwriteFlag" : true,
@@ -124,7 +110,7 @@ Here you are creating an OperationChain which can then be executed as a NamedOpe
         )
         ```
 
-Following on from this, you would create a NamedOperation and execute it:
+Following on from this, you can then run your new NamedOperation:
 
 !!! example "Running your NamedOperation"
 
@@ -294,7 +280,7 @@ The following code adds a NamedOperation with a parameter that allows the result
         )
         ```
 
-A NamedOperation can then be created, with a value provided for the result limit parameter:
+A NamedOperation can then be run, with a value provided for the result limit parameter:
  
 !!! example "Running your NamedOperation with parameters"
 
@@ -349,33 +335,7 @@ This will produce these results:
 EntitySeed[vertex=4]
 EntitySeed[vertex=3]
 ```
-
-Details of all available NamedOperations can be fetched using the `GetAllNamedOperations` operation:
-
-!!! example "Fetching Named Operations"
-
-    === "Java"
-
-        ``` java
-        final GetAllNamedOperations operation = new GetAllNamedOperations();
-        ```
-
-    === "JSON"
-
-        ``` json
-        {
-            "class" : "GetAllNamedOperations"
-        }
-        ```
-
-    === "Python"
-
-        ``` python
-            g.GetAllNamedOperations()   
-        ```
-
-
-For more examples of Named Operations, please refer to the Reference Guide on [Operations](../reference/operations-guide/named.md).
+For more examples of Named Operations, please refer to the [Named Operations page in the Reference Guide](../reference/operations-guide/named.md).
 
 ## Security
 
@@ -404,8 +364,6 @@ This example ensures that readers have the "read-user" auth and writers the "wri
             .writeAccessRoles("write-user")
             .overwrite()
             .build();
-
-    graph.execute(addOperation, user);
     ```
 
 ### Access Controlled Resource
@@ -445,8 +403,6 @@ Note that the `readAccessPredicate` and `writeAccessPredicate` fields are mutual
                                             new CollectionContains("write-access-auth-2")))))
 
             .build();
-
-    graph.execute(addNamedOperationAccessControlledResource, user);
     ```
 
 ## Full Example
