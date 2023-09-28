@@ -2,7 +2,7 @@ site_name: Gaffer Docs
 repo_url: https://github.com/gchq/gaffer-doc
 repo_name: gchq/gaffer-doc
 edit_uri: edit/v2docs/docs/
-copyright: Copyright &copy; 2016-2023 Crown Copyright
+copyright: <a href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/">Copyright &copy; 2016-2023 Crown Copyright</a>
 markdown_extensions:
   - admonition
   - pymdownx.details
@@ -228,3 +228,4 @@ theme:
       toggle: &tolight
         icon: material/weather-sunny
         name: Switch to light mode
+  custom_dir: docs/home_page_override/

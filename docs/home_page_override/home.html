@@ -1,0 +1,247 @@
+<!-- Custom HTML site for the Home Page -->
+
+{% extends "main.html" %}
+{% block announce %}
+    <style>
+        .md-typeset a {
+            color: rgb(255, 255, 255);
+            word-break: break-word;
+        }
+        .md-typeset a:hover {
+            color: rgb(220, 220, 220);
+        }
+    </style>
+    <!-- Announcement banner for latest updates -->
+    <a href="change-notes/changelist/v2-changes/">Gaffer 2.0.0 is now released!</a>
+{% endblock %}
+{% block tabs %}
+{{ super() }}
+<style>
+    /**
+     * Main container to apply gradient
+     */
+    .main-container {
+        padding-top: .0rem;
+        background: linear-gradient(to bottom, var(--md-primary-fg-color), var(--md-default-bg-color) 99%)
+    }
+
+    /**
+     * Styling for the top content banner
+     */
+    .main-banner {
+        margin: 10px 2.8rem;
+        color: var(--md-primary-bg-color);
+        justify-content: center;
+    }
+    .main-banner h1 {
+        margin-bottom: 1rem;
+        color: var(--md-primary-bg-color);
+        font-weight: 700
+    }
+    .main-banner_content {
+        padding-bottom: 8rem;
+        margin: 0 auto;
+    }
+    .main-banner_image {
+        width: 17rem;
+        height: 17rem;
+        order: 1;
+        padding-right: 2.5rem;
+    }
+
+    /**
+     * Styling for the banner buttons
+     */
+    .main-banner .md-button {
+        margin-top: .5rem;
+        margin-right: .5rem;
+        color: var(--md-primary-bg-color)
+    }
+    .main-banner .md-button--primary {
+        background-color: var(--md-primary-bg-color);
+        color: rgb(85, 93, 167);
+        border-color: var(--md-primary-bg-color)
+    }
+    .main-banner .md-button:focus,
+    .main-banner .md-button:hover {
+        background-color: var(--md-primary-fg-color);
+        color: var(--md-default-bg-color);
+        border-color: var(--md-primary-fg-color)
+    }
+
+    /**
+     * Styling for the quick link buttons e.g. user guide etc.
+     */
+    .top-hr {
+        margin-top: 42px;
+    }
+    .ql-button h2 svg {
+        height: 30px;
+        float: left;
+        margin-right: 10px;
+        transform: translateY(10%);
+    }
+    .ql-button {
+        font-weight: 300;
+        box-sizing: border-box;
+        padding: 0 15px;
+        word-break: break-word
+    }
+    .ql-button h2 {
+        color: var(--md-default-fg-color--light);
+        font-weight: 300;
+        font-size: 25px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: normal;
+        margin-top: 20px;
+        margin-bottom: 10px;
+        font-family: inherit;
+    }
+    .ql-button p {
+        font-size: 16px;
+        line-height: 1.8em;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        color: var(--md-default-fg-color);
+        margin: 0 0 10px;
+        display: block;
+    }
+
+
+    /**
+     * Dynamic resizing for different bits based on screen size
+     */
+    @media screen and (max-width:30em) {
+        .main-banner h1 {
+            font-size: 1.4rem
+        }
+    }
+    @media screen and (min-width:60em) {
+        .md-sidebar--secondary {
+            display: none
+        }
+
+        .main-banner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-banner_content {
+            max-width: 22rem;
+            margin-top: 3.5rem;
+            margin-bottom: 3.5rem;
+            margin-left: 1.0rem;
+            margin-right: 4.0rem;
+            align-items: center;
+        }
+    }
+    @media screen and (min-width:76.25em) {
+        .md-sidebar--primary {
+            display: none
+        }
+
+        .ql-top-hr {
+            width: 100%;
+            display: flex;
+            max-width: 61rem;
+            margin-right: auto;
+            margin-left: auto;
+            padding: 0 .2rem;
+        }
+
+        .ql-bottom-hr {
+            margin-top: 10px;
+            width: 100%;
+            display: flex;
+            max-width: 61rem;
+            margin-right: auto;
+            margin-left: auto;
+            padding: 0 .2rem;
+        }
+
+        .ql-button {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .ql-button:hover {
+            background-color: var(--md-default-fg-color--lighter);
+            border-radius: 3px;
+        }
+    }
+
+</style>
+
+<!-- Main site banner and buttons -->
+<section class="main-container">
+    <div class="md-grid md-typeset">
+        <div class="main-banner">
+            <div class="main-banner_image">
+                <img src="assets/logoWithText.png" draggable="false">
+            </div>
+            <div class="main-banner_content">
+                <h1>Gaffer Docs</h1>
+                <p>Official documentation for Gaffer, a large-scale entity and relation database supporting aggregation of properties.</p>
+                <a href="user-guide/gaffer-basics/what-is-gaffer/" title="{{ page.next_page.title | striptags }}"
+                    class="md-button md-button--primary">
+                    Get started
+                </a>
+                <a href="https://github.com/gchq/Gaffer" title="{{ lang.t('source.link.title') }}" class="md-button">
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick link buttons to the different guides -->
+<div class="ql-top-hr">
+    <!-- User guide Button -->
+    <div class="ql-button">
+        <a href="user-guide/introduction/">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                    <path
+                        d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z" />
+                </svg>
+                User Guide
+            </h2>
+            <p>Guidance for users of a Gaffer instance including an introduction to key concepts and graph querying.</p>
+        </a>
+    </div>
+    <!-- Developers guide Button -->
+    <div class="ql-button">
+        <a href="development-guide/introduction/">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                    <path
+                        d="m384-336 56-57-87-87 87-87-56-57-144 144 144 144Zm192 0 144-144-144-144-56 57 87 87-87 87 56 57ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z" />
+                </svg>
+                Developers Guide
+            </h2>
+            <p>Useful information for developers of Gaffer and general project architecture.</p>
+        </a>
+    </div>
+    <!-- Admin guide button -->
+    <div class="ql-button">
+        <a href="administration-guide/introduction/">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">
+                    <path
+                        d="M680-280q25 0 42.5-17.5T740-340q0-25-17.5-42.5T680-400q-25 0-42.5 17.5T620-340q0 25 17.5 42.5T680-280Zm0 120q31 0 57-14.5t42-38.5q-22-13-47-20t-52-7q-27 0-52 7t-47 20q16 24 42 38.5t57 14.5ZM480-80q-139-35-229.5-159.5T160-516v-244l320-120 320 120v227q-19-8-39-14.5t-41-9.5v-147l-240-90-240 90v188q0 47 12.5 94t35 89.5Q310-290 342-254t71 60q11 32 29 61t41 52q-1 0-1.5.5t-1.5.5Zm200 0q-83 0-141.5-58.5T480-280q0-83 58.5-141.5T680-480q83 0 141.5 58.5T880-280q0 83-58.5 141.5T680-80ZM480-494Z" />
+                </svg>
+                Administrators Guide
+            </h2>
+            <p>Guides on how to set up and deploy Gaffer instances and apply custom configuration to them.</p>
+        </a>
+    </div>
+</div>
+
+{% endblock %}
+{% block content %}{% endblock %}
+{% block footer %}
+    {{ super() }}
+{% endblock %}
