@@ -96,7 +96,7 @@ nav:
         - Apache Gremlin:
           - 'Gremlin Support in Gaffer': 'user-guide/query/gremlin/gremlin.md'
       - 'Graph Schemas': 'user-guide/schema.md'
-    - Developers Guide:
+    - Developer Guide:
       - 'Introduction': 'development-guide/introduction.md'
       - 'Example Deployment':
         - 'Project Setup': 'development-guide/example-deployment/project-setup.md'
