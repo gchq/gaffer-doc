@@ -92,7 +92,7 @@ will need to customise the docker images and use them in place of the defaults.
 
 At the moment, the `gchq/gaffer-rest` image uses a runnable jar file located at
 `/gaffer/jars`. When it runs it includes the `/gaffer/jars/lib` on the
-classpath. There is nothing in there by default because all the dependencies are
+classpath. This is empty by default because all the dependencies are
 bundled in to the JAR. However, if you wanted to add your own jars, you can add
 then to this directory like the following:
 

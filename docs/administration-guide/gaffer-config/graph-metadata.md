@@ -3,8 +3,7 @@
 The graph configuration file is a JSON file that configures few bits of the
 Gaffer graph. Primarily it is used to set the name and description along with
 any additional hooks to run before an operation chain e.g. to impose limits on
-max results etc. For the example a simple graph configuration file might look
-like:
+max results etc. For example, a simple graph configuration file may look like:
 
 ```json title="graphConfig.json"
 {
@@ -15,7 +14,7 @@ like:
 
 ## Configuring a Standard Deployment
 
-To change any of the values for a standard Gaffer deployment all thats needed
+To change any of the values for a standard Gaffer deployment all that's needed
 is to configure the JSON file for the `graphConfig`. The key value pairs in
 the file can then be configured as you wished and upon restarting the graph
 the values will be updated (assuming the file is loaded correctly).
