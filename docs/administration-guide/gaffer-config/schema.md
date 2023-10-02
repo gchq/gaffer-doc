@@ -392,17 +392,6 @@ Once the schema has been loaded into a graph the parent elements are merged into
 }
 ```
 
-## Helm Deployment
-
-The easiest way to deploy a schema file is to use helms `--set-file` option which lets you set a value from the contents of a file.
-For a Helm deployment to pick up changes to a Schema, you need to run a helm upgrade:
-
-```bash
-helm upgrade my-graph gaffer-docker/gaffer --set-file graph.schema."schema\.json"=./schema.json --reuse-values
-```
-
-The `--reuse-values` argument tells helm to re-use the passwords.
-
 ## Java API
 
 Schemas can be loaded from a JSON file directly using the [`fromJSON()` method of the `Schema` class](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/schema/Schema.html#fromJson(java.io.InputStream...)). This accepts `byte[]`, `InputStream` or `Path` types, for example:

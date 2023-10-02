@@ -11,21 +11,9 @@ is contained locally to the container (hence the name). For larger scale graphs
 this less desireable as we will usually want to be able to scale and load
 balance the storage based on the volume of data; this is where Hadoop comes in.
 
-## What is Hadoop/Accumulo?
-
-[Apache Hadoop](https://hadoop.apache.org/) is an open-source software framework
-used for distributed storage and processing of large datasets. Hadoop is
-designed to handle various types of data, including structured, semi-structured,
-and unstructured data. It is a highly scalable framework that allows users to
-add nodes to the cluster as needed.
-
-Hadoop has two main components: Hadoop Distributed File System (HDFS) and
-MapReduce. HDFS is a distributed file system that provides high-throughput
-access to data. MapReduce is a programming model used for processing large
-datasets in parallel.
-
-Accumulo is built on top of the HDFS to provide a key-value store with all the
-same scalability and robustness of Hadoop.
+!!! tip
+    Please see the [Accumulo Store page](../../gaffer-stores/accumulo-store.md)
+    for more information on Accumulo and Hadoop.
 
 ## Running a Cluster via Docker for Gaffer
 
@@ -48,6 +36,10 @@ to run is the following:
 - `gc`
 
 **`gchq/gaffer-rest`**
+
+The guide here will walk through the set up of each container using standard Docker
+but it may be more practical to use a tool such as docker compose. An example docker
+compose file can be found in the [gaffer-docker repository](https://github.com/gchq/gaffer-docker/blob/develop/docker/gaffer/docker-compose.yaml).
 
 Before starting any containers we need to create a network so all the containers
 can talk to each other. To do this we simply run the following command to make a

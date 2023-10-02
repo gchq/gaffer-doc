@@ -101,11 +101,15 @@ FROM gchq/gaffer-rest:latest
 COPY ./custom-lib:1.0-SNAPSHOT.jar /gaffer/jars/lib/
 ```
 
-To add any libraries to the `gchq/gaffer` image in order to push down any extra
-value objects and filters to Accumulo you have to add the jars to the
-`/opt/accumulo/lib/ext` directory:
+For an Accumulo deployment, you may wish to add additional libraries to the
+classpath to enable the use of new iterators. To do this you need to update the
+`gchq/gaffer` image and add the JARs to the `/opt/accumulo/lib/ext` directory:
 
 ```dockerfile
 FROM gchq/gaffer:latest
 COPY ./my-library-1.0-SNAPSHOT.jar /opt/accumulo/lib/ext
 ```
+
+!!! note
+    This path is different in Accumulo v1 please see the [migration page](../../../change-notes/migrating-from-v1-to-v2/accumulo-migration.md)
+    for more detail.

@@ -12,16 +12,9 @@ this you can skip this step.
 helm repo add gaffer-docker https://gchq.github.io/gaffer-docker
 ```
 
-## Choose the Gaffer Store
-
-Gaffer can be backed with a number of different technologies to back its store.
-Which one you want depends on the use case but as a rule of thumb:
-
-- If you want just something to spin up quickly at small scale and are not
-  worried about persistence, use the [Map Store](../../gaffer-stores/map-store.md).
-- If you want to back it with a key value datastore, you can deploy the [Accumulo Store](../../gaffer-stores/accumulo-store.md).
-- If you want to join two or more graphs together to query them as one, you will
-  want to use the [Federated Store](../../gaffer-stores/federated-store.md).
+The next step is to chose a Store type for the deployment there is a handy
+overview of each type in the [quickstart](../quickstart.md) to help you decide
+on this.
 
 ## Deploy using a Map Store
 
@@ -52,7 +45,7 @@ is coupled to the `graphId`.
 
 !!! warning
     All the default Accumulo passwords are in place so if you were to deploy this
-    in production, you should consider changing the [default Accumulo passwords](../../gaffer-config/change-accumulo-passwords.md).
+    in production, you should consider changing the [default Accumulo passwords](./helm-configuration.md#change-accumulo-passwords).
 
 You can stand up an Accumulo store by running:
 

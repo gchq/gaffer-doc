@@ -1,51 +1,19 @@
 # Changing the Accumulo Passwords
 
-When deploying Accumulo - either as part of a Gaffer stack or as a standalone, the passwords for all the users and the instance.secret are set to default values and should be changed. The instance.secret cannot be changed once deployed as it is used in initalisation.
+When deploying Accumulo - either as part of a Gaffer stack or as a standalone,
+the passwords for all the users and the instance.secret are set to default
+values and should be changed. The instance.secret cannot be changed once
+deployed as it is used in initalisation.
 
-## Standard Deployment
+The passwords can be configured in a standard deployment via the
+[`accumulo.properties`](https://accumulo.apache.org/docs/2.x/configuration/files#accumuloproperties)
+file.
 
-The passwords can be configured in a standard deployment via the `accumulo.properties` file.
-
-The following table outlines the values and defaults if using the container images:
+The following table outlines the values and defaults if using the container
+images:
 
 | Name                 | value                           | default value |
 | -------------------- | ------------------------------- | ------------- |
 | Instance Secret      | `instance.secret`               | "DEFAULT"     |
 | Tracer user          | `trace.user`                    | "root"        |
 | Tracer user password | `trace.token.property.password` | "secret"      |
-
-
-## Helm Deployment
-
-When deploying the Accumulo helm chart, the following values are set. If you are using the Gaffer helm chart with the Accumulo integration, the values will be prefixed with "accumulo":
-
-| Name                 | value                                         | default value |
-| -------------------- | --------------------------------------------- | ------------- |
-| Instance Secret      | `config.accumuloSite."instance.secret"`       | "DEFAULT"     |
-| Root password        | `config.userManagement.rootPassword`          | "root"        |
-| Tracer user password | `config.userManagement.users.tracer.password` | "tracer"      |
-
-When you deploy the Gaffer Helm chart with Accumulo, a "gaffer" user with a password of "gaffer" is used by default following the same pattern as the tracer user.
-
-So to install a new Gaffer with Accumulo store, create an `accumulo-passwords.yaml` with the following contents:
-
-```yaml
-accumulo:
-  enabled: true
-  config:
-    accumuloSite:
-      instance.secret: "changeme"
-    userManagement:
-      rootPassword: "changeme"
-      users:
-        tracer:
-          password: "changme"
-        gaffer:
-          password: "changeme"
-```
-
-You can install the graph with:
-
-```bash
-helm install my-graph gaffer-docker/gaffer -f accumulo-passwords.yaml
-```
