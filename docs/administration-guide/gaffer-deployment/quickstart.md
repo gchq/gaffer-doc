@@ -65,6 +65,6 @@ available and covered in the [Gaffer configuration section](../gaffer-config/con
     Example `store.properties` for MapStore
 
     ```properties
-    gaffer.store.class=uk.gov.gchq.gaffer.mapstore.SingleUseMapStore
+    gaffer.store.class=uk.gov.gchq.gaffer.mapstore.MapStore
     gaffer.store.properties.class=uk.gov.gchq.gaffer.mapstore.MapStoreProperties
     ```
