@@ -88,25 +88,25 @@ Here you are specifying the OperationChain that you want to be used as a NamedOp
 
         ``` python
         g.AddNamedOperation( 
-        operation_chain=g.OperationChainDAO( 
-            operations=[ 
-            g.GetAdjacentIds( 
-                include_incoming_out_going="OUTGOING" 
+            operation_chain=g.OperationChainDAO( 
+                operations=[ 
+                    g.GetAdjacentIds( 
+                        include_incoming_out_going="OUTGOING" 
+                    ), 
+                    g.GetAdjacentIds( 
+                        include_incoming_out_going="OUTGOING" 
+                    ) 
+                ] 
             ), 
-            g.GetAdjacentIds( 
-                include_incoming_out_going="OUTGOING" 
-            ) 
-            ] 
-        ), 
-        operation_name="2-hop", 
-        description="2 hop query", 
-        read_access_roles=[ 
-            "read-user" 
-        ], 
-        write_access_roles=[ 
-            "write-user" 
-        ], 
-        overwrite_flag=True 
+            operation_name="2-hop", 
+            description="2 hop query", 
+            read_access_roles=[ 
+                "read-user" 
+            ], 
+            write_access_roles=[ 
+                "write-user" 
+            ], 
+            overwrite_flag=True 
         )
         ```
 
@@ -173,19 +173,18 @@ The following code adds a NamedOperation with a parameter that allows the result
     === "Java"
 
         ``` java
-        final String opChainString = "{" +
-            "    \"operations\" : [ {" +
-            "      \"class\" : \"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\"," +
-            "      \"includeIncomingOutGoing\" : \"OUTGOING\"" +
-            "    }, {" +
-            "      \"class\" : \"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\"," +
-            "      \"includeIncomingOutGoing\" : \"OUTGOING\"" +
-            "    }, {" +
-            "      \"class\" : \"uk.gov.gchq.gaffer.operation.impl.Limit\"," +
-            "      \"resultLimit\" : \"${param1}\"" +
-            "    }" +
-            " ]" +
-            "}";
+        final String opChainString = new JSONObject()
+            .put("operations", new JSONArray()
+                .put(new JSONObject()
+                    .put("class", "GetAdjacentIds")
+                    .put("includeIncomingOutGoing", "OUTGOING"))
+                .put(new JSONObject()
+                    .put("class", "GetAdjacentIds")
+                    .put("includeIncomingOutGoing", "OUTGOING"))
+                .put(new JSONObject()
+                    .put("class", "Limit")
+                    .put("resultLimit", "${param1}")))
+            .toString();
 
         ParameterDetail param = new ParameterDetail.Builder()
                 .defaultValue(1L)
