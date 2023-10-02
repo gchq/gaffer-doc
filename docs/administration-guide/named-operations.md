@@ -13,7 +13,7 @@ There are various possible uses for Named Operations:
 There are [three operations](../reference/operations-guide/named.md) which manage Named Operations. 
 These are `AddNamedOperation`, `GetAllNamedOperations` and `DeleteNamedOperations`.
 
-## Executing Named Operations
+## Using Named Operations
 
 All Named Operations are stored in a cache, so your first step should be to configure a suitable cache.
 For details on potential caches and how to configure them, see the [Stores Guide](../administration-guide/gaffer-stores/store-guide.md/#caches).
