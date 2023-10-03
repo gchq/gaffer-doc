@@ -7,10 +7,10 @@
 ## The Federated Operation
 
 The Federated Operation is an operation which can be used against a [Federated
-Store](../../administration-guide/gaffer-stores/federated-store.md). The operation is used to send a
-single or a chain of operations to one or more graphs within a federated store.
-It can be configured to merge results differently depending on the
-`mergeFunction` passed to it.
+Store](../../administration-guide/gaffer-stores/federated-store.md). The
+operation is used to send a single or a chain of operations to one or more
+graphs within a federated store. It can be configured to merge results
+differently depending on the [`mergeFunction`](#the-merge-function) passed to it.
 
 ### Parameters
 The Federated Operation has 3 key parameters: `operation`, `graphIds` and
@@ -61,44 +61,24 @@ pre-populated `ApplyViewToElementsFunction` will be selected from
 `storeConfiguredMergeFunctions`, unless the admin configured it to use something
 else.
 
-### The Merge Function
+See the default mergeFunctions for the operations below.
 
-#### Default storeConfiguredMergeFunctions
+##### Default storeConfiguredMergeFunctions
 
-By default, the `GetElements` and `GetAllELements` operation results will be
-merged with `ApplyViewToElementsFunction`. This uses the View from the operation
-and applies it to all of the results, meaning the results are now re-aggregated
-and re-filtered using the Schema, locally in the FederatedStore. This makes the
-results look like they came from one graph, rather than getting back a list of
-Elements from different subgraphs.  
-
-By default, `GetTraits` results will be merged with `CollectionIntersect`. This
-returns the intersection of common store traits from the subgraphs. This
-behaviour is the same, but now it can be overriden.  
-
-By default, `GetSchema` results will be merged with `MergeSchema`. This returns
-an aggregated schema from the subgraphs, unless there is a conflict. This
-behaviour is the same, but now it can be overriden. For example, you may wish to
-use the `ConcatenateMergeFunction` if there is a schema conflict.  
-
-For all other opertaions by default, the results will be merged with `ConcatenateMergeFunction`. This results in all the operations results being concatenated together.
-
-| Operation         | Default Merge function              |
-|-------------------|-------------------------------------|
-| GetElements       | ApplyViewToElementsFunction         |
-| GetAllElements    | ApplyViewToElementsFunction         |
-| GetSchema         | MergeSchema                         |
-| GetTraits         | CollectionIntersect                 |
-| others            | ConcatenateMergeFunction            |
-
-
-## Examples
+| Operation         | Merge function                                             |
+|-------------------|------------------------------------------------------------|
+| GetElements       | [ApplyViewToElementsFunction](#applyviewtoelementsfunction)|
+| GetAllElements    | [ApplyViewToElementsFunction](#applyviewtoelementsfunction)|
+| GetSchema         | [MergeSchema](#mergeschema)                                |
+| GetTraits         | [CollectionIntersect](#collectionintersect)                |
+| others            | [ConcatenateMergeFunction](#concatenatemergefunction)      |
 
 ### Sending Operations To Federated Stores
 
-In these examples we do not specify the mergeFunction paramater. This would therefore use the default mergeFunction for the specific operation.
+In these examples we do not specify the mergeFunction paramater. This would
+therefore use the default mergeFunction for the specific operation.
 
-!!! example "Sending a single operation to one Subgraph in your Federated Store"
+??? example "Sending a single operation to one Subgraph in your Federated Store"
     ``` json
     {
         "class": "uk.gov.gchq.gaffer.federatedstore.operation.FederatedOperation",
@@ -109,7 +89,7 @@ In these examples we do not specify the mergeFunction paramater. This would ther
     }
     ```
 
-!!! example "Sending two different operations to two different subgraphs in your Federated Store"
+??? example "Sending two different operations to two different subgraphs in your Federated Store"
     ```json
     {
         "class": "uk.gov.gchq.gaffer.operation.OperationChain",
@@ -131,7 +111,7 @@ In these examples we do not specify the mergeFunction paramater. This would ther
         ]
     }
     ```
-!!! example "Sending a single operation to one subgraph and a chain of operations to another subgraph in your Federated Store"
+??? example "Sending a single operation to one subgraph and a chain of operations to another subgraph in your Federated Store"
     ```json
     {
         "class": "uk.gov.gchq.gaffer.operation.OperationChain",
@@ -160,12 +140,15 @@ In these examples we do not specify the mergeFunction paramater. This would ther
     }
     ```
 
-As you can see in the example above we have wrapped an OpertationChain inside a Federated
-Operation.
+As you can see in the example above we have wrapped an OpertationChain inside a
+Federated Operation.
 
-### Merge Function Examples
+### The Merge Function
 
-The following examples cover the different merge functions available when using a FederatedOperation. Each example uses the federated store below with Graph A and Graph B in.
+Merge functions  dictate how the FederatedStore will merge results from
+different subgraphs dependent on the Operation.
+
+The examples below refer to this graph.
 
 ```mermaid
 graph LR
@@ -182,105 +165,566 @@ graph LR
         end
     end
 ```
-#### ApplyViewToElementsFunction Merge Function
-??? example "Using the ApplyViewToElementsFunction merge function"
 
-    ``` json
+#### ApplyViewToElementsFunction
+
+This merge function uses the View from the operation and applies it to all of
+the results, meaning the results are now re-aggregated and re-filtered using the
+Schema, locally in the FederatedStore. This makes the results look like they
+came from one graph, rather than getting back an array of Elements from the
+different subgraphs.  
+
+
+??? Example "Example using the GetAllElements operation"
+    ```json
     {
-        "class": "uk.gov.gchq.gaffer.federatedstore.operation.MergeSchema",
+        "class": "uk.gov.gchq.gaffer.federatedstore.operation.FederatedOperation",
         "operation": {
-            "class": "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements",
-            "input" : [{
-                "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed",
-                "vertex" : "1"
-            }]
+            "class": "GetAllElements"
         },
-        "graphIds": [ "graphA", "graphB" ],
+        "graphIds": ["GraphA","GraphB"],
         "mergeFunction": {
             "class": "uk.gov.gchq.gaffer.federatedstore.util.ApplyViewToElementsFunction"
         }
     }
+    
     ```
-
     Result:
-
     ```json
     [
+        {
+            "class": "uk.gov.gchq.gaffer.data.element.Edge",
+            "group": "LivesIn",
+            "source": "1",
+            "destination": "3",
+            "directed": true,
+            "matchedVertex": "SOURCE",
+            "properties": {}
+        },
+        {
+            "class": "uk.gov.gchq.gaffer.data.element.Edge",
+            "group": "MakeModel",
+            "source": "4",
+            "destination": "5",
+            "directed": true,
+            "matchedVertex": "SOURCE",
+            "properties": {}
+        },
+        {
+            "class": "uk.gov.gchq.gaffer.data.element.Edge",
+            "group": "WorksAs",
+            "source": "1",
+            "destination": "3",
+            "directed": true,
+            "matchedVertex": "SOURCE",
+            "properties": {}
+        },
+        {
+            "class": "uk.gov.gchq.gaffer.data.element.Edge",
+            "group": "Drives",
+            "source": "1",
+            "destination": "4",
+            "directed": true,
+            "matchedVertex": "SOURCE",
+            "properties": {}
+        },
+        {
+            "class": "uk.gov.gchq.gaffer.data.element.Entity",
+            "group": "Vehicle",
+            "vertex": "4",
+            "properties": {
+            "type": "Digger"
+            }
+        },
+        {
+            "class": "uk.gov.gchq.gaffer.data.element.Entity",
+            "group": "Manufacturer",
+            "vertex": "5",
+            "properties": {
+            "name": "JCB"
+            }
+        },
+        {
+            "class": "uk.gov.gchq.gaffer.data.element.Entity",
+            "group": "Job",
+            "vertex": "2",
+            "properties": {
+            "type": "Builder"
+            }
+        },
         {
             "class": "uk.gov.gchq.gaffer.data.element.Entity",
             "group": "Person",
             "vertex": "1",
             "properties": {
-            "name": "bob"
+            "name": "Bob"
+            }
+        },
+        {
+            "class": "uk.gov.gchq.gaffer.data.element.Entity",
+            "group": "Person",
+            "vertex": "1",
+            "properties": {
+            "name": "Bob"
+            }
+        },
+        {
+            "class": "uk.gov.gchq.gaffer.data.element.Entity",
+            "group": "Place",
+            "vertex": "3",
+            "properties": {
+            "name": "Bobsville"
+            }
+        }
+    ]
+    ```
+
+#### CollectionIntersect
+
+This returns the intersection of common store traits from the subgraphs in the
+federated store.
+
+??? Example "Example using the GetTraits operations."
+    ```json
+    {
+        "class": "uk.gov.gchq.gaffer.federatedstore.operation.FederatedOperation",
+        "operation": {
+            "class": "GetTraits"
+        },
+        "graphIds": ["GraphA","GraphB"],
+        "mergeFunction": {
+            "class": "CollectionIntersect"
+        }
+    }
+    
+    ```
+    Result:
+    ```json
+    [
+        "MATCHED_VERTEX",
+        "POST_TRANSFORMATION_FILTERING",
+        "INGEST_AGGREGATION",
+        "PRE_AGGREGATION_FILTERING",
+        "TRANSFORMATION",
+        "POST_AGGREGATION_FILTERING"
+    ]
+    ```
+
+
+#### MergeSchema
+
+This merge function returns an aggregated schema from the subgraphs, unless
+there is a conflict. You may wish to use the `ConcatenateMergeFunction` if there
+is a schema conflict.  
+
+
+??? Example "Example using the GetSchema operation."
+    ```json
+    {
+        "class": "uk.gov.gchq.gaffer.federatedstore.operation.FederatedOperation",
+        "operation": {
+            "class": "GetSchema"
+        },
+        "graphIds": ["GraphA","GraphB"],
+        "mergeFunction": {
+            "class": "uk.gov.gchq.gaffer.federatedstore.util.MergeSchema"
+        }
+    }
+    ```
+    Result:
+    ```json
+    {
+        "edges": {
+            "LivesIn": {
+            "source": "id.person.string",
+            "destination": "id.place.string",
+            "directed": "true"
+            },
+            "Drives": {
+            "source": "id.person.string",
+            "destination": "id.vehicle.string",
+            "directed": "true"
+            },
+            "WorksAs": {
+            "source": "id.person.string",
+            "destination": "id.job.string",
+            "directed": "true"
+            },
+            "MakeModel": {
+            "source": "id.vehicle.string",
+            "destination": "id.manufacturer.string",
+            "directed": "true"
+            }
+        },
+        "entities": {
+            "Vehicle": {
+            "description": "Entity representing a vehicle vertex",
+            "vertex": "id.vehicle.string",
+            "properties": {
+                "type": "property.string"
+            },
+            "aggregate": false
+            },
+            "Manufacturer": {
+            "description": "Entity representing a manufacturer vertex",
+            "vertex": "id.manufacturer.string",
+            "properties": {
+                "name": "property.string"
+            },
+            "aggregate": false
+            },
+            "Job": {
+            "description": "Entity representing a job vertex",
+            "vertex": "id.job.string",
+            "properties": {
+                "type": "property.string"
+            },
+            "aggregate": false
+            },
+            "Person": {
+            "description": "Entity representing a person vertex",
+            "vertex": "id.person.string",
+            "properties": {
+                "name": "property.string"
+            },
+            "aggregate": false
+            },
+            "Place": {
+            "description": "Entity representing a place vertex",
+            "vertex": "id.place.string",
+            "properties": {
+                "name": "property.string"
+            },
+            "aggregate": false
+            }
+        },
+        "types": {
+            "id.person.string": {
+            "description": "A basic type to hold the string id of a person entity",
+            "class": "java.lang.String"
+            },
+            "id.place.string": {
+            "description": "A basic type to hold the string id of a place entity",
+            "class": "java.lang.String"
+            },
+            "id.job.string": {
+            "description": "A basic type to hold the string id of a job entity",
+            "class": "java.lang.String"
+            },
+            "property.string": {
+            "description": "A type to hold string properties of entities",
+            "class": "java.lang.String"
+            },
+            "true": {
+            "class": "java.lang.Boolean",
+            "validateFunctions": [
+                {
+                "class": "uk.gov.gchq.koryphe.impl.predicate.IsTrue"
+                }
+            ]
+            },
+            "id.manufacturer.string": {
+            "description": "A basic type to hold the string id of a manufacturer entity",
+            "class": "java.lang.String"
+            },
+            "id.vehicle.string": {
+            "description": "A basic type to hold the string id of a vehicle entity",
+            "class": "java.lang.String"
+            }
+        }
+    }
+    ```
+
+#### ConcatenateMergeFunction
+
+This merge function is the default merge function for the majority of operations
+as seen [in the table above](#default-storeconfiguredmergefunctions). You can also
+override the default merge functions for operations like we have below. It results
+in concantinating all the results of the operations together.
+
+??? Example "Example using the GetSchema operation."
+    ```json
+    {
+        "class": "uk.gov.gchq.gaffer.federatedstore.operation.FederatedOperation",
+        "operation": {
+            "class": "GetSchema"
+        },
+        "graphIds": ["GraphA","GraphB"],
+        "mergeFunction": {
+            "class": "uk.gov.gchq.gaffer.federatedstore.util.ConcatenateMergeFunction"
+        }
+    }
+    ```
+    Result:
+    ```json
+    [
+        {
+            "edges": {
+            "Drives": {
+                "source": "id.person.string",
+                "destination": "id.vehicle.string",
+                "directed": "true"
+            },
+            "MakeModel": {
+                "source": "id.vehicle.string",
+                "destination": "id.manufacturer.string",
+                "directed": "true"
+            }
+            },
+            "entities": {
+            "Vehicle": {
+                "description": "Entity representing a vehicle vertex",
+                "vertex": "id.vehicle.string",
+                "properties": {
+                "type": "property.string"
+                },
+                "aggregate": false
+            },
+            "Manufacturer": {
+                "description": "Entity representing a manufacturer vertex",
+                "vertex": "id.manufacturer.string",
+                "properties": {
+                "name": "property.string"
+                },
+                "aggregate": false
+            },
+            "Person": {
+                "description": "Entity representing a person vertex",
+                "vertex": "id.person.string",
+                "properties": {
+                "name": "property.string"
+                },
+                "aggregate": false
+            }
+            },
+            "types": {
+            "id.person.string": {
+                "description": "A basic type to hold the string id of a person entity",
+                "class": "java.lang.String"
+            },
+            "id.manufacturer.string": {
+                "description": "A basic type to hold the string id of a manufacturer entity",
+                "class": "java.lang.String"
+            },
+            "id.vehicle.string": {
+                "description": "A basic type to hold the string id of a vehicle entity",
+                "class": "java.lang.String"
+            },
+            "property.string": {
+                "description": "A type to hold string properties of entities",
+                "class": "java.lang.String"
+            },
+            "true": {
+                "class": "java.lang.Boolean",
+                "validateFunctions": [
+                {
+                    "class": "uk.gov.gchq.koryphe.impl.predicate.IsTrue"
+                }
+                ]
+            }
+            }
+        },
+        {
+            "edges": {
+            "WorksAs": {
+                "source": "id.person.string",
+                "destination": "id.job.string",
+                "directed": "true"
+            },
+            "LivesIn": {
+                "source": "id.person.string",
+                "destination": "id.place.string",
+                "directed": "true"
+            }
+            },
+            "entities": {
+            "Job": {
+                "description": "Entity representing a job vertex",
+                "vertex": "id.job.string",
+                "properties": {
+                "type": "property.string"
+                },
+                "aggregate": false
+            },
+            "Person": {
+                "description": "Entity representing a person vertex",
+                "vertex": "id.person.string",
+                "properties": {
+                "name": "property.string"
+                },
+                "aggregate": false
+            },
+            "Place": {
+                "description": "Entity representing a place vertex",
+                "vertex": "id.place.string",
+                "properties": {
+                "name": "property.string"
+                },
+                "aggregate": false
+            }
+            },
+            "types": {
+            "id.person.string": {
+                "description": "A basic type to hold the string id of a person entity",
+                "class": "java.lang.String"
+            },
+            "id.place.string": {
+                "description": "A basic type to hold the string id of a place entity",
+                "class": "java.lang.String"
+            },
+            "id.job.string": {
+                "description": "A basic type to hold the string id of a job entity",
+                "class": "java.lang.String"
+            },
+            "property.string": {
+                "description": "A type to hold string properties of entities",
+                "class": "java.lang.String"
+            },
+            "true": {
+                "class": "java.lang.Boolean",
+                "validateFunctions": [
+                {
+                    "class": "uk.gov.gchq.koryphe.impl.predicate.IsTrue"
+                }
+                ]
+            }
+            }
+        }
+    ]
+    ```
+
+??? Example "Example using the GetTraits operation."
+    ```json
+    {
+        "class": "uk.gov.gchq.gaffer.federatedstore.operation.FederatedOperation",
+        "operation": {
+            "class": "GetTraits"
+        },
+        "graphIds": ["GraphA","GraphB"],
+            "mergeFunction": {
+                "class": "uk.gov.gchq.gaffer.federatedstore.util.ConcatenateMergeFunction"
+            }
+    }
+    
+    ```
+    Result:
+    ```json
+    [
+        "MATCHED_VERTEX",
+        "POST_TRANSFORMATION_FILTERING",
+        "INGEST_AGGREGATION",
+        "PRE_AGGREGATION_FILTERING",
+        "TRANSFORMATION",
+        "POST_AGGREGATION_FILTERING",
+        "MATCHED_VERTEX",
+        "POST_TRANSFORMATION_FILTERING",
+        "INGEST_AGGREGATION",
+        "PRE_AGGREGATION_FILTERING",
+        "TRANSFORMATION",
+        "POST_AGGREGATION_FILTERING"
+    ]
+    ```
+
+??? Example "Example using the GetAllElements operation."
+    ```json
+    {
+        "class": "uk.gov.gchq.gaffer.federatedstore.operation.FederatedOperation",
+        "operation": {
+            "class": "GetAllElements"
+        },
+        "graphIds": ["GraphA","GraphB"],
+            "mergeFunction": {
+                "class": "uk.gov.gchq.gaffer.federatedstore.util.ConcatenateMergeFunction"
+            }
+    }
+    
+    ```
+    Result:
+    ```json
+    [
+        {
+            "class": "uk.gov.gchq.gaffer.data.element.Edge",
+            "group": "MakeModel",
+            "source": "4",
+            "destination": "5",
+            "directed": true,
+            "matchedVertex": "SOURCE",
+            "properties": {}
+        },
+        {
+            "class": "uk.gov.gchq.gaffer.data.element.Edge",
+            "group": "Drives",
+            "source": "1",
+            "destination": "4",
+            "directed": true,
+            "matchedVertex": "SOURCE",
+            "properties": {}
+        },
+        {
+            "class": "uk.gov.gchq.gaffer.data.element.Entity",
+            "group": "Vehicle",
+            "vertex": "4",
+            "properties": {
+            "type": "Digger"
+            }
+        },
+        {
+            "class": "uk.gov.gchq.gaffer.data.element.Entity",
+            "group": "Manufacturer",
+            "vertex": "5",
+            "properties": {
+            "name": "JCB"
+            }
+        },
+        {
+            "class": "uk.gov.gchq.gaffer.data.element.Entity",
+            "group": "Person",
+            "vertex": "1",
+            "properties": {
+            "name": "Bob"
             }
         },
         {
             "class": "uk.gov.gchq.gaffer.data.element.Edge",
-            "group": "works at",
-            "source": "1",
-            "destination": "2",
-            "directed": true,
-            "matchedVertex": "SOURCE"
-        },
-        {
-            "class": "uk.gov.gchq.gaffer.data.element.Edge",
-            "group": "lives in",
+            "group": "LivesIn",
             "source": "1",
             "destination": "3",
             "directed": true,
-            "matchedVertex": "SOURCE"
+            "matchedVertex": "SOURCE",
+            "properties": {}
         },
         {
             "class": "uk.gov.gchq.gaffer.data.element.Edge",
-            "group": "drives",
+            "group": "WorksAs",
             "source": "1",
-            "destination": "4",
+            "destination": "3",
             "directed": true,
-            "matchedVertex": "SOURCE"
+            "matchedVertex": "SOURCE",
+            "properties": {}
+        },
+        {
+            "class": "uk.gov.gchq.gaffer.data.element.Entity",
+            "group": "Job",
+            "vertex": "2",
+            "properties": {
+            "type": "Builder"
+            }
+        },
+        {
+            "class": "uk.gov.gchq.gaffer.data.element.Entity",
+            "group": "Person",
+            "vertex": "1",
+            "properties": {
+            "name": "Bob"
+            }
+        },
+        {
+            "class": "uk.gov.gchq.gaffer.data.element.Entity",
+            "group": "Place",
+            "vertex": "3",
+            "properties": {
+            "name": "Bobsville"
+            }
         }
     ]
-
-    ```
-#### MergeSchema Merge Function
-??? example "Using the MergeSchema merge function"
-
-    ``` json
-    {
-        "class": "uk.gov.gchq.gaffer.federatedstore.operation.FederatedOperation",
-        "operation": {
-            "class": "uk.gov.gchq.gaffer.operation.impl.get.GetElements"
-        },
-        "graphIds": [ "graphA", "graphB" ],
-        "mergeFunction": {
-            "class": "uk.gov.gchq.gaffer.federatedstore.util.MergeSchema"
-    }
-    }
-    ```
-
-    Result:
-
-    ```json
-    11
-    ```
-
-#### CollectionIntersect Merge Function
-??? example "Using the CollectionIntersect merge function"
-
-    ``` json
-    {
-        "class": "uk.gov.gchq.gaffer.federatedstore.operation.FederatedOperation",
-        "operation": {
-            "class": "uk.gov.gchq.gaffer.operation.impl.get.GetElements"
-        },
-        "graphIds": [ "graphA", "graphB" ],
-        "mergeFunction": {
-            "class": "uk.gov.gchq.gaffer.federatedstore.util.CollectionIntersect"
-    }
-    }
-    ```
-
-    Result:
-
-    ```json
-    11
     ```
