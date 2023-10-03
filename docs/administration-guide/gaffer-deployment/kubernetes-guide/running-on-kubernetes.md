@@ -1,6 +1,6 @@
 # Running Gaffer on Kubernetes
 
-Gaffers Open Container Initiative (OCI) images mean it is also possible to
+Gaffer's Open Container Initiative (OCI) images mean it is also possible to
 deploy via kubernetes to give an alternative scalable deployment. This guide
 will assume the reader is familiar with general usage of kubernetes, further
 reading is available in the [official documentation](https://kubernetes.io/docs/home/).

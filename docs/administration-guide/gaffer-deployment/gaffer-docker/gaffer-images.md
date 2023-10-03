@@ -1,6 +1,6 @@
 # Gaffer Images
 
-As demonstrated in the [quickstart](../quickstart.md) its very simple to start
+As demonstrated in the [quickstart](../quickstart.md) it is very simple to start
 up a basic in memory gaffer graph using the available Open Container Initiative
 (OCI) images.
 
