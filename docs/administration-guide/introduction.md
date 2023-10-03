@@ -1,6 +1,6 @@
 # Administration Guide
 
-This guide is intended for more administrators of a Gaffer deployment and more
+This guide is aimed at administrators of a Gaffer deployment and more
 advanced users. It is recommended to read the [user guide](../user-guide/introduction.md)
 and be familiar with Gaffer beforehand as many of the core concepts are
 expanded on and covered in more detail.
