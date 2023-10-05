@@ -54,10 +54,9 @@ If you do not specify a `mergeFunction`,  then the admin configured
 used as [shown in the table below.](#default-storeconfiguredmergefunctions)
 
 For example, when GetElements is used as the operation inside a
-FederatedOperation and the user hasn't specified a `mergeFunction`, the
-pre-populated `ApplyViewToElementsFunction` will be selected from
-`storeConfiguredMergeFunctions`, unless the admin configured it to use something
-else.
+FederatedOperation and you haven't specified a `mergeFunction`, the
+function `ApplyViewToElementsFunction` will be used by default, unless an
+admin has configured a different function.
 
 See the default mergeFunctions for the operations below.
 
