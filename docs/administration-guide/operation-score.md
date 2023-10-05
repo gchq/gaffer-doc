@@ -2,21 +2,49 @@
 
 Operation Scores can be used to give an OperationChains and NamedOperations a "score" which can then be used to determine whether a particular user has the required permissions to execute a given OperationChain.
 
+These scores work on a credit-like system where user's configured "score" is the amount they can then spend on running an Operation/OperationChain. 
+Users cannot spend more than their score and every time they run an Operation or OperationChain that has a configured "score" this will be 'subtracted' from their score 'credit'.
+
 ## Using Operation Scores
 
 A `ScoreOperationChain` operation determines a "score" for an OperationChain.
+To use this Operation you need to configure an `OperationsDeclarations.json`.
 
-Below is a simple example for constructing a ScoreOperationChain, using this directed graph:
+To configure this file you need to set the following handlers which configure how Operation Scores are used with a graph:
 
-``` mermaid
-graph TD
-  1(1, count=3) -- count=3 --> 2
-  1 -- count=1 --> 4
-  2(2, count=1) -- count=2 --> 3
-  2 -- count=1 --> 4(4, count=1)
-  2 -- count=1 --> 5(5, count=3)
-  3(3, count=2) -- count=4 --> 4
-```
+- `opScores` - required map of operation scores. These are the operation score values.
+- `authScores` - required map of operation authorisation scores. These are the maximum scores allowed for a user with a given role. 
+- `scoreResolver` - some operations may require a custom way of calculating an associated score, therefore an implementation of the [`ScoreResolver`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/resolver/ScoreResolver.html) interface may be required. 
+These map the operation class to its respective score resolver.
+There is a `DefaultScoreResolver` to which the custom implementation should delegate, in a manner specific to the new Operation.
+
+!!! example "Example OperationDeclarations.json for a NamedOperation"
+
+    ```json
+    {
+        "operations": [
+            {
+                "operation": "uk.gov.gchq.gaffer.operation.impl.ScoreOperationChain",
+                "handler": {
+                    "class": "uk.gov.gchq.gaffer.store.operation.handler.ScoreOperationChainHandler",
+                    "opScores": {
+                        "uk.gov.gchq.gaffer.operation.Operation": 2,
+                        "uk.gov.gchq.gaffer.operation.impl.generate.GenerateObjects": 0
+                    },
+                    "authScores": {
+                        "User": 4,
+                        "EnhancedUser": 10
+                    },
+                    "scoreResolvers": {
+                        "uk.gov.gchq.gaffer.named.operation.NamedOperation": {
+                            "class": "uk.gov.gchq.gaffer.store.operation.resolver.named.NamedOperationScoreResolver"
+                        }
+                    }
+                }
+            }
+        ]
+    }
+    ```
 
 !!! example "Example ScoreOperationChain"
 
@@ -71,43 +99,23 @@ graph TD
         )
         ```
 
-The key variables when using ScoreOperationChain are:
-
-- `opScores` - required map of operation scores. These are the operation score values.
-- `authScores` - required map of operation authorisation scores. These are the maximum scores allowed for a user with a given role. 
-- `scoreResolver` - some operations may require a custom way of calculating an associated score, therefore an implementation of the [`ScoreResolver`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/resolver/ScoreResolver.html) interface may be required. 
-These map the operation class to its respective score resolver.
-There is a `DefaultScoreResolver` to which the custom implementation should delegate, in a manner specific to the new Operation.
-
-!!! example "Example OperationDeclarations.json for a NamedOperation"
-
-    ```json
-    {
-        "operations": [
-            {
-                "operation": "uk.gov.gchq.gaffer.operation.impl.ScoreOperationChain",
-                "handler": {
-                    "class": "uk.gov.gchq.gaffer.store.operation.handler.ScoreOperationChainHandler",
-                    "opScores": {
-                        "uk.gov.gchq.gaffer.operation.Operation": 2,
-                        "uk.gov.gchq.gaffer.operation.impl.generate.GenerateObjects": 0
-                    },
-                    "authScores": {
-                        "User": 4,
-                        "EnhancedUser": 10
-                    },
-                    "scoreResolvers": {
-                        "uk.gov.gchq.gaffer.named.operation.NamedOperation": {
-                            "class": "uk.gov.gchq.gaffer.store.operation.resolver.named.NamedOperationScoreResolver"
-                        }
-                    }
-                }
-            }
-        ]
-    }
-    ```
-
 For more examples of ScoreOperationChain refer to the [Misc Operations page in the Reference Guide](../reference/operations-guide/misc.md#scoreoperationchain).
+
+## Score Resolver
+
+A `ScoreResolver` is used to retreive the score associated with a provided Operation.
+In most cases, the [`DefaultScoreResolver`](https://gchq.github.io/gaffer-doc/v1docs/javadoc/gaffer/uk/gov/gchq/gaffer/store/operation/resolver/DefaultScoreResolver.html) is suitable.
+However, some operations require specific ways of calculating their score so will require the implementation of different scoreResolver handlers.
+
+In the case of NamedOperations, the [`NamedOperationScoreResolver`](https://gchq.github.io/gaffer-doc/v1docs/javadoc/gaffer/uk/gov/gchq/gaffer/store/operation/resolver/named/NamedOperationScoreResolver.html) should be implemented in the OperationDeclarations.json.
+This will resolve the custom Operation Score for a provided NamedOperation by looking for it in the cache. 
+
+If choosing to score your `If` Operation, then you should implement the [`IfScoreResolver`](https://gchq.github.io/gaffer-doc/v1docs/javadoc/gaffer/uk/gov/gchq/gaffer/store/operation/resolver/IfScoreResolver.html).
+This will provide the score as the maximum of the operations that are used within the `If` operation, regardless of which operation is actually executed.
+
+The `While` Operation, if scored, will also require implementation of the specific [`WhileScoreResolver`](https://gchq.github.io/gaffer-doc/v1docs/javadoc/gaffer/uk/gov/gchq/gaffer/store/operation/resolver/WhileScoreResolver.html). 
+The score will be the maximum of the transform operation and the delegate operation, multiplied by the minimum of the configured number of max repeats vs the global maximum number of allowed repeats.
+This is simply because the number of actual repetitions is nondeterministic, therefore a "worst"-case scenario is considered.
 
 ## Operation Chain Limiters
 
@@ -118,9 +126,12 @@ To use the `OperationChainLimiter` GraphHook then you will need to configure tha
 The ScoreOperationChainDeclaration.json declares that a NamedOperation should be resolved using a [`NamedOperationScoreResolver`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/resolver/named/NamedOperationScoreResolver.html).
 This will then allow you to have custom scores for each NamedOperation.
 
+If you have the `OperationChainLimiter` GraphHook configured then this score will be used by
+the hook to limit operation chains.
+
 !!! example "Example hook configuration"
     
-    Configuration of the hook should look something like this:
+    [Configuration of the hook]((../development-guide/project-structure/components/graph.md#graph-hook)) should look something like this and should be placed in your `graphConfig.json`.
 
     ``` json
     {
@@ -173,6 +184,3 @@ This will then allow you to have custom scores for each NamedOperation.
         ]
     }
     ```
-
-If you have the `OperationChainLimiter` GraphHook configured then this score will be used by
-the hook to limit operation chains.
