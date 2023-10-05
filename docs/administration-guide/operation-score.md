@@ -131,7 +131,7 @@ the hook to limit operation chains.
 
 !!! example "Example hook configuration"
     
-    [Configuration of the hook]((../development-guide/project-structure/components/graph.md#graph-hook)) should look something like this and should be placed in your `graphConfig.json`.
+    [Configuration of the hook](../development-guide/project-structure/components/graph.md#graph-configuration) should look something like this and should be placed in your `graphConfig.json`.
 
     ``` json
     {
