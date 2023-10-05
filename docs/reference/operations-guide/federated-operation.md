@@ -137,8 +137,7 @@ therefore use the default `mergeFunction` for the specific operation.
     }
     ```
 
-As you can see in the example above we have wrapped an OpertationChain inside a
-Federated Operation.
+In the example above we've wrapped an Operation Chain inside a Federated Operation.
 
 ### The Merge Function
 
