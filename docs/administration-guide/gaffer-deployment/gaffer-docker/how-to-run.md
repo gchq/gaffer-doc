@@ -2,13 +2,13 @@
 
 After reading the [previous page](./gaffer-images.md) you should have a good
 understanding of what images are available for Gaffer and how to configure them
-to you needs. However, before running a deployment backed by Accumulo you will
+to your needs. However, before running a deployment backed by Accumulo you will
 need to know a bit of background on Hadoop to understand how the data will scale
 and be distributed.
 
 Usually when deploying a container image you simply run the image and everything
 is contained locally to the container (hence the name). For larger scale graphs
-this less desireable as we will usually want to be able to scale and load
+this is less desirable as we will usually want to be able to scale and load
 balance the storage based on the volume of data; this is where Hadoop comes in.
 
 !!! tip
@@ -86,7 +86,7 @@ Hadoop cluster which we can run multiple times to extend into a multi-node
 cluster.
 
 To run a Hadoop cluster we first need the configuration files for Hadoop which
-we can then add into the running containers. As a start point you can use the
+we can then add into the running containers. As a starting point you can use the
 files from the
 [`gaffer-docker`](https://github.com/gchq/gaffer-docker/tree/develop/docker/hdfs/conf)
 repository, but you may wish to edit these for your deployment and can read more
@@ -235,11 +235,11 @@ following nodes/containers are needed:
 
 The final container we need to start up is the REST API, this essentially gives
 the front end so we can use containers together in a Gaffer cluster. The REST
-API container is also where the configuration for the graph is applied such as,
+API container is also where the configuration for the graph is applied, such as
 the schema files and store properties.
 
 To start up the REST API it is a similar process to the other containers;
-however, there is a few more bind-mounts that need defining to configure the
+however, there are a few more bind-mounts that need defining to configure the
 graph (you can also build a custom image with files baked in).
 
 ```bash
