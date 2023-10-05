@@ -23,7 +23,7 @@ The Federated Operation has 3 key parameters: `operation`, `graphIds` and
         "operation": {
             "class": "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements"
         },
-        "graphIds": [ "graphA", "graphB" ],
+        "graphIds": [ "GraphA", "GraphB" ],
         "mergeFunction": {
             "class": "uk.gov.gchq.gaffer.federatedstore.util.ConcatenateMergeFunction"
         }
@@ -38,7 +38,7 @@ whole chain will be sent to the subgraphs.
 
 #### Optional parameter: graphIds
 
-This is a list of graph IDs which you want to send the operation to.  
+This is a list of a single or multiple graph IDs which you want to send the operation to.  
 
 If the user does not specify `graphIds` in the Operation, then the
 `storeConfiguredGraphIds` for that store will be used. If the admin has not
@@ -49,11 +49,9 @@ configured the `storeConfiguredGraphIds` then all graphIds will be used.
 The `mergeFunction` parameter is the Function you want to use when merging the
 results from the subgraphs.  
 
-If the user does not specify a `mergeFunction` then it will be selected from the
-`storeConfiguredMergeFunctions` for that store. If the admin has not configured
-the `storeConfiguredMergeFunctions`, it will contain pre-populated
-`mergeFunctions`. Lastly, if a suitable `mergeFunction` is not found then a
-default `ConcatenateMergeFunction` is used.  
+If you do not specify a `mergeFunction`,  then the admin configured
+`storeConfiguredMergeFunctions` are used, else the default `mergeFunctions` are
+used as [shown in the table below.](#default-storeconfiguredmergefunctions)
 
 For example, when GetElements is used as the operation inside a
 FederatedOperation and the user hasn't specified a `mergeFunction`, the
@@ -63,7 +61,7 @@ else.
 
 See the default mergeFunctions for the operations below.
 
-##### Default storeConfiguredMergeFunctions
+##### Default Store Configured Merge Functions
 
 | Operation         | Merge function                                             |
 |-------------------|------------------------------------------------------------|
@@ -75,8 +73,8 @@ See the default mergeFunctions for the operations below.
 
 ### Sending Operations To Federated Stores
 
-In these examples we do not specify the mergeFunction paramater. This would
-therefore use the default mergeFunction for the specific operation.
+In these examples we do not specify the `mergeFunction` parameter. This would
+therefore use the default `mergeFunction` for the specific operation.
 
 ??? example "Sending a single operation to one Subgraph in your Federated Store"
     ``` json
@@ -85,7 +83,7 @@ therefore use the default mergeFunction for the specific operation.
         "operation": {
             "class": "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements"
         },
-        "graphIds": [ "graphA" ]
+        "graphIds": [ "GraphA" ]
     }
     ```
 
@@ -99,14 +97,14 @@ therefore use the default mergeFunction for the specific operation.
                 "operation": {
                     "class": "ExampleOperation1"
                 },
-                "graphIds": [ "graphA" ]
+                "graphIds": [ "GraphA" ]
             },
             {
                 "class": "uk.gov.gchq.gaffer.federatedstore.operation.FederatedOperation",
                 "operation": {
                     "class": "ExampleOperation2"
                 },
-                "graphIds": [ "graphB" ]
+                "graphIds": [ "GraphB" ]
             }
         ]
     }
@@ -127,14 +125,14 @@ therefore use the default mergeFunction for the specific operation.
                         ]
                     }
                 },
-                "graphIds": [ "graphA" ]
+                "graphIds": [ "GraphA" ]
             },
             {
                 "class": "uk.gov.gchq.gaffer.federatedstore.operation.FederatedOperation",
                 "operation": {
                     "class": "ExampleOperation3"
                 },
-                "graphIds": [ "graphB" ]
+                "graphIds": [ "GraphB" ]
             }
         ]
     }
@@ -145,7 +143,7 @@ Federated Operation.
 
 ### The Merge Function
 
-Merge functions  dictate how the FederatedStore will merge results from
+Merge functions dictate how the FederatedStore will merge results from
 different subgraphs dependent on the Operation.
 
 The examples below refer to this graph.
@@ -441,6 +439,9 @@ This merge function is the default merge function for the majority of operations
 as seen [in the table above](#default-storeconfiguredmergefunctions). You can also
 override the default merge functions for operations like we have below. It results
 in concantinating all the results of the operations together.
+
+Using the `ConcatenateMergeFunction` can give you duplicate results. This can be
+seen with the `GetTraits` example below.
 
 ??? Example "Example using the GetSchema operation."
     ```json
