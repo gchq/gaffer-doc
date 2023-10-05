@@ -35,7 +35,7 @@ graph TD
   3(3, count=2) -- count=4 --> 4
 ```
 
-Once you have configured your cache, you can then execute your first NamedOperation. 
+Once you have configured your cache, you can then add your first NamedOperation. 
 
 You can then add a NamedOperation to the cache using `AddNamedOperation`.
 Here you are specifying the OperationChain that you want to be used as a NamedOperation.
@@ -131,7 +131,6 @@ Following on from this, you can then run your new NamedOperation:
             "class" : "NamedOperation",
             "input" : [ {
                 "class" : "EntitySeed",
-                "class" : "EntitySeed",
                 "vertex" : 1
             } ],
             "operationName" : "2-hop"
@@ -195,7 +194,7 @@ The following code adds a NamedOperation with a parameter that allows the result
         paramMap.put("param1", param);
 
         final AddNamedOperation operation = new AddNamedOperation.Builder()
-                .operationChain(opChainString)
+                .operationChain(opChainString) 
                 .description("2 hop query with settable limit")
                 .name("2-hop-with-limit")
                 .readAccessRoles("read-user")
