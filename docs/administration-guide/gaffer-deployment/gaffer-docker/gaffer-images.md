@@ -18,9 +18,9 @@ available on [Docker Hub](https://hub.docker.com/u/gchq).
 
 | Image | Description |
 | ----- | ----------- |
-| `gchq/accumulo` | This image is a containerised deployment of [Apache Accumulo](https://accumulo.apache.org/). This was created as historically there has not been an available official image from the maintainers of Accumulo; however, there has since been an [offical image](https://github.com/apache/accumulo-docker) made available but it is not currently in use in Gaffer. |
+| `gchq/accumulo` | This image is a containerised deployment of [Apache Accumulo](https://accumulo.apache.org/). This was created as historically there has not been an available official image from the maintainers of Accumulo. There has since been an [offical image](https://github.com/apache/accumulo-docker) made available however, it is not well supported so not currently in use in Gaffer. |
 | `gchq/hdfs` | A custom image for running HDFS (Hadoop file system) via a container. Contains an official release of [Apache Hadoop](https://hadoop.apache.org/) which is used as the scalable data storage for Accumulo. |
-| `gchq/gaffer` | This is the main container image for Gaffer that is built on on top of the `gchq/accumulo` image so includes a release of `zookeeper`, `hdfs` and `accumulo` along with the Gaffer libraries. Running this image simply runs the Accumulo instance not a Gaffer instance. |
+| `gchq/gaffer` | This is the main container image for Gaffer that is built on on top of the `gchq/accumulo` image so includes a release of `zookeeper`, `hdfs` and `accumulo` along with the Gaffer libraries. Running this image simply runs an Accumulo instance but with the Gaffer libraries loaded to allow Graph creation. |
 | `gchq/gaffer-rest` | This is the REST API image containing the files that can be used to configure the graph to connect to the chosen store, by default there are some pre-configured config files which can be overridden by a [bind-mount](#volumes-and-bind-mount) of alternatives. |
 
 !!! note
