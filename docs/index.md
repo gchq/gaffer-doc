@@ -1,28 +1,5 @@
 ---
 hide:
   - navigation
+template: home.html
 ---
-
-Gaffer 2
-========
-
-!!! info "Under construction"
-
-    This documentation is under construction and focusses on Gaffer version 2.0.0 and above.
-    [The previous docs for Gaffer 1.x can be found here](../v1docs/).
-
-Gaffer [2.0.0](https://github.com/gchq/Gaffer/releases/tag/gaffer2-2.0.0) was released in May 2023. The final release of Gaffer 1.x was [1.23.0](https://github.com/gchq/Gaffer/releases/tag/gaffer2-1.23.0), there are no further releases to the 1.x branch planned.
-
-Site Contents
--------------
-
-- [User Guide](user-guide/introduction/) - Information about how to use Gaffer.
-- [Development Guide](development-guide/introduction/) - Information about developing Gaffer itself.
-- [Administration Guide](administration-guide/introduction/) - Information about creating a gaffer instance.
-- [Change Notes](change-notes/changelist/v2-changes/) - Information on the Gaffer 2.0 release, including changelogs, deprecation and migration details.
-- [Reference](reference/intro/) - Documentation for Gaffer Operations, Predicates, Functions, Binary Operators and Properties.
-
-Licence
--------
-
-Gaffer is licensed under the Apache 2 licence and is covered by [Crown Copyright](https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/).

@@ -2,7 +2,7 @@ site_name: Gaffer Docs
 repo_url: https://github.com/gchq/gaffer-doc
 repo_name: gchq/gaffer-doc
 edit_uri: edit/v2docs/docs/
-copyright: Copyright &copy; 2016-2023 Crown Copyright
+copyright: <a href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/">Copyright &copy; 2016-2023 Crown Copyright</a>
 markdown_extensions:
   - admonition
   - pymdownx.details
@@ -96,7 +96,7 @@ nav:
         - Apache Gremlin:
           - 'Gremlin Support in Gaffer': 'user-guide/query/gremlin/gremlin.md'
       - 'Graph Schemas': 'user-guide/schema.md'
-    - Developers Guide:
+    - Developer Guide:
       - 'Introduction': 'development-guide/introduction.md'
       - 'Example Deployment':
         - 'Project Setup': 'development-guide/example-deployment/project-setup.md'
@@ -230,3 +230,4 @@ theme:
       toggle: &tolight
         icon: material/weather-sunny
         name: Switch to light mode
+  custom_dir: docs/home_page_override/
