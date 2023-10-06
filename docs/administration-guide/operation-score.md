@@ -103,16 +103,16 @@ For more examples of ScoreOperationChain refer to the [Misc Operations page in t
 
 A [`ScoreResolver`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/resolver/ScoreResolver.html) is used to retreive the score associated with a provided Operation.
 
-In most cases, implementing the [`DefaultScoreResolver`](https://gchq.github.io/gaffer-doc/v1docs/javadoc/gaffer/uk/gov/gchq/gaffer/store/operation/resolver/DefaultScoreResolver.html) interface will be suitable.
+In most cases, implementing the [`DefaultScoreResolver`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/resolver/DefaultScoreResolver.html) interface will be suitable.
 However, some operations require specific ways of calculating their score so will require the implementation of different scoreResolver handlers.
 
-In the case of NamedOperations, the [`NamedOperationScoreResolver`](https://gchq.github.io/gaffer-doc/v1docs/javadoc/gaffer/uk/gov/gchq/gaffer/store/operation/resolver/named/NamedOperationScoreResolver.html) should be implemented in the OperationDeclarations.json.
+In the case of NamedOperations, the [`NamedOperationScoreResolver`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/resolver/named/NamedOperationScoreResolver.html) should be implemented in the OperationDeclarations.json.
 This will resolve the custom Operation Score for a provided NamedOperation by looking for it in the cache. 
 
-If choosing to score your `If` Operation, then you should implement the [`IfScoreResolver`](https://gchq.github.io/gaffer-doc/v1docs/javadoc/gaffer/uk/gov/gchq/gaffer/store/operation/resolver/IfScoreResolver.html).
+If choosing to score your `If` Operation, then you should implement the [`IfScoreResolver`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/resolver/IfScoreResolver.html).
 This will provide the score as the maximum of the operations that are used within the `If` operation, regardless of which operation is actually executed.
 
-The `While` Operation, if scored, will also require implementation of the specific [`WhileScoreResolver`](https://gchq.github.io/gaffer-doc/v1docs/javadoc/gaffer/uk/gov/gchq/gaffer/store/operation/resolver/WhileScoreResolver.html). 
+The `While` Operation, if scored, will also require implementation of the specific [`WhileScoreResolver`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/resolver/WhileScoreResolver.html). 
 The score will be the maximum of the transform operation and the delegate operation, multiplied by the minimum of the configured number of max repeats vs the global maximum number of allowed repeats.
 This is simply because the number of actual repetitions is nondeterministic, therefore a "worst"-case scenario is considered.
 
