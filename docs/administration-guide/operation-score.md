@@ -14,9 +14,7 @@ To configure this file you need to set the following handlers which configure ho
 
 - `opScores` - required map of operation scores. These are the operation score values.
 - `authScores` - required map of operation authorisation scores. These are the maximum scores allowed for a user with a given role. 
-- `scoreResolver` - some operations may require a custom way of calculating an associated score, therefore an implementation of the [`ScoreResolver`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/resolver/ScoreResolver.html) interface may be required. 
-These map the operation class to its respective score resolver.
-There is a `DefaultScoreResolver` to which the custom implementation should delegate, in a manner specific to the new Operation.
+- `scoreResolver` - maps the operation class to its respective [score resolver](#score-resolver).
 
 !!! example "Example OperationDeclarations.json for a NamedOperation"
 
@@ -103,8 +101,9 @@ For more examples of ScoreOperationChain refer to the [Misc Operations page in t
 
 ## Score Resolver
 
-A `ScoreResolver` is used to retreive the score associated with a provided Operation.
-In most cases, the [`DefaultScoreResolver`](https://gchq.github.io/gaffer-doc/v1docs/javadoc/gaffer/uk/gov/gchq/gaffer/store/operation/resolver/DefaultScoreResolver.html) is suitable.
+A [`ScoreResolver`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/resolver/ScoreResolver.html) is used to retreive the score associated with a provided Operation.
+
+In most cases, implementing the [`DefaultScoreResolver`](https://gchq.github.io/gaffer-doc/v1docs/javadoc/gaffer/uk/gov/gchq/gaffer/store/operation/resolver/DefaultScoreResolver.html) interface will be suitable.
 However, some operations require specific ways of calculating their score so will require the implementation of different scoreResolver handlers.
 
 In the case of NamedOperations, the [`NamedOperationScoreResolver`](https://gchq.github.io/gaffer-doc/v1docs/javadoc/gaffer/uk/gov/gchq/gaffer/store/operation/resolver/named/NamedOperationScoreResolver.html) should be implemented in the OperationDeclarations.json.
