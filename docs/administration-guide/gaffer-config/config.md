@@ -86,7 +86,7 @@ The store properties file is used to configure how Gaffer will store its data. T
 different stores available for Gaffer, these are explained in more detail in the [reference
 documentation](../../administration-guide/gaffer-stores/store-guide.md), but by default you must provide a store
 class and a store properties class. For this example we are using an Accumulo store as it is
-recommended for efficient storage and retrieval of large data volumes. It's set up requires a few
+recommended for efficient storage and retrieval of large data volumes. Its configuration requires a few
 custom properties which are outlined in the following file.
 
 ```properties title="store.properties"
