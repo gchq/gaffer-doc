@@ -82,7 +82,7 @@ set the name and short description.
 
 ### Store Properties
 
-The store properties file is used to configure how Gaffer will store its data. There are a few
+The store properties file is used to configure the Gaffer store for a graph. There are a few
 different stores available for Gaffer, these are explained in more detail in the [reference
 documentation](../../administration-guide/gaffer-stores/store-guide.md), but by default you must provide a store
 class and a store properties class. For this example we are using an Accumulo store as it is
