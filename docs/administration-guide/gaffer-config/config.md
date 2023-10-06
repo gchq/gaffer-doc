@@ -31,7 +31,7 @@ that suites a stand alone deployment consisting of the following file structure:
         configs e.g. schemas (note these are the absolute paths inside the
         container).
     2. Any data files, e.g. CSV, to be made available to the Gaffer container.
-    3. The main graph config file to set various properties of the overall graph.
+    3. The graph config file to set id, description and other values for the graph.
     4. This file holds the schema outlining the elements in the graph, e.g. the
     nodes (aka entities) and edges.
     5. This file defines the different data types in the graph and how they are
