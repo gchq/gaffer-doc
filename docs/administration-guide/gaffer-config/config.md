@@ -2,7 +2,7 @@
 
 First you must set up the files and directories you will need for the instance. As it stands there
 are a couple of different ways to run a Gaffer project this example will use a logical structure
-that suites a stand alone deployment consisting of the following file structure:
+that suites a stand alone deployment e.g. docker consisting of the following file structure:
 
 !!! example "Example Gaffer project structure"
 
@@ -33,9 +33,9 @@ that suites a stand alone deployment consisting of the following file structure:
     2. Any data files, e.g. CSV, to be made available to the Gaffer container.
     3. The graph config file to set id, description and other values for the graph.
     4. This file holds the schema outlining the elements in the graph, e.g. the
-    nodes (aka entities) and edges.
+    entities and edges.
     5. This file defines the different data types in the graph and how they are
-    serialised to Java classes.
+    serialised to Java classes. An example of the schema files can be found [here](../../user-guide/schema.md)
     6. Config file for additional Gaffer operations and set the class to handle
     them on the store.
     7. The General store properties, sets up what store to use and any additional
@@ -56,7 +56,7 @@ main focus of this guide will be on the configuration files under the `config/ga
 
 This is probably the simplest configuration file in the Gaffer deployment. In general it borrows a
 concept from [Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html)
-to allow changing the context root and any properties related to Gaffer. In the example that follows
+to allow any properties related to Gaffer. In the example that follows
 we use it to set the file location properties of where the other config files are (inside the
 container).
 
@@ -137,7 +137,7 @@ The two additional operations already exist in Gaffer (in the code base:
 and
 [ExportToLocalFile](https://github.com/gchq/Gaffer/blob/develop/core/operation/src/main/java/uk/gov/gchq/gaffer/operation/impl/export/localfile/ExportToLocalFile.java)),
 what this file is doing is essentially activating them and setting the handler class for them. The
-`ImportFromLocalFile` usage is demonstrated in the [using the API](./using-the-api.md) section to
+`ImportFromLocalFile` usage is demonstrated in the [using the API](../../development-guide/example-deployment/using-the-api.md) section to
 load some data.
 
 This operation allows us to pass a local CSV file (in the container) which will be read line by line
