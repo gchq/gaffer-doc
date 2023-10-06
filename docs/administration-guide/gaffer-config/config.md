@@ -108,10 +108,10 @@ gaffer.store.operation.declarations=/gaffer/store/operationsDeclarations.json
 ### Operations Declarations
 
 The operation declarations file is a way of enabling additional operations in Gaffer. By default
-there are some built in operations already available (the rest API has a get all operations request
-to see a list), but its likely you might want to enable others or add your own custom ones. As the
-example will load its data from a local CSV file we can activate a couple of additional operations
-using the following file.
+most built-in operations are already available (use `GetAllOperations` or the equivalent REST
+endpoint to see a list), but it's possible you'll want to enable others or add your own custom ones.
+The example loads its data from a local CSV file, we can activate a couple of additional operations
+for this using the following file.
 
 ```json title="operationsDeclarations.json"
 {
