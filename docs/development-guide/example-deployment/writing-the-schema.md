@@ -27,7 +27,7 @@ In Gaffer an element refers to any object in the graph, i.e. your nodes (vertexe
 up a graph we need to tell Gaffer what objects are in the graph and the properties they have. The
 standard way to do this is a JSON config file in the schema directory. The filename can just be
 called something like `elements.json`, the name is not special as all files under the `schema`
-directory will be [merged into a master schema](../../administration-guide/schema.md), but we recommended
+directory will be [merged into a master schema](../../administration-guide/gaffer-config/schema.md), but we recommended
 using an appropriate name.
 
 As covered in the [Getting Started Schema page](../../user-guide/schema.md), to write a schema you can see that there are some
@@ -147,7 +147,7 @@ extended schema below.
 
 ## Types Schema
 
-The other schema that now needs to be written is the types [schema](../../administration-guide/schema.md). As you have seen in the elements
+The other schema that now needs to be written is the types [schema](../../administration-guide/gaffer-config/schema.md). As you have seen in the elements
 schema there are some placeholder types added as the values for many of the keys. These types work
 similarly to if you have ever programmed in a strongly typed language, they are essentially the
 wrapper for the value to encapsulate it.

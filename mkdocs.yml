@@ -44,8 +44,8 @@ plugins:
         - index.md
   - redirects:
       redirect_maps:
-        'dev/docker.md': 'administration-guide/where-to-run-gaffer/gaffer-docker.md'
-        'dev/kubernetes-guide/kubernetes.md': 'administration-guide/where-to-run-gaffer/kubernetes-guide/kubernetes-guide.md'
+        'dev/docker.md': 'administration-guide/gaffer-deployment/gaffer-docker/gaffer-images.md'
+        'dev/kubernetes-guide/kubernetes.md': 'administration-guide/gaffer-deployment/kubernetes-guide/running-on-kubernetes.md'
         'dev/ways-of-working.md': 'development-guide/ways-of-working.md'
         'dev/components/operation.md': 'development-guide/project-structure/components/operation.md'
         'dev/components/cache.md': 'development-guide/project-structure/components/cache.md'
@@ -69,7 +69,7 @@ plugins:
         'reference/stores-guide/accumulo.md': 'administration-guide/gaffer-stores/accumulo-store.md'
         'getting-started/basics.md': 'user-guide/introduction.md'
         'getting-started/guide/cardinality.md': 'user-guide/gaffer-basics/what-is-cardinality.md'
-        'getting-started/quickstart.md': 'user-guide/introduction.md'
+        'getting-started/quickstart.md': 'administration-guide/gaffer-deployment/quickstart.md'
         'getting-started/guide/guide.md': 'user-guide/introduction.md'
 
 nav:
@@ -130,29 +130,31 @@ nav:
           - 'Spring': 'development-guide/project-structure/maven-dependencies/spring.md'
     - Administration Guide:
       - 'Introduction': 'administration-guide/introduction.md'
-      - 'Docker': 'administration-guide/where-to-run-gaffer/gaffer-docker.md'
-      - 'Kubernetes':
-        - 'Kubernetes Guide': 'administration-guide/where-to-run-gaffer/kubernetes-guide/kubernetes-guide.md'
-        - 'Deploy an Empty Graph': 'administration-guide/where-to-run-gaffer/kubernetes-guide/deploy-empty-graph.md'
-        - 'Add your Schema': 'administration-guide/where-to-run-gaffer/kubernetes-guide/deploy-schema.md'
-        - 'Change the Graph ID and Description': 'administration-guide/where-to-run-gaffer/kubernetes-guide/change-graph-metadata.md'
-        - 'Adding your Own Libraries and Functions': 'administration-guide/where-to-run-gaffer/kubernetes-guide/add-libraries.md'
-        - 'Changing Accumulo Passwords': 'administration-guide/where-to-run-gaffer/kubernetes-guide/change-accumulo-passwords.md'
-      - 'Store Setup':
+      - Deployment:
+        - 'Quickstart': 'administration-guide/gaffer-deployment/quickstart.md'
+        - Docker:
+          - 'Gaffer Images': 'administration-guide/gaffer-deployment/gaffer-docker/gaffer-images.md'
+          - 'How to Deploy with Accumulo on Docker': 'administration-guide/gaffer-deployment/gaffer-docker/how-to-run.md'
+        - Kubernetes:
+          - 'Running Gaffer on Kubernetes': 'administration-guide/gaffer-deployment/kubernetes-guide/running-on-kubernetes.md'
+          - 'Creating a Simple Deployment': 'administration-guide/gaffer-deployment/kubernetes-guide/simple-deployment.md'
+          - 'Configuring Gaffer with Helm': 'administration-guide/gaffer-deployment/kubernetes-guide/helm-configuration.md'
+      - Store Types:
         - 'Store Guide': 'administration-guide/gaffer-stores/store-guide.md'
         - 'Accumulo Store': 'administration-guide/gaffer-stores/accumulo-store.md'
         - 'Federated Store': 'administration-guide/gaffer-stores/federated-store.md'
         - 'Map Store':  'administration-guide/gaffer-stores/map-store.md'
         - 'Proxy Store': 'administration-guide/gaffer-stores/proxy-store.md'
-      - 'Gaffer Configuration':
+      - Graph Configuration:
         - 'Configuration': 'administration-guide/gaffer-config/config.md'
+        - 'Graph Metadata': 'administration-guide/gaffer-config/graph-metadata.md'
+        - 'Schema': 'administration-guide/gaffer-config/schema.md'
+        - 'Changing Accumulo Passwords': 'administration-guide/gaffer-config/change-accumulo-passwords.md'
         - 'Proxy': 'administration-guide/gaffer-config/proxy.md'
         - 'URL': 'administration-guide/gaffer-config/url.md'
-      - 'Schema': 'administration-guide/schema.md'
-      - 'Import/Export Data': 'administration-guide/import-export-data.md'
       - 'Named Operations': 'administration-guide/named-operations.md'
       - 'Operation Score': 'administration-guide/operation-score.md'
-      - 'Security':
+      - Security:
         - 'Security Guide': 'administration-guide/security/security-guide.md'
         - 'User Control': 'administration-guide/security/user-control.md'
     - Change Notes:

@@ -33,7 +33,7 @@ The store properties tells the graph the type of store to connect to along with 
 
 ## Schema
 The schema is passed to the store to instruct the store how to store and process the data.
-See [Schemas](../../../administration-guide/schema.md) for detailed information on schemas and the [Java API section of that page](../../../administration-guide/schema.md#java-api) for lower level info.
+See [Schemas](../../../administration-guide/gaffer-config/schema.md) for detailed information on schemas and the [Java API section of that page](../../../administration-guide/gaffer-config/schema.md#java-api) for lower level info.
 
 ## Graph Configuration
 The graph configuration allows you to apply special customisations to the Graph instance. The only required field is the `graphId`.
@@ -47,9 +47,9 @@ The `GraphConfig` can be configured with the following:
  - `view` - The `Graph View` allows a graph to be configured to only returned a subset of Elements when any Operation is executed. For example if you want your `Graph` to only show data that has a count more than 10 you could add a View to every operation you execute, or you can use this `Graph View` to apply the filter once and it would be merged into to all Operation Views so users only ever see this particular view of the data.
  - `library` - This contains information about the `Schema` and `StoreProperties` to be used.
  - `hooks` - A list of `GraphHook`s that will be triggered before, after and on failure when operations are executed on the `Graph`. See [GraphHooks](#graph-hooks) for more information.
- 
+
 Here is an example of a `GraphConfig`:
- 
+
 ```java
 new GraphConfig.Builder()
     .config(new GraphConfig.Builder()

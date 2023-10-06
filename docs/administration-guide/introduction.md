@@ -11,8 +11,8 @@ There are detailed guides in this section on how to set up a Gaffer instance,
 covering both containerised deployments via standard Docker/Podman along with
 Kubernetes deployment via Helm.
 
-- [Kubernetes Guide](./where-to-run-gaffer/kubernetes-guide/kubernetes-guide.md)
-- [Docker Guide](./where-to-run-gaffer/gaffer-docker.md)
+- [Kubernetes Guide](./gaffer-deployment/kubernetes-guide/running-on-kubernetes.md)
+- [Docker Guide](./gaffer-deployment/gaffer-docker/gaffer-images.md)
 
 ## Graph Configuration
 

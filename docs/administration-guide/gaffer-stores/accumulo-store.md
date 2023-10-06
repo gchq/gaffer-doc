@@ -11,6 +11,15 @@ Gaffer contains a store implemented using Apache Accumulo. This offers the follo
 - Flexibly query-time filtering, aggregation and transformation
 - Integration with Apache Spark to allow Gaffer data stored in Accumulo to be analysed as either an RDD or a Dataframe
 
+## What is Hadoop/Accumulo?
+
+[Apache Hadoop](https://hadoop.apache.org/) is an open-source software framework used for distributed storage and processing of large datasets.
+Hadoop is designed to handle various types of data, including structured, semi-structured, and unstructured data. It is a highly scalable framework that allows users to add nodes to the cluster as needed.
+
+Hadoop has two main components: Hadoop Distributed File System (HDFS) and MapReduce. HDFS is a distributed file system that provides high-throughput access to data. MapReduce is a programming model used for processing large datasets in parallel.
+
+Accumulo is built on top of the HDFS to provide a key-value store with all the same scalability and robustness of Hadoop.
+
 ## Use cases
 
 Gaffer's `AccumuloStore` is particularly well-suited to graphs where the properties on vertices and edges are formed by aggregating interactions over time windows.
@@ -25,7 +34,7 @@ Gaffer can also be used with a `MiniAccumuloCluster`. This is an Accumulo cluste
 
 All real applications of Gaffer's `AccumuloStore` will use an Accumulo cluster running on a real Hadoop cluster consisting of multiple servers. Instructions on setting up an Accumulo cluster can be found in [Accumulo's User Manual](https://accumulo.apache.org/docs/2.x/getting-started/quickstart).
 
-To use Gaffer's Accumulo store, it is necessary to add a jar file to the class path of all of Accumulo's tablet servers. This jar contains Gaffer code that runs inside Accumulo's tablet servers to provide functionality such as aggregation and filtering at ingest and query time. 
+To use Gaffer's Accumulo store, it is necessary to add a jar file to the class path of all of Accumulo's tablet servers. This jar contains Gaffer code that runs inside Accumulo's tablet servers to provide functionality such as aggregation and filtering at ingest and query time.
 
 The Accumulo store iterators.jar required can be downloaded from [maven central](https://central.sonatype.com/search?namespace=uk.gov.gchq.gaffer&name=accumulo-store). It follows the naming scheme `accumulo-store-{version}-iterators.jar`, e.g. `accumulo-store-2.0.0-iterators.jar`.
 This jar file will then need to be installed on Accumulo's tablet servers by adding it to the classpath. For Accumulo 1.x.x it can be placed in the `lib/ext` folder within the Accumulo distribution on each tablet server, Accumulo should load this jar file without needing to be restarted. For Accumulo 2.x.x [this dynamic reloading classpath directory functionality has been deprecated](https://accumulo.apache.org/release/accumulo-2.0.0/#removed-default-dynamic-reloading-classpath-directory-libext). The jar can instead be put into the `lib` directory and Accumulo restarted. The `lib` directory can also be used with Accumulo 1.x.x and may be useful if you see error messages due to classes not being found and restarting Accumulo doesn't fix the problem.
@@ -231,8 +240,8 @@ To carry out the migration you will need the following:
 
 - your schema in 1 or more json files.
 - `store.properties` file contain your accumulo store properties
-- a jar-with-dependencies containing the Accumulo Store classes and any of your custom classes. 
-If you don't have any custom classes then you can just use the `accumulo-store-[version]-utility.jar`. 
+- a jar-with-dependencies containing the Accumulo Store classes and any of your custom classes.
+If you don't have any custom classes then you can just use the `accumulo-store-[version]-utility.jar`.
 Otherwise you can create one by adding a build profile to your maven pom:
 ```xml
 <build>
