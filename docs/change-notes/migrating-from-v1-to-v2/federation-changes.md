@@ -246,7 +246,7 @@ By default, `GetSchema` results will be merged with `MergeSchema`. This returns 
 
 Gaffer Caches now include suffixes in the names of cache entries. This allows for multiple cache entries for different graphs to co-exist using the same cache implementation without any conflicts.
 
-These suffixes can be customised which allows for graphs to share the same cache entry if desired.
+These suffixes can be customised which allows for graphs to share the same cache entries if desired. This only applies if the same cache instance is configured to be used by all the graphs instead to share these.
 For example, load balancing Federated Store instances sharing same set of sub-graphs, or a shared cache entry for Named Operations allowing multiple graphs to use the same set of these operations.
 
 If you are upgrading from Gaffer 1.x, then you may need to examine how you currently use caches and whether any of your graphs rely on sharing the same cache (e.g. sharing Named Operations between Federated Store sub-graphs).
