@@ -152,6 +152,7 @@ nav:
         - 'Changing Accumulo Passwords': 'administration-guide/gaffer-config/change-accumulo-passwords.md'
         - 'Proxy': 'administration-guide/gaffer-config/proxy.md'
         - 'URL': 'administration-guide/gaffer-config/url.md'
+      - 'Aggregation Guide': 'administration-guide/aggregation.md'
       - 'Named Operations': 'administration-guide/named-operations.md'
       - 'Operation Score': 'administration-guide/operation-score.md'
       - Security:
