@@ -21,21 +21,21 @@ The properties in bold are set based on the type of Gaffer Store, for how to con
 
 | Property                 | Default | Description                             |
 | ------------------------ | ------- | --------------------------------------- |
-| **`gaffer.store.class`** | N/A | Class Name String to set Gaffer Store class |
+| **`gaffer.store.class`** | None | Class Name String to set Gaffer Store class |
 | `gaffer.store.schema.class` | `gaffer.store.schema.Schema` | Class Name String to set class to use for serialising Schemas |
 | **`gaffer.store.properties.class`** | `uk.gov.gchq.gaffer.store.StoreProperties` | Class Name String to set Gaffer Store Properties class |
-| `gaffer.store.operation.declarations` | N/A | Path to [Operation Declarations](../../development-guide/example-deployment/project-setup.md#operations-declarations) files (separate multiple files with commas) |
-| `gaffer.store.operation.declarations.json` | N/A | JSON String containing [Operation Declarations](../../development-guide/example-deployment/project-setup.md#operations-declarations) |
+| `gaffer.store.operation.declarations` | None | Path to [Operation Declarations](../../development-guide/example-deployment/project-setup.md#operations-declarations) files (separate multiple files with commas) |
+| `gaffer.store.operation.declarations.json` | None | JSON String containing [Operation Declarations](../../development-guide/example-deployment/project-setup.md#operations-declarations) |
 | `gaffer.store.job.tracker.enabled` | False | Controls if the Job Tracker is to be used |
 | `gaffer.store.job.executor.threads` | 50 | Number of threads to be used by the Job Tracker [ExecutorService](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/commonutil/ExecutorService.html) |
-| `gaffer.store.admin.auth` | N/A | String for Auth to associate with Administrator Users |
-| `gaffer.store.reflection.packages` | N/A | Reflection Packages to add to Koryphe [ReflectionUtil](https://gchq.github.io/koryphe/uk/gov/gchq/koryphe/util/ReflectionUtil.html) |
+| `gaffer.store.admin.auth` | None | String for Auth to associate with Administrator Users |
+| `gaffer.store.reflection.packages` | None | Reflection Packages to add to Koryphe [ReflectionUtil](https://gchq.github.io/koryphe/uk/gov/gchq/koryphe/util/ReflectionUtil.html) |
 | `gaffer.serialiser.json.class` | `uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser` | Class Name String for setting a custom class extending [JSONSerialiser](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/jsonserialisation/JSONSerialiser.html) |
-| `gaffer.serialiser.json.modules` | N/A | Class Name String for registering classes implementing [JSONSerialiserModules](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/jsonserialisation/JSONSerialiserModules.html) (separate multiple modules with commas) |
+| `gaffer.serialiser.json.modules` | None | Class Name String for registering classes implementing [JSONSerialiserModules](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/jsonserialisation/JSONSerialiserModules.html) (separate multiple modules with commas) |
 | `gaffer.serialiser.json.strict` | False | Controls if unknown fields should be ignored when serialising JSON (sets [Jackson FAIL_ON_UNKNOWN_PROPERTIES](https://fasterxml.github.io/jackson-databind/javadoc/2.13/com/fasterxml/jackson/databind/DeserializationFeature.html#FAIL_ON_UNKNOWN_PROPERTIES) internally) |
 | `gaffer.error-mode.debug` | False | Controls technical debugging by methods calling [`DebugUtil`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/commonutil/DebugUtil.html) |
-| `gaffer.cache.service.class` | N/A | Fully-qualified class name of a [Gaffer cache](#cache-service) implementation |
-| `gaffer.cache.config.file` | N/A | Config file to use with a [Gaffer cache](#cache-service) implementation |
+| `gaffer.cache.service.class` | None | Fully-qualified class name of a [Gaffer cache](#cache-service) implementation |
+| `gaffer.cache.config.file` | None | Config file to use with a [Gaffer cache](#cache-service) implementation |
 | `gaffer.cache.service.name.suffix` | `graphId` | String to use as the [cache suffix](#suffixes) |
 
 ## Caches
