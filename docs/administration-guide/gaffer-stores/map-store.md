@@ -37,6 +37,8 @@ This means Elements will **not** be validated continuously and removed if they a
 
     The map store does not attempt to handle concurrent adding of elements. Elements should be added from a single thread.
 
+To use the Map Store, set `gaffer.store.class=uk.gov.gchq.gaffer.mapstore.MapStore` in your Store Properties file.
+
 To configure your choice of Map implementation you can either:
 
 - Set the `gaffer.store.mapstore.map.class` store property to be your chosen Map implementation class. This will require that Java class to be on the classpath.
@@ -47,3 +49,9 @@ or
 This allows you to implement your own map factory to use different Map implementations like Hazelcast and MapDB.
 However due to the nature of having to query-update-put in order to add a new element other implementations may be slow.
 In addition you can provide you map factory with configuration using the `gaffer.store.mapstore.map.factory.config` store property.
+
+Other Map Store Properties:
+
+- `gaffer.store.mapstore.createIndex`: Controls if an index should be created. Default is True.
+- `gaffer.store.mapstore.static`: Controls if the Map Store is static (only one instance per JVM). Default is False.
+- `gaffer.store.mapstore.map.ingest.buffer.size`: Size of the buffer to use when adding objects in batches. Default is 0, i.e. batches are not used.
