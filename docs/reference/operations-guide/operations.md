@@ -89,7 +89,7 @@ Operation | Type
 `federatedstore.operation.AddGraphWithHooks` | Federated
 `federatedstore.operation.ChangeGraphAccess` | Federated
 `federatedstore.operation.ChangeGraphId` | Federated
-`federatedstore.operation.FederatedOperation` | Federated
+[`federatedstore.operation.FederatedOperation`](federated-operation.md#federated-operation) | Federated
 `federatedstore.operation.GetAllGraphIds` | Federated
 `federatedstore.operation.GetAllGraphInfo` | Federated
 `federatedstore.operation.RemoveGraph` | Federated

@@ -33,8 +33,10 @@ The Federated Operation has 3 key parameters: `operation`, `graphIds` and
 #### Required parameter: operation
 
 This is the Operation you wish to be federated to the subgraphs. This can be a
-single Operation or an OperationChain. If you use an OperationChain, then the
-whole chain will be sent to the subgraphs.  
+single Operation or [an
+OperationChain](../../user-guide/query/gaffer-syntax/operations.md#operation-chains).
+If you use an OperationChain, then the whole chain will be sent to the
+subgraphs.  
 
 #### Optional parameter: graphIds
 
@@ -75,7 +77,7 @@ See the default mergeFunctions for the operations below.
 In these examples we do not specify the `mergeFunction` parameter. This would
 therefore use the default `mergeFunction` for the specific operation.
 
-??? example "Sending a single operation to one Subgraph in your Federated Store"
+??? example "Sending a single operation to one subgraph in your Federated Store"
     ``` json
     {
         "class": "uk.gov.gchq.gaffer.federatedstore.operation.FederatedOperation",
@@ -151,16 +153,311 @@ graph LR
     subgraph Federated Store
         subgraph Graph A
             direction TB
-            A((Person<br>id: 1<br>name: bob)) --works as--> B((Job<br>id: 2<br>title: builder))
+            A((Person<br>id: 1<br>name: bob<br>count: 1)) --works as--> B((Job<br>id: 2<br>title: builder))
             A --lives in--> C((Place<br>id: 3<br>name: bobsville))
         end
             subgraph Graph B
             direction TB
-            D((Person<br>id: 1<br>name: bob)) --drives--> E((Vehicle<br>id: 4<br>type: digger))
+            D((Person<br>id: 1<br>name: bob<br>count: 1)) --drives--> E((Vehicle<br>id: 4<br>type: digger))
             E --make/model--> F((Manufacturer<br>id: 5<br>name: JCB))
         end
     end
 ```
+??? Example "Graph A Schema and Data"
+    Schema:
+    ```json
+    {
+        "class": "AddGraph",
+        "graphId": "GraphA",
+        "schema": {
+            "edges": {
+            "WorksAs": {
+                "source": "id.person.string",
+                "destination": "id.job.string",
+                "directed": "true"
+            },
+            "LivesIn": {
+                "source": "id.person.string",
+                "destination": "id.place.string",
+                "directed": "true"
+            }
+            },
+            "entities": {
+            "Person": {
+                "description": "Entity representing a person vertex",
+                "vertex": "id.person.string",
+                "aggregate": "true",
+                "properties": {
+                "name": "property.string",
+                "count": "count.integer"
+                }
+            },
+            "Job": {
+                "description": "Entity representing a job vertex",
+                "vertex": "id.job.string",
+                "aggregate": "false",
+                "properties": {
+                "type": "property.string"
+                }
+            },
+            "Place": {
+                "description": "Entity representing a place vertex",
+                "vertex": "id.place.string",
+                "aggregate": "false",
+                "properties": {
+                "name": "property.string"
+                }
+            }
+            },
+            "types": {
+            "id.person.string": {
+                "description": "A basic type to hold the string id of a person entity",
+                "class": "java.lang.String"
+            },
+            "id.place.string": {
+                "description": "A basic type to hold the string id of a place entity",
+                "class": "java.lang.String"
+            },
+            "id.job.string": {
+                "description": "A basic type to hold the string id of a job entity",
+                "class": "java.lang.String"
+            },
+            "property.string": {
+                "description": "A type to hold string properties of entities",
+                "class": "java.lang.String",
+                "aggregateFunction": {
+                "class": "uk.gov.gchq.koryphe.impl.binaryoperator.First"
+                }
+            },
+            "count.integer": {
+                "description": "A long count that must be greater than or equal to 0.",
+                "class": "java.lang.Integer",
+                "validateFunctions": [
+                {
+                    "class": "uk.gov.gchq.koryphe.impl.predicate.IsMoreThan",
+                    "orEqualTo": true,
+                    "value": {
+                    "java.lang.Integer": 0
+                    }
+                }
+                ],
+                "aggregateFunction": {
+                "class": "uk.gov.gchq.koryphe.impl.binaryoperator.Sum"
+                }
+            },
+            "true": {
+                "class": "java.lang.Boolean",
+                "validateFunctions": [
+                {
+                    "class": "uk.gov.gchq.koryphe.impl.predicate.IsTrue"
+                }
+                ]
+            }
+            }
+        },
+        "storeProperties": {
+            "gaffer.store.class": "uk.gov.gchq.gaffer.mapstore.MapStore"
+        }
+    }
+    ```
+    Data:
+    ```json
+    {
+        "class": "AddElements",
+        "input": [
+            {
+            "class": "Edge",
+            "group": "WorksAs",
+            "source": "1",
+            "destination": "3",
+            "directed": true
+            },
+            {
+            "class": "Edge",
+            "group": "LivesIn",
+            "source": "1",
+            "destination": "3",
+            "directed": true
+            },
+            {
+            "class": "Entity",
+            "group": "Person",
+            "vertex": "1",
+            "properties": {
+                "name": "Bob",
+                "count": 1
+            }
+            },
+            {
+            "class": "Entity",
+            "group": "Job",
+            "vertex": "2",
+            "properties": {
+                "type": "Builder"
+            }
+            },
+            {
+            "class": "Entity",
+            "group": "Place",
+            "vertex": "3",
+            "properties": {
+                "name": "Bobsville"
+            }
+            }
+        ],
+        "options": {
+            "gaffer.federatedstore.operation.graphIds": "GraphA"
+        }
+    }
+    ```
+
+??? Example "Graph B Schema and Data"
+    Schema:
+    ```json
+    {
+        "class": "AddGraph",
+        "graphId": "GraphB",
+        "schema": {
+            "edges": {
+            "Drives": {
+                "source": "id.person.string",
+                "destination": "id.vehicle.string",
+                "directed": "true"
+            },
+            "MakeModel": {
+                "source": "id.vehicle.string",
+                "destination": "id.manufacturer.string",
+                "directed": "true"
+            }
+            },
+            "entities": {
+            "Person": {
+                "description": "Entity representing a person vertex",
+                "vertex": "id.person.string",
+                "aggregate": "true",
+                "properties": {
+                "name": "property.string",
+                "count": "count.integer"
+                }
+            },
+            "Vehicle": {
+                "description": "Entity representing a vehicle vertex",
+                "vertex": "id.vehicle.string",
+                "aggregate": "false",
+                "properties": {
+                "type": "property.string"
+                }
+            },
+            "Manufacturer": {
+                "description": "Entity representing a manufacturer vertex",
+                "vertex": "id.manufacturer.string",
+                "aggregate": "false",
+                "properties": {
+                "name": "property.string"
+                }
+            }
+            },
+            "types": {
+            "id.person.string": {
+                "description": "A basic type to hold the string id of a person entity",
+                "class": "java.lang.String"
+            },
+            "id.manufacturer.string": {
+                "description": "A basic type to hold the string id of a manufacturer entity",
+                "class": "java.lang.String"
+            },
+            "id.vehicle.string": {
+                "description": "A basic type to hold the string id of a vehicle entity",
+                "class": "java.lang.String"
+            },
+            "property.string": {
+                "description": "A type to hold string properties of entities",
+                "class": "java.lang.String",
+                "aggregateFunction": {
+                "class": "uk.gov.gchq.koryphe.impl.binaryoperator.First"
+                }
+            },
+            "count.integer": {
+                "description": "A long count that must be greater than or equal to 0.",
+                "class": "java.lang.Integer",
+                "validateFunctions": [
+                {
+                    "class": "uk.gov.gchq.koryphe.impl.predicate.IsMoreThan",
+                    "orEqualTo": true,
+                    "value": {
+                    "java.lang.Integer": 0
+                    }
+                }
+                ],
+                "aggregateFunction": {
+                "class": "uk.gov.gchq.koryphe.impl.binaryoperator.Sum"
+                }
+            },
+            "true": {
+                "class": "java.lang.Boolean",
+                "validateFunctions": [
+                {
+                    "class": "uk.gov.gchq.koryphe.impl.predicate.IsTrue"
+                }
+                ]
+            }
+            }
+        },
+        "storeProperties": {
+            "gaffer.store.class": "uk.gov.gchq.gaffer.mapstore.MapStore"
+        }
+    }
+    ```
+    Data:
+    ```json
+    {
+        "class": "AddElements",
+        "input": [
+            {
+            "class": "Edge",
+            "group": "Drives",
+            "source": "1",
+            "destination": "4",
+            "directed": true
+            },
+            {
+            "class": "Edge",
+            "group": "MakeModel",
+            "source": "4",
+            "destination": "5",
+            "directed": true
+            },
+            {
+            "class": "Entity",
+            "group": "Person",
+            "vertex": "1",
+            "properties": {
+                "name": "Bob",
+                "count": 1
+            }
+            },
+            {
+            "class": "Entity",
+            "group": "Vehicle",
+            "vertex": "4",
+            "properties": {
+                "type": "Digger"
+            }
+            },
+            {
+            "class": "Entity",
+            "group": "Manufacturer",
+            "vertex": "5",
+            "properties": {
+                "name": "JCB"
+            }
+            }
+        ],
+        "options": {
+            "gaffer.federatedstore.operation.graphIds": "GraphB"
+        }
+    }    
+    ```
 
 #### ApplyViewToElementsFunction
 
@@ -168,7 +465,7 @@ This merge function uses the View from the operation and applies it to all of
 the results, meaning the results are now re-aggregated and re-filtered using the
 Schema, locally in the FederatedStore. This makes the results look like they
 came from one graph, rather than getting back an array of Elements from the
-different subgraphs.  
+different subgraphs.
 
 
 ??? Example "Example using the GetAllElements operation"
@@ -205,6 +502,15 @@ different subgraphs.
             "directed": true,
             "matchedVertex": "SOURCE",
             "properties": {}
+        },
+        {
+            "class": "uk.gov.gchq.gaffer.data.element.Entity",
+            "group": "Person",
+            "vertex": "1",
+            "properties": {
+            "name": "Bob",
+            "count": 2
+            }
         },
         {
             "class": "uk.gov.gchq.gaffer.data.element.Edge",
@@ -250,22 +556,6 @@ different subgraphs.
         },
         {
             "class": "uk.gov.gchq.gaffer.data.element.Entity",
-            "group": "Person",
-            "vertex": "1",
-            "properties": {
-            "name": "Bob"
-            }
-        },
-        {
-            "class": "uk.gov.gchq.gaffer.data.element.Entity",
-            "group": "Person",
-            "vertex": "1",
-            "properties": {
-            "name": "Bob"
-            }
-        },
-        {
-            "class": "uk.gov.gchq.gaffer.data.element.Entity",
             "group": "Place",
             "vertex": "3",
             "properties": {
@@ -274,6 +564,15 @@ different subgraphs.
         }
     ]
     ```
+
+If we compare the results above to the `GetAllElements` [result below using the
+`ConcanenateMergeFunction`](#concatenatemergefunction). We can see there is a
+difference between them. In the `ApplyViewToElementsFunction` result above we
+have just one entity of `Person` named `Bob` with a `count` of `2`. Whereas the
+below result which used the `ConcanenateMergeFunction`,  we have two entities of
+`Person` named `Bob`, each with a `count` of `1`. This is because the
+`ApplyViewToElementsFunction` has re-aggregated and re-filtered the results from
+both graphs into one.
 
 #### CollectionIntersect
 
@@ -381,9 +680,9 @@ is a schema conflict.
             "description": "Entity representing a person vertex",
             "vertex": "id.person.string",
             "properties": {
-                "name": "property.string"
-            },
-            "aggregate": false
+                "name": "property.string",
+                "count": "count.integer"
+            }
             },
             "Place": {
             "description": "Entity representing a place vertex",
@@ -409,7 +708,24 @@ is a schema conflict.
             },
             "property.string": {
             "description": "A type to hold string properties of entities",
-            "class": "java.lang.String"
+            "class": "java.lang.String",
+            "aggregateFunction": {
+                "class": "uk.gov.gchq.koryphe.impl.binaryoperator.First"
+            }
+            },
+            "count.integer": {
+            "description": "A long count that must be greater than or equal to 0.",
+            "class": "java.lang.Integer",
+            "aggregateFunction": {
+                "class": "uk.gov.gchq.koryphe.impl.binaryoperator.Sum"
+            },
+            "validateFunctions": [
+                {
+                "class": "uk.gov.gchq.koryphe.impl.predicate.IsMoreThan",
+                "orEqualTo": true,
+                "value": 0
+                }
+            ]
             },
             "true": {
             "class": "java.lang.Boolean",
@@ -491,9 +807,9 @@ seen with the `GetTraits` example below.
                 "description": "Entity representing a person vertex",
                 "vertex": "id.person.string",
                 "properties": {
-                "name": "property.string"
-                },
-                "aggregate": false
+                "name": "property.string",
+                "count": "count.integer"
+                }
             }
             },
             "types": {
@@ -511,7 +827,24 @@ seen with the `GetTraits` example below.
             },
             "property.string": {
                 "description": "A type to hold string properties of entities",
-                "class": "java.lang.String"
+                "class": "java.lang.String",
+                "aggregateFunction": {
+                "class": "uk.gov.gchq.koryphe.impl.binaryoperator.First"
+                }
+            },
+            "count.integer": {
+                "description": "A long count that must be greater than or equal to 0.",
+                "class": "java.lang.Integer",
+                "aggregateFunction": {
+                "class": "uk.gov.gchq.koryphe.impl.binaryoperator.Sum"
+                },
+                "validateFunctions": [
+                {
+                    "class": "uk.gov.gchq.koryphe.impl.predicate.IsMoreThan",
+                    "orEqualTo": true,
+                    "value": 0
+                }
+                ]
             },
             "true": {
                 "class": "java.lang.Boolean",
@@ -549,9 +882,9 @@ seen with the `GetTraits` example below.
                 "description": "Entity representing a person vertex",
                 "vertex": "id.person.string",
                 "properties": {
-                "name": "property.string"
-                },
-                "aggregate": false
+                "name": "property.string",
+                "count": "count.integer"
+                }
             },
             "Place": {
                 "description": "Entity representing a place vertex",
@@ -577,7 +910,24 @@ seen with the `GetTraits` example below.
             },
             "property.string": {
                 "description": "A type to hold string properties of entities",
-                "class": "java.lang.String"
+                "class": "java.lang.String",
+                "aggregateFunction": {
+                "class": "uk.gov.gchq.koryphe.impl.binaryoperator.First"
+                }
+            },
+            "count.integer": {
+                "description": "A long count that must be greater than or equal to 0.",
+                "class": "java.lang.Integer",
+                "aggregateFunction": {
+                "class": "uk.gov.gchq.koryphe.impl.binaryoperator.Sum"
+                },
+                "validateFunctions": [
+                {
+                    "class": "uk.gov.gchq.koryphe.impl.predicate.IsMoreThan",
+                    "orEqualTo": true,
+                    "value": 0
+                }
+                ]
             },
             "true": {
                 "class": "java.lang.Boolean",
@@ -651,6 +1001,15 @@ seen with the `GetTraits` example below.
             "properties": {}
         },
         {
+            "class": "uk.gov.gchq.gaffer.data.element.Entity",
+            "group": "Person",
+            "vertex": "1",
+            "properties": {
+            "name": "Bob",
+            "count": 1
+            }
+        },
+        {
             "class": "uk.gov.gchq.gaffer.data.element.Edge",
             "group": "Drives",
             "source": "1",
@@ -676,14 +1035,6 @@ seen with the `GetTraits` example below.
             }
         },
         {
-            "class": "uk.gov.gchq.gaffer.data.element.Entity",
-            "group": "Person",
-            "vertex": "1",
-            "properties": {
-            "name": "Bob"
-            }
-        },
-        {
             "class": "uk.gov.gchq.gaffer.data.element.Edge",
             "group": "LivesIn",
             "source": "1",
@@ -691,6 +1042,15 @@ seen with the `GetTraits` example below.
             "directed": true,
             "matchedVertex": "SOURCE",
             "properties": {}
+        },
+        {
+            "class": "uk.gov.gchq.gaffer.data.element.Entity",
+            "group": "Person",
+            "vertex": "1",
+            "properties": {
+            "name": "Bob",
+            "count": 1
+            }
         },
         {
             "class": "uk.gov.gchq.gaffer.data.element.Edge",
@@ -707,14 +1067,6 @@ seen with the `GetTraits` example below.
             "vertex": "2",
             "properties": {
             "type": "Builder"
-            }
-        },
-        {
-            "class": "uk.gov.gchq.gaffer.data.element.Entity",
-            "group": "Person",
-            "vertex": "1",
-            "properties": {
-            "name": "Bob"
             }
         },
         {
