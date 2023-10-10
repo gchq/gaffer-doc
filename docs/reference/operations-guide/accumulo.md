@@ -280,7 +280,7 @@ This operation has been introduced as a replacement to the `GetElementsBetweenSe
 
         !!! warning "Currently Unavailable"
 
-            The python API for this operation is currently unavailable [see this issue](https://github.com/gchq/gaffer-tools/issues/1082).
+            The python API for this operation is currently unavailable [see this issue](https://github.com/gchq/gafferpy/issues/14).
 
     Results:
 
