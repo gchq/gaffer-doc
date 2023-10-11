@@ -1,3 +1,0 @@
-# Query-time Aggregation Example
-
-...

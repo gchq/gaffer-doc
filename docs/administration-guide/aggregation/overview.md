@@ -23,6 +23,24 @@ example, say you were expecting multiple connections of the same edge between
 two nodes but each instance of the edge may have differing values on it's
 properties this could be a place to apply aggregation to sum the values etc.
 
+Please see the [following page](ingest-example.md) for some common use cases and
+how you could apply ingest aggregation.
+
 ## Query-time Aggregation
 
-...
+Query-time aggregation as the name suggests is adding aggregation to
+elements from within the graph query. This differs from ingest aggregation
+as only the results of the query will have been aggregated the data stored
+in the graph remains unchanged.
+
+Generally to apply aggregation at query-time you must override the `groupBy`
+property to prevent the default grouping taking place. It is then possible
+to create your own aggregator in the query which can force the use of a
+different aggregation function on a property.
+
+A simple example demonstrating query-time aggregation can be found in the
+[user guide on filtering](../../user-guide/query/gaffer-syntax/filtering.md#query-time-aggregation).
+
+!!! tip
+    Most of the time you will want to couple query-time aggregation with a `View`
+    to allow more targeted queries on the data in your graph.

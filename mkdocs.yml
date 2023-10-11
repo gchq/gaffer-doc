@@ -155,7 +155,6 @@ nav:
       - Aggregation Guide:
         - 'Overview': 'administration-guide/aggregation/overview.md'
         - 'Ingest Example': 'administration-guide/aggregation/ingest-example.md'
-        - 'Query-time Example': 'administration-guide/aggregation/query-time-example.md'
       - 'Named Operations': 'administration-guide/named-operations.md'
       - 'Operation Score': 'administration-guide/operation-score.md'
       - Security:
