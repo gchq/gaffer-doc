@@ -1,7 +1,7 @@
 # Aggregation Guide
 
 A basic introduction to the concept of Aggregation in Gaffer can be found in the
-[User Guide](../user-guide/gaffer-basics/what-is-aggregation.md). This guide is
+[User Guide](../../user-guide/gaffer-basics/what-is-aggregation.md). This guide is
 an extension of the introduction to demonstrate more advanced usage of
 Aggregation and how it can be applied.
 
