@@ -5,6 +5,11 @@ A basic introduction to the concept of Aggregation in Gaffer can be found in the
 an extension of the introduction to demonstrate more advanced usage of
 Aggregation and how it can be applied.
 
+Aggregation is applied in Gaffer through an aggregation function these can take
+a number of forms but the common factor between them is that they use the
+underlying koryphe library to provide the
+[`ElementAggregator`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/data/element/function/ElementAggregator.html).
+
 ## Ingest Aggregation
 
 Ingest aggregation permanently aggregates similar elements together in the Graph

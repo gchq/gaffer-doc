@@ -7,14 +7,18 @@
 ---
 
 In a software context Aggregation can have a variety of interpretations, in
-Gaffer this specifically refers to the aggregation function. This takes
-a number of forms but the common factor between them is that they use the
-underlying koryphe library to provide the
-[`ElementAggregator`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/data/element/function/ElementAggregator.html).
+Gaffer this specifically refers to the aggregation function.
+
+## Why Aggregate?
 
 Aggregation allows us to take a set of elements and group them and their
 properties together to form a new result. These allow us to get quick insights
 into our data and generate valuable outputs from our graphing queries.
+
+There are also some key benefits when using aggregation with sketches as we
+can store aggregated data in a compact format to reduce storage requirements
+and improve throughput. Further reading on sketches is available in the
+[reference guide](../../reference/properties-guide/advanced.md).
 
 ## How is Aggregation Applied?
 
