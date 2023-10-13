@@ -343,9 +343,9 @@ all other properties aggregated together.
 ## Expanded Example
 
 The example from the first section is a good demonstration of how aggregation
-works but just having the total number of some properties may not be the most
+works, but just having the total number of some properties may not be the most
 useful. To demonstrate a more complex use case we will modify the example to add
-some new properties to the edges so that after aggregation we'll have a graph like:
+some new properties to the edges, so that after aggregation we'll have this graph:
 
 ```mermaid
 graph LR

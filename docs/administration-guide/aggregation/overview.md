@@ -20,11 +20,11 @@ met:
 There are a few different use cases for applying ingest aggregation but it is
 largely driven by the data you have and the analysis you wish to perform. As an
 example, say you were expecting multiple connections of the same edge between
-two nodes but each instance of the edge may have differing values on it's
-properties this could be a place to apply aggregation to sum the values etc.
+two nodes but each instance of the edge may have differing values on its
+properties, this could be a place to apply aggregation to sum the values etc.
 
-Please see the [following page](ingest-example.md) for some common use cases and
-how you could apply ingest aggregation.
+Please see the [ingest aggregation example](ingest-example.md) for some common
+use cases on how this can be applied.
 
 ## Query-time Aggregation
 

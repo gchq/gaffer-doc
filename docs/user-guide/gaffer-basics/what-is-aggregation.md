@@ -65,6 +65,6 @@ the most common use case as it avoids the need to edit the graph schema but
 enables almost all the same features.
 
 The main difference between query-time aggregation and ingest aggregation is
-that the aggregation applied on a query will only effect the elements in that
+the aggregation applied on a query will only affect the elements in that
 query so the overall graph data is left intact. There is more information on how
 to apply query-time aggregation in the [querying guide on filtering](../query/gaffer-syntax/filtering.md#query-time-aggregation).
