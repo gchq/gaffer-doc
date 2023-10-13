@@ -31,25 +31,18 @@ jobs:
 
     - name: Set version output
       id: version
-      run: echo "::set-output name=value::$VERSION"
+      run: echo "value=$VERSION" >> $GITHUB_OUTPUT
 
-    - name: Verify version regex
-      uses: actions-ecosystem/action-regex-match@v2
-      id: regex-match
-      with:
-        text: ${{ steps.version.outputs.value }}
-        # Ensure version starts with 2
-        regex: '^(2)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
-
-    - name: Fail if incorrect version
-      if: ${{ !steps.regex-match.outputs.match }}
-      run: echo "Version of '$VERSION' is not valid"; exit 1
+    - name: Verify version regex is for a 2.x.x release
+      run: echo $VERSION | grep -E '^(2)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
 
   add-version:
     runs-on: ubuntu-latest
     name: Add version tag
     if: ${{ github.event_name == 'workflow_dispatch' }}
     needs: check-version
+    env:
+      VERSION: ${{ needs.check-version.outputs.version }}
 
     steps:
     - uses: actions/checkout@v3
@@ -61,16 +54,18 @@ jobs:
 
     - name: Add release tag
       # Force is used to replace any existing tag for the same version
-      run: git tag -f ${{ needs.check-version.outputs.version }}
+      run: git tag -f $VERSION
 
     - name: Push tag
-      run: git push -f origin ${{ needs.check-version.outputs.version }}
+      run: git push -f origin $VERSION
 
 
   build-deploy:
     runs-on: ubuntu-latest
     name: Build & Deploy
-    needs: check-version
+    needs: [check-version, add-version]
+    env:
+      VERSION: ${{ needs.check-version.outputs.version }}
 
     steps:
     - uses: actions/checkout@v3
@@ -86,10 +81,10 @@ jobs:
     - name: Install dependencies
       run: pip install -r requirements.txt
 
-    - name: Configure git and fetch gh-pages
+    - name: Configure git
       run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
 
     - name: Build and deploy MkDocs using mike
-      run: mike deploy --push --no-redirect --update-aliases ${{ needs.check-version.outputs.version }} latest
+      run: mike deploy --push --no-redirect --update-aliases $VERSION latest
