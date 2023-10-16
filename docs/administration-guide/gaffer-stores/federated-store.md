@@ -5,9 +5,10 @@ The Federated Store is a Gaffer store which forwards operations to a collection 
 ## Introduction
 
 The Federated Store facilitates querying of multiple Gaffer graphs through a single endpoint/instance, and the federation of queries across many graphs at once - with results automatically merged.
-Unlike the Map or Accumulo Store, the Federated Store doesn't use a schema of its own. This is because it represents a graph of graphs.
+Unlike other Stores, the Federated Store doesn't use a schema of its own. This is because it represents a collection of other graphs, these can be referred to as sub-graphs.
+The Federated Store 'graph' represents a way to query these sub-graphs and is not an actual graph.
 
-The Federated Store graph is a collection of other graphs. These sub-graphs can be any kind of Gaffer graph, including further federated graphs.
+Federated Store sub-graphs can be any kind of Gaffer graph, including further federated graphs. It's important to remember that it doesn't store data on its own.
 There are [special Gaffer Operations](#performing-operations) for adding and removing graphs to/from the collection. It's also possible to include access restrictions on sub-graphs.
 When adding a new sub-graph, the schema and store properties for this new graph are supplied to the Federated Store directly.
 
@@ -138,7 +139,7 @@ User specified store properties are allowed by default, but this can be disallow
     ... Schema in JSON format
   },
   "storeProperties" : {
-    ... Store Properties
+    ... Store Properties in JSON format
   }
 }
 ```
@@ -180,8 +181,8 @@ Graphs can only be removed by users with write access or by an administrator (us
 
 Removing a graph and deleting the underlying data is done with the `RemoveGraphAndDeleteAllData` operation.
 Other than also deleting data, this operation is identical to `RemoveGraph`.
-Gaffer stores are not required to support this operation, if it's not supported an error will be raised.
-It is supported by and has been tested with the Accumulo Store.
+For this to work, the underlying Gaffer Store must support the `DeleteAllData` Operation.
+If this is not supported or not enabled then an error will be raised.
 
 ```json title="RemoveGraphAndDeleteAllData Operation"
 {
