@@ -2,11 +2,13 @@
 
 Below is a summary of changes that have been made in Gaffer version 2.
 
-Each breaking change has been put into one of 3 tiers, where they are also relevant to the tiers below:
+Each breaking change has been put into one of 3 tiers:
 
 - **user**: end users might have to change their Gaffer queries
 - **admin**: Gaffer admins that manage graphs might have to change their config or deployment environment
 - **developer**: developers of Gaffer or Gaffer extensions might need to make code changes
+
+Changes that are relevant to users are also relevant to admins and developers. Changes that are relevant to admins are also relevant to developers.
 
 ### Accumulo 2 Support
 The Accumulo store now supports Accumulo 2 and Hadoop 3 by default, with support for Accumulo 1 and Hadoop 2 retained. See the [Accumulo Migration page](../migrating-from-v1-to-v2/accumulo-migration.md) for more information about this change.
