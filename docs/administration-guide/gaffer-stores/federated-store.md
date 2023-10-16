@@ -24,9 +24,9 @@ You can also add a [Cache Service](store-guide.md#caches) within the Store Prope
 
 ### Using the REST API
 
-When using the REST API, configuration is done with the files `graphId.json` and `store.properties`. Minimal examples are shown below.
+When using the REST API, configuration is done with the files `graphConfig.json` and `store.properties`. Minimal examples are shown below.
 
-```json title="graphId.json"
+```json title="graphConfig.json"
 {
   "graphId": "federatedGraph",
   "library": {
