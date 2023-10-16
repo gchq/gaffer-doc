@@ -30,7 +30,7 @@ A lot of bugs have been fixed that should facilitate FederatedStores with ProxyS
 !!! danger "Breaking change"
     The unique store trait `DYNAMIC_SCHEMA` has been removed from Gaffer. Simply removing it from custom FederatedStore implementations should be an adequate fix.
 
-### Removal of CloseableIterable
+### Removal of CloseableIterable and CloseableIterator
 The `CloseableIterable` class has been removed so Operations like `GetAllElements` now return an `Iterable` instead, but the result still implements `Closeable`.
 !!! danger "Breaking change"
     Everywhere `CloseableIterable` was used in client code should be replaced with an `Iterable`:
@@ -40,6 +40,18 @@ The `CloseableIterable` class has been removed so Operations like `GetAllElement
     ```java
     final Iterable<? extends Element> results = graph.execute(new GetAllElements(), USER);
     ```
+
+Note that the `CloseableIterator` class has similarly been removed and any implementations will require updating.
+
+### Migration of Iterable Classes
+Some Gaffer-specific Iterables and Iterators used for retrieving and manipulating data from stores have migrated from `uk.gov.gchq.gaffer.commonutil.iterable` to [`uk.gov.gchq.koryphe.iterable`](https://gchq.github.io/koryphe/uk/gov/gchq/koryphe/iterable/package-summary.html).
+
+`ChainedIterable`, `ChainedIterator`, `FilteredIterable`, `FilteredIterator`, `LimitedIterable` (previously `LimitedCloseableIterable`) and `LimitedIterator` have been migrated into the Koryphe repo. 
+Additionally, the `MappedIterable` and `MappedIterator` classes have been added which allow you to apply a list of functions to an iterable/iterator.
+
+Many of the other classes remain in [`uk.gov.gchq.gaffer.commonutil.iterable`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/commonutil/iterable/package-summary.html).
+
+Both the `WrappedCloseableIterable` and `WrappedCloseableIterator` classes have been removed.
 
 ### Removal of HBase and Parquet stores
 The HBase and Parquet stores have been removed from Gaffer in version 2. We made posts for both the [HBase](https://github.com/gchq/Gaffer/issues/2367) and [Parquet](https://github.com/gchq/Gaffer/discussions/2557) stores to understand the levels of usage. It was then decided to remove both stores as this would make introducing various improvements easier in the long term. HBase and Parquet remain available in Gaffer version 1. In the future, they could be reimplemented for Gaffer 2, though we do not plan to currently.
