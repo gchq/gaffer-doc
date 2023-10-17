@@ -12,7 +12,7 @@ Gaffer this specifically refers to the aggregation function.
 ## Why Aggregate?
 
 Aggregation allows us to take a set of elements and group them and their
-properties together to form a new result. These allow us to get quick insights
+properties together to form a new result. This allows us to get quick insights
 into our data and generate valuable outputs from our graphing queries.
 
 There are also some key benefits when using aggregation with sketches as we

@@ -27,8 +27,8 @@ graph LR
     B
 ```
 
-As you can see we have two vertex types, `Person` and `Repository` both without
-any properties then, we have one edge type `Commit` with two properties `added`
+As you can see we have two vertex types, `Person` and `Repository`, both without
+any properties. We have one edge type `Commit` with two properties `added`
 and `removed`. Translating this into a basic Gaffer schema gives the following:
 
 !!! note
@@ -108,7 +108,7 @@ which you can read more about in the [reference guide](../../reference/binary-op
     interface.
 
 Loading the data into a Graph using the example schema we can form the Graph
-and see the aggregation in action. First loading the data via the REST API
+and see the aggregation in action. First load the data via the REST API
 using the `AddElements` operation like below:
 
 ```json
@@ -365,7 +365,7 @@ graph LR
 
 What we are doing with this graph is aggregating any new `Commit` edges so that
 the `first` and `latest` commit dates are kept updated as new edges are added to
-the Graph whilst, incrementing a `count` property to indicate overall how many
+the Graph whilst incrementing a `count` property to indicate overall how many
 `Commit` edges are between two vertexes.
 
 We will modify the schema from the basic example add the different properties

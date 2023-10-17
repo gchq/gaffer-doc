@@ -5,7 +5,7 @@ A basic introduction to the concept of Aggregation in Gaffer can be found in the
 an extension of the introduction to demonstrate more advanced usage of
 Aggregation and how it can be applied.
 
-Aggregation is applied in Gaffer through an aggregation function these can take
+Aggregation is applied in Gaffer through an aggregation function. These can take
 a number of forms but the common factor between them is that they use the
 underlying koryphe library to provide the
 [`ElementAggregator`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/data/element/function/ElementAggregator.html).
@@ -33,12 +33,12 @@ use cases on how this can be applied.
 
 ## Query-time Aggregation
 
-Query-time aggregation as the name suggests is adding aggregation to
+Query-time aggregation, as the name suggests, is adding aggregation to
 elements from within the graph query. This differs from ingest aggregation
-as only the results of the query will have been aggregated the data stored
+as only the results of the query will have been aggregated; the data stored
 in the graph remains unchanged.
 
-Generally to apply aggregation at query-time you must override the `groupBy`
+Generally, to apply aggregation at query-time you must override the `groupBy`
 property to prevent the default grouping taking place. It is then possible
 to create your own aggregator in the query which can force the use of a
 different aggregation function on a property.
