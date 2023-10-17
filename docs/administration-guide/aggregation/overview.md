@@ -7,7 +7,7 @@ Aggregation and how it can be applied.
 
 Aggregation is applied in Gaffer through an aggregation function. These can take
 a number of forms but the common factor between them is that they use the
-underlying koryphe library to provide the
+underlying [koryphe library](https://github.com/gchq/koryphe) to provide the
 [`ElementAggregator`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/data/element/function/ElementAggregator.html).
 
 ## Ingest Aggregation

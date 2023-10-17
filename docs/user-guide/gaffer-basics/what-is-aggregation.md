@@ -2,12 +2,12 @@
 
 **Aggregation** - noun
 
-*"The formation of a number of things into a cluster"*
+*"The process of combining things or amounts into a single group or total"*
 
 ---
 
 In a software context Aggregation can have a variety of interpretations, in
-Gaffer this specifically refers to the aggregation function.
+Gaffer this specifically refers to ingest or query aggregation.
 
 ## Why Aggregate?
 
@@ -28,7 +28,8 @@ added to a specific query.
 For ingest time the configuration is specified via the [graph schema](../schema.md)
 so that as data is loaded into a graph it is aggregated and stored in that
 state. To demonstrate what this would look like take the simple graph below
-where we can apply aggregation to merge the multiple edges together.
+where we can apply aggregation to merge the multiple edges together by summing the
+properties.
 
 === "Before Aggregation"
     If we don't apply ingest aggregation all elements will be stored separately in
@@ -62,11 +63,14 @@ where we can apply aggregation to merge the multiple edges together.
     ```
 
 !!! tip
-    For an in-depth guide into ingest aggregation please see the [administration guide](../../administration-guide/aggregation/overview.md).
+    Other aggregation functions are available, for an in-depth guide into ingest
+    aggregation please see the [administration guide](../../administration-guide/aggregation/overview.md).
 
 The other place you can apply aggregation is at query time. As a user this is
-the most common use case as it avoids the need to edit the graph schema but
-enables almost all the same features.
+the most common use case, typically an administrator will have set up the ingest
+time aggregation to summarise the input data into a more manageable size and
+saving disk space in the process. Users can then use query time aggregation to
+further summarise the data without having to edit the graph schema.
 
 The main difference between query-time aggregation and ingest aggregation is
 the aggregation applied on a query will only affect the elements in that

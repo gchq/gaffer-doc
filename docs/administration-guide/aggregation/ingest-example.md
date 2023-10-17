@@ -27,7 +27,7 @@ graph LR
     B
 ```
 
-As you can see we have two vertex types, `Person` and `Repository`, both without
+As you can see we have two entity groups, `Person` and `Repository`, both without
 any properties. We have one edge type `Commit` with two properties `added`
 and `removed`. Translating this into a basic Gaffer schema gives the following:
 
@@ -481,8 +481,9 @@ Applying these schemas to a Graph we can then add the following elements to
 demonstrate the aggregation in practice:
 
 !!! note
-    The dates here are in milliseconds since the Unix Epoch due to how
-    Jackson serialises `java.util.Date` types.
+    The dates in the JSON are in milliseconds since Unix Epoch instead of a
+    typical format like `dd/mm/yyyy` due to how Jackson serialises
+    `java.util.Date` types.
 
 ```json
 {
