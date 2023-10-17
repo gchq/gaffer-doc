@@ -117,18 +117,18 @@ The example file given below configures the Federated Store to federate queries 
 
 ## Adding Graphs
 
-To add a graph to a Federated Store you use the `AddGraph` operation. To load a graph you need to provide:
+To add a graph to a Federated Store you use the `AddGraph` operation. To add a graph you need to provide:
 
 - Graph ID
 - Graph Schema
 - Graph Properties
 
-!!! note "Duplicate Graph IDs"
+!!! warning "Duplicate Graph IDs"
     You can't add a graph with an ID which is already in use, you will need to explicitly [remove the old graph first](#removing-graphs).
 
 A Schema & Properties are not required if `parentSchemaId`/`parentPropertiesId` are instead used to retrieve this information from a Graph Library.
 
-You can limit user access to when adding sub-graphs, see [Limiting Access](#limit-access-with-authentication).
+You can limit user access when adding sub-graphs, see [Limiting Access](#limit-access-with-authentication).
 User specified store properties are allowed by default, but this can be disallowed if desired, see [limit custom properties](#limit-custom-properties).
 
 ```json title="AddGraph Operation"
