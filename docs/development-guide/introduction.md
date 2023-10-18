@@ -12,18 +12,12 @@ Organization](https://github.com/orgs/gchq/repositories).
 
 ## Repositories
 
-The [Gaffer core repo](https://github.com/gchq/Gaffer) contains the main Gaffer product.
+The core Java [Gaffer repo](https://github.com/gchq/Gaffer) contains the main Gaffer product.
 If you are completely new to Gaffer you can try out our [Road Traffic Demo](https://github.com/gchq/Gaffer/blob/master/example/road-traffic/README.md) or look at our example [deployment guide](../development-guide/example-deployment/project-setup.md).
 
-The [gaffer-tools repo](https://github.com/gchq/gaffer-tools) contains a number of useful tools that assist in working with Gaffer.
-These include:
+The [gafferpy repo](https://github.com/gchq/gafferpy) contains a python shell that can execute operations.
 
-- `gafferpy` - Allows operations against a graph to be executed from a Python shell
-- `mini-accumulo-cluster` - Allows a mini Accumulo cluster to be spun up for testing purposes
-- `performance-testing` - Methods of testing the performance of ingest and query operations against a graph
-- `random-element-generation` - Code to generate large volumes of random graph data
-
-The [Gaffer docker repo](https://github.com/gchq/gaffer-docker) contains the code needed to run Gaffer using Docker or Kubernetes.
+The [gaffer-docker repo](https://github.com/gchq/gaffer-docker) contains the code needed to run Gaffer using Docker or Kubernetes.
 More information about running a containerised instance of Gaffer can be found in our [adminstration guide](../administration-guide/introduction.md).
 
 It is also worth noting the [koryphe repo](https://github.com/gchq/koryphe) as this is a key dependency for Gaffer.
