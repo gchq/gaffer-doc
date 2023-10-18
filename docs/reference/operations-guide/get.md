@@ -1244,7 +1244,7 @@ Gets elements related to provided seeds. [Javadoc](https://gchq.github.io/Gaffer
 
     Get entities and edges by entity id 3 and edge id 2 to 3.
     Here we see a corner case where strange behaviour occurs when using the Accumulo store.
-    This happens when you provide an EntitySeed which matches the destination of an Edge, and an EdgeSeed which matches the same Edge.
+    This happens when you provide an `EntitySeed` which matches the destination of an edge, and an `EdgeSeed` which matches the same edge.
     Due to how the `matchedVertex` filtering works within Gaffer's Accumulo iterator code, this duplication is not removed.
     This may seem like a niche corner case, but is more likely to happen when you query Gaffer with a large amount of seeds.
     Note that, despite the entity matching some of the edges, the results do not have a matched vertex field.
