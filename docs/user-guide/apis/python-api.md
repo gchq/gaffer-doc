@@ -18,7 +18,7 @@ able to access almost any features or end points available in the main rest API.
 ## Installation
 
 Currently there isn't a release of `gafferpy` on pypi or other pip repository;
-however, the source code can still be cloned from the [git repository](https://github.com/gchq/gaffer-tools/tree/develop/python-shell)
+however, the source code can still be cloned from the [git repository](https://github.com/gchq/gafferpy/tree/main)
 and installed via pip. Please see the readme in the `gafferpy` repository for
 full instructions.
 
