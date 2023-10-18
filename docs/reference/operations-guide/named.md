@@ -732,7 +732,7 @@ Removes an existing NamedView from a Graph. [Javadoc](https://gchq.github.io/Gaf
 
 ## GetAllNamedViews
 
-Retrieves all NamedViews associated with a Graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/named/operation/GetAllNamedViews.html)
+Retrieves all NamedViews associated with a Graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/named/view/GetAllNamedViews.html)
 
 ??? example "Example getting all NamedViews"
 

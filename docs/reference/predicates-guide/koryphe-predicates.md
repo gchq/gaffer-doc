@@ -2455,7 +2455,7 @@ Input type: `java.util.Map`
 
 ## PredicateMap
 
-Extracts a value from a map then applies the predicate to it. [Javadoc](https://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/PredicateMap.html)
+Extracts a value from a map then applies the predicate to it. [Javadoc](https://gchq.github.io/koryphe/uk/gov/gchq/koryphe/predicate/PredicateMap.html)
 
 Input type: `java.util.Map`
 
