@@ -201,6 +201,7 @@ nav:
         - 'Named Operations': 'reference/operations-guide/named.md'
         - 'Export Operations': 'reference/operations-guide/export.md'
         - 'Generate Operations': 'reference/operations-guide/generate.md'
+        - 'Federated Operation': 'reference/operations-guide/federated-operation.md'
         - 'Flink Operations': 'reference/operations-guide/flink.md'
         - 'HDFS Operations': 'reference/operations-guide/hdfs.md'
         - 'Accumulo Operations': 'reference/operations-guide/accumulo.md'
