@@ -725,11 +725,11 @@ Tests if a Comparable is within a provided range. By default the range is inclus
 You can configure the start and end time strings using the following formats:
 
 * timestamp in milliseconds
-* yyyy/MM
-* yyyy/MM/dd
-* yyyy/MM/dd HH
-* yyyy/MM/dd HH:mm
-* yyyy/MM/dd HH:mm:ss
+* `yyyy/MM`
+* `yyyy/MM/dd`
+* `yyyy/MM/dd HH`
+* `yyyy/MM/dd HH:mm`
+* `yyyy/MM/dd HH:mm:ss`
 
 You can use a space, `-`, `/`, `_`, `:`, `|`, or `.` to separate the parts.
 
