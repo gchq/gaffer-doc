@@ -87,7 +87,7 @@ instead of the default [`ApplyViewToElementsFunction`](../../reference/operation
 
 ```json title="mergefunctionDefinitions.json"
 {
-  "configuredMergeFunctions": {
+  "storeConfiguredMergeFunctions": {
     "uk.gov.gchq.gaffer.operation.impl.get.GetElements": {
       "class": "uk.gov.gchq.gaffer.federatedstore.util.ConcatenateMergeFunction"
     },
