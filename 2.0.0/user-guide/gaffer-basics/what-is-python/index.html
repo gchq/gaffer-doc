@@ -1881,6 +1881,68 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+          Aggregation Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_5">
+          <span class="md-nav__icon md-icon"></span>
+          Aggregation Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../administration-guide/aggregation/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../administration-guide/aggregation/ingest-example/" class="md-nav__link">
+        Ingest Example
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../../../administration-guide/named-operations/" class="md-nav__link">
         Named Operations
@@ -1915,17 +1977,17 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_8" >
       
       
       
-        <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_4_8" id="__nav_4_8_label" tabindex="0">
           Security
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_4_7">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_8">
           <span class="md-nav__icon md-icon"></span>
           Security
         </label>
@@ -2209,7 +2271,7 @@
   
     <li class="md-nav__item">
       <a href="../../../reference/intro/" class="md-nav__link">
-        Reference Guide
+        Introduction
       </a>
     </li>
   
@@ -2919,13 +2981,13 @@
 <h1 id="what-is-python-and-how-is-it-used-in-gaffer">What is Python and how is it used in Gaffer?</h1>
 <p>Python is a popular high level programming language that's seen massive popularity specifically in the data science and educational programming areas. Python is an interpreted general purpose language that's dynamically typed and garbage collected. For more info on Python please reference the <a href="https://www.python.org/">official Python docs</a>.</p>
 <h2 id="python-in-gaffer">Python in Gaffer</h2>
-<p>Whilst Gaffer is written primarily in Java a Python interface has been provided so that you can programmatically access Gaffer functionality with Python, this can be accessed via the gafferpy library located in the <a href="https://github.com/gchq/gaffer-tools">gaffer-tools repository</a>.
+<p>Whilst Gaffer is written primarily in Java a Python interface has been provided so that you can programmatically access Gaffer functionality with Python, this can be accessed via the gafferpy library located in the <a href="https://github.com/gchq/gafferpy">gafferpy repository</a>.
 This provides a Python 3.6+ compatible import that will allow you to speak directly to the Gaffer REST API, it supports persistent connections to Gaffer, connection via SSL and the associated Python functionality to interact with available Gaffer operations.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>See the page on <a href="../../apis/python-api/">using the Python API</a> in gaffer for further information.</p>
 </div>
-<p>Inside the gaffer-tools library you'll find a set of examples that show how you can interact with Gaffer, here is a basic example of using gafferpy:</p>
+<p>Inside the gafferpy library you'll find a set of examples that show how you can interact with Gaffer, here is a basic example of using gafferpy:</p>
 <div class="admonition example">
 <p>This executes a get request into Gaffer to retrieve the current schema.</p>
 <div class="language-py highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">gafferpy</span> <span class="kn">import</span> <span class="n">gaffer</span> <span class="k">as</span> <span class="n">g</span>
@@ -2952,7 +3014,7 @@ This provides a Python 3.6+ compatible import that will allow you to speak direc
 The main <code>gaffer</code> Python module (usually imported as <code>g</code>) allows access to various functions to run Gaffer operations. This connection works by serialising the Python code into JSON and then transferring this to be deserialised and ran in Gaffer.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>A link to the gaffer tools repository can be found here: <a href="https://github.com/gchq/gaffer-tools">GCHQ/gaffer-tools</a></p>
+<p>A link to the gafferpy repository can be found here: <a href="https://github.com/gchq/gafferpy">gchq/gafferpy</a></p>
 </div>
 
   <hr>
@@ -2960,7 +3022,7 @@ The main <code>gaffer</code> Python module (usually imported as <code>g</code>) 
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 21, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 16, 2023</span>
       
         <br>
         Created:

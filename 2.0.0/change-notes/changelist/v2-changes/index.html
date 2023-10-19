@@ -1836,6 +1836,68 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+          Aggregation Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_5">
+          <span class="md-nav__icon md-icon"></span>
+          Aggregation Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../administration-guide/aggregation/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../administration-guide/aggregation/ingest-example/" class="md-nav__link">
+        Ingest Example
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../../../administration-guide/named-operations/" class="md-nav__link">
         Named Operations
@@ -1870,17 +1932,17 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_8" >
       
       
       
-        <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_4_8" id="__nav_4_8_label" tabindex="0">
           Security
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_4_7">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_8">
           <span class="md-nav__icon md-icon"></span>
           Security
         </label>
@@ -2069,8 +2131,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#removal-of-closeableiterable" class="md-nav__link">
-    Removal of CloseableIterable
+  <a href="#removal-of-closeableiterable-and-closeableiterator" class="md-nav__link">
+    Removal of CloseableIterable and CloseableIterator
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-of-iterable-classes" class="md-nav__link">
+    Migration of Iterable Classes
   </a>
   
 </li>
@@ -2293,7 +2362,7 @@
   
     <li class="md-nav__item">
       <a href="../../../reference/intro/" class="md-nav__link">
-        Reference Guide
+        Introduction
       </a>
     </li>
   
@@ -3013,8 +3082,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#removal-of-closeableiterable" class="md-nav__link">
-    Removal of CloseableIterable
+  <a href="#removal-of-closeableiterable-and-closeableiterator" class="md-nav__link">
+    Removal of CloseableIterable and CloseableIterator
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#migration-of-iterable-classes" class="md-nav__link">
+    Migration of Iterable Classes
   </a>
   
 </li>
@@ -3086,52 +3162,66 @@
 
 <h1 id="gaffer-2-changelist">Gaffer 2 Changelist</h1>
 <p>Below is a summary of changes that have been made in Gaffer version 2.</p>
+<p>Each breaking change has been put into one of 3 tiers:</p>
+<ul>
+<li><strong>user</strong>: end users might have to change their Gaffer queries</li>
+<li><strong>admin</strong>: Gaffer admins that manage graphs might have to change their config or deployment environment</li>
+<li><strong>developer</strong>: developers of Gaffer or Gaffer extensions might need to make code changes</li>
+</ul>
+<p>Changes that are relevant to users are also relevant to admins and developers. Changes that are relevant to admins are also relevant to developers.</p>
 <h3 id="accumulo-2-support">Accumulo 2 Support</h3>
 <p>The Accumulo store now supports Accumulo 2 and Hadoop 3 by default, with support for Accumulo 1 and Hadoop 2 retained. See the <a href="../../migrating-from-v1-to-v2/accumulo-migration/">Accumulo Migration page</a> for more information about this change.</p>
 <h3 id="federated-store-improvements">Federated Store Improvements</h3>
 <p>The Federated Operation was added to greatly improve flexibility of using a Federated Store.</p>
 <div class="admonition danger">
-<p class="admonition-title">Breaking change</p>
+<p class="admonition-title">Breaking change | user | <a href="https://github.com/gchq/Gaffer/releases/tag/gaffer2-2.0.0-alpha-0.4">alpha-0.4</a></p>
 <p>To migrate, please see the <a href="../../migrating-from-v1-to-v2/federation-changes/">Federated Store Changes page</a>.</p>
 </div>
 <h3 id="cache-improvements-and-fixes">Cache Improvements and fixes</h3>
 <p>All "caches" within Gaffer received a lot of bug fixes which should make them significantly more stable and consistent over time. This should improve usability of FederatedStores, NamedOperations and NamedViews.</p>
 <div class="admonition danger">
-<p class="admonition-title">Breaking change</p>
+<p class="admonition-title">Breaking change | admin | <a href="https://github.com/gchq/Gaffer/releases/tag/gaffer2-2.0.0-alpha-0.6">alpha-0.6</a></p>
 <p>The cache will need to be reloaded, as the new internal cache interface has changed.  To do this, export all of the contents of your cache, upgrade, then re-add everything manually.</p>
 </div>
 <h3 id="removal-of-deprecated-code">Removal of Deprecated code</h3>
 <p>All of Gaffer 1's deprecated code has been removed.</p>
 <div class="admonition danger">
-<p class="admonition-title">Breaking change</p>
+<p class="admonition-title">Breaking change | user | <a href="https://github.com/gchq/Gaffer/releases/tag/gaffer2-2.0.0-alpha-0.1">alpha-0.1</a></p>
 <p>To migrate, please see the <a href="../../migrating-from-v1-to-v2/deprecations/">deprecations</a> page.</p>
 </div>
 <h3 id="dependency-upgrades">Dependency Upgrades</h3>
 <p>Dependencies have been updated, where possible to the latest version, removing vulnerabilities.</p>
 <div class="admonition danger">
-<p class="admonition-title">Breaking change</p>
+<p class="admonition-title">Breaking change | developer | <a href="https://github.com/gchq/Gaffer/releases/tag/gaffer2-2.0.0-alpha-0.2">alpha-0.2</a></p>
 <p>You will need to migrate your dependencies to be compatible with Gaffer 2's new dependency versions. Please see the <a href="../../migrating-from-v1-to-v2/dependencies/">dependencies</a> page for full details.</p>
 </div>
 <h3 id="federated-and-proxy-store-fixes">Federated and Proxy store fixes</h3>
 <p>A lot of bugs have been fixed that should facilitate FederatedStores with ProxyStores in them.</p>
 <div class="admonition danger">
-<p class="admonition-title">Breaking change</p>
+<p class="admonition-title">Breaking change | developer | <a href="https://github.com/gchq/Gaffer/releases/tag/gaffer2-2.0.0-alpha-0.5">alpha-0.5</a></p>
 <p>The unique store trait <code>DYNAMIC_SCHEMA</code> has been removed from Gaffer. Simply removing it from custom FederatedStore implementations should be an adequate fix.</p>
 </div>
-<h3 id="removal-of-closeableiterable">Removal of CloseableIterable</h3>
+<h3 id="removal-of-closeableiterable-and-closeableiterator">Removal of CloseableIterable and CloseableIterator</h3>
 <p>The <code>CloseableIterable</code> class has been removed so Operations like <code>GetAllElements</code> now return an <code>Iterable</code> instead, but the result still implements <code>Closeable</code>.</p>
 <div class="admonition danger">
-<p class="admonition-title">Breaking change</p>
+<p class="admonition-title">Breaking change | developer | <a href="https://github.com/gchq/Gaffer/releases/tag/gaffer2-2.0.0-alpha-0.2">alpha-0.2</a></p>
 <p>Everywhere <code>CloseableIterable</code> was used in client code should be replaced with an <code>Iterable</code>:
 <div class="language-java highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kd">final</span><span class="w"> </span><span class="n">CloseableIterable</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Element</span><span class="o">&gt;</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">GetAllElements</span><span class="p">(),</span><span class="w"> </span><span class="n">USER</span><span class="p">);</span>
 </span></code></pre></div>
 <div class="language-java highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">final</span><span class="w"> </span><span class="n">Iterable</span><span class="o">&lt;?</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Element</span><span class="o">&gt;</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">graph</span><span class="p">.</span><span class="na">execute</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">GetAllElements</span><span class="p">(),</span><span class="w"> </span><span class="n">USER</span><span class="p">);</span>
 </span></code></pre></div></p>
 </div>
+<p>Note that the <code>CloseableIterator</code> class has similarly been removed and any implementations will require updating.</p>
+<h3 id="migration-of-iterable-classes">Migration of Iterable Classes</h3>
+<p>Some Gaffer-specific Iterables and Iterators used for retrieving and manipulating data from stores have migrated from <code>uk.gov.gchq.gaffer.commonutil.iterable</code> to <a href="https://gchq.github.io/koryphe/uk/gov/gchq/koryphe/iterable/package-summary.html"><code>uk.gov.gchq.koryphe.iterable</code></a>.</p>
+<p><code>ChainedIterable</code>, <code>ChainedIterator</code>, <code>FilteredIterable</code>, <code>FilteredIterator</code>, <code>LimitedIterable</code> (previously <code>LimitedCloseableIterable</code>) and <code>LimitedIterator</code> have been migrated into the Koryphe repo. 
+Additionally, the <code>MappedIterable</code> and <code>MappedIterator</code> classes have been added which allow you to apply a list of functions to an iterable/iterator.</p>
+<p>Many of the other classes remain in <a href="https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/commonutil/iterable/package-summary.html"><code>uk.gov.gchq.gaffer.commonutil.iterable</code></a>.</p>
+<p>Both the <code>WrappedCloseableIterable</code> and <code>WrappedCloseableIterator</code> classes have been removed.</p>
 <h3 id="removal-of-hbase-and-parquet-stores">Removal of HBase and Parquet stores</h3>
 <p>The HBase and Parquet stores have been removed from Gaffer in version 2. We made posts for both the <a href="https://github.com/gchq/Gaffer/issues/2367">HBase</a> and <a href="https://github.com/gchq/Gaffer/discussions/2557">Parquet</a> stores to understand the levels of usage. It was then decided to remove both stores as this would make introducing various improvements easier in the long term. HBase and Parquet remain available in Gaffer version 1. In the future, they could be reimplemented for Gaffer 2, though we do not plan to currently.</p>
 <div class="admonition danger">
-<p class="admonition-title">Breaking change</p>
+<p class="admonition-title">Breaking change | admin | <a href="https://github.com/gchq/Gaffer/releases/tag/gaffer2-2.0.0-alpha-0.1">alpha-0.1</a></p>
 <p>We would recommend instead using an Accumulo Store. If you would like these store implementations in Gaffer 2, or any other potential store for that matter, please <a href="https://github.com/gchq/Gaffer/issues/new?assignees=&amp;labels=enhancement&amp;projects=&amp;template=feature_request.md&amp;title=">make an issue</a> on GitHub.</p>
 </div>
 <h3 id="gaffer-now-builds-with-java-8-and-java-11">Gaffer now builds with Java 8 and Java 11</h3>
@@ -3220,7 +3310,7 @@ New operation that will work within NamedOperations:
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 21, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 18, 2023</span>
       
         <br>
         Created:

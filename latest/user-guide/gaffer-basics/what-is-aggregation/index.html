@@ -71,6 +71,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#what-is-aggregation" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -513,10 +518,50 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          What is Aggregation?
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         What is Aggregation?
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-aggregate" class="md-nav__link">
+    Why Aggregate?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-is-aggregation-applied" class="md-nav__link">
+    How is Aggregation Applied?
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1843,6 +1888,68 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+          Aggregation Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_5">
+          <span class="md-nav__icon md-icon"></span>
+          Aggregation Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../administration-guide/aggregation/overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../administration-guide/aggregation/ingest-example/" class="md-nav__link">
+        Ingest Example
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../../../administration-guide/named-operations/" class="md-nav__link">
         Named Operations
@@ -1877,17 +1984,17 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_8" >
       
       
       
-        <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_4_8" id="__nav_4_8_label" tabindex="0">
           Security
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_4_7">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_8">
           <span class="md-nav__icon md-icon"></span>
           Security
         </label>
@@ -2171,7 +2278,7 @@
   
     <li class="md-nav__item">
       <a href="../../../reference/intro/" class="md-nav__link">
-        Reference Guide
+        Introduction
       </a>
     </li>
   
@@ -2839,6 +2946,30 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-aggregate" class="md-nav__link">
+    Why Aggregate?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-is-aggregation-applied" class="md-nav__link">
+    How is Aggregation Applied?
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -2861,16 +2992,78 @@
   
 
 
-  <h1>What is Aggregation?</h1>
-
-
+<h1 id="what-is-aggregation">What is Aggregation?</h1>
+<p><strong>Aggregation</strong> - noun</p>
+<p><em>"The process of combining things or amounts into a single group or total"</em></p>
+<hr />
+<p>In a software context Aggregation can have a variety of interpretations, in
+Gaffer this specifically refers to ingest or query aggregation.</p>
+<h2 id="why-aggregate">Why Aggregate?</h2>
+<p>Aggregation allows us to take a set of elements and group them and their
+properties together to form a new result. This allows us to get quick insights
+into our data and generate valuable outputs from our graphing queries.</p>
+<p>There are also some key benefits when using aggregation with sketches as we
+can store aggregated data in a compact format to reduce storage requirements
+and improve throughput. Further reading on sketches is available in the
+<a href="../../../reference/properties-guide/advanced/">reference guide</a>.</p>
+<h2 id="how-is-aggregation-applied">How is Aggregation Applied?</h2>
+<p>The application of aggregation can be done at either data ingest time or
+added to a specific query.</p>
+<p>For ingest time the configuration is specified via the <a href="../../schema/">graph schema</a>
+so that as data is loaded into a graph it is aggregated and stored in that
+state. To demonstrate what this would look like take the simple graph below
+where we can apply aggregation to merge the multiple edges together by summing the
+properties.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Before Aggregation</label><label for="__tabbed_1_2">After Aggregation</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>If we don't apply ingest aggregation all elements will be stored separately in
+graph.</p>
+<pre class="mermaid"><code>flowchart LR
+    A(A)
+    --
+    "Edge
+    prop: 1"
+    --&gt; B(B)
+    A(A)
+    --
+    "Edge
+    prop: 1"
+    --&gt; B(B)</code></pre>
+</div>
+<div class="tabbed-block">
+<p>Now if we have apply aggregation to sum the same properties on the <code>Edge</code>
+they now get stored together as one element.</p>
+<pre class="mermaid"><code>flowchart LR
+    A(A)
+    --
+    "Edge
+    prop: 2"
+    --&gt; B(B)</code></pre>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Other aggregation functions are available, for an in-depth guide into ingest
+aggregation please see the <a href="../../../administration-guide/aggregation/overview/">administration guide</a>.</p>
+</div>
+<p>The other place you can apply aggregation is at query time. As a user this is
+the most common use case, typically an administrator will have set up the ingest
+time aggregation to summarise the input data into a more manageable size and
+saving disk space in the process. Users can then use query time aggregation to
+further summarise the data without having to edit the graph schema.</p>
+<p>The main difference between query-time aggregation and ingest aggregation is
+the aggregation applied on a query will only affect the elements in that
+query so the overall graph data is left intact. There is more information on how
+to apply query-time aggregation in the <a href="../../query/gaffer-syntax/filtering/#query-time-aggregation">querying guide on filtering</a>.</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 13, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 18, 2023</span>
       
         <br>
         Created:
