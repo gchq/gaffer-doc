@@ -152,6 +152,9 @@ nav:
         - 'Changing Accumulo Passwords': 'administration-guide/gaffer-config/change-accumulo-passwords.md'
         - 'Proxy': 'administration-guide/gaffer-config/proxy.md'
         - 'URL': 'administration-guide/gaffer-config/url.md'
+      - Aggregation Guide:
+        - 'Overview': 'administration-guide/aggregation/overview.md'
+        - 'Ingest Example': 'administration-guide/aggregation/ingest-example.md'
       - 'Named Operations': 'administration-guide/named-operations.md'
       - 'Operation Score': 'administration-guide/operation-score.md'
       - Security:
@@ -168,7 +171,7 @@ nav:
         - 'Accumulo Kerberos': 'change-notes/migrating-from-v1-to-v2/accumulo-kerberos.md'
         - 'Log4j in Gaffer': 'change-notes/migrating-from-v1-to-v2/log4j.md'
     - Reference:
-      - 'Reference Guide': 'reference/intro.md'
+      - 'Introduction': 'reference/intro.md'
       - 'Glossary': 'reference/glossary.md'
       - 'Javadoc': 'reference/javadoc.md'
       - Properties:
