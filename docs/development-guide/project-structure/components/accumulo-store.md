@@ -194,6 +194,7 @@ Ensure that when running an Accumulo instance, the user specified by the `accumu
 | vis1              | [VisibilityIT](https://github.com/gchq/Gaffer/blob/develop/integration-test/src/test/java/uk/gov/gchq/gaffer/integration/impl/VisibilityIT.java) |
 | vis2              | [VisibilityIT](https://github.com/gchq/Gaffer/blob/develop/integration-test/src/test/java/uk/gov/gchq/gaffer/integration/impl/VisibilityIT.java) |
 | public            | [SchemaHidingIT](https://github.com/gchq/Gaffer/blob/develop/core/graph/src/test/java/uk/gov/gchq/gaffer/integration/graph/SchemaHidingIT.java) |
+| private           | [UserLoaderIT](https://github.com/gchq/Gaffer/blob/develop/integration-test/src/test/java/uk/gov/gchq/gaffer/integration/impl/loader/UserLoaderIT.java)|
 | publicVisibility  | [AccumuloAggregationIT](https://github.com/gchq/Gaffer/blob/develop/store-implementation/accumulo-store/src/test/java/uk/gov/gchq/gaffer/accumulostore/integration/AccumuloAggregationIT.java) |
 | privateVisibility | [AccumuloAggregationIT](https://github.com/gchq/Gaffer/blob/develop/store-implementation/accumulo-store/src/test/java/uk/gov/gchq/gaffer/accumulostore/integration/AccumuloAggregationIT.java) |
 
