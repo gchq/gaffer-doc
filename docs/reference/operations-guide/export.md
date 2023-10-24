@@ -271,7 +271,7 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
     === "Java"
 
         ``` java
-        final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationChain.Builder()
+        final OperationChain<Map<String, Iterable<?>>> opChain = new OperationChain.Builder()
                 .first(new GetAllElements())
                 .then(new ExportToSet.Builder<>()
                         .key("edges")
@@ -604,7 +604,7 @@ Exports to a cache backed by a Gaffer graph. Requires a cache to be configured. 
     === "Java"
 
         ``` java
-        final OperationChain<CloseableIterable<?>> opChain = new OperationChain.Builder()
+        final OperationChain<Iterable<?>> opChain = new OperationChain.Builder()
                 .first(new GetAllElements())
                 .then(new ExportToGafferResultCache<>())
                 .then(new DiscardOutput())
@@ -836,7 +836,7 @@ Exports to a cache backed by a Gaffer graph. Requires a cache to be configured. 
     === "Java"
 
         ``` java
-        final OperationChain<CloseableIterable<?>> opChain = new OperationChain.Builder()
+        final OperationChain<Iterable<?>> opChain = new OperationChain.Builder()
                 .first(new GetGafferResultCacheExport.Builder()
                         .jobId(jobDetail.getJobId())
                         .build())
@@ -993,7 +993,7 @@ Exports to a cache backed by a Gaffer graph. Requires a cache to be configured. 
     === "Java"
 
         ``` java
-        final OperationChain<Map<String, CloseableIterable<?>>> opChain = new OperationChain.Builder()
+        final OperationChain<Map<String, Iterable<?>>> opChain = new OperationChain.Builder()
                 .first(new GetAllElements())
                 .then(new ExportToGafferResultCache.Builder<>()
                         .key("edges")

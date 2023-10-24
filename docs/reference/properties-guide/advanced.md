@@ -161,7 +161,7 @@ This example demonstrates how the HyperLogLogPlus sketch property from the Clear
             .input(new EntitySeed("A"))
             .build();
     final Element element;
-    try (final CloseableIterable<? extends Element> elements = graph.execute(query, user)) {
+    try (final Iterable<? extends Element> elements = graph.execute(query, user)) {
         element = elements.iterator().next();
     }
     final HyperLogLogPlus hyperLogLogPlus = (HyperLogLogPlus) element.getProperty("approxCardinality");
@@ -254,7 +254,7 @@ This example demonstrates how the HllSketch sketch property from the Datasketche
             .input(new EntitySeed("A"))
             .build();
     final Element element;
-    try (final CloseableIterable<? extends Element> elements = graph.execute(query, user)) {
+    try (final Iterable<? extends Element> elements = graph.execute(query, user)) {
         element = elements.iterator().next();
     }
     final HllSketch hllSketch = (HllSketch) element.getProperty("approxCardinality");
@@ -358,7 +358,7 @@ This example demonstrates how the LongsSketch sketch property from the Datasketc
             .input(new EdgeSeed("A", "B", DirectedType.UNDIRECTED))
             .build();
     final Element edge;
-    try (final CloseableIterable<? extends Element> edges = graph.execute(query, user)) {
+    try (final Iterable<? extends Element> edges = graph.execute(query, user)) {
         edge = edges.iterator().next();
     }
     final LongsSketch longsSketch = (LongsSketch) edge.getProperty("longsSketch");
@@ -466,7 +466,7 @@ This example demonstrates how the DoublesSketch sketch property from the Dataske
             .input(new EdgeSeed("A", "B", DirectedType.UNDIRECTED))
             .build();
     final Element edge;
-    try (final CloseableIterable<? extends Element> edges = graph.execute(query, user)) {
+    try (final Iterable<? extends Element> edges = graph.execute(query, user)) {
         edge = edges.iterator().next();
     }
     final DoublesSketch doublesSketch = (DoublesSketch) edge.getProperty("doublesSketch");
@@ -489,7 +489,7 @@ This example demonstrates how the DoublesSketch sketch property from the Dataske
             .input(new EdgeSeed("A", "B", DirectedType.UNDIRECTED))
             .build();
     final Element edge2;
-    try (final CloseableIterable<? extends Element> edges2 = graph.execute(query2, user)) {
+    try (final Iterable<? extends Element> edges2 = graph.execute(query2, user)) {
         edge2 = edges2.iterator().next();
     }
     final DoublesSketch doublesSketch2 = (DoublesSketch) edge2.getProperty("doublesSketch");
@@ -601,7 +601,7 @@ This example demonstrates how the ReservoirItemsSketch<String> sketch property f
             .input(new EdgeSeed("A", "B", DirectedType.UNDIRECTED))
             .build();
     final Element edge;
-    try (final CloseableIterable<? extends Element> edges = graph.execute(query, user)) {
+    try (final Iterable<? extends Element> edges = graph.execute(query, user)) {
         edge = edges.iterator().next();
     }
     final ReservoirItemsSketch<String> stringsSketch = ((ReservoirItemsSketch<String>) edge.getProperty("stringsSample"));
@@ -630,7 +630,7 @@ This example demonstrates how the ReservoirItemsSketch<String> sketch property f
                     .build())
             .build();
     final Element entity;
-    try (final CloseableIterable<? extends Element> entities = graph.execute(query2, user)) {
+    try (final Iterable<? extends Element> entities = graph.execute(query2, user)) {
         entity = entities.iterator().next();
     }
     final ReservoirItemsSketch<String> neighboursSketch = ((ReservoirItemsSketch<String>) entity.getProperty("neighboursSample"));
@@ -806,7 +806,7 @@ This example demonstrates how the ThetaSketch (`org.apache.datasketches.theta.Sk
                     .entity("size")
                     .build())
             .build();
-    final CloseableIterable<? extends Element> allEntities2 = graph.execute(getAllEntities2, user);
+    final Iterable<? extends Element> allEntities2 = graph.execute(getAllEntities2, user);
     final CloseableIterator<? extends Element> it = allEntities2.iterator();
     final Element entityDay1 = it.next();
     final Sketch sketchDay1 = ((Sketch) entityDay1.getProperty("size"));
@@ -847,7 +847,7 @@ This example demonstrates how the ThetaSketch (`org.apache.datasketches.theta.Sk
                     .build())
             .build();
     final Element entity;
-    try (final CloseableIterable<? extends Element> allEntities = graph.execute(getAllEntities, user)) {
+    try (final Iterable<? extends Element> allEntities = graph.execute(getAllEntities, user)) {
         entity = allEntities.iterator().next();
     }
     final double unionSizeEstimate = ((Sketch) entity.getProperty("size")).getEstimate();

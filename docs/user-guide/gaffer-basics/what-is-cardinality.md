@@ -246,7 +246,7 @@ Depending on how you query Gaffer, approximate cardinality will be displayed in 
             .build();
 
     final Element element;
-    try (final CloseableIterable<? extends Element> elements = graph.execute(query, user)) {
+    try (final Iterable<? extends Element> elements = graph.execute(query, user)) {
         element = elements.iterator().next();
     }
 
