@@ -807,7 +807,7 @@ This example demonstrates how the ThetaSketch (`org.apache.datasketches.theta.Sk
                     .build())
             .build();
     final Iterable<? extends Element> allEntities2 = graph.execute(getAllEntities2, user);
-    final CloseableIterator<? extends Element> it = allEntities2.iterator();
+    final Iterable<? extends Element> it = allEntities2.iterator();
     final Element entityDay1 = it.next();
     final Sketch sketchDay1 = ((Sketch) entityDay1.getProperty("size"));
     final Element entityDay2 = it.next();
