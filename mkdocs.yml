@@ -145,8 +145,8 @@ nav:
         - 'Federated Store': 'administration-guide/gaffer-stores/federated-store.md'
         - 'Map Store':  'administration-guide/gaffer-stores/map-store.md'
         - 'Proxy Store': 'administration-guide/gaffer-stores/proxy-store.md'
-      - Graph Configuration:
-        - 'Configuration': 'administration-guide/gaffer-config/config.md'
+      - Configuration:
+        - 'Graph Configuration': 'administration-guide/gaffer-config/config.md'
         - 'Graph Metadata': 'administration-guide/gaffer-config/graph-metadata.md'
         - 'Schema': 'administration-guide/gaffer-config/schema.md'
         - 'Changing Accumulo Passwords': 'administration-guide/gaffer-config/change-accumulo-passwords.md'
