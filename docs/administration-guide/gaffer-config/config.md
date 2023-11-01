@@ -1,11 +1,9 @@
 ## How to configure a Gaffer instance
+There are various configuration files for Gaffer, this page gives an overview of
+the commonly used files and how to tweak them for your project needs.
 
-To configure a Gaffer instance you must first set up the files and directories
-needed for your instance. 
-
-As it stands there are a couple of different ways to run a Gaffer project this
-example will use a logical structure that suites a stand alone deployment e.g.
-docker consisting of the following file structure:
+Here is an example file structure which suites a stand alone deployment using
+docker:
 
 !!! example "Example Gaffer project structure"
 
@@ -97,6 +95,17 @@ The example below shows how we would configure each of these.
   },
 }
 ```
+
+#### Changing Values
+
+For a standard Gaffer deployment you can easily change the values within your
+`graphConfig.json`. The new key value pairs will be updated upon restarting the
+graph (assuming the file is loaded correctly).
+
+However be aware, if you are using the Accumulo store, updating the `graphId` is a
+little more complicated since the `graphId` corresponds to an Accumulo table. This
+means that if you change the ID then a new Accumulo table will be used and any
+existing data would be lost.
 
 ### store.properties
 

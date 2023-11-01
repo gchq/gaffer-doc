@@ -147,7 +147,6 @@ nav:
         - 'Proxy Store': 'administration-guide/gaffer-stores/proxy-store.md'
       - Configuration:
         - 'Graph Configuration': 'administration-guide/gaffer-config/config.md'
-        - 'Graph Metadata': 'administration-guide/gaffer-config/graph-metadata.md'
         - 'Schema': 'administration-guide/gaffer-config/schema.md'
         - 'Changing Accumulo Passwords': 'administration-guide/gaffer-config/change-accumulo-passwords.md'
       - Aggregation Guide:
