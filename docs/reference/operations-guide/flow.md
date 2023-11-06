@@ -365,8 +365,8 @@ graph LR
         final java.util.Map<String, Object> parameterValues = Maps.newHashMap();
         parameterValues.put("enableFiltering", true);
 
-        final NamedOperation<EntityId, CloseableIterable<? extends Element>> namedOp =
-                new NamedOperation.Builder<EntityId, CloseableIterable<? extends Element>>()
+        final NamedOperation<EntityId, Iterable<? extends Element>> namedOp =
+                new NamedOperation.Builder<EntityId, Iterable<? extends Element>>()
                         .name("2-hop-with-optional-filtering")
                         .input(new EntitySeed(6))
                         .parameters(parameterValues)
@@ -537,7 +537,7 @@ Runs an operation repeatedly until a condition is no longer true or a maximum nu
     === "Java"
 
         ``` java
-        final While<Iterable<EntityId>, CloseableIterable<? extends EntityId>> operation = new While.Builder<Iterable<EntityId>, CloseableIterable<? extends EntityId>>()
+        final While<Iterable<EntityId>, Iterable<? extends EntityId>> operation = new While.Builder<Iterable<EntityId>, Iterable<? extends EntityId>>()
                 .input(Lists.newArrayList(new EntitySeed(1)))
                 .condition(true)
                 .maxRepeats(3)
@@ -617,7 +617,7 @@ Runs an operation repeatedly until a condition is no longer true or a maximum nu
         ``` java
         final GetWalks operation = new Builder()
                 .input(new EntitySeed(1))
-                .operations(new While.Builder<Iterable<EntityId>, CloseableIterable<? extends EntityId>>()
+                .operations(new While.Builder<Iterable<EntityId>, Iterable<? extends EntityId>>()
                         .condition(true)
                         .maxRepeats(3)
                         .operation(new GetElements.Builder()
@@ -1157,7 +1157,7 @@ Runs an operation repeatedly until a condition is no longer true or a maximum nu
     === "Java"
 
         ``` java
-        final While<Iterable<EntityId>, CloseableIterable<? extends EntityId>> operation = new While.Builder<Iterable<EntityId>, CloseableIterable<? extends EntityId>>()
+        final While<Iterable<EntityId>, Iterable<? extends EntityId>> operation = new While.Builder<Iterable<EntityId>, Iterable<? extends EntityId>>()
                 .input(Lists.newArrayList(new EntitySeed(1)))
                 .conditional(new Not<>(new CollectionContains(new EntitySeed(7))), new ToSet<>())
                 .maxRepeats(20)
