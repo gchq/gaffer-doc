@@ -77,8 +77,8 @@ nav:
     - User Guide:
       - 'Introduction': 'user-guide/introduction.md'
       - Gaffer Basics:
-        - 'What is Gaffer?': 'user-guide/gaffer-basics/what-is-gaffer.md'
         - 'What is a Graph?': 'user-guide/gaffer-basics/what-is-a-graph.md'
+        - 'What is Gaffer?': 'user-guide/gaffer-basics/what-is-gaffer.md'
         - 'What is JSON?': 'user-guide/gaffer-basics/what-is-json.md'
         - 'What is Python?': 'user-guide/gaffer-basics/what-is-python.md'
         - 'What is Cardinality?': 'user-guide/gaffer-basics/what-is-cardinality.md'
@@ -130,8 +130,8 @@ nav:
           - 'Spring': 'development-guide/project-structure/maven-dependencies/spring.md'
     - Administration Guide:
       - 'Introduction': 'administration-guide/introduction.md'
+      - 'Quickstart': 'administration-guide/gaffer-deployment/quickstart.md'
       - Deployment:
-        - 'Quickstart': 'administration-guide/gaffer-deployment/quickstart.md'
         - Docker:
           - 'Gaffer Images': 'administration-guide/gaffer-deployment/gaffer-docker/gaffer-images.md'
           - 'How to Deploy with Accumulo on Docker': 'administration-guide/gaffer-deployment/gaffer-docker/how-to-run.md'
@@ -145,13 +145,10 @@ nav:
         - 'Federated Store': 'administration-guide/gaffer-stores/federated-store.md'
         - 'Map Store':  'administration-guide/gaffer-stores/map-store.md'
         - 'Proxy Store': 'administration-guide/gaffer-stores/proxy-store.md'
-      - Graph Configuration:
-        - 'Configuration': 'administration-guide/gaffer-config/config.md'
-        - 'Graph Metadata': 'administration-guide/gaffer-config/graph-metadata.md'
+      - Configuration:
+        - 'Graph Configuration': 'administration-guide/gaffer-config/config.md'
         - 'Schema': 'administration-guide/gaffer-config/schema.md'
         - 'Changing Accumulo Passwords': 'administration-guide/gaffer-config/change-accumulo-passwords.md'
-        - 'Proxy': 'administration-guide/gaffer-config/proxy.md'
-        - 'URL': 'administration-guide/gaffer-config/url.md'
       - Aggregation Guide:
         - 'Overview': 'administration-guide/aggregation/overview.md'
         - 'Ingest Example': 'administration-guide/aggregation/ingest-example.md'
@@ -160,6 +157,7 @@ nav:
       - Security:
         - 'Security Guide': 'administration-guide/security/security-guide.md'
         - 'User Control': 'administration-guide/security/user-control.md'
+        - 'Accumulo Kerberos': 'administration-guide/security/accumulo-kerberos.md'
     - Change Notes:
       - 'Changelist':
         - 'V2.0 Changes': 'change-notes/changelist/v2-changes.md'
@@ -168,7 +166,6 @@ nav:
         - 'Dependencies': 'change-notes/migrating-from-v1-to-v2/dependencies.md'
         - 'Accumulo Migration': 'change-notes/migrating-from-v1-to-v2/accumulo-migration.md'
         - 'Federation Changes': 'change-notes/migrating-from-v1-to-v2/federation-changes.md'
-        - 'Accumulo Kerberos': 'change-notes/migrating-from-v1-to-v2/accumulo-kerberos.md'
         - 'Log4j in Gaffer': 'change-notes/migrating-from-v1-to-v2/log4j.md'
     - Reference:
       - 'Introduction': 'reference/intro.md'

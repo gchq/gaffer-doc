@@ -1,4 +1,4 @@
-# HDFS Operations
+# Accumulo Operations
 
 These are special Operations for use with Accumulo Stores and will not work with other stores.
 

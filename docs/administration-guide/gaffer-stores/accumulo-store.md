@@ -65,7 +65,7 @@ accumulo.user=myUser
 accumulo.password=myPassword
 ```
 
-When using Kerberos authentication, the username and password are not used, alternative properties are used to configure Kerberos. See the [Accumulo Kerberos guide for more information](../../change-notes/migrating-from-v1-to-v2/accumulo-kerberos.md).
+When using Kerberos authentication, the username and password are not used, alternative properties are used to configure Kerberos. See the [Accumulo Kerberos guide for more information](../../administration-guide/security/accumulo-kerberos.md).
 
 Note that if the graph does not exist, it will be created when a `Graph` object is instantiated using these properties, the schema and the graph ID (given when the graph is created in Java or via a `graphConfig.json`). In this case the user must have permission to create a table. If the graph already exists (based on the graph ID) then the user simply needs permission to read the table. For information about protecting data via setting the visibility, see [Visibilty](#visibility).
 

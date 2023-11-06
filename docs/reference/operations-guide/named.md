@@ -351,8 +351,8 @@ Runs a pre-existing NamedOperation, i.e. one that has already been added. [Javad
     === "Java"
 
         ``` java
-        final NamedOperation<EntityId, CloseableIterable<EntityId>> operation =
-                new NamedOperation.Builder<EntityId, CloseableIterable<EntityId>>()
+        final NamedOperation<EntityId, Iterable<EntityId>> operation =
+                new NamedOperation.Builder<EntityId, Iterable<EntityId>>()
                         .name("2-hop")
                         .input(new EntitySeed(1))
                         .build();
@@ -418,8 +418,8 @@ Runs a pre-existing NamedOperation, i.e. one that has already been added. [Javad
         Map<String, Object> paramMap = Maps.newHashMap();
         paramMap.put("param1", 2L);
 
-        final NamedOperation<EntityId, CloseableIterable<EntityId>> operation =
-                new NamedOperation.Builder<EntityId, CloseableIterable<EntityId>>()
+        final NamedOperation<EntityId, Iterable<EntityId>> operation =
+                new NamedOperation.Builder<EntityId, Iterable<EntityId>>()
                         .name("2-hop-with-limit")
                         .input(new EntitySeed(1))
                         .parameters(paramMap)
@@ -732,7 +732,7 @@ Removes an existing NamedView from a Graph. [Javadoc](https://gchq.github.io/Gaf
 
 ## GetAllNamedViews
 
-Retrieves all NamedViews associated with a Graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/named/operation/GetAllNamedViews.html)
+Retrieves all NamedViews associated with a Graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/named/view/GetAllNamedViews.html)
 
 ??? example "Example getting all NamedViews"
 

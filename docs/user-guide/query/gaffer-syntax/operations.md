@@ -24,7 +24,7 @@ Using Operations is fairly simple, we first define the Operation we wish to use
 with the `class` key which needs to be an available Operation in Gaffer. Then
 if applicable, we give the Operation some sort of input using the `input` key.
 Not all Operations require an input but more often that not some user input is
-required, the [reference guide](../../../reference/operations-guide/core.md) has
+required, the [reference guide](../../../reference/operations-guide/operations.md) has
 a full list of all Operations and example usage.
 
 !!! tip
@@ -152,6 +152,6 @@ outputs are, say if you want to chain two together like the following:
     ```
 
 !!! tip
-    The [reference guide](../../../reference/operations-guide/core.md) and
+    The [reference guide](../../../reference/operations-guide/operations.md) and
     [Javadoc](../../../reference/javadoc.md) can be valuable to understand what
     each `Operation` outputs and accepts.
