@@ -92,7 +92,7 @@ The example below shows how we would configure each of these.
     ],
     "library": {
       "class": "uk.gov.gchq.gaffer.store.library.FileGraphLibrary"
-  },
+  }
 }
 ```
 
