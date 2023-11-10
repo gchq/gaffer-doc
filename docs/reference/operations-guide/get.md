@@ -1240,6 +1240,122 @@ Gets elements related to provided seeds. [Javadoc](https://gchq.github.io/Gaffer
         } ]
         ```
 
+??? warning "Example fetching *duplicate* edges in corner cases"
+
+    Get entities and edges by entity id 3 and edge id 2 to 3.
+
+    Here we see a corner case where strange behaviour occurs when using the Accumulo store.
+    This happens when you provide an `EntitySeed` which matches the destination of an edge, and an `EdgeSeed` which matches the same edge.
+    Due to how the `matchedVertex` filtering works within Gaffer's Accumulo iterator code, this duplication is not removed.
+    This may seem like a niche corner case, but is more likely to happen when you query Gaffer with a large amount of seeds.
+    Note that, despite the entity matching some of the edges, the results do not have a matched vertex field.
+
+    If you want to remove duplicate results, you can put a [ToSet](./core.md#toset) operation next in your operation chain.
+
+    === "Java"
+
+        ``` java
+        final GetElements operation = new GetElements.Builder()
+                .input(new EntitySeed(3), new EdgeSeed(2, 3, DirectedType.EITHER))
+                .build();
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+        "class" : "GetElements",
+        "input" : [ {
+            "class" : "EntitySeed",
+            "vertex" : 3
+        }, {
+            "class" : "EdgeSeed",
+            "source" : 2,
+            "destination" : 3,
+            "matchedVertex" : "SOURCE",
+            "directedType" : "EITHER"
+        } ]
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+        g.GetElements(
+        input=[
+            g.EntitySeed(
+            vertex=3
+            ),
+            g.EdgeSeed(
+            source=2,
+            destination=3,
+            directed_type="EITHER",
+            matched_vertex="SOURCE"
+            )
+        ]
+        )
+        ```
+
+    Results:
+
+    === "Java"
+
+        ``` java
+        Entity[vertex=2,group=entity,properties=Properties[count=<java.lang.Integer>1]]
+        Edge[source=2,destination=3,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>2]]
+        Entity[vertex=3,group=entity,properties=Properties[count=<java.lang.Integer>2]]
+        Edge[source=3,destination=4,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>4]]
+        // This Edge is duplicated:
+        Edge[source=2,destination=3,directed=true,group=edge,properties=Properties[count=<java.lang.Integer>2]]
+        ```
+
+    === "JSON"
+
+        ``` json
+        [ {
+        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+        "group" : "entity",
+        "vertex" : 2,
+        "properties" : {
+            "count" : 1
+        }
+        }, {
+        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+        "group" : "edge",
+        "source" : 2,
+        "destination" : 3,
+        "directed" : true,
+        "properties" : {
+            "count" : 2
+        }
+        }, {
+        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+        "group" : "entity",
+        "vertex" : 3,
+        "properties" : {
+            "count" : 2
+        }
+        }, {
+        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+        "group" : "edge",
+        "source" : 3,
+        "destination" : 4,
+        "directed" : true,
+        "properties" : {
+            "count" : 4
+        }
+        }, {
+        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+        "group" : "edge",
+        "source" : 2,
+        "destination" : 3,
+        "directed" : true,
+        "properties" : {
+            "count" : 2
+        }
+        } ]
+        ```
+
 ## GetAdjacentIds
 
 Performs a single hop down related edges. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/get/GetAdjacentIds.html)
