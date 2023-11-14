@@ -160,8 +160,53 @@ you're implementing the appropriate interfaces its hard to go far wrong.
 
 ### Writing an Aggregation Function
 
-!!! note
-    TODO
+We can provide a custom aggregation function in a number of ways, most of the
+aggregation functionality is provided by the Koryphe library sat adjacent to
+Gaffer. If we want to provide a new "generic" aggregator we would add it in this
+Koryphe library, for example lets take a look at the very simple `Max` comparator,
+this takes a pair of Java 8 `Comparables` and finds the highest value one, this
+function is applied as an aggregation.
+
+```java
+@Since("1.0.0")
+@Summary("Calculates the max value")
+public class Max extends KorypheBinaryOperator<Comparable> {
+    @Override
+    protected Comparable _apply(final Comparable a, final Comparable b) {
+        return a.compareTo(b) >= 0 ? a : b;
+    }
+}
+```
+
+If we want to add something very specific to a store type or some other
+restriction we can add this into the appropriate Store location within Gaffer,
+an example of this is the `HyperLogLogPlusAggregator` in the Sketches library,
+this merges HLLPs together.
+
+```java
+@Since("1.0.0")
+@Summary("Aggregates HyperLogLogPlus objects")
+@Deprecated
+public class HyperLogLogPlusAggregator extends KorypheBinaryOperator<HyperLogLogPlus> {
+    @Override
+    protected HyperLogLogPlus _apply(final HyperLogLogPlus a, final HyperLogLogPlus b) {
+        try {
+            a.addAll(b);
+        } catch (final CardinalityMergeException exception) {
+            throw new RuntimeException("An Exception occurred when trying to aggregate the HyperLogLogPlus objects", exception);
+        }
+        return a;
+    }
+}
+```
+
+There is another way to add aggregators by loading a JAR into Accumulo and
+accessing it on the classpath, this is more something an end user customising
+their usage of the platform might do rather than a developer. For development
+purposes it's preferred to go with the hierarchy of does it belong in Koryphe?
+If no, is it store specific or can live inside a library? If no then it could be
+loaded into the classpath, as long as it extends a `KorypheBinaryOperator<T>`
+then it can be used as an aggregation function for Gaffer.
 
 ## Loading Custom Libraries
 
