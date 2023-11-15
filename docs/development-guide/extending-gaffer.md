@@ -1,6 +1,6 @@
 # Extending Gaffer
 
-Extending Gaffer can mean a few things to a user, this guide aims to cover
+Extending Gaffer can mean a few things to a developer, this guide aims to cover
 general use cases for how and why you may want to extend the capabilities or add
 customisation to Gaffer.
 
@@ -30,12 +30,13 @@ a dependency to gain access to its classes like below:
 
 ### Writing an Operation
 
-In Gaffer we use the term Operation to describe some component of a
-manipulation/query affecting a graph, these are chained together in `OperationChains`
-and this is how we execute manipulations/queries to our graphs. Whilst
-there are a wealth of existing operations and their associated handlers that are
-provided out of the box with Gaffer; in this section we'll talk about how you
-might go about adding a new operation/handler with some simple examples.
+In Gaffer we use the term [Operation](./project-structure/components/operation.md)
+to describe some component of a manipulation/query affecting a graph, these are
+chained together in `OperationChains` and this is how we execute
+manipulations/queries to our graphs. Whilst there are a wealth of existing
+operations and their associated handlers that are provided out of the box with
+Gaffer; in this section we'll talk about how you might go about adding a new
+operation/handler with some simple examples.
 
 #### The Operation Interface
 
@@ -53,10 +54,10 @@ either generically or split into multiple handlers for different stores.
 In general most `Operation` implementations don't actually directly implement the
 `Operation` Interface, they actually implement one or more extended interfaces,
 for example the `Input` and `Output` interfaces extend on top of the core `Operation`
-interface and concordantly the `InputOutput` interface is a combination of these
-two to be used. These all live inside the Gaffer Core library under the
-`Operation` subdirectory (see the [component breakdown](./project-structure/components/operation.md)
-for more details).
+interface and concordantly the `InputOutput` interface is a combination of these.
+These all live inside the Gaffer Core library under the `Operation` subdirectory
+(see the [component breakdown](./project-structure/components/operation.md) for
+more details).
 
 #### Implementing an Interface
 
@@ -68,17 +69,17 @@ and end up getting duplicates back.
 
 Taking a look at the [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToSet.html)
 for this class you should be able to see this class it implements both
-`InputOutput` (with an input type of `Iterable<? extends T>` and an output type
-of `Set<? extends T>` and `MultiInput<T>`). Within the class it also implements
+`InputOutput`, with an input type of `Iterable<? extends T>` and an output type
+of `Set<? extends T>` and `MultiInput<T>`. Within the class it also implements
 all the requisite methods eg, `shallowClone()`, `setInput()`, `getOptions()`
 etc.
 
 #### How to Write the Handler
 
 Using the same `ToSet` Operation from before, now that we have this definition
-of an operation, we need to actually tell Gaffer how to do it, we do this by
+of an operation, we need to actually tell Gaffer how to do it. We do this by
 defining either a single generic `Handler` and linking it to the Operation or in
-many cases we might want different implementations based on the store being used
+many cases, we might want different implementations based on the store being used
 so we'd write a number of operation handlers and decide which one is needed at
 runtime.
 
@@ -97,9 +98,9 @@ ToSetHandler<>())` is called to register it. Once this is done we can then
 use our `Operation` and its `Handler` in a user defined `OperationChain` to effect
 some manipulation/query on our graph data.
 
-You can alternatively use the an operations declarations config file (typically called
-`operationsDeclarations.json`) which can be used to define the Operation and its Handler
-like below:
+You can alternatively use the an operations declarations config file (typically
+called `operationsDeclarations.json`) which can be used to define the
+`Operation` and its Handler like below:
 
 ```json
 {
@@ -116,9 +117,9 @@ like below:
 
 ### Writing an Element/Object Generator
 
-There are two types of generators that define custom binding for taking a domain
-object and transforming it into a Gaffer `Element` for the `ElementGenerator` and
-likewise the reverse with an `ObjectGenerator`.
+There are two types of generators used, one to transform a domain object into a
+Gaffer `Element` and one to transform the other way. These generators are the
+`ElementGenerator` and `ObjectGenerator`.
 
 Living within the Core/Data section of the repository these generator interfaces
 are quite simple and as with `Operation` are extended by other interfaces to
@@ -148,11 +149,11 @@ is in the `OpenCypherCsvElementGenerator` that it extends. This generator is an
 abstract class that implements the `ElementGenerator` interface and has a lot of
 functionality for handling Open Cypher CSVs.
 
-You can view the [full class in the repository](https://github.com/gchq/Gaffer/blob/develop/core/data/src/main/java/uk/gov/gchq/gaffer/data/generator/OpenCypherCsvElementGenerator.java) which has the logic for converting the CSV format
-but the key bit to take note of is the `apply(final Iterable<? extends String>
-strings)` method. This method is the main override which will be passed the
-lines of a CSV file to convert and return a `Iterable<? extends Element>` e.g. a
-list of `Elements`.
+You can view the [full class in the repository](https://github.com/gchq/Gaffer/blob/develop/core/data/src/main/java/uk/gov/gchq/gaffer/data/generator/OpenCypherCsvElementGenerator.java)
+which has the logic for converting the CSV format but the key bit to take note
+of is the `apply(final Iterable<? extends String> strings)` method. This method
+is the main override which will be passed the lines of a CSV file to convert and
+return a `Iterable<? extends Element>` e.g. a list of `Elements`.
 
 This pattern is repeated across many of the different generators and can be used
 as inspiration for your custom generator, as with the Operations so long as
