@@ -7,12 +7,12 @@ customisation to Gaffer.
 ## Writing Custom Classes
 
 As Gaffer is Java based to create and load additional libraries you will first
-need to write your custom classes. Now these can be for a range of uses, Gaffer
+need to write your custom classes. Gaffer
 allows for many places to use custom classes such as, custom operations,
 aggregation functions, element generators etc.
 
-Depending on what type of class you are writing e.g. an `Operation` you may
-need extend or implement one of the interface classes already in Gaffer.
+Depending on what type of class you are writing, e.g. an `Operation`, you may
+need to extend or implement one of the interface classes already in Gaffer.
 Assuming you are using Maven for package management you can add Gaffer as
 a dependency to gain access to its classes like below:
 
@@ -35,25 +35,25 @@ to describe some component of a manipulation/query affecting a graph, these are
 chained together in `OperationChains` and this is how we execute
 manipulations/queries to our graphs. Whilst there are a wealth of existing
 operations and their associated handlers that are provided out of the box with
-Gaffer; in this section we'll talk about how you might go about adding a new
+Gaffer. In this section we'll talk about how you might go about adding a new
 operation/handler with some simple examples.
 
 #### The Operation Interface
 
-All Operations in one form or another must adhere to and implement the [`Operation`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/Operation.html)
-interface, this interface describes the building blocks an operation must be built from.
+All Operations must adhere to and implement the [`Operation`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/Operation.html)
+interface, this interface describes the building blocks of an operation.
 
 One important distinction here is that an implementation of `Operation` should not
 contain the actual logic for an `Operation`, think of these as a task definition
-or a instruction manual for what an `Operation` should do. This then goes hand in
-hand with our `OperationHandler`(s) which define the actual functionality
+or an instruction manual for what an `Operation` should do. This then goes hand in
+hand with our `OperationHandler`(s) which define the actual functionality,
 either generically or split into multiple handlers for different stores.
 
 #### Selecting an Interface
 
-In general most `Operation` implementations don't actually directly implement the
-`Operation` Interface, they actually implement one or more extended interfaces,
-for example the `Input` and `Output` interfaces extend on top of the core `Operation`
+In general, most `Operation` implementations don't actually directly implement the
+`Operation` Interface, they actually implement one or more extended interfaces.
+For example the `Input` and `Output` interfaces extend on top of the core `Operation`
 interface and concordantly the `InputOutput` interface is a combination of these.
 These all live inside the Gaffer Core library under the `Operation` subdirectory
 (see the [component breakdown](./project-structure/components/operation.md) for
@@ -63,7 +63,7 @@ more details).
 
 The example we'll use here is the
 [`ToSet`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToSet.html)
-Operation, this will takes an `Iterable` of `Elements` and converts it into a
+Operation, this takes an `Iterable` of `Elements` and converts it into a
 `Set`, a handy way to remove duplicate `Elements` if you're doing multiple hops
 and end up getting duplicates back.
 
@@ -96,7 +96,7 @@ Handlers are registered in the `Store` class via the `addOpHandlers()` method,
 specifically for our example  `addOperationHandler(ToSet.class, new
 ToSetHandler<>())` is called to register it. Once this is done we can then
 use our `Operation` and its `Handler` in a user defined `OperationChain` to effect
-some manipulation/query on our graph data.
+some query on our graph data.
 
 You can alternatively use the an operations declarations config file (typically
 called `operationsDeclarations.json`) which can be used to define the
@@ -156,15 +156,15 @@ is the main override which will be passed the lines of a CSV file to convert and
 return a `Iterable<? extends Element>` e.g. a list of `Elements`.
 
 This pattern is repeated across many of the different generators and can be used
-as inspiration for your custom generator, as with the Operations so long as
-you're implementing the appropriate interfaces its hard to go far wrong.
+as inspiration for your custom generator. As with the Operations so long as
+you're implementing the appropriate interfaces it's hard to go far wrong.
 
 ### Writing an Aggregation Function
 
 We can provide a custom aggregation function in a number of ways, most of the
 aggregation functionality is provided by the Koryphe library sat adjacent to
 Gaffer. If we want to provide a new "generic" aggregator we would add it in this
-Koryphe library, for example lets take a look at the very simple `Max` comparator,
+Koryphe library. For example lets take a look at the very simple `Max` comparator,
 this takes a pair of Java 8 `Comparables` and finds the highest value one, this
 function is applied as an aggregation.
 
@@ -181,7 +181,7 @@ public class Max extends KorypheBinaryOperator<Comparable> {
 
 If we want to add something very specific to a store type or some other
 restriction we can add this into the appropriate Store location within Gaffer,
-an example of this is the `HyperLogLogPlusAggregator` in the Sketches library,
+An example of this is the `HyperLogLogPlusAggregator` in the Sketches library,
 this merges HLLPs together.
 
 ```java
@@ -211,7 +211,7 @@ then it can be used as an aggregation function for Gaffer.
 
 ## Loading Custom Libraries
 
-Once you have written to make custom classes available the simplest way is to
+Once you have written your custom classes to make them available the simplest way is to
 compile to a JAR and load on the Java class path at runtime.
 
 If you are using the container images this is as simple as adding your JAR(s) to
