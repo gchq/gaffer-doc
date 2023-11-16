@@ -8,7 +8,7 @@ customisation to Gaffer.
 
 As Gaffer is Java based to create and load additional libraries you will first
 need to write your custom classes. Gaffer
-allows for many places to use custom classes such as, custom operations,
+allows for many places to use custom classes such as custom operations,
 aggregation functions, element generators etc.
 
 Depending on what type of class you are writing, e.g. an `Operation`, you may
@@ -31,10 +31,10 @@ a dependency to gain access to its classes like below:
 ### Writing an Operation
 
 In Gaffer we use the term [Operation](./project-structure/components/operation.md)
-to describe some component of a manipulation/query affecting a graph, these are
+to describe some component of a query affecting a graph, these are
 chained together in `OperationChains` and this is how we execute
-manipulations/queries to our graphs. Whilst there are a wealth of existing
-operations and their associated handlers that are provided out of the box with
+queries to our graphs. Whilst there are a wealth of existing
+operations and their associated handlers provided out of the box with
 Gaffer. In this section we'll talk about how you might go about adding a new
 operation/handler with some simple examples.
 
@@ -68,7 +68,7 @@ Operation, this takes an `Iterable` of `Elements` and converts it into a
 and end up getting duplicates back.
 
 Taking a look at the [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToSet.html)
-for this class you should be able to see this class it implements both
+for this class you should be able to see this class implements both
 `InputOutput`, with an input type of `Iterable<? extends T>` and an output type
 of `Set<? extends T>` and `MultiInput<T>`. Within the class it also implements
 all the requisite methods eg, `shallowClone()`, `setInput()`, `getOptions()`
@@ -180,7 +180,7 @@ public class Max extends KorypheBinaryOperator<Comparable> {
 ```
 
 If we want to add something very specific to a store type or some other
-restriction we can add this into the appropriate Store location within Gaffer,
+restriction we can add this into the appropriate Store location within Gaffer.
 An example of this is the `HyperLogLogPlusAggregator` in the Sketches library,
 this merges HLLPs together.
 
@@ -201,7 +201,7 @@ public class HyperLogLogPlusAggregator extends KorypheBinaryOperator<HyperLogLog
 }
 ```
 
-There is another way to add aggregators by loading a JAR into Accumulo and
+You can also add aggregators by loading a JAR into Accumulo and
 accessing it on the classpath, this is more something an end user customising
 their usage of the platform might do rather than a developer. For development
 purposes it's preferred to go with the hierarchy of does it belong in Koryphe?
