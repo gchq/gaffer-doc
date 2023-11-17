@@ -59,7 +59,7 @@ All implementations should also have a static inner `Builder` class that impleme
 
 ```java
 public static class Builder extends Operation.BaseBuilder<GetElements, Builder>
-        implements InputOutput.Builder<GetElements, Iterable<? extends ElementId>, CloseableIterable<? extends Element>, Builder>,
+        implements InputOutput.Builder<GetElements, Iterable<? extends ElementId>, Iterable<? extends Element>, Builder>,
         MultiInput.Builder<GetElements, ElementId, Builder>,
         SeededGraphFilters.Builder<GetElements, Builder>,
         Options.Builder<GetElements, Builder> {

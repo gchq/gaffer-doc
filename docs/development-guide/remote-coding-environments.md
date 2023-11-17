@@ -11,7 +11,7 @@ button drop down, and then the option labeled "Create codespace on develop".
 
 This will launch a Codespaces environment with all the configuration needed to
 contribute to Gaffer. See the [GitHub documentation for more information on
-Codespaces] (https://github.com/features/codespaces).
+Codespaces](https://github.com/features/codespaces).
 
 ## Gitpod
 To use Gitpod you can simply prefix any GitHub URL with **`gitpod.io/#`** and
@@ -24,9 +24,9 @@ Our custom GitPod configuration removes your Git commit email so you
 will need to [re-configure your Git commit
 email](https://www.gitpod.io/docs/configure/authentication/github). You can also
 [configure your Git commit email to be a private GitHub email or a custom email
-too.](https://www.gitpod.io/docs/configure/authentication#how-to-use-a-private-github-email-or-custom-email-for-git-commits).
+too](https://www.gitpod.io/docs/configure/authentication#how-to-use-a-private-github-email-or-custom-email-for-git-commits).
 Once done your environment will be all set to contribute to the Gaffer
 repository.
 
 See the [Gitpod documentation for more
-information.](https://www.gitpod.io/docs/introduction).
+information](https://www.gitpod.io/docs/introduction).

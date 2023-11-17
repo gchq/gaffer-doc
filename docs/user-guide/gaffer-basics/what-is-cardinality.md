@@ -87,9 +87,10 @@ when you add your edges, the second is to use a generator that can do it for you
 
 ### Manually adding cardinality entities
 
-Adding a cardinality entity between vertex 'A' and 'B' using `AddElements`. For more examples of
-different property types, see the sketches on the [developer
-guide](../../development-guide/rest-api-sketches#primitive-data-types-over-json) page.
+Adding a cardinality entity between vertex 'A' and 'B' using `AddElements`. For
+more examples of different property types, see the sketches on the [developer
+guide](../../development-guide/rest-api-sketches.md#primitive-data-types-over-json)
+page.
 
 === "Java"
 
@@ -245,7 +246,7 @@ Depending on how you query Gaffer, approximate cardinality will be displayed in 
             .build();
 
     final Element element;
-    try (final CloseableIterable<? extends Element> elements = graph.execute(query, user)) {
+    try (final Iterable<? extends Element> elements = graph.execute(query, user)) {
         element = elements.iterator().next();
     }
 

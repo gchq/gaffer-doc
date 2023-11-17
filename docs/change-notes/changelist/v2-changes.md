@@ -70,7 +70,7 @@ The HBase and Parquet stores have been removed from Gaffer in version 2. We made
 There is now a maven profile that will swap dependency versions so you can build Gaffer with Java 11. The code has also been updated to build with both Java versions.
 
 ### Accumulo Kerberos Authentication Support
-The Accumulo store now supports authenticating to Accumulo and HDFS using Kerberos, in addition to username/password. For more information, see the [Kerberos support page](../migrating-from-v1-to-v2/accumulo-kerberos.md).
+The Accumulo store now supports authenticating to Accumulo and HDFS using Kerberos, in addition to username/password. For more information, see the [Kerberos support page](../../administration-guide/security/accumulo-kerberos.md).
 
 ### CSV Import and Export
 Basic support for importing and exporting [CSVs](../../user-guide/query/gaffer-syntax/import-export/csv.md) has been added.
