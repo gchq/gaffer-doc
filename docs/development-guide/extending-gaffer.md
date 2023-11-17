@@ -162,11 +162,11 @@ you're implementing the appropriate interfaces it's hard to go far wrong.
 ### Writing an Aggregation Function
 
 We can provide a custom aggregation function in a number of ways, most of the
-aggregation functionality is provided by the Koryphe library sat adjacent to
-Gaffer. If we want to provide a new "generic" aggregator we would add it in this
-Koryphe library. For example lets take a look at the very simple `Max` comparator,
-this takes a pair of Java 8 `Comparables` and finds the highest value one, this
-function is applied as an aggregation.
+aggregation functionality is provided by the [Koryphe library](https://github.com/gchq/koryphe)
+sat adjacent to Gaffer. If we want to provide a new "generic" aggregator we
+would add it in this Koryphe library. For example lets take a look at the very
+simple `Max` comparator, this takes a pair of Java 8 `Comparables` and finds the
+highest value one, this function is applied as an aggregation.
 
 ```java
 @Since("1.0.0")
@@ -202,12 +202,13 @@ public class HyperLogLogPlusAggregator extends KorypheBinaryOperator<HyperLogLog
 ```
 
 There is another way to add aggregators by loading a JAR into Accumulo and
-accessing it on the classpath, this is more something an end user customising
-their usage of the platform might do rather than a developer. For development
-purposes it's preferred to go with the hierarchy of does it belong in Koryphe?
-If no, is it store specific or can live inside a library? If no then it could be
-loaded into the classpath, as long as it extends a `KorypheBinaryOperator<T>`
-then it can be used as an aggregation function for Gaffer.
+accessing it on the classpath, this is more something an administrator
+customising their usage of the platform might do rather than a developer. For
+development purposes it's usually good to check if you can make use of an
+existing function in Koryphe first, if not then you can then write your own to
+be loaded into the classpath. As long as the new function extends a
+`KorypheBinaryOperator<T>` then it can be used as an aggregation function for
+Gaffer.
 
 ## Loading Custom Libraries
 
