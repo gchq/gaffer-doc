@@ -7,9 +7,9 @@ customisation to Gaffer.
 ## Writing Custom Classes
 
 As Gaffer is Java based to create and load additional libraries you will first
-need to write your custom classes. Gaffer
-allows for many places to use custom classes such as custom operations,
-aggregation functions, element generators etc.
+need to write custom classes. Gaffer has many places where custom classes
+can be used, such as custom operations, aggregation functions, element
+generators etc.
 
 Depending on what type of class you are writing, e.g. an `Operation`, you may
 need to extend or implement one of the interface classes already in Gaffer.
