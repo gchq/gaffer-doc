@@ -98,11 +98,6 @@ nav:
       - 'Graph Schemas': 'user-guide/schema.md'
     - Developer Guide:
       - 'Introduction': 'development-guide/introduction.md'
-      - 'Example Deployment':
-        - 'Project Setup': 'development-guide/example-deployment/project-setup.md'
-        - 'Writing the Schema': 'development-guide/example-deployment/writing-the-schema.md'
-        - 'Running the Deployment': 'development-guide/example-deployment/running-the-deployment.md'
-        - 'Using the API': 'development-guide/example-deployment/using-the-api.md'
       - 'Ways of Working': 'development-guide/ways-of-working.md'
       - 'Remote Coding Environments': 'development-guide/remote-coding-environments.md'
       - 'Extending Gaffer': 'development-guide/extending-gaffer.md'
@@ -128,6 +123,11 @@ nav:
             - development-guide/project-structure/components/libraries/time.md
         - Maven Dependencies:
           - 'Spring': 'development-guide/project-structure/maven-dependencies/spring.md'
+      - Example Deployment:
+        - 'Project Setup': 'development-guide/example-deployment/project-setup.md'
+        - 'Writing the Schema': 'development-guide/example-deployment/writing-the-schema.md'
+        - 'Running the Deployment': 'development-guide/example-deployment/running-the-deployment.md'
+        - 'Using the API': 'development-guide/example-deployment/using-the-api.md'
     - Administration Guide:
       - 'Introduction': 'administration-guide/introduction.md'
       - 'Quickstart': 'administration-guide/gaffer-deployment/quickstart.md'
