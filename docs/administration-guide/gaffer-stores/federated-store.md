@@ -405,3 +405,331 @@ The example below ensures readers of the graph have both the `read-access-auth-1
             .build();
     federatedGraph.execute(addAccessControlledResourceSecureGraph, user);
     ```
+
+## Merging results with different schemas
+
+When using the FederatedStore, the schemas of your subgraphs need to be able to merge. In order for the schemas the merge, the shared groups need to be defined in a compatible way.
+
+### Shared group differences that can be merged
+
+??? info "Conflicting visibility property"
+
+    === "Schema 1"
+
+        ``` json
+        {
+            "entities": {
+                "group1": {
+                    "vertex": "string",
+                    "properties": {
+                        "property1": "string",
+                        "visibility": "string"
+                    }
+                }
+            },
+            "visibilityProperty": "visibility"
+        }
+        ```
+
+    === "Schema 2"
+
+        ``` json
+        {
+            "entities": {
+                "group1": {
+                    "vertex": "string",
+                    "properties": {
+                        "property1": "string",
+                        "visibility": "string"
+                    }
+                }
+            },
+            "visibilityProperty": "property1"
+        }
+        ```
+
+    === "Merged Schema"
+
+        ``` json
+        {
+            "entities": {
+                "group1": {
+                    "vertex": "string",
+                    "properties": {
+                        "property1": "string",
+                        "visibility": "string"
+                    }
+                }
+            }
+        }
+        ```
+
+??? info "Conflicting vertex serialiser"
+
+    === "Schema 1"
+
+        ``` json
+        {
+            "entities": {
+                "group1": {
+                    "vertex": "string",
+                    "properties": {
+                        "property1": "string",
+                        "visibility": "string"
+                    }
+                }
+            },
+            "vertexSerialiser": {
+                "class": "uk.gov.gchq.gaffer.serialisation.implementation.StringSerialiser"
+            }
+        }
+        ```
+
+    === "Schema 2"
+
+        ``` json
+        {
+            "entities": {
+                "group1": {
+                    "vertex": "string",
+                    "properties": {
+                        "property1": "string",
+                        "visibility": "string"
+                    }
+                }
+            },
+            "vertexSerialiser": {
+                "class": "uk.gov.gchq.gaffer.serialisation.implementation.MultiSerialiser"
+            }
+        }
+        ```
+
+    === "Merged Schema"
+
+        ``` json
+        {
+            "entities": {
+                "group1": {
+                    "vertex": "string",
+                    "properties": {
+                        "property1": "string",
+                        "visibility": "string"
+                    }
+                }
+            }
+        }
+        ```
+
+??? info "Conflicting group by"
+
+    === "Schema 1"
+
+        ``` json
+        {
+            "entities": {
+                "group1": {
+                    "vertex": "string",
+                    "properties": {
+                        "property1": "string",
+                        "visibility": "string"
+                    },
+                    "groupBy": [
+                        "property1"
+                    ]
+                }
+            }
+        }
+        ```
+
+    === "Schema 2"
+
+        ``` json
+        {
+            "entities": {
+                "group1": {
+                    "vertex": "string",
+                    "properties": {
+                        "property1": "string",
+                        "visibility": "string"
+                    },
+                    "groupBy": [
+                        "property1",
+                        "visibility"
+                    ]
+                }
+            }
+        }
+        ```
+
+    === "Merged Schema"
+
+        ``` json
+        {
+            "entities": {
+                "group1": {
+                    "vertex": "string",
+                    "properties": {
+                        "property1": "string",
+                        "visibility": "string"
+                    },
+                    "groupBy": [
+                        "property1"
+                    ]
+                }
+            }
+        }
+        ```
+
+??? info "Properties not present in other graph"
+
+    === "Schema 1"
+
+        ``` json
+        {
+            "entities": {
+                "group1": {
+                    "vertex": "string",
+                    "properties": {
+                        "property1": "string",
+                        "visibility": "string"
+                    }
+                }
+            }
+        }
+        ```
+
+    === "Schema 2"
+
+        ``` json
+        {
+            "entities": {
+                "group1": {
+                    "vertex": "string",
+                    "properties": {
+                        "property2": "string",
+                        "visibility": "string"
+                    }
+                }
+            }
+        }
+        ```
+
+    === "Merged Schema"
+
+        ``` json
+        {
+            "entities": {
+                "group1": {
+                    "vertex": "string",
+                    "properties": {
+                        "property1": "string",
+                        "property2": "string",
+                        "visibility": "string"
+                    }
+                }
+            }
+        }
+        ```
+
+### Shared group differences that cannot be merged
+
+??? failure "No shared properties"
+
+    === "Schema 1"
+
+        ``` json
+        {
+            "entities": {
+                "group1": {
+                    "vertex": "string",
+                    "properties": {
+                        "property1": "string"
+                    }
+                }
+            }
+        }
+        ```
+
+    === "Schema 2"
+
+        ``` json
+        {
+            "entities": {
+                "group1": {
+                    "vertex": "string",
+                    "properties": {
+                        "property2": "string"
+                    }
+                }
+            }
+        }
+        ```
+
+??? failure "Conflicting property type definition"
+
+    For a successful merge, everything in the type definiton has to be the same: class, serialiser, aggregation and validation.
+
+    === "Schema 1"
+
+        ``` json
+        {
+            "entities": {
+                "group1": {
+                    "vertex": "string",
+                    "properties": {
+                        "property1": "type1"
+                    }
+                }
+            },
+            "types": {
+                "type1": {
+                    "class": "java.lang.String",
+                    "serialiser": {
+                        "class": "uk.gov.gchq.gaffer.serialisation.implementation.StringSerialiser"
+                    },
+                    "validateFunctions": [
+                        {
+                            "class": "uk.gov.gchq.koryphe.impl.predicate.Exists"
+                        }
+                    ],
+                    "aggregateFunction": {
+                        "class": "uk.gov.gchq.koryphe.impl.binaryoperator.StringConcat"
+                    }
+                }
+            }
+        }
+        ```
+
+    === "Schema 2"
+
+        ``` json
+        {
+            "entities": {
+                "group1": {
+                    "vertex": "string",
+                    "properties": {
+                        "property1": "type1"
+                    }
+                }
+            },
+            "types": {
+                "type1": {
+                    "class": "java.lang.Long",
+                    "serialiser": {
+                        "class": "uk.gov.gchq.gaffer.serialisation.implementation.raw.CompactRawLongSerialiser"
+                    },
+                    "validateFunctions": [
+                        {
+                            "class": "uk.gov.gchq.koryphe.impl.predicate.IsMoreThan",
+                            "value": {
+                                "java.lang.Long": 0
+                            }
+                        }
+                    ],
+                    "aggregateFunction": {
+                        "class": "uk.gov.gchq.koryphe.impl.binaryoperator.Sum"
+                    }
+                }
+            }
+        }
+        ```
