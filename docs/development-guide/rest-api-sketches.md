@@ -28,7 +28,7 @@ object using the `ObjectMapper` module which uses the relevant deserialiser (
 
 ## Creating cardinality values over JSON
 
-When adding or updating a cardinality object over the rest api, you specify the vertex values to add to the sketch. 
+When adding or updating a cardinality object over the REST API, you specify the vertex values to add to the sketch. 
 This is done by either using the `offers` field with `HyperLogLogPlus`, or the `values` field with `HllSketch`. 
 The HyperLogLog object is then instantiated and updated with
 the values. The object can then be serialised and stored in the datastore. 

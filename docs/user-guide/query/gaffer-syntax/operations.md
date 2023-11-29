@@ -10,7 +10,7 @@ If you have ever used a shell language such as
 principal where you have lots of smaller self contained commands (aka
 Operations) that can work together to form more complicated use cases.
 
-The general structure of an Operation when using JSON via the rest API looks
+The general structure of an Operation when using JSON via the REST API looks
 like the following:
 
 ```json
@@ -37,9 +37,9 @@ The Operations in Gaffer can be chained together to form complex graph queries.
 This page will give some general example usage of how you can chain Operations
 together.
 
-As an example of a simple operation, say we want to get all nodes and edges
+As an example of a simple operation, say we want to get all entities and edges
 based on their ID. To do this we can use the `GetElements` operation and set the
-`EntitySeed` to the entity (e.g. node) or edge where we want to start the search.
+`EntitySeed` to the vertex or edge where we want to start the search.
 
 !!! example ""
 

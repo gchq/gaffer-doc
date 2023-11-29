@@ -12,7 +12,7 @@ docker pull gchq/gaffer-rest:2.0.0
 docker run -p 8080:8080 gchq/gaffer-rest:2.0.0
 ```
 
-The Swagger rest API should be available at
+The Swagger REST API should be available at
 [http://127.0.0.1:8080/rest](http://127.0.0.1:8080/rest) to try out.
 
 Be aware that as the image uses the map store backend by default, all graph
@@ -45,7 +45,7 @@ are more widely used than others, the main types you might want to use are:
     [Apache Accumulo](https://accumulo.apache.org/).
 - **Map Store** - In memory JVM store, useful for quick prototyping.
 - **Proxy Store** - This provides a way to hook into an existing Gaffer store,
-    when used all operations are delegated to the chosen Gaffer Rest API.
+    when used all operations are delegated to the chosen Gaffer REST API.
 - **Federated Store** - Similar to a proxy store however, this will forward all
     requests to a collection of sub graphs but merge the responses so they
     appear as one graph.

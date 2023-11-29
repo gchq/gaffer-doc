@@ -2,7 +2,7 @@
 
 This guide will run through the start up and deployment of a basic Gaffer instance. It will cover
 how to write a basic Gaffer Schema from scratch along with using the pre-made containers to run the
-Gaffer rest API and Accumulo based data store.
+Gaffer REST API and Accumulo based data store.
 
 !!! warning
     Please be aware that the example is only intended to demonstrate the core Gaffer concepts it is
@@ -12,7 +12,7 @@ Gaffer rest API and Accumulo based data store.
 ## The Example Graph
 
 For this basic example we will attempt to recreate the graph in the following diagram consisting of
-two nodes (vertexes) with one directed edge between them.
+two entities with one directed edge between them.
 
 ```mermaid
 graph LR
@@ -104,7 +104,7 @@ that suites a stand alone deployment consisting of the following file structure:
     2. Any data files, e.g. CSV, to be made available to the Gaffer container.
     3. The main graph config file to set various properties of the overall graph.
     4. This file holds the schema outlining the elements in the graph, e.g. the
-    nodes (aka entities) and edges.
+    entities and edges.
     5. This file defines the different data types in the graph and how they are
     serialised to Java classes.
     6. Config file for additional Gaffer operations and set the class to handle
@@ -189,7 +189,7 @@ gaffer.store.operation.declarations=/gaffer/store/operationsDeclarations.json
 ### Operations Declarations
 
 The operation declarations file is a way of enabling additional operations in Gaffer. By default
-there are some built in operations already available (the rest API has a get all operations request
+there are some built in operations already available (the REST API has a get all operations request
 to see a list), but its likely you might want to enable others or add your own custom ones. As the
 example will load its data from a local CSV file we can activate a couple of additional operations
 using the following file.
