@@ -12,7 +12,7 @@ to utilise this form of the API.
 Using Java to query a graph, unlike the other APIs, requires a reference to a
 `Graph` object that essentially represents a graph.
 
-With the other APIs, you would connect directly to a running instance via the
+With the other APIs you would connect directly to a running instance via the
 REST interface; however, to do this with Java you would need to configure a
 `Graph` object with a [proxy store](../../administration-guide/gaffer-stores/proxy-store.md).
 

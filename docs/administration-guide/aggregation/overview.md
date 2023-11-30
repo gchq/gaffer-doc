@@ -25,7 +25,7 @@ met:
 There are a few different use cases for applying ingest aggregation but it is
 largely driven by the data you have and the analysis you wish to perform. As an
 example, say you were expecting multiple connections of the same edge between
-two vertexes but each instance of the edge may have differing values on its
+two entities but each instance of the edge may have differing values on its
 properties, this could be a place to apply aggregation to sum the values etc.
 
 Please see the [ingest aggregation example](ingest-example.md) for some common
