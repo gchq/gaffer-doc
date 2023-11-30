@@ -71,6 +71,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#extending-gaffer" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -433,8 +438,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/gaffer-basics/what-is-gaffer/" class="md-nav__link">
-        What is Gaffer?
+      <a href="../../user-guide/gaffer-basics/what-is-a-graph/" class="md-nav__link">
+        What is a Graph?
       </a>
     </li>
   
@@ -447,8 +452,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../user-guide/gaffer-basics/what-is-a-graph/" class="md-nav__link">
-        What is a Graph?
+      <a href="../../user-guide/gaffer-basics/what-is-gaffer/" class="md-nav__link">
+        What is Gaffer?
       </a>
     </li>
   
@@ -856,96 +861,6 @@
   
   
   
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
-          Example Deployment
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_3_2">
-          <span class="md-nav__icon md-icon"></span>
-          Example Deployment
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../example-deployment/project-setup/" class="md-nav__link">
-        Project Setup
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../example-deployment/writing-the-schema/" class="md-nav__link">
-        Writing the Schema
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../example-deployment/running-the-deployment/" class="md-nav__link">
-        Running the Deployment
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../example-deployment/using-the-api/" class="md-nav__link">
-        Using the API
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
     <li class="md-nav__item">
       <a href="../ways-of-working/" class="md-nav__link">
         Ways of Working
@@ -981,10 +896,118 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Extending Gaffer
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         Extending Gaffer
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#writing-custom-classes" class="md-nav__link">
+    Writing Custom Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing Custom Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#writing-an-operation" class="md-nav__link">
+    Writing an Operation
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing an Operation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-operation-interface" class="md-nav__link">
+    The Operation Interface
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selecting-an-interface" class="md-nav__link">
+    Selecting an Interface
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementing-an-interface" class="md-nav__link">
+    Implementing an Interface
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-write-the-handler" class="md-nav__link">
+    How to Write the Handler
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-does-gaffer-know-which-handler-to-use" class="md-nav__link">
+    How does Gaffer know which Handler to use?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-an-elementobject-generator" class="md-nav__link">
+    Writing an Element/Object Generator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-an-aggregation-function" class="md-nav__link">
+    Writing an Aggregation Function
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loading-custom-libraries" class="md-nav__link">
+    Loading Custom Libraries
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1016,17 +1039,17 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
       
       
       
-        <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
           Project Structure
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_3_7">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_6">
           <span class="md-nav__icon md-icon"></span>
           Project Structure
         </label>
@@ -1043,17 +1066,17 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7_1" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6_1" >
       
       
       
-        <label class="md-nav__link" for="__nav_3_7_1" id="__nav_3_7_1_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_3_6_1" id="__nav_3_6_1_label" tabindex="0">
           Components
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_7_1_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_3_7_1">
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_6_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_6_1">
           <span class="md-nav__icon md-icon"></span>
           Components
         </label>
@@ -1224,17 +1247,17 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7_1_12" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6_1_12" >
       
       
       
-        <label class="md-nav__link" for="__nav_3_7_1_12" id="__nav_3_7_1_12_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_3_6_1_12" id="__nav_3_6_1_12_label" tabindex="0">
           Libraries
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_7_1_12_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_3_7_1_12">
+      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_6_1_12_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_6_1_12">
           <span class="md-nav__icon md-icon"></span>
           Libraries
         </label>
@@ -1335,17 +1358,17 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7_2" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6_2" >
       
       
       
-        <label class="md-nav__link" for="__nav_3_7_2" id="__nav_3_7_2_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_3_6_2" id="__nav_3_6_2_label" tabindex="0">
           Maven Dependencies
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_7_2_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_3_7_2">
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_6_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_6_2">
           <span class="md-nav__icon md-icon"></span>
           Maven Dependencies
         </label>
@@ -1367,6 +1390,96 @@
           
         </ul>
       </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+          Example Deployment
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_7">
+          <span class="md-nav__icon md-icon"></span>
+          Example Deployment
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../example-deployment/project-setup/" class="md-nav__link">
+        Project Setup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../example-deployment/writing-the-schema/" class="md-nav__link">
+        Writing the Schema
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../example-deployment/running-the-deployment/" class="md-nav__link">
+        Running the Deployment
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../example-deployment/using-the-api/" class="md-nav__link">
+        Using the API
+      </a>
     </li>
   
 
@@ -1433,33 +1546,6 @@
   
   
   
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-      
-      
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
-      
-      
-      
-        <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
-          Deployment
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_4_2">
-          <span class="md-nav__icon md-icon"></span>
-          Deployment
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
     <li class="md-nav__item">
       <a href="../../administration-guide/gaffer-deployment/quickstart/" class="md-nav__link">
         Quickstart
@@ -1480,17 +1566,44 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_2" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
       
       
       
-        <label class="md-nav__link" for="__nav_4_2_2" id="__nav_4_2_2_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+          Deployment
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_3">
+          <span class="md-nav__icon md-icon"></span>
+          Deployment
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_1" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4_3_1" id="__nav_4_3_1_label" tabindex="0">
           Docker
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_2_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_4_2_2">
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_3_1">
           <span class="md-nav__icon md-icon"></span>
           Docker
         </label>
@@ -1542,17 +1655,17 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_3" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_2" >
       
       
       
-        <label class="md-nav__link" for="__nav_4_2_3" id="__nav_4_2_3_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_4_3_2" id="__nav_4_3_2_label" tabindex="0">
           Kubernetes
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_3_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_4_2_3">
+      <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_3_2">
           <span class="md-nav__icon md-icon"></span>
           Kubernetes
         </label>
@@ -1625,17 +1738,17 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
       
       
       
-        <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
           Store Types
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_4_3">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_4">
           <span class="md-nav__icon md-icon"></span>
           Store Types
         </label>
@@ -1729,19 +1842,19 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
       
       
       
-        <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
-          Graph Configuration
+        <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+          Configuration
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_4_4">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_5">
           <span class="md-nav__icon md-icon"></span>
-          Graph Configuration
+          Configuration
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1752,21 +1865,7 @@
   
     <li class="md-nav__item">
       <a href="../../administration-guide/gaffer-config/config/" class="md-nav__link">
-        Configuration
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../administration-guide/gaffer-config/graph-metadata/" class="md-nav__link">
-        Graph Metadata
+        Graph Configuration
       </a>
     </li>
   
@@ -1801,34 +1900,6 @@
 
             
           
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../administration-guide/gaffer-config/proxy/" class="md-nav__link">
-        Proxy
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../administration-guide/gaffer-config/url/" class="md-nav__link">
-        URL
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
@@ -1847,17 +1918,17 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
       
       
       
-        <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
           Aggregation Guide
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_4_5">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_6">
           <span class="md-nav__icon md-icon"></span>
           Aggregation Guide
         </label>
@@ -1937,17 +2008,17 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_8" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_9" >
       
       
       
-        <label class="md-nav__link" for="__nav_4_8" id="__nav_4_8_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_4_9" id="__nav_4_9_label" tabindex="0">
           Security
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_8_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_4_8">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_9">
           <span class="md-nav__icon md-icon"></span>
           Security
         </label>
@@ -1975,6 +2046,20 @@
     <li class="md-nav__item">
       <a href="../../administration-guide/security/user-control/" class="md-nav__link">
         User Control
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../administration-guide/security/accumulo-kerberos/" class="md-nav__link">
+        Accumulo Kerberos
       </a>
     </li>
   
@@ -2148,20 +2233,6 @@
     <li class="md-nav__item">
       <a href="../../change-notes/migrating-from-v1-to-v2/federation-changes/" class="md-nav__link">
         Federation Changes
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../change-notes/migrating-from-v1-to-v2/accumulo-kerberos/" class="md-nav__link">
-        Accumulo Kerberos
       </a>
     </li>
   
@@ -2899,6 +2970,98 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#writing-custom-classes" class="md-nav__link">
+    Writing Custom Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing Custom Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#writing-an-operation" class="md-nav__link">
+    Writing an Operation
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing an Operation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-operation-interface" class="md-nav__link">
+    The Operation Interface
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selecting-an-interface" class="md-nav__link">
+    Selecting an Interface
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementing-an-interface" class="md-nav__link">
+    Implementing an Interface
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-write-the-handler" class="md-nav__link">
+    How to Write the Handler
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-does-gaffer-know-which-handler-to-use" class="md-nav__link">
+    How does Gaffer know which Handler to use?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-an-elementobject-generator" class="md-nav__link">
+    Writing an Element/Object Generator
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-an-aggregation-function" class="md-nav__link">
+    Writing an Aggregation Function
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#loading-custom-libraries" class="md-nav__link">
+    Loading Custom Libraries
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -2921,16 +3084,189 @@
   
 
 
-  <h1>Extending Gaffer</h1>
-
-
+<h1 id="extending-gaffer">Extending Gaffer</h1>
+<p>Extending Gaffer can mean a few things to a developer, this guide aims to cover
+general use cases for how and why you may want to extend the capabilities or add
+customisation to Gaffer.</p>
+<h2 id="writing-custom-classes">Writing Custom Classes</h2>
+<p>As Gaffer is Java based to create and load additional libraries you will first
+need to write custom classes. Gaffer has many places where custom classes
+can be used, such as custom operations, aggregation functions, element
+generators etc.</p>
+<p>Depending on what type of class you are writing, e.g. an <code>Operation</code>, you may
+need to extend or implement one of the interface classes already in Gaffer.
+Assuming you are using Maven for package management you can add Gaffer as
+a dependency to gain access to its classes like below:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">&lt;dependency&gt;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="nt">&lt;groupId&gt;</span>uk.gov.gchq.gaffer<span class="nt">&lt;/groupId&gt;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>${gaffer.component}<span class="nt">&lt;/artifactId&gt;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nt">&lt;version&gt;</span>${gaffer.version}<span class="nt">&lt;/version&gt;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nt">&lt;/dependency&gt;</span>
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>See the <a href="../project-structure/components/components/">components breakdown</a>
+for a list of key Gaffer modules.</p>
+</div>
+<h3 id="writing-an-operation">Writing an Operation</h3>
+<p>In Gaffer we use the term <a href="../project-structure/components/operation/">Operation</a>
+to describe some component of a query affecting a graph, these are
+chained together in <code>OperationChains</code> and this is how we execute
+queries to our graphs. Whilst there are a wealth of existing
+operations and their associated handlers provided out of the box with
+Gaffer. In this section we'll talk about how you might go about adding a new
+operation/handler with some simple examples.</p>
+<h4 id="the-operation-interface">The Operation Interface</h4>
+<p>All Operations must adhere to and implement the <a href="https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/Operation.html"><code>Operation</code></a>
+interface, this interface describes the building blocks of an operation.</p>
+<p>One important distinction here is that an implementation of <code>Operation</code> should not
+contain the actual logic for an <code>Operation</code>, think of these as a task definition
+or an instruction manual for what an <code>Operation</code> should do. This then goes hand in
+hand with our <code>OperationHandler</code>(s) which define the actual functionality,
+either generically or split into multiple handlers for different stores.</p>
+<h4 id="selecting-an-interface">Selecting an Interface</h4>
+<p>In general, most <code>Operation</code> implementations don't actually directly implement the
+<code>Operation</code> Interface, they actually implement one or more extended interfaces.
+For example the <code>Input</code> and <code>Output</code> interfaces extend on top of the core <code>Operation</code>
+interface and concordantly the <code>InputOutput</code> interface is a combination of these.
+These all live inside the Gaffer Core library under the <code>Operation</code> subdirectory
+(see the <a href="../project-structure/components/operation/">component breakdown</a> for
+more details).</p>
+<h4 id="implementing-an-interface">Implementing an Interface</h4>
+<p>The example we'll use here is the
+<a href="https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToSet.html"><code>ToSet</code></a>
+Operation, this takes an <code>Iterable</code> of <code>Elements</code> and converts it into a
+<code>Set</code>, a handy way to remove duplicate <code>Elements</code> if you're doing multiple hops
+and end up getting duplicates back.</p>
+<p>Taking a look at the <a href="https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToSet.html">Javadoc</a>
+for this class you should be able to see this class implements both
+<code>InputOutput</code>, with an input type of <code>Iterable&lt;? extends T&gt;</code> and an output type
+of <code>Set&lt;? extends T&gt;</code> and <code>MultiInput&lt;T&gt;</code>. Within the class it also implements
+all the requisite methods eg, <code>shallowClone()</code>, <code>setInput()</code>, <code>getOptions()</code>
+etc.</p>
+<h4 id="how-to-write-the-handler">How to Write the Handler</h4>
+<p>Using the same <code>ToSet</code> Operation from before, now that we have this definition
+of an operation, we need to actually tell Gaffer how to do it. We do this by
+defining either a single generic <code>Handler</code> and linking it to the Operation or in
+many cases, we might want different implementations based on the store being used
+so we'd write a number of operation handlers and decide which one is needed at
+runtime.</p>
+<p>Here is the <a href="https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/handler/output/ToSetHandler.html"><code>ToSetHandler</code></a>
+which implements the appropriate <code>Handler</code> interface (in this case the
+<code>OutputOperationHandler</code>). It takes in the <code>ToSet</code> Operation that has been built
+with all the options etc. defined and then does the actual <code>doOperation()</code> logic to
+stream our Iterable's contents into a <code>LinkedHashSet</code>. This and most other
+handlers live inside the <a href="../project-structure/components/store/">Store library</a>.</p>
+<h4 id="how-does-gaffer-know-which-handler-to-use">How does Gaffer know which Handler to use?</h4>
+<p>Handlers are registered in the <code>Store</code> class via the <code>addOpHandlers()</code> method,
+specifically for our example  <code>addOperationHandler(ToSet.class, new
+ToSetHandler&lt;&gt;())</code> is called to register it. Once this is done we can then
+use our <code>Operation</code> and its <code>Handler</code> in a user defined <code>OperationChain</code> to effect
+some query on our graph data.</p>
+<p>You can alternatively use the an operations declarations config file (typically
+called <code>operationsDeclarations.json</code>) which can be used to define the
+<code>Operation</code> and its Handler like below:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="nt">&quot;operations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="p">{</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">            </span><span class="nt">&quot;operation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uk.gov.gchq.gaffer.operation.impl.output.ToSet&quot;</span><span class="p">,</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">            </span><span class="nt">&quot;handler&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">                </span><span class="nt">&quot;class&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;uk.gov.gchq.gaffer.store.operation.handler.output.ToSetHandler&quot;</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="p">]</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="writing-an-elementobject-generator">Writing an Element/Object Generator</h3>
+<p>There are two types of generators used, one to transform a domain object into a
+Gaffer <code>Element</code> and one to transform the other way. These generators are the
+<code>ElementGenerator</code> and <code>ObjectGenerator</code>.</p>
+<p>Living within the Core/Data section of the repository these generator interfaces
+are quite simple and as with <code>Operation</code> are extended by other interfaces to
+provide a more nuanced set of interfaces you could choose to use over the core
+Element/Object generator interfaces.</p>
+<p>As an example we will walk through the one of the existing generators that can
+take a Neo4j CSV file and convert the entries to Gaffer <code>Elements</code>.</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cm">/**</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cm"> * An {@link OpenCypherCsvElementGenerator}s that will generate</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="cm"> * Gaffer Elements from Neo4j CSV strings.</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="cm"> */</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nd">@Since</span><span class="p">(</span><span class="s">&quot;2.0.0&quot;</span><span class="p">)</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="nd">@Summary</span><span class="p">(</span><span class="s">&quot;Generates elements from a Neo4j CSV&quot;</span><span class="p">)</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Neo4jCsvElementGenerator</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">OpenCypherCsvElementGenerator</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nd">@Override</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="n">LinkedHashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">getFields</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Neo4jCsvGenerator</span><span class="p">().</span><span class="na">getFields</span><span class="p">();</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>This class may appear very simple but the real functionality for this generator
+is in the <code>OpenCypherCsvElementGenerator</code> that it extends. This generator is an
+abstract class that implements the <code>ElementGenerator</code> interface and has a lot of
+functionality for handling Open Cypher CSVs.</p>
+<p>You can view the <a href="https://github.com/gchq/Gaffer/blob/develop/core/data/src/main/java/uk/gov/gchq/gaffer/data/generator/OpenCypherCsvElementGenerator.java">full class in the repository</a>
+which has the logic for converting the CSV format but the key bit to take note
+of is the <code>apply(final Iterable&lt;? extends String&gt; strings)</code> method. This method
+is the main override which will be passed the lines of a CSV file to convert and
+return a <code>Iterable&lt;? extends Element&gt;</code> e.g. a list of <code>Elements</code>.</p>
+<p>This pattern is repeated across many of the different generators and can be used
+as inspiration for your custom generator. As with the Operations so long as
+you're implementing the appropriate interfaces it's hard to go far wrong.</p>
+<h3 id="writing-an-aggregation-function">Writing an Aggregation Function</h3>
+<p>We can provide a custom aggregation function in a number of ways, most of the
+aggregation functionality is provided by the <a href="https://github.com/gchq/koryphe">Koryphe library</a>
+sat adjacent to Gaffer. If we want to provide a new "generic" aggregator we
+would add it in this Koryphe library. For example lets take a look at the very
+simple <code>Max</code> comparator, this takes a pair of Java 8 <code>Comparables</code> and finds the
+highest value one, this function is applied as an aggregation.</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nd">@Since</span><span class="p">(</span><span class="s">&quot;1.0.0&quot;</span><span class="p">)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nd">@Summary</span><span class="p">(</span><span class="s">&quot;Calculates the max value&quot;</span><span class="p">)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Max</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">KorypheBinaryOperator</span><span class="o">&lt;</span><span class="n">Comparable</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nd">@Override</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="n">Comparable</span><span class="w"> </span><span class="nf">_apply</span><span class="p">(</span><span class="kd">final</span><span class="w"> </span><span class="n">Comparable</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Comparable</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="na">compareTo</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>If we want to add something very specific to a store type or some other
+restriction we can add this into the appropriate Store location within Gaffer.
+An example of this is the <code>HyperLogLogPlusAggregator</code> in the Sketches library,
+this merges HLLPs together.</p>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nd">@Since</span><span class="p">(</span><span class="s">&quot;1.0.0&quot;</span><span class="p">)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nd">@Summary</span><span class="p">(</span><span class="s">&quot;Aggregates HyperLogLogPlus objects&quot;</span><span class="p">)</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nd">@Deprecated</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">HyperLogLogPlusAggregator</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">KorypheBinaryOperator</span><span class="o">&lt;</span><span class="n">HyperLogLogPlus</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="nd">@Override</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="kd">protected</span><span class="w"> </span><span class="n">HyperLogLogPlus</span><span class="w"> </span><span class="nf">_apply</span><span class="p">(</span><span class="kd">final</span><span class="w"> </span><span class="n">HyperLogLogPlus</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">HyperLogLogPlus</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">            </span><span class="n">a</span><span class="p">.</span><span class="na">addAll</span><span class="p">(</span><span class="n">b</span><span class="p">);</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="kd">final</span><span class="w"> </span><span class="n">CardinalityMergeException</span><span class="w"> </span><span class="n">exception</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RuntimeException</span><span class="p">(</span><span class="s">&quot;An Exception occurred when trying to aggregate the HyperLogLogPlus objects&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">exception</span><span class="p">);</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>You can also add aggregators by loading a JAR into Accumulo and
+accessing it on the classpath, this is more something an administrator
+customising their usage of the platform might do rather than a developer. For
+development purposes it's usually good to check if you can make use of an
+existing function in Koryphe first, if not then you can then write your own to
+be loaded into the classpath. As long as the new function extends a
+<code>KorypheBinaryOperator&lt;T&gt;</code> then it can be used as an aggregation function for
+Gaffer.</p>
+<h2 id="loading-custom-libraries">Loading Custom Libraries</h2>
+<p>Once you have written your custom classes to make them available the simplest way is to
+compile to a JAR and load on the Java class path at runtime.</p>
+<p>If you are using the container images this is as simple as adding your JAR(s) to
+a directory in the image, this is explained in detail in the <a href="../../administration-guide/gaffer-deployment/gaffer-docker/gaffer-images/#adding-additional-libraries">deployment guide</a>.</p>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 13, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 21, 2023</span>
       
         <br>
         Created:
