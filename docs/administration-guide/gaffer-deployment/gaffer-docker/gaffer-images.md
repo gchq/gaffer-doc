@@ -1,7 +1,7 @@
 # Gaffer Images
 
 As demonstrated in the [quickstart](../quickstart.md) it is very simple to start
-up a basic in memory gaffer graph using the available Open Container Initiative
+up a basic in memory Gaffer graph using the available Open Container Initiative
 (OCI) images.
 
 For large scale graphs with persistent storage you will want to use a different

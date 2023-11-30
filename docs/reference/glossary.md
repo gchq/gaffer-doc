@@ -16,7 +16,7 @@ hide:
 | Stores            | A Gaffer store represents the backing database responsbile for storing or facilitating access to a graph |
 | Operations        | An operation is an instruction / function that you send to the API to manipulate and query a graph |
 | Matched vertex    | `matchedVertex` is a field added to Edges which are returned by Gaffer queries, stating whether your seeds matched the source or destination |
-| Python            | A programming language that is used to build applications. Gaffer uses python to interact with the API |
+| Python            | A programming language that is used to build applications. Gaffer uses Python to interact with the API |
 | Java              | A object oriented programming language used to build software. Gaffer is primarily built in Java |
 | Database          | A database is a collection of organised structured information or data typically stored in a computer system |
 | API               | Application Programming Interface. An API is for one or more services / systems to communicate with each other |

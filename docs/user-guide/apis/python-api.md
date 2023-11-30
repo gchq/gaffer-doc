@@ -9,7 +9,7 @@ Getting this extension up and running allows users to perform queries using Pyth
 
 ## What is the Python Extension?
 
-Commonly referred to as `gafferpy` this API provides
+Commonly referred to as `gafferpy`, this API provides
 similar querying capabilities to the REST API using Python. Fundamentally, it
 wraps the REST API allowing users to access almost all the features or end
 points available in the main REST API using Python rather than JSON.

@@ -15,7 +15,7 @@ Organization](https://github.com/orgs/gchq/repositories).
 The core Java [Gaffer repo](https://github.com/gchq/Gaffer) contains the main Gaffer product.
 If you are completely new to Gaffer you can try out our [Road Traffic Demo](https://github.com/gchq/Gaffer/blob/master/example/road-traffic/README.md) or look at our example [deployment guide](../development-guide/example-deployment/project-setup.md).
 
-The [gafferpy repo](https://github.com/gchq/gafferpy) contains a python shell that can execute operations.
+The [gafferpy repo](https://github.com/gchq/gafferpy) contains a Python shell that can execute operations.
 
 The [gaffer-docker repo](https://github.com/gchq/gaffer-docker) contains the code needed to run Gaffer using Docker or Kubernetes.
 More information about running a containerised instance of Gaffer can be found in our [adminstration guide](../administration-guide/introduction.md).
