@@ -1,7 +1,7 @@
 # Writing the Schema
 
 In Gaffer JSON based schemas need to be written upfront to model and understand how to load and
-treat the data in the graph. These schemas define all aspects of the nodes and edges in the graph,
+treat the data in the graph. These schemas define all aspects of the entities and edges in the graph,
 and can even be used to automatically do basic analysis or aggregation on queries and ingested data.
 
 For reference, this guide will use the same CSV data set from the [project setup](./project-setup.md#the-example-graph) page.
@@ -23,7 +23,7 @@ For reference, this guide will use the same CSV data set from the [project setup
 
 ## Elements Schema
 
-In Gaffer an element refers to any object in the graph, i.e. your nodes (vertexes) and edges. To set
+In Gaffer, an element refers to any object in the graph, i.e. your entities and edges. To set
 up a graph we need to tell Gaffer what objects are in the graph and the properties they have. The
 standard way to do this is a JSON config file in the schema directory. The filename can just be
 called something like `elements.json`, the name is not special as all files under the `schema`
@@ -33,7 +33,7 @@ using an appropriate name.
 As covered in the [Getting Started Schema page](../../user-guide/schema.md), to write a schema you can see that there are some
 required fields, but largely a schema is highly specific to your input data.
 
-Starting with the `entities` from the example, we can see there will be two distinct types of nodes
+Starting with the `entities` from the example, we can see there will be two distinct types of entity
 in the graph; one representing a `Person` and another for `Software`. These can be added into the
 schema to give something like the following:
 
@@ -59,7 +59,7 @@ schema to give something like the following:
 From the basic schema you can see that we have added two entity types for the graph. For now, each
 `entity` just contains a short description and a type associated to the `vertex` key. The type here
 is just a placeholder, but it has been named appropriately as it's assumed that we will just use the
-string representation of the node's id (this will be defined in the `types.json` later in the
+string representation of the entities id (this will be defined in the `types.json` later in the
 guide).
 
 Expanding on the basic schema we will now add the `edges` to the graph. As the example graph is
@@ -92,14 +92,14 @@ As discussed in the [user schema guide](../../user-guide/schema.md), edges have 
 the `source` and `destination` fields, these must match the types associated with the vertex field
 in the relevant entities. From the example, we can see that the source of a `Created` edge is a
 `Person` so we will use the placeholder type we set as the `vertex` field which is
-`id.person.string`. Similarly the destination is a `Software` node so we will use its placeholder of
+`id.person.string`. Similarly the destination is a `Software` vertex so we will use its placeholder of
 `id.software.string`.
 
 We must also set whether an edge is directed or not, in this case it is as only a person can create
 software not the other way around. To set this we will use the `true` type, but note that this is a
 placeholder and must still be defined in the types.json.
 
-Continuing with the example, the nodes and edges also have some properties associated with each such
+Continuing with the example, the entities and edges also have some properties associated with each such
 as name, age etc. These can also be added to the schema using a properties map to result in the
 extended schema below.
 
@@ -152,10 +152,10 @@ schema there are some placeholder types added as the values for many of the keys
 similarly to if you have ever programmed in a strongly typed language, they are essentially the
 wrapper for the value to encapsulate it.
 
-Now starting with the types for the nodes/vertexes, we used two placeholder types, one for the
+Now starting with the types for the entities, we used two placeholder types, one for the
 `Person` entity and one for the `Software` entity. From the example CSV you can see there is a `_id`
-column that uses a string identifier that is used for the ID of the node (this will also be used by
-the `edge` to identify the source and destination). We will define a type for each node ID using the
+column that uses a string identifier that is used for the ID of the entity (this will also be used by
+the `edge` to identify the source and destination). We will define a type for each entity ID using the
 standard java `String` class to encapsulate it, this leads to a basic `type.json` like the
 following.
 
@@ -175,17 +175,17 @@ following.
 ```
 
 The next set of types that need defining are, the ones used for the properties that are attached to
-the nodes/entities. Again we need to take a look back at what our input data looks like, in the CSV
+the entities. Again we need to take a look back at what our input data looks like, in the CSV
 file we can see there are three different types that are used for the properties which are analogous
 to a `String`, an `Integer` and a `Float`.
 
 !!! tip
-    Of course technically, all of these properties could be encapsulated in a string but, assigning
-    a relevant type allows some additional type specific features when doing things like grouping
-    and aggregation as it would in traditional programming.
+    Of course technically, all of these properties could be encapsulated in a string but assigning
+    a relevant type allows some additional type specific features often used in grouping
+    and aggregation.
 
 If we make a type for each of the possible properties using the standard Java classes we end up with
-the following.
+the following:
 
 ```json
 {

@@ -39,7 +39,7 @@ gaffer.store.operation.declarations=/gaffer/store/operationsDeclarations.json
 
 ## How to Import and Export
 
-You can use the rest API to add the graph elements. In production this method
+You can use the REST API to add the graph elements. In production this method
 would not be recommended for large volumes of data. However, it is fine for
 smaller data sets and generally can be done in a few stages outlined in the
 following diagram.

@@ -35,7 +35,7 @@ Entity. This property is usually added to a specific Entity group that exists so
 the Cardinality of a given vertex value. An example of the schema changes can be seen in the
 [advanced properties guide](../../reference/properties-guide/advanced.md#hllsketch). If you are
 using an Accumulo or Map store as your data store, this should be all that is needed. However, if
-you are using a custom store, or a custom rest API, some additional config is needed.
+you are using a custom store, or a custom REST API, some additional config is needed.
 
 !!! tip
     It is often useful keep track of cardinality per edge group. This is usually done with an edge
@@ -68,9 +68,9 @@ you are using a custom store, or a custom rest API, some additional config is ne
     gaffer.serialiser.json.modules=uk.gov.gchq.gaffer.sketches.serialisation.json.SketchesJsonModules
     ```
 
-    If you are using a custom data store, or you not using the standard spring-rest Gaffer rest API,
+    If you are using a custom data store, or you not using the standard spring-rest Gaffer REST API,
     then you will also need to ensure that the `sketches-library` dependency is added to your
-    `pom.xml` for the store and/or rest API.
+    `pom.xml` for the store and/or REST API.
 
     ```xml
     <dependency>

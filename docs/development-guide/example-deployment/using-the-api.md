@@ -14,7 +14,7 @@ use to load data or query.
 Gaffer supports various methods of loading data and depending on your use case you can even bypass
 it all together to load directly into Accumulo.
 
-This example will focus on using the rest API to add the graph elements. In production this method
+This example will focus on using the REST API to add the graph elements. In production this method
 would not be recommended for large volumes of data. However, it is fine for smaller data sets and
 generally can be done in a few stages outlined in the following diagram.
 
@@ -33,11 +33,11 @@ is a standard `AddElements` operation which takes raw elements JSON as input and
 graph.
 
 !!! info
-    This is where the schema is used here to validate the elements are correct and conform before
-    adding.
+    This is where the schema is used to validate the elements are correct and conform before
+    adding them to a graph.
 
 Using the example again we will demonstrate how we could write an operation chain to load the data
-from the neo4j formatted CSV file.
+from the Neo4j formatted CSV file.
 
 ```json
 {
@@ -66,24 +66,24 @@ via the `operationsDeclarations.json`), which
 streams the data from the CSV file into the next `GenerateElements` operation.
 
 For the generator we have selected the built in `Neo4jCsvElementGenerator` class, this is already
-set up to be able to parse a correctly formatted neo4j exported CSV into Gaffer elements via the
+set up to be able to parse a correctly formatted Neo4j exported CSV into Gaffer elements via the
 schema. If you are curious as to what the output of each operation is you can try run a subset of
 this chain to see how the data changes on each one, the output should be returned back to you in the
 server response section of the Swagger API.
 
 ## Querying Data
 
-Once data is loaded in the graph its now possible to start querying the data to gain insight and
+Once data is loaded into the graph it is now possible to start querying the data to gain insight and
 perform analytics. Querying in Gaffer can get fairly complex but generally simple queries are made
 up of two parts; a `Get` Operation and a `View`.
 
-Starting with the `Get` operation, say we want to get all nodes and edges based on their ID. To do
-this we can use the `GetElements` operation and set the `Seed` to the entity (e.g. node) or edge
+Starting with the `Get` operation, say we want to get all entities and edges based on their ID. To do
+this we can use the `GetElements` operation and set the `Seed` to the vertex or edge
 where we want to start the search. To demonstrate this on the example graph we can attempt to get
-all entities and edges associated with the `Person` node with ID `v1`.
+all entities and edges associated with the `Person` entity with ID `v1`.
 
-The result from this query should return the node associated with the `v1` id along with any edges
-on this node, which in this case is just one
+The result from this query should return the entity associated with the `v1` id along with any edges
+on this vertex, which in this case is just one.
 
 === "Input Query"
     ```json
@@ -148,9 +148,9 @@ manipulate the results. In general a `View` has the following possible use cases
     or excluded.
 
 Taking the example from the previous section we will demonstrate general filtering on a query. As
-before, the query returns the node `v1` and any edges associated with it. We will now filter it to
+before, the query returns the vertex `v1` and any edges associated with it. We will now filter it to
 include only edges where the weight is over a certain value. In this scenario it is analogous to
-asking, *"get all the `Created` edges on node `v1` that have a `weight` greater than 0.3"*.
+asking, *"get all the `Created` edges on vertex `v1` that have a `weight` greater than 0.3"*.
 
 === "Filter Query"
 

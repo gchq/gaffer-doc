@@ -1,8 +1,7 @@
 # Using the Python API
 
-This section covers an overview of the python API extension for Gaffer to
-demonstrate how to get up and running to perform queries from Python code on an
-existing running graph.
+This section covers an overview of the Python API extension for Gaffer.
+Getting this extension up and running allows users to perform queries using Python code on existing graphs.
 
 !!! tip
     Please see the handy introduction to [Python](../gaffer-basics/what-is-python.md)
@@ -10,22 +9,22 @@ existing running graph.
 
 ## What is the Python Extension?
 
-Commonly referred to as `gafferpy` this is an API to gaffer that provides
-similar querying capabilities to the rest API but from Python. Fundamentally it
-wraps the rest API to use the same JSON under the hood this means you should be
-able to access almost any features or end points available in the main rest API.
+Commonly referred to as `gafferpy`, this API provides
+similar querying capabilities to the REST API using Python. Fundamentally, it
+wraps the REST API allowing users to access almost all the features or end
+points available in the main REST API using Python rather than JSON.
 
 ## Installation
 
 Currently there isn't a release of `gafferpy` on pypi or other pip repository;
 however, the source code can still be cloned from the [git repository](https://github.com/gchq/gafferpy/tree/main)
-and installed via pip. Please see the readme in the `gafferpy` repository for
+and installed via pip. Please see the [README](https://github.com/gchq/Gafferpy#readme) in the `gafferpy` repository for
 full instructions.
 
 ## How to Query a Graph
 
 To get started with `gafferpy` you will need to import the module and connect to
-an existing graph, the connection should be the same address as where the rest
+an existing graph. The connection should be the same address as where the REST
 API is running.
 
 ```python
@@ -35,12 +34,11 @@ g_connector = gaffer_connector.GafferConnector("http://localhost:8080/rest/lates
 ```
 
 Once connected you can access and run the same endpoints and operations as you
-would via the usual rest API but via their python classes. The endpoints are
-accessed via the `GafferConnector` to allow you executing Operation chains to
-perform queries on the graph.
+would using the usual REST API but via their Python classes. The endpoints are
+accessed via the `GafferConnector` where users can then query graphs by executing Operation Chains.
 
 !!! note
-    Some of the features of the full rest API may not be present in
+    Some of the features of the full REST API may not be present in
     `gafferpy` so always check the [reference guide](../../reference/intro.md)
     first.
 
@@ -55,7 +53,7 @@ perform queries on the graph.
     ```
 
 !!! example ""
-    An Operation chain can be run using the `execute_operation_chain()` function.
+    An Operation Chain can be run using the `execute_operation_chain()` function.
     As an example, the following will get all the elements in a graph then
     count them.
 
