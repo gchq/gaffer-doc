@@ -30,13 +30,18 @@ The properties in bold are set based on the type of Gaffer Store, for how to con
 | `gaffer.store.job.executor.threads` | 50 | Number of threads to be used by the Job Tracker [ExecutorService](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/commonutil/ExecutorService.html) |
 | `gaffer.store.admin.auth` | None | String for Auth to associate with Administrator Users |
 | `gaffer.store.reflection.packages` | None | Reflection Packages to add to Koryphe [ReflectionUtil](https://gchq.github.io/koryphe/uk/gov/gchq/koryphe/util/ReflectionUtil.html) |
+| `gaffer.named.operation.nested` | False | Controls if NamedOperations are allowed to reference/nest other NamedOperations |
 | `gaffer.serialiser.json.class` | `uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser` | Class Name String for setting a custom class extending [JSONSerialiser](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/jsonserialisation/JSONSerialiser.html) |
 | `gaffer.serialiser.json.modules` | None | Class Name String for registering classes implementing [JSONSerialiserModules](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/jsonserialisation/JSONSerialiserModules.html) (separate multiple modules with commas) |
 | `gaffer.serialiser.json.strict` | False | Controls if unknown fields should be ignored when serialising JSON (sets [Jackson FAIL_ON_UNKNOWN_PROPERTIES](https://fasterxml.github.io/jackson-databind/javadoc/2.13/com/fasterxml/jackson/databind/DeserializationFeature.html#FAIL_ON_UNKNOWN_PROPERTIES) internally) |
 | `gaffer.error-mode.debug` | False | Controls technical debugging by methods calling [`DebugUtil`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/commonutil/DebugUtil.html) |
 | `gaffer.cache.service.class` | None | Fully-qualified class name of a [Gaffer cache](#cache-service) implementation |
 | `gaffer.cache.config.file` | None | Config file to use with a [Gaffer cache](#cache-service) implementation |
-| `gaffer.cache.service.name.suffix` | `graphId` | String to use as the [cache suffix](#suffixes) |
+| `gaffer.cache.service.default.suffix` | `graphId` | String to use as the default [cache suffix](#suffixes) |
+| `gaffer.cache.service.federated.store.suffix` | None | String to override the default [suffix](#suffixes) used by Federated Store graph cache |
+| `gaffer.cache.service.named.operation.suffix` | None | String to override the default [suffix](#suffixes) used by Named Operation cache |
+| `gaffer.cache.service.job.tracker.suffix` | None | String to override the default [suffix](#suffixes) used by Job Tracker cache |
+| `gaffer.cache.service.named.view.suffix` | None | String to override the default [suffix](#suffixes) used by Named View cache |
 
 ## Caches
 
@@ -69,12 +74,18 @@ gaffer.cache.config.file=/path/to/file
 #### Suffixes
 
 To prevent conflicts between different graphs which share the same cache service, by default the cache entries for each graph are appended with a suffix. The default value of this suffix is the Graph's ID.
-You can specify the suffix to use with a graph manually by setting the store property `gaffer.cache.service.name.suffix` to the desired String.
+You can manually specify the default suffix to use for all types of cache by setting the store property `gaffer.cache.service.default.suffix` to the desired String.
 
-In the past (Gaffer versions `1.x`) this suffix did not exist, and all graphs used the same cache entries. If you want two or more graphs to share the same cache entry, then configure them to use the same suffix.
+!!! info
+    By default the cache entry is named the type of cache followed by `_` and the `graphId`. For example, when using a Federated Store with multiple sub-graphs, named `graphA`, `graphB` and `graphC`, for Named Operations there will be three cache entries called `NamedOperationCache_graphA`, `NamedOperationCache_graphB` and `NamedOperationCache_graphC`.
+
+In the past (Gaffer versions `1.x`) these suffixes did not exist, and all graphs used the same cache entries. If you want two or more graphs to share the same cache entry, then configure them to use the same suffix.
 
 An example where you might want to share the same cache entry is when using [Named Operations](../named-operations.md) and a [Federated Store](federated-store.md).
-Adding a Named Operation to a Federated Store won't make it available to sub-graphs (when using a `FederatedOperation` to execute it) unless the sub-graphs share the same cache as the Federated Store.
+Adding a Named Operation to a Federated Store won't make it available to sub-graphs (when using a `FederatedOperation` to execute it) unless the sub-graphs share the same Named Operation cache as the Federated Store.
+
+If you only want a certain kind of cache entry to be shared, e.g. only share Named Operations, then set the suffix specific to that cache entry. See the [table above for all the properties for this](#all-general-store-properties).
+You could also set the default cache suffix to share everything and set a specific suffix to be different and therefore not shared.
 
 ## Configuring customisable Operations
 
