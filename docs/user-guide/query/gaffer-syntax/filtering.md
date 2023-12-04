@@ -68,6 +68,28 @@ associated with it. Then we can apply a filter to include only edges where the
     In this scenario it is analogous to asking, *"Get all the `Created` edges on
     node `John` that have a `weight` greater than 0.4"*.
 
+    === "Java"
+
+        ```java
+        // Define the View to use
+        final View viewWithFilters = new View.Builder()
+            .edge("Created", new ViewElementDefinition.Builder()
+                    .preAggregationFilter(new ElementFilter.Builder()
+                            .select("weight")
+                            .execute(new IsMoreThan(0.4))
+                            .build())
+                    .build())
+            .build();
+
+        // Create the operation to execute
+        final GetElements operation = new GetElements.Builder()
+            .input(new EntitySeed("John"))
+            .view(viewWithFilters)
+            .build();
+
+        graph.execute(operation, user);
+        ```
+
     === "JSON"
 
         ```json
@@ -128,28 +150,6 @@ associated with it. Then we can apply a filter to include only edges where the
         )
         ```
 
-    === "Java"
-
-        ```java
-        // Define the View to use
-        final View viewWithFilters = new View.Builder()
-            .edge("Created", new ViewElementDefinition.Builder()
-                    .preAggregationFilter(new ElementFilter.Builder()
-                            .select("weight")
-                            .execute(new IsMoreThan(0.4))
-                            .build())
-                    .build())
-            .build();
-
-        // Create the operation to execute
-        final GetElements operation = new GetElements.Builder()
-            .input(new EntitySeed("John"))
-            .view(viewWithFilters)
-            .build();
-
-        graph.execute(operation, user);
-        ```
-
 To form relevant filters and queries it is usually required that you know the
 graph schema in use. The schema determines what properties and elements you can
 reference in your queries and the general structure of the data in the graph.
@@ -203,6 +203,29 @@ properties are returned.
     edges in the output, and specifically excluding the `age` property from any
     returned `Person` entities.
 
+    === "Java"
+
+        ```java
+        // Define the View to use
+        final View viewWithFilters = new View.Builder()
+            .edge("Created", new ViewElementDefinition.Builder()
+                    .properties("hours")
+                    .build())
+            .entities("Person", new ViewElementDefinition.Builder()
+                    .excludeProperties("age")
+                    .build())
+            .build();
+
+        // Create the operation to execute
+        final GetElements operation = new GetElements.Builder()
+            .input(new EntitySeed("John"))
+            .view(viewWithFilters)
+            .build();
+
+        graph.execute(operation, user);
+        ```
+
+
     === "JSON"
 
         ```json
@@ -253,28 +276,6 @@ properties are returned.
         )
         ```
 
-    === "Java"
-
-        ```java
-        // Define the View to use
-        final View viewWithFilters = new View.Builder()
-            .edge("Created", new ViewElementDefinition.Builder()
-                    .properties("hours")
-                    .build())
-            .entities("Person", new ViewElementDefinition.Builder()
-                    .excludeProperties("age")
-                    .build())
-            .build();
-
-        // Create the operation to execute
-        final GetElements operation = new GetElements.Builder()
-            .input(new EntitySeed("John"))
-            .view(viewWithFilters)
-            .build();
-
-        graph.execute(operation, user);
-        ```
-
 ## Transformation
 
 It is possible to apply a transformation to the output of a query which then
@@ -302,6 +303,21 @@ and save the returned information into a new `minutes` transient property.
     property we then use the `MultiplyBy` Koryphe function to transform a
     property and project the result into a transient property named `"minutes"`.
 
+    === "Java"
+
+        ```java
+        final GetElements getEdgesWithMinutes = new GetElements.Builder()
+            .input(new EntitySeed("John"))
+            .view(new View.Builder()
+                    .edge("Created", new ViewElementDefinition.Builder()
+                            .transientProperty("minutes", Integer.class)
+                            .transformer(new MultiplyBy(60))
+                            .build())
+                    .build())
+            .build();
+
+        graph.execute(getEdgesWithMinutes, user);
+        ```
 
     === "JSON"
 
@@ -360,22 +376,6 @@ and save the returned information into a new `minutes` transient property.
                 )
             )
         )
-        ```
-
-    === "Java"
-
-        ```java
-        final GetElements getEdgesWithMinutes = new GetElements.Builder()
-            .input(new EntitySeed("John"))
-            .view(new View.Builder()
-                    .edge("Created", new ViewElementDefinition.Builder()
-                            .transientProperty("minutes", Integer.class)
-                            .transformer(new MultiplyBy(60))
-                            .build())
-                    .build())
-            .build();
-
-        graph.execute(getEdgesWithMinutes, user);
         ```
 
 The `selection` in a transform is similar to the way we select properties and
@@ -439,6 +439,24 @@ total for all the `added` property.
     we have applied aggregation so the result will contain an element with
     a `Sum` of all the `added` properties.
 
+    === "Java"
+
+        ```java
+        final GetElements getEdgesAggregated = new GetElements.Builder()
+            .input(new EntitySeed("John"))
+            .view(new View.Builder()
+                    .edge("Commit", new ViewElementDefinition.Builder()
+                            .groupBy()
+                            .aggregator(new ElementAggregator.Builder()
+                                .select("added")
+                                .execute(new Sum())
+                                .build()))
+                    .build())
+            .build();
+
+        graph.execute(getEdgesAggregated, user);
+        ```
+        
     === "JSON"
 
         ```json
@@ -493,24 +511,6 @@ total for all the `added` property.
                 )
             )
         )
-        ```
-
-    === "Java"
-
-        ```java
-        final GetElements getEdgesAggregated = new GetElements.Builder()
-            .input(new EntitySeed("John"))
-            .view(new View.Builder()
-                    .edge("Commit", new ViewElementDefinition.Builder()
-                            .groupBy()
-                            .aggregator(new ElementAggregator.Builder()
-                                .select("added")
-                                .execute(new Sum())
-                                .build()))
-                    .build())
-            .build();
-
-        graph.execute(getEdgesAggregated, user);
         ```
 
 !!! tip
