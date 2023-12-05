@@ -149,6 +149,28 @@ associated with it. Then we can apply a filter to include only edges where the
 
         graph.execute(operation, user);
         ```
+    Results:
+
+    === "JSON"
+        ```json
+        [
+            {
+                "class": "uk.gov.gchq.gaffer.data.element.Edge",
+                "group": "Created",
+                "source": "John",
+                "destination": "2",
+                "directed": true,
+                "matchedVertex": "SOURCE",
+                "properties": {
+                    "weight": 0.6
+                }
+            }
+        ]
+        ```
+    === "Java"
+        ```java
+        Edge[source="John",destination=2,directed=true,matchedVertex=SOURCE,group=Created,properties=Properties[weight=<java.lang.Float>0.6]]
+        ```
 
 To form relevant filters and queries it is usually required that you know the
 graph schema in use. The schema determines what properties and elements you can
@@ -274,6 +296,47 @@ properties are returned.
 
         graph.execute(operation, user);
         ```
+    Results:
+
+    === "JSON"
+        ```json
+        [
+            {
+                "class": "uk.gov.gchq.gaffer.data.element.Edge",
+                "group": "Created",
+                "source": "John",
+                "destination": "2",
+                "directed": true,
+                "matchedVertex": "SOURCE",
+                "properties": {
+                    "hours": 800
+                }
+            },
+            {
+                "class": "uk.gov.gchq.gaffer.data.element.Edge",
+                "group": "Created",
+                "source": "John",
+                "destination": "1",
+                "directed": true,
+                "matchedVertex": "SOURCE",
+                "properties": {
+                    "hours": 100
+                }
+            },
+            {
+                "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                "group": "Person",
+                "vertex": "John",
+                "properties": {}
+            }
+        ]
+        ```
+    === "Java"
+        ```java
+        Edge[source="John",destination=2,directed=true,matchedVertex=SOURCE,group=Created,properties=Properties[hours=<java.lang.Integer>800]]
+        Edge[source="John",destination=1,directed=true,matchedVertex=SOURCE,group=Created,properties=Properties[hours=<java.lang.Integer>100]]
+        Entity[vertex="John",group=Person,properties=Properties[]]
+        ```
 
 ## Transformation
 
@@ -377,6 +440,53 @@ and save the returned information into a new `minutes` transient property.
 
         graph.execute(getEdgesWithMinutes, user);
         ```
+    Results:
+
+    === "JSON"
+        ```json
+        [
+            {
+                "class": "uk.gov.gchq.gaffer.data.element.Edge",
+                "group": "Created",
+                "source": "John",
+                "destination": "2",
+                "directed": true,
+                "matchedVertex": "SOURCE",
+                "properties": {
+                    "weight": 0.2,
+                    "hours": 800,
+                    "minutes": 48000
+                }
+            },
+            {
+                "class": "uk.gov.gchq.gaffer.data.element.Edge",
+                "group": "Created",
+                "source": "John",
+                "destination": "1",
+                "directed": true,
+                "matchedVertex": "SOURCE",
+                "properties": {
+                    "weight": 0.6,
+                    "hours": 100,
+                    "minutes": 6000
+                }
+            },
+            {
+                "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                "group": "Person",
+                "vertex": "John",
+                "properties": {
+                    "age": 34
+                }
+            }
+        ]
+        ```
+    === "Java"
+        ```java
+        Edge[source="John",destination=2,directed=true,matchedVertex=SOURCE,group=Created,properties=Properties[weight=<java.lang.Float>0.6,hours=<java.lang.Integer>800,minutes=<java.lang.Integer>48000]]
+        Edge[source="John",destination=1,directed=true,matchedVertex=SOURCE,group=Created,properties=Properties[weight=<java.lang.Float>0.2,hours=<java.lang.Integer>100,minutes=<java.lang.Integer>6000]]
+        Entity[vertex="John",group=Person,properties=Properties[age=<java.lang.Integer>34]]
+        ```
 
 The `selection` in a transform is similar to the way we select properties and
 identifiers in a filter and as demonstrated you can select (and also project)
@@ -432,12 +542,12 @@ this we will use the following example graph.
     ```
 
 We will use aggregation to group the properties of the `Commit` edges to get a
-total for all the `added` property.
+total for all the `added` and `removed` properties.
 
 !!! example ""
     Usually a result would contain all the edges on the `Person` node but instead
     we have applied aggregation so the result will contain an element with
-    a `Sum` of all the `added` properties.
+    a `Sum` of all the `added` and `removed` properties.
 
     === "JSON"
 
@@ -457,7 +567,7 @@ total for all the `added` property.
                         "aggregator" : {
                             "operators" : [
                                 {
-                                    "selection" : [ "added" ],
+                                    "selection" : [ "added", "removed" ],
                                     "binaryOperator" : {
                                         "class" : "Sum"
                                     }
@@ -484,7 +594,7 @@ total for all the `added` property.
                             group_by = [],
                             aggregate_functions = [
                                 gaffer.BinaryOperatorContext(
-                                    selection=[ "added" ],
+                                    selection=[ "added", "removed" ],
                                     binary_operator = gaffer.Sum()
                                 )
                             ]
@@ -504,13 +614,43 @@ total for all the `added` property.
                     .edge("Commit", new ViewElementDefinition.Builder()
                             .groupBy()
                             .aggregator(new ElementAggregator.Builder()
-                                .select("added")
+                                .select(["added", "removed"])
                                 .execute(new Sum())
                                 .build()))
                     .build())
             .build();
 
         graph.execute(getEdgesAggregated, user);
+        ```
+    Results:
+
+    === "JSON"
+        ```json
+        [
+            {
+                "class": "uk.gov.gchq.gaffer.data.element.Edge",
+                "group": "Commit",
+                "source": "John",
+                "destination": "1",
+                "directed": true,
+                "matchedVertex": "SOURCE",
+                "properties": {
+                    "added": 13,
+                    "removed": 8
+                }
+            },
+            {
+                "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                "group": "Person",
+                "vertex": "John",
+                "properties": {}
+            }
+        ]
+        ```
+    === "Java"
+        ```java
+        Edge[source="John",destination=1,directed=true,matchedVertex=SOURCE,group=Commit,properties=Properties[added=<java.lang.Integer>13,removed=<java.lang.Integer>8]]
+        Entity[vertex="John",group=Person,properties=Properties[]]
         ```
 
 !!! tip
