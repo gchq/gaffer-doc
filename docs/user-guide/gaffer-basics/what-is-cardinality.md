@@ -5,8 +5,13 @@ Gaffer queries.
 
 ## What is Cardinality?
 
-In Gaffer, cardinality represents the number of unique vertices that are connected to a given
-vertex.
+Cardinality is a mathematical term which translates to the number of elements contained in a set.
+In graphical databases it can be used to refer to the relationships between data. 
+In Gaffer, by adding a cardinality entity to your graph, vertices will inherit an estimate of the number of 
+unique connections between given entities.
+
+In the example below, entity 1 has four unique edges to other entities (2, 4, 5 and 3), this results in a cardinality of four.
+However, 3 has a cardinality of two despite having four connections to 5 as only two of entity 3's edges are unique.
 
 ``` mermaid
 graph TD
@@ -21,18 +26,18 @@ graph TD
 ```
 
 For very large graphs, updating this number accurately would be very costly in compute. This is
-because for each new Edge that is added, we would have to check both connected Entities to see if
-they are already connected to the other Entity, and this could be costly for Entities with a high
+because for each new edge that is added, we would have to check both connected entities to see if
+they are already connected to the other entity, and this could be costly for entities with a high
 cardinality. Instead, Gaffer uses approximate cardinality making use of a [HyperLogLog
-Sketch](https://datasketches.apache.org/docs/HLL/HLL.html), which estimates the cardinality with
+Sketch](https://datasketches.apache.org/docs/HLL/HLL.html) which estimates the cardinality with
 relatively low error. In Gaffer, where you see the term "cardinality" used, it is referring to this
 approximate cardinality backed by a sketch.
 
 ## How to add cardinality to your graph
 
 You will need to add a property to your schema that will represent the approximate cardinality of an
-Entity. This property is usually added to a specific Entity group that exists solely to represent
-the Cardinality of a given vertex value. An example of the schema changes can be seen in the
+entity. This property is usually added to a specific entity group that exists solely to represent
+the cardinality of a given vertex value. An example of the schema changes can be seen in the
 [advanced properties guide](../../reference/properties-guide/advanced.md#hllsketch). If you are
 using an Accumulo or Map store as your data store, this should be all that is needed. However, if
 you are using a custom store, or a custom REST API, some additional config is needed.
