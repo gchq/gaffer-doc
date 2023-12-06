@@ -11,7 +11,7 @@ In Gaffer, by adding a cardinality entity to your graph, vertices will inherit a
 unique connections between given entities.
 
 In the example below, entity 1 has four unique edges to other entities (2, 4, 5 and 3), this results in a cardinality of four.
-However, 3 has a cardinality of two despite having four connections to 5 as only two of entity 3's edges are unique.
+However, 3 has a cardinality of two despite having four connections to 5 as only two of it's edges are unique overall.
 
 ``` mermaid
 graph TD
