@@ -19,21 +19,14 @@ Inside the gafferpy library you'll find a set of examples that show how you can 
     from gafferpy import gaffer as g
     from gafferpy import gaffer_connector
 
-    def get_schema(gc) -> None:
-        """Gets and prints the schema from the Gaffer graph instance.
-
-        Args:
-            gc: The pre-initialised gaffer_connector.
-        """
-        # Get Schema
-        result = gc.execute_get(g.GetSchema())
-
-        # Print result
-        print("Schema:\n{0}\n".format(result))
-
     # Establish connection
-    g_connector = gaffer_connector.GafferConnector("http://localhost:8080/rest")
-    get_schema(g_connector)
+    gc = gaffer_connector.GafferConnector("http://localhost:8080/rest/latest")
+
+    # Get Schema
+    schema = gc.execute_get(g.GetSchema())
+
+    # Print Schema
+    print("Schema:\n{0}\n".format(schema))
     ```
 
 In this simple example you can see the use of a `gaffer_connector`; the purpose of this is to orchestrate the connection to a Gaffer REST endpoint.
