@@ -28,9 +28,9 @@ an existing graph. The connection should be the same address as where the REST
 API is running.
 
 ```python
-from gafferpy import gaffer
+from gafferpy import gaffer as g
 from gafferpy import gaffer_connector
-g_connector = gaffer_connector.GafferConnector("http://localhost:8080/rest/latest")
+gc = gaffer_connector.GafferConnector("http://localhost:8080/rest/latest")
 ```
 
 Once connected you can access and run the same endpoints and operations as you
@@ -47,8 +47,8 @@ accessed via the `GafferConnector` where users can then query graphs by executin
     an example, the following will get all the elements in a graph:
 
     ```python
-    elements = g_connector.execute_operation(
-        operation =  gaffer.GetAllElements()
+    elements = gc.execute_operation(
+        operation =  g.GetAllElements()
     )
     ```
 
@@ -58,11 +58,11 @@ accessed via the `GafferConnector` where users can then query graphs by executin
     count them.
 
     ```python
-    count = g_connector.execute_operation_chain(
-        operation_chain = gaffer.OperationChain(
+    count = gc.execute_operation_chain(
+        operation_chain = g.OperationChain(
             operations=[
-                gaffer.GetAllElements(),
-                gaffer.Count()
+                g.GetAllElements(),
+                g.Count()
             ]
         )
     )
