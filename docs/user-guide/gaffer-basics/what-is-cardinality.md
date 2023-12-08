@@ -13,7 +13,7 @@ This is because edges can have different properties on connections to the same e
 in Gaffer this counts as distinct connections depite having repeated entities.
 So by adding a 'cardinality' entity to your graph, vertices inherit an estimate of the number of
 unique connections between given entities which will include duplicate edges with different properties.
-Once added a [HyperLogLog
+Once added, a [HyperLogLog
 Sketch](https://datasketches.apache.org/docs/HLL/HLL.html) estimates the number of unique connections with
 relatively low error.
 
