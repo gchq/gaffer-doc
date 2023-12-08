@@ -6,12 +6,23 @@ Gaffer queries.
 ## What is Cardinality?
 
 Cardinality is a mathematical term which translates to the number of elements contained in a set.
-In graphical databases it can be used to refer to the relationships between data. 
-In Gaffer, by adding a cardinality entity to your graph, vertices will inherit an estimate of the number of 
-unique connections between given entities.
+In graphical databases it can be used to refer to the relationships between data.
 
-In the example below, entity 1 has four unique edges to other entities (2, 4, 5 and 3), this results in a cardinality of four.
-However, 3 has a cardinality of two despite having four connections to 5 as only two of it's edges are unique overall.
+However in Gaffer the concept of 'cardinality' does not strictly match the mathematical definition.
+This is because edges can have different properties on connections to the same entities and
+in Gaffer this counts as distinct connections depite having repeated entities.
+So by adding a 'cardinality' entity to your graph, vertices inherit an estimate of the number of
+unique connections between given entities which will include duplicate edges with different properties.
+Once added a [HyperLogLog
+Sketch](https://datasketches.apache.org/docs/HLL/HLL.html) estimates the number of unique connections with
+relatively low error.
+
+!!! Note
+    Gaffer uses an approximation of the number of unique connections between entities as for very large graphs updating this number would be very costly in compute. This is because for each new edge added, we would need to check both connected entities to see if they are already connected to other entities which would be costly for entities with a large number of edges.
+
+In the example below, entity 1 has four unique connections to other entities (2, 4, 5 and 3),
+this results in a cardinality of four.
+However, 3 has only two edges with distinct properties which connect to 5, therefore despite there being four connections between 3 and 5 only two are distinct/unique which therefore equates to a cardinality of two in Gaffer.
 
 ``` mermaid
 graph TD
@@ -25,25 +36,17 @@ graph TD
   3 --> 5
 ```
 
-For very large graphs, updating this number accurately would be very costly in compute. This is
-because for each new edge that is added, we would have to check both connected entities to see if
-they are already connected to the other entity, and this could be costly for entities with a high
-cardinality. Instead, Gaffer uses approximate cardinality making use of a [HyperLogLog
-Sketch](https://datasketches.apache.org/docs/HLL/HLL.html) which estimates the cardinality with
-relatively low error. In Gaffer, where you see the term "cardinality" used, it is referring to this
-approximate cardinality backed by a sketch.
-
 ## How to add cardinality to your graph
 
-You will need to add a property to your schema that will represent the approximate cardinality of an
-entity. This property is usually added to a specific entity group that exists solely to represent
+You will need to add a property to your schema that will represent the approximate number of unique connections
+for a given entity. This property is usually added to a specific entity group that exists solely to represent
 the cardinality of a given vertex value. An example of the schema changes can be seen in the
 [advanced properties guide](../../reference/properties-guide/advanced.md#hllsketch). If you are
 using an Accumulo or Map store as your data store, this should be all that is needed. However, if
 you are using a custom store, or a custom REST API, some additional config is needed.
 
 !!! tip
-    It is often useful keep track of cardinality per edge group. This is usually done with an edge
+    It is often useful keep track of unique connections per edge group. This is usually done with an edge
     group property which is group in the `groupBy`.
 
     ``` json
