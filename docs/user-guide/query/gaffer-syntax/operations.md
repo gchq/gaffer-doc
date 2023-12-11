@@ -45,6 +45,16 @@ based on their ID. To do this we can use the `GetElements` operation and set the
 
     Assuming the entity ID we wish to search from is `"v1"`.
 
+    === "Java"
+
+        ```java
+        final GetElements operation = new GetElements.Builder()
+            .input(new EntitySeed("v1"))
+            .build();
+
+        graph.execute(operation, user);
+        ```
+
     === "JSON"
 
         ```json
@@ -67,15 +77,6 @@ based on their ID. To do this we can use the `GetElements` operation and set the
         )
         ```
 
-    === "Java"
-
-        ```java
-        final GetElements operation = new GetElements.Builder()
-            .input(new EntitySeed("v1"))
-            .build();
-
-        graph.execute(operation, user);
-        ```
 
 This can then be expanded into a chain by using the output from the
 `GetElements` operation as the input to the `Count` operation to give a total of
@@ -84,6 +85,17 @@ how many entities the `GetElements` returned.
 !!! example ""
     As you can see we have used the `OperationChain` to run two operations in a
     chain with the output of one being the input of the next.
+
+    === "Java"
+
+        ```java
+        OperationChain<Long> countElements = new OperationChain.Builder()
+            .first(new GetElements.Builder().input(new EntitySeed("v1")).build())
+            .then(new Count<>())
+            .build();
+
+        Long result = graph.execute(countElements, user);
+        ```
 
     === "JSON"
 
@@ -117,17 +129,6 @@ how many entities the `GetElements` returned.
                 ]
             )
         )
-        ```
-
-    === "Java"
-
-        ```java
-        OperationChain<Long> countElements = new OperationChain.Builder()
-            .first(new GetElements.Builder().input(new EntitySeed("v1")).build())
-            .then(new Count<>())
-            .build();
-
-        Long result = graph.execute(countElements, user);
         ```
 
 To chain operations it's important to take note of what each operations input and
