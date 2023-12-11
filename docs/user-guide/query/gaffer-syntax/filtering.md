@@ -559,7 +559,7 @@ total for all the `added` and `removed` properties.
                     .edge("Commit", new ViewElementDefinition.Builder()
                             .groupBy()
                             .aggregator(new ElementAggregator.Builder()
-                                .select("added")
+                                .select(["added", "removed"])
                                 .execute(new Sum())
                                 .build()))
                     .build())
@@ -567,7 +567,7 @@ total for all the `added` and `removed` properties.
 
         graph.execute(getEdgesAggregated, user);
         ```
-        
+
     === "JSON"
 
         ```json
