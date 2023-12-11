@@ -174,7 +174,6 @@ associated with it. Then we can apply a filter to include only edges where the
         ]
         ```
 
-
 To form relevant filters and queries it is usually required that you know the
 graph schema in use. The schema determines what properties and elements you can
 reference in your queries and the general structure of the data in the graph.
@@ -550,24 +549,6 @@ total for all the `added` and `removed` properties.
     Usually a result would contain all the edges on the `Person` node but instead
     we have applied aggregation so the result will contain an element with
     a `Sum` of all the `added` and `removed` properties.
-
-    === "Java"
-
-        ```java
-        final GetElements getEdgesAggregated = new GetElements.Builder()
-            .input(new EntitySeed("John"))
-            .view(new View.Builder()
-                    .edge("Commit", new ViewElementDefinition.Builder()
-                            .groupBy()
-                            .aggregator(new ElementAggregator.Builder()
-                                .select(["added", "removed"])
-                                .execute(new Sum())
-                                .build()))
-                    .build())
-            .build();
-
-        graph.execute(getEdgesAggregated, user);
-        ```
 
     === "Java"
 
