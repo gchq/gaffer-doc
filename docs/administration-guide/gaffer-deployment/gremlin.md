@@ -47,15 +47,19 @@ flowchart LR
     A(["User"])
     --> B("Gremlin Server")
     --> C(Gaffer Proxy Store)
-    ---> D(Existing Gaffer Graph)
+    --> D(Existing Gaffer Graph)
 ```
 
-To establish this connection two parts need configuring, the Gremlin server and
-the Gaffer Proxy Store. Starting with the Proxy Store, this is identical to
-running a Proxy Store normally and involves simply creating a Gaffer
-`store.properties` file to use. An example `store.properties` file is given
-below that will connect to a graph's REST API running at
-`https://localhost:8080/rest/latest`:
+To establish this connection three configuration files are required:
+
+- `store.properties` - The Gaffer store configuration for the Proxy Store.
+- `gafferpop.properties` - The configuration for the Gaffer Tinkerpop library.
+- `gremlin-server.yaml` - Configures the Gremlin server.
+
+Starting with the Proxy Store, this is identical to running a Proxy Store
+normally and involves simply creating a Gaffer `store.properties` file to use.
+An example `store.properties` file is given below that will connect to a graph's
+REST API running at `https://localhost:8080/rest/latest`:
 
 ```properties
 gaffer.store.class=uk.gov.gchq.gaffer.proxystore.ProxyStore
@@ -116,11 +120,13 @@ uk.gov.gchq.gaffer.tinkerpop.gremlinplugin.GafferPopGremlinPlugin: {}
     See the [Tinkerpop docs](https://tinkerpop.apache.org/docs/current/reference/#gremlin-server)
     for more information on Gremlin server configuration.
 
-After all of this there should now be three custom files created which we will
-bind mount into a `gremlin-server` container. One final step however, is to
-obtain required Gaffer JARs and add them to the container as well, there are
-many different ways to do this the easiest being through maven which can use
-following goal to download all dependencies from a POM:
+### Running the Gremlin Server
+
+After following the previous steps you should now have three custom files
+created which we will bind mount into a `gremlin-server` container. One final
+step however, is to obtain required Gaffer JARs and add them to the container as
+well, there are many different ways to do this the easiest being through maven
+which can use following goal to download all dependencies from a POM:
 
 ```bash
 mvn clean dependency:copy-dependencies
@@ -152,6 +158,7 @@ docker run \
        tinkerpop/gremlin-server:latest gremlin-server.yaml
 ```
 
-## Connecting to the Gremlin Server
-
-Once a Gremlin server is published...
+!!! tip
+    You can also use a different Gaffer store type other than a Proxy Store if
+    you want to connect directly to an Accumulo instance; however, for this you
+    will need to know the graph Schema and other configuration options.
