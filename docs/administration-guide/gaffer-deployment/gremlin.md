@@ -159,6 +159,7 @@ docker run \
 ```
 
 !!! tip
-    You can also use a different Gaffer store type other than a Proxy Store if
-    you want to connect directly to an Accumulo instance; however, for this you
-    will need to know the graph Schema and other configuration options.
+    You can also use a different Gaffer store type other than a Proxy Store,
+    however, this may be more complex to set up. For example to attach to an
+    Accumulo store instance you will need to replicate the Schema and
+    configuration.
