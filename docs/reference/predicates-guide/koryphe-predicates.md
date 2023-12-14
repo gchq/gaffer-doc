@@ -1005,13 +1005,20 @@ Input type: `java.util.Date`
 
 ## InDateRangeDual
 
-Tests if a start Comparable and end Comparable are within a provided range. Specifically the start Comparable has to be greater than the start bound and the end Comparable has to be less than the end bound. By default the range is inclusive, this can be toggled using the startInclusive and endInclusive booleans. [Javadoc](https://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/range/InDateRangeDual.html)
+Tests for if there is an overlap between the provided and configured date ranges. [Javadoc](https://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/range/InDateRangeDual.html)
 
-This uses the same input formats as InDateRange.
+The provided start and end dates do not need to be within the range configured, there only needs to be an overlap. To ensure the provided start and/or end are wholly within and contained by the configured range set the `startFullyContained` and/or `endFullyContained` booleans to be true (false by default).
 
-Input type: `java.lang.Comparable, java.lang.Comparable`
+By default, the start and end date comparison is inclusive, this can be changed using the `startInclusive` and `endInclusive` booleans. Note that dates with and without times are not treated as the same, e.g. `2017/01/01` is considered to be `2017/01/01 00:00`, see below for an example.
 
-??? example "Example with fully uncontained range"
+If the start or end are not set they will be treated as unbounded. Input formats are the same as used by [`InDateRange`](#indaterange).
+
+Input type: `java.util.Date, java.util.Date`
+
+??? example "Example with entirely uncontained range"
+    This is the default when `startFullyContained` and `endFullyContained` are not specified, `startInclusive` and `endInclusive` are not specified and so these default to true.
+    This will accept any date range containing values which overlap with the configured range. Not all values need to be overlapping.
+    The configured range does include midnight/00:00:00 for the start or end date. This means that all times on "2017/03/01" are included and midnight of "2017/08/01" is included.
 
     === "Java"
 
@@ -1019,8 +1026,8 @@ Input type: `java.lang.Comparable, java.lang.Comparable`
         final InDateRangeDual function = new InDateRangeDual.Builder()
                 .start("2017/03/01")
                 .end("2017/08/01")
-                .startFullyContained(false)
-                .endFullyContained(false)
+                .startFullyContained(false) // Doesn't need to be specified as it is the default
+                .endFullyContained(false) // Doesn't need to be specified as it is the default
                 .build();
         ```
 
@@ -1059,7 +1066,8 @@ Input type: `java.lang.Comparable, java.lang.Comparable`
     [ ,] | [null, null] | false
 
 
-??? example "Example with start contained range"
+??? example "Example with contained start range"
+    This will accept date ranges containing values overlapping the configured range which do not have values before the start date.
 
     === "Java"
 
@@ -1068,7 +1076,7 @@ Input type: `java.lang.Comparable, java.lang.Comparable`
                 .start("2017/03/01")
                 .end("2017/08/01")
                 .startFullyContained(true)
-                .endFullyContained(false)
+                .endFullyContained(false) // Doesn't need to be specified as it is the default
                 .build();
         ```
 
@@ -1107,7 +1115,8 @@ Input type: `java.lang.Comparable, java.lang.Comparable`
     [ ,] | [null, null] | false
 
 
-??? example "Example with fully contained range"
+??? example "Example with entirely contained range"
+    This will only accept ranges where all values fall between the configured start (including midnight/00:00:00) and before the configured end (including midnight/00:00:00 on that date).
 
     === "Java"
 
@@ -1142,8 +1151,9 @@ Input type: `java.lang.Comparable, java.lang.Comparable`
           end_fully_contained=True 
         )
         ```
-    
-    
+
+    Example inputs:
+
     Input Type | Input | Result
     ---------- | ----- | ------
     [java.util.Date, java.util.Date] | [Sun Jan 01 00:00:00 GMT 2017, Wed Feb 01 00:00:00 GMT 2017] | false
@@ -1151,7 +1161,149 @@ Input type: `java.lang.Comparable, java.lang.Comparable`
     [java.util.Date, java.util.Date] | [Sat Apr 01 00:00:00 BST 2017, Mon May 01 00:00:00 BST 2017] | true
     [java.util.Date, java.util.Date] | [Sat Apr 01 00:00:00 BST 2017, Fri Sep 01 00:00:00 BST 2017] | false
     [java.util.Date, java.util.Date] | [Fri Sep 01 00:00:00 BST 2017, Sun Oct 01 00:00:00 BST 2017] | false
+    [java.util.Date, java.util.Date] | [Wed Mar 01 00:00:00 GMT 2017, Tue Aug 01 00:00:00 BST 2017] | true
     [ ,] | [null, null] | false
+
+
+??? example "Example with exclusive range"
+    This will accept any date range containing values which overlap with the configured range. The configured range doesn't include midnight/00:00:00 for the start or end date.
+    This means that midnight of "2017/03/01" is not included and no part of "2017/08/01" is included.
+
+    === "Java"
+
+        ``` java
+        final InDateRangeDual function = new InDateRangeDual.Builder()
+                .start("2017/03/01")
+                .end("2017/08/01")
+                .startInclusive(false)
+                .endInclusive(false)
+                .build();
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+          "class" : "InDateRangeDual",
+          "start" : "2017/03/01",
+          "end" : "2017/08/01",
+          "endInclusive" : false,
+          "startInclusive" : false
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+        g.InDateRangeDual(
+          start="2017/03/01",
+          end="2017/08/01",
+          start_inclusive=False,
+          end_inclusive=False
+        )
+        ```
+
+    Example inputs:
+
+    Input Type | Input | Result
+    ---------- | ----- | ------
+    [java.util.Date, java.util.Date] | [Wed Feb 01 00:00:00 GMT 2017, Wed Mar 01 00:00:00 GMT 2017] | false
+    [java.util.Date, java.util.Date] | [Wed Feb 01 00:00:00 GMT 2017, Wed Mar 01 00:00:01 GMT 2017] | true
+    [java.util.Date, java.util.Date] | [Sat Apr 01 00:00:00 BST 2017, Mon May 01 00:00:00 BST 2017] | true
+    [java.util.Date, java.util.Date] | [Tue Aug 01 00:00:00 BST 2017, Tue May 01 00:00:00 BST 2018] | false
+    [java.util.Date, java.util.Date] | [Tue Aug 01 00:00:01 BST 2017, Tue May 01 00:00:00 BST 2018] | false
+
+
+??? example "Example with entirely contained and exclusive range"
+    This will only accept ranges where all values fall between the configured start (after midnight/00:00:00) and before the configured end.
+
+    === "Java"
+
+        ``` java
+        final InDateRangeDual function = new InDateRangeDual.Builder()
+                .start("2017/03/01")
+                .end("2017/08/01")
+                .startFullyContained(true)
+                .endFullyContained(true)
+                .startInclusive(false)
+                .endInclusive(false)
+                .build();
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+          "class" : "InDateRangeDual",
+          "start" : "2017/03/01",
+          "end" : "2017/08/01",
+          "endFullyContained" : true,
+          "startFullyContained" : true,
+          "endInclusive" : false,
+          "startInclusive" : false
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+        g.InDateRangeDual(
+          start="2017/03/01",
+          end="2017/08/01",
+          start_fully_contained=True,
+          end_fully_contained=True,
+          start_inclusive=False,
+          end_inclusive=False
+        )
+        ```
+
+    Example inputs:
+
+    Input Type | Input | Result
+    ---------- | ----- | ------
+    [java.util.Date, java.util.Date] | [Wed Mar 01 00:00:00 GMT 2017, Tue Aug 01 00:00:00 BST 2017] | false
+    [java.util.Date, java.util.Date] | [Wed Mar 01 00:00:00 GMT 2017, Mon Jul 31 23:59:59 BST 2017] | false
+    [java.util.Date, java.util.Date] | [Wed Mar 01 00:00:01 GMT 2017, Mon Jul 31 23:59:59 BST 2017] | true
+    [java.util.Date, java.util.Date] | [Sat Apr 01 00:00:00 BST 2017, Mon May 01 00:00:00 BST 2017] | true
+
+??? example "Example with unbounded range"
+    This will accept any date range containing overlapping values of before the configured end (including this date at midnight/00:00:00).
+
+    === "Java"
+
+        ``` java
+        final InDateRangeDual function = new InDateRangeDual.Builder()
+                .end("2017/08/01")
+                .build();
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+          "class" : "InDateRangeDual",
+          "end" : "2017/08/01"
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+        g.InDateRangeDual(
+          end="2017/08/01"
+        )
+        ```
+
+    Example inputs:
+
+    Input Type | Input | Result
+    ---------- | ----- | ------
+    [java.util.Date, java.util.Date] | [Sun Jan 01 00:00:00 GMT 2017, Mon Jan 01 00:00:00 GMT 2018] | true
+    [java.util.Date, java.util.Date] | [Sun Jan 01 00:00:00 GMT 2017, Wed Aug 01 00:00:00 BST 2018] | true
+    [java.util.Date, java.util.Date] | [Thu Jan 01 00:00:00 GMT 2015, Tue Aug 01 00:00:00 BST 2023] | true
+    [java.util.Date, java.util.Date] | [Tue Aug 01 00:00:00 BST 2017, Tue Aug 01 00:00:00 BST 2023] | true
+    [java.util.Date, java.util.Date] | [Tue Aug 01 00:00:01 BST 2017, Tue Aug 01 00:00:00 BST 2023] | false
+    [java.util.Date, java.util.Date] | [Thu Jan 01 00:00:00 GMT 2022, Tue Aug 01 00:00:00 BST 2023] | false
 
 
 ## InRange
