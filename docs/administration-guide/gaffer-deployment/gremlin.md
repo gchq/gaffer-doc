@@ -34,11 +34,16 @@ endpoint is available for Gremlin queries.
 
 ## Connecting to Any Existing Gaffer Graph
 
-The simplest way to connect Gremlin to an existing Gaffer graph where you may
+The simplest way to connect Gremlin to an existing Gaffer instance where you may
 not know the Store type or Schema would be via a [Proxy Store](../gaffer-stores/proxy-store.md).
-Connecting this way means Gremlin communicates via the Gaffer graph's REST API
+Connecting this way means Gremlin communicates via the Gaffer REST API
 (similar to [gafferpy](../../user-guide/apis/python-api.md)) meaning there may
 be a performance hit for larger queries.
+
+!!! tip
+    You can also of course connect directly to an existing instance's storage
+    layer too (e.g. Accumulo store) but this would require a more complex
+    configuration and knowledge of the Schema.
 
 The general connection diagram looks something like the following:
 
@@ -157,9 +162,3 @@ docker run \
        --volume gremlin-server.yaml:conf/gremlin-server.yaml \
        tinkerpop/gremlin-server:latest gremlin-server.yaml
 ```
-
-!!! tip
-    You can also use a different Gaffer store type other than a Proxy Store,
-    however, this may be more complex to set up. For example to attach to an
-    Accumulo store instance you will need to replicate the Schema and
-    configuration.
