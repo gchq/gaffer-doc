@@ -124,16 +124,16 @@ uk.gov.gchq.gaffer.tinkerpop.gremlinplugin.GafferPopGremlinPlugin: {}
 
 After following the previous steps you should now have three custom files
 created which we will bind mount into a `gremlin-server` container. One final
-step however, is to obtain required Gaffer JARs and add them to the container as
-well, there are many different ways to do this the easiest being through maven
+step is to obtain required Gaffer JARs and add them to the container as
+well. There are many different ways to do this the easiest being through maven
 which can use following goal to download all dependencies from a POM:
 
 ```bash
 mvn clean dependency:copy-dependencies
 ```
 
-Once all JARs are available they can be bind mounted to a path such as,
-`ext/gafferpop/plugin/` in the container to be added to the classpath.
+Once all JARs are available they can be bind mounted to a path, such as
+`ext/gafferpop/plugin/`, in the container to be added to the classpath.
 
 The bind mount location of the custom configuration files are as follows:
 
@@ -141,7 +141,7 @@ The bind mount location of the custom configuration files are as follows:
 - `gafferpop.properties` -> `conf/gafferpop/gafferpop.properties`
 - `gremlin-server.yaml` -> `conf/gremlin-server.yaml`
 
-The container can then be ran as normal with the above bind mounts and
+The container can then be run as normal with the above bind mounts and
 specifying the `conf/gremlin-server.yaml` file as the run argument for the
 container, for example:
 
