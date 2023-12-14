@@ -21,7 +21,7 @@ using the following dependency definition:
 
 The library contains the graph implementation that allows Tinkerpop to talk to a
 Gaffer graph and generally is all that is needed to provide the functionality.
-To actually utilise Gremlin queries however, a connection to whats known as a
+To actually utilise Gremlin queries however, a connection to what's known as a
 `GraphTraversalSource` is required which is the class from which Gremlin
 traversals are spawned. To do this we recommend utilising the provided
 [Gremlin server framework](https://tinkerpop.apache.org/docs/current/reference/#connecting-gremlin-server)
@@ -47,7 +47,7 @@ flowchart LR
     A(["User"])
     --> B("Gremlin Server")
     --> C(Gaffer Proxy Store)
-    --> D(Existing Gaffer Graph)
+    --> D(Existing Gaffer Instance)
 ```
 
 To establish this connection three configuration files are required:
