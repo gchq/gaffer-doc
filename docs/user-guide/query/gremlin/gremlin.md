@@ -1,4 +1,4 @@
-# Gremlin Queries in Gaffer
+# Gremlin in Gaffer
 
 !!! warning
     The functionality released in Gaffer 2.1 is experimental and may not be as
