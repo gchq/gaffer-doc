@@ -140,6 +140,7 @@ nav:
           - 'Running Gaffer on Kubernetes': 'administration-guide/gaffer-deployment/kubernetes-guide/running-on-kubernetes.md'
           - 'Creating a Simple Deployment': 'administration-guide/gaffer-deployment/kubernetes-guide/simple-deployment.md'
           - 'Configuring Gaffer with Helm': 'administration-guide/gaffer-deployment/kubernetes-guide/helm-configuration.md'
+        - 'Gremlin Connection': 'administration-guide/gaffer-deployment/gremlin.md'
       - Store Types:
         - 'Store Guide': 'administration-guide/gaffer-stores/store-guide.md'
         - 'Accumulo Store': 'administration-guide/gaffer-stores/accumulo-store.md'
