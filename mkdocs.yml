@@ -94,7 +94,8 @@ nav:
           - Import/Export:
             - 'Using CSV Data': 'user-guide/query/gaffer-syntax/import-export/csv.md'
         - Apache Gremlin:
-          - 'Gremlin Support in Gaffer': 'user-guide/query/gremlin/gremlin.md'
+          - 'Gremlin in Gaffer': 'user-guide/query/gremlin/gremlin.md'
+          - 'GafferPop Limitations': 'user-guide/query/gremlin/gremlin-limits.md'
       - 'Graph Schemas': 'user-guide/schema.md'
     - Developer Guide:
       - 'Introduction': 'development-guide/introduction.md'
