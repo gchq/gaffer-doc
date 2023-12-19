@@ -1,7 +1,7 @@
 # Gremlin in Gaffer
 
-[Gremlin](https://tinkerpop.apache.org/gremlin.html) is a query language that can be used in graph traversals.
-It is a core component of the Apache Tinkerpop library and can allow users to easily express more complex graph queries.
+[Gremlin](https://tinkerpop.apache.org/gremlin.html) is a query language for traversing graphs.
+It is a core component of the Apache Tinkerpop library and allows users to easily express more complex graph queries.
 
 GafferPop is a lightweight Gaffer implementation of the [TinkerPop framework](https://tinkerpop.apache.org/), where TinkerPop methods are delegated to Gaffer graph operations.
 
@@ -9,13 +9,13 @@ GafferPop is a lightweight Gaffer implementation of the [TinkerPop framework](ht
     GafferPop is still in development and has some [limitations](gremlin-limits.md).
     The implementation is basic and its performance is unknown in comparison to using standard Gaffer `OperationChains`.
 
-The addition of Gremlin as query language in Gaffer 2 allows users to represent complex graph queries in a simpler language akin to other querying languages used in traditional and NoSQL databases.
+The addition of Gremlin as query language in Gaffer allows users to represent complex graph queries in a simpler language akin to other querying languages used in traditional and NoSQL databases.
 
 ## Gremlin Features
 
 ### Interfacing with Gremlin
 
-One of the great features of Gremlin is it's versatility of use.
+One of the great features of Gremlin is its versatility of use.
 There are a large number of supported language libraries that allow you to write queries in whichever coding language you prefer.
 For example, there is a [Python Gremlin](https://pypi.org/project/gremlinpython/) interface.
 This means your tooling won't have to change to write these queries which is a nice bonus for Gremlin.
@@ -35,7 +35,7 @@ Gremlin queries are flexible in that they can be evaluated in a realtime (OLTP) 
 
 ## Gremlin in Gaffer
 
-Gremlin was added to Gaffer as a new graph query language in release 2.1.
+Gremlin was added to Gaffer as a new graph query language in version 2.1.
 There is a small demo on the [gaffer-docker repo](https://github.com/gchq/gaffer-docker/tree/develop/docker/gremlin-gaffer) using the "TinkerPop Modern" [demo graph](https://tinkerpop.apache.org/docs/current/images/tinkerpop-modern.png).
 
 ## Basic Queries
@@ -79,5 +79,5 @@ a table of how different parts are mapped is as follows:
 | Edge ID | A list with the source and destination of the Edge e.g. `[dest, source]` |
 
 !!! note
-    The [administration guide](../../../administration-guide/gaffer-deployment/gremlin.md) contains further details on how you can add Gremlin querying to your own Graph instance.
+    The [Gremlin administration guide](../../../administration-guide/gaffer-deployment/gremlin.md) contains further details on how you can add Gremlin querying to your own Graph instance.
 

@@ -7,7 +7,8 @@ but some features may also be yet to be implemented.
 Current TinkerPop features not present in the GafferPop implementation:
 
 - Property index for allowing unseeded queries.
-- Using a Gaffer user for authentication.
+- Using a Gaffer user for authentication. Access control and authorisations are not supported
+as these are based on users.
 - Removal of entities/edges or properties - base Gaffer currently does not
   support this.
 - TinkerPop Graph Computer is not supported.
@@ -23,7 +24,7 @@ Current known limitations or bugs:
   actual properties or be in correct group/label - it just returns a vertex in
   the `id` group. This is due to Gaffer allowing multiple entities to be
   associated with the source and destination vertices of an Edge.
-- Limited support for updating properties, this has partial support via Gaffers
+- Limited support for updating properties, this has partial support via Gaffer's
   ingest aggregation mechanism.
 - Performance compared to standard Gaffer OperationChains is hampered due to
   a custom `TraversalStratergy` not being implemented.
