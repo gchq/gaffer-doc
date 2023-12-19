@@ -40,22 +40,27 @@ There is a small demo on the [gaffer-docker repo](https://github.com/gchq/gaffer
 
 ## Basic Queries
 
-Via the Gremlin console, you can load a standard TinkerPop dataset like below:
+We recommend connecting to Gremlin using a [Gremlin server](https://tinkerpop.apache.org/docs/current/reference/#connecting-gremlin-server).
+For example to connect a Gremlin server using the Python API:
 
-```groovy
-    graph = GraphFactory.open('conf/gafferpop/gafferpop-tinkerpop-modern.properties')
-    graph.io(graphml()).readGraph('data/tinkerpop-modern.xml')
-    g = graph.traversal()
+```python
+    from gremlin_python.process.anonymous_traversal_source import traversal
+
+    g = traversal().withRemote(
+        DriverRemoteConnection('ws://localhost:8182/gremlin'))
 ```
 
-Some basic queries can be carried out on the data:
+!!! note
+    The [Gremlin administration guide](../../../administration-guide/gaffer-deployment/gremlin.md) contains further details on how you can add Gremlin querying to your own Graph instance.
+
+Some basic queries can be carried out on the data.
+The following example is a seeded query from ID 1 with a filter/view for only the `person` group:
 
 ```groovy
     g.V('1').hasLabel('person')
-    g.V('1', '2').hasLabel('person').outE('knows').values().is(lt(1))
 ```
 
-The following example calculates the paths from 1 to 3 (max 6 loops):
+This example calculates the paths from ID 1 to ID 3 (with a maximum of 6 loops):
 
 ```groovy
     start = '1';
@@ -77,7 +82,4 @@ a table of how different parts are mapped is as follows:
 | Entity | Vertex |
 | Edge | Edge |
 | Edge ID | A list with the source and destination of the Edge e.g. `[dest, source]` |
-
-!!! note
-    The [Gremlin administration guide](../../../administration-guide/gaffer-deployment/gremlin.md) contains further details on how you can add Gremlin querying to your own Graph instance.
 
