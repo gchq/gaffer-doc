@@ -856,7 +856,21 @@
   
     <li class="md-nav__item">
       <a href="../../query/gremlin/gremlin/" class="md-nav__link">
-        Gremlin Support in Gaffer
+        Gremlin in Gaffer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../query/gremlin/gremlin-limits/" class="md-nav__link">
+        GafferPop Limitations
       </a>
     </li>
   
@@ -1683,6 +1697,20 @@
           
         </ul>
       </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../administration-guide/gaffer-deployment/gremlin/" class="md-nav__link">
+        Gremlin Connection
+      </a>
     </li>
   
 
@@ -3022,8 +3050,23 @@
 <p>This page describes what cardinality is, how to add it to your Gaffer graph and how to use it in
 Gaffer queries.</p>
 <h2 id="what-is-cardinality">What is Cardinality?</h2>
-<p>In Gaffer, cardinality represents the number of unique vertices that are connected to a given
-vertex.</p>
+<p>Cardinality is a mathematical term which translates to the number of elements contained in a set.
+In graphical databases it can be used to refer to the relationships between data.</p>
+<p>However in Gaffer the concept of 'cardinality' does not strictly match the mathematical definition.
+This is because edges can have different properties on connections to the same entities and
+in Gaffer this counts as distinct connections depite having repeated entities.
+So by adding a 'cardinality' entity to your graph, vertices inherit an estimate of the number of
+unique connections between given entities which will include duplicate edges with different properties.
+Once added, a <a href="https://datasketches.apache.org/docs/HLL/HLL.html">HyperLogLog
+Sketch</a> estimates the number of unique connections with
+relatively low error.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Gaffer uses an approximation of the number of unique connections between entities as for very large graphs updating this number would be very costly in compute. This is because for each new edge added, we would need to check both connected entities to see if they are already connected to other entities which would be costly for entities with a large number of edges.</p>
+</div>
+<p>In the example below, entity 1 has four unique connections to other entities (2, 4, 5 and 3),
+this results in a cardinality of four.
+However, 3 has only two edges with distinct properties which connect to 5, therefore despite there being four connections between 3 and 5 only two are distinct/unique which therefore equates to a cardinality of two in Gaffer.</p>
 <pre class="mermaid"><code>graph TD
   1(1, cardinality=4) --&gt; 2
   1 --&gt; 3
@@ -3033,23 +3076,16 @@ vertex.</p>
   3 --&gt; 5
   3 --&gt; 5
   3 --&gt; 5</code></pre>
-<p>For very large graphs, updating this number accurately would be very costly in compute. This is
-because for each new Edge that is added, we would have to check both connected Entities to see if
-they are already connected to the other Entity, and this could be costly for Entities with a high
-cardinality. Instead, Gaffer uses approximate cardinality making use of a <a href="https://datasketches.apache.org/docs/HLL/HLL.html">HyperLogLog
-Sketch</a>, which estimates the cardinality with
-relatively low error. In Gaffer, where you see the term "cardinality" used, it is referring to this
-approximate cardinality backed by a sketch.</p>
 <h2 id="how-to-add-cardinality-to-your-graph">How to add cardinality to your graph</h2>
-<p>You will need to add a property to your schema that will represent the approximate cardinality of an
-Entity. This property is usually added to a specific Entity group that exists solely to represent
-the Cardinality of a given vertex value. An example of the schema changes can be seen in the
+<p>You will need to add a property to your schema that will represent the approximate number of unique connections
+for a given entity. This property is usually added to a specific entity group that exists solely to represent
+the cardinality of a given vertex value. An example of the schema changes can be seen in the
 <a href="../../../reference/properties-guide/advanced/#hllsketch">advanced properties guide</a>. If you are
 using an Accumulo or Map store as your data store, this should be all that is needed. However, if
 you are using a custom store, or a custom REST API, some additional config is needed.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>It is often useful keep track of cardinality per edge group. This is usually done with an edge
+<p>It is often useful keep track of unique connections per edge group. This is usually done with an edge
 group property which is group in the <code>groupBy</code>.</p>
 <div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&quot;entities&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -3308,7 +3344,7 @@ representing the additional cardinality link between the two vertices in the edg
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 1, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 11, 2023</span>
       
         <br>
         Created:

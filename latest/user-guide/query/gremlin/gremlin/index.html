@@ -13,14 +13,14 @@
         <link rel="prev" href="../../gaffer-syntax/import-export/csv/">
       
       
-        <link rel="next" href="../../../schema/">
+        <link rel="next" href="../gremlin-limits/">
       
       <link rel="icon" href="../../../../assets/logo.svg">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.11">
     
     
       
-        <title>Gremlin Support in Gaffer - Gaffer Docs</title>
+        <title>Gremlin in Gaffer - Gaffer Docs</title>
       
     
     
@@ -72,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#gremlin-queries-in-gaffer" class="md-skip">
+        <a href="#gremlin-in-gaffer" class="md-skip">
           Skip to content
         </a>
       
@@ -108,7 +108,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Gremlin Support in Gaffer
+              Gremlin in Gaffer
             
           </span>
         </div>
@@ -784,10 +784,103 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Gremlin in Gaffer
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
-        Gremlin Support in Gaffer
+        Gremlin in Gaffer
       </a>
       
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gremlin-features" class="md-nav__link">
+    Gremlin Features
+  </a>
+  
+    <nav class="md-nav" aria-label="Gremlin Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interfacing-with-gremlin" class="md-nav__link">
+    Interfacing with Gremlin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imperative-declarative-queries" class="md-nav__link">
+    Imperative &amp; Declarative Queries
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otlp-and-olap" class="md-nav__link">
+    OTLP and OLAP
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gremlin-in-gaffer_1" class="md-nav__link">
+    Gremlin in Gaffer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-queries" class="md-nav__link">
+    Basic Queries
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapping-gaffer-to-tinkerpop" class="md-nav__link">
+    Mapping Gaffer to TinkerPop
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gremlin-limits/" class="md-nav__link">
+        GafferPop Limitations
+      </a>
     </li>
   
 
@@ -1613,6 +1706,20 @@
           
         </ul>
       </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../administration-guide/gaffer-deployment/gremlin/" class="md-nav__link">
+        Gremlin Connection
+      </a>
     </li>
   
 
@@ -2871,6 +2978,69 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gremlin-features" class="md-nav__link">
+    Gremlin Features
+  </a>
+  
+    <nav class="md-nav" aria-label="Gremlin Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interfacing-with-gremlin" class="md-nav__link">
+    Interfacing with Gremlin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imperative-declarative-queries" class="md-nav__link">
+    Imperative &amp; Declarative Queries
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#otlp-and-olap" class="md-nav__link">
+    OTLP and OLAP
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gremlin-in-gaffer_1" class="md-nav__link">
+    Gremlin in Gaffer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-queries" class="md-nav__link">
+    Basic Queries
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapping-gaffer-to-tinkerpop" class="md-nav__link">
+    Mapping Gaffer to TinkerPop
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2892,19 +3062,97 @@
   
 
 
-<h1 id="gremlin-queries-in-gaffer">Gremlin Queries in Gaffer</h1>
+<h1 id="gremlin-in-gaffer">Gremlin in Gaffer</h1>
+<p><a href="https://tinkerpop.apache.org/gremlin.html">Gremlin</a> is a query language for traversing graphs.
+It is a core component of the Apache Tinkerpop library and allows users to easily express more complex graph queries.</p>
+<p>GafferPop is a lightweight Gaffer implementation of the <a href="https://tinkerpop.apache.org/">TinkerPop framework</a>, where TinkerPop methods are delegated to Gaffer graph operations.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Gremlin support is currently limited and experimental in Gaffer. This page
-is a work in progress to capture the current capabilities.</p>
+<p>GafferPop is still in development and has some <a href="../gremlin-limits/">limitations</a>.
+The implementation is basic and its performance is unknown in comparison to using standard Gaffer <code>OperationChains</code>.</p>
 </div>
+<p>The addition of Gremlin as query language in Gaffer allows users to represent complex graph queries in a simpler language akin to other querying languages used in traditional and NoSQL databases.</p>
+<h2 id="gremlin-features">Gremlin Features</h2>
+<h3 id="interfacing-with-gremlin">Interfacing with Gremlin</h3>
+<p>One of the great features of Gremlin is its versatility of use.
+There are a large number of supported language libraries that allow you to write queries in whichever coding language you prefer.
+For example, there is a <a href="https://pypi.org/project/gremlinpython/">Python Gremlin</a> interface.
+This means your tooling won't have to change to write these queries which is a nice bonus for Gremlin.</p>
+<h3 id="imperative-declarative-queries">Imperative &amp; Declarative Queries</h3>
+<p>Gremlin supports 3 main methods of querying methods that gives us an element of flexibility using the library.
+Imperative queries are procedural and describe what's happening at each sequential step whereas declarative queries describe what should happen but lets the query compiler decide how and which order steps should be ran in.
+Choosing the right method here allows for a lot of control over how our queries get ran or allows the controller to optimise.</p>
+<h3 id="otlp-and-olap">OTLP and OLAP</h3>
+<p>Gremlin queries are flexible in that they can be evaluated in a realtime (OLTP) or batch (OLAP) format, this allows us a lot of flexibility in use, especially when querying over a multi machine or federated graph.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Information on Gremlin as a query language, its associated libraries and more in-depth tutorials can be found in the <a href="https://tinkerpop.apache.org/gremlin.html">Apache Tinkerpop Gremlin docs</a>.</p>
+</div>
+<h2 id="gremlin-in-gaffer_1">Gremlin in Gaffer</h2>
+<p>Gremlin was added to Gaffer as a new graph query language in version 2.1.
+There is a small demo on the <a href="https://github.com/gchq/gaffer-docker/tree/develop/docker/gremlin-gaffer">gaffer-docker repo</a> using the "TinkerPop Modern" <a href="https://tinkerpop.apache.org/docs/current/images/tinkerpop-modern.png">demo graph</a>.</p>
+<h2 id="basic-queries">Basic Queries</h2>
+<p>We recommend connecting to Gremlin using a <a href="https://tinkerpop.apache.org/docs/current/reference/#connecting-gremlin-server">Gremlin server</a>.
+For example to connect a Gremlin server using the Python API:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>    <span class="kn">from</span> <span class="nn">gremlin_python.process.anonymous_traversal_source</span> <span class="kn">import</span> <span class="n">traversal</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">g</span> <span class="o">=</span> <span class="n">traversal</span><span class="p">()</span><span class="o">.</span><span class="n">withRemote</span><span class="p">(</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="n">DriverRemoteConnection</span><span class="p">(</span><span class="s1">&#39;ws://localhost:8182/gremlin&#39;</span><span class="p">))</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <a href="../../../../administration-guide/gaffer-deployment/gremlin/">Gremlin administration guide</a> contains further details on how you can add Gremlin querying to your own Graph instance.</p>
+</div>
+<p>Some basic queries can be carried out on the data.
+The following example is a seeded query from ID 1 with a filter/view for only the <code>person</code> group:</p>
+<div class="language-groovy highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="w">    </span><span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="s1">&#39;1&#39;</span><span class="o">).</span><span class="na">hasLabel</span><span class="o">(</span><span class="s1">&#39;person&#39;</span><span class="o">)</span>
+</span></code></pre></div>
+<p>This example calculates the paths from ID 1 to ID 3 (with a maximum of 6 loops):</p>
+<div class="language-groovy highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="w">    </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="o">;</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="o">;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">g</span><span class="o">.</span><span class="na">V</span><span class="o">(</span><span class="n">start</span><span class="o">).</span><span class="na">repeat</span><span class="o">(</span><span class="n">bothE</span><span class="o">().</span><span class="na">otherV</span><span class="o">().</span><span class="na">simplePath</span><span class="o">()).</span><span class="na">until</span><span class="o">(</span><span class="n">hasId</span><span class="o">(</span><span class="n">end</span><span class="o">).</span><span class="na">or</span><span class="o">().</span><span class="na">loops</span><span class="o">().</span><span class="na">is</span><span class="o">(</span><span class="mi">6</span><span class="o">)).</span><span class="na">path</span><span class="o">()</span>
+</span></code></pre></div>
+<p>There are more example queries using this graph to be found in the <a href="https://tinkerpop.apache.org/docs/current/tutorials/getting-started/">Gremlin Getting Started</a> docs.</p>
+<h2 id="mapping-gaffer-to-tinkerpop">Mapping Gaffer to TinkerPop</h2>
+<p>Some of the terminology is slightly different between TinkerPop and Gaffer,
+a table of how different parts are mapped is as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Gaffer</th>
+<th>TinkerPop</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Group</td>
+<td>Label</td>
+</tr>
+<tr>
+<td>Vertex</td>
+<td>Vertex with default label of <code>id</code></td>
+</tr>
+<tr>
+<td>Entity</td>
+<td>Vertex</td>
+</tr>
+<tr>
+<td>Edge</td>
+<td>Edge</td>
+</tr>
+<tr>
+<td>Edge ID</td>
+<td>A list with the source and destination of the Edge e.g. <code>[dest, source]</code></td>
+</tr>
+</tbody>
+</table>
 
   <hr>
 <div class="md-source-file">
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 21, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 19, 2023</span>
       
         <br>
         Created:
