@@ -182,7 +182,7 @@ accumulo.user=root
 accumulo.password=password
 accumulo.zookeepers=localhost:58630
 
-gaffer.cache.service.class=uk.gov.gchq.gaffer.cache.impl.HashMapCacheService
+gaffer.cache.service.default.class=uk.gov.gchq.gaffer.cache.impl.HashMapCacheService
 gaffer.store.job.tracker.enabled=true
 gaffer.store.operation.declarations=ExportToOtherAuthorisedGraphOperationDeclarations.json,ExportToOtherGraphOperationDeclarations.json,ResultCacheExportOperations.json
 ```

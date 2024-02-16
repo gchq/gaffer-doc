@@ -65,6 +65,7 @@ In addition to the [standard Store Properties](store-guide.md#store-properties),
 - `gaffer.federatedstore.customPropertiesAuths`: String containing auths for [allowing users to use store properties other than those contained in a graph library](#limit-custom-properties). Unset by default, allowing all users to do this.
 - `gaffer.federatedstore.storeConfiguredMergeFunctions`: Path to file containing [merge function definitions to use to override the default merge functions](#setting-default-merge-functions).
 - `gaffer.federatedstore.storeConfiguredGraphIds`: Path to file containing [Graph IDs to be queried when a user doesn't target specific graphs](#setting-default-query-graph-ids). By default, all graphs a user can access are queried.
+- `gaffer.cache.service.federatedstore.class`: Class named of a [Gaffer cache](store-guide.md#cache-service) implementation to use for the Federated Store.
 
 ??? example "Setting these properties with the Java API"
 
@@ -74,6 +75,7 @@ In addition to the [standard Store Properties](store-guide.md#store-properties),
     exampleFederatedStoreProperties.setCustomPropertyAuths("Auth1, Auth2, Auth3");
     exampleFederatedStoreProperties.setStoreConfiguredMergeFunctions("path/to/mergefunctionDefinitions.json");
     exampleFederatedStoreProperties.setStoreConfiguredGraphIds("path/to/defaultGraphIds.json");
+    exampleFederatedStoreProperties.setFederatedStoreCacheServiceClass("uk.gov.gchq.gaffer.cache.impl.HashMapCacheService");
     ```
 
 #### Setting default Merge Functions
@@ -114,6 +116,23 @@ The example file given below configures the Federated Store to federate queries 
   "GraphA", "GraphB"
 ]
 ```
+
+## Cache Considerations
+
+### Federated Store Cache
+
+The Federated Store requires a [Gaffer cache](store-guide.md#cache-service) service in order to function.
+The service/implementation to use can be specified specifically for the Federated Store (using the property given above), or the default service will be used.
+If a default service is not defined, the `HashMapCacheService` service will be set as the default and a warning message logged.
+
+### Sub graph Caches
+
+When adding graphs to a Federated Store you can supply store properties (directly or via a graph library) containing [cache class configuration](store-guide.md#cache-service).
+However, you should be careful to ensure there are no conflicts between the cache properties used for the Federated Store itself and those associated with graphs to add.
+
+For example, if the Federated Store is configured with the default cache service property, then this property cannot be given on graphs to add. If it is given, it will be ignored with a message logged.
+This limitation exists because only one instance of each cache service (the default, plus optional services specific to the Job Tracker, Named Views and Named Operations) can exist within the JVM.
+If you need sub graphs with different caches, it is recommended to create these as separate Gaffer instances and connect to them using a proxy store sub graph.
 
 ## Adding Graphs
 
