@@ -14,19 +14,20 @@ while a 'cache' is used to store any job results.
 ## Configuration
 
 By default, the job tracker is disabled. 
-It can be enabled by setting its associated [store property](../administration-guide/gaffer-stores/store-guide.md/#cache-service) to true.
-There must also be a [cache configured](../administration-guide/gaffer-stores/store-guide.md/#caches) for the job
+It can be enabled by setting its associated [store property](../administration-guide/gaffer-stores/store-guide#store-properties) to true.
+There must also be a [cache configured](../administration-guide/gaffer-stores/store-guide.md#caches) for the job
 tracker to work.
 
+### Configuring the Results Cache
 To store any results using the job tracker, a `GafferResultCache` needs to enabled. 
 This job results cache can then store your results using operations and operation handlers 
 (these are disabled by default). 
-Note that this is note the same as your initial cache, as this results 'cache' is simply a second Gaffer graph
-which will hold any results.
+Note that this is not the same as your initial cache, as this results 'cache' is simply a second Gaffer graph
+which will store your results.
 
 To store results using the job tracker a few elements must be set up. 
-Firstly, you need to add two operations to an [operations declarations JSON file](../development-guide/example-deployment/project-setup.md/#operations-declarations). 
-These operations are [`ExportToGafferResultCache` and `GetGafferResultCacheExport`](../reference/operations-guide/export.md/#exporttogafferresultcache).
+Firstly, you need to add two operations to an [operations declarations JSON file](../development-guide/example-deployment/project-setup.md#operations-declarations). 
+These operations are [`ExportToGafferResultCache` and `GetGafferResultCacheExport`](../reference/operations-guide/export.md#exporttogafferresultcache).
 Together these allow you to store your results in a seperate Gaffer graph, your 'cache'.
 
 !!! example "Adding the operations to your Operations Declarations file"
@@ -56,8 +57,8 @@ Together these allow you to store your results in a seperate Gaffer graph, your 
     }
     ```
 
-As the results 'cache' is a separate Gaffer graph; an additional `cache-store.properties` file will need to be created
-which contains the properties for your results graph. 
+As the results 'cache' is a separate Gaffer graph; an additional `cache-store.properties` file must be created
+to configure store the properties for your results graph. 
 This could be a MapStore or a separate table in your Accumulo cluster. 
 The `storePropertiesPath` in your Operation Declarations JSON file is a path to this second store properties file
 which then allows the operation handlers to store results in the second graph.
@@ -71,7 +72,7 @@ Additionally, there are 5 endpoints in the REST API that can be used to manage J
 
 ### Get Jobs
 
-In addition to the [GetAllJobDetails operation](../reference/operations-guide/job.md/#getalljobdetails) there
+In addition to the [GetAllJobDetails operation](../reference/operations-guide/job.md#getalljobdetails) there
 is an endpoint that gets the details of all asynchronous jobs.
 This endpoint is simply `/rest/graph/jobs` and takes no parameters. 
 
@@ -105,7 +106,7 @@ and one for getting the results of a job.
 `/rest/graph/jobs/{id}` can be used to get the details of a single job
 using that job's id. 
 When making a request to this endpoint you must specify the job id you want the details of,
-similar to the [GetJobDetails operation](../reference/operations-guide/job.md/#getjobdetails).
+similar to the [GetJobDetails operation](../reference/operations-guide/job.md#getjobdetails).
 
 The `/rest/graph/jobs/{id}/results` endpoint is similar as it also 
 requires a specific job id to return a specific job's results from the cache. 
