@@ -58,7 +58,7 @@ Together these allow you to store your results in a seperate Gaffer graph, your 
     ```
 
 As the results 'cache' is a separate Gaffer graph; an additional `cache-store.properties` file must be created
-to configure store the properties for your results graph. 
+to configure the store properties for your results graph. 
 This could be a MapStore or a separate table in your Accumulo cluster. 
 The `storePropertiesPath` in your Operation Declarations JSON file is a path to this second store properties file
 which then allows the operation handlers to store results in the second graph.
