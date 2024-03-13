@@ -69,16 +69,18 @@ In order for the cache service to run you must select your desired implementatio
 gaffer.cache.service.default.class=uk.gov.gchq.gaffer.cache.impl.HashMapCacheService
 ```
 
-Additionally, the cache service implementation to use for the Job Tracker, Named Views and Named Operations can be set independently (as given in the properties table above).
-The default service should still be specified, unless all optional cache class properties are given.
-
 For the JCS and Hazelcast cache, you can specify a configuration file with properties for the cache implementation itself:
 ```
 gaffer.cache.config.file=/path/to/file
 ```
 
+Additionally, the cache service implementation to use for the Job Tracker, Named Views and Named Operations can be set independently (as given in the properties table above).
+The default service should still be specified, unless all optional cache class properties are given.
+When cache service implementations have been set independently, but the same implementation class used, this will result in multiple caches of the same kind being created.
+Setting the cache service independently is intended for allowing different implementations to be used at the same time. Depending on the implementation, using multiple instances of the same implementation may not work correctly.
+
 !!! note
-    It is not possible to specify more than one cache config file if multiple different cache implementations have been used. The same file property will be passed to all implementations.
+    Currently it is not possible to specify different cache config files if multiple different cache implementations have been used. The same config file property will be passed to all implementations.
 
 #### Suffixes
 
