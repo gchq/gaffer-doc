@@ -66,7 +66,11 @@ In order for the cache service to run you must select your desired implementatio
 gaffer.cache.service.class=uk.gov.gchq.gaffer.cache.impl.HashMapCacheService
 ```
 
-For the JCS and Hazelcast cache, you can specify a configuration file with properties for the cache implementation itself:
+Both the JCS and Hazelcast caches require configuration files.
+In the case of a JCS file this is a [ccf file](https://commons.apache.org/proper/commons-jcs/BasicJCSConfiguration.html) 
+while for Hazelcast this is commonly a [XML/YAML file](https://docs.hazelcast.com/imdg/4.2/configuration/understanding-configuration#static-configuration).
+
+You should then specify the location of any configuration file(s) in your store.properties file as follows:
 ```
 gaffer.cache.config.file=/path/to/file
 ```
