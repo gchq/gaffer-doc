@@ -132,7 +132,7 @@ However, you should be careful to ensure there are no conflicts between the cach
 
 For example, if the Federated Store is configured with the default cache service property, then this property cannot be given on graphs to add. If it is given, it will be ignored with a message logged.
 This limitation exists because only one instance of each cache service (the default, plus optional services specific to the Job Tracker, Named Views and Named Operations) can exist within the JVM.
-If you need sub graphs with different caches, it is recommended to create these as separate Gaffer instances and connect to them using a proxy store sub graph.
+If you need sub graphs with different caches, it is recommended to create these as separate Gaffer instances and connect to them using a [proxy store](proxy-store.md) sub graph.
 
 ## Adding Graphs
 

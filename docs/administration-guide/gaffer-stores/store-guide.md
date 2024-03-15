@@ -77,7 +77,7 @@ gaffer.cache.config.file=/path/to/file
 Additionally, the cache service implementation to use for the Job Tracker, Named Views and Named Operations can be set independently (as given in the properties table above).
 The default service should still be specified, unless all optional cache class properties are given.
 When cache service implementations have been set independently, but the same implementation class used, this will result in multiple caches of the same kind being created.
-Setting the cache service independently is intended for allowing different implementations to be used at the same time. Depending on the implementation, using multiple instances of the same implementation may not work correctly.
+Setting the cache service independently is intended to allow different cache implementations to be used at the same time. Depending on the implementation, using multiple instances of the same implementation may not work correctly.
 
 !!! note
     Currently it is not possible to specify different cache config files if multiple different cache implementations have been used. The same config file property will be passed to all implementations.
