@@ -181,7 +181,7 @@ accumulo.user=root
 accumulo.password=secret
 
 # General store config
-gaffer.cache.service.class=uk.gov.gchq.gaffer.cache.impl.HashMapCacheService
+gaffer.cache.service.default.class=uk.gov.gchq.gaffer.cache.impl.HashMapCacheService
 gaffer.store.job.tracker.enabled=true
 gaffer.store.operation.declarations=/gaffer/store/operationsDeclarations.json
 ```

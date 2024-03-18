@@ -35,7 +35,10 @@ The properties in bold are set based on the type of Gaffer Store, for how to con
 | `gaffer.serialiser.json.modules` | None | Class Name String for registering classes implementing [JSONSerialiserModules](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/jsonserialisation/JSONSerialiserModules.html) (separate multiple modules with commas) |
 | `gaffer.serialiser.json.strict` | False | Controls if unknown fields should be ignored when serialising JSON (sets [Jackson FAIL_ON_UNKNOWN_PROPERTIES](https://fasterxml.github.io/jackson-databind/javadoc/2.13/com/fasterxml/jackson/databind/DeserializationFeature.html#FAIL_ON_UNKNOWN_PROPERTIES) internally) |
 | `gaffer.error-mode.debug` | False | Controls technical debugging by methods calling [`DebugUtil`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/commonutil/DebugUtil.html) |
-| `gaffer.cache.service.class` | None | Fully-qualified class name of a [Gaffer cache](#cache-service) implementation |
+| `gaffer.cache.service.default.class` | None | Fully-qualified class name of a [Gaffer cache](#cache-service) implementation to use as the default |
+| `gaffer.cache.service.jobtracker.class` | None | [Gaffer cache](#cache-service) implementation to use for the Job Tracker |
+| `gaffer.cache.service.namedview.class` | None | [Gaffer cache](#cache-service) implementation to use for Named Views |
+| `gaffer.cache.service.namedoperation.class` | None | [Gaffer cache](#cache-service) implementation to use for Named Operations |
 | `gaffer.cache.config.file` | None | Config file to use with a [Gaffer cache](#cache-service) implementation |
 | `gaffer.cache.service.default.suffix` | `graphId` | String to use as the default [cache suffix](#suffixes) |
 | `gaffer.cache.service.federated.store.suffix` | None | String to override the default [suffix](#suffixes) used by Federated Store graph cache |
@@ -61,15 +64,23 @@ Cache configuration includes selecting which cache service to use and optionally
 
 #### Cache Service
 
-In order for the cache service to run you must select your desired implementation. You do this by adding a line to the `store.properties` file:
+In order for the cache service to run you must select your desired implementation. You can set the default implementation by adding a line to the `store.properties` file:
 ```
-gaffer.cache.service.class=uk.gov.gchq.gaffer.cache.impl.HashMapCacheService
+gaffer.cache.service.default.class=uk.gov.gchq.gaffer.cache.impl.HashMapCacheService
 ```
 
 For the JCS and Hazelcast cache, you can specify a configuration file with properties for the cache implementation itself:
 ```
 gaffer.cache.config.file=/path/to/file
 ```
+
+Additionally, the cache service implementation to use for the Job Tracker, Named Views and Named Operations can be set independently (as given in the properties table above).
+The default service should still be specified, unless all optional cache class properties are given.
+When cache service implementations have been set independently, but the same implementation class used, this will result in multiple caches of the same kind being created.
+Setting the cache service independently is intended to allow different cache implementations to be used at the same time. Depending on the implementation, using multiple instances of the same implementation may not work correctly.
+
+!!! note
+    Currently it is not possible to specify different cache config files if multiple different cache implementations have been used. The same config file property will be passed to all implementations.
 
 #### Suffixes
 
