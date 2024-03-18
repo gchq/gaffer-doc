@@ -30,7 +30,7 @@ Gets all running and historic job details for the graph. [Javadoc](https://gchq.
 
         ``` json
         {
-        "class" : "GetAllJobDetails"
+            "class" : "GetAllJobDetails"
         }
         ```
 
@@ -52,15 +52,15 @@ Gets all running and historic job details for the graph. [Javadoc](https://gchq.
 
         ``` json
         [ {
-        "jobId" : "b7084ad3-68ab-4a7b-879c-4c71813ac66f",
-        "user" : {
-            "userId" : "user01",
-            "dataAuths" : [ ],
-            "opAuths" : [ ]
-        },
-        "status" : "RUNNING",
-        "startTime" : 1667818802286,
-        "opChain" : "OperationChain[GetAllJobDetails]"
+            "jobId" : "b7084ad3-68ab-4a7b-879c-4c71813ac66f",
+            "user" : {
+                "userId" : "user01",
+                "dataAuths" : [ ],
+                "opAuths" : [ ]
+            },
+            "status" : "RUNNING",
+            "startTime" : 1667818802286,
+            "opChain" : "OperationChain[GetAllJobDetails]"
         } ]
         ```
 
@@ -84,14 +84,14 @@ Gets the details of a single job. [Javadoc](https://gchq.github.io/Gaffer/uk/gov
 
         ``` json
         {
-        "class" : "OperationChain",
-        "operations" : [ {
-            "class" : "GetAllElements"
-        }, {
-            "class" : "DiscardOutput"
-        }, {
-            "class" : "GetJobDetails"
-        } ]
+            "class" : "OperationChain",
+            "operations" : [ {
+                "class" : "GetAllElements"
+            }, {
+                "class" : "DiscardOutput"
+            }, {
+                "class" : "GetJobDetails"
+            } ]
         }
         ```
 
@@ -99,11 +99,11 @@ Gets the details of a single job. [Javadoc](https://gchq.github.io/Gaffer/uk/gov
 
         ``` python
         g.OperationChain( 
-        operations=[ 
-            g.GetAllElements(), 
-            g.DiscardOutput(), 
-            g.GetJobDetails() 
-        ] 
+            operations=[ 
+                g.GetAllElements(), 
+                g.DiscardOutput(), 
+                g.GetJobDetails() 
+            ] 
         )
         ```
 
@@ -119,15 +119,15 @@ Gets the details of a single job. [Javadoc](https://gchq.github.io/Gaffer/uk/gov
 
         ``` json
         {
-        "jobId" : "306e1208-62d2-47d5-b2c2-1005d3295011",
-        "user" : {
-            "userId" : "user01",
-            "dataAuths" : [ ],
-            "opAuths" : [ ]
-        },
-        "status" : "RUNNING",
-        "startTime" : 1667818803505,
-        "opChain" : "OperationChain[GetAllElements->DiscardOutput->GetJobDetails]"
+            "jobId" : "306e1208-62d2-47d5-b2c2-1005d3295011",
+            "user" : {
+                "userId" : "user01",
+                "dataAuths" : [ ],
+                "opAuths" : [ ]
+            },
+            "status" : "RUNNING",
+            "startTime" : 1667818803505,
+            "opChain" : "OperationChain[GetAllElements->DiscardOutput->GetJobDetails]"
         }
         ```
 
@@ -145,8 +145,8 @@ Gets the details of a single job. [Javadoc](https://gchq.github.io/Gaffer/uk/gov
 
         ``` json
         {
-        "class" : "GetJobDetails",
-        "jobId" : "306e1208-62d2-47d5-b2c2-1005d3295011"
+            "class" : "GetJobDetails",
+            "jobId" : "306e1208-62d2-47d5-b2c2-1005d3295011"
         }
         ```
 
@@ -154,7 +154,7 @@ Gets the details of a single job. [Javadoc](https://gchq.github.io/Gaffer/uk/gov
 
         ``` python
         g.GetJobDetails( 
-        job_id="306e1208-62d2-47d5-b2c2-1005d3295011" 
+            job_id="306e1208-62d2-47d5-b2c2-1005d3295011" 
         )
         ```
 
@@ -170,16 +170,16 @@ Gets the details of a single job. [Javadoc](https://gchq.github.io/Gaffer/uk/gov
 
         ``` json
         {
-        "jobId" : "306e1208-62d2-47d5-b2c2-1005d3295011",
-        "user" : {
-            "userId" : "user01",
-            "dataAuths" : [ ],
-            "opAuths" : [ ]
-        },
-        "status" : "FINISHED",
-        "startTime" : 1667818803505,
-        "endTime" : 1667818803505,
-        "opChain" : "OperationChain[GetAllElements->DiscardOutput->GetJobDetails]"
+            "jobId" : "306e1208-62d2-47d5-b2c2-1005d3295011",
+            "user" : {
+                "userId" : "user01",
+                "dataAuths" : [ ],
+                "opAuths" : [ ]
+            },
+            "status" : "FINISHED",
+            "startTime" : 1667818803505,
+            "endTime" : 1667818803505,
+            "opChain" : "OperationChain[GetAllElements->DiscardOutput->GetJobDetails]"
         }
         ```
 
@@ -201,8 +201,8 @@ Gets the results of a job. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/g
 
         ``` json
         {
-        "class" : "GetJobResults",
-        "jobId" : "60d667eb-a20d-44c2-963f-fc1b6c9b3868"
+            "class" : "GetJobResults",
+            "jobId" : "60d667eb-a20d-44c2-963f-fc1b6c9b3868"
         }
         ```
 
@@ -210,7 +210,7 @@ Gets the results of a job. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/g
 
         ``` python
         g.GetJobResults( 
-        job_id="60d667eb-a20d-44c2-963f-fc1b6c9b3868" 
+            job_id="60d667eb-a20d-44c2-963f-fc1b6c9b3868" 
         )
         ```
 
@@ -236,100 +236,100 @@ Gets the results of a job. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/g
 
         ``` json
         [ {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 1,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 1,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 1,
-        "destination" : 2,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 3
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 1,
+            "destination" : 2,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 3
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 5,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 5,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 3,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 4
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 3,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 4
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 3,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 2
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 3,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 2
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 3,
-        "properties" : {
-            "count" : 2
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 3,
+            "properties" : {
+                "count" : 2
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 2,
-        "properties" : {
-            "count" : 1
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 2,
+            "properties" : {
+                "count" : 1
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
         } ]
         ```
 
@@ -351,11 +351,11 @@ Cancels a scheduled job specified by the job id. [Javadoc](https://gchq.github.i
 
         ``` json
         {
-        "class" : "OperationChain",
-        "operations" : [ {
-            "class" : "GetJobDetails",
-            "jobId" : "35c1bd84-1cd3-4609-8892-710e9d3c2d3f"
-        } ]
+            "class" : "OperationChain",
+            "operations" : [ {
+                "class" : "GetJobDetails",
+                "jobId" : "35c1bd84-1cd3-4609-8892-710e9d3c2d3f"
+            } ]
         }
         ```
 
@@ -363,11 +363,11 @@ Cancels a scheduled job specified by the job id. [Javadoc](https://gchq.github.i
 
         ``` python
         g.OperationChain( 
-        operations=[ 
-            g.GetJobDetails( 
-            job_id="35c1bd84-1cd3-4609-8892-710e9d3c2d3f" 
-            ) 
-        ] 
+            operations=[ 
+                g.GetJobDetails( 
+                job_id="35c1bd84-1cd3-4609-8892-710e9d3c2d3f" 
+                ) 
+            ] 
         )
         ```
 
@@ -383,21 +383,21 @@ Cancels a scheduled job specified by the job id. [Javadoc](https://gchq.github.i
 
         ``` json
         {
-        "repeat" : {
-            "initialDelay" : 1,
-            "repeatPeriod" : 1,
-            "timeUnit" : "MINUTES"
-        },
-        "jobId" : "35c1bd84-1cd3-4609-8892-710e9d3c2d3f",
-        "user" : {
-            "userId" : "user01",
-            "dataAuths" : [ ],
-            "opAuths" : [ ]
-        },
-        "status" : "SCHEDULED_PARENT",
-        "startTime" : 1667818799343,
-        "endTime" : 1667818799344,
-        "opChain" : "OperationChain[GetAllElements]"
+            "repeat" : {
+                "initialDelay" : 1,
+                "repeatPeriod" : 1,
+                "timeUnit" : "MINUTES"
+            },
+            "jobId" : "35c1bd84-1cd3-4609-8892-710e9d3c2d3f",
+            "user" : {
+                "userId" : "user01",
+                "dataAuths" : [ ],
+                "opAuths" : [ ]
+            },
+            "status" : "SCHEDULED_PARENT",
+            "startTime" : 1667818799343,
+            "endTime" : 1667818799344,
+            "opChain" : "OperationChain[GetAllElements]"
         }
         ```
 
@@ -417,11 +417,11 @@ Cancels a scheduled job specified by the job id. [Javadoc](https://gchq.github.i
 
         ``` json
         {
-        "class" : "OperationChain",
-        "operations" : [ {
-            "class" : "CancelScheduledJob",
-            "jobId" : "35c1bd84-1cd3-4609-8892-710e9d3c2d3f"
-        } ]
+            "class" : "OperationChain",
+            "operations" : [ {
+                "class" : "CancelScheduledJob",
+                "jobId" : "35c1bd84-1cd3-4609-8892-710e9d3c2d3f"
+            } ]
         }
         ```
 
@@ -429,11 +429,11 @@ Cancels a scheduled job specified by the job id. [Javadoc](https://gchq.github.i
 
         ``` python
         g.OperationChain( 
-        operations=[ 
-            g.CancelScheduledJob( 
-            job_id="35c1bd84-1cd3-4609-8892-710e9d3c2d3f" 
-            ) 
-        ] 
+            operations=[ 
+                g.CancelScheduledJob( 
+                job_id="35c1bd84-1cd3-4609-8892-710e9d3c2d3f" 
+                ) 
+            ] 
         )
         ```
 
@@ -451,11 +451,11 @@ Cancels a scheduled job specified by the job id. [Javadoc](https://gchq.github.i
 
         ``` json
         {
-        "class" : "OperationChain",
-        "operations" : [ {
-            "class" : "GetJobDetails",
-            "jobId" : "35c1bd84-1cd3-4609-8892-710e9d3c2d3f"
-        } ]
+            "class" : "OperationChain",
+            "operations" : [ {
+                "class" : "GetJobDetails",
+                "jobId" : "35c1bd84-1cd3-4609-8892-710e9d3c2d3f"
+            } ]
         }
         ```
 
@@ -463,11 +463,11 @@ Cancels a scheduled job specified by the job id. [Javadoc](https://gchq.github.i
 
         ``` python
         g.OperationChain( 
-        operations=[ 
-            g.GetJobDetails( 
-            job_id="35c1bd84-1cd3-4609-8892-710e9d3c2d3f" 
-            ) 
-        ] 
+            operations=[ 
+                g.GetJobDetails( 
+                job_id="35c1bd84-1cd3-4609-8892-710e9d3c2d3f" 
+                ) 
+            ] 
         )
         ```
 
@@ -484,20 +484,20 @@ Cancels a scheduled job specified by the job id. [Javadoc](https://gchq.github.i
 
         ``` json
         {
-        "repeat" : {
-            "initialDelay" : 1,
-            "repeatPeriod" : 1,
-            "timeUnit" : "MINUTES"
-        },
-        "jobId" : "35c1bd84-1cd3-4609-8892-710e9d3c2d3f",
-        "user" : {
-            "userId" : "user01",
-            "dataAuths" : [ ],
-            "opAuths" : [ ]
-        },
-        "status" : "CANCELLED",
-        "startTime" : 1667818799343,
-        "endTime" : 1667818799344,
-        "opChain" : "OperationChain[GetAllElements]"
+            "repeat" : {
+                "initialDelay" : 1,
+                "repeatPeriod" : 1,
+                "timeUnit" : "MINUTES"
+            },
+            "jobId" : "35c1bd84-1cd3-4609-8892-710e9d3c2d3f",
+            "user" : {
+                "userId" : "user01",
+                "dataAuths" : [ ],
+                "opAuths" : [ ]
+            },
+            "status" : "CANCELLED",
+            "startTime" : 1667818799343,
+            "endTime" : 1667818799344,
+            "opChain" : "OperationChain[GetAllElements]"
         }
         ```
