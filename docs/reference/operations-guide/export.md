@@ -606,7 +606,7 @@ ExportToSet and GetSetExport should be used within a single Operation Chain.
 
 ## ExportToGafferResultCache
 
-This operation exports results to a cache which is backed by a simple Gaffer graph. This requires a cache to be [configured](../../administration-guide/job-tracker.md) and results must be of a type that is JSON serialisable. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/resultcache/ExportToGafferResultCache.html)
+This operation exports results to a cache which is backed by a simple Gaffer graph. This requires a cache to be [configured](../../administration-guide/job-tracker.md#configuring-the-results-cache) and results must be of a type that is JSON serialisable. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/resultcache/ExportToGafferResultCache.html)
 
 ??? example "Example of export and get with result cache"
 
