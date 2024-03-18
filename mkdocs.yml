@@ -156,6 +156,7 @@ nav:
         - 'Ingest Example': 'administration-guide/aggregation/ingest-example.md'
       - 'Named Operations': 'administration-guide/named-operations.md'
       - 'Operation Score': 'administration-guide/operation-score.md'
+      - 'Job Tracker': 'administration-guide/job-tracker.md'
       - Security:
         - 'Security Guide': 'administration-guide/security/security-guide.md'
         - 'User Control': 'administration-guide/security/user-control.md'
