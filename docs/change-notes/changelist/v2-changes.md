@@ -1,6 +1,6 @@
-# Gaffer 2 Changelist
+# Gaffer 2.0.0 Changelist
 
-Below is a summary of changes that have been made in Gaffer version 2.
+Below is a summary of changes that have been made in Gaffer version 2.0.0.
 
 Each breaking change has been put into one of 3 tiers:
 

@@ -156,13 +156,15 @@ nav:
         - 'Ingest Example': 'administration-guide/aggregation/ingest-example.md'
       - 'Named Operations': 'administration-guide/named-operations.md'
       - 'Operation Score': 'administration-guide/operation-score.md'
+      - 'Job Tracker': 'administration-guide/job-tracker.md'
       - Security:
         - 'Security Guide': 'administration-guide/security/security-guide.md'
         - 'User Control': 'administration-guide/security/user-control.md'
         - 'Accumulo Kerberos': 'administration-guide/security/accumulo-kerberos.md'
     - Change Notes:
       - 'Changelist':
-        - 'V2.0 Changes': 'change-notes/changelist/v2-changes.md'
+        - '2.1.0 Changes': 'change-notes/changelist/v2.1.0-changes.md'
+        - '2.0.0 Changes': 'change-notes/changelist/v2-changes.md'
       - 'Migrating from V1 to V2':
         - 'Deprecations': 'change-notes/migrating-from-v1-to-v2/deprecations.md'
         - 'Dependencies': 'change-notes/migrating-from-v1-to-v2/dependencies.md'
