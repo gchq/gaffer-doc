@@ -16,7 +16,13 @@ graph TD
 
 ## ExportToSet
 
-Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/set/ExportToSet.html)
+This operation exports results from an Operation Chain to a Set export.
+This export is held in a temporary, in-memory cache which is only maintained per
+individual job or Operation Chain. 
+This means that you cannot use the Set export across multiple,
+individual operation requests.
+
+No additional configuration is needed for this operation as it is always available. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/set/ExportToSet.html)
 
 ??? example "Example of export and get"
 
@@ -35,17 +41,17 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
 
         ``` json
         {
-        "class" : "OperationChain",
-        "operations" : [ {
-            "class" : "GetAllElements"
-        }, {
-            "class" : "ExportToSet"
-        }, {
-            "class" : "DiscardOutput"
-        }, {
-            "class" : "GetSetExport",
-            "start" : 0
-        } ]
+            "class" : "OperationChain",
+            "operations" : [ {
+                "class" : "GetAllElements"
+            }, {
+                "class" : "ExportToSet"
+            }, {
+                "class" : "DiscardOutput"
+            }, {
+                "class" : "GetSetExport",
+                "start" : 0
+            } ]
         }
         ```
 
@@ -53,14 +59,14 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
 
         ``` python
         g.OperationChain( 
-        operations=[ 
-            g.GetAllElements(), 
-            g.ExportToSet(), 
-            g.DiscardOutput(), 
-            g.GetSetExport( 
-            start=0 
-            ) 
-        ] 
+            operations=[ 
+                g.GetAllElements(), 
+                g.ExportToSet(), 
+                g.DiscardOutput(), 
+                g.GetSetExport( 
+                    start=0 
+                ) 
+            ] 
         )
         ```
 
@@ -86,100 +92,100 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
 
         ``` json
         [ {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 1,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 1,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 3,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 4
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 3,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 4
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 2,
-        "properties" : {
-            "count" : 1
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 2,
+            "properties" : {
+                "count" : 1
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 3,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 2
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 3,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 2
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 3,
-        "properties" : {
-            "count" : 2
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 3,
+            "properties" : {
+                "count" : 2
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 1,
-        "destination" : 2,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 3
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 1,
+            "destination" : 2,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 3
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 5,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 5,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
         } ]
         ```
 
@@ -203,18 +209,18 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
 
         ``` json
         {
-        "class" : "OperationChain",
-        "operations" : [ {
-            "class" : "GetAllElements"
-        }, {
-            "class" : "ExportToSet"
-        }, {
-            "class" : "DiscardOutput"
-        }, {
-            "class" : "GetSetExport",
-            "start" : 2,
-            "end" : 4
-        } ]
+            "class" : "OperationChain",
+            "operations" : [ {
+                "class" : "GetAllElements"
+            }, {
+                "class" : "ExportToSet"
+            }, {
+                "class" : "DiscardOutput"
+            }, {
+                "class" : "GetSetExport",
+                "start" : 2,
+                "end" : 4
+            } ]
         }
         ```
 
@@ -222,15 +228,15 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
 
         ``` python
         g.OperationChain( 
-        operations=[ 
-            g.GetAllElements(), 
-            g.ExportToSet(), 
-            g.DiscardOutput(), 
-            g.GetSetExport( 
-            start=2, 
-            end=4 
-            ) 
-        ] 
+            operations=[ 
+                g.GetAllElements(), 
+                g.ExportToSet(), 
+                g.DiscardOutput(), 
+                g.GetSetExport( 
+                    start=2, 
+                    end=4 
+                ) 
+            ] 
         )
         ```
 
@@ -247,22 +253,22 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
 
         ``` json
         [ {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 3,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 4
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 3,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 4
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 2,
-        "properties" : {
-            "count" : 1
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 2,
+            "properties" : {
+                "count" : 1
+            }
         } ]
         ```
 
@@ -297,33 +303,33 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
 
         ``` json
         {
-        "class" : "OperationChain",
-        "operations" : [ {
-            "class" : "GetAllElements"
-        }, {
-            "class" : "ExportToSet",
-            "key" : "edges"
-        }, {
-            "class" : "DiscardOutput"
-        }, {
-            "class" : "GetAllElements"
-        }, {
-            "class" : "ExportToSet",
-            "key" : "entities"
-        }, {
-            "class" : "DiscardOutput"
-        }, {
-            "class" : "GetExports",
-            "getExports" : [ {
-            "class" : "GetSetExport",
-            "start" : 0,
-            "key" : "edges"
+            "class" : "OperationChain",
+            "operations" : [ {
+                "class" : "GetAllElements"
             }, {
-            "class" : "GetSetExport",
-            "start" : 0,
-            "key" : "entities"
+                "class" : "ExportToSet",
+                "key" : "edges"
+            }, {
+                "class" : "DiscardOutput"
+            }, {
+                "class" : "GetAllElements"
+            }, {
+                "class" : "ExportToSet",
+                "key" : "entities"
+            }, {
+                "class" : "DiscardOutput"
+            }, {
+                "class" : "GetExports",
+                "getExports" : [ {
+                    "class" : "GetSetExport",
+                    "start" : 0,
+                    "key" : "edges"
+                }, {
+                    "class" : "GetSetExport",
+                    "start" : 0,
+                    "key" : "entities"
+                } ]
             } ]
-        } ]
         }
         ```
 
@@ -331,30 +337,30 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
 
         ``` python
         g.OperationChain( 
-        operations=[ 
-            g.GetAllElements(), 
-            g.ExportToSet( 
-            key="edges" 
-            ), 
-            g.DiscardOutput(), 
-            g.GetAllElements(), 
-            g.ExportToSet( 
-            key="entities" 
-            ), 
-            g.DiscardOutput(), 
-            g.GetExports( 
-            get_exports=[ 
-                g.GetSetExport( 
-                key="edges", 
-                start=0 
+            operations=[ 
+                g.GetAllElements(), 
+                g.ExportToSet( 
+                    key="edges" 
                 ), 
-                g.GetSetExport( 
-                key="entities", 
-                start=0 
+                g.DiscardOutput(), 
+                g.GetAllElements(), 
+                g.ExportToSet( 
+                    key="entities" 
+                ), 
+                g.DiscardOutput(), 
+                g.GetExports( 
+                    get_exports=[ 
+                        g.GetSetExport( 
+                            key="edges", 
+                            start=0 
+                        ), 
+                        g.GetSetExport( 
+                            key="entities", 
+                            start=0 
+                        ) 
+                    ] 
                 ) 
             ] 
-            ) 
-        ] 
         )
         ```
 
@@ -401,14 +407,14 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
             "directed" : true,
             "matchedVertex" : "SOURCE",
             "properties" : {
-            "count" : 1
+                "count" : 1
             }
         }, {
             "class" : "uk.gov.gchq.gaffer.data.element.Entity",
             "group" : "entity",
             "vertex" : 5,
             "properties" : {
-            "count" : 3
+                "count" : 3
             }
         }, {
             "class" : "uk.gov.gchq.gaffer.data.element.Edge",
@@ -418,28 +424,28 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
             "directed" : true,
             "matchedVertex" : "SOURCE",
             "properties" : {
-            "count" : 4
+                "count" : 4
             }
         }, {
             "class" : "uk.gov.gchq.gaffer.data.element.Entity",
             "group" : "entity",
             "vertex" : 2,
             "properties" : {
-            "count" : 1
+                "count" : 1
             }
         }, {
             "class" : "uk.gov.gchq.gaffer.data.element.Entity",
             "group" : "entity",
             "vertex" : 1,
             "properties" : {
-            "count" : 3
+                "count" : 3
             }
         }, {
             "class" : "uk.gov.gchq.gaffer.data.element.Entity",
             "group" : "entity",
             "vertex" : 4,
             "properties" : {
-            "count" : 1
+                "count" : 1
             }
         }, {
             "class" : "uk.gov.gchq.gaffer.data.element.Edge",
@@ -449,14 +455,14 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
             "directed" : true,
             "matchedVertex" : "SOURCE",
             "properties" : {
-            "count" : 2
+                "count" : 2
             }
         }, {
             "class" : "uk.gov.gchq.gaffer.data.element.Entity",
             "group" : "entity",
             "vertex" : 3,
             "properties" : {
-            "count" : 2
+                "count" : 2
             }
         }, {
             "class" : "uk.gov.gchq.gaffer.data.element.Edge",
@@ -466,7 +472,7 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
             "directed" : true,
             "matchedVertex" : "SOURCE",
             "properties" : {
-            "count" : 1
+                "count" : 1
             }
         }, {
             "class" : "uk.gov.gchq.gaffer.data.element.Edge",
@@ -476,7 +482,7 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
             "directed" : true,
             "matchedVertex" : "SOURCE",
             "properties" : {
-            "count" : 3
+                "count" : 3
             }
         }, {
             "class" : "uk.gov.gchq.gaffer.data.element.Edge",
@@ -486,7 +492,7 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
             "directed" : true,
             "matchedVertex" : "SOURCE",
             "properties" : {
-            "count" : 1
+                "count" : 1
             }
         } ],
         "uk.gov.gchq.gaffer.operation.impl.export.set.GetSetExport: entities" : [ {
@@ -497,14 +503,14 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
             "directed" : true,
             "matchedVertex" : "SOURCE",
             "properties" : {
-            "count" : 1
+                "count" : 1
             }
         }, {
             "class" : "uk.gov.gchq.gaffer.data.element.Entity",
             "group" : "entity",
             "vertex" : 5,
             "properties" : {
-            "count" : 3
+                "count" : 3
             }
         }, {
             "class" : "uk.gov.gchq.gaffer.data.element.Edge",
@@ -514,28 +520,28 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
             "directed" : true,
             "matchedVertex" : "SOURCE",
             "properties" : {
-            "count" : 4
+                "count" : 4
             }
         }, {
             "class" : "uk.gov.gchq.gaffer.data.element.Entity",
             "group" : "entity",
             "vertex" : 2,
             "properties" : {
-            "count" : 1
+                "count" : 1
             }
         }, {
             "class" : "uk.gov.gchq.gaffer.data.element.Entity",
             "group" : "entity",
             "vertex" : 1,
             "properties" : {
-            "count" : 3
+                "count" : 3
             }
         }, {
             "class" : "uk.gov.gchq.gaffer.data.element.Entity",
             "group" : "entity",
             "vertex" : 4,
             "properties" : {
-            "count" : 1
+                "count" : 1
             }
         }, {
             "class" : "uk.gov.gchq.gaffer.data.element.Edge",
@@ -545,14 +551,14 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
             "directed" : true,
             "matchedVertex" : "SOURCE",
             "properties" : {
-            "count" : 2
+                "count" : 2
             }
         }, {
             "class" : "uk.gov.gchq.gaffer.data.element.Entity",
             "group" : "entity",
             "vertex" : 3,
             "properties" : {
-            "count" : 2
+                "count" : 2
             }
         }, {
             "class" : "uk.gov.gchq.gaffer.data.element.Edge",
@@ -562,7 +568,7 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
             "directed" : true,
             "matchedVertex" : "SOURCE",
             "properties" : {
-            "count" : 1
+                "count" : 1
             }
         }, {
             "class" : "uk.gov.gchq.gaffer.data.element.Edge",
@@ -572,7 +578,7 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
             "directed" : true,
             "matchedVertex" : "SOURCE",
             "properties" : {
-            "count" : 3
+                "count" : 3
             }
         }, {
             "class" : "uk.gov.gchq.gaffer.data.element.Edge",
@@ -582,7 +588,7 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
             "directed" : true,
             "matchedVertex" : "SOURCE",
             "properties" : {
-            "count" : 1
+                "count" : 1
             }
         } ]
         }
@@ -592,12 +598,15 @@ Exports results to a Set, always available. [Javadoc](https://gchq.github.io/Gaf
 
 Fetches data from a Set cache, always available. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/set/GetSetExport.html)
 
+Note that as the Set exported by ExportToSet is temporary to access the data 
+ExportToSet and GetSetExport should be used within a single Operation Chain.
+
 !!! example
     See examples for ExportToSet above for usage.
 
 ## ExportToGafferResultCache
 
-Exports to a cache backed by a Gaffer graph. Requires a cache to be configured. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/resultcache/ExportToGafferResultCache.html)
+This operation exports results to a cache which is backed by a simple Gaffer graph. This requires a cache to be [configured](../../administration-guide/job-tracker.md#configuring-the-results-cache) and results must be of a type that is JSON serialisable. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/resultcache/ExportToGafferResultCache.html)
 
 ??? example "Example of export and get with result cache"
 
@@ -616,17 +625,17 @@ Exports to a cache backed by a Gaffer graph. Requires a cache to be configured. 
 
         ``` json
         {
-        "class" : "OperationChain",
-        "operations" : [ {
-            "class" : "GetAllElements"
-        }, {
-            "class" : "ExportToGafferResultCache"
-        }, {
-            "class" : "DiscardOutput"
-        }, {
-            "class" : "GetGafferResultCacheExport",
-            "key" : "ALL"
-        } ]
+            "class" : "OperationChain",
+            "operations" : [ {
+                "class" : "GetAllElements"
+            }, {
+                "class" : "ExportToGafferResultCache"
+            }, {
+                "class" : "DiscardOutput"
+            }, {
+                "class" : "GetGafferResultCacheExport",
+                "key" : "ALL"
+            } ]
         }
         ```
 
@@ -634,15 +643,15 @@ Exports to a cache backed by a Gaffer graph. Requires a cache to be configured. 
 
         ``` python
         g.OperationChain( 
-        operations=[ 
-            g.GetAllElements(), 
-            g.ExportToGafferResultCache(), 
-            g.DiscardOutput(), 
-            g.GetGafferResultCacheExport( 
-            key="ALL" 
-            ) 
-        ] 
-        )
+            operations=[ 
+                g.GetAllElements(), 
+                g.ExportToGafferResultCache(), 
+                g.DiscardOutput(), 
+                g.GetGafferResultCacheExport( 
+                    key="ALL" 
+                ) 
+            ] 
+            )
         ```
 
     Results:
@@ -667,100 +676,100 @@ Exports to a cache backed by a Gaffer graph. Requires a cache to be configured. 
 
         ``` json
         [ {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 1,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 1,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 1,
-        "destination" : 2,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 3
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 1,
+            "destination" : 2,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 3
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 5,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 5,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 3,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 4
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 3,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 4
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 3,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 2
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 3,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 2
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 2,
-        "properties" : {
-            "count" : 1
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 2,
+            "properties" : {
+                "count" : 1
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 3,
-        "properties" : {
-            "count" : 2
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 3,
+            "properties" : {
+                "count" : 2
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
         } ]
         ```
 
@@ -781,16 +790,16 @@ Exports to a cache backed by a Gaffer graph. Requires a cache to be configured. 
 
         ``` json
         {
-        "class" : "OperationChain",
-        "operations" : [ {
-            "class" : "GetAllElements"
-        }, {
-            "class" : "ExportToGafferResultCache"
-        }, {
-            "class" : "DiscardOutput"
-        }, {
-            "class" : "GetJobDetails"
-        } ]
+            "class" : "OperationChain",
+            "operations" : [ {
+                "class" : "GetAllElements"
+            }, {
+                "class" : "ExportToGafferResultCache"
+            }, {
+                "class" : "DiscardOutput"
+            }, {
+                "class" : "GetJobDetails"
+            } ]
         }
         ```
 
@@ -798,12 +807,12 @@ Exports to a cache backed by a Gaffer graph. Requires a cache to be configured. 
 
         ``` python
         g.OperationChain( 
-        operations=[ 
-            g.GetAllElements(), 
-            g.ExportToGafferResultCache(), 
-            g.DiscardOutput(), 
-            g.GetJobDetails() 
-        ] 
+            operations=[ 
+                g.GetAllElements(), 
+                g.ExportToGafferResultCache(), 
+                g.DiscardOutput(), 
+                g.GetJobDetails() 
+            ] 
         )
         ```
 
@@ -819,15 +828,15 @@ Exports to a cache backed by a Gaffer graph. Requires a cache to be configured. 
 
         ``` json
         {
-        "jobId" : "af0a2efe-5f3c-458d-8fa2-93d0f28cbd82",
-        "user" : {
-            "userId" : "user01",
-            "dataAuths" : [ ],
-            "opAuths" : [ ]
-        },
-        "status" : "RUNNING",
-        "startTime" : 1667818800114,
-        "opChain" : "OperationChain[GetAllElements->ExportToGafferResultCache->DiscardOutput->GetJobDetails]"
+            "jobId" : "af0a2efe-5f3c-458d-8fa2-93d0f28cbd82",
+            "user" : {
+                "userId" : "user01",
+                "dataAuths" : [ ],
+                "opAuths" : [ ]
+            },
+            "status" : "RUNNING",
+            "startTime" : 1667818800114,
+            "opChain" : "OperationChain[GetAllElements->ExportToGafferResultCache->DiscardOutput->GetJobDetails]"
         }
         ```
 
@@ -847,12 +856,12 @@ Exports to a cache backed by a Gaffer graph. Requires a cache to be configured. 
 
         ``` json
         {
-        "class" : "OperationChain",
-        "operations" : [ {
-            "class" : "GetGafferResultCacheExport",
-            "jobId" : "af0a2efe-5f3c-458d-8fa2-93d0f28cbd82",
-            "key" : "ALL"
-        } ]
+            "class" : "OperationChain",
+            "operations" : [ {
+                "class" : "GetGafferResultCacheExport",
+                "jobId" : "af0a2efe-5f3c-458d-8fa2-93d0f28cbd82",
+                "key" : "ALL"
+            } ]
         }
         ```
 
@@ -860,12 +869,12 @@ Exports to a cache backed by a Gaffer graph. Requires a cache to be configured. 
 
         ``` python
         g.OperationChain( 
-        operations=[ 
-            g.GetGafferResultCacheExport( 
-            job_id="af0a2efe-5f3c-458d-8fa2-93d0f28cbd82", 
-            key="ALL" 
-            ) 
-        ] 
+            operations=[ 
+                g.GetGafferResultCacheExport( 
+                    job_id="af0a2efe-5f3c-458d-8fa2-93d0f28cbd82", 
+                    key="ALL" 
+                ) 
+            ] 
         )
         ```
 
@@ -891,100 +900,100 @@ Exports to a cache backed by a Gaffer graph. Requires a cache to be configured. 
 
         ``` json
         [ {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 1,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 1,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 5,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 5,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 1,
-        "destination" : 2,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 3
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 1,
+            "destination" : 2,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 3
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 3,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 2
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 3,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 2
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 3,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 4
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 3,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 4
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 2,
-        "properties" : {
-            "count" : 1
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 2,
+            "properties" : {
+                "count" : 1
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
         }, {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 3,
-        "properties" : {
-            "count" : 2
-        }
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 3,
+            "properties" : {
+                "count" : 2
+            }
         } ]
         ```
 
@@ -1019,31 +1028,31 @@ Exports to a cache backed by a Gaffer graph. Requires a cache to be configured. 
 
         ``` json
         {
-        "class" : "OperationChain",
-        "operations" : [ {
-            "class" : "GetAllElements"
-        }, {
-            "class" : "ExportToGafferResultCache",
-            "key" : "edges"
-        }, {
-            "class" : "DiscardOutput"
-        }, {
-            "class" : "GetAllElements"
-        }, {
-            "class" : "ExportToGafferResultCache",
-            "key" : "entities"
-        }, {
-            "class" : "DiscardOutput"
-        }, {
-            "class" : "GetExports",
-            "getExports" : [ {
-            "class" : "GetGafferResultCacheExport",
-            "key" : "edges"
+            "class" : "OperationChain",
+            "operations" : [ {
+                "class" : "GetAllElements"
             }, {
-            "class" : "GetGafferResultCacheExport",
-            "key" : "entities"
+                "class" : "ExportToGafferResultCache",
+                "key" : "edges"
+            }, {
+                "class" : "DiscardOutput"
+            }, {
+                "class" : "GetAllElements"
+            }, {
+                "class" : "ExportToGafferResultCache",
+                "key" : "entities"
+            }, {
+                "class" : "DiscardOutput"
+            }, {
+                "class" : "GetExports",
+                "getExports" : [ {
+                    "class" : "GetGafferResultCacheExport",
+                    "key" : "edges"
+                }, {
+                    "class" : "GetGafferResultCacheExport",
+                    "key" : "entities"
+                } ]
             } ]
-        } ]
         }
         ```
 
@@ -1051,28 +1060,28 @@ Exports to a cache backed by a Gaffer graph. Requires a cache to be configured. 
 
         ``` python
         g.OperationChain( 
-        operations=[ 
-            g.GetAllElements(), 
-            g.ExportToGafferResultCache( 
-            key="edges" 
-            ), 
-            g.DiscardOutput(), 
-            g.GetAllElements(), 
-            g.ExportToGafferResultCache( 
-            key="entities" 
-            ), 
-            g.DiscardOutput(), 
-            g.GetExports( 
-            get_exports=[ 
-                g.GetGafferResultCacheExport( 
-                key="edges" 
+            operations=[ 
+                g.GetAllElements(), 
+                g.ExportToGafferResultCache( 
+                    key="edges" 
                 ), 
-                g.GetGafferResultCacheExport( 
-                key="entities" 
+                g.DiscardOutput(), 
+                g.GetAllElements(), 
+                g.ExportToGafferResultCache( 
+                    key="entities" 
+                ), 
+                g.DiscardOutput(), 
+                g.GetExports( 
+                    get_exports=[ 
+                        g.GetGafferResultCacheExport( 
+                            key="edges" 
+                        ), 
+                        g.GetGafferResultCacheExport( 
+                            key="entities" 
+                        ) 
+                    ] 
                 ) 
             ] 
-            ) 
-        ] 
         )
         ```
 
@@ -1111,204 +1120,204 @@ Exports to a cache backed by a Gaffer graph. Requires a cache to be configured. 
 
         ``` json
         {
-        "uk.gov.gchq.gaffer.operation.impl.export.resultcache.GetGafferResultCacheExport: edges" : [ {
-            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-            "group" : "entity",
-            "vertex" : 3,
-            "properties" : {
-            "count" : 2
-            }
-        }, {
-            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-            "group" : "edge",
-            "source" : 2,
-            "destination" : 4,
-            "directed" : true,
-            "matchedVertex" : "SOURCE",
-            "properties" : {
-            "count" : 1
-            }
-        }, {
-            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-            "group" : "edge",
-            "source" : 2,
-            "destination" : 3,
-            "directed" : true,
-            "matchedVertex" : "SOURCE",
-            "properties" : {
-            "count" : 2
-            }
-        }, {
-            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-            "group" : "edge",
-            "source" : 1,
-            "destination" : 2,
-            "directed" : true,
-            "matchedVertex" : "SOURCE",
-            "properties" : {
-            "count" : 3
-            }
-        }, {
-            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-            "group" : "edge",
-            "source" : 2,
-            "destination" : 5,
-            "directed" : true,
-            "matchedVertex" : "SOURCE",
-            "properties" : {
-            "count" : 1
-            }
-        }, {
-            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-            "group" : "edge",
-            "source" : 1,
-            "destination" : 4,
-            "directed" : true,
-            "matchedVertex" : "SOURCE",
-            "properties" : {
-            "count" : 1
-            }
-        }, {
-            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-            "group" : "entity",
-            "vertex" : 5,
-            "properties" : {
-            "count" : 3
-            }
-        }, {
-            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-            "group" : "entity",
-            "vertex" : 1,
-            "properties" : {
-            "count" : 3
-            }
-        }, {
-            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-            "group" : "edge",
-            "source" : 3,
-            "destination" : 4,
-            "directed" : true,
-            "matchedVertex" : "SOURCE",
-            "properties" : {
-            "count" : 4
-            }
-        }, {
-            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-            "group" : "entity",
-            "vertex" : 2,
-            "properties" : {
-            "count" : 1
-            }
-        }, {
-            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-            "group" : "entity",
-            "vertex" : 4,
-            "properties" : {
-            "count" : 1
-            }
-        } ],
-        "uk.gov.gchq.gaffer.operation.impl.export.resultcache.GetGafferResultCacheExport: entities" : [ {
-            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-            "group" : "edge",
-            "source" : 2,
-            "destination" : 5,
-            "directed" : true,
-            "matchedVertex" : "SOURCE",
-            "properties" : {
-            "count" : 1
-            }
-        }, {
-            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-            "group" : "edge",
-            "source" : 3,
-            "destination" : 4,
-            "directed" : true,
-            "matchedVertex" : "SOURCE",
-            "properties" : {
-            "count" : 4
-            }
-        }, {
-            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-            "group" : "edge",
-            "source" : 2,
-            "destination" : 4,
-            "directed" : true,
-            "matchedVertex" : "SOURCE",
-            "properties" : {
-            "count" : 1
-            }
-        }, {
-            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-            "group" : "entity",
-            "vertex" : 4,
-            "properties" : {
-            "count" : 1
-            }
-        }, {
-            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-            "group" : "entity",
-            "vertex" : 2,
-            "properties" : {
-            "count" : 1
-            }
-        }, {
-            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-            "group" : "edge",
-            "source" : 2,
-            "destination" : 3,
-            "directed" : true,
-            "matchedVertex" : "SOURCE",
-            "properties" : {
-            "count" : 2
-            }
-        }, {
-            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-            "group" : "entity",
-            "vertex" : 3,
-            "properties" : {
-            "count" : 2
-            }
-        }, {
-            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-            "group" : "edge",
-            "source" : 1,
-            "destination" : 2,
-            "directed" : true,
-            "matchedVertex" : "SOURCE",
-            "properties" : {
-            "count" : 3
-            }
-        }, {
-            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-            "group" : "edge",
-            "source" : 1,
-            "destination" : 4,
-            "directed" : true,
-            "matchedVertex" : "SOURCE",
-            "properties" : {
-            "count" : 1
-            }
-        }, {
-            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-            "group" : "entity",
-            "vertex" : 5,
-            "properties" : {
-            "count" : 3
-            }
-        }, {
-            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-            "group" : "entity",
-            "vertex" : 1,
-            "properties" : {
-            "count" : 3
-            }
-        } ]
+            "uk.gov.gchq.gaffer.operation.impl.export.resultcache.GetGafferResultCacheExport: edges" : [ {
+                "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+                "group" : "entity",
+                "vertex" : 3,
+                "properties" : {
+                    "count" : 2
+                }
+            }, {
+                "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+                "group" : "edge",
+                "source" : 2,
+                "destination" : 4,
+                "directed" : true,
+                "matchedVertex" : "SOURCE",
+                "properties" : {
+                    "count" : 1
+                }
+            }, {
+                "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+                "group" : "edge",
+                "source" : 2,
+                "destination" : 3,
+                "directed" : true,
+                "matchedVertex" : "SOURCE",
+                "properties" : {
+                    "count" : 2
+                }
+            }, {
+                "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+                "group" : "edge",
+                "source" : 1,
+                "destination" : 2,
+                "directed" : true,
+                "matchedVertex" : "SOURCE",
+                "properties" : {
+                    "count" : 3
+                }
+            }, {
+                "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+                "group" : "edge",
+                "source" : 2,
+                "destination" : 5,
+                "directed" : true,
+                "matchedVertex" : "SOURCE",
+                "properties" : {
+                    "count" : 1
+                }
+            }, {
+                "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+                "group" : "edge",
+                "source" : 1,
+                "destination" : 4,
+                "directed" : true,
+                "matchedVertex" : "SOURCE",
+                "properties" : {
+                    "count" : 1
+                }
+            }, {
+                "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+                "group" : "entity",
+                "vertex" : 5,
+                "properties" : {
+                    "count" : 3
+                }
+            }, {
+                "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+                "group" : "entity",
+                "vertex" : 1,
+                "properties" : {
+                    "count" : 3
+                }
+            }, {
+                "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+                "group" : "edge",
+                "source" : 3,
+                "destination" : 4,
+                "directed" : true,
+                "matchedVertex" : "SOURCE",
+                "properties" : {
+                    "count" : 4
+                }
+            }, {
+                "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+                "group" : "entity",
+                "vertex" : 2,
+                "properties" : {
+                    "count" : 1
+                }
+            }, {
+                "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+                "group" : "entity",
+                "vertex" : 4,
+                "properties" : {
+                    "count" : 1
+                }
+            } ],
+            "uk.gov.gchq.gaffer.operation.impl.export.resultcache.GetGafferResultCacheExport: entities" : [ {
+                "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+                "group" : "edge",
+                "source" : 2,
+                "destination" : 5,
+                "directed" : true,
+                "matchedVertex" : "SOURCE",
+                "properties" : {
+                    "count" : 1
+                }
+            }, {
+                "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+                "group" : "edge",
+                "source" : 3,
+                "destination" : 4,
+                "directed" : true,
+                "matchedVertex" : "SOURCE",
+                "properties" : {
+                    "count" : 4
+                }
+            }, {
+                "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+                "group" : "edge",
+                "source" : 2,
+                "destination" : 4,
+                "directed" : true,
+                "matchedVertex" : "SOURCE",
+                "properties" : {
+                    "count" : 1
+                }
+            }, {
+                "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+                "group" : "entity",
+                "vertex" : 4,
+                "properties" : {
+                    "count" : 1
+                }
+            }, {
+                "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+                "group" : "entity",
+                "vertex" : 2,
+                "properties" : {
+                    "count" : 1
+                }
+            }, {
+                "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+                "group" : "edge",
+                "source" : 2,
+                "destination" : 3,
+                "directed" : true,
+                "matchedVertex" : "SOURCE",
+                "properties" : {
+                    "count" : 2
+                }
+            }, {
+                "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+                "group" : "entity",
+                "vertex" : 3,
+                "properties" : {
+                    "count" : 2
+                }
+            }, {
+                "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+                "group" : "edge",
+                "source" : 1,
+                "destination" : 2,
+                "directed" : true,
+                "matchedVertex" : "SOURCE",
+                "properties" : {
+                    "count" : 3
+                }
+            }, {
+                "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+                "group" : "edge",
+                "source" : 1,
+                "destination" : 4,
+                "directed" : true,
+                "matchedVertex" : "SOURCE",
+                "properties" : {
+                    "count" : 1
+                }
+            }, {
+                "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+                "group" : "entity",
+                "vertex" : 5,
+                "properties" : {
+                    "count" : 3
+                }
+            }, {
+                "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+                "group" : "entity",
+                "vertex" : 1,
+                "properties" : {
+                    "count" : 3
+                }
+            } ]
         }
         ```
 
 ## GetGafferResultCacheExport
 
-Fetches data from a Gaffer result cache. Requires a cache to be configured. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/resultcache/GetGafferResultCacheExport.html)
+Fetches data from a Gaffer result cache. Requires a cache to be [configured](../../administration-guide/job-tracker.md). [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/resultcache/GetGafferResultCacheExport.html)
 
 !!! example
     See examples for ExportToGafferResultCache above for usage.
@@ -1347,18 +1356,18 @@ gaffer.store.operation.declarations=/path/to/ExportToOtherAuthorisedGraphOperati
 
         ``` json
         {
-        "class" : "OperationChain",
-        "operations" : [ {
-            "class" : "GetAllElements",
-            "view" : {
-            "edges" : {
-                "edge" : { }
-            }
-            }
-        }, {
-            "class" : "ExportToOtherAuthorisedGraph",
-            "graphId" : "graph2"
-        } ]
+            "class" : "OperationChain",
+            "operations" : [ {
+                "class" : "GetAllElements",
+                "view" : {
+                "edges" : {
+                    "edge" : { }
+                }
+                }
+            }, {
+                "class" : "ExportToOtherAuthorisedGraph",
+                "graphId" : "graph2"
+            } ]
         }
         ```
 
@@ -1366,22 +1375,22 @@ gaffer.store.operation.declarations=/path/to/ExportToOtherAuthorisedGraphOperati
 
         ``` python
         g.OperationChain( 
-        operations=[ 
-            g.GetAllElements( 
-            view=g.View( 
-                edges=[ 
-                g.ElementDefinition( 
-                    group="edge" 
+            operations=[ 
+                g.GetAllElements( 
+                view=g.View( 
+                    edges=[ 
+                        g.ElementDefinition( 
+                            group="edge" 
+                        ) 
+                    ], 
+                    all_edges=False, 
+                    all_entities=False 
+                    ) 
+                ), 
+                g.ExportToOtherAuthorisedGraph( 
+                graph_id="graph2" 
                 ) 
-                ], 
-                all_edges=False, 
-                all_entities=False 
-            ) 
-            ), 
-            g.ExportToOtherAuthorisedGraph( 
-            graph_id="graph2" 
-            ) 
-        ] 
+            ] 
         )
         ```
 
@@ -1411,20 +1420,20 @@ gaffer.store.operation.declarations=/path/to/ExportToOtherAuthorisedGraphOperati
 
         ``` json
         {
-        "class" : "OperationChain",
-        "operations" : [ {
-            "class" : "GetAllElements",
-            "view" : {
-            "edges" : {
-                "edge" : { }
-            }
-            }
-        }, {
-            "class" : "ExportToOtherAuthorisedGraph",
-            "graphId" : "newGraphId",
-            "parentSchemaIds" : [ "schemaId1" ],
-            "parentStorePropertiesId" : "storePropsId1"
-        } ]
+            "class" : "OperationChain",
+            "operations" : [ {
+                "class" : "GetAllElements",
+                "view" : {
+                "edges" : {
+                    "edge" : { }
+                }
+                }
+            }, {
+                "class" : "ExportToOtherAuthorisedGraph",
+                "graphId" : "newGraphId",
+                "parentSchemaIds" : [ "schemaId1" ],
+                "parentStorePropertiesId" : "storePropsId1"
+            } ]
         }
         ```
 
@@ -1432,26 +1441,26 @@ gaffer.store.operation.declarations=/path/to/ExportToOtherAuthorisedGraphOperati
 
         ``` python
         g.OperationChain( 
-        operations=[ 
-            g.GetAllElements( 
-            view=g.View( 
-                edges=[ 
-                g.ElementDefinition( 
-                    group="edge" 
+            operations=[ 
+                g.GetAllElements( 
+                view=g.View( 
+                    edges=[ 
+                        g.ElementDefinition( 
+                            group="edge" 
+                        ) 
+                    ], 
+                    all_edges=False, 
+                    all_entities=False 
+                    ) 
+                ), 
+                g.ExportToOtherAuthorisedGraph( 
+                    graph_id="newGraphId", 
+                    parent_schema_ids=[ 
+                        "schemaId1" 
+                    ], 
+                    parent_store_properties_id="storePropsId1" 
                 ) 
-                ], 
-                all_edges=False, 
-                all_entities=False 
-            ) 
-            ), 
-            g.ExportToOtherAuthorisedGraph( 
-            graph_id="newGraphId", 
-            parent_schema_ids=[ 
-                "schemaId1" 
-            ], 
-            parent_store_properties_id="storePropsId1" 
-            ) 
-        ] 
+            ] 
         )
         ```
 
@@ -1489,18 +1498,18 @@ gaffer.store.operation.declarations=ExportToOtherGraphOperationDeclarations.json
 
         ``` json
         {
-        "class" : "OperationChain",
-        "operations" : [ {
-            "class" : "GetAllElements",
-            "view" : {
-            "edges" : {
-                "edge" : { }
-            }
-            }
-        }, {
-            "class" : "ExportToOtherGraph",
-            "graphId" : "newGraphId"
-        } ]
+            "class" : "OperationChain",
+            "operations" : [ {
+                "class" : "GetAllElements",
+                "view" : {
+                "edges" : {
+                    "edge" : { }
+                }
+                }
+            }, {
+                "class" : "ExportToOtherGraph",
+                "graphId" : "newGraphId"
+            } ]
         }
         ```
 
@@ -1508,22 +1517,22 @@ gaffer.store.operation.declarations=ExportToOtherGraphOperationDeclarations.json
 
         ``` python
         g.OperationChain( 
-        operations=[ 
-            g.GetAllElements( 
-            view=g.View( 
-                edges=[ 
-                g.ElementDefinition( 
-                    group="edge" 
+            operations=[ 
+                g.GetAllElements( 
+                view=g.View( 
+                    edges=[ 
+                        g.ElementDefinition( 
+                            group="edge" 
+                        ) 
+                    ], 
+                    all_edges=False, 
+                    all_entities=False 
+                    ) 
+                ), 
+                g.ExportToOtherGraph( 
+                    graph_id="newGraphId" 
                 ) 
-                ], 
-                all_edges=False, 
-                all_entities=False 
-            ) 
-            ), 
-            g.ExportToOtherGraph( 
-            graph_id="newGraphId" 
-            ) 
-        ] 
+            ] 
         )
         ```
 
@@ -1555,103 +1564,103 @@ gaffer.store.operation.declarations=ExportToOtherGraphOperationDeclarations.json
 
         ``` json
         {
-        "class" : "OperationChain",
-        "operations" : [ {
-            "class" : "GetAllElements",
-            "view" : {
-            "edges" : {
-                "edge" : { }
-            }
-            }
-        }, {
-            "class" : "ExportToOtherGraph",
-            "graphId" : "newGraphId",
-            "schema" : {
-            "edges" : {
-                "edge" : {
-                "description" : "test edge",
-                "source" : "int",
-                "destination" : "int",
-                "directed" : "true",
-                "properties" : {
-                    "count" : "count"
+            "class" : "OperationChain",
+            "operations" : [ {
+                "class" : "GetAllElements",
+                "view" : {
+                "edges" : {
+                    "edge" : { }
+                }
+                }
+            }, {
+                "class" : "ExportToOtherGraph",
+                "graphId" : "newGraphId",
+                "schema" : {
+                "edges" : {
+                    "edge" : {
+                    "description" : "test edge",
+                    "source" : "int",
+                    "destination" : "int",
+                    "directed" : "true",
+                    "properties" : {
+                        "count" : "count"
+                    }
+                    },
+                    "edge1" : {
+                    "source" : "int",
+                    "destination" : "int",
+                    "directed" : "true",
+                    "properties" : {
+                        "count" : "count"
+                    }
+                    }
+                },
+                "entities" : {
+                    "entity1" : {
+                    "vertex" : "int",
+                    "properties" : {
+                        "count" : "count"
+                    }
+                    },
+                    "entity" : {
+                    "description" : "test entity",
+                    "vertex" : "int",
+                    "properties" : {
+                        "count" : "count"
+                    }
+                    },
+                    "cardinality" : {
+                    "description" : "An entity that is added to every vertex representing the connectivity of the vertex.",
+                    "vertex" : "int",
+                    "properties" : {
+                        "edgeGroup" : "set",
+                        "hllp" : "hllp",
+                        "count" : "count"
+                    },
+                    "groupBy" : [ "edgeGroup" ]
+                    }
+                },
+                "types" : {
+                    "int" : {
+                    "class" : "Integer",
+                    "aggregateFunction" : {
+                        "class" : "Sum"
+                    }
+                    },
+                    "true" : {
+                    "class" : "Boolean",
+                    "validateFunctions" : [ {
+                        "class" : "IsTrue"
+                    } ]
+                    },
+                    "count" : {
+                    "class" : "Integer",
+                    "aggregateFunction" : {
+                        "class" : "Sum"
+                    }
+                    },
+                    "set" : {
+                    "class" : "TreeSet",
+                    "aggregateFunction" : {
+                        "class" : "CollectionConcat"
+                    }
+                    },
+                    "hllp" : {
+                    "class" : "com.clearspring.analytics.stream.cardinality.HyperLogLogPlus",
+                    "aggregateFunction" : {
+                        "class" : "HyperLogLogPlusAggregator"
+                    },
+                    "serialiser" : {
+                        "class" : "HyperLogLogPlusSerialiser"
+                    }
+                    }
                 }
                 },
-                "edge1" : {
-                "source" : "int",
-                "destination" : "int",
-                "directed" : "true",
-                "properties" : {
-                    "count" : "count"
+                "storeProperties" : {
+                "gaffer.store.class" : "uk.gov.gchq.gaffer.accumulostore.AccumuloStore",
+                "gaffer.store.properties.class" : "uk.gov.gchq.gaffer.accumulostore.AccumuloProperties"
                 }
-                }
-            },
-            "entities" : {
-                "entity1" : {
-                "vertex" : "int",
-                "properties" : {
-                    "count" : "count"
-                }
-                },
-                "entity" : {
-                "description" : "test entity",
-                "vertex" : "int",
-                "properties" : {
-                    "count" : "count"
-                }
-                },
-                "cardinality" : {
-                "description" : "An entity that is added to every vertex representing the connectivity of the vertex.",
-                "vertex" : "int",
-                "properties" : {
-                    "edgeGroup" : "set",
-                    "hllp" : "hllp",
-                    "count" : "count"
-                },
-                "groupBy" : [ "edgeGroup" ]
-                }
-            },
-            "types" : {
-                "int" : {
-                "class" : "Integer",
-                "aggregateFunction" : {
-                    "class" : "Sum"
-                }
-                },
-                "true" : {
-                "class" : "Boolean",
-                "validateFunctions" : [ {
-                    "class" : "IsTrue"
-                } ]
-                },
-                "count" : {
-                "class" : "Integer",
-                "aggregateFunction" : {
-                    "class" : "Sum"
-                }
-                },
-                "set" : {
-                "class" : "TreeSet",
-                "aggregateFunction" : {
-                    "class" : "CollectionConcat"
-                }
-                },
-                "hllp" : {
-                "class" : "com.clearspring.analytics.stream.cardinality.HyperLogLogPlus",
-                "aggregateFunction" : {
-                    "class" : "HyperLogLogPlusAggregator"
-                },
-                "serialiser" : {
-                    "class" : "HyperLogLogPlusSerialiser"
-                }
-                }
-            }
-            },
-            "storeProperties" : {
-            "gaffer.store.class" : "uk.gov.gchq.gaffer.accumulostore.AccumuloStore",
-            "gaffer.store.properties.class" : "uk.gov.gchq.gaffer.accumulostore.AccumuloProperties"
-            }
-        } ]
+            } ]
         }
         ```
 
@@ -1659,24 +1668,24 @@ gaffer.store.operation.declarations=ExportToOtherGraphOperationDeclarations.json
 
         ``` python
         g.OperationChain( 
-        operations=[ 
-            g.GetAllElements( 
-            view=g.View( 
-                edges=[ 
-                g.ElementDefinition( 
-                    group="edge" 
+            operations=[ 
+                g.GetAllElements( 
+                view=g.View( 
+                    edges=[ 
+                        g.ElementDefinition( 
+                            group="edge" 
+                        ) 
+                        ], 
+                        all_edges=False, 
+                        all_entities=False 
+                    ) 
+                ), 
+                g.ExportToOtherGraph( 
+                graph_id="newGraphId", 
+                schema={'edges': {'edge': {'description': 'test edge', 'source': 'int', 'destination': 'int', 'directed': 'true', 'properties': {'count': 'count'}}, 'edge1': {'source': 'int', 'destination': 'int', 'directed': 'true', 'properties': {'count': 'count'}}}, 'entities': {'entity1': {'vertex': 'int', 'properties': {'count': 'count'}}, 'entity': {'description': 'test entity', 'vertex': 'int', 'properties': {'count': 'count'}}, 'cardinality': {'description': 'An entity that is added to every vertex representing the connectivity of the vertex.', 'vertex': 'int', 'properties': {'edgeGroup': 'set', 'hllp': 'hllp', 'count': 'count'}, 'groupBy': ['edgeGroup']}}, 'types': {'int': {'class': 'java.lang.Integer', 'aggregateFunction': {"class": "uk.gov.gchq.koryphe.impl.binaryoperator.Sum"}}, 'true': {'class': 'java.lang.Boolean', 'validateFunctions': [{"class": "uk.gov.gchq.koryphe.impl.predicate.IsTrue"}]}, 'count': {'class': 'java.lang.Integer', 'aggregateFunction': {"class": "uk.gov.gchq.koryphe.impl.binaryoperator.Sum"}}, 'set': {'class': 'java.util.TreeSet', 'aggregateFunction': {"class": "uk.gov.gchq.koryphe.impl.binaryoperator.CollectionConcat"}}, 'hllp': {'class': 'com.clearspring.analytics.stream.cardinality.HyperLogLogPlus', 'aggregateFunction': {'class': 'uk.gov.gchq.gaffer.sketches.clearspring.cardinality.binaryoperator.HyperLogLogPlusAggregator'}, 'serialiser': {'class': 'uk.gov.gchq.gaffer.sketches.clearspring.cardinality.serialisation.HyperLogLogPlusSerialiser'}}}}, 
+                store_properties={'gaffer.store.class': 'uk.gov.gchq.gaffer.accumulostore.AccumuloStore', 'gaffer.store.properties.class': 'uk.gov.gchq.gaffer.accumulostore.AccumuloProperties'} 
                 ) 
-                ], 
-                all_edges=False, 
-                all_entities=False 
-            ) 
-            ), 
-            g.ExportToOtherGraph( 
-            graph_id="newGraphId", 
-            schema={'edges': {'edge': {'description': 'test edge', 'source': 'int', 'destination': 'int', 'directed': 'true', 'properties': {'count': 'count'}}, 'edge1': {'source': 'int', 'destination': 'int', 'directed': 'true', 'properties': {'count': 'count'}}}, 'entities': {'entity1': {'vertex': 'int', 'properties': {'count': 'count'}}, 'entity': {'description': 'test entity', 'vertex': 'int', 'properties': {'count': 'count'}}, 'cardinality': {'description': 'An entity that is added to every vertex representing the connectivity of the vertex.', 'vertex': 'int', 'properties': {'edgeGroup': 'set', 'hllp': 'hllp', 'count': 'count'}, 'groupBy': ['edgeGroup']}}, 'types': {'int': {'class': 'java.lang.Integer', 'aggregateFunction': {"class": "uk.gov.gchq.koryphe.impl.binaryoperator.Sum"}}, 'true': {'class': 'java.lang.Boolean', 'validateFunctions': [{"class": "uk.gov.gchq.koryphe.impl.predicate.IsTrue"}]}, 'count': {'class': 'java.lang.Integer', 'aggregateFunction': {"class": "uk.gov.gchq.koryphe.impl.binaryoperator.Sum"}}, 'set': {'class': 'java.util.TreeSet', 'aggregateFunction': {"class": "uk.gov.gchq.koryphe.impl.binaryoperator.CollectionConcat"}}, 'hllp': {'class': 'com.clearspring.analytics.stream.cardinality.HyperLogLogPlus', 'aggregateFunction': {'class': 'uk.gov.gchq.gaffer.sketches.clearspring.cardinality.binaryoperator.HyperLogLogPlusAggregator'}, 'serialiser': {'class': 'uk.gov.gchq.gaffer.sketches.clearspring.cardinality.serialisation.HyperLogLogPlusSerialiser'}}}}, 
-            store_properties={'gaffer.store.class': 'uk.gov.gchq.gaffer.accumulostore.AccumuloStore', 'gaffer.store.properties.class': 'uk.gov.gchq.gaffer.accumulostore.AccumuloProperties'} 
-            ) 
-        ] 
+            ] 
         )
         ```
 
@@ -1712,49 +1721,49 @@ gaffer.store.operation.declarations=ExportToOtherGraphOperationDeclarations.json
 
         ``` json
         {
-        "class" : "OperationChain",
-        "operations" : [ {
-            "class" : "GetAllElements",
-            "view" : {
-            "edges" : {
-                "edge" : { }
+            "class" : "OperationChain",
+            "operations" : [ {
+                "class" : "GetAllElements",
+                "view" : {
+                "edges" : {
+                    "edge" : { }
+                }
+                }
+            }, {
+                "class" : "ExportToOtherGraph",
+                "graphId" : "otherGafferRestApiGraphId",
+                "storeProperties" : {
+                "gaffer.host" : "localhost",
+                "gaffer.context-root" : "/rest/v1",
+                "gaffer.store.class" : "uk.gov.gchq.gaffer.proxystore.ProxyStore",
+                "gaffer.port" : "8081",
+                "gaffer.store.properties.class" : "uk.gov.gchq.gaffer.proxystore.ProxyProperties"
+                }
+            } ]
             }
-            }
-        }, {
-            "class" : "ExportToOtherGraph",
-            "graphId" : "otherGafferRestApiGraphId",
-            "storeProperties" : {
-            "gaffer.host" : "localhost",
-            "gaffer.context-root" : "/rest/v1",
-            "gaffer.store.class" : "uk.gov.gchq.gaffer.proxystore.ProxyStore",
-            "gaffer.port" : "8081",
-            "gaffer.store.properties.class" : "uk.gov.gchq.gaffer.proxystore.ProxyProperties"
-            }
-        } ]
-        }
         ```
 
     === "Python"
 
         ``` python
         g.OperationChain( 
-        operations=[ 
-            g.GetAllElements( 
-            view=g.View( 
-                edges=[ 
-                g.ElementDefinition( 
-                    group="edge" 
+            operations=[ 
+                g.GetAllElements( 
+                view=g.View( 
+                    edges=[ 
+                        g.ElementDefinition( 
+                            group="edge" 
+                        ) 
+                        ], 
+                        all_edges=False, 
+                        all_entities=False 
+                    ) 
+                ), 
+                g.ExportToOtherGraph( 
+                    graph_id="otherGafferRestApiGraphId", 
+                    store_properties={'gaffer.host': 'localhost', 'gaffer.context-root': '/rest/v1', 'gaffer.store.class': 'uk.gov.gchq.gaffer.proxystore.ProxyStore', 'gaffer.port': '8081', 'gaffer.store.properties.class': 'uk.gov.gchq.gaffer.proxystore.ProxyProperties'} 
                 ) 
-                ], 
-                all_edges=False, 
-                all_entities=False 
-            ) 
-            ), 
-            g.ExportToOtherGraph( 
-            graph_id="otherGafferRestApiGraphId", 
-            store_properties={'gaffer.host': 'localhost', 'gaffer.context-root': '/rest/v1', 'gaffer.store.class': 'uk.gov.gchq.gaffer.proxystore.ProxyStore', 'gaffer.port': '8081', 'gaffer.store.properties.class': 'uk.gov.gchq.gaffer.proxystore.ProxyProperties'} 
-            ) 
-        ] 
+            ] 
         )
         ```
 
@@ -1811,18 +1820,18 @@ gaffer.store.operation.declarations=ExportToOtherGraphOperationDeclarations.json
 
         ``` json
         {
-        "class" : "OperationChain",
-        "operations" : [ {
-            "class" : "GetAllElements",
-            "view" : {
-            "edges" : {
-                "edge" : { }
-            }
-            }
-        }, {
-            "class" : "ExportToOtherGraph",
-            "graphId" : "exportGraphId"
-        } ]
+            "class" : "OperationChain",
+            "operations" : [ {
+                "class" : "GetAllElements",
+                "view" : {
+                "edges" : {
+                    "edge" : { }
+                }
+                }
+            }, {
+                "class" : "ExportToOtherGraph",
+                "graphId" : "exportGraphId"
+            } ]
         }
         ```
 
@@ -1830,22 +1839,22 @@ gaffer.store.operation.declarations=ExportToOtherGraphOperationDeclarations.json
 
         ``` python
         g.OperationChain( 
-        operations=[ 
-            g.GetAllElements( 
-            view=g.View( 
-                edges=[ 
-                g.ElementDefinition( 
-                    group="edge" 
+            operations=[ 
+                g.GetAllElements( 
+                view=g.View( 
+                    edges=[ 
+                        g.ElementDefinition( 
+                            group="edge" 
+                        ) 
+                        ], 
+                        all_edges=False, 
+                        all_entities=False 
+                    ) 
+                ), 
+                g.ExportToOtherGraph( 
+                    graph_id="exportGraphId" 
                 ) 
-                ], 
-                all_edges=False, 
-                all_entities=False 
-            ) 
-            ), 
-            g.ExportToOtherGraph( 
-            graph_id="exportGraphId" 
-            ) 
-        ] 
+            ] 
         )
         ```
 
@@ -1904,20 +1913,20 @@ gaffer.store.operation.declarations=ExportToOtherGraphOperationDeclarations.json
 
         ``` json
         {
-        "class" : "OperationChain",
-        "operations" : [ {
-            "class" : "GetAllElements",
-            "view" : {
-            "edges" : {
-                "edge" : { }
-            }
-            }
-        }, {
-            "class" : "ExportToOtherGraph",
-            "graphId" : "newGraphId",
-            "parentSchemaIds" : [ "exportSchemaId" ],
-            "parentStorePropertiesId" : "exportStorePropertiesId"
-        } ]
+            "class" : "OperationChain",
+            "operations" : [ {
+                "class" : "GetAllElements",
+                "view" : {
+                "edges" : {
+                    "edge" : { }
+                }
+                }
+            }, {
+                "class" : "ExportToOtherGraph",
+                "graphId" : "newGraphId",
+                "parentSchemaIds" : [ "exportSchemaId" ],
+                "parentStorePropertiesId" : "exportStorePropertiesId"
+            } ]
         }
         ```
 
@@ -1925,25 +1934,25 @@ gaffer.store.operation.declarations=ExportToOtherGraphOperationDeclarations.json
 
         ``` python
         g.OperationChain( 
-        operations=[ 
-            g.GetAllElements( 
-            view=g.View( 
-                edges=[ 
-                g.ElementDefinition( 
-                    group="edge" 
+            operations=[ 
+                g.GetAllElements( 
+                view=g.View( 
+                    edges=[ 
+                        g.ElementDefinition( 
+                            group="edge" 
+                        ) 
+                        ], 
+                        all_edges=False, 
+                        all_entities=False 
+                    ) 
+                ), 
+                g.ExportToOtherGraph( 
+                    graph_id="newGraphId", 
+                    parent_schema_ids=[ 
+                        "exportSchemaId" 
+                    ], 
+                    parent_store_properties_id="exportStorePropertiesId" 
                 ) 
-                ], 
-                all_edges=False, 
-                all_entities=False 
-            ) 
-            ), 
-            g.ExportToOtherGraph( 
-            graph_id="newGraphId", 
-            parent_schema_ids=[ 
-                "exportSchemaId" 
-            ], 
-            parent_store_properties_id="exportStorePropertiesId" 
-            ) 
-        ] 
+            ] 
         )
         ```
