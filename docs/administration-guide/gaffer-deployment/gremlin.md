@@ -54,7 +54,7 @@ flowchart LR
 To establish this connection you can make use of the existing `gaffer-gremlin`
 OCI image which is an extension of the existing `gremlin-server` image. This
 provides the Tinkerpop library to enable connecting to Gaffer graphs as well as
-some pre installed configuration to get up and running quicker.
+some pre installed configuration to get up and running quickly.
 
 ```bash
 docker pull gchq/gaffer-gremlin:latest
@@ -62,17 +62,17 @@ docker pull gchq/gaffer-gremlin:latest
 
 !!! note
     You will likely need to configure the default `gaffer-gremlin` image to your
-    environment, please continue the guide to learn more.
+    environment, please continue reading to learn more.
 
 ### Configuring the `gaffer-gremlin` Image
 
 To use the image you will need to provide two configuration files that are specific
 to your environment, they are:
 
-- `store.properties` - The Gaffer store configuration..
-- `gafferpop.properties` - The configuration for the Gaffer Tinkerpop library (Gafferpop).
+- `store.properties` - Gaffer store configuration.
+- `gafferpop.properties` - Configuration for the Gaffer Tinkerpop library (Gafferpop).
 
-Once configured you can bind mount these files into the image when running the image like:
+Once these files are configured you can use bind mounts to make them available when running the image:
 
 ```bash
 docker run \
