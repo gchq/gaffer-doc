@@ -156,3 +156,52 @@ outputs are, say if you want to chain two together like the following:
     The [reference guide](../../../reference/operations-guide/operations.md) and
     [Javadoc](../../../reference/javadoc.md) can be valuable to understand what
     each `Operation` outputs and accepts.
+
+## Lazy Results
+
+Operation results are lazy (where possible) so that results are lazily loaded whilst a
+user consumes each result. This could be directly in Java or as part of an Operation
+Chain, e.g. when running `GetAllElements` followed by `Limit` of 10, only the first 10
+elements will be retrieved because of this laziness. This avoids a situation where vast
+quantities of elements might be retrieved, only the first 10 to be returned; which would
+be very inefficient.
+
+For example, executing a `GetAllElements` on an Accumulo Store backed graph:
+
+```java
+final Iterable<? extends Element> elements = graph.execute(new GetAllElements(), getUser());
+```
+
+As this `elements` [`Iterable`](https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html)
+is lazy, the query is only executed on Accumulo when the object is used to iterate through results.
+Iterating through the results a second time results in the Accumulo query being executed again.
+
+As the query is not executed until the `Iterable` is consumed, if in the meantime another element
+is added to the graph, then the results from the `Iterable` will contain that new element.
+
+For this reason you should be very careful running an `AddElements` with a lazy iterable returned
+from a query on the same Graph. The problem which could arise is that the `AddElements` will lazily
+consume the iterable of elements, potentially causing duplicates to be added.
+
+To do a Get followed by an Add on the same Graph, we recommend consuming and caching the Get results
+first. For a small number of results, this can be done using the `ToList` operation in the chain:
+
+```java
+new OperationChain.Builder()
+                .first(new GetAllElements())
+                .then(new ToList<>())
+                .then(new AddElements())
+                .build();
+```
+
+For a large number of results, they could be added to a cache temporarily:
+
+```java
+new OperationChain.Builder()
+                .first(new GetAllElements())
+                .then(new ExportToGafferResultCache<>())
+                .then(new DiscardOutput())
+                .then((Operation) new GetGafferResultCacheExport())
+                .then(new AddElements())
+                .build()
+```
