@@ -18,12 +18,12 @@ used in traditional and NoSQL databases. It also has wide support for various
 languages so for example, you can write queries in Python via the [`gremlinpython` library](https://pypi.org/project/gremlinpython/)
 
 !!! tip
-    in-depth tutorials on Gremlin as a query language, its associated libraries
+    In-depth tutorials on Gremlin as a query language and its associated libraries
     can be found in the [Apache Tinkerpop Gremlin docs](https://tinkerpop.apache.org/gremlin.html).
 
 ## Using Gremlin Queries in Gaffer
 
-Gremlin was added to Gaffer as a new graph query language in version 2.1 and since
+Gremlin was added to Gaffer in version 2.1 as a new graph query language and since
 version 2.2 a container image is provided allowing a Gremlin layer to be added to
 existing 2.x graphs. A full tutorial on setting up this image is provided in the
 [administration guide](../../../administration-guide/gaffer-deployment/gremlin.md).
@@ -31,8 +31,8 @@ existing 2.x graphs. A full tutorial on setting up this image is provided in the
 This guide will use the [Python API for Gremlin](https://pypi.org/project/gremlinpython/)
 to demonstrate some basic capabilities and how they compare to standard Gaffer syntax.
 
-To start querying in Gremlin we first need a reference to whats know as the
-Graph Traversal. To obtain this we need to connect to a running Gremlin server
+To start querying in Gremlin we first need a reference to what is known as the
+Graph Traversal. To obtain this we need to connect to a running Gremlin server,
 similar to how a connection to the Gaffer REST API is needed if using
 [`gafferpy`](../../apis/python-api.md). We can do this by first importing the required
 libraries like so (many of these will be needed later for queries):
