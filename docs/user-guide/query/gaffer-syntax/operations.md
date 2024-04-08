@@ -205,3 +205,10 @@ new OperationChain.Builder()
                 .then(new AddElements())
                 .build()
 ```
+
+For more details on these Operations, see the sections for [ToList](../../../reference/operations-guide/core.md#tolist)
+and [AddElements](../../../reference/operations-guide/core.md#addelements), and the example of using
+[GetAllElements with Limit](../../../reference/operations-guide/core.md#limit) in the Core Operations
+reference guide, plus the [ExportToGafferResultCache](../../../reference/operations-guide/export.md#exporttogafferresultcache)
+and [GetGafferResultCacheExport](../../../reference/operations-guide/export.md#getgafferresultcacheexport)
+sections of the Export Operations reference guide.

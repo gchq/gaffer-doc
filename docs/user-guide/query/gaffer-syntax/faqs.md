@@ -20,8 +20,9 @@ and the connection to Accumulo will remain open. Therefore, to be safe results s
 As mentioned above, the results iterable holds a connection open to Accumulo. To avoid opening multiple connections and
 accidentally leaving the connections open, the Accumulo Store only allows one iterator to be active at any time. When you
 call `.iterator()` the connection is opened. If you call `.iterator()` again, the original connection is closed and a new
-connection is opened. This means you can't process the iterable in parallel using Java's streaming API. If the results fit
-in memory you could add them to a Set/List and then process that collection in parallel.
+connection is opened. This means you can't process the iterable in parallel using Java's streaming API if this involves
+making multiple calls to `.iterator()`. If your results fit in memory you could add them to a Set/List and then process
+that collection in parallel.
 
 ## Filtering Results
 
@@ -117,7 +118,7 @@ GetElements results = new GetElements.Builder()
     .build();
 ```
 
-For more related information on filtering, see the Gaffer 1.x [Filtering Guide](https://gchq.github.io/gaffer-doc/v1docs/getting-started/user-guide/filtering.html).
+For more related information on filtering, see the [Filtering Guide](filtering.md).
 
 ## Second Hop
 
