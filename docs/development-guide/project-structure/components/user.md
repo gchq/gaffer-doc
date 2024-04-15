@@ -1,11 +1,12 @@
 # User
 
-When interacting with Gaffer you need to use a [User](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/user/User.html).
 The User class is part of Gaffer's [access module](https://github.com/gchq/Gaffer/tree/master/core/access).
+When interacting with Gaffer you use a [User](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/user/User.html).
 
 ## User Object
 
 The `User` object contains:
+
 - `userId` - Unique identifier for the user
 - `dataAuths` - User authorisations for accessing data
 - `opAuths` - User authorisations for running different Gaffer operations
