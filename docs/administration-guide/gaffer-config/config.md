@@ -1,9 +1,10 @@
-## How to configure a Gaffer instance
+# How to configure a Gaffer instance
+
 There are various configuration files for Gaffer, this page gives an overview of
 the commonly used files and how to tweak them for your project needs.
 
-Here is an example file structure which suites a stand alone deployment using
-docker:
+Generally a simple deployment will include the following files that modify the
+deployment to your needs:
 
 !!! example "Example Gaffer project structure"
 
@@ -24,7 +25,7 @@ docker:
     │       └── store
     │           ├── operationsDeclarations.json #(6)!
     │           └── store.properties            #(7)!
-    │   
+    │
     └── docker-compose.yaml #(8)!
     ```
 
@@ -44,9 +45,7 @@ docker:
     8. This file controls which containers will be started up and the configuration
     of them to ensure correct ports and files are available.
 
-## Configuration Files
-
-### application.properties
+## Application Properties
 
 Within the application.properties file we set the file location properties of
 where the other config files are. In general it borrows a concept from [Spring
@@ -59,61 +58,95 @@ gaffer.storeProperties=/gaffer/store/store.properties
 gaffer.graph.config=/gaffer/graph/graphConfig.json
 ```
 
-### graphConfig.json
+## Graph Config JSON
 
-Within the graphCongfig.json file you can set multiple properties. Here you define the `graphId` and `description` of the graph. You can also define any additonal `hooks` to run when operations are perfomed, a `view` you want to be applied when operations are perfomed and any addtional libraries with the `library` property.
+Within the `graphConfig.json` file you can set various properties that relate
+directly to the [`Graph` object](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/graph/Graph.html).
 
-The example below shows how we would configure each of these.
+The file is in [JSON](../../user-guide/gaffer-basics/what-is-json.md) format,
+a list of keys and their usage are outlined below:
 
-```json title="graphConfig.json"
-{
-    "graphId": "ExampleGraph",
-    "description": "An example graph",
-    "view": {
-        "globalElements": [
-        {
-            "postAggregationFilterFunctions": [
+| Key | Value Type | Description |
+| --- | --- | --- |
+| `graphId` | `String` | Sets the ID of the graph. |
+| `description` | `String` | Sets the description of the graph. |
+| `otelActive` | `Boolean` | Toggles if Open Telemetry data should be reported (`false` by default). |
+| `view` | `JSON` | A default [`View`](../../user-guide/query/gaffer-syntax/filtering.md) that will be applied to `Operations`. |
+| `library` | `JSON` | Any additional libraries you wish to load. |
+| `hooks` | `List` | List of JSON objects containing any additional `GraphHooks` to load. |
+
+The example below shows an example of how we could configure each of these:
+
+??? example "Example `graphConfig.json`"
+
+    ```json
+    {
+        "graphId": "ExampleGraph",
+        "description": "An example graph",
+        "otelActive": true,
+        "view": {
+            "globalElements": [
             {
-                "predicate": {
-                "class": "uk.gov.gchq.koryphe.impl.predicate.IsLessThan",
-                "orEqualTo": false,
-                "value": "10"
-                },
-                "selection": ["ExamplePropertyName"]
+                "postAggregationFilterFunctions": [
+                {
+                    "predicate": {
+                    "class": "uk.gov.gchq.koryphe.impl.predicate.IsLessThan",
+                    "orEqualTo": false,
+                    "value": "10"
+                    },
+                    "selection": ["ExamplePropertyName"]
+                }
+                ]
             }
             ]
-        }
-        ]
-    },
-    "hooks": [
-        {
-            "class": "uk.gov.gchq.gaffer.graph.hook.FunctionAuthoriser"
-        }
-    ],
-    "library": {
-      "class": "uk.gov.gchq.gaffer.store.library.FileGraphLibrary"
-  }
-}
-```
+        },
+        "hooks": [
+            {
+                "class": "uk.gov.gchq.gaffer.graph.hook.FunctionAuthoriser"
+            }
+        ],
+        "library": {
+        "class": "uk.gov.gchq.gaffer.store.library.FileGraphLibrary"
+    }
+    }
+    ```
 
-#### Changing Values
+If using a standard Map Store backed Gaffer deployment you can easily update the
+values within your `graphConfig.json` later. The new key value pairs will be
+updated upon restarting the graph (assuming the file is loaded correctly).
 
-For a standard Gaffer deployment you can easily change the values within your
-`graphConfig.json`. The new key value pairs will be updated upon restarting the
-graph (assuming the file is loaded correctly).
-
-However be aware, if you are using the Accumulo store, updating the `graphId` is a
-little more complicated since the `graphId` corresponds to an Accumulo table. This
+However, if you are using the Accumulo store, updating the `graphId` is a little
+more complicated since the `graphId` corresponds to an Accumulo table. This
 means that if you change the ID then a new Accumulo table will be used and any
 existing data would be lost.
 
-### store.properties
+### Open Telemetry Reporting
 
-Within the store.properties file we configure the Gaffer store which is used by
+As previously mentioned, you can activate Open Telemetry reporting on the graph
+using the `otelActive` option. This will use an auto configured instance of
+Open Telemetry that will start exporting reports.
+
+It is recommended to configure the exporting so that you send reports to a
+tool such as [Jaeger](https://www.jaegertracing.io/) to perform analysis later.
+To configure Open Telemetry you can utilise environment variables, a subset of
+commonly used variables are below:
+
+| Variable | Description |
+| --- | --- |
+| `OTEL_SERVICE_NAME` | Sets the service name of the instance e.g. `gaffer`. |
+| `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT` | Sets the endpoint to export traces to, if using Jaeger this could be:` http://jaeger:4317` |
+| `OTEL_TRACES_EXPORTER` | Allows setting a different exporter than the default of `otel`. |
+
+!!! note
+    Please see the [Open Telemetry documentation](https://opentelemetry.io/docs/languages/java/automatic/configuration/)
+    for more information.
+
+## Store Properties
+
+Within the `store.properties` file we configure the Gaffer store which is used by
 the Graph. By default you must provide a store class and a store properties
 class as seen below. There are several different stores which can be configured
-and require additional properties which can be found in the [Store Guide
-Section](../../administration-guide/gaffer-stores/store-guide.md).
+and require additional properties which can be found in the [Store Guide Section](../../administration-guide/gaffer-stores/store-guide.md).
 
 Below is an example of a store.properties file for a Graph using an Accumulo store.
 
@@ -129,11 +162,17 @@ accumulo.user=root
 accumulo.password=secret
 ```
 
-### operationsDeclarations.json
+## Operations Declarations JSON
 
-Within the operationsDeclarations.json you can enable additional operations in Gaffer. By default Gaffer already includes most operations (please refer to the [Operations Guide pages](../../reference/operations-guide/operations.md)), however you may want to enable other operations or even add your own custom ones.
+Within the `operationsDeclarations.json` you can enable additional operations in
+Gaffer. By default Gaffer already includes most operations (please refer to the
+[Operations Guide pages](../../reference/operations-guide/operations.md)),
+however you may want to enable other operations or even add your own custom
+ones.
 
-The example below shows how to enable the `ImportFromLocalFile` operation which already [exists in the code base](https://github.com/gchq/Gaffer/blob/develop/core/operation/src/main/java/uk/gov/gchq/gaffer/operation/impl/export/localfile/ImportFromLocalFile.java) but isn't included by default.
+The example below shows how to enable the `ImportFromLocalFile` operation which
+already exists in the [code base](https://github.com/gchq/Gaffer/blob/develop/core/operation/src/main/java/uk/gov/gchq/gaffer/operation/impl/export/localfile/ImportFromLocalFile.java)
+but isn't included by default.
 
 ```json title="operationsDeclarations.json"
 {
