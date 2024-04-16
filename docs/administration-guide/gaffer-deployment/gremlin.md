@@ -53,8 +53,8 @@ flowchart LR
 
 To establish this connection you can make use of the existing `gaffer-gremlin`
 OCI image which is an extension of the existing `gremlin-server` image. This
-provides the Tinkerpop library to allows users to connect Gaffer graphs as well as
-some pre installed configuration to get up and running quickly.
+provides the Tinkerpop library which allows users to connect Gaffer graphs as
+well as some pre installed configuration to get up and running quickly.
 
 ```bash
 docker pull gchq/gaffer-gremlin:latest
