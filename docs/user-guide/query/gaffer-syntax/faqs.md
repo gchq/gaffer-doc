@@ -146,7 +146,7 @@ big improvement.
 
 When defining filters in your View try and use the `preAggregationFilter` for all your filters as this will be run before
 aggregation and will mean less work has to be done to aggregate properties that you will later just discard. On Accumulo,
-`postTransformFilters` are not distributed, the are computed on a single node and so they can be slow.
+`postTransformFilters` are not distributed, they are computed on a single node and so they can be slow.
  
 Some stores (e.g. Accumulo) store the properties in different columns and lazily deserialise a column as properties in that
 column are requested. So if you limit your filters to a single column, then less data needs to be deserialised. For Accumulo
