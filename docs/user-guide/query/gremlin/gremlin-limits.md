@@ -29,7 +29,9 @@ Current known limitations or bugs:
 - Performance compared to standard Gaffer OperationChains is hampered due to
   a custom `TraversalStratergy` not being implemented.
 - The ID of an Edge follows a specific format that is made up of its source and
-  destination IDs like `[dest, source]`.
+  destination IDs like `[source, dest]`. To use this in a seeded query you must
+  format it like `g.E("[source, dest]")` or a list like
+  `g.E(["[source1, dest1]","[source2, dest2]"])`
 - Issues seen using `hasKey()` and `hasValue()` in same query.
 - May experience issues using the `range()` query function.
 - May experience issues using the `where()` query function.
