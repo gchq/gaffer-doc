@@ -28,10 +28,6 @@ traversals are spawned. To do this we recommend utilising the provided
 which can be configured to use the Gaffer Tinkerpop implementation so that a
 endpoint is available for Gremlin queries.
 
-!!! note
-    For release of Gaffer v2.2.0 a ready made container image will be provided
-    to run a preconfigured Gremlin server for Gaffer.
-
 ## Connecting to Any Existing Gaffer Graph
 
 The simplest way to connect Gremlin to an existing Gaffer instance where you may
@@ -55,41 +51,60 @@ flowchart LR
     --> D(Existing Gaffer Instance)
 ```
 
-To establish this connection three configuration files are required:
+To establish this connection you can make use of the existing `gaffer-gremlin`
+OCI image which is an extension of the existing `gremlin-server` image. This
+provides the Tinkerpop library which allows users to connect Gaffer graphs as
+well as some pre installed configuration to get up and running quickly.
 
-- `store.properties` - The Gaffer store configuration for the Proxy Store.
-- `gafferpop.properties` - The configuration for the Gaffer Tinkerpop library.
-- `gremlin-server.yaml` - Configures the Gremlin server.
+```bash
+docker pull gchq/gaffer-gremlin:latest
+```
 
-Starting with the Proxy Store, this is identical to running a Proxy Store
-normally and involves simply creating a Gaffer `store.properties` file to use.
-An example `store.properties` file is given below that will connect to a graph's
-REST API running at `https://localhost:8080/rest/latest`:
+!!! note
+    You will likely need to configure the default `gaffer-gremlin` image to your
+    environment, please continue reading to learn more.
+
+### Configuring the `gaffer-gremlin` Image
+
+To use the image you will need to provide two configuration files that are specific
+to your environment, they are:
+
+- `store.properties` - Gaffer store configuration.
+- `gafferpop.properties` - Configuration for the Gaffer Tinkerpop library (Gafferpop).
+
+Once these files are configured you can use bind mounts to make them available when running the image:
+
+```bash
+docker run \
+       --name gaffer-gremlin \
+       --publish 8182:8182 \
+       --volume store.properties:conf/gaffer/store.properties \
+       --volume gafferpop.properties:conf/gafferpop/gafferpop.properties \
+       tinkerpop/gremlin-server:latest gremlin-server.yaml
+```
+
+#### Configuring the Proxy Store
+
+Starting with the Proxy Store, this is identical to running a normal [Proxy Store](../gaffer-stores/proxy-store.md)
+and involves simply creating a Gaffer `store.properties` file to use. An example
+`store.properties` file is given below that will connect to a graph's REST API
+running at `https://localhost:8080/rest`:
 
 ```properties
 gaffer.store.class=uk.gov.gchq.gaffer.proxystore.ProxyStore
 # These should be configured to an existing graph deployment
 gaffer.host=localhost
 gaffer.port=8080
-gaffer.context-root=/rest/latest
+gaffer.context-root=/rest
 ```
 
-### Configuring the Gremlin Server
+#### Configuring the Gafferpop Library
 
-Next we need to configure the Gremlin server, for this the easiest way is to use
-the provided container image from Tinkerpop. To start with simply pull the image
-then we will bind mount in everything we need to make it run with the configured
-Proxy Store and Gaffer Tinkerpop implementation.
-
-```bash
-docker pull tinkerpop/gremlin-server:latest
-```
-
-The first file to create is the `gafferpop.properties`, this is the configuration
-for the Gaffer implementation of Tinkerpop (a.k.a Gafferpop). Most of the set up
-here is for the construction of the Gafferpop Graph instance which we want to
-make run with the `store.properties` we've already configured. An example
-`gaffer.properties` would look like the following:
+The `gafferpop.properties`, file is the configuration for the Gaffer
+implementation of Tinkerpop (a.k.a Gafferpop). Most of the set up here is for
+the construction of the Gafferpop Graph instance which we want to make run with
+the `store.properties` we've already configured. An example `gaffer.properties`
+would look like the following:
 
 ```properties
 # The Tinkerpop graph class we should use
@@ -99,13 +114,29 @@ gaffer.storeproperties=conf/gaffer/store.properties
 gaffer.userId=user01
 ```
 
-The second file needed is the configuration for the Gremlin server, this is
-what ties everything together and makes sure the server runs using the Gaffer
-implementation we have configured. A default file is provided in the
-[Tinkerpop repository](https://github.com/apache/tinkerpop/blob/master/gremlin-server/conf/gremlin-server.yaml).
+Many of these properties in the example above should be self explanatory, a full breakdown of
+of the available properties is as follows:
 
-From this file two places need modifying, the first is to change it to use
-our graph configuration file by modifying the `graphs` section like so:
+| Property Key | Description |
+| --- | --- |
+| `gremlin.graph` | The Tinkerpop graph class we should use |
+| `gaffer.graphId` | The graph ID of the Tinkerpop graph |
+| `gaffer.storeproperties` | The path to the store properties file |
+| `gaffer.schemas` | The path to the directory containing the graph schema files |
+| `gaffer.userId` | The user ID for the Tinkerpop graph |
+| `gaffer.dataAuths` | The data auths for the user to specify what operations can be performed |
+| `gaffer.operation.options` | Additional operation options that will be passed to the Tinkerpop graph variables in the form `key:value`
+
+#### Configuring the Gremlin Server
+
+The underlying Gremlin server can also be configured if required. The `gaffer-gremlin`
+image comes with an existing YAML configuration based on the example from the
+[Tinkerpop repository](https://github.com/apache/tinkerpop/blob/master/gremlin-server/conf/gremlin-server.yaml).
+This file should be suitable for most use cases but a custom one can be provided
+via a bind mount. If supplying a custom file please ensure you still include the
+following sections:
+
+Ensure the `gafferpop.properties` file is set by modifying the `graphs` section like so:
 
 ```yaml
 graphs: {
@@ -113,9 +144,8 @@ graphs: {
 }
 ```
 
-The second place is to ensure the Gaffer plugin is loaded for Gremlin which is
-achieved by adding the following to the list of plugins in the `plugins`
-section:
+Ensure the Gaffer plugin is loaded for Gremlin which is achieved by adding the
+following to the list of plugins in the `plugins` section:
 
 ```yaml
 uk.gov.gchq.gaffer.tinkerpop.gremlinplugin.GafferPopGremlinPlugin: {}
@@ -124,41 +154,3 @@ uk.gov.gchq.gaffer.tinkerpop.gremlinplugin.GafferPopGremlinPlugin: {}
 !!! tip
     See the [Tinkerpop docs](https://tinkerpop.apache.org/docs/current/reference/#gremlin-server)
     for more information on Gremlin server configuration.
-
-### Running the Gremlin Server
-
-After following the previous steps you should now have three custom files
-created which we will bind mount into a `gremlin-server` container. One final
-step is to obtain required Gaffer JARs and add them to the container as
-well. There are many different ways to do this the easiest being through maven
-which can use following goal to download all dependencies from a POM:
-
-```bash
-mvn clean dependency:copy-dependencies
-```
-
-Once all JARs are available they can be bind mounted to a path, such as
-`ext/gafferpop/plugin/`, in the container to be added to the classpath.
-
-The bind mount location of the custom configuration files are as follows:
-
-- `store.properties` -> `conf/gaffer/store.properties`
-- `gafferpop.properties` -> `conf/gafferpop/gafferpop.properties`
-- `gremlin-server.yaml` -> `conf/gremlin-server.yaml`
-
-The container can then be run as normal with the above bind mounts and
-specifying the `conf/gremlin-server.yaml` file as the run argument for the
-container, for example:
-
-```bash
-docker run \
-       --detach \
-       --name gaffer-gremlin \
-       --hostname gaffer-gremlin \
-       --publish 8182:8182 \
-       --net host \
-       --volume store.properties:conf/gaffer/store.properties \
-       --volume gafferpop.properties:conf/gafferpop/gafferpop.properties \
-       --volume gremlin-server.yaml:conf/gremlin-server.yaml \
-       tinkerpop/gremlin-server:latest gremlin-server.yaml
-```

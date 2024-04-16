@@ -1,74 +1,243 @@
 # Gremlin in Gaffer
 
-[Gremlin](https://tinkerpop.apache.org/gremlin.html) is a query language for traversing graphs.
-It is a core component of the Apache Tinkerpop library and allows users to easily express more complex graph queries.
-
-GafferPop is a lightweight Gaffer implementation of the [TinkerPop framework](https://tinkerpop.apache.org/), where TinkerPop methods are delegated to Gaffer graph operations.
-
 !!! warning
-    GafferPop is still in development and has some [limitations](gremlin-limits.md).
-    The implementation is basic and its performance is unknown in comparison to using standard Gaffer `OperationChains`.
+    GafferPop is still under development and has some [limitations](gremlin-limits.md).
+    The implementation may not allow some advanced features of Gremlin and it's
+    performance is unknown in comparison to standard Gaffer `OperationChains`.
 
-The addition of Gremlin as query language in Gaffer allows users to represent complex graph queries in a simpler language akin to other querying languages used in traditional and NoSQL databases.
+[Gremlin](https://tinkerpop.apache.org/gremlin.html) is a query language for
+traversing graphs. It is a core component of the Apache Tinkerpop library and
+allows users to easily express more complex graph queries.
 
-## Gremlin Features
+GafferPop is a lightweight Gaffer implementation of the [TinkerPop framework](https://tinkerpop.apache.org/),
+where TinkerPop methods are delegated to Gaffer graph operations.
 
-### Interfacing with Gremlin
-
-One of the great features of Gremlin is its versatility of use.
-There are a large number of supported language libraries that allow you to write queries in whichever coding language you prefer.
-For example, there is a [Python Gremlin](https://pypi.org/project/gremlinpython/) interface.
-This means your tooling won't have to change to write these queries which is a nice bonus for Gremlin.
-
-### Imperative & Declarative Queries
-
-Gremlin supports 3 main methods of querying methods that gives us an element of flexibility using the library.
-Imperative queries are procedural and describe what's happening at each sequential step whereas declarative queries describe what should happen but lets the query compiler decide how and which order steps should be ran in.
-Choosing the right method here allows for a lot of control over how our queries get ran or allows the controller to optimise.
-
-### OTLP and OLAP
-
-Gremlin queries are flexible in that they can be evaluated in a realtime (OLTP) or batch (OLAP) format, this allows us a lot of flexibility in use, especially when querying over a multi machine or federated graph.
+The addition of Gremlin as query language in Gaffer allows users to represent
+complex graph queries in a simpler language akin to other querying languages
+used in traditional and NoSQL databases. It also has wide support for various
+languages so for example, you can write queries in Python via the [`gremlinpython` library](https://pypi.org/project/gremlinpython/)
 
 !!! tip
-    Information on Gremlin as a query language, its associated libraries and more in-depth tutorials can be found in the [Apache Tinkerpop Gremlin docs](https://tinkerpop.apache.org/gremlin.html).
+    In-depth tutorials on Gremlin as a query language and its associated libraries
+    can be found in the [Apache Tinkerpop Gremlin docs](https://tinkerpop.apache.org/gremlin.html).
 
-## Gremlin in Gaffer
+## Using Gremlin Queries in Gaffer
 
-Gremlin was added to Gaffer as a new graph query language in version 2.1.
-There is a small demo on the [gaffer-docker repo](https://github.com/gchq/gaffer-docker/tree/develop/docker/gremlin-gaffer) using the "TinkerPop Modern" [demo graph](https://tinkerpop.apache.org/docs/current/images/tinkerpop-modern.png).
+Gremlin was added to Gaffer in version 2.1 as a new graph query language and since
+version 2.2 a container image is provided allowing a Gremlin layer to be added to
+existing 2.x graphs. A full tutorial on setting up this image is provided in the
+[administration guide](../../../administration-guide/gaffer-deployment/gremlin.md).
 
-## Basic Queries
+This guide will use the [Python API for Gremlin](https://pypi.org/project/gremlinpython/)
+to demonstrate some basic capabilities and how they compare to standard Gaffer syntax.
 
-We recommend connecting to Gremlin using a [Gremlin server](https://tinkerpop.apache.org/docs/current/reference/#connecting-gremlin-server).
-For example to connect a Gremlin server using the Python API:
+To start querying in Gremlin we first need a reference to what is known as the
+Graph Traversal. To obtain this we need to connect to a running Gremlin server,
+similar to how a connection to the Gaffer REST API is needed if using
+[`gafferpy`](../../apis/python-api.md). We can do this by first importing the required
+libraries like so (many of these will be needed later for queries):
 
 ```python
-    from gremlin_python.process.anonymous_traversal_source import traversal
-
-    g = traversal().withRemote(
-        DriverRemoteConnection('ws://localhost:8182/gremlin'))
+from gremlin_python.process.anonymous_traversal import traversal
+from gremlin_python.driver.driver_remote_connection import DriverRemoteConnection
+from gremlin_python.process.graph_traversal import __
 ```
 
-!!! note
-    The [Gremlin administration guide](../../../administration-guide/gaffer-deployment/gremlin.md) contains further details on how you can add Gremlin querying to your own Graph instance.
+We can then establish a connection to the Gremlin server and save a reference to
+this (typically called `g`):
 
-Some basic queries can be carried out on the data.
-The following example is a seeded query from ID 1 with a filter/view for only the `person` group:
-
-```groovy
-    g.V('1').hasLabel('person')
+```python
+# Setup a connection with the gremlin server running on localhost
+g = traversal().with_remote(DriverRemoteConnection('ws://localhost:8182/gremlin', 'g'))
 ```
 
-This example calculates the paths from ID 1 to ID 3 (with a maximum of 6 loops):
+Now that we have the traversal reference this can be used to spawn graph traversals
+and get results back.
 
-```groovy
-    start = '1';
-    end = '3';
-    g.V(start).repeat(bothE().otherV().simplePath()).until(hasId(end).or().loops().is(6)).path()
+### Basic Gremlin Queries
+
+Gremlin queries (similar to Gaffer queries) usually require a starting set of
+entities to query from. Commonly Gremlin queries will be left without any IDs in
+the starting seed which would be analogous to asking for all vertexes with
+`g.V()` or, all edges with `g.E()`. However, if this type of query is used with
+the Gafferpop library this will in effect call a `GetAllElements` operation which
+is less than ideal. Its therefore, highly recommended to always seed the query with
+IDs.
+
+We will use the following graph to demonstrate the basic usage of gremlin compared
+to Gaffer.
+
+```mermaid
+graph LR
+    A(["Person
+
+        ID: John"])
+    --
+    "Created
+     weight: 0.2"
+    -->
+    B(["Software
+
+        ID: 1"])
+    A
+    --
+    "Created
+     weight: 0.6"
+    -->
+    C(["Software
+
+        ID: 2"])
 ```
 
-There are more example queries using this graph to be found in the [Gremlin Getting Started](https://tinkerpop.apache.org/docs/current/tutorials/getting-started/) docs.
+!!! example ""
+    Now say we wanted to get all the vertexes connected from the `Person`
+    vertex `"John"` via a `Created` edge (essentially all the things `"John"`
+    has created):
+
+    === "Gremlin"
+
+        Gremlin is 'lazy' so will only execute your query if you request it
+        to by using a `to_list()` or calling `next()` on the iterator.
+
+        ```python
+        # We seed with "John" and traverse over any "Created" out edges
+        g.V("John").out("Created").element_map().to_list()
+        ```
+
+        Result:
+
+        ```text
+        [{<T.id: 1>: '1', <T.label: 4>: 'Software'}]
+        [{<T.id: 1>: '2', <T.label: 4>: 'Software'}]
+        ```
+
+    === "Gaffer JSON"
+
+        Note standard Gaffer you must know the group of the target vertexes you
+        want returned otherwise edges will be also present in the result.
+
+        ```JSON
+        {
+            "class": "OperationChain",
+            "operations": [
+                {
+                    "class": "GetAdjacentIds",
+                    "input": [
+                        {
+                            "class": "EntitySeed",
+                            "vertex": "John"
+                        }
+                    ],
+                    "view": {
+                        "edges": {
+                            "Created": {}
+                        }
+                    }
+                },
+                {
+                    "class": "GetElements",
+                    "view": {
+                        "entities": {
+                            "Software": {}
+                        }
+                    }
+                }
+            ]
+        }
+        ```
+
+        Result:
+
+        ```JSON
+        [
+            {
+                "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                "group": "Software",
+                "vertex": 1
+            },
+            {
+                "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                "group": "Software",
+                "vertex": 2
+            }
+        ]
+        ```
+
+As you can see the Gremlin query is quite a bit easier to write and
+provides the results in a handy output to be reused. Now say if you wanted
+to apply some filtering on the same graph, the following is an example
+of how Gremlin handles this:
+
+!!! example ""
+    Get all the `Created` edges from vertex `"John"` that have a `"weight"`
+    greater than 0.4:
+
+    === "Gremlin"
+
+        ```python
+        # If needed we run this through an 'element_map()' call to get more info on the edge
+        g.V("John").outE("Created").has("weight", P.gt(0.4)).to_list()
+        ```
+
+        Result:
+
+        ```text
+        [e[['John', 2]][John-Created->2]]
+        ```
+
+    === "Gaffer JSON"
+
+        ```JSON
+        {
+            "class": "GetElements",
+            "input": [
+                {
+                    "class": "EntitySeed",
+                    "vertex": "John"
+                }
+            ],
+            "view": {
+                "edges": {
+                    "Created": {
+                        "preAggregationFilterFunctions": [
+                            {
+                                "selection": [
+                                    "weight"
+                                ],
+                                "predicate": {
+                                    "class": "IsMoreThan",
+                                    "orEqualTo": false,
+                                    "value": {
+                                        "Float": 0.4
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+        ```
+
+        Result:
+
+        ```JSON
+        [
+            {
+                "class": "uk.gov.gchq.gaffer.data.element.Edge",
+                "group": "Created",
+                "source": "John",
+                "destination": "2",
+                "directed": true,
+                "matchedVertex": "SOURCE",
+                "properties": {
+                    "weight": 0.6
+                }
+            }
+        ]
+        ```
+
+There are more example queries to be found in the [Gremlin Getting Started](https://tinkerpop.apache.org/docs/current/tutorials/getting-started/) docs.
 
 ## Mapping Gaffer to TinkerPop
 
@@ -82,4 +251,3 @@ a table of how different parts are mapped is as follows:
 | Entity | Vertex |
 | Edge | Edge |
 | Edge ID | A list with the source and destination of the Edge e.g. `[dest, source]` |
-
