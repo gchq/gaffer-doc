@@ -91,6 +91,7 @@ nav:
         - Gaffer Query Syntax:
           - 'Operations': 'user-guide/query/gaffer-syntax/operations.md'
           - 'Filtering Data': 'user-guide/query/gaffer-syntax/filtering.md'
+          - 'FAQs': 'user-guide/query/gaffer-syntax/faqs.md'
           - Import/Export:
             - 'Using CSV Data': 'user-guide/query/gaffer-syntax/import-export/csv.md'
         - Apache Gremlin:
