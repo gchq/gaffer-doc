@@ -111,6 +111,7 @@ nav:
           - 'Data': 'development-guide/project-structure/components/data.md'
           - 'Graph': 'development-guide/project-structure/components/graph.md'
           - 'Store': 'development-guide/project-structure/components/store.md'
+          - 'User': 'development-guide/project-structure/components/user.md'
           - 'Operation': 'development-guide/project-structure/components/operation.md'
           - 'Serialisation': 'development-guide/project-structure/components/serialisation.md'
           - 'Integration Tests': 'development-guide/project-structure/components/integration-test.md'
