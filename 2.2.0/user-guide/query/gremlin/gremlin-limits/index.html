@@ -690,23 +690,37 @@
   
   
   
+    <li class="md-nav__item">
+      <a href="../../gaffer-syntax/faqs/" class="md-nav__link">
+        FAQs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
     
     <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1_3" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4_1_4" >
       
       
       
-        <label class="md-nav__link" for="__nav_2_4_1_3" id="__nav_2_4_1_3_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_2_4_1_4" id="__nav_2_4_1_4_label" tabindex="0">
           Import/Export
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_1_3_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_2_4_1_3">
+      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_2_4_1_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2_4_1_4">
           <span class="md-nav__icon md-icon"></span>
           Import/Export
         </label>
@@ -1070,6 +1084,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../development-guide/project-structure/components/user/" class="md-nav__link">
+        User
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../development-guide/project-structure/components/operation/" class="md-nav__link">
         Operation
       </a>
@@ -1159,17 +1187,17 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6_1_12" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6_1_13" >
       
       
       
-        <label class="md-nav__link" for="__nav_3_6_1_12" id="__nav_3_6_1_12_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_3_6_1_13" id="__nav_3_6_1_13_label" tabindex="0">
           Libraries
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_6_1_12_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_3_6_1_12">
+      <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_3_6_1_13_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_6_1_13">
           <span class="md-nav__icon md-icon"></span>
           Libraries
         </label>
@@ -2977,7 +3005,9 @@ as these are based on users.</li>
 <li>Performance compared to standard Gaffer OperationChains is hampered due to
   a custom <code>TraversalStratergy</code> not being implemented.</li>
 <li>The ID of an Edge follows a specific format that is made up of its source and
-  destination IDs like <code>[dest, source]</code>.</li>
+  destination IDs like <code>[source, dest]</code>. To use this in a seeded query you must
+  format it like <code>g.E("[source, dest]")</code> or a list like
+  <code>g.E(["[source1, dest1]","[source2, dest2]"])</code></li>
 <li>Issues seen using <code>hasKey()</code> and <code>hasValue()</code> in same query.</li>
 <li>May experience issues using the <code>range()</code> query function.</li>
 <li>May experience issues using the <code>where()</code> query function.</li>
@@ -2988,7 +3018,7 @@ as these are based on users.</li>
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 19, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 16, 2024</span>
       
         <br>
         Created:
