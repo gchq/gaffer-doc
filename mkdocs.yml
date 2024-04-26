@@ -91,6 +91,7 @@ nav:
         - Gaffer Query Syntax:
           - 'Operations': 'user-guide/query/gaffer-syntax/operations.md'
           - 'Filtering Data': 'user-guide/query/gaffer-syntax/filtering.md'
+          - 'FAQs': 'user-guide/query/gaffer-syntax/faqs.md'
           - Import/Export:
             - 'Using CSV Data': 'user-guide/query/gaffer-syntax/import-export/csv.md'
         - Apache Gremlin:
@@ -110,6 +111,7 @@ nav:
           - 'Data': 'development-guide/project-structure/components/data.md'
           - 'Graph': 'development-guide/project-structure/components/graph.md'
           - 'Store': 'development-guide/project-structure/components/store.md'
+          - 'User': 'development-guide/project-structure/components/user.md'
           - 'Operation': 'development-guide/project-structure/components/operation.md'
           - 'Serialisation': 'development-guide/project-structure/components/serialisation.md'
           - 'Integration Tests': 'development-guide/project-structure/components/integration-test.md'
