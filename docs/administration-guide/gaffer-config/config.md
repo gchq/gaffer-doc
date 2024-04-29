@@ -2,7 +2,7 @@
 There are various configuration files for Gaffer, this page gives an overview of
 the commonly used files and how to tweak them for your project needs.
 
-Here is an example file structure which suites a stand alone deployment using
+Here is an example file structure which suits a stand-alone deployment using
 docker:
 
 !!! example "Example Gaffer project structure"
@@ -48,10 +48,36 @@ docker:
 
 ### application.properties
 
-Within the application.properties file we set the file location properties of
-where the other config files are. In general it borrows a concept from [Spring
-Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html)
+The `application.properties` file is used for configuring the settings used by
+a Gaffer REST endpoint. In general it borrows a concept from [Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html)
 to allow any properties related to Gaffer.
+
+#### All REST Properties
+
+The properties in bold are usually required for the REST endpoint to start.
+
+| Property                 | Default | Description                             |
+| ------------------------ | ------- | --------------------------------------- |
+| **`gaffer.graph.config`** | None | Path String specifying the `graphConfig.json` file to use |
+| **`gaffer.schemas`** | None | Path String specifying the directory to load schemas from |
+| **`gaffer.storeProperties`** | None | Path String specifying the `store.properties` file to use |
+| `gaffer.rest-api.basePath` | `rest` | String used to set the base path for the REST endpoint |
+| `gaffer.rest-api.version` | `2.0.0` | String with version to use in REST response headers |
+| `gaffer.graph.factory.class` | `uk.gov.gchq.gaffer.rest.factory.DefaultGraphFactory` | Class Name String for setting the Graph Factory to use |
+| `gaffer.user.factory.class` | `uk.gov.gchq.gaffer.rest.factory.UnknownUserFactory` | Class Name String for setting the User Factory to use |
+| `gaffer.package.prefixes` | `uk.gov.gchq` | Comma separated list of package prefixes to search for Functions and Operations |
+| `gaffer.properties` | None | String CSV of properties to expose via the properties endpoint |
+| `gaffer.properties.app.title` | `Gaffer REST` | String used as the page title for Swagger REST |
+| `gaffer.properties.app.description` | `The Gaffer REST service.` | String used as the description for Swagger REST |
+| `gaffer.properties.app.banner.colour` | `red` | String containing an HTML colour to use for page banner |
+| `gaffer.properties.app.banner.description` | None | String to use for a single line page banner, not shown by default |
+| `gaffer.properties.app.doc.url` | `https://gchq.github.io/gaffer-doc/latest/` | URL String used as the documentation link |
+| `gaffer.properties.app.logo.link` | `https://github.com/gchq/Gaffer` | URL String used as the link when clicking on logo in Swagger |
+| `gaffer.properties.app.logo.src` | `images/logo.png` | Path String for logo image used in Swagger |
+| `gaffer.properties.app.logo.favicon.small` | `images/logo.png` | Path String for small favicon used by web server |
+| `gaffer.properties.app.logo.favicon.large` | `images/logo.png` | Path String for large favicon used by web server |
+
+The example below shows how we set the file location properties of where the other config files are.
 
 ```properties title="application.properties"
 gaffer.schemas=/gaffer/schema

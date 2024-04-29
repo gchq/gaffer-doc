@@ -24,7 +24,7 @@ do not have access to the cluster and by only allowing users to connect to Gaffe
 `User` object is constructed via a [`UserFactory`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/rest/factory/UserFactory.html).
 Currently, we only provide one implementation of this, the [`UnknownUserFactory`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/rest/factory/UnknownUserFactory.html)
 This `UnknownUserFactory` will always just return `new User()` - it is used as the default user factory. To specify the
-user factory class define the `gaffer.user.factory.class` REST property.
+user factory class define the `gaffer.user.factory.class` [REST property](../../../administration-guide/gaffer-config/config.md#applicationproperties).
 
 To authenticate your users, you will need to extend the REST API to add your chosen authentication mechanism. You will
 need to implement your own `UserFactory` class which creates a new `User` instance based on the user making the REST
