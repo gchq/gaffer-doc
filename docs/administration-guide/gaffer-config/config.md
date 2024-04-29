@@ -87,7 +87,7 @@ gaffer.graph.config=/gaffer/graph/graphConfig.json
 
 ### graphConfig.json
 
-Within the graphCongfig.json file you can set multiple properties. Here you define the `graphId` and `description` of the graph. You can also define any additonal `hooks` to run when operations are perfomed, a `view` you want to be applied when operations are perfomed and any addtional libraries with the `library` property.
+Within the `graphCongfig.json` file you can set multiple properties. Here you define the `graphId` and `description` of the graph. You can also define any additional `hooks` to run when operations are performed, a `view` you want to be applied when operations are performed and any additional libraries with the `library` property.
 
 The example below shows how we would configure each of these.
 
