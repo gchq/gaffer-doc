@@ -1322,6 +1322,14 @@ Fetches data from a Gaffer result cache. Requires a cache to be [configured](../
 !!! example
     See examples for ExportToGafferResultCache above for usage.
 
+## GetExports
+
+Fetches multiple export results and returns them in a map. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/GetExports.html)
+
+!!! example
+    See examples for ExportToGafferResultCache above for usage.
+
+
 ## ExportToOtherAuthorisedGraph
 
 These export examples export all edges in the example graph to another Gaffer instance using Operation Auths against the user. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/export/graph/ExportToOtherAuthorisedGraph.html)
@@ -1956,3 +1964,4 @@ gaffer.store.operation.declarations=ExportToOtherGraphOperationDeclarations.json
             ] 
         )
         ```
+
