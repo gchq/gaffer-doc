@@ -162,8 +162,8 @@ provided by standard Tinkerpop. The GafferPop implementation provides a
 functional `Authoriser` class that will handle passing the authenticated user to
 the underlying Gaffer graph.
 
-To activate user auth with the gremlin server you must provide the classes you
-wish to use in the gremlin server's YAML file like so:
+To activate user auth with the Gremlin server you must provide the classes you
+wish to use in the Gremlin server's YAML file like so:
 
 ```yaml
 # This should be a deployment specific class
@@ -182,7 +182,7 @@ Gaffer graph for fine grained security.
 
 !!! note
     The `GafferPopAuthoriser` will deny attempts to set the user ID via a
-    `with("userId", <id>)` step in the gremlin query.
+    `with("userId", <id>)` step in the Gremlin query.
 
 The `authenticator` should be a class specific to the auth mechanism for your
 deployment e.g. LDAP. An example class `ExampleGafferPopAuthenticator` is
