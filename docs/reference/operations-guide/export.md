@@ -1327,7 +1327,7 @@ Fetches data from a Gaffer result cache. Requires a cache to be [configured](../
 Fetches multiple export results and returns them in a map. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/GetExports.html)
 
 !!! example
-    See final example for ExportToGafferResultCache above for usage.
+    See 'exporting multiple results to result cache and then getting all results' example for ExportToGafferResultCache above for usage.
 
 
 ## ExportToOtherAuthorisedGraph
