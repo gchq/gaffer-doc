@@ -1317,10 +1317,18 @@ This operation exports results to a cache which is backed by a simple Gaffer gra
 
 ## GetGafferResultCacheExport
 
-Fetches data from a Gaffer result cache. Requires a cache to be [configured](../../administration-guide/job-tracker.md). [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/resultcache/GetGafferResultCacheExport.html)
+Fetches data from a Gaffer result cache. Requires a cache to be [configured](../../../administration-guide/gaffer-stores/store-guide/#caches). [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/resultcache/GetGafferResultCacheExport.html)
 
 !!! example
     See examples for ExportToGafferResultCache above for usage.
+
+## GetExports
+
+Fetches multiple export results and returns them in a map. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/GetExports.html)
+
+!!! example
+    See 'exporting multiple results to result cache and then getting all results' example for ExportToGafferResultCache above for usage.
+
 
 ## ExportToOtherAuthorisedGraph
 
@@ -1956,3 +1964,4 @@ gaffer.store.operation.declarations=ExportToOtherGraphOperationDeclarations.json
             ] 
         )
         ```
+
