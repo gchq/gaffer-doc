@@ -135,11 +135,10 @@ mounted into the container for them to be included in the deployment which is co
 
 ### Application Properties
 
-This is probably the simplest configuration file in the Gaffer deployment. In general it borrows a
-concept from [Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html)
-to allow changing the context root and any properties related to Gaffer. In the example that follows
+This is probably the simplest configuration file in the Gaffer deployment. In the example that follows
 we use it to set the file location properties of where the other config files are (inside the
-container).
+container). See [Graph Configuration](../../administration-guide/gaffer-config/config.md#applicationproperties)
+for more details on this configuration file.
 
 ```properties title="application.properties"
 gaffer.schemas=/gaffer/schema
