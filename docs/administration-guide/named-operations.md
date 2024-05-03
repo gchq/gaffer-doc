@@ -335,6 +335,111 @@ EntitySeed[vertex=3]
 ```
 For more examples of Named Operations, please refer to the [Named Operations page in the Reference Guide](../reference/operations-guide/named.md).
 
+### Nested Named Operations
+
+Nested Named Operations allow users to run Named Operations inside one another. 
+To enable this feature users must set the [store property](../administration-guide/gaffer-stores/store-guide.md#all-general-store-properties)
+`gaffer.named.operation.nested` to true.
+
+!!! Example nesting of Named Operations
+    Create a simple Named Operation, then nest this inside another Named Operation.
+    
+    === "Java"
+
+        ``` java
+        final AddNamedOperation namedOp1 = new AddNamedOperation.Builder()
+            .operationChain(new OperationChain.Builder()
+                    .first(new GetElements.Builder()
+                            .input(new EntitySeed(1))
+                            .build())
+                    .build())
+            .description("Simple named operation")
+            .name("namedOp1")
+            .overwrite()
+            .build();
+        
+        final AddNamedOperation namedOp2 = new AddNamedOperation.Builder()
+            .operationChain(new OperationChain.Builder()
+                    .first(new NamedOperation.Builder<>()
+                            .input(namedOp1)
+                            .build())
+                    .build())
+            .description("Nested named operation")
+            .name("namedOp2")
+            .overwrite()
+            .build();
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+            "class": "AddNamedOperation",
+            "operationName": "namedOp1",
+            "description": "Simple named operation",
+            "operationChain": {
+                "operations": [{
+                    "class": "GetElements",
+                    "input": [
+                        {
+                            "class": "EntitySeed",
+                            "vertex": 1
+                        }]
+                }]
+            },
+            "overwriteFlag": true
+        }
+        
+        {
+            "class": "AddNamedOperation",
+            "operationName": "namedOp2",
+            "description": "A nested named operation",
+            "operationChain": {
+                "operations": [{
+                    "class": "NamedOperation",
+                    "operationName": "namedOp1"
+                }]
+            },
+            "overwriteFlag": true
+        }
+
+        ```
+
+    === "Python"
+
+        ``` python
+        g.AddNamedOperation( 
+            operation_chain=g.OperationChainDAO( 
+                operations=[ 
+                    g.GetElements(
+                        input=[
+                            g.EntitySeed(vertex=1)
+                        ]
+                    ) 
+                ] 
+            ), 
+            operation_name="namedOp1", 
+            description="Simple Named Operation", 
+            overwrite_flag=True 
+        )
+
+        g.AddNamedOperation( 
+            operation_chain=g.OperationChainDAO( 
+                operations=[ 
+                    g.NamedOperation(
+                        operation_name="namedOp1"
+                    ) 
+                ] 
+            ), 
+            operation_name="namedOp2", 
+            description="Nested Named Operation", 
+            overwrite_flag=True 
+        )
+        ```
+
+There is a default depth limit set on nested Named Operations of 3.
+This default can be changed through configuring the [NamedOperationResolver](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/graph/hook/NamedOperationResolver.html#DEPTH_LIMIT_DEFAULT).
+
 ## Security
 
 By default, read access to Named Operations is unrestricted while write access is limited to administrators and the NamedOperation creator. 
