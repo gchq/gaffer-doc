@@ -106,7 +106,7 @@ You could also set the default cache suffix to share everything and set a specif
 
 Some operations are not available by default and you will need to manually configure them.
 
-These customisable operations can be added to your Gaffer graph by providing config in one or more operation declaration JSON files.
+These customisable operations can be added to your Gaffer graph by providing config in one or more [operation declaration JSON files](../gaffer-config/config.md#operationsdeclarationsjson).
 
 ### Named Operations
 Named Operations depends on the Cache service being active at runtime. See [Caches](#caches) above for how to enable these.
