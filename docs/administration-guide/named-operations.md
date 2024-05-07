@@ -346,7 +346,7 @@ set on nested Named Operations of 3.
 This default can be changed through configuring the NamedOperationResolver [graph hook](../development-guide/project-structure/components/graph.md#graph-hooks).
 Using this graph hook you can set the `depthLimit` in the JSON file to whatever you like. 
 
-??? Example nesting of Named Operations
+??? example "Example Nested Named Operation"
     Create a simple Named Operation, then nest this inside another Named Operation. 
     When you run the second Named Op the first will also be called and run.
     
