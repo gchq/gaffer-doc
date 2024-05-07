@@ -337,12 +337,18 @@ For more examples of Named Operations, please refer to the [Named Operations pag
 
 ### Nested Named Operations
 
-Nested Named Operations allow users to run Named Operations inside one another. 
+Nested Named Operations allow users to run stored Named Operations within one another. 
 To enable this feature users must set the [store property](../administration-guide/gaffer-stores/store-guide.md#all-general-store-properties)
 `gaffer.named.operation.nested` to true.
 
-!!! Example nesting of Named Operations
-    Create a simple Named Operation, then nest this inside another Named Operation.
+There is a [default depth limit](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/graph/hook/NamedOperationResolver.html#DEPTH_LIMIT_DEFAULT) 
+set on nested Named Operations of 3.
+This default can be changed through configuring the NamedOperationResolver [graph hook](../development-guide/project-structure/components/graph.md#graph-hooks).
+Using this graph hook you can set the `depthLimit` in the JSON file to whatever you like. 
+
+??? Example nesting of Named Operations
+    Create a simple Named Operation, then nest this inside another Named Operation. 
+    When you run the second Named Op the first will also be called and run.
     
     === "Java"
 
@@ -436,9 +442,6 @@ To enable this feature users must set the [store property](../administration-gui
             overwrite_flag=True 
         )
         ```
-
-There is a default depth limit set on nested Named Operations of 3.
-This default can be changed through configuring the [NamedOperationResolver](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/graph/hook/NamedOperationResolver.html#DEPTH_LIMIT_DEFAULT).
 
 ## Security
 
