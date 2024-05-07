@@ -251,3 +251,22 @@ a table of how different parts are mapped is as follows:
 | Entity | Vertex |
 | Edge | Edge |
 | Edge ID | A list with the source and destination of the Edge e.g. `[dest, source]` |
+
+## Custom Features
+
+The GafferPop implementation provides some extra features on top of the
+standard Tinkerpop framework that you can utilise in your queries. These
+are likely specific to how a Gaffer graph operates and may not be available
+in other graph technologies that support Gremlin queries.
+
+### Adding Options to Queries
+
+In standard Gremlin syntax it is possible to add additional key value variables
+into a query via a [`with()` step](https://tinkerpop.apache.org/docs/current/reference/#with-step).
+This feature is utilised to allow some custom properties to be passed in
+for Gaffer specific options:
+
+| Key | Example | Description |
+| --- | --- | --- |
+| `operationOptions` | `g.with("operationOptions", "gaffer.federatedstore.operation.graphIds:graphA").V()` | Allows passing options to the underlying Gaffer Operations, this is the same as the `options` field on a standard JSON query. |
+| `getAllElementsLimit` | `g.with("getAllElementsLimit", 100).V()` | Limits the amount of elements returned if performing an unseeded query e.g. a `GetAllElements` operation. |
