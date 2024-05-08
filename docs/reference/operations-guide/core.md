@@ -4520,3 +4520,36 @@ Gets the traits of the current store. [Javadoc](https://gchq.github.io/Gaffer/uk
         ``` json
         [ "QUERY_AGGREGATION", "MATCHED_VERTEX", "TRANSFORMATION", "INGEST_AGGREGATION", "PRE_AGGREGATION_FILTERING", "POST_TRANSFORMATION_FILTERING", "POST_AGGREGATION_FILTERING" ]
         ```
+
+## DeleteAllData
+
+!!! warning
+    This operation is currently only implemented for Accumulo stores.
+    
+Deletes all retained data including deleting the graph. To use this operation, it must be enabled via an [operations declarations JSON](../../administration-guide/gaffer-config/config.md#operationsdeclarationsjson). [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/DeleteAllData.html)
+
+
+??? example "Example deleting all data"
+
+    === "Java"
+
+        ``` java
+        final DeleteAllData operation = new DeleteAllData()
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+          "class" : "DeleteAllData"
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+        g.DeleteAllData()
+        ```
+
+Note this operation does not return any response.
+
