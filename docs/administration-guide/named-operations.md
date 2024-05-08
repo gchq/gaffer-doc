@@ -343,7 +343,19 @@ This is disabled by default. To enable this feature the [store property](../admi
 
 The [default depth limit](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/graph/hook/NamedOperationResolver.html#DEPTH_LIMIT_DEFAULT) for nested Named Operations is 3.
 This default can be changed through configuring the NamedOperationResolver [graph hook](../development-guide/project-structure/components/graph.md#graph-hooks).
-Using this graph hook you can set the `depthLimit` in the JSON file to whatever you like. 
+Using this graph hook you can set the `depthLimit` in the JSON file to whatever you like. For example:
+
+```json
+{
+    "hooks": [
+        {
+            "class": "uk.gov.gchq.gaffer.graph.hook.NamedOperationResolver",
+            "suffixNamedOperationCacheName": "suffix",
+            "depthLimit": 5
+        }
+    ]
+}
+```
 
 ??? example "Example Nested Named Operation"
     Create a simple Named Operation, then nest this inside another Named Operation. 
