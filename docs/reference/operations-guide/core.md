@@ -4526,7 +4526,11 @@ Gets the traits of the current store. [Javadoc](https://gchq.github.io/Gaffer/uk
 !!! warning
     This operation is currently only implemented for Accumulo stores.
     
-Deletes all retained data including deleting the graph. To use this operation, it must be enabled via an [operations declarations JSON](../../administration-guide/gaffer-config/config.md#operationsdeclarationsjson). [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/DeleteAllData.html)
+Deletes all retained data including deleting the graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/DeleteAllData.html)
+
+To use this operation, it must be enabled via an [operations declarations JSON](../../administration-guide/gaffer-config/config.md#operationsdeclarationsjson).
+
+Note this operation does not return any response.
 
 ```json title="operationsDeclarations.json"
 {
@@ -4563,5 +4567,4 @@ Deletes all retained data including deleting the graph. To use this operation, i
         g.DeleteAllData()
         ```
 
-Note this operation does not return any response.
 
