@@ -154,3 +154,42 @@ uk.gov.gchq.gaffer.tinkerpop.gremlinplugin.GafferPopGremlinPlugin: {}
 !!! tip
     See the [Tinkerpop docs](https://tinkerpop.apache.org/docs/current/reference/#gremlin-server)
     for more information on Gremlin server configuration.
+
+##### User Authentication
+
+Full user authentication is possible with the Gremlin server using the framework
+provided by standard Tinkerpop. The GafferPop implementation provides a
+functional `Authoriser` class that will handle passing the authenticated user to
+the underlying Gaffer graph.
+
+To activate user auth with the Gremlin server you must provide the classes you
+wish to use in the Gremlin server's YAML file like so:
+
+```yaml
+# This should be a deployment specific class
+authentication: {
+  authenticator: uk.gov.gchq.gaffer.tinkerpop.server.auth.ExampleGafferPopAuthenticator
+}
+# This class is necessary for correctly forwarding the user to Gaffer
+authorization: {
+  authorizer: uk.gov.gchq.gaffer.tinkerpop.server.auth.GafferPopAuthoriser
+}
+```
+
+The `authorizer` should always be the `GafferPopAuthoriser` as this is what
+handles denying invalid queries for GafferPop and passing the user on to the
+Gaffer graph for fine grained security.
+
+!!! note
+    The `GafferPopAuthoriser` will deny attempts to set the user ID via a
+    `with("userId", <id>)` step in the Gremlin query.
+
+The `authenticator` should be a class specific to the auth mechanism for your
+deployment e.g. LDAP. An example class `ExampleGafferPopAuthenticator` is
+provided as a start point but does not do any actual authenticating so should
+**not** be used in production.
+
+!!! tip
+    Tinkerpop provides some implementaions of `Authenticators` for standard
+    mechanisms such as [Kerberos](https://tinkerpop.apache.org/javadocs/current/full/org/apache/tinkerpop/gremlin/server/auth/Krb5Authenticator.html).
+    Please see the [Tinkerpop documentation](https://tinkerpop.apache.org/docs/current/reference/#security) for more info.
