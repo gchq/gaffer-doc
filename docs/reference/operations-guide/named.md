@@ -304,41 +304,41 @@ Retrieves all NamedOperations associated with a Graph. [Javadoc](https://gchq.gi
 
         ``` json
         [ {
-        "operationName" : "1-hop",
-        "inputType" : "java.lang.Object[]",
-        "description" : "1 hop query",
-        "creatorId" : "user01",
-        "operations" : "{\"operations\":[{\"class\":\"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",\"includeIncomingOutGoing\":\"OUTGOING\"}]}",
-        "readAccessRoles" : [ "read-user" ],
-        "writeAccessRoles" : [ "write-user" ],
-        "parameters" : null,
-        "score" : 2
+            "operationName" : "1-hop",
+            "inputType" : "java.lang.Object[]",
+            "description" : "1 hop query",
+            "creatorId" : "user01",
+            "operations" : "{\"operations\":[{\"class\":\"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",\"includeIncomingOutGoing\":\"OUTGOING\"}]}",
+            "readAccessRoles" : [ "read-user" ],
+            "writeAccessRoles" : [ "write-user" ],
+            "parameters" : null,
+            "score" : 2
         }, {
-        "operationName" : "2-hop",
-        "inputType" : "java.lang.Object[]",
-        "description" : "2 hop query",
-        "creatorId" : "user01",
-        "operations" : "{\"operations\":[{\"class\":\"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",\"includeIncomingOutGoing\":\"OUTGOING\"},{\"class\":\"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",\"includeIncomingOutGoing\":\"OUTGOING\"}]}",
-        "readAccessRoles" : [ "read-user" ],
-        "writeAccessRoles" : [ "write-user" ],
-        "parameters" : null
+            "operationName" : "2-hop",
+            "inputType" : "java.lang.Object[]",
+            "description" : "2 hop query",
+            "creatorId" : "user01",
+            "operations" : "{\"operations\":[{\"class\":\"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",\"includeIncomingOutGoing\":\"OUTGOING\"},{\"class\":\"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",\"includeIncomingOutGoing\":\"OUTGOING\"}]}",
+            "readAccessRoles" : [ "read-user" ],
+            "writeAccessRoles" : [ "write-user" ],
+            "parameters" : null
         }, {
-        "operationName" : "2-hop-with-limit",
-        "inputType" : "java.lang.Object[]",
-        "description" : "2 hop query with settable limit",
-        "creatorId" : "user01",
-        "operations" : "{    \"operations\" : [ {      \"class\" : \"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",      \"includeIncomingOutGoing\" : \"OUTGOING\"    }, {      \"class\" : \"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",      \"includeIncomingOutGoing\" : \"OUTGOING\"    }, {      \"class\" : \"uk.gov.gchq.gaffer.operation.impl.Limit\",      \"resultLimit\" : \"${param1}\"    } ]}",
-        "readAccessRoles" : [ "read-user" ],
-        "writeAccessRoles" : [ "write-user" ],
-        "parameters" : {
-            "param1" : {
-            "description" : "Limit param",
-            "defaultValue" : 1,
-            "valueClass" : "java.lang.Long",
-            "required" : false
-            }
-        },
-        "score" : 3
+            "operationName" : "2-hop-with-limit",
+            "inputType" : "java.lang.Object[]",
+            "description" : "2 hop query with settable limit",
+            "creatorId" : "user01",
+            "operations" : "{    \"operations\" : [ {      \"class\" : \"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",      \"includeIncomingOutGoing\" : \"OUTGOING\"    }, {      \"class\" : \"uk.gov.gchq.gaffer.operation.impl.get.GetAdjacentIds\",      \"includeIncomingOutGoing\" : \"OUTGOING\"    }, {      \"class\" : \"uk.gov.gchq.gaffer.operation.impl.Limit\",      \"resultLimit\" : \"${param1}\"    } ]}",
+            "readAccessRoles" : [ "read-user" ],
+            "writeAccessRoles" : [ "write-user" ],
+            "parameters" : {
+                "param1" : {
+                "description" : "Limit param",
+                "defaultValue" : 1,
+                "valueClass" : "java.lang.Long",
+                "required" : false
+                }
+            },
+            "score" : 3
         } ]
         ```
 
@@ -362,13 +362,13 @@ Runs a pre-existing NamedOperation, i.e. one that has already been added. [Javad
 
         ``` json
         {
-        "class" : "NamedOperation",
-        "input" : [ {
-            "class" : "EntitySeed",
-            "class" : "EntitySeed",
-            "vertex" : 1
-        } ],
-        "operationName" : "2-hop"
+            "class" : "NamedOperation",
+            "input" : [ {
+                "class" : "EntitySeed",
+                "class" : "EntitySeed",
+                "vertex" : 1
+            } ],
+            "operationName" : "2-hop"
         }
         ```
 
@@ -376,12 +376,12 @@ Runs a pre-existing NamedOperation, i.e. one that has already been added. [Javad
 
         ``` python
         g.NamedOperation( 
-        input=[ 
-            g.EntitySeed( 
-            vertex=1 
-            ) 
-        ], 
-        operation_name="2-hop" 
+            input=[ 
+                g.EntitySeed( 
+                    vertex=1 
+                ) 
+            ], 
+            operation_name="2-hop" 
         )
         ```
 
@@ -399,14 +399,14 @@ Runs a pre-existing NamedOperation, i.e. one that has already been added. [Javad
 
         ``` json
         [ {
-        "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed",
-        "vertex" : 3
+            "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed",
+            "vertex" : 3
         }, {
-        "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed",
-        "vertex" : 4
+            "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed",
+            "vertex" : 4
         }, {
-        "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed",
-        "vertex" : 5
+            "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed",
+            "vertex" : 5
         } ]
         ```
 
@@ -430,16 +430,16 @@ Runs a pre-existing NamedOperation, i.e. one that has already been added. [Javad
 
         ``` json
         {
-        "class" : "NamedOperation",
-        "input" : [ {
-            "class" : "EntitySeed",
-            "class" : "EntitySeed",
-            "vertex" : 1
-        } ],
-        "operationName" : "2-hop-with-limit",
-        "parameters" : {
-            "param1" : 2
-        }
+            "class" : "NamedOperation",
+            "input" : [ {
+                "class" : "EntitySeed",
+                "class" : "EntitySeed",
+                "vertex" : 1
+            } ],
+            "operationName" : "2-hop-with-limit",
+            "parameters" : {
+                "param1" : 2
+            }
         }
         ```
 
@@ -447,13 +447,13 @@ Runs a pre-existing NamedOperation, i.e. one that has already been added. [Javad
 
         ``` python
         g.NamedOperation( 
-        input=[ 
-            g.EntitySeed( 
-            vertex=1 
-            ) 
-        ], 
-        operation_name="2-hop-with-limit", 
-        parameters={'param1': 2} 
+            input=[ 
+                g.EntitySeed( 
+                    vertex=1 
+                ) 
+            ], 
+            operation_name="2-hop-with-limit", 
+            parameters={'param1': 2} 
         )
         ```
 
@@ -470,11 +470,11 @@ Runs a pre-existing NamedOperation, i.e. one that has already been added. [Javad
 
         ``` json
         [ {
-        "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed",
-        "vertex" : 3
+            "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed",
+            "vertex" : 3
         }, {
-        "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed",
-        "vertex" : 4
+            "class" : "uk.gov.gchq.gaffer.operation.data.EntitySeed",
+            "vertex" : 4
         } ]
         ```
 
@@ -496,8 +496,8 @@ Removes an existing NamedOperation from a Graph. [Javadoc](https://gchq.github.i
 
         ``` json
         {
-        "class" : "DeleteNamedOperation",
-        "operationName" : "2-hop"
+            "class" : "DeleteNamedOperation",
+            "operationName" : "2-hop"
         }
         ```
 
@@ -505,7 +505,7 @@ Removes an existing NamedOperation from a Graph. [Javadoc](https://gchq.github.i
 
         ``` python
         g.DeleteNamedOperation( 
-        operation_name="2-hop" 
+            operation_name="2-hop" 
         )
         ```
 
@@ -537,24 +537,24 @@ Adds a NamedView to a Graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq
 
         ``` json
         {
-        "class" : "AddNamedView",
-        "name" : "isMoreThan10",
-        "description" : "example test NamedView",
-        "view" : {
-            "edges" : {
-            "testEdge" : {
-                "preAggregationFilterFunctions" : [ {
-                "selection" : [ "count" ],
-                "predicate" : {
-                    "class" : "uk.gov.gchq.koryphe.impl.predicate.IsMoreThan",
-                    "orEqualTo" : false,
-                    "value" : 10
+            "class" : "AddNamedView",
+            "name" : "isMoreThan10",
+            "description" : "example test NamedView",
+            "view" : {
+                "edges" : {
+                "testEdge" : {
+                    "preAggregationFilterFunctions" : [ {
+                        "selection" : [ "count" ],
+                        "predicate" : {
+                            "class" : "uk.gov.gchq.koryphe.impl.predicate.IsMoreThan",
+                            "orEqualTo" : false,
+                            "value" : 10
+                        }
+                    } ]
                 }
-                } ]
-            }
-            }
-        },
-        "overwriteFlag" : true
+                }
+            },
+            "overwriteFlag" : true
         }
         ```
 
@@ -562,29 +562,29 @@ Adds a NamedView to a Graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq
 
         ``` python
         g.AddNamedView( 
-        view=g.View( 
-            edges=[ 
-            g.ElementDefinition( 
-                group="testEdge", 
-                pre_aggregation_filter_functions=[ 
-                g.PredicateContext( 
-                    selection=[ 
-                    "count" 
-                    ], 
-                    predicate=g.IsMoreThan( 
-                    value=10, 
-                    or_equal_to=False 
+            view=g.View( 
+                edges=[ 
+                    g.ElementDefinition( 
+                        group="testEdge", 
+                        pre_aggregation_filter_functions=[ 
+                            g.PredicateContext( 
+                                selection=[ 
+                                    "count" 
+                                ], 
+                                predicate=g.IsMoreThan( 
+                                    value=10, 
+                                    or_equal_to=False 
+                                ) 
+                            ) 
+                        ] 
                     ) 
-                ) 
-                ] 
-            ) 
-            ], 
-            all_edges=False, 
-            all_entities=False 
-        ), 
-        name="isMoreThan10", 
-        description="example test NamedView", 
-        overwrite_flag=True 
+                ], 
+                all_edges=False, 
+                all_entities=False 
+            ), 
+            name="isMoreThan10", 
+            description="example test NamedView", 
+            overwrite_flag=True 
         )
         ```
 
@@ -627,33 +627,33 @@ Adds a NamedView to a Graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq
 
         ``` json
         {
-        "class" : "AddNamedView",
-        "name" : "isMoreThan",
-        "description" : "example test NamedView",
-        "view" : {
-            "edges" : {
-            "testEdge" : {
-                "preAggregationFilterFunctions" : [ {
-                "selection" : [ "count" ],
-                "predicate" : {
-                    "class" : "uk.gov.gchq.koryphe.impl.predicate.IsMoreThan",
-                    "orEqualTo" : false,
-                    "value" : "${countThreshold}"
+            "class" : "AddNamedView",
+            "name" : "isMoreThan",
+            "description" : "example test NamedView",
+            "view" : {
+                "edges" : {
+                    "testEdge" : {
+                        "preAggregationFilterFunctions" : [ {
+                            "selection" : [ "count" ],
+                            "predicate" : {
+                                "class" : "uk.gov.gchq.koryphe.impl.predicate.IsMoreThan",
+                                "orEqualTo" : false,
+                                "value" : "${countThreshold}"
+                            }
+                        } ]
+                    }
                 }
-                } ]
-            }
-            }
-        },
-        "overwriteFlag" : true,
-        "parameters" : {
-            "countThreshold" : {
-            "description" : "count threshold",
-            "defaultValue" : 1,
-            "valueClass" : "Long",
-            "required" : false
-            }
-        },
-        "writeAccessRoles" : [ "auth1" ]
+            },
+            "overwriteFlag" : true,
+            "parameters" : {
+                "countThreshold" : {
+                "description" : "count threshold",
+                "defaultValue" : 1,
+                "valueClass" : "Long",
+                "required" : false
+                }
+            },
+            "writeAccessRoles" : [ "auth1" ]
         }
         ```
 
@@ -661,41 +661,41 @@ Adds a NamedView to a Graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq
 
         ``` python
         g.AddNamedView( 
-        view=g.View( 
-            edges=[ 
-            g.ElementDefinition( 
-                group="testEdge", 
-                pre_aggregation_filter_functions=[ 
-                g.PredicateContext( 
-                    selection=[ 
-                    "count" 
-                    ], 
-                    predicate=g.IsMoreThan( 
-                    value="${countThreshold}", 
-                    or_equal_to=False 
+            view=g.View( 
+                edges=[ 
+                    g.ElementDefinition( 
+                        group="testEdge", 
+                        pre_aggregation_filter_functions=[ 
+                            g.PredicateContext( 
+                                selection=[ 
+                                    "count" 
+                                ], 
+                                predicate=g.IsMoreThan( 
+                                    value="${countThreshold}", 
+                                    or_equal_to=False 
+                                ) 
+                            ) 
+                        ] 
                     ) 
-                ) 
-                ] 
-            ) 
+                ], 
+                all_edges=False, 
+                all_entities=False 
+            ), 
+            name="isMoreThan", 
+            description="example test NamedView", 
+            overwrite_flag=True, 
+            write_access_roles=[ 
+                "auth1" 
             ], 
-            all_edges=False, 
-            all_entities=False 
-        ), 
-        name="isMoreThan", 
-        description="example test NamedView", 
-        overwrite_flag=True, 
-        write_access_roles=[ 
-            "auth1" 
-        ], 
-        parameters=[ 
-            g.NamedViewParameter( 
-            name="countThreshold", 
-            value_class="java.lang.Long", 
-            description="count threshold", 
-            default_value=1, 
-            required=False 
-            ) 
-        ] 
+            parameters=[ 
+                g.NamedViewParameter( 
+                    name="countThreshold", 
+                    value_class="java.lang.Long", 
+                    description="count threshold", 
+                    default_value=1, 
+                    required=False 
+                ) 
+            ] 
         )
         ```
 
@@ -717,8 +717,8 @@ Removes an existing NamedView from a Graph. [Javadoc](https://gchq.github.io/Gaf
 
         ``` json
         {
-        "class" : "DeleteNamedView",
-        "name" : "testNamedView"
+            "class" : "DeleteNamedView",
+            "name" : "testNamedView"
         }
         ```
 
@@ -726,7 +726,7 @@ Removes an existing NamedView from a Graph. [Javadoc](https://gchq.github.io/Gaf
 
         ``` python
         g.DeleteNamedView( 
-        name="testNamedView" 
+            name="testNamedView" 
         )
         ```
 
@@ -746,7 +746,7 @@ Retrieves all NamedViews associated with a Graph. [Javadoc](https://gchq.github.
 
         ``` json
         {
-        "class" : "GetAllNamedViews"
+            "class" : "GetAllNamedViews"
         }
         ```
 
