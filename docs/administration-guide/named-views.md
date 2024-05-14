@@ -172,7 +172,7 @@ graph LR
 
 !!! example "Delete a NamedView"
     This removes the NamedView from the cache. Note that if you delete a Named View 
-    any referencing Operation Chains or Named Operations will fail. 
+    any Operation Chains or Named Operations which reference it will fail. 
 
     === "Java"
 
