@@ -79,7 +79,7 @@ Operation | Type
 [`named.view.AddNamedView`](named.md#addnamedview) | Named
 [`named.view.DeleteNamedView`](named.md#deletenamedview) | Named
 [`named.view.GetAllNamedViews`](named.md#getallnamedviews) | Named
-`store.operation.DeleteAllData` | Store
+[`store.operation.DeleteAllData`](core.md#deletealldata) | Store
 [`store.operation.GetSchema`](core.md#getschema) | Store
 [`store.operation.GetTraits`](core.md#gettraits) | Store
 `store.operation.HasTrait` | Store
