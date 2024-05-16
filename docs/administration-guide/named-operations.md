@@ -16,7 +16,7 @@ These are `AddNamedOperation`, `GetAllNamedOperations` and `DeleteNamedOperation
 ## Using Named Operations
 
 All Named Operations are stored in a cache, so your first step should be to configure a suitable cache.
-For details on potential caches and how to configure them, see the [Stores Guide](../administration-guide/gaffer-stores/store-guide.md/#caches).
+For details on potential caches and how to configure them, see the [Stores Guide](../administration-guide/gaffer-stores/store-guide.md#caches).
 
 !!! Note
     If you choose a non-persistent cache then any Named Operations will be lost when you shut down your instance of Gaffer.
