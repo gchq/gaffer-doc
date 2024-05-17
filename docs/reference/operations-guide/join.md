@@ -229,7 +229,7 @@ The following Join examples use these input elements:
         }
         } ]
         ```
-??? example "KeyFunctionMatch example"
+??? example "KeyFunctionMatch with FunctionChain example"
     === "Java"
 
         ``` java
@@ -240,7 +240,10 @@ The following Join examples use these input elements:
                         .joinType(JoinType.INNER)
                         .matchKey(MatchKey.LEFT)
                         .flatten(false)
-                        .matchMethod(new ElementMatch("count"))
+                        .matchMethod(new KeyFunctionMatch.Builder()
+                            .firstKeyFunction(new FunctionChain(new ExtractProperty("count"), new MultiplyBy(10)))
+                            .secondKeyFunction(new ExtractProperty("count"))
+                            .build())
                         .build())
                 .build();
         ```
@@ -252,49 +255,58 @@ The following Join examples use these input elements:
         "class" : "OperationChain",
         "operations" : [ {
             "class" : "Join",
-            "input" : [ {
+            "input" : [{
             "class" : "Entity",
-            "group" : "BasicEntity",
-            "vertex" : "1",
+            "group" : "entity",
+            "vertex" : 1,
             "properties" : {
                 "count" : 3
             }
             }, {
             "class" : "Entity",
-            "group" : "BasicEntity",
-            "vertex" : "4",
+            "group" : "entity",
+            "vertex" : 4,
             "properties" : {
                 "count" : 1
             }
             }, {
             "class" : "Entity",
-            "group" : "BasicEntity",
-            "vertex" : "5",
+            "group" : "entity",
+            "vertex" : 5,
             "properties" : {
                 "count" : 3
             }
             }, {
             "class" : "Entity",
-            "group" : "BasicEntity",
-            "vertex" : "6",
+            "group" : "entity",
+            "vertex" : 6,
             "properties" : {
                 "count" : 30
             }
-            }],
+            }
+            ],
             "operation" : {
             "class" : "GetAllElements"
             },
             "matchMethod" : {
             "class" : "KeyFunctionMatch",
-            "FirstKeyFunction": {
-                "class": "ExtractProperty",
-                "name": "count"     
-                },
-            "SecondKeyFunction": {
+            "firstKeyFunction": {
+            "class" : "FunctionChain",
+            "functions" : [ {
+                "class" : "ExtractProperty",
+                "name": "count"
+            }, {
+            "class" : "MultiplyBy",
+            "by" : 10
+            }
+            ]
+            },
+            "secondKeyFunction": {
                 "class": "ExtractProperty",
                 "name": "count"  
                 }
             },
+            "matchKey": "LEFT",
             "flatten" : false,
             "joinType" : "INNER"
         } ]
@@ -347,6 +359,1257 @@ The following Join examples use these input elements:
         [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
         [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] ]
         [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        ```
+
+    === "JSON"
+        
+        ``` json
+        [
+            {
+                "values": {
+                    "LEFT": {
+                            "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                            "group": "entity",
+                            "vertex": 1,
+                            "properties": {
+                                "count": 3
+                            }
+                        },
+                    "RIGHT": [
+                        {
+                            "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                            "group": "BasicEntity",
+                            "vertex": 6,
+                            "properties": {
+                                "count": 30
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "values": {
+                    "LEFT": {
+                            "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                            "group": "entity",
+                            "vertex": 5,
+                            "properties": {
+                                "count": 3
+                            }
+                        },
+                    "RIGHT": [
+                        {
+                            "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                            "group": "BasicEntity",
+                            "vertex": 6,
+                            "properties": {
+                                "count": 30
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+        ```
+
+### Flattened left key inner join
+??? example "ElementMatch example"
+    === "Java"
+
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.INNER)
+                        .matchMethod(new ElementMatch("count"))
+                        .build())
+                .build();
+        ```
+
+    === "JSON"
+        
+        ``` json
+        {
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [ {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            } ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "ElementMatch"
+            },
+            "flatten" : true,
+            "joinType" : "INNER"
+        } ]
+        }
+        ```
+
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=True, 
+            join_type="INNER" 
+            ) 
+        ] 
+        )
+        ```
+
+    Results:
+
+    === "Java"
+        
+        ``` java
+        [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
+        [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] ]
+        [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
+        ```
+
+    === "JSON"
+        
+        ``` json
+        [
+            {
+                "values": {
+                "LEFT": {
+                    "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                    "group": "BasicEntity",
+                    "vertex": 1,
+                    "properties": {
+                    "count": 3
+                    }
+                },
+                "RIGHT": {
+                    "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                    "group": "BasicEntity",
+                    "vertex": 1,
+                    "properties": {
+                        "count": 3
+                    }
+                    }
+                }
+            },
+            {
+                "values": {
+            "LEFT": {
+                "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                "group": "BasicEntity",
+                "vertex": 4,
+                "properties": {
+                "count": 1
+                }
+            },
+            "RIGHT": {
+                "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                "group": "BasicEntity",
+                "vertex": 4,
+                "properties": {
+                    "count": 1
+                }
+                }
+            }
+            },
+            {
+                "values": {
+                "LEFT": {
+                    "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                    "group": "BasicEntity",
+                    "vertex": 5,
+                    "properties": {
+                    "count": 3
+                    }
+                },
+                "RIGHT": {
+                    "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                    "group": "BasicEntity",
+                    "vertex": 5,
+                    "properties": {
+                        "count": 3
+                    }
+                    }
+                }
+            },
+            {
+                "values": {
+                "LEFT": {
+                    "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                    "group": "BasicEntity",
+                    "vertex": "6",
+                    "properties": {
+                    "count": 30
+                    }
+                },
+                "RIGHT": {
+                    "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                    "group": "BasicEntity",
+                    "vertex": "6",
+                    "properties": {
+                        "count": 30
+                    }
+                    }
+                }
+            }
+        ]
+        ```
+
+??? example "KeyFunctionMatch with FunctionChain example"
+    === "Java"
+
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.INNER)
+                        .matchKey(MatchKey.LEFT)
+                        .matchMethod(new KeyFunctionMatch.Builder()
+                            .firstKeyFunction(new FunctionChain(new ExtractProperty("count"), new MultiplyBy(10)))
+                            .secondKeyFunction(new ExtractProperty("count"))
+                            .build())
+                        .build())
+                .build();
+        ```
+
+    === "JSON"
+        
+        ``` json
+        {
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [{
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            }
+            ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "KeyFunctionMatch",
+            "firstKeyFunction": {
+            "class" : "FunctionChain",
+            "functions" : [ {
+                "class" : "ExtractProperty",
+                "name": "count"
+            }, {
+            "class" : "MultiplyBy",
+            "by" : 10
+            }
+            ]
+            },
+            "secondKeyFunction": {
+                "class": "ExtractProperty",
+                "name": "count"  
+                }
+            },
+            "matchKey": "LEFT",
+            "joinType" : "INNER"
+        } ]
+        }
+        ```
+
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=False, 
+            match_key="LEFT", 
+            join_type="INNER" 
+            ) 
+        ] 
+        )
+        ```
+
+    Results:
+
+    === "Java"
+        
+        ``` java
+        [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        ```
+
+    === "JSON"
+        
+        ``` json
+        [
+            {
+                "values": {
+                    "LEFT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 1,
+                        "properties": {
+                            "count": 3
+                        }
+                    },
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": 6,
+                        "properties": {
+                            "count": 30
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "LEFT": {
+                            "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                            "group": "entity",
+                            "vertex": 5,
+                            "properties": {
+                                "count": 3
+                            }
+                        },
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": 6,
+                        "properties": {
+                            "count": 30
+                        }
+                    }
+                }
+            }
+        ]
+        ```
+
+
+### Right key inner join
+??? example "ElementMatch example"
+    === "Java"
+
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.INNER)
+                        .matchKey(MatchKey.RIGHT)
+                        .flatten(false)
+                        .matchMethod(new ElementMatch("count"))
+                        .build())
+                .build();
+        ```
+
+    === "JSON"
+        
+        ``` json
+        {
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [ {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            } ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "ElementMatch"
+            },
+            "matchKey" : "RIGHT",
+            "flatten" : false,
+            "joinType" : "INNER"
+        } ]
+        }
+        ```
+
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=False, 
+            match_key="RIGHT", 
+            join_type="INNER" 
+            ) 
+        ] 
+        )
+        ```
+
+    Results:
+
+    === "Java"
+        
+        ``` java
+        [ [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] --> Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
+        [ [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] --> Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
+        [ [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] --> Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] ]
+        ```
+
+    === "JSON"
+        
+        ``` json
+        [ {
+        "values" : {
+            "LEFT" : [ {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            } ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : [ {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            } ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : [ {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            } ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }
+        }
+        } ]
+        ```
+??? example "KeyFunctionMatch with FunctionChain example"
+    === "Java"
+
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.INNER)
+                        .matchKey(MatchKey.RIGHT)
+                        .flatten(false)
+                        .matchMethod(new KeyFunctionMatch.Builder()
+                            .firstKeyFunction(new FunctionChain(new ExtractProperty("count"), new MultiplyBy(10)))
+                            .secondKeyFunction(new ExtractProperty("count"))
+                            .build())
+                        .build())
+                .build();
+        ```
+
+    === "JSON"
+        
+        ``` json
+        {
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [{
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            }
+            ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "KeyFunctionMatch",
+            "firstKeyFunction": {
+            "class" : "FunctionChain",
+            "functions" : [ {
+                "class" : "ExtractProperty",
+                "name": "count"
+            }, {
+            "class" : "MultiplyBy",
+            "by" : 10
+            }
+            ]
+            },
+            "secondKeyFunction": {
+                "class": "ExtractProperty",
+                "name": "count"  
+                }
+            },
+            "matchKey": "RIGHT",
+            "flatten": false,
+            "joinType" : "INNER"
+        } ]
+        }
+        ```
+
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=False, 
+            match_key="LEFT", 
+            join_type="INNER" 
+            ) 
+        ] 
+        )
+        ```
+
+    Results:
+
+    === "Java"
+        
+        ``` java
+        [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        ```
+
+    === "JSON"
+        
+        ``` json
+        [
+            {
+                "values": {
+                    "LEFT": [
+                        {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 6,
+                        "properties": {
+                            "count": 30
+                        }
+                        }
+                    ],
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": 1,
+                        "properties": {
+                        "count": 3
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "LEFT": [
+                        {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 6,
+                        "properties": {
+                            "count": 30
+                        }
+                        }
+                    ],
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": 5,
+                        "properties": {
+                        "count": 3
+                        }
+                    }
+                }
+            }
+        ]
+        ```
+
+### Flattened right key inner join
+??? example "ElementMatch example"
+    === "Java"
+
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .matchKey(MatchKey.RIGHT)
+                        .joinType(JoinType.INNER)
+                        .matchMethod(new ElementMatch("count"))
+                        .build())
+                .build();
+        ```
+
+    === "JSON"
+        
+        ``` json
+        {
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [ {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            } ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "ElementMatch"
+            },
+            "matchKey" : "RIGHT",
+            "joinType" : "INNER"
+        } ]
+        }
+        ```
+
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=True, 
+            match_key="RIGHT", 
+            join_type="INNER" 
+            ) 
+        ] 
+        )
+        ```
+
+    Results:
+
+    === "Java"
+        
+        ``` java
+        [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
+        [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
+        [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] ]
+        ```
+
+    === "JSON"
+        
+        ``` json
+        [ {
+        "values" : {
+            "LEFT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            },
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            },
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            },
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }
+        }
+        } ]
+        ```
+??? example "KeyFunctionMatch with FunctionChain example"
+    === "Java"
+
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.INNER)
+                        .matchKey(MatchKey.RIGHT)
+                        .matchMethod(new KeyFunctionMatch.Builder()
+                            .firstKeyFunction(new FunctionChain(new ExtractProperty("count"), new MultiplyBy(10)))
+                            .secondKeyFunction(new ExtractProperty("count"))
+                            .build())
+                        .build())
+                .build();
+        ```
+
+    === "JSON"
+        
+        ``` json
+        {
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [{
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            }
+            ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "KeyFunctionMatch",
+            "firstKeyFunction": {
+            "class" : "FunctionChain",
+            "functions" : [ {
+                "class" : "ExtractProperty",
+                "name": "count"
+            }, {
+            "class" : "MultiplyBy",
+            "by" : 10
+            }
+            ]
+            },
+            "secondKeyFunction": {
+                "class": "ExtractProperty",
+                "name": "count"  
+                }
+            },
+            "matchKey": "RIGHT",
+            "joinType" : "INNER"
+        } ]
+        }
+        ```
+
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=False, 
+            match_key="LEFT", 
+            join_type="INNER" 
+            ) 
+        ] 
+        )
+        ```
+
+    Results:
+
+    === "Java"
+        
+        ``` java
+        [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        ```
+
+    === "JSON"
+        
+        ``` json
+        [
+            {
+                "values": {
+                    "LEFT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 6,
+                        "properties": {
+                            "count": 30
+                        }
+                    },
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": 1,
+                        "properties": {
+                        "count": 3
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "LEFT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 6,
+                        "properties": {
+                            "count": 30
+                        }
+                    },
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": 5,
+                        "properties": {
+                        "count": 3
+                        }
+                    }
+                }
+            }
+        ]
+        ```
+
+### Left key full join
+??? example "ElementMatch example"
+    === "Java"
+
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.FULL)
+                        .matchKey(MatchKey.LEFT)
+                        .flatten(false)
+                        .matchMethod(new ElementMatch("count"))
+                        .build())
+                .build();
+        ```
+
+    === "JSON"
+        
+        ``` json
+        {
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [ {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            } ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "ElementMatch"
+            },
+            "matchKey" : "LEFT",
+            "flatten" : false,
+            "joinType" : "FULL"
+        } ]
+        }
+        ```
+
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=False, 
+            match_key="LEFT", 
+            join_type="FULL" 
+            ) 
+        ] 
+        )
+        ```
+
+    Results:
+
+    === "Java"
+        
+        ``` java
+        [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        [ Entity[vertex=6,group=entity,properties=Properties[count=<java.lang.Integer>30]] --> [] ]
         ```
 
     === "JSON"
@@ -409,2276 +1672,3005 @@ The following Join examples use these input elements:
             }
             } ]
         }
+        }, {
+        "values" : {
+            "LEFT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            },
+            "RIGHT" : [ ]
+        }
+        } ]
+        ```
+??? example "KeyFunctionMatch with FunctionChain example"
+    === "Java"
+
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.FULL)
+                        .matchKey(MatchKey.LEFT)
+                        .flatten(false)
+                        .matchMethod(new KeyFunctionMatch.Builder()
+                            .firstKeyFunction(new FunctionChain(new ExtractProperty("count"), new MultiplyBy(10)))
+                            .secondKeyFunction(new ExtractProperty("count"))
+                            .build())
+                        .build())
+                .build();
+        ```
+
+    === "JSON"
+        
+        ``` json
+        {
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [{
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            }
+            ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "KeyFunctionMatch",
+            "firstKeyFunction": {
+            "class" : "FunctionChain",
+            "functions" : [ {
+                "class" : "ExtractProperty",
+                "name": "count"
+            }, {
+            "class" : "MultiplyBy",
+            "by" : 10
+            }
+            ]
+            },
+            "secondKeyFunction": {
+                "class": "ExtractProperty",
+                "name": "count"  
+                }
+            },
+            "matchKey": "LEFT",
+            "flatten": false,
+            "joinType" : "FULL"
+        } ]
+        }
+        ```
+
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=False, 
+            match_key="LEFT", 
+            join_type="INNER" 
+            ) 
+        ] 
+        )
+        ```
+
+    Results:
+
+    === "Java"
+        
+        ``` java
+        [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        ```
+
+    === "JSON"
+        
+        ``` json
+        [
+            {
+                "values": {
+                    "LEFT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 1,
+                        "properties": {
+                            "count": 3
+                        }
+                    },
+                    "RIGHT": [
+                        {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": "6",
+                        "properties": {
+                            "count": 30
+                        }
+                        }
+                    ]
+                }
+            },
+            {
+                "values": {
+                    "LEFT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 4,
+                        "properties": {
+                            "count": 1
+                        }
+                    },
+                    "RIGHT": []
+                }
+            },
+            {
+                "values": {
+                    "LEFT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 5,
+                        "properties": {
+                            "count": 3
+                        }
+                    },
+                    "RIGHT": [
+                        {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": "6",
+                        "properties": {
+                            "count": 30
+                        }
+                        }
+                    ]
+                }
+            },
+            {
+                "values": {
+                    "LEFT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 6,
+                        "properties": {
+                            "count": 30
+                        }
+                    },
+                    "RIGHT": []
+                }
+            }
+        ]
+        ```
+
+### Flattened left key full join
+??? example "ElementMatch example"
+    === "Java"
+
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.FULL)
+                        .matchKey(MatchKey.LEFT)
+                        .matchMethod(new ElementMatch("count"))
+                        .build())
+                .build();
+        ```
+
+    === "JSON"
+        
+        ``` json
+        {
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [ {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            } ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "ElementMatch"
+            },
+            "matchKey" : "LEFT",
+            "joinType" : "FULL"
+        } ]
+        }
+        ```
+
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=True, 
+            match_key="LEFT", 
+            join_type="FULL" 
+            ) 
+        ] 
+        )
+        ```
+
+    Results:
+
+    === "Java"
+        
+        ``` java
+        [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
+        [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] ]
+        [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
+        [ Entity[vertex=6,group=entity,properties=Properties[count=<java.lang.Integer>30]] --> null ]
+        ```
+
+    === "JSON"
+        
+        ``` json
+        [ {
+        "values" : {
+            "LEFT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            },
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            },
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            },
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            },
+            "RIGHT" : null
+        }
+        } ]
+        ```
+??? example "KeyFunctionMatch with FunctionChain example"
+    === "Java"
+
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.FULL)
+                        .matchKey(MatchKey.LEFT)
+                        .matchMethod(new KeyFunctionMatch.Builder()
+                            .firstKeyFunction(new FunctionChain(new ExtractProperty("count"), new MultiplyBy(10)))
+                            .secondKeyFunction(new ExtractProperty("count"))
+                            .build())
+                        .build())
+                .build();
+        ```
+
+    === "JSON"
+        
+        ``` json
+        {
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [{
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            }
+            ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "KeyFunctionMatch",
+            "firstKeyFunction": {
+            "class" : "FunctionChain",
+            "functions" : [ {
+                "class" : "ExtractProperty",
+                "name": "count"
+            }, {
+            "class" : "MultiplyBy",
+            "by" : 10
+            }
+            ]
+            },
+            "secondKeyFunction": {
+                "class": "ExtractProperty",
+                "name": "count"  
+                }
+            },
+            "matchKey": "LEFT",
+            "joinType" : "FULL"
+        } ]
+        }
+        ```
+
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=False, 
+            match_key="LEFT", 
+            join_type="INNER" 
+            ) 
+        ] 
+        )
+        ```
+
+    Results:
+
+    === "Java"
+        
+        ``` java
+        [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        ```
+
+    === "JSON"
+        
+        ``` json
+        [
+            {
+                "values": {
+                    "LEFT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 1,
+                        "properties": {
+                            "count": 3
+                        }
+                    },
+                "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": "6",
+                        "properties": {
+                            "count": 30
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "LEFT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 4,
+                        "properties": {
+                        "   count": 1
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "LEFT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 5,
+                        "properties": {
+                            "count": 3
+                        }
+                    },
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": "6",
+                        "properties": {
+                        "   count": 30
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "LEFT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 6,
+                        "properties": {
+                            "count": 30
+                        }
+                    }
+                }
+            }
+        ]
+        ```
+
+### Right key full join
+??? example "ElementMatch example"
+    === "Java"
+
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.FULL)
+                        .matchKey(MatchKey.RIGHT)
+                        .flatten(false)
+                        .matchMethod(new ElementMatch("count"))
+                        .build())
+                .build();
+        ```
+
+    === "JSON"
+        
+        ``` json
+        {
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [ {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            } ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "ElementMatch"
+            },
+            "matchKey" : "RIGHT",
+            "flatten" : false,
+            "joinType" : "FULL"
+        } ]
+        }
+        ```
+
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=False, 
+            match_key="RIGHT", 
+            join_type="FULL" 
+            ) 
+        ] 
+        )
+        ```
+
+    Results:
+
+    === "Java"
+        
+        ``` java
+        [ [] --> Edge[source=1,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
+        [ [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] --> Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
+        [ [] --> Edge[source=3,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>4]] ]
+        [ [] --> Entity[vertex=2,group=entity,properties=Properties[count=<java.lang.Integer>1]] ]
+        [ [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] --> Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
+        [ [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] --> Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] ]
+        [ [] --> Edge[source=2,destination=3,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>2]] ]
+        [ [] --> Entity[vertex=3,group=entity,properties=Properties[count=<java.lang.Integer>2]] ]
+        [ [] --> Edge[source=2,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
+        [ [] --> Edge[source=1,destination=2,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>3]] ]
+        [ [] --> Edge[source=2,destination=5,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
+        ```
+
+    === "JSON"
+        
+        ``` json
+        [ {
+        "values" : {
+            "LEFT" : [ ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 1,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : [ {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            } ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : [ ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 3,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 4
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : [ ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 2,
+            "properties" : {
+                "count" : 1
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : [ {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            } ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : [ {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            } ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : [ ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 3,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 2
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : [ ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 3,
+            "properties" : {
+                "count" : 2
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : [ ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : [ ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 1,
+            "destination" : 2,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 3
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : [ ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 5,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
+            }
+        }
+        } ]
+        ```
+??? example "KeyFunctionMatch with FunctionChain example"
+    === "Java"
+
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.FULL)
+                        .matchKey(MatchKey.RIGHT)
+                        .flatten(false)
+                        .matchMethod(new KeyFunctionMatch.Builder()
+                            .firstKeyFunction(new FunctionChain(new ExtractProperty("count"), new MultiplyBy(10)))
+                            .secondKeyFunction(new ExtractProperty("count"))
+                            .build())
+                        .build())
+                .build();
+        ```
+
+    === "JSON"
+        
+        ``` json
+        {
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [{
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            }
+            ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "KeyFunctionMatch",
+            "firstKeyFunction": {
+            "class" : "FunctionChain",
+            "functions" : [ {
+                "class" : "ExtractProperty",
+                "name": "count"
+            }, {
+            "class" : "MultiplyBy",
+            "by" : 10
+            }
+            ]
+            },
+            "secondKeyFunction": {
+                "class": "ExtractProperty",
+                "name": "count"  
+                }
+            },
+            "matchKey": "RIGHT",
+            "flatten": false,
+            "joinType" : "FULL"
+        } ]
+        }
+        ```
+
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=False, 
+            match_key="RIGHT", 
+            join_type="FULL" 
+            ) 
+        ] 
+        )
+        ```
+
+    Results:
+
+    === "Java"
+        
+        ``` java
+        [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        ```
+
+    === "JSON"
+        
+        ``` json
+        [
+            {
+                "values": {
+                    "LEFT": [
+                        {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 6,
+                        "properties": {
+                            "count": 30
+                        }
+                        }
+                    ],
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": 1,
+                        "properties": {
+                            "count": 3
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "LEFT": [],
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": 4,
+                        "properties": {
+                            "count": 1
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "LEFT": [
+                        {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 6,
+                        "properties": {
+                            "count": 30
+                        }
+                        }
+                    ],
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": 5,
+                        "properties": {
+                            "count": 3
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "LEFT": [],
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": 6,
+                        "properties": {
+                            "count": 30
+                        }
+                    }
+                }
+            }
+        ]
+        ```
+
+### Flattened right key full join
+??? example "ElementMatch example"
+    === "Java"
+
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.FULL)
+                        .matchKey(MatchKey.RIGHT)
+                        .matchMethod(new ElementMatch("count"))
+                        .build())
+                .build();
+        ```
+
+    === "JSON"
+        
+        ``` json
+        {
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [ {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            } ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "ElementMatch"
+            },
+            "matchKey" : "RIGHT",
+            "flatten" : true,
+            "joinType" : "FULL"
+        } ]
+        }
+        ```
+
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=True, 
+            match_key="RIGHT", 
+            join_type="FULL" 
+            ) 
+        ] 
+        )
+        ```
+
+    Results:
+
+    === "Java"
+        
+        ``` java
+        [ null --> Edge[source=1,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
+        [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
+        [ null --> Edge[source=3,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>4]] ]
+        [ null --> Entity[vertex=2,group=entity,properties=Properties[count=<java.lang.Integer>1]] ]
+        [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
+        [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] ]
+        [ null --> Edge[source=2,destination=3,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>2]] ]
+        [ null --> Entity[vertex=3,group=entity,properties=Properties[count=<java.lang.Integer>2]] ]
+        [ null --> Edge[source=2,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
+        [ null --> Edge[source=1,destination=2,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>3]] ]
+        [ null --> Edge[source=2,destination=5,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
+        ```
+
+    === "JSON"
+        
+        ``` json
+        [ {
+        "values" : {
+            "LEFT" : null,
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 1,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            },
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : null,
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 3,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 4
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : null,
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 2,
+            "properties" : {
+                "count" : 1
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            },
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            },
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : null,
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 3,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 2
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : null,
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 3,
+            "properties" : {
+                "count" : 2
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : null,
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : null,
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 1,
+            "destination" : 2,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 3
+            }
+            }
+        }
+        }, {
+        "values" : {
+            "LEFT" : null,
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 5,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
+            }
+        }
         } ]
         ```
 
-### Flattened left key inner join
+??? example "KeyFunctionMatch with FunctionChain example"
+    === "Java"
 
-=== "Java"
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.FULL)
+                        .matchKey(MatchKey.RIGHT)
+                        .matchMethod(new KeyFunctionMatch.Builder()
+                            .firstKeyFunction(new FunctionChain(new ExtractProperty("count"), new MultiplyBy(10)))
+                            .secondKeyFunction(new ExtractProperty("count"))
+                            .build())
+                        .build())
+                .build();
+        ```
 
-    ``` java
-    final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
-            .first(new Join.Builder<>()
-                    .input(inputElements)
-                    .operation(new GetAllElements())
-                    .joinType(JoinType.INNER)
-                    .matchMethod(new ElementMatch("count"))
-                    .build())
-            .build();
-    ```
-
-=== "JSON"
-    
-    ``` json
-    {
-    "class" : "OperationChain",
-    "operations" : [ {
-        "class" : "Join",
-        "input" : [ {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 6,
-        "properties" : {
-            "count" : 30
-        }
-        } ],
-        "operation" : {
-        "class" : "GetAllElements"
-        },
-        "matchMethod" : {
-        "class" : "ElementMatch"
-        },
-        "flatten" : true,
-        "joinType" : "INNER"
-    } ]
-    }
-    ```
-
-=== "Python"
-    
-    ``` python
-    g.OperationChain( 
-    operations=[ 
-        g.Join( 
-        operation=g.GetAllElements(), 
-        match_method=g.ElementMatch(), 
-        input=[ 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=1 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 1}, 
-            vertex=4 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=5 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 30}, 
-            vertex=6 
-            ) 
-        ], 
-        flatten=True, 
-        join_type="INNER" 
-        ) 
-    ] 
-    )
-    ```
-
-Results:
-
-=== "Java"
-    
-    ``` java
-    [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
-    [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] ]
-    [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
-    ```
-
-=== "JSON"
-    
-    ``` json
-    [
+    === "JSON"
+        
+        ``` json
         {
-            "values": {
-            "LEFT": {
-                "class": "uk.gov.gchq.gaffer.data.element.Entity",
-                "group": "BasicEntity",
-                "vertex": "1",
-                "properties": {
-                "count": 3
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [{
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            }
+            ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "KeyFunctionMatch",
+            "firstKeyFunction": {
+            "class" : "FunctionChain",
+            "functions" : [ {
+                "class" : "ExtractProperty",
+                "name": "count"
+            }, {
+            "class" : "MultiplyBy",
+            "by" : 10
+            }
+            ]
+            },
+            "secondKeyFunction": {
+                "class": "ExtractProperty",
+                "name": "count"  
                 }
             },
-            "RIGHT": [
-                {
-                "class": "uk.gov.gchq.gaffer.data.element.Entity",
-                "group": "BasicEntity",
-                "vertex": "1",
-                "properties": {
-                    "count": 3
-                }
-                }
-            ]
-            }
-        },
-        {
-            "values": {
-        "LEFT": {
-            "class": "uk.gov.gchq.gaffer.data.element.Entity",
-            "group": "BasicEntity",
-            "vertex": "4",
-            "properties": {
-            "count": 1
-            }
-        },
-        "RIGHT": [
+            "matchKey": "RIGHT",
+            "joinType" : "FULL"
+        } ]
+        }
+        ```
+
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=False, 
+            match_key="RIGHT", 
+            join_type="FULL" 
+            ) 
+        ] 
+        )
+        ```
+
+    Results:
+
+    === "Java"
+        
+        ``` java
+        [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        ```
+
+    === "JSON"
+        
+        ``` json
+        [
             {
-            "class": "uk.gov.gchq.gaffer.data.element.Entity",
-            "group": "BasicEntity",
-            "vertex": "4",
-            "properties": {
-                "count": 1
-            }
+                "values": {
+                    "LEFT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 6,
+                        "properties": {
+                            "count": 30
+                        }
+                    },
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": 1,
+                        "properties": {
+                            "count": 3
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": 4,
+                        "properties": {
+                            "count": 1
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "LEFT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 6,
+                        "properties": {
+                            "count": 30
+                        }
+                    },
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": 5,
+                        "properties": {
+                            "count": 3
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": 6,
+                        "properties": {
+                            "count": 30
+                        }
+                    }
+                }
             }
         ]
-        }
-        },
-        {
-            "values": {
-            "LEFT": {
-                "class": "uk.gov.gchq.gaffer.data.element.Entity",
-                "group": "BasicEntity",
-                "vertex": "5",
-                "properties": {
-                "count": 3
-                }
-            },
-            "RIGHT": [
-                {
-                "class": "uk.gov.gchq.gaffer.data.element.Entity",
-                "group": "BasicEntity",
-                "vertex": "5",
-                "properties": {
-                    "count": 3
-                }
-                }
-            ]
-            }
-        },
-        {
-            "values": {
-            "LEFT": {
-                "class": "uk.gov.gchq.gaffer.data.element.Entity",
-                "group": "BasicEntity",
-                "vertex": "6",
-                "properties": {
-                "count": 30
-                }
-            },
-            "RIGHT": [
-                {
-                "class": "uk.gov.gchq.gaffer.data.element.Entity",
-                "group": "BasicEntity",
-                "vertex": "6",
-                "properties": {
-                    "count": 30
-                }
-                }
-            ]
-            }
-        }
-    ]
-    ```
-
-### Right key inner join
-
-=== "Java"
-
-    ``` java
-    final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
-            .first(new Join.Builder<>()
-                    .input(inputElements)
-                    .operation(new GetAllElements())
-                    .joinType(JoinType.INNER)
-                    .matchKey(MatchKey.RIGHT)
-                    .flatten(false)
-                    .matchMethod(new ElementMatch("count"))
-                    .build())
-            .build();
-    ```
-
-=== "JSON"
-    
-    ``` json
-    {
-    "class" : "OperationChain",
-    "operations" : [ {
-        "class" : "Join",
-        "input" : [ {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 6,
-        "properties" : {
-            "count" : 30
-        }
-        } ],
-        "operation" : {
-        "class" : "GetAllElements"
-        },
-        "matchMethod" : {
-        "class" : "ElementMatch"
-        },
-        "matchKey" : "RIGHT",
-        "flatten" : false,
-        "joinType" : "INNER"
-    } ]
-    }
-    ```
-
-=== "Python"
-    
-    ``` python
-    g.OperationChain( 
-    operations=[ 
-        g.Join( 
-        operation=g.GetAllElements(), 
-        match_method=g.ElementMatch(), 
-        input=[ 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=1 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 1}, 
-            vertex=4 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=5 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 30}, 
-            vertex=6 
-            ) 
-        ], 
-        flatten=False, 
-        match_key="RIGHT", 
-        join_type="INNER" 
-        ) 
-    ] 
-    )
-    ```
-
-Results:
-
-=== "Java"
-    
-    ``` java
-    [ [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] --> Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
-    [ [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] --> Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
-    [ [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] --> Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] ]
-    ```
-
-=== "JSON"
-    
-    ``` json
-    [ {
-    "values" : {
-        "LEFT" : [ {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        } ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : [ {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        } ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : [ {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        } ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        }
-    }
-    } ]
-    ```
-
-### Flattened right key inner join
-
-=== "Java"
-
-    ``` java
-    final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
-            .first(new Join.Builder<>()
-                    .input(inputElements)
-                    .operation(new GetAllElements())
-                    .flatten(true)
-                    .matchKey(MatchKey.RIGHT)
-                    .joinType(JoinType.INNER)
-                    .matchMethod(new ElementMatch("count"))
-                    .build())
-            .build();
-    ```
-
-=== "JSON"
-    
-    ``` json
-    {
-    "class" : "OperationChain",
-    "operations" : [ {
-        "class" : "Join",
-        "input" : [ {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 6,
-        "properties" : {
-            "count" : 30
-        }
-        } ],
-        "operation" : {
-        "class" : "GetAllElements"
-        },
-        "matchMethod" : {
-        "class" : "ElementMatch"
-        },
-        "matchKey" : "RIGHT",
-        "flatten" : true,
-        "joinType" : "INNER"
-    } ]
-    }
-    ```
-
-=== "Python"
-    
-    ``` python
-    g.OperationChain( 
-    operations=[ 
-        g.Join( 
-        operation=g.GetAllElements(), 
-        match_method=g.ElementMatch(), 
-        input=[ 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=1 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 1}, 
-            vertex=4 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=5 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 30}, 
-            vertex=6 
-            ) 
-        ], 
-        flatten=True, 
-        match_key="RIGHT", 
-        join_type="INNER" 
-        ) 
-    ] 
-    )
-    ```
-
-Results:
-
-=== "Java"
-    
-    ``` java
-    [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
-    [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
-    [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] ]
-    ```
-
-=== "JSON"
-    
-    ``` json
-    [ {
-    "values" : {
-        "LEFT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        },
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        },
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        },
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        }
-    }
-    } ]
-    ```
-
-### Left key full join
-
-=== "Java"
-
-    ``` java
-    final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
-            .first(new Join.Builder<>()
-                    .input(inputElements)
-                    .operation(new GetAllElements())
-                    .joinType(JoinType.FULL)
-                    .matchKey(MatchKey.LEFT)
-                    .flatten(false)
-                    .matchMethod(new ElementMatch("count"))
-                    .build())
-            .build();
-    ```
-
-=== "JSON"
-    
-    ``` json
-    {
-    "class" : "OperationChain",
-    "operations" : [ {
-        "class" : "Join",
-        "input" : [ {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 6,
-        "properties" : {
-            "count" : 30
-        }
-        } ],
-        "operation" : {
-        "class" : "GetAllElements"
-        },
-        "matchMethod" : {
-        "class" : "ElementMatch"
-        },
-        "matchKey" : "LEFT",
-        "flatten" : false,
-        "joinType" : "FULL"
-    } ]
-    }
-    ```
-
-=== "Python"
-    
-    ``` python
-    g.OperationChain( 
-    operations=[ 
-        g.Join( 
-        operation=g.GetAllElements(), 
-        match_method=g.ElementMatch(), 
-        input=[ 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=1 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 1}, 
-            vertex=4 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=5 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 30}, 
-            vertex=6 
-            ) 
-        ], 
-        flatten=False, 
-        match_key="LEFT", 
-        join_type="FULL" 
-        ) 
-    ] 
-    )
-    ```
-
-Results:
-
-=== "Java"
-    
-    ``` java
-    [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
-    [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] ]
-    [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
-    [ Entity[vertex=6,group=entity,properties=Properties[count=<java.lang.Integer>30]] --> [] ]
-    ```
-
-=== "JSON"
-    
-    ``` json
-    [ {
-    "values" : {
-        "LEFT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        },
-        "RIGHT" : [ {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        } ]
-    }
-    }, {
-    "values" : {
-        "LEFT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        },
-        "RIGHT" : [ {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        } ]
-    }
-    }, {
-    "values" : {
-        "LEFT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        },
-        "RIGHT" : [ {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        } ]
-    }
-    }, {
-    "values" : {
-        "LEFT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 6,
-        "properties" : {
-            "count" : 30
-        }
-        },
-        "RIGHT" : [ ]
-    }
-    } ]
-    ```
-
-### Flattened left key full join
-
-=== "Java"
-
-    ``` java
-    final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
-            .first(new Join.Builder<>()
-                    .input(inputElements)
-                    .operation(new GetAllElements())
-                    .joinType(JoinType.FULL)
-                    .matchKey(MatchKey.LEFT)
-                    .matchMethod(new ElementMatch("count"))
-                    .build())
-            .build();
-    ```
-
-=== "JSON"
-    
-    ``` json
-    {
-    "class" : "OperationChain",
-    "operations" : [ {
-        "class" : "Join",
-        "input" : [ {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 6,
-        "properties" : {
-            "count" : 30
-        }
-        } ],
-        "operation" : {
-        "class" : "GetAllElements"
-        },
-        "matchMethod" : {
-        "class" : "ElementMatch"
-        },
-        "matchKey" : "LEFT",
-        "flatten" : true,
-        "joinType" : "FULL"
-    } ]
-    }
-    ```
-
-=== "Python"
-    
-    ``` python
-    g.OperationChain( 
-    operations=[ 
-        g.Join( 
-        operation=g.GetAllElements(), 
-        match_method=g.ElementMatch(), 
-        input=[ 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=1 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 1}, 
-            vertex=4 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=5 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 30}, 
-            vertex=6 
-            ) 
-        ], 
-        flatten=True, 
-        match_key="LEFT", 
-        join_type="FULL" 
-        ) 
-    ] 
-    )
-    ```
-
-Results:
-
-=== "Java"
-    
-    ``` java
-    [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
-    [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] ]
-    [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
-    [ Entity[vertex=6,group=entity,properties=Properties[count=<java.lang.Integer>30]] --> null ]
-    ```
-
-=== "JSON"
-    
-    ``` json
-    [ {
-    "values" : {
-        "LEFT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        },
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        },
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        },
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 6,
-        "properties" : {
-            "count" : 30
-        }
-        },
-        "RIGHT" : null
-    }
-    } ]
-    ```
-
-### Right key full join
-
-=== "Java"
-
-    ``` java
-    final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
-            .first(new Join.Builder<>()
-                    .input(inputElements)
-                    .operation(new GetAllElements())
-                    .joinType(JoinType.FULL)
-                    .matchKey(MatchKey.RIGHT)
-                    .flatten(false)
-                    .matchMethod(new ElementMatch("count"))
-                    .build())
-            .build();
-    ```
-
-=== "JSON"
-    
-    ``` json
-    {
-    "class" : "OperationChain",
-    "operations" : [ {
-        "class" : "Join",
-        "input" : [ {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 6,
-        "properties" : {
-            "count" : 30
-        }
-        } ],
-        "operation" : {
-        "class" : "GetAllElements"
-        },
-        "matchMethod" : {
-        "class" : "ElementMatch"
-        },
-        "matchKey" : "RIGHT",
-        "flatten" : false,
-        "joinType" : "FULL"
-    } ]
-    }
-    ```
-
-=== "Python"
-    
-    ``` python
-    g.OperationChain( 
-    operations=[ 
-        g.Join( 
-        operation=g.GetAllElements(), 
-        match_method=g.ElementMatch(), 
-        input=[ 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=1 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 1}, 
-            vertex=4 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=5 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 30}, 
-            vertex=6 
-            ) 
-        ], 
-        flatten=False, 
-        match_key="RIGHT", 
-        join_type="FULL" 
-        ) 
-    ] 
-    )
-    ```
-
-Results:
-
-=== "Java"
-    
-    ``` java
-    [ [] --> Edge[source=1,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
-    [ [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] --> Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
-    [ [] --> Edge[source=3,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>4]] ]
-    [ [] --> Entity[vertex=2,group=entity,properties=Properties[count=<java.lang.Integer>1]] ]
-    [ [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] --> Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
-    [ [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] --> Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] ]
-    [ [] --> Edge[source=2,destination=3,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>2]] ]
-    [ [] --> Entity[vertex=3,group=entity,properties=Properties[count=<java.lang.Integer>2]] ]
-    [ [] --> Edge[source=2,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
-    [ [] --> Edge[source=1,destination=2,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>3]] ]
-    [ [] --> Edge[source=2,destination=5,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
-    ```
-
-=== "JSON"
-    
-    ``` json
-    [ {
-    "values" : {
-        "LEFT" : [ ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 1,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : [ {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        } ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : [ ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 3,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 4
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : [ ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 2,
-        "properties" : {
-            "count" : 1
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : [ {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        } ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : [ {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        } ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : [ ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 3,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 2
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : [ ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 3,
-        "properties" : {
-            "count" : 2
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : [ ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : [ ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 1,
-        "destination" : 2,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 3
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : [ ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 5,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
-        }
-    }
-    } ]
-    ```
-
-### Flattened right key full join
-
-=== "Java"
-
-    ``` java
-    final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
-            .first(new Join.Builder<>()
-                    .input(inputElements)
-                    .operation(new GetAllElements())
-                    .joinType(JoinType.FULL)
-                    .matchKey(MatchKey.RIGHT)
-                    .matchMethod(new ElementMatch("count"))
-                    .build())
-            .build();
-    ```
-
-=== "JSON"
-    
-    ``` json
-    {
-    "class" : "OperationChain",
-    "operations" : [ {
-        "class" : "Join",
-        "input" : [ {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 6,
-        "properties" : {
-            "count" : 30
-        }
-        } ],
-        "operation" : {
-        "class" : "GetAllElements"
-        },
-        "matchMethod" : {
-        "class" : "ElementMatch"
-        },
-        "matchKey" : "RIGHT",
-        "flatten" : true,
-        "joinType" : "FULL"
-    } ]
-    }
-    ```
-
-=== "Python"
-    
-    ``` python
-    g.OperationChain( 
-    operations=[ 
-        g.Join( 
-        operation=g.GetAllElements(), 
-        match_method=g.ElementMatch(), 
-        input=[ 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=1 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 1}, 
-            vertex=4 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=5 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 30}, 
-            vertex=6 
-            ) 
-        ], 
-        flatten=True, 
-        match_key="RIGHT", 
-        join_type="FULL" 
-        ) 
-    ] 
-    )
-    ```
-
-Results:
-
-=== "Java"
-    
-    ``` java
-    [ null --> Edge[source=1,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
-    [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
-    [ null --> Edge[source=3,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>4]] ]
-    [ null --> Entity[vertex=2,group=entity,properties=Properties[count=<java.lang.Integer>1]] ]
-    [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] ]
-    [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] ]
-    [ null --> Edge[source=2,destination=3,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>2]] ]
-    [ null --> Entity[vertex=3,group=entity,properties=Properties[count=<java.lang.Integer>2]] ]
-    [ null --> Edge[source=2,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
-    [ null --> Edge[source=1,destination=2,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>3]] ]
-    [ null --> Edge[source=2,destination=5,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
-    ```
-
-=== "JSON"
-    
-    ``` json
-    [ {
-    "values" : {
-        "LEFT" : null,
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 1,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        },
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : null,
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 3,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 4
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : null,
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 2,
-        "properties" : {
-            "count" : 1
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        },
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        },
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : null,
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 3,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 2
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : null,
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 3,
-        "properties" : {
-            "count" : 2
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : null,
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : null,
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 1,
-        "destination" : 2,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 3
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : null,
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 5,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
-        }
-    }
-    } ]
-    ```
+        ```
 
 ### Left key outer join
+??? example "ElementMatch example"
+    === "Java"
 
-=== "Java"
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.OUTER)
+                        .matchKey(MatchKey.LEFT)
+                        .flatten(false)
+                        .matchMethod(new ElementMatch("count"))
+                        .build())
+                .build();
+        ```
 
-    ``` java
-    final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
-            .first(new Join.Builder<>()
-                    .input(inputElements)
-                    .operation(new GetAllElements())
-                    .joinType(JoinType.OUTER)
-                    .matchKey(MatchKey.LEFT)
-                    .flatten(false)
-                    .matchMethod(new ElementMatch("count"))
-                    .build())
-            .build();
-    ```
+    === "JSON"
+        
+        ``` json
+        {
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [ {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            } ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "ElementMatch"
+            },
+            "matchKey" : "LEFT",
+            "flatten" : false,
+            "joinType" : "OUTER"
+        } ]
+        }
+        ```
 
-=== "JSON"
-    
-    ``` json
-    {
-    "class" : "OperationChain",
-    "operations" : [ {
-        "class" : "Join",
-        "input" : [ {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 6,
-        "properties" : {
-            "count" : 30
-        }
-        } ],
-        "operation" : {
-        "class" : "GetAllElements"
-        },
-        "matchMethod" : {
-        "class" : "ElementMatch"
-        },
-        "matchKey" : "LEFT",
-        "flatten" : false,
-        "joinType" : "OUTER"
-    } ]
-    }
-    ```
-
-=== "Python"
-    
-    ``` python
-    g.OperationChain( 
-    operations=[ 
-        g.Join( 
-        operation=g.GetAllElements(), 
-        match_method=g.ElementMatch(), 
-        input=[ 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=1 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 1}, 
-            vertex=4 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=5 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 30}, 
-            vertex=6 
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=False, 
+            match_key="LEFT", 
+            join_type="OUTER" 
             ) 
-        ], 
-        flatten=False, 
-        match_key="LEFT", 
-        join_type="OUTER" 
-        ) 
-    ] 
-    )
-    ```
+        ] 
+        )
+        ```
 
-Results:
+    Results:
 
-=== "Java"
-    
-    ``` java
-    [ Entity[vertex=6,group=entity,properties=Properties[count=<java.lang.Integer>30]] --> [] ]
-    ```
+    === "Java"
+        
+        ``` java
+        [ Entity[vertex=6,group=entity,properties=Properties[count=<java.lang.Integer>30]] --> [] ]
+        ```
 
-=== "JSON"
-    
-    ``` json
-    [ {
-    "values" : {
-        "LEFT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 6,
-        "properties" : {
-            "count" : 30
+    === "JSON"
+        
+        ``` json
+        [ {
+        "values" : {
+            "LEFT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            },
+            "RIGHT" : [ ]
         }
-        },
-        "RIGHT" : [ ]
-    }
-    } ]
-    ```
+        } ]
+        ```
+
+??? example "KeyFunctionMatch with FunctionChain example"
+    === "Java"
+
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.OUTER)
+                        .matchKey(MatchKey.LEFT)
+                        .flatten(false)
+                        .matchMethod(new KeyFunctionMatch.Builder()
+                            .firstKeyFunction(new FunctionChain(new ExtractProperty("count"), new MultiplyBy(10)))
+                            .secondKeyFunction(new ExtractProperty("count"))
+                            .build())
+                        .build())
+                .build();
+        ```
+
+    === "JSON"
+        
+        ``` json
+        {
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [{
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            }
+            ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "KeyFunctionMatch",
+            "firstKeyFunction": {
+            "class" : "FunctionChain",
+            "functions" : [ {
+                "class" : "ExtractProperty",
+                "name": "count"
+            }, {
+            "class" : "MultiplyBy",
+            "by" : 10
+            }
+            ]
+            },
+            "secondKeyFunction": {
+                "class": "ExtractProperty",
+                "name": "count"  
+                }
+            },
+            "matchKey": "LEFT",
+            "flatten": false,
+            "joinType" : "OUTER"
+        } ]
+        }
+        ```
+
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=False, 
+            match_key="LEFT", 
+            join_type="OUTER" 
+            ) 
+        ] 
+        )
+        ```
+
+    Results:
+
+    === "Java"
+        
+        ``` java
+        [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        ```
+
+    === "JSON"
+        
+        ``` json
+        [
+            {
+                "values": {
+                    "LEFT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 4,
+                        "properties": {
+                            "count": 1
+                        }
+                    },
+                    "RIGHT": []
+                }
+            },
+            {
+                "values": {
+                    "LEFT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 6,
+                        "properties": {
+                            "count": 30
+                        }
+                    },
+                    "RIGHT": []
+                }
+            }
+        ]
+        ```
 
 ### Flattened left key outer join
+??? example "ElementMatch example"
+    === "Java"
 
-=== "Java"
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.OUTER)
+                        .matchKey(MatchKey.LEFT)
+                        .matchMethod(new ElementMatch("count"))
+                        .build())
+                .build();
+        ```
 
-    ``` java
-    final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
-            .first(new Join.Builder<>()
-                    .input(inputElements)
-                    .operation(new GetAllElements())
-                    .joinType(JoinType.OUTER)
-                    .matchKey(MatchKey.LEFT)
-                    .matchMethod(new ElementMatch("count"))
-                    .build())
-            .build();
-    ```
+    === "JSON"
+        
+        ``` json
+        {
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [ {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            } ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "ElementMatch"
+            },
+            "matchKey" : "LEFT",
+            "flatten" : true,
+            "joinType" : "OUTER"
+        } ]
+        }
+        ```
 
-=== "JSON"
-    
-    ``` json
-    {
-    "class" : "OperationChain",
-    "operations" : [ {
-        "class" : "Join",
-        "input" : [ {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 6,
-        "properties" : {
-            "count" : 30
-        }
-        } ],
-        "operation" : {
-        "class" : "GetAllElements"
-        },
-        "matchMethod" : {
-        "class" : "ElementMatch"
-        },
-        "matchKey" : "LEFT",
-        "flatten" : true,
-        "joinType" : "OUTER"
-    } ]
-    }
-    ```
-
-=== "Python"
-    
-    ``` python
-    g.OperationChain( 
-    operations=[ 
-        g.Join( 
-        operation=g.GetAllElements(), 
-        match_method=g.ElementMatch(), 
-        input=[ 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=1 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 1}, 
-            vertex=4 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=5 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 30}, 
-            vertex=6 
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=True, 
+            match_key="LEFT", 
+            join_type="OUTER" 
             ) 
-        ], 
-        flatten=True, 
-        match_key="LEFT", 
-        join_type="OUTER" 
-        ) 
-    ] 
-    )
-    ```
+        ] 
+        )
+        ```
 
-Results:
+    Results:
 
-=== "Java"
-    
-    ``` java
-    [ Entity[vertex=6,group=entity,properties=Properties[count=<java.lang.Integer>30]] --> null ]
-    ```
+    === "Java"
+        
+        ``` java
+        [ Entity[vertex=6,group=entity,properties=Properties[count=<java.lang.Integer>30]] --> null ]
+        ```
 
-=== "JSON"
-    
-    ``` json
-    [ {
-    "values" : {
-        "LEFT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 6,
-        "properties" : {
-            "count" : 30
+    === "JSON"
+        
+        ``` json
+        [ {
+        "values" : {
+            "LEFT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            },
+            "RIGHT" : null
         }
-        },
-        "RIGHT" : null
-    }
-    } ]
-    ```
+        } ]
+        ```
+??? example "KeyFunctionMatch with FunctionChain example"
+    === "Java"
+
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.OUTER)
+                        .matchKey(MatchKey.LEFT)
+                        .matchMethod(new KeyFunctionMatch.Builder()
+                            .firstKeyFunction(new FunctionChain(new ExtractProperty("count"), new MultiplyBy(10)))
+                            .secondKeyFunction(new ExtractProperty("count"))
+                            .build())
+                        .build())
+                .build();
+        ```
+
+    === "JSON"
+        
+        ``` json
+        {
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [{
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            }
+            ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "KeyFunctionMatch",
+            "firstKeyFunction": {
+            "class" : "FunctionChain",
+            "functions" : [ {
+                "class" : "ExtractProperty",
+                "name": "count"
+            }, {
+            "class" : "MultiplyBy",
+            "by" : 10
+            }
+            ]
+            },
+            "secondKeyFunction": {
+                "class": "ExtractProperty",
+                "name": "count"  
+                }
+            },
+            "matchKey": "LEFT",
+            "joinType" : "OUTER"
+        } ]
+        }
+        ```
+
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=False, 
+            match_key="LEFT", 
+            join_type="OUTER" 
+            ) 
+        ] 
+        )
+        ```
+
+    Results:
+
+    === "Java"
+        
+        ``` java
+        [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        ```
+
+    === "JSON"
+        
+        ``` json
+        [
+            {
+                "values": {
+                    "LEFT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 4,
+                        "properties": {
+                            "count": 1
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "LEFT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 6,
+                        "properties": {
+                            "count": 30
+                        }
+                    }
+                }
+            }
+        ]
+        ```
 
 ### Right key outer join
+??? example "ElementMatch example"
+    === "Java"
 
-=== "Java"
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.OUTER)
+                        .matchKey(MatchKey.RIGHT)
+                        .flatten(false)
+                        .matchMethod(new ElementMatch("count"))
+                        .build())
+                .build();
+        ```
 
-    ``` java
-    final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
-            .first(new Join.Builder<>()
-                    .input(inputElements)
-                    .operation(new GetAllElements())
-                    .joinType(JoinType.OUTER)
-                    .matchKey(MatchKey.RIGHT)
-                    .flatten(false)
-                    .matchMethod(new ElementMatch("count"))
-                    .build())
-            .build();
-    ```
+    === "JSON"
+        
+        ``` json
+        {
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [ {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            } ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "ElementMatch"
+            },
+            "matchKey" : "RIGHT",
+            "flatten" : false,
+            "joinType" : "OUTER"
+        } ]
+        }
+        ```
 
-=== "JSON"
-    
-    ``` json
-    {
-    "class" : "OperationChain",
-    "operations" : [ {
-        "class" : "Join",
-        "input" : [ {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 6,
-        "properties" : {
-            "count" : 30
-        }
-        } ],
-        "operation" : {
-        "class" : "GetAllElements"
-        },
-        "matchMethod" : {
-        "class" : "ElementMatch"
-        },
-        "matchKey" : "RIGHT",
-        "flatten" : false,
-        "joinType" : "OUTER"
-    } ]
-    }
-    ```
-
-=== "Python"
-    
-    ``` python
-    g.OperationChain( 
-    operations=[ 
-        g.Join( 
-        operation=g.GetAllElements(), 
-        match_method=g.ElementMatch(), 
-        input=[ 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=1 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 1}, 
-            vertex=4 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=5 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 30}, 
-            vertex=6 
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=False, 
+            match_key="RIGHT", 
+            join_type="OUTER" 
             ) 
-        ], 
-        flatten=False, 
-        match_key="RIGHT", 
-        join_type="OUTER" 
-        ) 
-    ] 
-    )
-    ```
+        ] 
+        )
+        ```
 
-Results:
+    Results:
 
-=== "Java"
-    
-    ``` java
-    [ [] --> Edge[source=1,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
-    [ [] --> Edge[source=3,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>4]] ]
-    [ [] --> Entity[vertex=2,group=entity,properties=Properties[count=<java.lang.Integer>1]] ]
-    [ [] --> Edge[source=2,destination=3,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>2]] ]
-    [ [] --> Entity[vertex=3,group=entity,properties=Properties[count=<java.lang.Integer>2]] ]
-    [ [] --> Edge[source=2,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
-    [ [] --> Edge[source=1,destination=2,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>3]] ]
-    [ [] --> Edge[source=2,destination=5,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
-    ```
+    === "Java"
+        
+        ``` java
+        [ [] --> Edge[source=1,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
+        [ [] --> Edge[source=3,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>4]] ]
+        [ [] --> Entity[vertex=2,group=entity,properties=Properties[count=<java.lang.Integer>1]] ]
+        [ [] --> Edge[source=2,destination=3,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>2]] ]
+        [ [] --> Entity[vertex=3,group=entity,properties=Properties[count=<java.lang.Integer>2]] ]
+        [ [] --> Edge[source=2,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
+        [ [] --> Edge[source=1,destination=2,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>3]] ]
+        [ [] --> Edge[source=2,destination=5,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
+        ```
 
-=== "JSON"
-    
-    ``` json
-    [ {
-    "values" : {
-        "LEFT" : [ ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 1,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
+    === "JSON"
+        
+        ``` json
+        [ {
+        "values" : {
+            "LEFT" : [ ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 1,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
+            }
         }
+        }, {
+        "values" : {
+            "LEFT" : [ ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 3,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 4
+            }
+            }
         }
-    }
-    }, {
-    "values" : {
-        "LEFT" : [ ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 3,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 4
+        }, {
+        "values" : {
+            "LEFT" : [ ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 2,
+            "properties" : {
+                "count" : 1
+            }
+            }
         }
+        }, {
+        "values" : {
+            "LEFT" : [ ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 3,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 2
+            }
+            }
         }
-    }
-    }, {
-    "values" : {
-        "LEFT" : [ ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 2,
-        "properties" : {
-            "count" : 1
+        }, {
+        "values" : {
+            "LEFT" : [ ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 3,
+            "properties" : {
+                "count" : 2
+            }
+            }
         }
+        }, {
+        "values" : {
+            "LEFT" : [ ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
+            }
         }
-    }
-    }, {
-    "values" : {
-        "LEFT" : [ ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 3,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 2
+        }, {
+        "values" : {
+            "LEFT" : [ ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 1,
+            "destination" : 2,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 3
+            }
+            }
         }
+        }, {
+        "values" : {
+            "LEFT" : [ ],
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 5,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
+            }
         }
-    }
-    }, {
-    "values" : {
-        "LEFT" : [ ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 3,
-        "properties" : {
-            "count" : 2
+        } ]
+        ```
+??? example "KeyFunctionMatch with FunctionChain example"
+    === "Java"
+
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.OUTER)
+                        .matchKey(MatchKey.RIGHT)
+                        .flatten(false)
+                        .matchMethod(new KeyFunctionMatch.Builder()
+                            .firstKeyFunction(new FunctionChain(new ExtractProperty("count"), new MultiplyBy(10)))
+                            .secondKeyFunction(new ExtractProperty("count"))
+                            .build())
+                        .build())
+                .build();
+        ```
+
+    === "JSON"
+        
+        ``` json
+        {
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [{
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            }
+            ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "KeyFunctionMatch",
+            "firstKeyFunction": {
+            "class" : "FunctionChain",
+            "functions" : [ {
+                "class" : "ExtractProperty",
+                "name": "count"
+            }, {
+            "class" : "MultiplyBy",
+            "by" : 10
+            }
+            ]
+            },
+            "secondKeyFunction": {
+                "class": "ExtractProperty",
+                "name": "count"  
+                }
+            },
+            "matchKey": "RIGHT",
+            "flatten": false,
+            "joinType" : "OUTER"
+        } ]
         }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : [ ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : [ ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 1,
-        "destination" : 2,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 3
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : [ ],
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 5,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
-        }
-    }
-    } ]
-    ```
+        ```
+
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=False, 
+            match_key="RIGHT", 
+            join_type="OUTER" 
+            ) 
+        ] 
+        )
+        ```
+
+    Results:
+
+    === "Java"
+        
+        ``` java
+        [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        ```
+
+    === "JSON"
+        
+        ``` json
+        [
+            {
+                "values": {
+                    "LEFT": [],
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": 4,
+                        "properties": {
+                            "count": 1
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "LEFT": [],
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": 6,
+                        "properties": {
+                            "count": 30
+                        }
+                    }
+                }
+            }
+        ]
+        ```
 
 ### Flattened right key outer join
+??? example "ElementMatch example"
+    === "Java"
 
-=== "Java"
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.OUTER)
+                        .matchKey(MatchKey.RIGHT)
+                        .matchMethod(new ElementMatch("count"))
+                        .build())
+                .build();
+        ```
 
-    ``` java
-    final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
-            .first(new Join.Builder<>()
-                    .input(inputElements)
-                    .operation(new GetAllElements())
-                    .joinType(JoinType.OUTER)
-                    .matchKey(MatchKey.RIGHT)
-                    .matchMethod(new ElementMatch("count"))
-                    .build())
-            .build();
-    ```
+    === "JSON"
+        
+        ``` json
+        {
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [ {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            } ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "ElementMatch"
+            },
+            "matchKey" : "RIGHT",
+            "flatten" : true,
+            "joinType" : "OUTER"
+        } ]
+        }
+        ```
 
-=== "JSON"
-    
-    ``` json
-    {
-    "class" : "OperationChain",
-    "operations" : [ {
-        "class" : "Join",
-        "input" : [ {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 1,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 4,
-        "properties" : {
-            "count" : 1
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 5,
-        "properties" : {
-            "count" : 3
-        }
-        }, {
-        "class" : "Entity",
-        "group" : "entity",
-        "vertex" : 6,
-        "properties" : {
-            "count" : 30
-        }
-        } ],
-        "operation" : {
-        "class" : "GetAllElements"
-        },
-        "matchMethod" : {
-        "class" : "ElementMatch"
-        },
-        "matchKey" : "RIGHT",
-        "flatten" : true,
-        "joinType" : "OUTER"
-    } ]
-    }
-    ```
-
-=== "Python"
-    
-    ``` python
-    g.OperationChain( 
-    operations=[ 
-        g.Join( 
-        operation=g.GetAllElements(), 
-        match_method=g.ElementMatch(), 
-        input=[ 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=1 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 1}, 
-            vertex=4 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 3}, 
-            vertex=5 
-            ), 
-            g.Entity( 
-            group="entity", 
-            properties={'count': 30}, 
-            vertex=6 
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=True, 
+            match_key="RIGHT", 
+            join_type="OUTER" 
             ) 
-        ], 
-        flatten=True, 
-        match_key="RIGHT", 
-        join_type="OUTER" 
-        ) 
-    ] 
-    )
-    ```
+        ] 
+        )
+        ```
 
-Results:
+    Results:
 
-=== "Java"
-    
-    ``` java
-    [ null --> Edge[source=1,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
-    [ null --> Edge[source=3,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>4]] ]
-    [ null --> Entity[vertex=2,group=entity,properties=Properties[count=<java.lang.Integer>1]] ]
-    [ null --> Edge[source=2,destination=3,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>2]] ]
-    [ null --> Entity[vertex=3,group=entity,properties=Properties[count=<java.lang.Integer>2]] ]
-    [ null --> Edge[source=2,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
-    [ null --> Edge[source=1,destination=2,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>3]] ]
-    [ null --> Edge[source=2,destination=5,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
-    ```
+    === "Java"
+        
+        ``` java
+        [ null --> Edge[source=1,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
+        [ null --> Edge[source=3,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>4]] ]
+        [ null --> Entity[vertex=2,group=entity,properties=Properties[count=<java.lang.Integer>1]] ]
+        [ null --> Edge[source=2,destination=3,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>2]] ]
+        [ null --> Entity[vertex=3,group=entity,properties=Properties[count=<java.lang.Integer>2]] ]
+        [ null --> Edge[source=2,destination=4,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
+        [ null --> Edge[source=1,destination=2,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>3]] ]
+        [ null --> Edge[source=2,destination=5,directed=true,matchedVertex=SOURCE,group=edge,properties=Properties[count=<java.lang.Integer>1]] ]
+        ```
 
-=== "JSON"
-    
-    ``` json
-    [ {
-    "values" : {
-        "LEFT" : null,
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 1,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
+    === "JSON"
+        
+        ``` json
+        [ {
+        "values" : {
+            "LEFT" : null,
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 1,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
+            }
         }
+        }, {
+        "values" : {
+            "LEFT" : null,
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 3,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 4
+            }
+            }
         }
-    }
-    }, {
-    "values" : {
-        "LEFT" : null,
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 3,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 4
+        }, {
+        "values" : {
+            "LEFT" : null,
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 2,
+            "properties" : {
+                "count" : 1
+            }
+            }
         }
+        }, {
+        "values" : {
+            "LEFT" : null,
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 3,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 2
+            }
+            }
         }
-    }
-    }, {
-    "values" : {
-        "LEFT" : null,
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 2,
-        "properties" : {
-            "count" : 1
+        }, {
+        "values" : {
+            "LEFT" : null,
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+            "group" : "entity",
+            "vertex" : 3,
+            "properties" : {
+                "count" : 2
+            }
+            }
         }
+        }, {
+        "values" : {
+            "LEFT" : null,
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 4,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
+            }
         }
-    }
-    }, {
-    "values" : {
-        "LEFT" : null,
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 3,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 2
+        }, {
+        "values" : {
+            "LEFT" : null,
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 1,
+            "destination" : 2,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 3
+            }
+            }
         }
+        }, {
+        "values" : {
+            "LEFT" : null,
+            "RIGHT" : {
+            "class" : "uk.gov.gchq.gaffer.data.element.Edge",
+            "group" : "edge",
+            "source" : 2,
+            "destination" : 5,
+            "directed" : true,
+            "matchedVertex" : "SOURCE",
+            "properties" : {
+                "count" : 1
+            }
+            }
         }
-    }
-    }, {
-    "values" : {
-        "LEFT" : null,
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-        "group" : "entity",
-        "vertex" : 3,
-        "properties" : {
-            "count" : 2
+        } ]
+        ```
+
+??? example "KeyFunctionMatch with FunctionChain example"
+    === "Java"
+
+        ``` java
+        final OperationChain<Iterable<? extends MapTuple>> opChain = new OperationChain.Builder()
+                .first(new Join.Builder<>()
+                        .input(inputElements)
+                        .operation(new GetAllElements())
+                        .joinType(JoinType.OUTER)
+                        .matchKey(MatchKey.RIGHT)
+                        .matchMethod(new KeyFunctionMatch.Builder()
+                            .firstKeyFunction(new FunctionChain(new ExtractProperty("count"), new MultiplyBy(10)))
+                            .secondKeyFunction(new ExtractProperty("count"))
+                            .build())
+                        .build())
+                .build();
+        ```
+
+    === "JSON"
+        
+        ``` json
+        {
+        "class" : "OperationChain",
+        "operations" : [ {
+            "class" : "Join",
+            "input" : [{
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 1,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 4,
+            "properties" : {
+                "count" : 1
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 5,
+            "properties" : {
+                "count" : 3
+            }
+            }, {
+            "class" : "Entity",
+            "group" : "entity",
+            "vertex" : 6,
+            "properties" : {
+                "count" : 30
+            }
+            }
+            ],
+            "operation" : {
+            "class" : "GetAllElements"
+            },
+            "matchMethod" : {
+            "class" : "KeyFunctionMatch",
+            "firstKeyFunction": {
+            "class" : "FunctionChain",
+            "functions" : [ {
+                "class" : "ExtractProperty",
+                "name": "count"
+            }, {
+            "class" : "MultiplyBy",
+            "by" : 10
+            }
+            ]
+            },
+            "secondKeyFunction": {
+                "class": "ExtractProperty",
+                "name": "count"  
+                }
+            },
+            "matchKey": "RIGHT",
+            "joinType" : "OUTER"
+        } ]
         }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : null,
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 4,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : null,
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 1,
-        "destination" : 2,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 3
-        }
-        }
-    }
-    }, {
-    "values" : {
-        "LEFT" : null,
-        "RIGHT" : {
-        "class" : "uk.gov.gchq.gaffer.data.element.Edge",
-        "group" : "edge",
-        "source" : 2,
-        "destination" : 5,
-        "directed" : true,
-        "matchedVertex" : "SOURCE",
-        "properties" : {
-            "count" : 1
-        }
-        }
-    }
-    } ]
-    ```
+        ```
+
+    === "Python"
+        
+        ``` python
+        g.OperationChain( 
+        operations=[ 
+            g.Join( 
+            operation=g.GetAllElements(), 
+            match_method=g.ElementMatch(), 
+            input=[ 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=1 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 1}, 
+                vertex=4 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 3}, 
+                vertex=5 
+                ), 
+                g.Entity( 
+                group="entity", 
+                properties={'count': 30}, 
+                vertex=6 
+                ) 
+            ], 
+            flatten=True, 
+            match_key="RIGHT", 
+            join_type="OUTER" 
+            ) 
+        ] 
+        )
+        ```
+
+    Results:
+
+    === "Java"
+        
+        ``` java
+        [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        ```
+
+    === "JSON"
+        
+        ``` json
+        [
+            {
+                "values": {
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": 4,
+                        "properties": {
+                            "count": 1
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "BasicEntity",
+                        "vertex": 6,
+                        "properties": {
+                            "count": 30
+                        }
+                    }
+                }
+            }
+        ]
+        ```
