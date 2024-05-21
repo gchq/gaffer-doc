@@ -27,6 +27,8 @@ The properties in bold are set based on the type of Gaffer Store, for how to con
 | `gaffer.store.operation.declarations` | None | Path to [Operation Declarations](../../development-guide/example-deployment/project-setup.md#operations-declarations) files (separate multiple files with commas) |
 | `gaffer.store.operation.declarations.json` | None | JSON String containing [Operation Declarations](../../development-guide/example-deployment/project-setup.md#operations-declarations) |
 | `gaffer.store.job.tracker.enabled` | False | Controls if the Job Tracker is to be used |
+| `gaffer.store.namedoperation.enabled` | True| Controls if Named Operations can be used |
+| `gaffer.store.namedview.enabled` | True | Controls if Named Views can be used |
 | `gaffer.store.job.executor.threads` | 50 | Number of threads to be used by the Job Tracker [ExecutorService](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/commonutil/ExecutorService.html) |
 | `gaffer.store.admin.auth` | None | String for Auth to associate with Administrator Users |
 | `gaffer.store.reflection.packages` | None | Reflection Packages to add to Koryphe [ReflectionUtil](https://gchq.github.io/koryphe/uk/gov/gchq/koryphe/util/ReflectionUtil.html) |
@@ -106,7 +108,7 @@ You could also set the default cache suffix to share everything and set a specif
 
 Some operations are not available by default and you will need to manually configure them.
 
-These customisable operations can be added to your Gaffer graph by providing config in one or more operation declaration JSON files.
+These customisable operations can be added to your Gaffer graph by providing config in one or more [operation declaration JSON files](../gaffer-config/config.md#operationsdeclarationsjson).
 
 ### Named Operations
 Named Operations depends on the Cache service being active at runtime. See [Caches](#caches) above for how to enable these.

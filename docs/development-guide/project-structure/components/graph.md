@@ -44,7 +44,7 @@ The `GraphConfig` can be configured with the following:
 
  - `graphId` - The `graphId` is a String field that uniquely identifies a `Graph`. When backed by a Store like Accumulo, this `graphId` is used as the name of the Accumulo table for the `Graph`.
  - `description` - a string describing the `Graph`.
- - `view` - The `Graph View` allows a graph to be configured to only returned a subset of Elements when any Operation is executed. For example if you want your `Graph` to only show data that has a count more than 10 you could add a View to every operation you execute, or you can use this `Graph View` to apply the filter once and it would be merged into to all Operation Views so users only ever see this particular view of the data.
+ - `view` - The `Graph View` allows a graph to be configured to only return a subset of Elements when any Operation is executed. For example if you want your `Graph` to only show data that has a count more than 10 you could add a View to every operation you execute, or you can use this `Graph View` to apply the filter once and it would be merged into to all Operation Views so users only ever see this particular view of the data.
  - `library` - This contains information about the `Schema` and `StoreProperties` to be used.
  - `hooks` - A list of `GraphHook`s that will be triggered before, after and on failure when operations are executed on the `Graph`. See [GraphHooks](#graph-hooks) for more information.
 
