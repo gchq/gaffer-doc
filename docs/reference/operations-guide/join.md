@@ -19,7 +19,7 @@ Once matched, the left and right sides are outputted as MapTuples keyed by "LEFT
 
 ## Examples
 
-The following Join examples use these input elements:
+The following Join examples use these input elements to query [this directed graph](https://gchq.github.io/gaffer-doc/latest/reference/operations-guide/core/):
 ``` json
 [ {
     "class" : "uk.gov.gchq.gaffer.data.element.Entity",
@@ -519,7 +519,6 @@ The following Join examples use these input elements:
             "matchMethod" : {
             "class" : "ElementMatch"
             },
-            "flatten" : true,
             "joinType" : "INNER"
         } ]
         }
@@ -577,81 +576,81 @@ The following Join examples use these input elements:
         [
             {
                 "values": {
-                "LEFT": {
-                    "class": "uk.gov.gchq.gaffer.data.element.Entity",
-                    "group": "entity",
-                    "vertex": 1,
-                    "properties": {
-                    "count": 3
-                    }
-                },
-                "RIGHT": {
-                    "class": "uk.gov.gchq.gaffer.data.element.Entity",
-                    "group": "entity",
-                    "vertex": 1,
-                    "properties": {
+                    "LEFT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 1,
+                        "properties": {
                         "count": 3
-                    }
+                        }
+                    },
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 1,
+                        "properties": {
+                            "count": 3
+                        }
                     }
                 }
             },
             {
                 "values": {
-            "LEFT": {
-                "class": "uk.gov.gchq.gaffer.data.element.Entity",
-                "group": "entity",
-                "vertex": 4,
-                "properties": {
-                "count": 1
-                }
-            },
-            "RIGHT": {
-                "class": "uk.gov.gchq.gaffer.data.element.Entity",
-                "group": "entity",
-                "vertex": 4,
-                "properties": {
-                    "count": 1
-                }
-                }
+                    "LEFT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 4,
+                        "properties": {
+                        "count": 1
+                        }
+                    },
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 4,
+                        "properties": {
+                            "count": 1
+                        }
+                        }
             }
             },
             {
                 "values": {
-                "LEFT": {
-                    "class": "uk.gov.gchq.gaffer.data.element.Entity",
-                    "group": "entity",
-                    "vertex": 5,
-                    "properties": {
-                    "count": 3
-                    }
-                },
-                "RIGHT": {
-                    "class": "uk.gov.gchq.gaffer.data.element.Entity",
-                    "group": "entity",
-                    "vertex": 5,
-                    "properties": {
+                    "LEFT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 5,
+                        "properties": {
                         "count": 3
-                    }
+                        }
+                    },
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 5,
+                        "properties": {
+                            "count": 3
+                        }
                     }
                 }
             },
             {
                 "values": {
-                "LEFT": {
-                    "class": "uk.gov.gchq.gaffer.data.element.Entity",
-                    "group": "entity",
-                    "vertex": 6,
-                    "properties": {
-                    "count": 30
-                    }
-                },
-                "RIGHT": {
-                    "class": "uk.gov.gchq.gaffer.data.element.Entity",
-                    "group": "entity",
-                    "vertex": 6,
-                    "properties": {
+                    "LEFT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 6,
+                        "properties": {
                         "count": 30
-                    }
+                        }
+                    },
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 6,
+                        "properties": {
+                            "count": 30
+                        }
                     }
                 }
             }
@@ -1005,64 +1004,72 @@ The following Join examples use these input elements:
     === "JSON"
         
         ``` json
-        [ {
+        [ 
+            {
+            "values" : {
+                "LEFT" : [
+                    {
+                    "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+                    "group" : "entity",
+                    "vertex" : 5,
+                    "properties" : {
+                        "count" : 3
+                        }
+                    } 
+                ],
+                "RIGHT" : {
+                    "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+                    "group" : "entity",
+                    "vertex" : 5,
+                    "properties" : {
+                        "count" : 3
+                    }
+                }
+            }
+        }, {
         "values" : {
-            "LEFT" : [ {
-            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-            "group" : "entity",
-            "vertex" : 5,
-            "properties" : {
-                "count" : 3
-            }
-            } ],
+            "LEFT" : [ 
+                {
+                "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+                "group" : "entity",
+                "vertex" : 1,
+                "properties" : {
+                    "count" : 3
+                    }
+                }
+            ],
             "RIGHT" : {
-            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-            "group" : "entity",
-            "vertex" : 5,
-            "properties" : {
-                "count" : 3
-            }
+                "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+                "group" : "entity",
+                "vertex" : 1,
+                "properties" : {
+                    "count" : 3
+                }
             }
         }
         }, {
-        "values" : {
-            "LEFT" : [ {
-            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-            "group" : "entity",
-            "vertex" : 1,
-            "properties" : {
-                "count" : 3
+            "values" : {
+                "LEFT" : [
+                    {
+                    "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+                    "group" : "entity",
+                    "vertex" : 4,
+                    "properties" : {
+                        "count" : 1
+                        }
+                    }
+                ],
+                "RIGHT" : {
+                    "class" : "uk.gov.gchq.gaffer.data.element.Entity",
+                    "group" : "entity",
+                    "vertex" : 4,
+                    "properties" : {
+                        "count" : 1
+                    }
+                }
             }
-            } ],
-            "RIGHT" : {
-            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-            "group" : "entity",
-            "vertex" : 1,
-            "properties" : {
-                "count" : 3
-            }
-            }
-        }
-        }, {
-        "values" : {
-            "LEFT" : [ {
-            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-            "group" : "entity",
-            "vertex" : 4,
-            "properties" : {
-                "count" : 1
-            }
-            } ],
-            "RIGHT" : {
-            "class" : "uk.gov.gchq.gaffer.data.element.Entity",
-            "group" : "entity",
-            "vertex" : 4,
-            "properties" : {
-                "count" : 1
-            }
-            }
-        }
-        } ]
+        } 
+        ]
         ```
 ??? example "KeyFunctionMatch with FunctionChain example"
     === "Java"
@@ -1979,8 +1986,8 @@ The following Join examples use these input elements:
                     vertex=6 
                     ) 
             ], 
-            match_key="LEFT",
             flatten=False,
+            match_key="LEFT",
             join_type="FULL" 
             ) 
         ] 
@@ -3223,7 +3230,6 @@ The following Join examples use these input elements:
             "class" : "ElementMatch"
             },
             "matchKey" : "RIGHT",
-            "flatten" : true,
             "joinType" : "FULL"
         } ]
         }
@@ -4161,7 +4167,6 @@ The following Join examples use these input elements:
             "class" : "ElementMatch"
             },
             "matchKey" : "LEFT",
-            "flatten" : true,
             "joinType" : "OUTER"
         } ]
         }
@@ -4710,7 +4715,13 @@ The following Join examples use these input elements:
         operations=[ 
             g.Join( 
             operation=g.GetAllElements(), 
-            match_method=g.ElementMatch(), 
+            match_method=g.KeyFunctionMatch(
+                first_key_function=g.FunctionChain([
+                    g.ExtractProperty("count"),
+                    g.Increment(increment=1)
+                    ]),
+                second_key_function=g.ExtractProperty("count")
+                ), 
             input=[ 
                 g.Entity( 
                 group="entity", 
@@ -4746,9 +4757,15 @@ The following Join examples use these input elements:
     === "Java"
         
         ``` java
-        [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
-        [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] ]
-        [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        [ [] --> [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        [ [] --> [Edge[group=edge,source=1,destination=2,directed=true,properties=Properties[count=<java.lang.Integer>3]]] ]
+        [ [] --> [Edge[group=edge,source=1,destination=4,directed=true,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ [] --> [Entity[vertex=2,group=entity,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ [] --> [Edge[group=edge,source=2,destination=4,directed=true,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ [] --> [Edge[group=edge,source=2,destination=5,directed=true,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ [] --> [Edge[group=edge,source=3,destination=4,directed=true,properties=Properties[count=<java.lang.Integer>4]]] ]
+        [ [] --> [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ [] --> [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
         ```
 
     === "JSON"
@@ -4761,9 +4778,39 @@ The following Join examples use these input elements:
                     "RIGHT": {
                         "class": "uk.gov.gchq.gaffer.data.element.Entity",
                         "group": "entity",
-                        "vertex": 4,
+                        "vertex": 1,
                         "properties": {
-                            "count": 1
+                        "count": 3
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "LEFT": [],
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Edge",
+                        "group": "edge",
+                        "source": 1,
+                        "destination": 2,
+                        "directed": true,
+                        "properties": {
+                        "count": 3
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "LEFT": [],
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Edge",
+                        "group": "edge",
+                        "source": 1,
+                        "destination": 4,
+                        "directed": true,
+                        "properties": {
+                        "count": 1
                         }
                     }
                 }
@@ -4774,9 +4821,80 @@ The following Join examples use these input elements:
                     "RIGHT": {
                         "class": "uk.gov.gchq.gaffer.data.element.Entity",
                         "group": "entity",
-                        "vertex": 6,
+                        "vertex": 2,
                         "properties": {
-                            "count": 30
+                        "count": 1
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "LEFT": [],
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Edge",
+                        "group": "edge",
+                        "source": 2,
+                        "destination": 4,
+                        "directed": true,
+                        "properties": {
+                        "count": 1
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "LEFT": [],
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Edge",
+                        "group": "edge",
+                        "source": 2,
+                        "destination": 5,
+                        "directed": true,
+                        "properties": {
+                        "count": 1
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "LEFT": [],
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Edge",
+                        "group": "edge",
+                        "source": 3,
+                        "destination": 4,
+                        "directed": true,
+                        "properties": {
+                        "count": 4
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "LEFT": [],
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 4,
+                        "properties": {
+                        "count": 1
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "LEFT": [],
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 5,
+                        "properties": {
+                        "count": 3
                         }
                     }
                 }
@@ -4843,7 +4961,6 @@ The following Join examples use these input elements:
             "class" : "ElementMatch"
             },
             "matchKey" : "RIGHT",
-            "flatten" : true,
             "joinType" : "OUTER"
         } ]
         }
@@ -5110,7 +5227,13 @@ The following Join examples use these input elements:
         operations=[ 
             g.Join( 
             operation=g.GetAllElements(), 
-            match_method=g.ElementMatch(), 
+            match_method=g.KeyFunctionMatch(
+                first_key_function=g.FunctionChain([
+                    g.ExtractProperty("count"),
+                    g.Increment(increment=1)
+                    ]),
+                second_key_function=g.ExtractProperty("count")
+                ), 
             input=[ 
                 g.Entity( 
                 group="entity", 
@@ -5145,9 +5268,15 @@ The following Join examples use these input elements:
     === "Java"
         
         ``` java
-        [ Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
-        [ Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]] --> [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] ]
-        [ Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]] --> [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        [ null --> [Entity[vertex=1,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
+        [ null --> [Edge[group=edge,source=1,destination=2,directed=true,properties=Properties[count=<java.lang.Integer>3]]] ]
+        [ null --> [Edge[group=edge,source=1,destination=4,directed=true,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ null --> [Entity[vertex=2,group=entity,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ null --> [Edge[group=edge,source=2,destination=4,directed=true,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ null --> [Edge[group=edge,source=2,destination=5,directed=true,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ null --> [Edge[group=edge,source=3,destination=4,directed=true,properties=Properties[count=<java.lang.Integer>4]]] ]
+        [ null --> [Entity[vertex=4,group=entity,properties=Properties[count=<java.lang.Integer>1]]] ]
+        [ null --> [Entity[vertex=5,group=entity,properties=Properties[count=<java.lang.Integer>3]]] ]
         ```
 
     === "JSON"
@@ -5159,9 +5288,37 @@ The following Join examples use these input elements:
                     "RIGHT": {
                         "class": "uk.gov.gchq.gaffer.data.element.Entity",
                         "group": "entity",
-                        "vertex": 4,
+                        "vertex": 1,
                         "properties": {
-                            "count": 1
+                        "count": 3
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Edge",
+                        "group": "edge",
+                        "source": 1,
+                        "destination": 2,
+                        "directed": true,
+                        "properties": {
+                        "count": 3
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Edge",
+                        "group": "edge",
+                        "source": 1,
+                        "destination": 4,
+                        "directed": true,
+                        "properties": {
+                        "count": 1
                         }
                     }
                 }
@@ -5171,9 +5328,75 @@ The following Join examples use these input elements:
                     "RIGHT": {
                         "class": "uk.gov.gchq.gaffer.data.element.Entity",
                         "group": "entity",
-                        "vertex": 6,
+                        "vertex": 2,
                         "properties": {
-                            "count": 30
+                        "count": 1
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Edge",
+                        "group": "edge",
+                        "source": 2,
+                        "destination": 4,
+                        "directed": true,
+                        "properties": {
+                        "count": 1
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Edge",
+                        "group": "edge",
+                        "source": 2,
+                        "destination": 5,
+                        "directed": true,
+                        "properties": {
+                        "count": 1
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Edge",
+                        "group": "edge",
+                        "source": 3,
+                        "destination": 4,
+                        "directed": true,
+                        "properties": {
+                        "count": 4
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 4,
+                        "properties": {
+                        "count": 1
+                        }
+                    }
+                }
+            },
+            {
+                "values": {
+                    "RIGHT": {
+                        "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                        "group": "entity",
+                        "vertex": 5,
+                        "properties": {
+                        "count": 3
                         }
                     }
                 }
