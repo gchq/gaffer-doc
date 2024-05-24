@@ -210,6 +210,7 @@ nav:
         - 'HDFS Operations': 'reference/operations-guide/hdfs.md'
         - 'Accumulo Operations': 'reference/operations-guide/accumulo.md'
         - 'Spark Operations': 'reference/operations-guide/spark.md'
+        - 'Proxy Operations': 'reference/operations-guide/proxy.md'
         - 'Misc Operations': 'reference/operations-guide/misc.md'
       - Endpoints:
         - 'Endpoints Guide': 'reference/endpoints-guide/endpoints.md'
