@@ -94,8 +94,8 @@ Operation | Type
 `federatedstore.operation.GetAllGraphInfo` | Federated
 `federatedstore.operation.RemoveGraph` | Federated
 `federatedstore.operation.RemoveGraphAndDeleteAllData` | Federated
-`proxystore.operation.GetProxyProperties` | Proxy
-`proxystore.operation.GetProxyUrl` | Proxy
+[`proxystore.operation.GetProxyProperties`](proxy.md#getproxyproperties) | Proxy
+[`proxystore.operation.GetProxyUrl`](proxy.md#getproxyurl) | Proxy
 `accumulostore.operation.hdfs.operation.ImportAccumuloKeyValueFiles` | Accumulo
 [<s>`accumulostore.operation.impl.GetElementsBetweenSets`</s>](accumulo.md#getelementsbetweensets) | Accumulo
 [`accumulostore.operation.impl.GetElementsBetweenSetsPairs`](accumulo.md#getelementsbetweensetspairs) | Accumulo
