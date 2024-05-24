@@ -2052,6 +2052,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../named-views/" class="md-nav__link">
+        Named Views
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../operation-score/" class="md-nav__link">
         Operation Score
       </a>
@@ -2085,17 +2099,17 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_10" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_11" >
       
       
       
-        <label class="md-nav__link" for="__nav_4_10" id="__nav_4_10_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_4_11" id="__nav_4_11_label" tabindex="0">
           Security
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_10_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_4_10">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_11">
           <span class="md-nav__icon md-icon"></span>
           Security
         </label>
@@ -2975,6 +2989,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../reference/operations-guide/proxy/" class="md-nav__link">
+        Proxy Operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../reference/operations-guide/misc/" class="md-nav__link">
         Misc Operations
       </a>
@@ -3235,6 +3263,16 @@ Most properties are optional and don't need to be specified or configured, defau
 <td>Controls if the Job Tracker is to be used</td>
 </tr>
 <tr>
+<td><code>gaffer.store.namedoperation.enabled</code></td>
+<td>True</td>
+<td>Controls if Named Operations can be used</td>
+</tr>
+<tr>
+<td><code>gaffer.store.namedview.enabled</code></td>
+<td>True</td>
+<td>Controls if Named Views can be used</td>
+</tr>
+<tr>
 <td><code>gaffer.store.job.executor.threads</code></td>
 <td>50</td>
 <td>Number of threads to be used by the Job Tracker <a href="https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/commonutil/ExecutorService.html">ExecutorService</a></td>
@@ -3369,7 +3407,7 @@ Adding a Named Operation to a Federated Store won't make it available to sub-gra
 You could also set the default cache suffix to share everything and set a specific suffix to be different and therefore not shared.</p>
 <h2 id="configuring-customisable-operations">Configuring customisable Operations</h2>
 <p>Some operations are not available by default and you will need to manually configure them.</p>
-<p>These customisable operations can be added to your Gaffer graph by providing config in one or more operation declaration JSON files.</p>
+<p>These customisable operations can be added to your Gaffer graph by providing config in one or more <a href="../../gaffer-config/config/#operationsdeclarationsjson">operation declaration JSON files</a>.</p>
 <h3 id="named-operations">Named Operations</h3>
 <p>Named Operations depends on the Cache service being active at runtime. See <a href="#caches">Caches</a> above for how to enable these.</p>
 <h3 id="scoreoperationchain">ScoreOperationChain</h3>
@@ -3434,7 +3472,7 @@ You could also set the default cache suffix to share everything and set a specif
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">March 21, 2024</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 16, 2024</span>
       
         <br>
         Created:

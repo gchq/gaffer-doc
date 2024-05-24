@@ -2002,6 +2002,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../administration-guide/named-views/" class="md-nav__link">
+        Named Views
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../administration-guide/operation-score/" class="md-nav__link">
         Operation Score
       </a>
@@ -2035,17 +2049,17 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_10" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_11" >
       
       
       
-        <label class="md-nav__link" for="__nav_4_10" id="__nav_4_10_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_4_11" id="__nav_4_11_label" tabindex="0">
           Security
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_10_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_4_10">
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_11">
           <span class="md-nav__icon md-icon"></span>
           Security
         </label>
@@ -2925,6 +2939,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../../../reference/operations-guide/proxy/" class="md-nav__link">
+        Proxy Operations
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../../../reference/operations-guide/misc/" class="md-nav__link">
         Misc Operations
       </a>
@@ -3109,7 +3137,7 @@ See <a href="../../../../administration-guide/gaffer-config/schema/">Schemas</a>
 <ul>
 <li><code>graphId</code> - The <code>graphId</code> is a String field that uniquely identifies a <code>Graph</code>. When backed by a Store like Accumulo, this <code>graphId</code> is used as the name of the Accumulo table for the <code>Graph</code>.</li>
 <li><code>description</code> - a string describing the <code>Graph</code>.</li>
-<li><code>view</code> - The <code>Graph View</code> allows a graph to be configured to only returned a subset of Elements when any Operation is executed. For example if you want your <code>Graph</code> to only show data that has a count more than 10 you could add a View to every operation you execute, or you can use this <code>Graph View</code> to apply the filter once and it would be merged into to all Operation Views so users only ever see this particular view of the data.</li>
+<li><code>view</code> - The <code>Graph View</code> allows a graph to be configured to only return a subset of Elements when any Operation is executed. For example if you want your <code>Graph</code> to only show data that has a count more than 10 you could add a View to every operation you execute, or you can use this <code>Graph View</code> to apply the filter once and it would be merged into to all Operation Views so users only ever see this particular view of the data.</li>
 <li><code>library</code> - This contains information about the <code>Schema</code> and <code>StoreProperties</code> to be used.</li>
 <li><code>hooks</code> - A list of <code>GraphHook</code>s that will be triggered before, after and on failure when operations are executed on the <code>Graph</code>. See <a href="#graph-hooks">GraphHooks</a> for more information.</li>
 </ul>
@@ -3184,7 +3212,7 @@ If you want to disable this hook, you should overwrite it by adding an empty Fun
   <small>
     
       Last update:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 6, 2023</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 14, 2024</span>
       
         <br>
         Created:
