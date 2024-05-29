@@ -12,20 +12,20 @@ transformation or just general manipulation of the results.
 Use cases with a `View` usually fall into one of the following catagories:
 
 - **Filtering** - General filtering on elements based on predicates. Filtering
-  can be applied pre-aggregation, post aggregation and post transformation.
+    can be applied pre-aggregation, post aggregation and post transformation.
 
 - **Aggregation** - This is to control how similar elements are aggregated
-  together. You can provide a subset of the schema `groupBy` properties and
-  override existing aggregation functions.
+    together. You can provide a subset of the schema `groupBy` properties and
+    override existing aggregation functions.
 
 - **Transformation** - Transformations can be applied by providing Functions to
-  transform properties and vertex values. This is a powerful feature, you can
-  override the existing values or you can transform and save the new value
-  into a new transient property.
+    transform properties and vertex values. This is a powerful feature, you can
+    override the existing values or you can transform and save the new value
+    into a new transient property.
 
 - **Property Removal** - The relevant properties you want to be returned can be
-  controlled. You can use either `properties` or `excludeProperties` to define
-  the list of properties to be included or excluded.
+    controlled. You can use either `properties` or `excludeProperties` to define
+    the list of properties to be included or excluded.
 
 ## Filtering in Practice
 
@@ -65,8 +65,8 @@ associated with it. Then we can apply a filter to include only edges where the
 `weight` property is over a certain value.
 
 !!! example ""
-    In this scenario it is analogous to asking, _"Get all the `Created` edges on
-    node `John` that have a `weight` greater than 0.4"_.
+    In this scenario it is analogous to asking, *"Get all the `Created` edges on
+    node `John` that have a `weight` greater than 0.4"*.
 
     === "Java"
 
