@@ -706,7 +706,7 @@ and to instead summarise all elements, e.g. all John committed to repo edges.
             "view": {
                 "edges": {
                     "Commit": {
-                        "groupBy" : [ ],
+                        "groupBy" : [],
                     }
 
                 }
@@ -736,7 +736,7 @@ and to instead summarise all elements, e.g. all John committed to repo edges.
 
     === "Java"
         ```java
-        Edge[source="John",destination=1,directed=true,matchedVertex=SOURCE,group=Commit,properties=Properties[date=<java.util.Date>Wed May 01 10:00:00 UTC 2024, count=<java.lang.Long>4]]
+        Edge[source="John",destination=1,directed=true,matchedVertex=SOURCE,group=Commit,properties=Properties[date=<java.util.Date>Wed May 01 00:00:00 UTC 2024, count=<java.lang.Long>4]]
         ```
 
 If you apply some pre-aggregation filtering, you can also select a time window to aggregate over.
@@ -755,10 +755,10 @@ If you apply some pre-aggregation filtering, you can also select a time window t
                     .edge("Commit", new ViewElementDefinition.Builder()
                          .preAggregationFilter(new ElementFilter.Builder()
                                 .select("date")
-                                .execute(new IsMoreThan(MAY_01_2024, true))
-                                .select("date")
-                                .execute(new IsLessThan(MAY_03_2024, false))
-                                .build())
+                                .execute(new InDateRange.Builder()
+                                    .start("2024/05/01")
+                                    .end("2024/05/03")
+                                .build()))
                             .groupBy()
                             .build())
                     .build())
@@ -783,13 +783,9 @@ If you apply some pre-aggregation filtering, you can also select a time window t
                         "preAggregationFilterFunctions": [{
                             "selection" : ["date"],
                             "predicate" : {
-                                "class": "IsMoreThan",
-                                "orEqualTo": true,
-                                "value": "2024-05-01T09:00:00"
-                            }, {
-                                "class": "IsLessThan",
-                                "orEqualTo": false,
-                                "value": "2024-05-03T11:00:00"
+                                "class" : "InDateRange",
+                                "start" : "2024/05/01",
+                                "end" : "2024/05/03"
                             }
                         }]
                     }
@@ -814,13 +810,9 @@ If you apply some pre-aggregation filtering, you can also select a time window t
                                 g.PredicateContext(
                                     predicate=g.Or(
                                         predicates=[
-                                            g.IsMoreThan(
-                                                value="2024-05-01T09:00:00",
-                                                or_equal_to=True
-                                            ),
-                                            g.IsLessThan(
-                                                value="2024-05-03T11:00:00",
-                                                or_equal_to=False
+                                            g.InDateRange(
+                                                start="2024/05/01",
+                                                end="2024/05/03"
                                             )
                                         ]
                                     )
@@ -837,7 +829,7 @@ If you apply some pre-aggregation filtering, you can also select a time window t
 
     === "Java"
         ```java
-        Edge[source="John",destination=1,directed=true,matchedVertex=SOURCE,group=Commit,properties=Properties[date=<java.util.Date>Wed May 01 10:00:00 UTC 2024, count=<java.lang.Long>2]]
+        Edge[source="John",destination=1,directed=true,matchedVertex=SOURCE,group=Commit,properties=Properties[date=<java.util.Date>Wed May 01 00:00:00 UTC 2024, count=<java.lang.Long>2]]
         ```
 
 There is also a more advanced feature of query-time aggregation which allows you to override
@@ -853,17 +845,16 @@ occurred will not be modified.
     between two dates. This is done by adding an extra 'aggregator' to the operation View.
 
     === "Java"
+
         ```java
         final GetAllElements edgesSummarisedInTimeWindowWithMinCountOperation = new GetAllElements.Builder()
             .view(new View.Builder()
                 .edge("RoadUse", new ViewElementDefinition.Builder()
                     .preAggregationFilter(new ElementFilter.Builder()
-                        .select("date")
-                        .execute(new IsMoreThan(MAY_01_2024, true))
-                        .select("date")
-                        .execute(new IsLessThan(MAY_06_2024, false))
-                        .build()
-                    )
+                        .execute(new InDateRange.Builder()
+                            .start("2024/05/01")
+                            .end("2024/05/05")
+                        .build()))
                     .groupBy()
                     .aggregator(new ElementAggregator.Builder()
                             .select("added")
@@ -885,22 +876,11 @@ occurred will not be modified.
                         "preAggregationFilterFunctions" : [ {
                             "selection" : [ "date" ],
                             "predicate" : {
-                                "class" : "IsMoreThan",
-                                "orEqualTo" : true,
-                                "value" : {
-                                "Date" : "2024-05-01T10:00:00"
-                                }
+                                "class" : "InDateRange",
+                                "start" : "2024/05/01",
+                                "end" : "2024/05/05"
                             }
-                        }, {
-                            "selection" : [ "date" ],
-                            "predicate" : {
-                                "class" : "IsLessThan",
-                                "orEqualTo" : false,
-                                "value" : {
-                                "Date" : "2024-05-06T11:00:00"
-                                }
-                            }
-                        } ],
+                        }],
                         "groupBy" : [ ],
                         "aggregator" : {
                             "operators" : [ {
@@ -931,13 +911,9 @@ occurred will not be modified.
                                 g.PredicateContext(
                                     predicate=g.Or(
                                         predicates=[
-                                            g.IsMoreThan(
-                                                value="2024-05-05T11:00:00",
-                                                or_equal_to=True
-                                            ),
-                                            g.IsLessThan(
-                                                value="2024-05-06T11:00:00",
-                                                or_equal_to=False
+                                            g.InDateRange(
+                                                start="2024/05/01",
+                                                end="2024/05/05"
                                             )
                                         ]
                                     )
@@ -987,7 +963,7 @@ This can be done using the ``globalElements` section in the view:
             ],
             "view": {
                 "globalElements": {
-                        "groupBy" : [ ]
+                    "groupBy" : []
                 }
             }
         }
@@ -999,9 +975,9 @@ This can be done using the ``globalElements` section in the view:
             operation = g.GetElements(
                 input = [g.EntitySeed(vertex = "John")]
                 view = g.View(
-                        global_elements = g.GlobalViewElementDefinition(
-                            group_by = []
-                        )
+                    global_elements = g.GlobalViewElementDefinition(
+                        group_by = []
+                    )
                 )
             )
         )
