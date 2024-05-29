@@ -71,6 +71,9 @@ plugins:
         'getting-started/guide/cardinality.md': 'user-guide/gaffer-basics/what-is-cardinality.md'
         'getting-started/quickstart.md': 'administration-guide/gaffer-deployment/quickstart.md'
         'getting-started/guide/guide.md': 'user-guide/introduction.md'
+  - offline
+  - privacy
+
 
 nav:
     - Home: 'index.md'
