@@ -12,20 +12,20 @@ transformation or just general manipulation of the results.
 Use cases with a `View` usually fall into one of the following catagories:
 
 - **Filtering** - General filtering on elements based on predicates. Filtering
-    can be applied pre-aggregation, post aggregation and post transformation.
+  can be applied pre-aggregation, post aggregation and post transformation.
 
 - **Aggregation** - This is to control how similar elements are aggregated
-    together. You can provide a subset of the schema `groupBy` properties and
-    override existing aggregation functions.
+  together. You can provide a subset of the schema `groupBy` properties and
+  override existing aggregation functions.
 
 - **Transformation** - Transformations can be applied by providing Functions to
-    transform properties and vertex values. This is a powerful feature, you can
-    override the existing values or you can transform and save the new value
-    into a new transient property.
+  transform properties and vertex values. This is a powerful feature, you can
+  override the existing values or you can transform and save the new value
+  into a new transient property.
 
 - **Property Removal** - The relevant properties you want to be returned can be
-    controlled. You can use either `properties` or `excludeProperties` to define
-    the list of properties to be included or excluded.
+  controlled. You can use either `properties` or `excludeProperties` to define
+  the list of properties to be included or excluded.
 
 ## Filtering in Practice
 
@@ -65,8 +65,8 @@ associated with it. Then we can apply a filter to include only edges where the
 `weight` property is over a certain value.
 
 !!! example ""
-    In this scenario it is analogous to asking, *"Get all the `Created` edges on
-    node `John` that have a `weight` greater than 0.4"*.
+    In this scenario it is analogous to asking, _"Get all the `Created` edges on
+    node `John` that have a `weight` greater than 0.4"_.
 
     === "Java"
 
@@ -128,16 +128,16 @@ associated with it. Then we can apply a filter to include only edges where the
 
         ```python
         elements = g_connector.execute_operation(
-            operation = gaffer.GetElements(
-                input = [gaffer.EntitySeed(vertex = "John")]
-                view = gaffer.View(
+            operation = g.GetElements(
+                input = [g.EntitySeed(vertex = "John")]
+                view = g.View(
                     edges = [
-                        gaffer.ElementDefinition(
+                        g.ElementDefinition(
                             group = 'Created',
                             pre_aggregation_filter_functions = [
-                                gaffer.PredicateContext(
+                                g.PredicateContext(
                                     selection = ['weight'],
-                                    predicate = gaffer.IsMoreThan(
+                                    predicate = g.IsMoreThan(
                                         value = {'java.lang.Float': 0.4},
                                         or_equal_to = False
                                     )
@@ -279,17 +279,17 @@ properties are returned.
 
         ```python
         elements = g_connector.execute_operation(
-            operation = gaffer.GetElements(
-                input = [gaffer.EntitySeed(vertex = "John")]
-                view = gaffer.View(
+            operation = g.GetElements(
+                input = [g.EntitySeed(vertex = "John")]
+                view = g.View(
                     edges = [
-                        gaffer.ElementDefinition(
+                        g.ElementDefinition(
                             group = 'Created',
                             properties = [ "hours" ]
                         )
                     ]
                     entities = [
-                        gaffer.ElementDefinition(
+                        g.ElementDefinition(
                             group = 'Person',
                             exclude_properties = [ "age" ]
                         )
@@ -421,17 +421,17 @@ and save the returned information into a new `minutes` transient property.
 
         ```python
         elements = g_connector.execute_operation(
-            operation = gaffer.GetElements(
-                input = [gaffer.EntitySeed(vertex = "John")]
-                view = gaffer.View(
+            operation = g.GetElements(
+                input = [g.EntitySeed(vertex = "John")]
+                view = g.View(
                     edges = [
-                        gaffer.ElementDefinition(
+                        g.ElementDefinition(
                             group = 'Created',
                             transient_properties = {'minutes': 'java.lang.Integer'},
                             transform_functions = [
-                                gaffer.FunctionContext(
+                                g.FunctionContext(
                                     selection = [ "hours" ],
-                                    function = gaffer.MultiplyBy(by = 60),
+                                    function = g.MultiplyBy(by = 60),
                                     projection = [ "minutes" ]
                                 )
                             ]
@@ -604,17 +604,17 @@ total for all the `added` and `removed` properties.
 
         ```python
         elements = g_connector.execute_operation(
-            operation = gaffer.GetElements(
-                input = [gaffer.EntitySeed(vertex = "John")]
-                view = gaffer.View(
+            operation = g.GetElements(
+                input = [g.EntitySeed(vertex = "John")]
+                view = g.View(
                     edges = [
-                        gaffer.ElementDefinition(
+                        g.ElementDefinition(
                             group = 'Commit',
                             group_by = [],
                             aggregate_functions = [
-                                gaffer.BinaryOperatorContext(
+                                g.BinaryOperatorContext(
                                     selection=[ "added", "removed" ],
-                                    binary_operator = gaffer.Sum()
+                                    binary_operator = g.Sum()
                                 )
                             ]
                         )
@@ -652,6 +652,359 @@ total for all the `added` and `removed` properties.
                 "properties": {}
             }
         ]
+        ```
+
+### Summarisation
+
+Elements in Gaffer are often stored in daily time buckets; this allows users to
+query a summary of the elements that occurred on a particular day. For example,
+a count of the commits John made to the repository on the first of the month. The daily time
+buckets are controlled by using the groupBy properties.
+
+You can get edges with the same source and destination aggregrated together,
+regardless of any dates. This is achieved by overriding the `groupBy` field
+with an empty array which tells Gaffer not to group by any properties
+and to instead summarise all elements, e.g. all John committed to repo edges.
+
+!!! example ""
+
+    So, we can add a timestamp to John's commit data:
+    ```
+        Commit, John, 1, 2024-05-01 10:00:00
+        Commit, John, 1, 2024-05-01 11:00:00
+        Commit, John, 1, 2024-05-04 09:30:00
+        Commit, John, 1, 2024-05-10 10:00:00
+        Commit, John, 1, 2024-05-10 16:50:00
+    ```
+    Then an empty `groupBy` tells Gaffer to not to group by any properties and
+    to just summarise all John's commits, regardless of date.
+
+    === "Java"
+
+        ```java
+        final GetElements getEdgesSummarised = new GetElements.Builder()
+            .input(new EntitySeed("John"))
+            .view(new View.Builder()
+                    .edge("Commit", new ViewElementDefinition.Builder()
+                            .groupBy()
+                            .build())
+                    .build())
+            .build();
+        ```
+
+    === "JSON"
+
+        ```json
+        {
+            "class": "GetElements",
+            "input": [
+                {
+                    "class": "EntitySeed",
+                    "vertex": "John"
+                }
+            ],
+            "view": {
+                "edges": {
+                    "Commit": {
+                        "groupBy" : [ ],
+                    }
+
+                }
+            }
+        }
+        ```
+
+    === "Python"
+
+        ```python
+        elements = g_connector.execute_operation(
+            operation = g.GetElements(
+                input = [g.EntitySeed(vertex = "John")]
+                view = g.View(
+                    edges = [
+                        g.ElementDefinition(
+                            group = 'Commit',
+                            group_by = []
+                        )
+                    ]
+                )
+            )
+        )
+        ```
+
+    Result:
+
+    === "Java"
+        ```java
+        Edge[source="John",destination=1,directed=true,matchedVertex=SOURCE,group=Commit,properties=Properties[date=<java.util.Date>Wed May 01 10:00:00 UTC 2024, count=<java.lang.Long>4]]
+        ```
+
+If you apply some pre-aggregation filtering, you can also select a time window to aggregate over.
+
+!!! example ""
+
+    Gets all `Commit` edges that fall within a certain time window and filters out
+    other edges.
+
+    === "Java"
+
+        ```java
+        final GetElements getEdgeSummarisedInTimeWindow = new GetElements.Builder()
+            .input(new EntitySeed("John"))
+            .view(new View.Builder()
+                    .edge("Commit", new ViewElementDefinition.Builder()
+                         .preAggregationFilter(new ElementFilter.Builder()
+                                .select("date")
+                                .execute(new IsMoreThan(MAY_01_2024, true))
+                                .select("date")
+                                .execute(new IsLessThan(MAY_03_2024, false))
+                                .build())
+                            .groupBy()
+                            .build())
+                    .build())
+            .build();
+        ```
+
+    === "JSON"
+
+        ```json
+        {
+            "class": "GetElements",
+            "input": [
+                {
+                    "class": "EntitySeed",
+                    "vertex": "John"
+                }
+            ],
+            "view": {
+                "edges": {
+                    "Commit": {
+                        "groupBy" : [ ],
+                        "preAggregationFilterFunctions": [{
+                            "selection" : ["date"],
+                            "predicate" : {
+                                "class": "IsMoreThan",
+                                "orEqualTo": true,
+                                "value": "2024-05-01T09:00:00"
+                            }, {
+                                "class": "IsLessThan",
+                                "orEqualTo": false,
+                                "value": "2024-05-03T11:00:00"
+                            }
+                        }]
+                    }
+
+                }
+            }
+        }
+        ```
+
+    === "Python"
+
+        ```python
+        elements = g_connector.execute_operation(
+            operation = g.GetElements(
+                input = [g.EntitySeed(vertex = "John")]
+                view = g.View(
+                    edges = [
+                        g.ElementDefinition(
+                            group = 'Commit',
+                            group_by = [],
+                            pre_aggregation_filter_functions=[
+                                g.PredicateContext(
+                                    predicate=g.Or(
+                                        predicates=[
+                                            g.IsMoreThan(
+                                                value="2024-05-01T09:00:00",
+                                                or_equal_to=True
+                                            ),
+                                            g.IsLessThan(
+                                                value="2024-05-03T11:00:00",
+                                                or_equal_to=False
+                                            )
+                                        ]
+                                    )
+                                )
+                            ]
+                        )
+                    ]
+                )
+            )
+        )
+        ```
+
+    Result:
+
+    === "Java"
+        ```java
+        Edge[source="John",destination=1,directed=true,matchedVertex=SOURCE,group=Commit,properties=Properties[date=<java.util.Date>Wed May 01 10:00:00 UTC 2024, count=<java.lang.Long>2]]
+        ```
+
+There is also a more advanced feature of query-time aggregation which allows you to override
+the logic of how Gaffer aggregates properties. For example, by default the count property is aggregated
+with Sum, as above, but at query time you can force the count to be aggregated using another operator,
+e.g. the Min operator. This would allow you to find things such as the minimum daily count.
+This feature does not affect any of the persisted values and any ingest aggregation that has already
+occurred will not be modified.
+
+??? example
+
+    This asks at query time what was the minimum `added` by John on one of his commits
+    between two dates. This is done by adding an extra 'aggregator' to the operation View.
+
+    === "Java"
+        ```java
+        final GetAllElements edgesSummarisedInTimeWindowWithMinCountOperation = new GetAllElements.Builder()
+            .view(new View.Builder()
+                .edge("RoadUse", new ViewElementDefinition.Builder()
+                    .preAggregationFilter(new ElementFilter.Builder()
+                        .select("date")
+                        .execute(new IsMoreThan(MAY_01_2024, true))
+                        .select("date")
+                        .execute(new IsLessThan(MAY_06_2024, false))
+                        .build()
+                    )
+                    .groupBy()
+                    .aggregator(new ElementAggregator.Builder()
+                            .select("added")
+                            .execute(new Min())
+                            .build())
+                    .build())
+            .build())
+        .build();
+        ```
+
+    === "JSON"
+
+        ```json
+        {
+            "class" : "GetAllElements",
+            "view" : {
+                "edges" : {
+                    "Commit" : {
+                        "preAggregationFilterFunctions" : [ {
+                            "selection" : [ "date" ],
+                            "predicate" : {
+                                "class" : "IsMoreThan",
+                                "orEqualTo" : true,
+                                "value" : {
+                                "Date" : "2024-05-01T10:00:00"
+                                }
+                            }
+                        }, {
+                            "selection" : [ "date" ],
+                            "predicate" : {
+                                "class" : "IsLessThan",
+                                "orEqualTo" : false,
+                                "value" : {
+                                "Date" : "2024-05-06T11:00:00"
+                                }
+                            }
+                        } ],
+                        "groupBy" : [ ],
+                        "aggregator" : {
+                            "operators" : [ {
+                                "selection" : [ "added" ],
+                                "binaryOperator" : {
+                                "class" : "uk.gov.gchq.koryphe.impl.binaryoperator.Min"
+                                }
+                            } ]
+                        }
+                    }
+                }
+            }
+        }
+        ```
+
+    === "Python"
+
+        ```python
+         elements = g_connector.execute_operation(
+            operation = g.GetElements(
+                input = [g.EntitySeed(vertex = "John")]
+                view = g.View(
+                    edges = [
+                        g.ElementDefinition(
+                            group = 'Commit',
+                            group_by = [],
+                            pre_aggregation_filter_functions=[
+                                g.PredicateContext(
+                                    predicate=g.Or(
+                                        predicates=[
+                                            g.IsMoreThan(
+                                                value="2024-05-05T11:00:00",
+                                                or_equal_to=True
+                                            ),
+                                            g.IsLessThan(
+                                                value="2024-05-06T11:00:00",
+                                                or_equal_to=False
+                                            )
+                                        ]
+                                    )
+                                )
+                            ],
+                            aggregate_functions = [
+                                g.BinaryOperatorContext(
+                                    selection=["added"],
+                                    binary_operator = g.Min()
+                                )
+                            ]
+                        )
+                    ]
+                )
+            )
+        )
+        ```
+
+More commonly, you will want to set the groupBy to empty for all groups in your schema.
+This can be done using the ``globalElements` section in the view:
+
+!!! example ""
+
+    === "Java"
+
+        ```java
+        final GetElements getEdgesSummarised = new GetElements.Builder()
+            .input(new EntitySeed("John"))
+            .view(new View.Builder()
+                    .globalElements(new GlobalViewElementDefinition.Builder()
+                            .groupBy()
+                            .build())
+                    .build())
+            .build();
+        ```
+
+    === "JSON"
+
+        ```json
+        {
+            "class": "GetElements",
+            "input": [
+                {
+                    "class": "EntitySeed",
+                    "vertex": "John"
+                }
+            ],
+            "view": {
+                "globalElements": {
+                        "groupBy" : [ ]
+                }
+            }
+        }
+        ```
+    === "Python"
+
+        ```python
+        elements = g_connector.execute_operation(
+            operation = g.GetElements(
+                input = [g.EntitySeed(vertex = "John")]
+                view = g.View(
+                        global_elements = g.GlobalViewElementDefinition(
+                            group_by = []
+                        )
+                )
+            )
+        )
         ```
 
 !!! tip
