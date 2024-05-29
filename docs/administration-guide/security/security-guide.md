@@ -40,7 +40,7 @@ Here is the new elements schema:
 
 We've added the new "visibility" property to the RoadUse edge. We have also told Gaffer that whenever it sees a property called 'visibility' that this is a special property and should be used for restricting a user's visibility of the data.
 
-We've defined a new "visibility" type in our Types, which is a Java String and must be non-null in order for the related edge to be loaded into the Graph. We also specified that the visibility property is serialised using the custom [Visibility Serialiser](https://github.com/gchq/gaffer-doc/blob/v1docs/src/main/java/uk/gov/gchq/gaffer/doc/dev/serialiser/VisibilitySerialiser.java) and aggregated using the ${VISIBILITY_AGGREGATOR_LINK} binary operator. In our example, the serialiser is responsible for writing the visibility property into the store. This includes the logic which determines any hierarchy associated with the visibility properties (for example, public edges may be viewed by users with the public or private visibility label). The aggregator is responsible for implementing the logic which ensures that edges maintain the correct visibility as they are combined (i.e that if a public edge is combined with a private edge, the result is also private).
+We've defined a new "visibility" type in our Types, which is a Java String and must be non-null in order for the related edge to be loaded into the Graph. We also specified that the visibility property is serialised using the custom [Visibility Serialiser](https://github.com/gchq/gaffer-doc/blob/v1docs/src/main/java/uk/gov/gchq/gaffer/doc/dev/serialiser/VisibilitySerialiser.java) and aggregated using the [VisibilityAggregator](https://github.com/gchq/gaffer-doc/blob/v1docs/src/main/java/uk/gov/gchq/gaffer/doc/dev/aggregator/VisibilityAggregator.java) binary operator. In our example, the serialiser is responsible for writing the visibility property into the store. This includes the logic which determines any hierarchy associated with the visibility properties (for example, public edges may be viewed by users with the public or private visibility label). The aggregator is responsible for implementing the logic which ensures that edges maintain the correct visibility as they are combined (i.e that if a public edge is combined with a private edge, the result is also private).
 
 ```json
 {
@@ -208,21 +208,29 @@ To further demonstrate this here is another example:
 
 You add these Edges:
 
+```
 1 -> 2   count = 1, visibility = "public"
 1 -> 2   count = 2, visibility = "public"
 1 -> 2   count = 10, visibility = "private"
 1 -> 2   count = 20, visibility = "private"
+```
 
 These are persisted keeping the Edges with different visibilities separate, you can see the counts have been aggregated as they are not a groupBy property:
 
+```
 1 -> 2   count = 3, visibility = "public"
 1 -> 2   count = 30, visibility = "private"
+```
 
 Then if a user with just "public" access to the system does a query they will just get back:
 
+```
 1 -> 2   count = 3, visibility = "public"
+```
 
 A user with "private" access, who by definition can also see "public" data, will get back both edges aggregated together:
 
+```
 1 -> 2   count = 33, visibility = "private"
+```
 
