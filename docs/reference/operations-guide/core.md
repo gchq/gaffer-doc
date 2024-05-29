@@ -4528,7 +4528,7 @@ Gets the traits of the current store. [Javadoc](https://gchq.github.io/Gaffer/uk
     
 Deletes all retained data including deleting the graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/DeleteAllData.html)
 
-To use this operation, it must be enabled via an [operations declarations JSON](../../administration-guide/gaffer-config/config.md#operationsdeclarationsjson).
+To use this operation, it must be enabled via an [operations declarations JSON](../../administration-guide/gaffer-config/config.md#operations-declarations-json).
 
 Note this operation does not return any response.
 
