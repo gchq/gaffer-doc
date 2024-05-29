@@ -24,8 +24,8 @@ markdown_extensions:
   - tables
   - attr_list
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
 
 extra:
   social:
@@ -71,6 +71,9 @@ plugins:
         'getting-started/guide/cardinality.md': 'user-guide/gaffer-basics/what-is-cardinality.md'
         'getting-started/quickstart.md': 'administration-guide/gaffer-deployment/quickstart.md'
         'getting-started/guide/guide.md': 'user-guide/introduction.md'
+  - offline
+  - privacy
+
 
 nav:
     - Home: 'index.md'
@@ -210,6 +213,7 @@ nav:
         - 'HDFS Operations': 'reference/operations-guide/hdfs.md'
         - 'Accumulo Operations': 'reference/operations-guide/accumulo.md'
         - 'Spark Operations': 'reference/operations-guide/spark.md'
+        - 'Proxy Operations': 'reference/operations-guide/proxy.md'
         - 'Misc Operations': 'reference/operations-guide/misc.md'
       - Endpoints:
         - 'Endpoints Guide': 'reference/endpoints-guide/endpoints.md'
