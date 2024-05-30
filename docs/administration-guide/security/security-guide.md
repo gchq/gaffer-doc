@@ -1,4 +1,4 @@
-# Visibilities
+# Security
 
 ## Using Visibilities for fine-grained security
 
@@ -204,9 +204,9 @@ The visibility property as defined by the visibilityProperty field in the Schema
 - When ingest aggregation is carried out the visibilityProperty is treated as groupBy property.
 - When query aggregation is carried out the visibilityProperty is no longer treated as a groupBy property.
 
-To further demonstrate this here is another example:
+To further demonstrate this, here is another example:
 
-You add these Edges:
+Add the following Edges:
 
 ```
 1 -> 2   count = 1, visibility = "public"
