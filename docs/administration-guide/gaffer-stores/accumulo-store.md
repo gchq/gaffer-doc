@@ -146,7 +146,7 @@ Gaffer can take advantage of Accumulo's built-in fine-grained security to ensure
 
 If no "visibilityProperty" is specified then the column visibility is empty which means that anyone who has read access to the table can view it.
 
-See [the visibility walkthrough](https://gchq.github.io/gaffer-doc/v1docs/getting-started/developer-guide/visibilities.html) in the [Dev Guide](https://gchq.github.io/gaffer-doc/v1docs/getting-started/developer-guide/contents.html) for an example of how properties can be aggregated over different visibilities at query time.
+See [the visibility walkthrough](../security/security-guide.html#using-visibilities-for-fine-grained-security) for an example of how properties can be aggregated over different visibilities at query time.
 
 ## Timestamp
 
