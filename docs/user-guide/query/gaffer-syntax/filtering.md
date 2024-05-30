@@ -736,7 +736,7 @@ and to instead summarise all elements, e.g. all John committed to repo edges.
 
     === "Java"
         ```java
-        Edge[source="John",destination=1,directed=true,matchedVertex=SOURCE,group=Commit,properties=Properties[date=<java.util.Date>Wed May 01 00:00:00 UTC 2024, count=<java.lang.Long>4]]
+        Edge[source="John",destination=1,directed=true,matchedVertex=SOURCE,group=Commit,properties=Properties[date=<java.util.Date>Wed May 01 00:00:00 UTC 2024, count=<java.lang.Long>5]]
         ```
 
 If you apply some pre-aggregation filtering, you can also select a time window to aggregate over.
