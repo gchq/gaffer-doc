@@ -605,7 +605,7 @@ total for all the `added` and `removed` properties.
         ```python
         elements = g_connector.execute_operation(
             operation = g.GetElements(
-                input = [g.EntitySeed(vertex = "John")]
+                input = [g.EntitySeed(vertex = "John")],
                 view = g.View(
                     edges = [
                         g.ElementDefinition(
@@ -659,7 +659,7 @@ total for all the `added` and `removed` properties.
 Elements in Gaffer are often stored in daily time buckets; this allows users to
 query a summary of the elements that occurred on a particular day. For example,
 a count of the commits John made to the repository on the first of the month. The daily time
-buckets are controlled by using the groupBy properties.
+buckets are controlled by using the `groupBy` properties.
 
 You can get edges with the same source and destination aggregrated together,
 regardless of any dates. This is achieved by overriding the `groupBy` field
@@ -719,7 +719,7 @@ and to instead summarise all elements, e.g. all John committed to repo edges.
         ```python
         elements = g_connector.execute_operation(
             operation = g.GetElements(
-                input = [g.EntitySeed(vertex = "John")]
+                input = [g.EntitySeed(vertex = "John")],
                 view = g.View(
                     edges = [
                         g.ElementDefinition(
@@ -804,7 +804,7 @@ If you apply some pre-aggregation filtering, you can also select a time window t
         ```python
         elements = g_connector.execute_operation(
             operation = g.GetElements(
-                input = [g.EntitySeed(vertex = "John")]
+                input = [g.EntitySeed(vertex = "John")],
                 view = g.View(
                     edges = [
                         g.ElementDefinition(
@@ -841,11 +841,11 @@ If you apply some pre-aggregation filtering, you can also select a time window t
 There is also a more advanced feature of query-time aggregation which allows you to override
 the logic of how Gaffer aggregates properties. For example, by default the count property is aggregated
 with Sum, as above, but at query time you can force the count to be aggregated using another operator,
-e.g. the Min operator. This would allow you to find things such as the minimum daily count.
+e.g. the [Min](../../../reference/binary-operators-guide/koryphe-operators.md#min) operator. This would allow you to find things such as the minimum daily count.
 This feature does not affect any of the persisted values and any ingest aggregation that has already
 occurred will not be modified.
 
-??? example
+!!! example ""
 
     This asks at query time what was the minimum `added` by John on one of his commits
     between two dates. This is done by adding an extra 'aggregator' to the operation View.
@@ -911,7 +911,7 @@ occurred will not be modified.
         ```python
          elements = g_connector.execute_operation(
             operation = g.GetElements(
-                input = [g.EntitySeed(vertex = "John")]
+                input = [g.EntitySeed(vertex = "John")],
                 view = g.View(
                     edges = [
                         g.ElementDefinition(
@@ -945,7 +945,7 @@ occurred will not be modified.
         ```
 
 More commonly, you will want to set the groupBy to empty for all groups in your schema.
-This can be done using the ``globalElements` section in the view:
+This can be done using the `globalElements` section in the view:
 
 !!! example ""
 
@@ -985,7 +985,7 @@ This can be done using the ``globalElements` section in the view:
         ```python
         elements = g_connector.execute_operation(
             operation = g.GetElements(
-                input = [g.EntitySeed(vertex = "John")]
+                input = [g.EntitySeed(vertex = "John")],
                 view = g.View(
                     global_elements = g.GlobalViewElementDefinition(
                         group_by = []
