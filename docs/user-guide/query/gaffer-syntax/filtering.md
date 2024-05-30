@@ -654,7 +654,7 @@ total for all the `added` and `removed` properties.
         ]
         ```
 
-### Summarisation
+### Summarization
 
 Elements in Gaffer are often stored in daily time buckets; this allows users to
 query a summary of the elements that occurred on a particular day. For example,
