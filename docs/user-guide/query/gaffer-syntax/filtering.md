@@ -758,6 +758,8 @@ If you apply some pre-aggregation filtering, you can also select a time window t
                                 .execute(new InDateRange.Builder()
                                     .start("2024/05/01")
                                     .end("2024/05/03")
+                                    .startInclusive(true)
+                                    .endInclusive(false)
                                 .build()))
                             .groupBy()
                             .build())
@@ -785,7 +787,9 @@ If you apply some pre-aggregation filtering, you can also select a time window t
                             "predicate" : {
                                 "class" : "InDateRange",
                                 "start" : "2024/05/01",
-                                "end" : "2024/05/03"
+                                "end" : "2024/05/03",
+                                "startInclusive": true,
+                                "endInclusive": false
                             }
                         }]
                     }
@@ -812,7 +816,9 @@ If you apply some pre-aggregation filtering, you can also select a time window t
                                         predicates=[
                                             g.InDateRange(
                                                 start="2024/05/01",
-                                                end="2024/05/03"
+                                                end="2024/05/03",
+                                                start_inclusive=True,
+                                                end_inclusive=False
                                             )
                                         ]
                                     )
@@ -854,6 +860,8 @@ occurred will not be modified.
                         .execute(new InDateRange.Builder()
                             .start("2024/05/01")
                             .end("2024/05/05")
+                            .startInclusive(true)
+                            .endInclusive(false)
                         .build()))
                     .groupBy()
                     .aggregator(new ElementAggregator.Builder()
@@ -878,7 +886,9 @@ occurred will not be modified.
                             "predicate" : {
                                 "class" : "InDateRange",
                                 "start" : "2024/05/01",
-                                "end" : "2024/05/05"
+                                "end" : "2024/05/05",
+                                "startInclusive": true,
+                                "endInclusive": false
                             }
                         }],
                         "groupBy" : [ ],
@@ -913,7 +923,9 @@ occurred will not be modified.
                                         predicates=[
                                             g.InDateRange(
                                                 start="2024/05/01",
-                                                end="2024/05/05"
+                                                end="2024/05/05",
+                                                start_inclusive=True,
+                                                end_inclusive=False
                                             )
                                         ]
                                     )
