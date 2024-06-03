@@ -1,5 +1,10 @@
 # Creating a Simple Deployment
 
+!!! warning
+    Gaffer Kubernetes is not currently up to date. You will need to use a
+    version of Kubernetes <= 1.25 for deployments.
+    The information here is subject to change in future releases.
+
 This guide will describe how to deploy a simple graph on a Kubernetes cluster
 with the minimum configuration. It is assumed you have read the [previous page](./running-on-kubernetes.md)
 to get an overview of running Gaffer on Kubernetes.
