@@ -4,7 +4,7 @@
 
 Another one of Gaffer's key features is visibility filtering, fine grained data access and query execution controls.
 
-The code for this example is [Visibilities](https://github.com/gchq/gaffer-doc/blob/v1docs/src/main/java/uk/gov/gchq/gaffer/doc/dev/walkthrough/Visibilities.java)
+[Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/commonutil/elementvisibilityutil/VisibilityEvaluator.html)
 
 In this example we'll add a visibility property to our edges so that we can control access to them.
 
@@ -97,55 +97,86 @@ We've defined a new "visibility" type in our Types, which is a Java String and m
 }
 
 ```
+### Adding elements with visibility
 
-We have updated the generator to add the visibility label as a new property (a Java String) on the edges:
+??? example "Adding a new edges with visibilities"
 
-```java
-public class RoadAndRoadUseWithSecurityElementGenerator implements OneToManyElementGenerator<String> {
-    @Override
-    public Iterable<Element> _apply(final String line) {
-        final String[] t = line.split(",");
+    === "Java"
 
-        final String road = t[0];
-        final String junctionA = t[1];
-        final String junctionB = t[2];
-
-        final int junctionAInt = Integer.parseInt(junctionA);
-        final int junctionBInt = Integer.parseInt(junctionA);
-        final String visibility;
-        if (junctionAInt >= 20 || junctionBInt >= 20) {
-            visibility = "private";
-        } else {
-            visibility = "public";
-        }
-
-        return Arrays.asList(
-                new Edge.Builder()
+        ```java
+          new AddElements.Builder()
+                      .input(new Edge.Builder()
                         .group("RoadHasJunction")
-                        .source(road)
-                        .dest(junctionA)
-                        .directed(true)
+                        .source("1").dest("2").directed(true)
+                        .property("count", 1)
+                        .property("visibility", "private")
                         .build(),
-
-                new Edge.Builder()
+                        new Edge.Builder()
                         .group("RoadHasJunction")
-                        .source(road)
-                        .dest(junctionB)
-                        .directed(true)
-                        .build(),
+                        .source("1").dest("2").directed(true)
+                        .property("count", 2)
+                        .property("visibility", "public")
+                        .build())
+                      .build();
+        ```
 
-                new Edge.Builder()
-                        .group("RoadUse")
-                        .source(junctionA)
-                        .dest(junctionB)
-                        .directed(true)
-                        .property("count", 1L)
-                        .property("visibility", visibility)
-                        .build()
-        );
-    }
-}
-```
+    === "JSON"
+
+        ``` JSON
+          {
+            "class" : "AddElements",
+            "input" : [ {
+              "class" : "Edge",
+              "group" : "RoadHasJunction",
+              "source" : "1",
+              "destination" : "2",
+              "directed" : true,
+              "properties" : {
+                "count" : 1,
+                "visibility": "private"
+              }
+            },
+            {
+              "class" : "Edge",
+              "group" : "RoadHasJunction",
+              "source" : "1",
+              "destination" : "2",
+              "directed" : true,
+              "properties" : {
+                "count" : 2,
+                "visibility": "public"
+              }
+            } ],
+            "skipInvalidElements" : false,
+            "validate" : true
+          }
+        ```
+
+    === "Python"
+
+        ``` Python
+          g.AddElements( 
+            input=[ 
+              g.Edge( 
+                group="RoadHasJunction", 
+                properties={"count": 1, "visibility": "private"}, 
+                source="1", 
+                destination="2", 
+                directed=True 
+              ),
+              g.Edge( 
+              group="RoadHasJunction", 
+              properties={"count": 2, "visibility": "public"}, 
+              source="1", 
+              destination="2", 
+              directed=True 
+              )
+            ], 
+            skip_invalid_elements=False, 
+            validate=True 
+          )
+        ```
+
 After creating a Graph and adding our edges to it we run a simple query to get back all RoadUse edges containing vertex "20"... and we get nothing back. This is because the user we ran the query as was not allowed to see edges with a visibility of public or private, so no edges were returned.
 
 We can create a user that can see public edges only (and not private edges) and then run the query as this user.
