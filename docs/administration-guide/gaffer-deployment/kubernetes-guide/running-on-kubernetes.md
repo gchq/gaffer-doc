@@ -1,5 +1,10 @@
 # Running Gaffer on Kubernetes
 
+!!! warning
+    Gaffer Kubernetes is not currently up to date. You will need to use a
+    version of Kubernetes <= 1.25 for deployments.
+    The information here is subject to change in future releases.
+
 Gaffer's Open Container Initiative (OCI) images mean it is also possible to
 deploy via kubernetes to give an alternative scalable deployment. This guide
 will assume the reader is familiar with general usage of kubernetes, further
