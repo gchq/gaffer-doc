@@ -1,8 +1,9 @@
 # Configuring Gaffer with Helm
 
 !!! warning
-    Configuration via Helm is under development the information here is subject
-    to change in future releases.
+    Gaffer Kubernetes is not currently up to date. You will need to use a
+    version of Kubernetes <= 1.25 for deployments.
+    The information here is subject to change in future releases.
 
 The general overview of what you can configure in a Gaffer graph is outlined
 under the [configuring Gaffer pages](../../gaffer-config/config.md). However,
