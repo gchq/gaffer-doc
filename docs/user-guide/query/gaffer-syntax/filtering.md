@@ -676,7 +676,7 @@ and to instead summarise all elements, e.g. all John committed to repo edges.
         Commit, John, 1, 2024-05-10 10:00:00
         Commit, John, 1, 2024-05-10 16:50:00
     ```
-    Then an empty `groupBy` tells Gaffer to not to group by any properties and
+    Then an empty `groupBy` tells Gaffer to not group by any properties and
     to just summarise all John's commits, regardless of date.
 
     === "Java"
