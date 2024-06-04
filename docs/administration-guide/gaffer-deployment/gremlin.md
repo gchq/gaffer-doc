@@ -28,18 +28,17 @@ traversals are spawned. To do this we recommend utilising the provided
 which can be configured to use the Gaffer Tinkerpop implementation so that a
 endpoint is available for Gremlin queries.
 
-## Connecting to Any Existing Gaffer Graph
+## Connecting to An Existing Accumulo Backed Graph
 
-The simplest way to connect Gremlin to an existing Gaffer instance where you may
-not know the Store type or Schema would be via a [Proxy Store](../gaffer-stores/proxy-store.md).
-Connecting this way means Gremlin communicates via the Gaffer REST API
-(similar to [gafferpy](../../user-guide/apis/python-api.md)) meaning there may
-be a performance hit for larger queries.
+The recommended way to provide a Gremlin interface to an existing Gaffer
+instance is to connect directly to the same [Accumulo store](../gaffer-stores/accumulo-store.md).
+Connecting this way means Gremlin communicates in a similar way to the Gaffer
+REST API and ensures the fastest performance when using Gremlin (there may still
+be a performance hit).
 
-!!! tip
-    You can also of course connect directly to an existing instance's storage
-    layer too (e.g. Accumulo store) but this would require a more complex
-    configuration and knowledge of the Schema.
+!!! note
+    It is possible to attach to other store types in a similar manner usually through
+    a [proxy store](../gaffer-stores/proxy-store.md) or [federated store](../gaffer-stores/federated-store.md).
 
 The general connection diagram looks something like the following:
 
@@ -47,8 +46,7 @@ The general connection diagram looks something like the following:
 flowchart LR
     A(["User"])
     --> B("Gremlin Server")
-    --> C(Gaffer Proxy Store)
-    --> D(Existing Gaffer Instance)
+    --> C("Accumulo Store")
 ```
 
 To establish this connection you can make use of the existing `gaffer-gremlin`
@@ -61,44 +59,58 @@ docker pull gchq/gaffer-gremlin:latest
 ```
 
 !!! note
-    You will likely need to configure the default `gaffer-gremlin` image to your
+    You will need to configure the default `gaffer-gremlin` image to your
     environment, please continue reading to learn more.
 
-### Configuring the `gaffer-gremlin` Image
+### The `gaffer-gremlin` Image
 
-To use the image you will need to provide two configuration files that are specific
-to your environment, they are:
+To use the image you will need to provide the normal Gaffer configuration files
+for to your environment along with a new GafferPop specific file (similar to the
+standard graph config JSON) they are:
 
-- `store.properties` - Gaffer store configuration.
-- `gafferpop.properties` - Configuration for the Gaffer Tinkerpop library (Gafferpop).
+- `store.properties` - Gaffer store configuration, this should match the
+  existing graph you are connecting to.
+- `elements.json` and `types.json` - The schema files for the graph you wish to
+  connect to.
+- `gafferpop.properties` - Configuration for the Gaffer Tinkerpop library
+  (Gafferpop).
 
-Once these files are configured you can use bind mounts to make them available when running the image:
+Please read the subsections below on how to configure these files. Once these
+are configured you can use bind mounts to make them available when running the
+image:
 
 ```bash
 docker run \
        --name gaffer-gremlin \
        --publish 8182:8182 \
-       --volume store.properties:conf/gaffer/store.properties \
-       --volume gafferpop.properties:conf/gafferpop/gafferpop.properties \
+       --volume store.properties:/opt/gremlin-server/conf/gaffer/store.properties \
+       --volume schema:/opt/gremlin-server/conf/gaffer/schema \
+       --volume gafferpop.properties:/opt/gremlin-server/conf/gafferpop/gafferpop.properties \
        tinkerpop/gremlin-server:latest gremlin-server.yaml
 ```
 
-#### Configuring the Proxy Store
+### Configuring the Store Properties
 
-Starting with the Proxy Store, this is identical to running a normal [Proxy Store](../gaffer-stores/proxy-store.md)
-and involves simply creating a Gaffer `store.properties` file to use. An example
-`store.properties` file is given below that will connect to a graph's REST API
-running at `https://localhost:8080/rest`:
+Starting with the Store properties, this file should be largely identical to
+the store properties used on the main Gaffer deployment. The main purpose
+of this file is to ensure the same Accumulo cluster is connected to.
+
+An example file is given below, please read the specific [Accumulo store](../gaffer-stores/accumulo-store.md)
+documentation for more detail:
 
 ```properties
-gaffer.store.class=uk.gov.gchq.gaffer.proxystore.ProxyStore
-# These should be configured to an existing graph deployment
-gaffer.host=localhost
-gaffer.port=8080
-gaffer.context-root=/rest
+gaffer.store.class=uk.gov.gchq.gaffer.accumulostore.AccumuloStore
+gaffer.store.properties.class=uk.gov.gchq.gaffer.accumulostore.AccumuloProperties
+accumulo.instance=accumulo
+accumulo.zookeepers=zookeeper
+accumulo.user=root
+accumulo.password=secret
+# General store config
+gaffer.cache.service.class=uk.gov.gchq.gaffer.cache.impl.HashMapCacheService
+gaffer.store.job.tracker.enabled=true
 ```
 
-#### Configuring the Gafferpop Library
+### Configuring the Gafferpop Library
 
 The `gafferpop.properties`, file is the configuration for the Gaffer
 implementation of Tinkerpop (a.k.a Gafferpop). Most of the set up here is for
@@ -109,10 +121,14 @@ would look like the following:
 ```properties
 # The Tinkerpop graph class we should use
 gremlin.graph=uk.gov.gchq.gaffer.tinkerpop.GafferPopGraph
-gaffer.graphId=graphProxy
+gaffer.graphId=existingGraph
 gaffer.storeproperties=conf/gaffer/store.properties
 gaffer.userId=user01
 ```
+
+!!! note
+    It is important the `graphId` here matches the ID of the main graph you
+    wish to connect to as this controls which Accumulo table is connected to.
 
 Many of these properties in the example above should be self explanatory, a full breakdown of
 of the available properties is as follows:
@@ -123,11 +139,11 @@ of the available properties is as follows:
 | `gaffer.graphId` | The graph ID of the Tinkerpop graph |
 | `gaffer.storeproperties` | The path to the store properties file |
 | `gaffer.schemas` | The path to the directory containing the graph schema files |
-| `gaffer.userId` | The user ID for the Tinkerpop graph |
-| `gaffer.dataAuths` | The data auths for the user to specify what operations can be performed |
-| `gaffer.operation.options` | Additional operation options that will be passed to the Tinkerpop graph variables in the form `key:value`
+| `gaffer.userId` | The default user ID for the Tinkerpop graph (see the [authentication section](#user-authentication)) |
+| `gaffer.dataAuths` | The default data auths for the user to specify what operations can be performed |
+| `gaffer.operation.options` | Default `Operation` options in the form `key:value` (this can be overridden per query see [here](../../user-guide/query/gremlin/gremlin.md#custom-features)) |
 
-#### Configuring the Gremlin Server
+### Configuring the Gremlin Server
 
 The underlying Gremlin server can also be configured if required. The `gaffer-gremlin`
 image comes with an existing YAML configuration based on the example from the
@@ -155,7 +171,7 @@ uk.gov.gchq.gaffer.tinkerpop.gremlinplugin.GafferPopGremlinPlugin: {}
     See the [Tinkerpop docs](https://tinkerpop.apache.org/docs/current/reference/#gremlin-server)
     for more information on Gremlin server configuration.
 
-##### User Authentication
+#### User Authentication
 
 Full user authentication is possible with the Gremlin server using the framework
 provided by standard Tinkerpop. The GafferPop implementation provides a
