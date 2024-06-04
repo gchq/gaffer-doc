@@ -658,8 +658,8 @@ total for all the `added` and `removed` properties.
 
 Elements in Gaffer are often stored in daily time buckets; this allows users to
 query a summary of the elements that occurred on a particular day. For example,
-a count of the commits John made to the repository on the first of the month. The daily time
-buckets are controlled by using the `groupBy` properties.
+a count of the commits John made to the repository on the first of the month.
+The daily time buckets are controlled by using the `groupBy` properties.
 
 You can get edges with the same source and destination aggregrated together,
 regardless of any dates. This is achieved by overriding the `groupBy` field
