@@ -855,7 +855,7 @@ occurred will not be modified.
         ```java
         final GetAllElements edgesSummarisedInTimeWindowWithMinCountOperation = new GetAllElements.Builder()
             .view(new View.Builder()
-                .edge("RoadUse", new ViewElementDefinition.Builder()
+                .edge("Commit", new ViewElementDefinition.Builder()
                     .preAggregationFilter(new ElementFilter.Builder()
                         .execute(new InDateRange.Builder()
                             .start("2024/05/01")
