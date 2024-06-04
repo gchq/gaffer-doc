@@ -36,6 +36,10 @@ Connecting this way means Gremlin communicates in a similar way to the Gaffer
 REST API and ensures the fastest performance when using Gremlin (there may still
 be a performance hit).
 
+!!! note
+    It is possible to attach to other store types in a similar manner usually through
+    a [proxy store](../gaffer-stores/proxy-store.md) or [federated store](../gaffer-stores/federated-store.md).
+
 The general connection diagram looks something like the following:
 
 ```mermaid
