@@ -270,3 +270,4 @@ for Gaffer specific options:
 | --- | --- | --- |
 | `operationOptions` | `g.with("operationOptions", "gaffer.federatedstore.operation.graphIds:graphA").V()` | Allows passing options to the underlying Gaffer Operations, this is the same as the `options` field on a standard JSON query. |
 | `getAllElementsLimit` | `g.with("getAllElementsLimit", 100).V()` | Limits the amount of elements returned if performing an unseeded query e.g. a `GetAllElements` operation. |
+| `hasStepFilterStage` | `g.with("hasStepFilterStage", "PRE_AGGREGATION").V()` | Controls which phase the filtering from a Gremlin `has()` stage is applied to the results. |

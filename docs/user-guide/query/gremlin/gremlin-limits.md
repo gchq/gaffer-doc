@@ -6,30 +6,26 @@ but some features may also be yet to be implemented.
 
 Current TinkerPop features not present in the GafferPop implementation:
 
-- Property index for allowing unseeded queries (unseeded queries run a `GetAllElements`).
+- Unseeded queries run a `GetAllElements` with a configured limit applied,
+  this limit can be configured per query or will default to 5000.
 - Gaffer graphs are readonly to Gremlin queries.
-  support this.
 - TinkerPop Graph Computer is not supported.
 - TinkerPop Transactions are not supported.
 - TinkerPop Lambdas are not supported.
 
 Current known limitations or bugs:
 
-- Proper user authentication is only available if using a Gremlin server to
-  connect to the graph.
+- Proper user authentication is only available if using a Gremlin server and
+  the `GafferPopAuthoriser` class.
 - Performance compared to standard Gaffer `OperationChain`s will likely be
   slower as multiple Gaffer `Operations` may utilised to perform one Gremlin
   step.
-- The entity group `id` is reserved for an empty group containing only the
-  vertex ID, this is currently used as a workaround for other limitations.
-- When you get the in or out Vertex directly off an Edge it will not contain any
-  actual properties or be in correct group/label - it just returns a vertex in
-  the `id` group. This is due to Gaffer allowing multiple entities to be
-  associated with the source and destination vertices of an Edge.
 - The ID of an Edge follows a specific format that is made up of its source and
   destination IDs like `[source, dest]`. To use this in a seeded query you must
   format it like `g.E("[source, dest]")` or a list like
   `g.E(["[source1, dest1]","[source2, dest2]"])`
-- Issues seen using `hasKey()` and `hasValue()` in same query.
-- May experience issues using the `range()` query function.
-- May experience issues using the `where()` query function.
+- The entity group `id` is reserved for an empty group containing only the
+  vertex ID, this is currently used as a workaround for other limitations.
+- Chaining `hasLabel()` calls together like `hasLabel("label1").hasLabel("label2")`
+  will act like an OR rather than an AND in standard Gremlin. This means you
+  may get results back when you realistically shouldn't.

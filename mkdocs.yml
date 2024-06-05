@@ -128,7 +128,7 @@ nav:
             - development-guide/project-structure/components/libraries/spark.md
             - development-guide/project-structure/components/libraries/time.md
         - Maven Dependencies:
-          - 'Spring': 'development-guide/project-structure/maven-dependencies/spring.md'
+          - 'Managing Dependencies': 'development-guide/project-structure/maven-dependencies/managing-dependencies.md'
       - Example Deployment:
         - 'Project Setup': 'development-guide/example-deployment/project-setup.md'
         - 'Writing the Schema': 'development-guide/example-deployment/writing-the-schema.md'
