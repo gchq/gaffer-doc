@@ -3,6 +3,12 @@ repo_url: https://github.com/gchq/gaffer-doc
 repo_name: gchq/gaffer-doc
 edit_uri: edit/v2docs/docs/
 copyright: <a href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/">Copyright &copy; 2016-2023 Crown Copyright</a>
+strict: true
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+  anchors: warn
 markdown_extensions:
   - admonition
   - pymdownx.details
