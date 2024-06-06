@@ -1749,11 +1749,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../development-guide/project-structure/maven-dependencies/spring.html" class="md-nav__link">
+      <a href="../../development-guide/project-structure/maven-dependencies/managing-dependencies.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Spring
+    Managing Dependencies
   </span>
   
 
@@ -2300,29 +2300,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#connecting-to-any-existing-gaffer-graph" class="md-nav__link">
+  <a href="#connecting-to-an-existing-accumulo-backed-graph" class="md-nav__link">
     <span class="md-ellipsis">
-      Connecting to Any Existing Gaffer Graph
+      Connecting to An Existing Accumulo Backed Graph
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Connecting to Any Existing Gaffer Graph">
+    <nav class="md-nav" aria-label="Connecting to An Existing Accumulo Backed Graph">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#configuring-the-gaffer-gremlin-image" class="md-nav__link">
+  <a href="#the-gaffer-gremlin-image" class="md-nav__link">
     <span class="md-ellipsis">
-      Configuring the gaffer-gremlin Image
+      The gaffer-gremlin Image
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Configuring the gaffer-gremlin Image">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
-  <a href="#configuring-the-proxy-store" class="md-nav__link">
+  <a href="#configuring-the-store-properties" class="md-nav__link">
     <span class="md-ellipsis">
-      Configuring the Proxy Store
+      Configuring the Store Properties
     </span>
   </a>
   
@@ -2353,11 +2352,6 @@
       User Authentication
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -4270,29 +4264,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#connecting-to-any-existing-gaffer-graph" class="md-nav__link">
+  <a href="#connecting-to-an-existing-accumulo-backed-graph" class="md-nav__link">
     <span class="md-ellipsis">
-      Connecting to Any Existing Gaffer Graph
+      Connecting to An Existing Accumulo Backed Graph
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Connecting to Any Existing Gaffer Graph">
+    <nav class="md-nav" aria-label="Connecting to An Existing Accumulo Backed Graph">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#configuring-the-gaffer-gremlin-image" class="md-nav__link">
+  <a href="#the-gaffer-gremlin-image" class="md-nav__link">
     <span class="md-ellipsis">
-      Configuring the gaffer-gremlin Image
+      The gaffer-gremlin Image
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Configuring the gaffer-gremlin Image">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
-  <a href="#configuring-the-proxy-store" class="md-nav__link">
+  <a href="#configuring-the-store-properties" class="md-nav__link">
     <span class="md-ellipsis">
-      Configuring the Proxy Store
+      Configuring the Store Properties
     </span>
   </a>
   
@@ -4323,11 +4316,6 @@
       User Authentication
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -4387,24 +4375,22 @@ traversals are spawned. To do this we recommend utilising the provided
 <a href="https://tinkerpop.apache.org/docs/current/reference/#connecting-gremlin-server">Gremlin server framework</a>
 which can be configured to use the Gaffer Tinkerpop implementation so that a
 endpoint is available for Gremlin queries.</p>
-<h2 id="connecting-to-any-existing-gaffer-graph">Connecting to Any Existing Gaffer Graph</h2>
-<p>The simplest way to connect Gremlin to an existing Gaffer instance where you may
-not know the Store type or Schema would be via a <a href="../gaffer-stores/proxy-store.html">Proxy Store</a>.
-Connecting this way means Gremlin communicates via the Gaffer REST API
-(similar to <a href="../../user-guide/apis/python-api.html">gafferpy</a>) meaning there may
-be a performance hit for larger queries.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>You can also of course connect directly to an existing instance's storage
-layer too (e.g. Accumulo store) but this would require a more complex
-configuration and knowledge of the Schema.</p>
+<h2 id="connecting-to-an-existing-accumulo-backed-graph">Connecting to An Existing Accumulo Backed Graph</h2>
+<p>The recommended way to provide a Gremlin interface to an existing Gaffer
+instance is to connect directly to the same <a href="../gaffer-stores/accumulo-store.html">Accumulo store</a>.
+Connecting this way means Gremlin communicates in a similar way to the Gaffer
+REST API and ensures the fastest performance when using Gremlin (there may still
+be a performance hit).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is possible to attach to other store types in a similar manner usually through
+a <a href="../gaffer-stores/proxy-store.html">proxy store</a> or <a href="../gaffer-stores/federated-store.html">federated store</a>.</p>
 </div>
 <p>The general connection diagram looks something like the following:</p>
 <pre class="mermaid"><code>flowchart LR
     A(["User"])
     --&gt; B("Gremlin Server")
-    --&gt; C(Gaffer Proxy Store)
-    --&gt; D(Existing Gaffer Instance)</code></pre>
+    --&gt; C("Accumulo Store")</code></pre>
 <p>To establish this connection you can make use of the existing <code>gaffer-gremlin</code>
 OCI image which is an extension of the existing <code>gremlin-server</code> image. This
 provides the Tinkerpop library which allows users to connect Gaffer graphs as
@@ -4413,36 +4399,49 @@ well as some pre installed configuration to get up and running quickly.</p>
 </span></code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You will likely need to configure the default <code>gaffer-gremlin</code> image to your
+<p>You will need to configure the default <code>gaffer-gremlin</code> image to your
 environment, please continue reading to learn more.</p>
 </div>
-<h3 id="configuring-the-gaffer-gremlin-image">Configuring the <code>gaffer-gremlin</code> Image</h3>
-<p>To use the image you will need to provide two configuration files that are specific
-to your environment, they are:</p>
+<h3 id="the-gaffer-gremlin-image">The <code>gaffer-gremlin</code> Image</h3>
+<p>To use the image you will need to provide the normal Gaffer configuration files
+for to your environment along with a new GafferPop specific file (similar to the
+standard graph config JSON) they are:</p>
 <ul>
-<li><code>store.properties</code> - Gaffer store configuration.</li>
-<li><code>gafferpop.properties</code> - Configuration for the Gaffer Tinkerpop library (Gafferpop).</li>
+<li><code>store.properties</code> - Gaffer store configuration, this should match the
+  existing graph you are connecting to.</li>
+<li><code>elements.json</code> and <code>types.json</code> - The schema files for the graph you wish to
+  connect to.</li>
+<li><code>gafferpop.properties</code> - Configuration for the Gaffer Tinkerpop library
+  (Gafferpop).</li>
 </ul>
-<p>Once these files are configured you can use bind mounts to make them available when running the image:</p>
+<p>Please read the subsections below on how to configure these files. Once these
+are configured you can use bind mounts to make them available when running the
+image:</p>
 <div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>docker<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">       </span>--name<span class="w"> </span>gaffer-gremlin<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">       </span>--publish<span class="w"> </span><span class="m">8182</span>:8182<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">       </span>--volume<span class="w"> </span>store.properties:conf/gaffer/store.properties<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">       </span>--volume<span class="w"> </span>gafferpop.properties:conf/gafferpop/gafferpop.properties<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">       </span>tinkerpop/gremlin-server:latest<span class="w"> </span>gremlin-server.yaml
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">       </span>--volume<span class="w"> </span>store.properties:/opt/gremlin-server/conf/gaffer/store.properties<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">       </span>--volume<span class="w"> </span>schema:/opt/gremlin-server/conf/gaffer/schema<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">       </span>--volume<span class="w"> </span>gafferpop.properties:/opt/gremlin-server/conf/gafferpop/gafferpop.properties<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">       </span>tinkerpop/gremlin-server:latest<span class="w"> </span>gremlin-server.yaml
 </span></code></pre></div>
-<h4 id="configuring-the-proxy-store">Configuring the Proxy Store</h4>
-<p>Starting with the Proxy Store, this is identical to running a normal <a href="../gaffer-stores/proxy-store.html">Proxy Store</a>
-and involves simply creating a Gaffer <code>store.properties</code> file to use. An example
-<code>store.properties</code> file is given below that will connect to a graph's REST API
-running at <code>https://localhost:8080/rest</code>:</p>
-<div class="language-properties highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="na">gaffer.store.class</span><span class="o">=</span><span class="s">uk.gov.gchq.gaffer.proxystore.ProxyStore</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># These should be configured to an existing graph deployment</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="na">gaffer.host</span><span class="o">=</span><span class="s">localhost</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="na">gaffer.port</span><span class="o">=</span><span class="s">8080</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="na">gaffer.context-root</span><span class="o">=</span><span class="s">/rest</span>
+<h3 id="configuring-the-store-properties">Configuring the Store Properties</h3>
+<p>Starting with the Store properties, this file should be largely identical to
+the store properties used on the main Gaffer deployment. The main purpose
+of this file is to ensure the same Accumulo cluster is connected to.</p>
+<p>An example file is given below, please read the specific <a href="../gaffer-stores/accumulo-store.html">Accumulo store</a>
+documentation for more detail:</p>
+<div class="language-properties highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="na">gaffer.store.class</span><span class="o">=</span><span class="s">uk.gov.gchq.gaffer.accumulostore.AccumuloStore</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="na">gaffer.store.properties.class</span><span class="o">=</span><span class="s">uk.gov.gchq.gaffer.accumulostore.AccumuloProperties</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="na">accumulo.instance</span><span class="o">=</span><span class="s">accumulo</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="na">accumulo.zookeepers</span><span class="o">=</span><span class="s">zookeeper</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="na">accumulo.user</span><span class="o">=</span><span class="s">root</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="na">accumulo.password</span><span class="o">=</span><span class="s">secret</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="c1"># General store config</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="na">gaffer.cache.service.class</span><span class="o">=</span><span class="s">uk.gov.gchq.gaffer.cache.impl.HashMapCacheService</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="na">gaffer.store.job.tracker.enabled</span><span class="o">=</span><span class="s">true</span>
 </span></code></pre></div>
-<h4 id="configuring-the-gafferpop-library">Configuring the Gafferpop Library</h4>
+<h3 id="configuring-the-gafferpop-library">Configuring the Gafferpop Library</h3>
 <p>The <code>gafferpop.properties</code>, file is the configuration for the Gaffer
 implementation of Tinkerpop (a.k.a Gafferpop). Most of the set up here is for
 the construction of the Gafferpop Graph instance which we want to make run with
@@ -4450,10 +4449,15 @@ the <code>store.properties</code> we've already configured. An example <code>gaf
 would look like the following:</p>
 <div class="language-properties highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># The Tinkerpop graph class we should use</span>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="na">gremlin.graph</span><span class="o">=</span><span class="s">uk.gov.gchq.gaffer.tinkerpop.GafferPopGraph</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="na">gaffer.graphId</span><span class="o">=</span><span class="s">graphProxy</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="na">gaffer.graphId</span><span class="o">=</span><span class="s">existingGraph</span>
 </span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="na">gaffer.storeproperties</span><span class="o">=</span><span class="s">conf/gaffer/store.properties</span>
 </span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="na">gaffer.userId</span><span class="o">=</span><span class="s">user01</span>
 </span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is important the <code>graphId</code> here matches the ID of the main graph you
+wish to connect to as this controls which Accumulo table is connected to.</p>
+</div>
 <p>Many of these properties in the example above should be self explanatory, a full breakdown of
 of the available properties is as follows:</p>
 <table>
@@ -4482,19 +4486,19 @@ of the available properties is as follows:</p>
 </tr>
 <tr>
 <td><code>gaffer.userId</code></td>
-<td>The user ID for the Tinkerpop graph</td>
+<td>The default user ID for the Tinkerpop graph (see the <a href="#user-authentication">authentication section</a>)</td>
 </tr>
 <tr>
 <td><code>gaffer.dataAuths</code></td>
-<td>The data auths for the user to specify what operations can be performed</td>
+<td>The default data auths for the user to specify what operations can be performed</td>
 </tr>
 <tr>
 <td><code>gaffer.operation.options</code></td>
-<td>Additional operation options that will be passed to the Tinkerpop graph variables in the form <code>key:value</code></td>
+<td>Default <code>Operation</code> options in the form <code>key:value</code> (this can be overridden per query see <a href="../../user-guide/query/gremlin/gremlin.html#custom-features">here</a>)</td>
 </tr>
 </tbody>
 </table>
-<h4 id="configuring-the-gremlin-server">Configuring the Gremlin Server</h4>
+<h3 id="configuring-the-gremlin-server">Configuring the Gremlin Server</h3>
 <p>The underlying Gremlin server can also be configured if required. The <code>gaffer-gremlin</code>
 image comes with an existing YAML configuration based on the example from the
 <a href="https://github.com/apache/tinkerpop/blob/master/gremlin-server/conf/gremlin-server.yaml">Tinkerpop repository</a>.
@@ -4515,7 +4519,7 @@ following to the list of plugins in the <code>plugins</code> section:</p>
 <p>See the <a href="https://tinkerpop.apache.org/docs/current/reference/#gremlin-server">Tinkerpop docs</a>
 for more information on Gremlin server configuration.</p>
 </div>
-<h5 id="user-authentication">User Authentication</h5>
+<h4 id="user-authentication">User Authentication</h4>
 <p>Full user authentication is possible with the Gremlin server using the framework
 provided by standard Tinkerpop. The GafferPop implementation provides a
 functional <code>Authoriser</code> class that will handle passing the authenticated user to
@@ -4571,7 +4575,7 @@ Please see the <a href="https://tinkerpop.apache.org/docs/current/reference/#sec
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 29, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 6, 2024</span>
   </span>
 
     
@@ -4581,7 +4585,7 @@ Please see the <a href="https://tinkerpop.apache.org/docs/current/reference/#sec
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 29, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 6, 2024</span>
   </span>
 
     

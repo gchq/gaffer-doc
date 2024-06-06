@@ -1768,11 +1768,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../development-guide/project-structure/maven-dependencies/spring.html" class="md-nav__link">
+      <a href="../../../development-guide/project-structure/maven-dependencies/managing-dependencies.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Spring
+    Managing Dependencies
   </span>
   
 
@@ -4172,33 +4172,29 @@ can be attributed to the fundamental differences between the two technologies
 but some features may also be yet to be implemented.</p>
 <p>Current TinkerPop features not present in the GafferPop implementation:</p>
 <ul>
-<li>Property index for allowing unseeded queries (unseeded queries run a <code>GetAllElements</code>).</li>
-<li>Gaffer graphs are readonly to Gremlin queries.
-  support this.</li>
+<li>Unseeded queries run a <code>GetAllElements</code> with a configured limit applied,
+  this limit can be configured per query or will default to 5000.</li>
+<li>Gaffer graphs are readonly to Gremlin queries.</li>
 <li>TinkerPop Graph Computer is not supported.</li>
 <li>TinkerPop Transactions are not supported.</li>
 <li>TinkerPop Lambdas are not supported.</li>
 </ul>
 <p>Current known limitations or bugs:</p>
 <ul>
-<li>Proper user authentication is only available if using a Gremlin server to
-  connect to the graph.</li>
+<li>Proper user authentication is only available if using a Gremlin server and
+  the <code>GafferPopAuthoriser</code> class.</li>
 <li>Performance compared to standard Gaffer <code>OperationChain</code>s will likely be
   slower as multiple Gaffer <code>Operations</code> may utilised to perform one Gremlin
   step.</li>
-<li>The entity group <code>id</code> is reserved for an empty group containing only the
-  vertex ID, this is currently used as a workaround for other limitations.</li>
-<li>When you get the in or out Vertex directly off an Edge it will not contain any
-  actual properties or be in correct group/label - it just returns a vertex in
-  the <code>id</code> group. This is due to Gaffer allowing multiple entities to be
-  associated with the source and destination vertices of an Edge.</li>
 <li>The ID of an Edge follows a specific format that is made up of its source and
   destination IDs like <code>[source, dest]</code>. To use this in a seeded query you must
   format it like <code>g.E("[source, dest]")</code> or a list like
   <code>g.E(["[source1, dest1]","[source2, dest2]"])</code></li>
-<li>Issues seen using <code>hasKey()</code> and <code>hasValue()</code> in same query.</li>
-<li>May experience issues using the <code>range()</code> query function.</li>
-<li>May experience issues using the <code>where()</code> query function.</li>
+<li>The entity group <code>id</code> is reserved for an empty group containing only the
+  vertex ID, this is currently used as a workaround for other limitations.</li>
+<li>Chaining <code>hasLabel()</code> calls together like <code>hasLabel("label1").hasLabel("label2")</code>
+  will act like an OR rather than an AND in standard Gremlin. This means you
+  may get results back when you realistically shouldn't.</li>
 </ul>
 
 
@@ -4222,7 +4218,7 @@ but some features may also be yet to be implemented.</p>
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 29, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 6, 2024</span>
   </span>
 
     
@@ -4232,7 +4228,7 @@ but some features may also be yet to be implemented.</p>
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 29, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 6, 2024</span>
   </span>
 
     
