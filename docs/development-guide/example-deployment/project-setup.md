@@ -137,7 +137,7 @@ mounted into the container for them to be included in the deployment which is co
 
 This is probably the simplest configuration file in the Gaffer deployment. In the example that follows
 we use it to set the file location properties of where the other config files are (inside the
-container). See [Graph Configuration](../../administration-guide/gaffer-config/config.md#applicationproperties)
+container). See [Graph Configuration](../../administration-guide/gaffer-config/config.md#application-properties)
 for more details on this configuration file.
 
 ```properties title="application.properties"

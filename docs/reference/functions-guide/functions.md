@@ -56,7 +56,7 @@ Function | Origin
 [`impl.function.ParseTime`](koryphe-functions.md#parsetime) | Koryphe
 [`impl.function.ReverseString`](koryphe-functions.md#reversestring) | Koryphe
 [`impl.function.SetValue`](koryphe-functions.md#setvalue) | Koryphe
-[`impl.function.Size`](koryphe-functions.md#size) | Koryphe
+`impl.function.Size` | Koryphe
 [`impl.function.StringAppend`](koryphe-functions.md#stringappend) | Koryphe
 [`impl.function.StringJoin`](koryphe-functions.md#stringjoin) | Koryphe
 [`impl.function.StringPrepend`](koryphe-functions.md#stringprepend) | Koryphe

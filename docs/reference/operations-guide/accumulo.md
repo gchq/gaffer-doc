@@ -19,7 +19,7 @@ graph TD
 ## GetElementsBetweenSets
 
 !!! warning "Deprecated"
-    Operation has been deprecated in favour of [`GetElementsBetweenSetPairs`](#getelementsbetweensetpairs)
+    Operation has been deprecated in favour of [`GetElementsBetweenSetPairs`](#getelementsbetweensetspairs)
 
 Gets edges that exist between 2 sets and entities in the first set. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/accumulostore/operation/impl/GetElementsBetweenSets.html)
 

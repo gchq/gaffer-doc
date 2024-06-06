@@ -2,7 +2,7 @@
 
 This page describes deprecated code which has been removed in Gaffer 2 and how to migrate to better equivalents. Each heading for a section below refers to a classname from `uk.gov.gchq.gaffer` where there have been changes or where that class has been removed entirely. The section headings link to the code on GitHub for that class (as of the Gaffer 1.21.1 release).
 
-Deprecations impacting the serialisers used in schemas are listed first, followed by [changes to Seed Matching and changes to Traits](#changes-to-seed-matching-and-traits). Other deprecations are then [listed in alphabetical order](#all-other-deprecations).
+Deprecations impacting the serialisers used in schemas are listed first, followed by [changes to Seed Matching](#removal-of-seed-matching) and [changes to Traits](#changes-to-store-traits). Other deprecations are then [listed in alphabetical order](#all-other-deprecations).
 
 ## Serialisers
 

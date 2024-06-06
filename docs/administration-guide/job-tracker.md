@@ -14,7 +14,7 @@ while a 'cache' is used to store any job results.
 ## Configuration
 
 By default, the job tracker is disabled. 
-It can be enabled by setting its associated [store property](../administration-guide/gaffer-stores/store-guide#store-properties) to true.
+It can be enabled by setting its associated [store property](../administration-guide/gaffer-stores/store-guide.md#store-properties) to true.
 There must also be a [cache configured](../administration-guide/gaffer-stores/store-guide.md#caches) for the job
 tracker to work.
 
@@ -26,7 +26,7 @@ Note that this is not the same as your initial cache, as this results 'cache' is
 which will store your results.
 
 To store results using the job tracker a few elements must be set up. 
-Firstly, you need to add two operations to an [operations declarations JSON file](../administration-guide/gaffer-config/config.md#operationsdeclarationsjson). 
+Firstly, you need to add two operations to an [operations declarations JSON file](../administration-guide/gaffer-config/config.md#operations-declarations-json).
 These operations are [`ExportToGafferResultCache` and `GetGafferResultCacheExport`](../reference/operations-guide/export.md#exporttogafferresultcache).
 Together these allow you to store your results in a seperate Gaffer graph, your 'cache'.
 
