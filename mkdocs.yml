@@ -42,12 +42,6 @@ extra:
     provider: mike
 plugins:
   - search
-  - git-revision-date-localized:
-      enable_creation_date: true
-      timezone: Europe/London
-      strict: true
-      exclude:
-        - index.md
   - redirects:
       redirect_maps:
         'dev/docker.md': 'administration-guide/gaffer-deployment/gaffer-docker/gaffer-images.md'
