@@ -37,4 +37,4 @@ Take the example below which is an extension of the previous graph, as you can s
         end
     ```
 
-For definitions on the terms used in this page please see the [glossary](/reference/glossary) page.
+For definitions on the terms used in this page please see the [glossary](../../reference/glossary.md) page.

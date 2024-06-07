@@ -147,7 +147,7 @@ To add a graph to a Federated Store you use the `AddGraph` operation. To add a g
 
 A Schema & Properties are not required if `parentSchemaId`/`parentPropertiesId` are instead used to retrieve this information from a Graph Library.
 
-You can limit user access when adding sub-graphs, see [Limiting Access](#limit-access-with-authentication).
+You can limit user access when adding sub-graphs, see [Restricting Graph Access](#restricting-graph-access).
 User specified store properties are allowed by default, but this can be disallowed if desired, see [limit custom properties](#limit-custom-properties).
 
 ```json title="AddGraph Operation"

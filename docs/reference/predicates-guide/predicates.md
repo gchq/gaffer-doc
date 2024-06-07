@@ -13,7 +13,7 @@ Predicate | Origin
 [`impl.predicate.AgeOff`](koryphe-predicates.md#ageoff) | Koryphe
 `impl.predicate.AgeOffFromDays` | Koryphe
 [`impl.predicate.And`](koryphe-predicates.md#and) | Koryphe
-[`impl.predicate.AreEqual`](koryphe-predicates#areequal) | Koryphe
+[`impl.predicate.AreEqual`](koryphe-predicates.md#areequal) | Koryphe
 [`impl.predicate.AreIn`](koryphe-predicates.md#arein) | Koryphe
 [`impl.predicate.CollectionContains`](koryphe-predicates.md#collectioncontains) | Koryphe
 [`impl.predicate.Exists`](koryphe-predicates.md#exists) | Koryphe
@@ -39,7 +39,7 @@ Predicate | Origin
 [`impl.predicate.IsXMoreThanY`](koryphe-predicates.md#isxmorethany) | Koryphe
 [`impl.predicate.MapContains`](koryphe-predicates.md#mapcontains) | Koryphe
 [`impl.predicate.MapContainsPredicate`](koryphe-predicates.md#mapcontainspredicate) | Koryphe
-[`predicate.PredicateMap`](koryphe-predicates#predicatemap) | Koryphe
+[`predicate.PredicateMap`](koryphe-predicates.md#predicatemap) | Koryphe
 `predicate.AdaptedPredicate` | Koryphe
 `predicate.PredicateComposite` | Koryphe
 [`impl.predicate.StringContains`](koryphe-predicates.md#stringcontains) | Koryphe
