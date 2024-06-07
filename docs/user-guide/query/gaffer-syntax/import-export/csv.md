@@ -90,8 +90,8 @@ into the graph.
 2. The `GenerateElements` operation will transform each line of the file into a
    Gaffer Element. You will need to provide an element generator that is
    suitable for the file you have provided. The two `CsvElementGenerators`
-   provided in core Gaffer are [`Neo4jElementGenerator`](#neo4j-format) and
-   [`NeptuneCsvElementGenerator`](#neptune-format).
+   provided in core Gaffer are [`Neo4jElementGenerator`](#neo4j-generators) and
+   [`NeptuneCsvElementGenerator`](#neptune-generators).
 3. Finally, the stream of Gaffer Elements are added with an `AddElements`
    operation.
 
@@ -122,8 +122,8 @@ Exporting to csv is done with a similar OperationChain.
    string. You must supply a `CsvGenerator` to do this. You can build a custom
    [`CsvGenerator`](#custom-formats), or use a supplied one. The two
    `CsvGenerators` provided in core Gaffer are
-   [`Neo4jCsvGenerator`](#neo4j-format) and
-   [`NeptuneCsvGenerator`](#neptune-format).
+   [`Neo4jCsvGenerator`](#neo4j-generators) and
+   [`NeptuneCsvGenerator`](#neptune-generators).
 3. Then the `ExportToLocalFile` operation is used to save this string output
    into a local file.
 
@@ -169,7 +169,7 @@ Neptune.
     headers. All instances of `-` are replaced with `_`, and invalid characters
     are stripped as outlined in [PropertiesUtil](https://github.com/gchq/Gaffer/blob/f16de7c3eccfe7a800cad1d7eea5fbae4cf01d44/core/common-util/src/main/java/uk/gov/gchq/gaffer/commonutil/PropertiesUtil.java#L26).
 
-As shown [later in the examples](#neo4j-format), OpenCypher formats let you
+As shown [later in the examples](#neo4j-generators), OpenCypher formats let you
 dictate property types in the header, like `propertyName:type`. Below is a table
 that shows which Gaffer transform function is used to deserialise each
 [OpenCypher data

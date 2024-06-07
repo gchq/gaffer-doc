@@ -51,9 +51,9 @@ configured the `storeConfiguredGraphIds` then all graphIds will be used.
 The `mergeFunction` parameter is the Function you want to use when merging the
 results from the subgraphs.  
 
-If you do not specify a `mergeFunction`,  then the admin configured
+If you do not specify a `mergeFunction`, then the admin configured
 `storeConfiguredMergeFunctions` are used, else the default `mergeFunctions` are
-used as [shown in the table below.](#default-storeconfiguredmergefunctions)
+used as [shown in the table below.](#default-store-configured-merge-functions)
 
 For example, when GetElements is used as the operation inside a
 FederatedOperation and you haven't specified a `mergeFunction`, the
@@ -750,7 +750,7 @@ is a schema conflict.
 #### ConcatenateMergeFunction
 
 This merge function is the default merge function for the majority of operations
-as seen [in the table above](#default-storeconfiguredmergefunctions). You can also
+as seen [in the table above](#default-store-configured-merge-functions). You can also
 override the default merge functions for operations like we have below. It results
 in concantinating all the results of the operations together.
 

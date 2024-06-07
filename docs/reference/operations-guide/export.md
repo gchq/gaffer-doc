@@ -1317,7 +1317,7 @@ This operation exports results to a cache which is backed by a simple Gaffer gra
 
 ## GetGafferResultCacheExport
 
-Fetches data from a Gaffer result cache. Requires a cache to be [configured](../../../administration-guide/gaffer-stores/store-guide/#caches). [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/resultcache/GetGafferResultCacheExport.html)
+Fetches data from a Gaffer result cache. Requires a cache to be [configured](../../administration-guide/gaffer-stores/store-guide.md#cache-service). [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/export/resultcache/GetGafferResultCacheExport.html)
 
 !!! example
     See examples for ExportToGafferResultCache above for usage.
