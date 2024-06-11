@@ -239,6 +239,68 @@ of how Gremlin handles this:
 
 There are more example queries to be found in the [Gremlin Getting Started](https://tinkerpop.apache.org/docs/current/tutorials/getting-started/) docs.
 
+### NamedOperations in Gremlin
+
+The [GafferPopNamedOperationService](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/tinkerpop/service/GafferPopNamedOperationService.html)
+allows for the running of Gaffer [Named Operations](../../../administration-guide/named-operations.md) using Tinkerpop.
+Currently, users can add and run Named Operations.
+
+!!! example ""
+    Add a simple Named Operation that returns a count of all elements in your graph.
+
+    === "Gremlin"
+
+        ```python
+        # Create the operation chain
+        operation = gc.OperationChain(
+            operations=[
+                gc.GetAllElements(),
+                gc.Count()
+            ]
+        ).to_json_str()
+
+        params = {"add": {"name": "testNamedOp", "opChain": operation}}
+
+        g.call("namedoperation", params).to_list()
+        ```
+
+    === "Java"
+
+        ```java
+        final AddNamedOperation operation = new AddNamedOperation.Builder()
+            .operationChain(new OperationChain.Builder()
+                .first(new GetAllElements()
+                        .then(new Count<>())
+                        .build())
+                .build())
+            .name("testNamedOp")
+            .build();
+
+        Map<String, String> addParams = new HashMap<>();
+        addParams.put("name", "testNamedOp");
+        addParams.put("opChain", operation.getOperationChainAsString());
+        Map<String, Map <String, String>> params = Collections.singletonMap("add", addParams);
+
+        g.call("namedoperation", params).toList();
+        ```
+
+Users can also run any existing or added Named Operations that are stored in the cache.
+
+!!! example ""
+
+    === "Gremlin"
+
+        ```python
+        g.call("namedoperation", {"execute": "testNamedOp"}).to_list()
+        ```
+
+    === "Java"
+
+        ```java
+        Map<String, String> params = Collections.singletonMap("execute", "testNamedOp")
+        g.call("namedoperation", params).toList();
+        ```
+
 ## Mapping Gaffer to TinkerPop
 
 Some of the terminology is slightly different between TinkerPop and Gaffer,
