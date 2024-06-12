@@ -239,6 +239,33 @@ of how Gremlin handles this:
 
 There are more example queries to be found in the [Gremlin Getting Started](https://tinkerpop.apache.org/docs/current/tutorials/getting-started/) docs.
 
+## Mapping Gaffer to TinkerPop
+
+Some of the terminology is slightly different between TinkerPop and Gaffer,
+a table of how different parts are mapped is as follows:
+
+| Gaffer | TinkerPop |
+| --- | --- |
+| Group | Label |
+| Vertex | Vertex with default label of `id` |
+| Entity | Vertex |
+| Edge | Edge |
+
+In Gafferpop Edge ID's must be made up of a list containing either source and destination
+IDs, e.g. `[source, dest]`, or source, label and destination, e.g. `[source, label, dest]`.
+In a seeded query these should be formatted like so `g.E("[source, dest]")` or
+`g.E(["[source1, dest1]","[source2, label, dest2]"])`.
+
+Note that if using TSTV values for seeds or property values these must be in the
+format `t:type|st:subtype|v:value`.
+
+## Custom Features
+
+The GafferPop implementation provides some extra features on top of the
+standard Tinkerpop framework that you can utilise in your queries. These
+are likely specific to how a Gaffer graph operates and may not be available
+in other graph technologies that support Gremlin queries.
+
 ### NamedOperations in Gremlin
 
 The [GafferPopNamedOperationService](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/tinkerpop/service/GafferPopNamedOperationService.html)
@@ -251,7 +278,6 @@ Currently, users can add and run Named Operations.
     === "Gremlin"
 
         ```python
-        # Create the operation chain
         operation = gc.OperationChain(
             operations=[
                 gc.GetAllElements(),
@@ -300,26 +326,6 @@ Users can also run any existing or added Named Operations that are stored in the
         Map<String, String> params = Collections.singletonMap("execute", "testNamedOp")
         g.call("namedoperation", params).toList();
         ```
-
-## Mapping Gaffer to TinkerPop
-
-Some of the terminology is slightly different between TinkerPop and Gaffer,
-a table of how different parts are mapped is as follows:
-
-| Gaffer | TinkerPop |
-| --- | --- |
-| Group | Label |
-| Vertex | Vertex with default label of `id` |
-| Entity | Vertex |
-| Edge | Edge |
-| Edge ID | A list with the source and destination of the Edge e.g. `[dest, source]` |
-
-## Custom Features
-
-The GafferPop implementation provides some extra features on top of the
-standard Tinkerpop framework that you can utilise in your queries. These
-are likely specific to how a Gaffer graph operates and may not be available
-in other graph technologies that support Gremlin queries.
 
 ### Adding Options to Queries
 

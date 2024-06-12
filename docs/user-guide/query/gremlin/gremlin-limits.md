@@ -15,16 +15,13 @@ Current TinkerPop features not present in the GafferPop implementation:
 
 Current known limitations or bugs:
 
-- Proper user authentication is only available if using a Gremlin server and
-  the `GafferPopAuthoriser` class.
+- Proper [user authentication]((../../../administration-guide/gaffer-deployment/gremlin.md#user-authentication))
+  is only available if using a Gremlin server and the `GafferPopAuthoriser` class.
 - Performance compared to standard Gaffer `OperationChain`s will likely be
   slower as multiple Gaffer `Operations` may utilised to perform one Gremlin
   step.
-- The ID of an Edge must either be made up of its source and
-  destination IDs, e.g. `[source, dest]`, or its source, label and destination,
-  e.g. `[source, label, dest]`. To use this in a seeded query you must
-  format it like `g.E("[source, dest]")` or a list like
-  `g.E(["[source1, dest1]","[source2, label, dest2]"])`
+- Edge IDs in GafferPop are not the same as in standard Gremlin. Instead of `g.E(11)`
+  edge IDs take the format `g.E([source, dest])` or `g.E([source, label, dest])`.
 - The entity group `id` is reserved for an empty group containing only the
   vertex ID, this is currently used as a workaround for other limitations.
 - Chaining `hasLabel()` calls together like `hasLabel("label1").hasLabel("label2")`
