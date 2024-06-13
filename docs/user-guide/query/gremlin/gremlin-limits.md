@@ -15,7 +15,7 @@ Current TinkerPop features not present in the GafferPop implementation:
 
 Current known limitations or bugs:
 
-- Proper [user authentication]((../../../administration-guide/gaffer-deployment/gremlin.md#user-authentication))
+- Proper [user authentication](../../../administration-guide/gaffer-deployment/gremlin.md#user-authentication)
   is only available if using a Gremlin server and the `GafferPopAuthoriser` class.
 - Performance compared to standard Gaffer `OperationChain`s will likely be
   slower as multiple Gaffer `Operations` may utilised to perform one Gremlin
