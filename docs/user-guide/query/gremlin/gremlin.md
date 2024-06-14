@@ -256,7 +256,7 @@ IDs, e.g. `[source, dest]`, or source, label and destination, e.g. `[source, lab
 In a seeded query these should be formatted like so `g.E("[source, dest]")` or
 `g.E(["[source1, dest1]","[source2, label, dest2]"])`.
 
-Note that if using TSTV values for seeds or property values these must be in the
+Note that if using TypeSubTypeValue for seeds or property values these must be in the
 format `t:type|st:subtype|v:value`.
 
 ## Custom Features
@@ -270,7 +270,7 @@ in other graph technologies that support Gremlin queries.
 
 The [GafferPopNamedOperationService](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/tinkerpop/service/GafferPopNamedOperationService.html)
 allows for the running of Gaffer [Named Operations](../../../administration-guide/named-operations.md) using Tinkerpop.
-Currently, users can add and run Named Operations.
+Users can run Named Operations and add new Named Operations, deleting Named Operations is not currently possible with Tinkerpop.
 
 !!! example ""
     Add a simple Named Operation that returns a count of all elements in your graph.
@@ -285,7 +285,7 @@ Currently, users can add and run Named Operations.
             ]
         ).to_json_str()
 
-        params = {"add": {"name": "testNamedOp", "opChain": operation}}
+        params = {"add": {"name": "CountAllElements", "opChain": operation}}
 
         g.call("namedoperation", params).to_list()
         ```
@@ -299,11 +299,11 @@ Currently, users can add and run Named Operations.
                         .then(new Count<>())
                         .build())
                 .build())
-            .name("testNamedOp")
+            .name("CountAllElements")
             .build();
 
         Map<String, String> addParams = new HashMap<>();
-        addParams.put("name", "testNamedOp");
+        addParams.put("name", "CountAllElements");
         addParams.put("opChain", operation.getOperationChainAsString());
         Map<String, Map <String, String>> params = Collections.singletonMap("add", addParams);
 
@@ -317,13 +317,13 @@ Users can also run any existing or added Named Operations that are stored in the
     === "Gremlin"
 
         ```python
-        g.call("namedoperation", {"execute": "testNamedOp"}).to_list()
+        g.call("namedoperation", {"execute": "CountAllElements"}).to_list()
         ```
 
     === "Java"
 
         ```java
-        Map<String, String> params = Collections.singletonMap("execute", "testNamedOp")
+        Map<String, String> params = Collections.singletonMap("execute", "CountAllElements")
         g.call("namedoperation", params).toList();
         ```
 
