@@ -21,7 +21,7 @@ Current known limitations or bugs:
   slower as multiple Gaffer `Operations` may utilised to perform one Gremlin
   step.
 - Edge IDs in GafferPop are not the same as in standard Gremlin. Instead of `g.E(11)`
-  edge IDs take the format `g.E([source, dest])` or `g.E([source, label, dest])`.
+  edge IDs take the format `g.E("[source, dest]")` or `g.E("[source, label, dest]")`.
 - The entity group `id` is reserved for an empty group containing only the
   vertex ID, this is currently used as a workaround for other limitations.
 - Chaining `hasLabel()` calls together like `hasLabel("label1").hasLabel("label2")`
