@@ -127,7 +127,7 @@ associated with it. Then we can apply a filter to include only edges where the
     === "Python"
 
         ```python
-        elements = g_connector.execute_operation(
+        elements = gc.execute_operation(
             operation = g.GetElements(
                 input = [g.EntitySeed(vertex = "John")]
                 view = g.View(
@@ -278,7 +278,7 @@ properties are returned.
     === "Python"
 
         ```python
-        elements = g_connector.execute_operation(
+        elements = gc.execute_operation(
             operation = g.GetElements(
                 input = [g.EntitySeed(vertex = "John")]
                 view = g.View(
@@ -338,6 +338,347 @@ properties are returned.
                 "properties": {}
             }
         ]
+        ```
+
+### Filtering by Element Type
+
+You can use Views to filter the element types returned from your query. So, if you
+only wanted edges returned you can use `allEdges(true)` in a View or if you only wanted
+entities then use `allEntities(true)`.
+
+This essentially works by getting all the Schema groups for the edges or entities and
+adding them to the view, e.g. `entity(getSchema().getEntityGroups())`.
+
+!!! example ""
+    Filter which will return only entities from the query.
+
+    === "Java"
+
+        ``` java
+        final GetAllElements operation = new GetAllElements()
+                .view(new View.Builder()
+                    .allEntities(true)
+                    .build())
+                .build();
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+          "class" : "GetAllElements",
+          "view": {
+            "allEntities": true
+          }
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+        g.GetAllElements(
+            view=g.View(
+                all_entities=True
+            )
+        )
+        ```
+
+    Results:
+
+    === "Java"
+        ```java
+        Entity[vertex="John",group=Person,properties=Properties[age=<java.lang.Integer>34]]
+        Entity[vertex="1",group=Software,properties=Properties[]]
+        Entity[vertex="2",group=Software,properties=Properties[]]
+        ```
+
+    === "JSON"
+        ```json
+        [
+            {
+                "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                "group": "Person",
+                "vertex": "John",
+                "properties": {}
+            },
+            {
+                "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                "group": "Software",
+                "vertex": "1",
+                "properties": {}
+            },
+            {
+                "class": "uk.gov.gchq.gaffer.data.element.Entity",
+                "group": "Software",
+                "vertex": "2",
+                "properties": {}
+            }
+        ]
+        ```
+
+!!! example ""
+    Filter which will return only the edges from the query.
+
+    === "Java"
+
+        ``` java
+        final GetAllElements operation = new GetAllElements()
+                .view(new View.Builder()
+                    .allEdges(true)
+                    .build())
+                .build();
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+          "class" : "GetAllElements",
+          "view": {
+            "allEdges": true
+          }
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+        g.GetAllElements(
+            view=g.View(
+                all_edges=True
+            )
+        )
+        ```
+
+    Results:
+
+    === "Java"
+        ```java
+            Edge[source="John",destination=2,directed=true,matchedVertex=SOURCE,group=Created,properties=Properties[weight=<java.lang.Float>0.6,hours=<java.lang.Integer>800,minutes=<java.lang.Integer>48000]]
+            Edge[source="John",destination=1,directed=true,matchedVertex=SOURCE,group=Created,properties=Properties[weight=<java.lang.Float>0.2,hours=<java.lang.Integer>100,minutes=<java.lang.Integer>6000]]
+        ```
+
+    === "JSON"
+        ```json
+        [
+            {
+            "class": "uk.gov.gchq.gaffer.data.element.Edge",
+            "group": "Created",
+            "source": "John",
+            "destination": "2",
+            "directed": true,
+            "matchedVertex": "SOURCE",
+            "properties": {
+                "weight": 0.2,
+                "hours": 800,
+                "minutes": 48000
+            }
+            },
+            {
+                "class": "uk.gov.gchq.gaffer.data.element.Edge",
+                "group": "Created",
+                "source": "John",
+                "destination": "1",
+                "directed": true,
+                "matchedVertex": "SOURCE",
+                "properties": {
+                    "weight": 0.6,
+                    "hours": 100,
+                    "minutes": 6000
+                }
+            }
+        ]
+        ```
+
+!!! warning
+    Users should not use this filter in conjunction with a `GetAdjacentIds` opeation as this
+    already only returns entities and results may not be returned correctly.
+
+### Global View Definitions
+
+If you wish to use the same filter on multiple groups, you could use a global `View` definition.
+These include:
+
+- `globalElements` - these are applied to all edges and entities.
+- `globalEdges` - these are applied to all edges.
+- `globalEntities` - these are applied to all entities.
+
+Global aggregations and transformations work in a similar way to filtering.
+Properties can be included/excluded globally using filtering.
+These examples show including global properties in the filter, excluded global properties work in a similar fashion.
+
+!!! example ""
+
+    If we only wanted to return the `weight` property for all elements this
+    can be done as follows:
+
+    === "Java"
+
+        ```java
+        // Define the View to use
+        final View viewWithGlobalFilter = new View.Builder()
+            .globalElements(new GlobalViewElementDefinition.Builder()
+                .properties("weight")
+                .build())
+            .build();
+        ```
+
+    === "JSON"
+
+        ```json
+        {
+            "view": {
+                "globalElements": [ {
+                    "properties": ["weight"]
+                }]
+            }
+        }
+        ```
+
+    === "Python"
+
+        ```python
+        viewWithGlobalElements = g.View(
+            global_elements=[
+                g.GlobalElementDefinition(
+                    properties=["weight"]
+                ),
+            ],
+            all_edges=False,
+            all_entities=False
+        )
+        ```
+
+Global View definitions can also be used to filter all elements for specific properties.
+
+!!! example ""
+
+    If we want all elements with a `weight` more than 0.4.
+
+    === "Java"
+
+        ```java
+        // Define the View to use
+        final View viewWithGlobalFilter = new View.Builder()
+            .globalElements(new GlobalViewElementDefinition.Builder()
+                .postAggregationFilter(new ElementsFilter.Builder()
+                    .select("weight")
+                    .execute(new IsMoreThan(0.4))
+                    .build())
+                .build())
+            .build();
+        ```
+
+    === "JSON"
+
+        ```json
+        {
+            "view": {
+                "globalElements" : [ {
+                    "postAggregationFilterFunctions" : [ {
+                        "selection" : [ "weight" ],
+                        "predicate" : {
+                            "class" : "IsMoreThan",
+                            "orEqualTo" : false,
+                            "value" : {
+                                "Float" : 0.4
+                            }
+                        }
+                    } ]
+                } ]
+            }
+        }
+        ```
+
+    === "Python"
+
+        ```python
+        viewWithGlobalElements = g.View(
+            global_elements=[
+                g.GlobalElementDefinition(
+                    post_aggregation_filter_functions=[
+                        g.PredicateContext(
+                            selection=["weight"],
+                            predicate=g.IsMoreThan(
+                                value={'java.lang.Float': 0.4},
+                                or_equal_to=False
+                            )
+                        )
+                    ]
+                )
+            ],
+            all_edges=False,
+            all_entities=False
+        )
+        ```
+
+In addition to global definitions, you can add specific view definitions to different element
+groups as you would usually. The global definitions are then merged with each of the element
+specific filters using an AND operator.
+
+!!! example ""
+
+    In this example this would get all `Commit` edges with a `weight` property
+    as well as all `Person` entities with an `age` property.
+
+    === "Java"
+
+        ```java
+        // Define the View to use
+        final View globalAndSpecificFilter = new View.Builder()
+                .globalElements(new GlobalViewElementDefinition.Builder()
+                    .properties("weight")
+                    .build())
+                .edge("Commit")
+                .entity("Person", new ViewElementDefinition.Builder()
+                    .properties("age")
+                    .build())
+            .build();
+        ```
+
+    === "JSON"
+
+        ```json
+        {
+            "view": {
+                "edges" : {
+                    "Commit" : { }
+                },
+                "entities" : {
+                    "Person" : {
+                        "properties" : [ "age" ]
+                    }
+                },
+                "globalElements" : [ {
+                    "properties" : [ "weight" ]
+                } ]
+            }
+        }
+        ```
+
+    === "Python"
+
+        ```python
+        globalAndSpecificFilter = g.View(
+            entities=[
+                g.ElementDefinition(
+                    group="Person",
+                    properties=["age"]
+                )
+            ],
+            edges=[
+                g.ElementDefinition(
+                    group="Commit"
+                )
+            ],
+            global_elements=[
+                g.GlobalElementDefinition(
+                    properties=["weight"]
+                )
+            ],
+            all_edges=False,
+            all_entities=False
+        )
         ```
 
 ## Transformation
@@ -420,7 +761,7 @@ and save the returned information into a new `minutes` transient property.
     === "Python"
 
         ```python
-        elements = g_connector.execute_operation(
+        elements = gc.execute_operation(
             operation = g.GetElements(
                 input = [g.EntitySeed(vertex = "John")]
                 view = g.View(
@@ -603,7 +944,7 @@ total for all the `added` and `removed` properties.
     === "Python"
 
         ```python
-        elements = g_connector.execute_operation(
+        elements = gc.execute_operation(
             operation = g.GetElements(
                 input = [g.EntitySeed(vertex = "John")],
                 view = g.View(
@@ -717,7 +1058,7 @@ and to instead summarise all elements, e.g. all John committed to repo edges.
     === "Python"
 
         ```python
-        elements = g_connector.execute_operation(
+        elements = gc.execute_operation(
             operation = g.GetElements(
                 input = [g.EntitySeed(vertex = "John")],
                 view = g.View(
@@ -802,7 +1143,7 @@ If you apply some pre-aggregation filtering, you can also select a time window t
     === "Python"
 
         ```python
-        elements = g_connector.execute_operation(
+        elements = c.execute_operation(
             operation = g.GetElements(
                 input = [g.EntitySeed(vertex = "John")],
                 view = g.View(
@@ -909,7 +1250,7 @@ occurred will not be modified.
     === "Python"
 
         ```python
-         elements = g_connector.execute_operation(
+         elements = gc.execute_operation(
             operation = g.GetElements(
                 input = [g.EntitySeed(vertex = "John")],
                 view = g.View(
@@ -983,7 +1324,7 @@ This can be done using the `globalElements` section in the view:
     === "Python"
 
         ```python
-        elements = g_connector.execute_operation(
+        elements = gc.execute_operation(
             operation = g.GetElements(
                 input = [g.EntitySeed(vertex = "John")],
                 view = g.View(
