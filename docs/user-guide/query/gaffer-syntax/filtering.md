@@ -491,7 +491,7 @@ adding them to the view, e.g. `entity(getSchema().getEntityGroups())`.
         ```
 
 !!! warning
-    Users should not use this filter in conjunction with a `GetAdjacentIds` opeation as this
+    Users should not use this filter in conjunction with a `GetAdjacentIds` operation as this
     already only returns entities and results may not be returned correctly.
 
 ### Global View Definitions
