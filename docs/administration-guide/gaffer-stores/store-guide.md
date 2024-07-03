@@ -114,4 +114,4 @@ These customisable operations can be added to your Gaffer graph by providing con
 Named Operations depends on the Cache service being active at runtime. See [Caches](#caches) above for how to enable these.
 
 ### ScoreOperationChain
-Operation scores determine whether a particular user has the required permissions to execute a given OperationChain. See [Operation Scores](../../administration-guide/operation-score.md) for how to enable and congifure these.
+Operation scores determine whether a particular user has the required permissions to execute a given OperationChain. See [Operation Scores](../../administration-guide/operation-score.md) for how to enable and configure these.
