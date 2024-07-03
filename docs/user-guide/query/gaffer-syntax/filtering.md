@@ -618,7 +618,8 @@ specific filters using an AND operator.
 
 !!! example ""
 
-    In this example this would get all `Commit` edges with a `weight` property
+    This example applies a global filter to both `Commit` edges
+    and `Person` entities to get all those with a `weight` property
     as well as all `Person` entities with an `age` property.
 
     === "Java"
