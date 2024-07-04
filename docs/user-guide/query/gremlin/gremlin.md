@@ -287,7 +287,7 @@ Users can run Named Operations and add new Named Operations, deleting Named Oper
 
         params = {"add": {"name": "CountAllElements", "opChain": operation}}
 
-        g.call("namedoperation", params).to_list()
+        g.call("namedoperation", params)
         ```
 
     === "Java"
@@ -307,7 +307,7 @@ Users can run Named Operations and add new Named Operations, deleting Named Oper
         addParams.put("opChain", operation.getOperationChainAsString());
         Map<String, Map <String, String>> params = Collections.singletonMap("add", addParams);
 
-        g.call("namedoperation", params).toList();
+        g.call("namedoperation", params);
         ```
 
 Users can also run any existing or added Named Operations that are stored in the cache.
