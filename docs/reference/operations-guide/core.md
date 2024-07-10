@@ -104,7 +104,7 @@ Adds elements to a graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/ga
 
 ## DeleteElements
 
-Deletes Elements from a graph. [Javadoc](....)
+Deletes Elements from a graph.
 
 ??? example "Example deleting an entity and edge"
 
