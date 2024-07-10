@@ -1,6 +1,6 @@
 # Delete Elements Operation
 
-In Gaffer 2.X a DeleteElements operation was added to allow users
+In Gaffer 2.3.0 a DeleteElements operation was added to allow users
 to delete specific elements from their graph instance.
 
 !!! warning
