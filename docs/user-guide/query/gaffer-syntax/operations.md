@@ -72,8 +72,8 @@ based on their ID. To do this we can use the `GetElements` operation and set the
     === "Python"
 
         ```python
-        elements = g_connector.execute_operation(
-            operation = gaffer.GetElements(input = [gaffer.EntitySeed(vertex = "v1")])
+        elements = gc.execute_operation(
+            operation = g.GetElements(input = [g.EntitySeed(vertex = "v1")])
         )
         ```
 
@@ -121,11 +121,11 @@ how many entities the `GetElements` returned.
     === "Python"
 
         ```python
-        count = g_connector.execute_operation_chain(
-            operation_chain = gaffer.OperationChain(
+        count = gc.execute_operation_chain(
+            operation_chain = g.OperationChain(
                 operations=[
-                    gaffer.GetElements(input = [gaffer.EntitySeed(vertex = "v1")]),
-                    gaffer.Count()
+                    g.GetElements(input = [g.EntitySeed(vertex = "v1")]),
+                    g.Count()
                 ]
             )
         )

@@ -250,7 +250,14 @@ a table of how different parts are mapped is as follows:
 | Vertex | Vertex with default label of `id` |
 | Entity | Vertex |
 | Edge | Edge |
-| Edge ID | A list with the source and destination of the Edge e.g. `[dest, source]` |
+
+In Gafferpop Edge ID's must be made up of a list containing either source and destination
+IDs, e.g. `[source, dest]`, or source, label and destination, e.g. `[source, label, dest]`.
+In a seeded query these should be formatted like so `g.E("[source, dest]")` or
+`g.E(["[source1, dest1]","[source2, label, dest2]"])`.
+
+Note that if using TypeSubTypeValue for seeds or property values these must be in the
+format `t:type|st:subtype|v:value`.
 
 ## Custom Features
 
@@ -258,6 +265,67 @@ The GafferPop implementation provides some extra features on top of the
 standard Tinkerpop framework that you can utilise in your queries. These
 are likely specific to how a Gaffer graph operates and may not be available
 in other graph technologies that support Gremlin queries.
+
+### NamedOperations in Gremlin
+
+The [GafferPopNamedOperationService](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/tinkerpop/service/GafferPopNamedOperationService.html)
+allows for the running of Gaffer [Named Operations](../../../administration-guide/named-operations.md) using Tinkerpop.
+Users can run Named Operations and add new Named Operations, deleting Named Operations is not currently possible with Tinkerpop.
+
+!!! example ""
+    Add a simple Named Operation that returns a count of all elements in your graph.
+
+    === "Gremlin"
+
+        ```python
+        operation = gc.OperationChain(
+            operations=[
+                gc.GetAllElements(),
+                gc.Count()
+            ]
+        ).to_json_str()
+
+        params = {"add": {"name": "CountAllElements", "opChain": operation}}
+
+        g.call("namedoperation", params)
+        ```
+
+    === "Java"
+
+        ```java
+        final AddNamedOperation operation = new AddNamedOperation.Builder()
+            .operationChain(new OperationChain.Builder()
+                .first(new GetAllElements()
+                        .then(new Count<>())
+                        .build())
+                .build())
+            .name("CountAllElements")
+            .build();
+
+        Map<String, String> addParams = new HashMap<>();
+        addParams.put("name", "CountAllElements");
+        addParams.put("opChain", operation.getOperationChainAsString());
+        Map<String, Map <String, String>> params = Collections.singletonMap("add", addParams);
+
+        g.call("namedoperation", params);
+        ```
+
+Users can also run any existing or added Named Operations that are stored in the cache.
+
+!!! example ""
+
+    === "Gremlin"
+
+        ```python
+        g.call("namedoperation", {"execute": "CountAllElements"}).to_list()
+        ```
+
+    === "Java"
+
+        ```java
+        Map<String, String> params = Collections.singletonMap("execute", "CountAllElements")
+        g.call("namedoperation", params).toList();
+        ```
 
 ### Adding Options to Queries
 

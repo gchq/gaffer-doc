@@ -49,7 +49,7 @@ Gets data from an endpoint. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/
 
 Determines a "score" for an OperationChain. This is used to determine whether a particular user has the required permissions to execute a given OperationChain. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/ScoreOperationChain.html)
 
-This operation requires Store configuration to be set before it can be used. See the [Store Guide](../../administration-guide/gaffer-stores/store-guide.md#scoreoperationchain) for how to do this.
+This operation requires Store configuration to be set before it can be used. See the [Operation Score Guide](../../administration-guide/operation-score.md) for how to do this.
 
 ### Example ScoreOperationChain
 

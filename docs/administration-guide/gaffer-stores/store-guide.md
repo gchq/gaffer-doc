@@ -72,7 +72,7 @@ gaffer.cache.service.default.class=uk.gov.gchq.gaffer.cache.impl.HashMapCacheSer
 ```
 
 Both the JCS and Hazelcast caches require configuration files.
-In the case of a JCS file this is a [ccf file](https://commons.apache.org/proper/commons-jcs/BasicJCSConfiguration.html) 
+In the case of a JCS file this is a [ccf file](https://commons.apache.org/proper/commons-jcs/BasicJCSConfiguration.html)
 while for Hazelcast this is commonly a [XML/YAML file](https://docs.hazelcast.com/imdg/4.2/configuration/understanding-configuration#static-configuration).
 
 You should then specify the location of any configuration file(s) in your store.properties file as follows:
@@ -114,62 +114,4 @@ These customisable operations can be added to your Gaffer graph by providing con
 Named Operations depends on the Cache service being active at runtime. See [Caches](#caches) above for how to enable these.
 
 ### ScoreOperationChain
-
-Variables:
-
-- opScores - required map of operation scores. These are the operation score values.
-- authScores - required map of operation authorisation scores. These are the maximum scores allowed for a user with a given role.
-- scoreResolvers - required (if using NamedOperations) list of score resolvers. These map operation class to its respective score resolver.
-
-
-??? example "Example operation scores map"
-
-    ```json
-    { 
-      "opScores": {
-        "uk.gov.gchq.gaffer.operation.Operation": 1,
-        "uk.gov.gchq.gaffer.operation.impl.generate.GenerateObjects": 0,
-        "uk.gov.gchq.gaffer.operation.impl.get.GetAllElements": 3
-      }
-    }
-    ```
-
-??? example "Example operation authorisation scores map"
-
-    ```json
-    {
-      "authScores": {
-        "User": 4,
-        "EnhancedUser": 10,
-        "OtherUser": 6
-      }
-    }
-    ```
-
-??? example "Example operation declarations JSON file"
-
-    ```json
-    {
-      "operations": [
-        {
-          "operation": "uk.gov.gchq.gaffer.operation.impl.ScoreOperationChain",
-          "handler": {
-            "class": "uk.gov.gchq.gaffer.store.operation.handler.ScoreOperationChainHandler",
-            "opScores": {
-              "uk.gov.gchq.gaffer.operation.Operation": 2,
-              "uk.gov.gchq.gaffer.operation.impl.generate.GenerateObjects": 0
-            },
-            "authScores": {
-              "User": 4,
-              "EnhancedUser": 10
-            },
-            "scoreResolvers": {
-              "uk.gov.gchq.gaffer.named.operation.NamedOperation": {
-                "class": "uk.gov.gchq.gaffer.store.operation.resolver.named.NamedOperationScoreResolver"
-              }
-            }
-          }
-        }
-      ]
-    }
-    ```
+Operation scores determine whether a particular user has the required permissions to execute a given OperationChain. See [Operation Scores](../../administration-guide/operation-score.md) for how to enable and configure these.
