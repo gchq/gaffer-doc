@@ -163,6 +163,7 @@ nav:
       - 'Named Views': 'administration-guide/named-views.md'
       - 'Operation Score': 'administration-guide/operation-score.md'
       - 'Job Tracker': 'administration-guide/job-tracker.md'
+      - 'Delete Operation': 'administration-guide/delete-elements.md'
       - Security:
         - 'Security Guide': 'administration-guide/security/security-guide.md'
         - 'User Control': 'administration-guide/security/user-control.md'
