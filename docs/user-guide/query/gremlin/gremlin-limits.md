@@ -15,8 +15,7 @@ Current TinkerPop features not present in the GafferPop implementation:
 
 Current known limitations or bugs:
 
-- Proper [user authentication](../../../administration-guide/gaffer-deployment/gremlin.md#user-authentication)
-  is only available if using a Gremlin server and the `GafferPopAuthoriser` class.
+- Must use the GraphSON v3 format when connecting via the REST API websocket.
 - Performance compared to standard Gaffer `OperationChain`s will likely be
   slower as multiple Gaffer `Operations` may utilised to perform one Gremlin
   step.
