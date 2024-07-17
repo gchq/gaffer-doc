@@ -2,7 +2,7 @@
 
 It is possible to use Gremlin as an alternative querying language in Gaffer. To
 make Gremlin available however, there are some additional steps that need to be
-taken ensure it is setup correctly.
+taken to ensure it is setup correctly.
 
 ## Overview
 
@@ -63,8 +63,8 @@ The `gafferpop.properties`, file is the configuration for the Gaffer
 implementation of Tinkerpop (a.k.a Gafferpop). If using the REST API there is no
 mandatory properties you need to set since you already will have configured the
 Graph in the existing `store.properties` file. However, adding some default
-values in for operation modifiers such as a limit for `GetAllElement`
-operations is good practise.
+values in for operation modifiers, such as a limit for `GetAllElement`
+operations, is good practise.
 
 ```properties
 # Default operation config

@@ -9,8 +9,8 @@ recommend restricting users such that they do not have access to the cluster and
 by only allowing users to connect to Gaffer via the REST API.
 
 In the REST API the `User` object is constructed via a [`UserFactory`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/rest/factory/UserFactory.html).
-Under the Spring REST API this has an abstract implementation class
-`AbstractUserFactory` to allow passing HTTP headers to be used for
+In the Spring REST API an abstract implementation of this class is used,
+`AbstractUserFactory`, which is then used in the passing of HTTP headers for
 authentication.
 
 Currently, we only provide one implementation of this, the `UnknownUserFactory`
@@ -20,7 +20,7 @@ factory, to specify the user factory class define the
 
 ## Writing a User Factory
 
-To authenticate your users, you will need to extend the `AbstractUserFactory` class
+To authenticate your users you will need to extend the `AbstractUserFactory` class
 to add your chosen authentication mechanism. The hooks will already be in the REST API
 to pass the current HTTP headers for each request. Your factory will need to parse these
 to construct a new `User` object via the `createUser()` method that reflects the user
