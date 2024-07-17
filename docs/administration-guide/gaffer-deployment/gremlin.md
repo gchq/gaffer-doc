@@ -14,7 +14,7 @@ This is the recommended approach and the easiest way to start using Gremlin on
 Gaffer.
 
 If you wish to connect via the Java API, you can utilise the underlying
- 'GafferPop' library that can be utilised to enable Gremlin queries. This
+'GafferPop' library that can be utilised to enable Gremlin queries. This
 library can be included via maven in any project using the following dependency
 definition:
 
@@ -57,14 +57,13 @@ from gremlin_python.driver.serializer import GraphSONSerializersV3d0
 g = traversal().with_remote(DriverRemoteConnection('ws://localhost:8080/gremlin', 'g', message_serializer=GraphSONSerializersV3d0()))
 ```
 
-## Configuring the Gafferpop Library
+## Configuring the GafferPop Library
 
-The `gafferpop.properties`, file is the configuration for the Gaffer
-implementation of Tinkerpop (a.k.a Gafferpop). If using the REST API there is no
-mandatory properties you need to set since you already will have configured the
-Graph in the existing `store.properties` file. However, adding some default
-values in for operation modifiers, such as a limit for `GetAllElement`
-operations, is good practise.
+The `gafferpop.properties`, file is the configuration for GafferPop. If using
+the REST API there is no mandatory properties you need to set since you already
+will have configured the Graph in the existing `store.properties` file. However,
+adding some default values in for operation modifiers, such as a limit for
+`GetAllElement` operations, is good practise.
 
 ```properties
 # Default operation config

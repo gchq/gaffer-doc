@@ -4,19 +4,20 @@
 
     This page is under construction.
 
-The security layer for Gaffer is currently only enforced by the REST API. We
-recommend restricting users such that they do not have access to the cluster and
-by only allowing users to connect to Gaffer via the REST API.
+The user authentication layer for Gaffer is currently only enforced by the REST
+API. We recommend restricting users such that they do not have access to the
+underlying Java API so that all queries are authenticated and executed via the
+REST API.
 
 In the REST API the `User` object is constructed via a [`UserFactory`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/rest/factory/UserFactory.html).
 In the Spring REST API an abstract implementation of this class is used,
 `AbstractUserFactory`, which is then used in the passing of HTTP headers for
 authentication.
 
-Currently, we only provide one implementation of this, the `UnknownUserFactory`
-which will always just return `new User()`. The `UnknownUserFactory` is the default
-factory, to specify the user factory class define the
-`gaffer.user.factory.class` [REST property](../gaffer-config/config.md#application-properties).
+Currently, there is a single default implementation of this; the
+`UnknownUserFactory` which simply returns a new `User` with `UNKNOWN` as the
+user ID. The `UnknownUserFactory` is the default factory, to specify the user
+factory class define the `gaffer.user.factory.class` [REST property](../gaffer-config/config.md#application-properties).
 
 ## Writing a User Factory
 
