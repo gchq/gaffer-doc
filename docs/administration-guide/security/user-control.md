@@ -16,7 +16,7 @@ authentication.
 
 Currently, there is a single default implementation of this; the
 `UnknownUserFactory` which simply returns a new `User` with `UNKNOWN` as the
-user ID. The `UnknownUserFactory` is the default factory, to specify the user
+user ID. To specify the user
 factory class define the `gaffer.user.factory.class` [REST property](../gaffer-config/config.md#application-properties).
 
 ## Writing a User Factory
