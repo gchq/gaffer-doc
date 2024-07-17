@@ -63,7 +63,7 @@ The `gafferpop.properties`, file is the configuration for GafferPop. If using
 the REST API there is no mandatory properties you need to set since you already
 will have configured the Graph in the existing `store.properties` file. However,
 adding some default values in for operation modifiers, such as a limit for
-`GetAllElement` operations, is good practise.
+`GetAllElement` operations, is good practice.
 
 ```properties
 # Default operation config
@@ -71,7 +71,7 @@ gaffer.elements.getalllimit=5000
 gaffer.elements.hasstepfilterstage=PRE_AGGREGATION
 ```
 
-A full breakdown of of the available properties is as follows:
+A full breakdown of the available properties is as follows:
 
 !!! note
     Many of these are for standalone GafferPop Graphs so may be ignored if using
