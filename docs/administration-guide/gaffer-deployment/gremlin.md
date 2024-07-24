@@ -1,15 +1,22 @@
-# Connecting Gremlin to Gaffer
+# Using Gremlin in Gaffer
 
 It is possible to use Gremlin as an alternative querying language in Gaffer. To
 make Gremlin available however, there are some additional steps that need to be
-taken to connect to a Gaffer graph via this interface.
+taken to ensure it is setup correctly.
 
 ## Overview
 
 Gremlin serves as a query layer for a graph that implements the Tinkerpop graph
-structure. As of v2.1.0 Gaffer has made available a library that can be utilised
-to enable Gremlin queries. This library can be included via maven in any project
-using the following dependency definition:
+structure. As of v2.3.0 Gremlin is in the [Gaffer REST API](./gaffer-docker/gaffer-images.md)
+which provides a Websocket based traversal source similar to using a normal
+[Gremlin server](https://tinkerpop.apache.org/docs/current/reference/#connecting-gremlin-server).
+This is the recommended approach and the easiest way to start using Gremlin on
+Gaffer.
+
+If you wish to connect via the Java API, you can utilise the underlying
+'GafferPop' library that can be utilised to enable Gremlin queries. This
+library can be included via maven in any project using the following dependency
+definition:
 
 ```xml
 <dependency>
@@ -19,193 +26,65 @@ using the following dependency definition:
 </dependency>
 ```
 
-The library contains the graph implementation that allows Tinkerpop to talk to a
-Gaffer graph and generally is all that is needed to provide the functionality.
-To actually utilise Gremlin queries however, a connection to what's known as a
-`GraphTraversalSource` is required which is the class from which Gremlin
-traversals are spawned. To do this we recommend utilising the provided
-[Gremlin server framework](https://tinkerpop.apache.org/docs/current/reference/#connecting-gremlin-server)
-which can be configured to use the Gaffer Tinkerpop implementation so that a
-endpoint is available for Gremlin queries.
+Both methods (REST API and Java API) utilise the same library that allows
+Tinkerpop to talk to a Gaffer graph. To actually spawn a Gremlin query a
+reference to a `GraphTraversalSource` is required, the following sections
+outline how to obtain this reference using the REST API.
 
-## Connecting to An Existing Accumulo Backed Graph
+## Connecting Gremlin
 
-The recommended way to provide a Gremlin interface to an existing Gaffer
-instance is to connect directly to the same [Accumulo store](../gaffer-stores/accumulo-store.md).
-Connecting this way means Gremlin communicates in a similar way to the Gaffer
-REST API and ensures the fastest performance when using Gremlin (there may still
-be a performance hit).
-
-!!! note
-    It is possible to attach to other store types in a similar manner usually through
-    a [proxy store](../gaffer-stores/proxy-store.md) or [federated store](../gaffer-stores/federated-store.md).
-
-The general connection diagram looks something like the following:
-
-```mermaid
-flowchart LR
-    A(["User"])
-    --> B("Gremlin Server")
-    --> C("Accumulo Store")
-```
-
-To establish this connection you can make use of the existing `gaffer-gremlin`
-OCI image which is an extension of the existing `gremlin-server` image. This
-provides the Tinkerpop library which allows users to connect Gaffer graphs as
-well as some pre installed configuration to get up and running quickly.
-
-```bash
-docker pull gchq/gaffer-gremlin:latest
-```
-
-!!! note
-    You will need to configure the default `gaffer-gremlin` image to your
-    environment, please continue reading to learn more.
-
-### The `gaffer-gremlin` Image
-
-To use the image you will need to provide the normal Gaffer configuration files
-for to your environment along with a new GafferPop specific file (similar to the
-standard graph config JSON) they are:
-
-- `store.properties` - Gaffer store configuration, this should match the
-  existing graph you are connecting to.
-- `elements.json` and `types.json` - The schema files for the graph you wish to
-  connect to.
-- `gafferpop.properties` - Configuration for the Gaffer Tinkerpop library
-  (Gafferpop).
-
-Please read the subsections below on how to configure these files. Once these
-are configured you can use bind mounts to make them available when running the
-image:
-
-```bash
-docker run \
-       --name gaffer-gremlin \
-       --publish 8182:8182 \
-       --volume store.properties:/opt/gremlin-server/conf/gaffer/store.properties \
-       --volume schema:/opt/gremlin-server/conf/gaffer/schema \
-       --volume gafferpop.properties:/opt/gremlin-server/conf/gafferpop/gafferpop.properties \
-       tinkerpop/gremlin-server:latest gremlin-server.yaml
-```
-
-### Configuring the Store Properties
-
-Starting with the Store properties, this file should be largely identical to
-the store properties used on the main Gaffer deployment. The main purpose
-of this file is to ensure the same Accumulo cluster is connected to.
-
-An example file is given below, please read the specific [Accumulo store](../gaffer-stores/accumulo-store.md)
-documentation for more detail:
-
-```properties
-gaffer.store.class=uk.gov.gchq.gaffer.accumulostore.AccumuloStore
-gaffer.store.properties.class=uk.gov.gchq.gaffer.accumulostore.AccumuloProperties
-accumulo.instance=accumulo
-accumulo.zookeepers=zookeeper
-accumulo.user=root
-accumulo.password=secret
-# General store config
-gaffer.cache.service.class=uk.gov.gchq.gaffer.cache.impl.HashMapCacheService
-gaffer.store.job.tracker.enabled=true
-```
-
-### Configuring the Gafferpop Library
-
-The `gafferpop.properties`, file is the configuration for the Gaffer
-implementation of Tinkerpop (a.k.a Gafferpop). Most of the set up here is for
-the construction of the Gafferpop Graph instance which we want to make run with
-the `store.properties` we've already configured. An example `gaffer.properties`
-would look like the following:
-
-```properties
-# The Tinkerpop graph class we should use
-gremlin.graph=uk.gov.gchq.gaffer.tinkerpop.GafferPopGraph
-gaffer.graphId=existingGraph
-gaffer.storeproperties=conf/gaffer/store.properties
-gaffer.userId=user01
-```
-
-!!! note
-    It is important the `graphId` here matches the ID of the main graph you
-    wish to connect to as this controls which Accumulo table is connected to.
-
-Many of these properties in the example above should be self explanatory, a full breakdown of
-of the available properties is as follows:
-
-| Property Key | Description |
-| --- | --- |
-| `gremlin.graph` | The Tinkerpop graph class we should use |
-| `gaffer.graphId` | The graph ID of the Tinkerpop graph |
-| `gaffer.storeproperties` | The path to the store properties file |
-| `gaffer.schemas` | The path to the directory containing the graph schema files |
-| `gaffer.userId` | The default user ID for the Tinkerpop graph (see the [authentication section](#user-authentication)) |
-| `gaffer.dataAuths` | The default data auths for the user to specify what operations can be performed |
-| `gaffer.operation.options` | Default `Operation` options in the form `key:value` (this can be overridden per query see [here](../../user-guide/query/gremlin/gremlin.md#custom-features)) |
-
-### Configuring the Gremlin Server
-
-The underlying Gremlin server can also be configured if required. The `gaffer-gremlin`
-image comes with an existing YAML configuration based on the example from the
-[Tinkerpop repository](https://github.com/apache/tinkerpop/blob/master/gremlin-server/conf/gremlin-server.yaml).
-This file should be suitable for most use cases but a custom one can be provided
-via a bind mount. If supplying a custom file please ensure you still include the
-following sections:
-
-Ensure the `gafferpop.properties` file is set by modifying the `graphs` section like so:
-
-```yaml
-graphs: {
-  graph: conf/gafferpop/gafferpop.properties
-}
-```
-
-Ensure the Gaffer plugin is loaded for Gremlin which is achieved by adding the
-following to the list of plugins in the `plugins` section:
-
-```yaml
-uk.gov.gchq.gaffer.tinkerpop.gremlinplugin.GafferPopGremlinPlugin: {}
-```
+As mentioned previously the recommended way to use Gremlin queries is via the
+Websocket in the Gaffer REST API. To do this you will need to provide a config
+file that sets up the Gaffer Tinkerpop library (a.k.a 'GafferPop'). The file can
+either be added to `/gaffer/gafferpop.properties` in the container, or at a
+ custom path by setting the `gaffer.gafferpop.properties` key in the
+`store.properties` file. This file can be blank but it is still recommended to
+setup some default values.
 
 !!! tip
-    See the [Tinkerpop docs](https://tinkerpop.apache.org/docs/current/reference/#gremlin-server)
-    for more information on Gremlin server configuration.
+    Please see the [section below](#configuring-the-gafferpop-library) on how to
+    configure the GafferPop properties file.
 
-#### User Authentication
+Once the GafferPop properties file has been added, if you start the REST API a
+Gremlin websocket will be available at `localhost:8080/gremlin` by default.
+To connect to this socket you must use the [GraphSON v3](https://tinkerpop.apache.org/docs/current/dev/io/#graphson)
+format. Most standard Gremlin tools already default to this however, if
+connecting using `gremlinpython` you must set it in the driver connection like:
 
-Full user authentication is possible with the Gremlin server using the framework
-provided by standard Tinkerpop. The GafferPop implementation provides a
-functional `Authoriser` class that will handle passing the authenticated user to
-the underlying Gaffer graph.
+```python
+from gremlin_python.driver.serializer import GraphSONSerializersV3d0
 
-To activate user auth with the Gremlin server you must provide the classes you
-wish to use in the Gremlin server's YAML file like so:
-
-```yaml
-# This should be a deployment specific class
-authentication: {
-  authenticator: uk.gov.gchq.gaffer.tinkerpop.server.auth.ExampleGafferPopAuthenticator
-}
-# This class is necessary for correctly forwarding the user to Gaffer
-authorization: {
-  authorizer: uk.gov.gchq.gaffer.tinkerpop.server.auth.GafferPopAuthoriser
-}
+g = traversal().with_remote(DriverRemoteConnection('ws://localhost:8080/gremlin', 'g', message_serializer=GraphSONSerializersV3d0()))
 ```
 
-The `authorizer` should always be the `GafferPopAuthoriser` as this is what
-handles denying invalid queries for GafferPop and passing the user on to the
-Gaffer graph for fine grained security.
+## Configuring the GafferPop Library
+
+The `gafferpop.properties`, file is the configuration for GafferPop. If using
+the REST API there is no mandatory properties you need to set since you already
+will have configured the Graph in the existing `store.properties` file. However,
+adding some default values in for operation modifiers, such as a limit for
+`GetAllElement` operations, is good practice.
+
+```properties
+# Default operation config
+gaffer.elements.getalllimit=5000
+gaffer.elements.hasstepfilterstage=PRE_AGGREGATION
+```
+
+A full breakdown of the available properties is as follows:
 
 !!! note
-    The `GafferPopAuthoriser` will deny attempts to set the user ID via a
-    `with("userId", <id>)` step in the Gremlin query.
+    Many of these are for standalone GafferPop Graphs so may be ignored if using
+    the REST API.
 
-The `authenticator` should be a class specific to the auth mechanism for your
-deployment e.g. LDAP. An example class `ExampleGafferPopAuthenticator` is
-provided as a start point but does not do any actual authenticating so should
-**not** be used in production.
-
-!!! tip
-    Tinkerpop provides some implementaions of `Authenticators` for standard
-    mechanisms such as [Kerberos](https://tinkerpop.apache.org/javadocs/current/full/org/apache/tinkerpop/gremlin/server/auth/Krb5Authenticator.html).
-    Please see the [Tinkerpop documentation](https://tinkerpop.apache.org/docs/current/reference/#security) for more info.
+| Property Key | Description | Used in REST API |
+| --- | --- | --- |
+| `gremlin.graph` | The Tinkerpop graph class we should use for construction. | No |
+| `gaffer.graphId` | The graph ID of the Tinkerpop graph. | No |
+| `gaffer.storeproperties` | The path to the store properties file. | No |
+| `gaffer.schemas` | The path to the directory containing the graph schema files. | No |
+| `gaffer.userId` | The default user ID for the Tinkerpop graph. | No (User is always set via the [`UserFactory`](../security/user-control.md).) |
+| `gaffer.dataAuths` | The default data auths for the user to specify what operations can be performed | No |
+| `gaffer.operation.options` | Default `Operation` options in the form `key:value` (this can be overridden per query see [here](../../user-guide/query/gremlin/custom-features.md)) | Yes |
+| `gaffer.elements.getalllimit` | The default limit for unseeded queries e.g. `g.V()`. | Yes |
+| `gaffer.elements.hasstepfilterstage` | The default stage to apply any `has()` steps e.g. `PRE_AGGREGATION` | Yes |
