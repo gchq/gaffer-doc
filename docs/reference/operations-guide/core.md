@@ -69,23 +69,23 @@ Adds elements to a graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/ga
     === "Python"
 
         ``` python
-        g.AddElements( 
-          input=[ 
-            g.Entity( 
-              group="entity", 
-              properties={'count': 1}, 
-              vertex=6 
-            ), 
-            g.Edge( 
-              group="edge", 
-              properties={'count': 1}, 
-              source=5, 
-              destination=6, 
-              directed=True 
-            ) 
-          ], 
-          skip_invalid_elements=False, 
-          validate=True 
+        g.AddElements(
+          input=[
+            g.Entity(
+              group="entity",
+              properties={'count': 1},
+              vertex=6
+            ),
+            g.Edge(
+              group="edge",
+              properties={'count': 1},
+              source=5,
+              destination=6,
+              directed=True
+            )
+          ],
+          skip_invalid_elements=False,
+          validate=True
         )
         ```
 
@@ -100,6 +100,68 @@ Adds elements to a graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/ga
       2 --> 5
       3 --> 4
       5 --> 6
+    ```
+
+## DeleteElements
+
+Deletes Elements from a graph.
+
+??? example "Example deleting an entity and edge"
+
+    Deleting entity '6' and its edge to 5.
+
+    === "Java"
+
+        ``` java
+        final OperationChain<Void> deleteElementsChain = new OperationChain.Builder()
+                .first(new GetElements.Builder()
+                    .input(new EntitySeed(6))
+                    .build())
+                .then(new DeleteElements())
+                .build();
+
+        graph.execute(deleteElementsChain, new User());
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+            "class" : "OperationChain",
+            "operations" : [{
+                "class": "GetElements",
+                "input": [{
+                    "class": "EntitySeed",
+                    "vertex": 6,
+                }]
+            },
+            {
+                "class" : "DeleteElements"
+            }]
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+        g.OperationChain(
+            operations=[
+                g.GetElements(input=[g.EntitySeed(vertex=6)]),
+                g.DeleteElements()
+            ]
+        )
+        ```
+
+    Results:
+
+    ``` mermaid
+    graph TD
+      1 --> 2
+      1 --> 4
+      2 --> 3
+      2 --> 4
+      2 --> 5
+      3 --> 4
     ```
 
 ## Aggregate
@@ -131,7 +193,7 @@ The Aggregate operation would normally be used in an Operation Chain to aggregat
 ??? example "Example aggregate only edges of type edge with a transient property and provided aggregator"
 
     The groupBy has been set to an empty array. This will override the groupBy value in the schema.
-    
+
     === "Java"
 
         ``` java
@@ -171,27 +233,27 @@ The Aggregate operation would normally be used in an Operation Chain to aggregat
     === "Python"
 
         ``` python
-        g.Aggregate( 
-          edges=[ 
-            g.AggregatePair( 
-              group="edge", 
-              group_by=[ 
-              ], 
-              element_aggregator=g.ElementAggregateDefinition( 
-                operators=[ 
-                  g.BinaryOperatorContext( 
-                    selection=[ 
-                      "transientProperty1" 
-                    ], 
-                    binary_operator=g.BinaryOperator( 
-                      class_name="uk.gov.gchq.koryphe.impl.binaryoperator.StringConcat", 
-                      fields={'separator': ','} 
-                    ) 
-                  ) 
-                ] 
-              ) 
-            ) 
-          ] 
+        g.Aggregate(
+          edges=[
+            g.AggregatePair(
+              group="edge",
+              group_by=[
+              ],
+              element_aggregator=g.ElementAggregateDefinition(
+                operators=[
+                  g.BinaryOperatorContext(
+                    selection=[
+                      "transientProperty1"
+                    ],
+                    binary_operator=g.BinaryOperator(
+                      class_name="uk.gov.gchq.koryphe.impl.binaryoperator.StringConcat",
+                      fields={'separator': ','}
+                    )
+                  )
+                ]
+              )
+            )
+          ]
         )
         ```
 
@@ -226,11 +288,11 @@ Counts the number of items in an iterable. [Javadoc](https://gchq.github.io/Gaff
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetAllElements(), 
-            g.Count() 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetAllElements(),
+            g.Count()
+          ]
         )
         ```
 
@@ -279,11 +341,11 @@ Counts the different element groups. [Javadoc](https://gchq.github.io/Gaffer/uk/
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetAllElements(), 
-            g.CountGroups() 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetAllElements(),
+            g.CountGroups()
+          ]
         )
         ```
 
@@ -337,13 +399,13 @@ Counts the different element groups. [Javadoc](https://gchq.github.io/Gaffer/uk/
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetAllElements(), 
-            g.CountGroups( 
-              limit=5 
-            ) 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetAllElements(),
+            g.CountGroups(
+              limit=5
+            )
+          ]
         )
         ```
 
@@ -376,7 +438,7 @@ Filters elements. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/ope
 ??? example "Example filtering for elements with a count more than 2"
 
     The filter will only return elements (Entities and Edges) with a count more than 2. The results show the Edge between 1 & 4 that has a count of 1 has been removed.
-    
+
     === "Java"
 
         ``` java
@@ -426,32 +488,32 @@ Filters elements. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/ope
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.NamedOperation( 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ) 
-              ], 
-              operation_name="1-hop" 
-            ), 
-            g.Filter( 
-              global_elements=g.GlobalElementFilterDefinition( 
-                predicates=[ 
-                  g.PredicateContext( 
-                    selection=[ 
-                      "count" 
-                    ], 
-                    predicate=g.IsMoreThan( 
-                      value=2, 
-                      or_equal_to=False 
-                    ) 
-                  ) 
-                ] 
-              ) 
-            ) 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.NamedOperation(
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                )
+              ],
+              operation_name="1-hop"
+            ),
+            g.Filter(
+              global_elements=g.GlobalElementFilterDefinition(
+                predicates=[
+                  g.PredicateContext(
+                    selection=[
+                      "count"
+                    ],
+                    predicate=g.IsMoreThan(
+                      value=2,
+                      or_equal_to=False
+                    )
+                  )
+                ]
+              )
+            )
+          ]
         )
         ```
 
@@ -490,7 +552,7 @@ Filters elements. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/ope
 ??? example "Example filtering for edges of type edge with count more than 2"
 
     Similar to the previous example but this will only return Edges with group 'edge' that have a count more than 2.
-    
+
     === "Java"
 
         ``` java
@@ -542,35 +604,35 @@ Filters elements. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/ope
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.NamedOperation( 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ) 
-              ], 
-              operation_name="1-hop" 
-            ), 
-            g.Filter( 
-              edges=[ 
-                g.ElementFilterDefinition( 
-                  group="edge", 
-                  predicates=[ 
-                    g.PredicateContext( 
-                      selection=[ 
-                        "count" 
-                      ], 
-                      predicate=g.IsMoreThan( 
-                        value=2, 
-                        or_equal_to=False 
-                      ) 
-                    ) 
-                  ] 
-                ) 
-              ] 
-            ) 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.NamedOperation(
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                )
+              ],
+              operation_name="1-hop"
+            ),
+            g.Filter(
+              edges=[
+                g.ElementFilterDefinition(
+                  group="edge",
+                  predicates=[
+                    g.PredicateContext(
+                      selection=[
+                        "count"
+                      ],
+                      predicate=g.IsMoreThan(
+                        value=2,
+                        or_equal_to=False
+                      )
+                    )
+                  ]
+                )
+              ]
+            )
+          ]
         )
         ```
 
@@ -631,14 +693,14 @@ Limits the number of elements returned. This truncates output by default, but op
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetAllElements(), 
-            g.Limit( 
-              result_limit=3, 
-              truncate=True 
-            ) 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetAllElements(),
+            g.Limit(
+              result_limit=3,
+              truncate=True
+            )
+          ]
         )
         ```
 
@@ -688,7 +750,7 @@ Limits the number of elements returned. This truncates output by default, but op
 ??? example "Example limiting elements to 3 without truncation"
 
     Setting this flag to false will throw an error instead of truncating the iterable. In this case there are more than 3 elements, so when executed a LimitExceededException would be thrown.
-    
+
     === "Java"
 
         ``` java
@@ -716,21 +778,21 @@ Limits the number of elements returned. This truncates output by default, but op
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetAllElements(), 
-            g.Limit( 
-              result_limit=3, 
-              truncate=False 
-            ) 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetAllElements(),
+            g.Limit(
+              result_limit=3,
+              truncate=False
+            )
+          ]
         )
         ```
 
 ??? example "Example limiting elements to 3 with builder"
 
     A builder can also be used to create the limit - note that truncate is set to true by default, so in this case it is redundant, but simply shown for demonstration.
-    
+
     === "Java"
 
         ``` java
@@ -761,14 +823,14 @@ Limits the number of elements returned. This truncates output by default, but op
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetAllElements(), 
-            g.Limit( 
-              result_limit=3, 
-              truncate=True 
-            ) 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetAllElements(),
+            g.Limit(
+              result_limit=3,
+              truncate=True
+            )
+          ]
         )
         ```
 
@@ -866,31 +928,31 @@ Extracts the minimum element based on provided Comparators. [Javadoc](https://gc
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetElements( 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ), 
-                g.EntitySeed( 
-                  vertex=2 
-                ) 
-              ] 
-            ), 
-            g.Min( 
-              comparators=[ 
-                g.ElementPropertyComparator( 
-                  groups=[ 
-                    "entity", 
-                    "edge" 
-                  ], 
-                  property="count", 
-                  reversed=False 
-                ) 
-              ] 
-            ) 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetElements(
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                ),
+                g.EntitySeed(
+                  vertex=2
+                )
+              ]
+            ),
+            g.Min(
+              comparators=[
+                g.ElementPropertyComparator(
+                  groups=[
+                    "entity",
+                    "edge"
+                  ],
+                  property="count",
+                  reversed=False
+                )
+              ]
+            )
+          ]
         )
         ```
 
@@ -1026,85 +1088,85 @@ Extracts the minimum element based on provided Comparators. [Javadoc](https://gc
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetElements( 
-              view=g.View( 
-                entities=[ 
-                  g.ElementDefinition( 
-                    group="entity", 
-                    transient_properties={'score': 'java.lang.Integer'}, 
-                    transform_functions=[ 
-                      g.FunctionContext( 
-                        selection=[ 
-                          "VERTEX", 
-                          "count" 
-                        ], 
-                        function=g.Function( 
-                          class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction", 
-                          fields={} 
-                        ), 
-                        projection=[ 
-                          "score" 
-                        ] 
-                      ) 
-                    ] 
-                  ) 
-                ], 
-                edges=[ 
-                  g.ElementDefinition( 
-                    group="edge", 
-                    transient_properties={'score': 'java.lang.Integer'}, 
-                    transform_functions=[ 
-                      g.FunctionContext( 
-                        selection=[ 
-                          "DESTINATION", 
-                          "count" 
-                        ], 
-                        function=g.Function( 
-                          class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction", 
-                          fields={} 
-                        ), 
-                        projection=[ 
-                          "score" 
-                        ] 
-                      ) 
-                    ] 
-                  ) 
-                ], 
-                all_edges=False, 
-                all_entities=False 
-              ), 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ), 
-                g.EntitySeed( 
-                  vertex=2 
-                ) 
-              ] 
-            ), 
-            g.Min( 
-              comparators=[ 
-                g.ElementPropertyComparator( 
-                  groups=[ 
-                    "entity", 
-                    "edge" 
-                  ], 
-                  property="count", 
-                  reversed=False 
-                ), 
-                g.ElementPropertyComparator( 
-                  groups=[ 
-                    "entity", 
-                    "edge" 
-                  ], 
-                  property="score", 
-                  reversed=False 
-                ) 
-              ] 
-            ) 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetElements(
+              view=g.View(
+                entities=[
+                  g.ElementDefinition(
+                    group="entity",
+                    transient_properties={'score': 'java.lang.Integer'},
+                    transform_functions=[
+                      g.FunctionContext(
+                        selection=[
+                          "VERTEX",
+                          "count"
+                        ],
+                        function=g.Function(
+                          class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction",
+                          fields={}
+                        ),
+                        projection=[
+                          "score"
+                        ]
+                      )
+                    ]
+                  )
+                ],
+                edges=[
+                  g.ElementDefinition(
+                    group="edge",
+                    transient_properties={'score': 'java.lang.Integer'},
+                    transform_functions=[
+                      g.FunctionContext(
+                        selection=[
+                          "DESTINATION",
+                          "count"
+                        ],
+                        function=g.Function(
+                          class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction",
+                          fields={}
+                        ),
+                        projection=[
+                          "score"
+                        ]
+                      )
+                    ]
+                  )
+                ],
+                all_edges=False,
+                all_entities=False
+              ),
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                ),
+                g.EntitySeed(
+                  vertex=2
+                )
+              ]
+            ),
+            g.Min(
+              comparators=[
+                g.ElementPropertyComparator(
+                  groups=[
+                    "entity",
+                    "edge"
+                  ],
+                  property="count",
+                  reversed=False
+                ),
+                g.ElementPropertyComparator(
+                  groups=[
+                    "entity",
+                    "edge"
+                  ],
+                  property="score",
+                  reversed=False
+                )
+              ]
+            )
+          ]
         )
         ```
 
@@ -1181,31 +1243,31 @@ Extracts the maximum element based on provided Comparators. [Javadoc](https://gc
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetElements( 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ), 
-                g.EntitySeed( 
-                  vertex=2 
-                ) 
-              ] 
-            ), 
-            g.Max( 
-              comparators=[ 
-                g.ElementPropertyComparator( 
-                  groups=[ 
-                    "entity", 
-                    "edge" 
-                  ], 
-                  property="count", 
-                  reversed=False 
-                ) 
-              ] 
-            ) 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetElements(
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                ),
+                g.EntitySeed(
+                  vertex=2
+                )
+              ]
+            ),
+            g.Max(
+              comparators=[
+                g.ElementPropertyComparator(
+                  groups=[
+                    "entity",
+                    "edge"
+                  ],
+                  property="count",
+                  reversed=False
+                )
+              ]
+            )
+          ]
         )
         ```
 
@@ -1338,85 +1400,85 @@ Extracts the maximum element based on provided Comparators. [Javadoc](https://gc
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetElements( 
-              view=g.View( 
-                entities=[ 
-                  g.ElementDefinition( 
-                    group="entity", 
-                    transient_properties={'score': 'java.lang.Integer'}, 
-                    transform_functions=[ 
-                      g.FunctionContext( 
-                        selection=[ 
-                          "VERTEX", 
-                          "count" 
-                        ], 
-                        function=g.Function( 
-                          class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction", 
-                          fields={} 
-                        ), 
-                        projection=[ 
-                          "score" 
-                        ] 
-                      ) 
-                    ] 
-                  ) 
-                ], 
-                edges=[ 
-                  g.ElementDefinition( 
-                    group="edge", 
-                    transient_properties={'score': 'java.lang.Integer'}, 
-                    transform_functions=[ 
-                      g.FunctionContext( 
-                        selection=[ 
-                          "DESTINATION", 
-                          "count" 
-                        ], 
-                        function=g.Function( 
-                          class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction", 
-                          fields={} 
-                        ), 
-                        projection=[ 
-                          "score" 
-                        ] 
-                      ) 
-                    ] 
-                  ) 
-                ], 
-                all_edges=False, 
-                all_entities=False 
-              ), 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ), 
-                g.EntitySeed( 
-                  vertex=2 
-                ) 
-              ] 
-            ), 
-            g.Max( 
-              comparators=[ 
-                g.ElementPropertyComparator( 
-                  groups=[ 
-                    "entity", 
-                    "edge" 
-                  ], 
-                  property="count", 
-                  reversed=False 
-                ), 
-                g.ElementPropertyComparator( 
-                  groups=[ 
-                    "entity", 
-                    "edge" 
-                  ], 
-                  property="score", 
-                  reversed=False 
-                ) 
-              ] 
-            ) 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetElements(
+              view=g.View(
+                entities=[
+                  g.ElementDefinition(
+                    group="entity",
+                    transient_properties={'score': 'java.lang.Integer'},
+                    transform_functions=[
+                      g.FunctionContext(
+                        selection=[
+                          "VERTEX",
+                          "count"
+                        ],
+                        function=g.Function(
+                          class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction",
+                          fields={}
+                        ),
+                        projection=[
+                          "score"
+                        ]
+                      )
+                    ]
+                  )
+                ],
+                edges=[
+                  g.ElementDefinition(
+                    group="edge",
+                    transient_properties={'score': 'java.lang.Integer'},
+                    transform_functions=[
+                      g.FunctionContext(
+                        selection=[
+                          "DESTINATION",
+                          "count"
+                        ],
+                        function=g.Function(
+                          class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction",
+                          fields={}
+                        ),
+                        projection=[
+                          "score"
+                        ]
+                      )
+                    ]
+                  )
+                ],
+                all_edges=False,
+                all_entities=False
+              ),
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                ),
+                g.EntitySeed(
+                  vertex=2
+                )
+              ]
+            ),
+            g.Max(
+              comparators=[
+                g.ElementPropertyComparator(
+                  groups=[
+                    "entity",
+                    "edge"
+                  ],
+                  property="count",
+                  reversed=False
+                ),
+                g.ElementPropertyComparator(
+                  groups=[
+                    "entity",
+                    "edge"
+                  ],
+                  property="score",
+                  reversed=False
+                )
+              ]
+            )
+          ]
         )
         ```
 
@@ -1500,33 +1562,33 @@ Sorts elements based on provided Comparators and can be used to extract the top 
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetElements( 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ), 
-                g.EntitySeed( 
-                  vertex=2 
-                ) 
-              ] 
-            ), 
-            g.Sort( 
-              comparators=[ 
-                g.ElementPropertyComparator( 
-                  groups=[ 
-                    "entity", 
-                    "edge" 
-                  ], 
-                  property="count", 
-                  reversed=False 
-                ) 
-              ], 
-              result_limit=10, 
-              deduplicate=True 
-            ) 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetElements(
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                ),
+                g.EntitySeed(
+                  vertex=2
+                )
+              ]
+            ),
+            g.Sort(
+              comparators=[
+                g.ElementPropertyComparator(
+                  groups=[
+                    "entity",
+                    "edge"
+                  ],
+                  property="count",
+                  reversed=False
+                )
+              ],
+              result_limit=10,
+              deduplicate=True
+            )
+          ]
         )
         ```
 
@@ -1617,7 +1679,7 @@ Sorts elements based on provided Comparators and can be used to extract the top 
 ??? example "Example sorting on count without deduplicating"
 
     Deduplication is true by default.
-    
+
     === "Java"
 
         ``` java
@@ -1668,33 +1730,33 @@ Sorts elements based on provided Comparators and can be used to extract the top 
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetElements( 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ), 
-                g.EntitySeed( 
-                  vertex=2 
-                ) 
-              ] 
-            ), 
-            g.Sort( 
-              comparators=[ 
-                g.ElementPropertyComparator( 
-                  groups=[ 
-                    "entity", 
-                    "edge" 
-                  ], 
-                  property="count", 
-                  reversed=False 
-                ) 
-              ], 
-              result_limit=10, 
-              deduplicate=False 
-            ) 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetElements(
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                ),
+                g.EntitySeed(
+                  vertex=2
+                )
+              ]
+            ),
+            g.Sort(
+              comparators=[
+                g.ElementPropertyComparator(
+                  groups=[
+                    "entity",
+                    "edge"
+                  ],
+                  property="count",
+                  reversed=False
+                )
+              ],
+              result_limit=10,
+              deduplicate=False
+            )
+          ]
         )
         ```
 
@@ -1893,87 +1955,87 @@ Sorts elements based on provided Comparators and can be used to extract the top 
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetElements( 
-              view=g.View( 
-                entities=[ 
-                  g.ElementDefinition( 
-                    group="entity", 
-                    transient_properties={'score': 'java.lang.Integer'}, 
-                    transform_functions=[ 
-                      g.FunctionContext( 
-                        selection=[ 
-                          "VERTEX", 
-                          "count" 
-                        ], 
-                        function=g.Function( 
-                          class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction", 
-                          fields={} 
-                        ), 
-                        projection=[ 
-                          "score" 
-                        ] 
-                      ) 
-                    ] 
-                  ) 
-                ], 
-                edges=[ 
-                  g.ElementDefinition( 
-                    group="edge", 
-                    transient_properties={'score': 'java.lang.Integer'}, 
-                    transform_functions=[ 
-                      g.FunctionContext( 
-                        selection=[ 
-                          "DESTINATION", 
-                          "count" 
-                        ], 
-                        function=g.Function( 
-                          class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction", 
-                          fields={} 
-                        ), 
-                        projection=[ 
-                          "score" 
-                        ] 
-                      ) 
-                    ] 
-                  ) 
-                ], 
-                all_edges=False, 
-                all_entities=False 
-              ), 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ), 
-                g.EntitySeed( 
-                  vertex=2 
-                ) 
-              ] 
-            ), 
-            g.Sort( 
-              comparators=[ 
-                g.ElementPropertyComparator( 
-                  groups=[ 
-                    "entity", 
-                    "edge" 
-                  ], 
-                  property="count", 
-                  reversed=False 
-                ), 
-                g.ElementPropertyComparator( 
-                  groups=[ 
-                    "entity", 
-                    "edge" 
-                  ], 
-                  property="score", 
-                  reversed=False 
-                ) 
-              ], 
-              result_limit=4, 
-              deduplicate=True 
-            ) 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetElements(
+              view=g.View(
+                entities=[
+                  g.ElementDefinition(
+                    group="entity",
+                    transient_properties={'score': 'java.lang.Integer'},
+                    transform_functions=[
+                      g.FunctionContext(
+                        selection=[
+                          "VERTEX",
+                          "count"
+                        ],
+                        function=g.Function(
+                          class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction",
+                          fields={}
+                        ),
+                        projection=[
+                          "score"
+                        ]
+                      )
+                    ]
+                  )
+                ],
+                edges=[
+                  g.ElementDefinition(
+                    group="edge",
+                    transient_properties={'score': 'java.lang.Integer'},
+                    transform_functions=[
+                      g.FunctionContext(
+                        selection=[
+                          "DESTINATION",
+                          "count"
+                        ],
+                        function=g.Function(
+                          class_name="uk.gov.gchq.gaffer.doc.operation.function.ExampleScoreFunction",
+                          fields={}
+                        ),
+                        projection=[
+                          "score"
+                        ]
+                      )
+                    ]
+                  )
+                ],
+                all_edges=False,
+                all_entities=False
+              ),
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                ),
+                g.EntitySeed(
+                  vertex=2
+                )
+              ]
+            ),
+            g.Sort(
+              comparators=[
+                g.ElementPropertyComparator(
+                  groups=[
+                    "entity",
+                    "edge"
+                  ],
+                  property="count",
+                  reversed=False
+                ),
+                g.ElementPropertyComparator(
+                  groups=[
+                    "entity",
+                    "edge"
+                  ],
+                  property="score",
+                  reversed=False
+                )
+              ],
+              result_limit=4,
+              deduplicate=True
+            )
+          ]
         )
         ```
 
@@ -2096,28 +2158,28 @@ Reduces an input to an output with a single value using provided function. [Java
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetAdjacentIds( 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ) 
-              ] 
-            ), 
-            g.ForEach( 
-              operation=g.OperationChain( 
-                operations=[ 
-                  g.ToSingletonList(), 
-                  g.GetAdjacentIds(), 
-                  g.ToVertices(), 
-                  g.Reduce( 
-                    aggregate_function=g.Sum() 
-                  ) 
-                ] 
-              ) 
-            ) 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetAdjacentIds(
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                )
+              ]
+            ),
+            g.ForEach(
+              operation=g.OperationChain(
+                operations=[
+                  g.ToSingletonList(),
+                  g.GetAdjacentIds(),
+                  g.ToVertices(),
+                  g.Reduce(
+                    aggregate_function=g.Sum()
+                  )
+                ]
+              )
+            )
+          ]
         )
         ```
 
@@ -2143,7 +2205,7 @@ Maps an input to an output using provided functions. [Javadoc](https://gchq.gith
 ??? example "Example extracting from get elements"
 
     This simple example demonstrates retrieving elements from the "entity" group, from which the first item is extracted.
-    
+
     === "Java"
 
         ``` java
@@ -2191,33 +2253,33 @@ Maps an input to an output using provided functions. [Javadoc](https://gchq.gith
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetElements( 
-              view=g.View( 
-                entities=[ 
-                  g.ElementDefinition( 
-                    group="entity" 
-                  ) 
-                ], 
-                all_edges=False, 
-                all_entities=False 
-              ), 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ), 
-                g.EntitySeed( 
-                  vertex=2 
-                ) 
-              ] 
-            ), 
-            g.Map( 
-              functions=[ 
-                g.FirstItem() 
-              ] 
-            ) 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetElements(
+              view=g.View(
+                entities=[
+                  g.ElementDefinition(
+                    group="entity"
+                  )
+                ],
+                all_edges=False,
+                all_entities=False
+              ),
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                ),
+                g.EntitySeed(
+                  vertex=2
+                )
+              ]
+            ),
+            g.Map(
+              functions=[
+                g.FirstItem()
+              ]
+            )
+          ]
         )
         ```
 
@@ -2245,7 +2307,7 @@ Maps an input to an output using provided functions. [Javadoc](https://gchq.gith
 ??? example "Example extracting first items from walks"
 
     This example demonstrates the extraction of the input seeds to a GetWalks operation, using the Map operation with ExtractWalkEdgesFromHop, and FirstItem functions.
-    
+
     === "Java"
 
         ``` java
@@ -2321,53 +2383,53 @@ Maps an input to an output using provided functions. [Javadoc](https://gchq.gith
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetWalks( 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ), 
-                g.EntitySeed( 
-                  vertex=2 
-                ) 
-              ], 
-              operations=[ 
-                g.OperationChain( 
-                  operations=[ 
-                    g.GetElements( 
-                      view=g.View( 
-                        edges=[ 
-                          g.ElementDefinition( 
-                            group="edge" 
-                          ) 
-                        ], 
-                        all_edges=False, 
-                        all_entities=False 
-                      ) 
-                    ) 
-                  ] 
-                ) 
-              ], 
-              results_limit=100 
-            ), 
-            g.Map( 
-              functions=[ 
-                g.IterableFunction( 
-                  functions=[ 
-                    g.ExtractWalkEdgesFromHop( 
-                      hop=0 
-                    ), 
-                    g.FirstItem() 
-                  ] 
-                ) 
-              ] 
-            ), 
-            g.ToVertices( 
-              edge_vertices="SOURCE" 
-            ), 
-            g.ToSet() 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetWalks(
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                ),
+                g.EntitySeed(
+                  vertex=2
+                )
+              ],
+              operations=[
+                g.OperationChain(
+                  operations=[
+                    g.GetElements(
+                      view=g.View(
+                        edges=[
+                          g.ElementDefinition(
+                            group="edge"
+                          )
+                        ],
+                        all_edges=False,
+                        all_entities=False
+                      )
+                    )
+                  ]
+                )
+              ],
+              results_limit=100
+            ),
+            g.Map(
+              functions=[
+                g.IterableFunction(
+                  functions=[
+                    g.ExtractWalkEdgesFromHop(
+                      hop=0
+                    ),
+                    g.FirstItem()
+                  ]
+                )
+              ]
+            ),
+            g.ToVertices(
+              edge_vertices="SOURCE"
+            ),
+            g.ToSet()
+          ]
         )
         ```
 
@@ -2426,23 +2488,23 @@ The Transform operation would normally be used in an Operation Chain to transfor
     === "Python"
 
         ``` python
-        g.Transform( 
-          edges=[ 
-            g.ElementTransformDefinition( 
-              group="edge", 
-              functions=[ 
-                g.FunctionContext( 
-                  selection=[ 
-                    "count" 
-                  ], 
-                  function=g.ToString(), 
-                  projection=[ 
-                    "countString" 
-                  ] 
-                ) 
-              ] 
-            ) 
-          ] 
+        g.Transform(
+          edges=[
+            g.ElementTransformDefinition(
+              group="edge",
+              functions=[
+                g.FunctionContext(
+                  selection=[
+                    "count"
+                  ],
+                  function=g.ToString(),
+                  projection=[
+                    "countString"
+                  ]
+                )
+              ]
+            )
+          ]
         )
         ```
 
@@ -2451,7 +2513,7 @@ The Transform operation would normally be used in an Operation Chain to transfor
 Converts elements to Array. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToArray.html)
 
 !!! note
-    
+
     Conversion into an Array is done in memory, so it is not advised for a large number of results.
 
 ??? example "Example ToArray"
@@ -2490,20 +2552,20 @@ Converts elements to Array. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetElements( 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ), 
-                g.EntitySeed( 
-                  vertex=2 
-                ) 
-              ] 
-            ), 
-            g.ToArray() 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetElements(
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                ),
+                g.EntitySeed(
+                  vertex=2
+                )
+              ]
+            ),
+            g.ToArray()
+          ]
         )
         ```
 
@@ -2652,28 +2714,28 @@ Converts elements to CSV Strings. [Javadoc](https://gchq.github.io/Gaffer/uk/gov
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetElements( 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ), 
-                g.EntitySeed( 
-                  vertex=2 
-                ) 
-              ] 
-            ), 
-            g.ToCsv( 
-              element_generator=g.CsvGenerator( 
-                fields={'GROUP': 'Edge group', 'VERTEX': 'vertex', 'SOURCE': 'source', 'count': 'total count'}, 
-                constants={}, 
-                quoted=False, 
-                comma_replacement=" " 
-              ), 
-              include_header=True 
-            ) 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetElements(
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                ),
+                g.EntitySeed(
+                  vertex=2
+                )
+              ]
+            ),
+            g.ToCsv(
+              element_generator=g.CsvGenerator(
+                fields={'GROUP': 'Edge group', 'VERTEX': 'vertex', 'SOURCE': 'source', 'count': 'total count'},
+                constants={},
+                quoted=False,
+                comma_replacement=" "
+              ),
+              include_header=True
+            )
+          ]
         )
         ```
 
@@ -2738,20 +2800,20 @@ Converts object(s) into EntitySeeds. [Javadoc](https://gchq.github.io/Gaffer/uk/
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetElements( 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ), 
-                g.EntitySeed( 
-                  vertex=2 
-                ) 
-              ] 
-            ), 
-            g.ToEntitySeeds() 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetElements(
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                ),
+                g.EntitySeed(
+                  vertex=2
+                )
+              ]
+            ),
+            g.ToEntitySeeds()
+          ]
         )
         ```
 
@@ -2879,7 +2941,7 @@ Converts object(s) into EntitySeeds. [Javadoc](https://gchq.github.io/Gaffer/uk/
 Converts elements to a List. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToList.html)
 
 !!! note
-    
+
     Conversion into a List is done using an in memory ArrayList, so it is not advised for a large number of results.
 
 ??? example "Example ToList"
@@ -2918,20 +2980,20 @@ Converts elements to a List. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetElements( 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ), 
-                g.EntitySeed( 
-                  vertex=2 
-                ) 
-              ] 
-            ), 
-            g.ToList() 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetElements(
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                ),
+                g.EntitySeed(
+                  vertex=2
+                )
+              ]
+            ),
+            g.ToList()
+          ]
         )
         ```
 
@@ -3076,25 +3138,25 @@ Converts elements to a Map of key-value pairs. [Javadoc](https://gchq.github.io/
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetElements( 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ), 
-                g.EntitySeed( 
-                  vertex=2 
-                ) 
-              ] 
-            ), 
-            g.ToMap( 
-              element_generator=g.MapGenerator( 
-                fields={'GROUP': 'group', 'VERTEX': 'vertex', 'SOURCE': 'source', 'count': 'total count'}, 
-                constants={} 
-              ) 
-            ) 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetElements(
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                ),
+                g.EntitySeed(
+                  vertex=2
+                )
+              ]
+            ),
+            g.ToMap(
+              element_generator=g.MapGenerator(
+                fields={'GROUP': 'group', 'VERTEX': 'vertex', 'SOURCE': 'source', 'count': 'total count'},
+                constants={}
+              )
+            )
+          ]
         )
         ```
 
@@ -3151,7 +3213,7 @@ Converts elements to a Map of key-value pairs. [Javadoc](https://gchq.github.io/
 Converts elements to a Set. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToSet.html)
 
 !!! note
-    
+
     Conversion into a Set is done using an in memory LinkedHashSet, so it is not advised for a large number of results.
 
 ??? example "Example ToSet"
@@ -3190,20 +3252,20 @@ Converts elements to a Set. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetElements( 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ), 
-                g.EntitySeed( 
-                  vertex=2 
-                ) 
-              ] 
-            ), 
-            g.ToSet() 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetElements(
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                ),
+                g.EntitySeed(
+                  vertex=2
+                )
+              ]
+            ),
+            g.ToSet()
+          ]
         )
         ```
 
@@ -3317,8 +3379,8 @@ Converts a single input of type T to a List. [Javadoc](https://gchq.github.io/Ga
     === "Python"
 
         ``` python
-        g.ToSingletonList( 
-          input=4 
+        g.ToSingletonList(
+          input=4
         )
         ```
 
@@ -3385,25 +3447,25 @@ Converts a single input of type T to a List. [Javadoc](https://gchq.github.io/Ga
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetAdjacentIds( 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ) 
-              ] 
-            ), 
-            g.ForEach( 
-              operation=g.OperationChain( 
-                operations=[ 
-                  g.ToSingletonList(), 
-                  g.GetAdjacentIds(), 
-                  g.ToVertices() 
-                ] 
-              ) 
-            ) 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetAdjacentIds(
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                )
+              ]
+            ),
+            g.ForEach(
+              operation=g.OperationChain(
+                operations=[
+                  g.ToSingletonList(),
+                  g.GetAdjacentIds(),
+                  g.ToVertices()
+                ]
+              )
+            )
+          ]
         )
         ```
 
@@ -3427,7 +3489,7 @@ Converts a single input of type T to a List. [Javadoc](https://gchq.github.io/Ga
 Converts elements to a Stream. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/output/ToStream.html)
 
 !!! note
-    
+
     Conversion into a Stream is done in memory, so it is not advised for a large number of results.
 
 ??? example "Example ToStream"
@@ -3466,20 +3528,20 @@ Converts elements to a Stream. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gc
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetElements( 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ), 
-                g.EntitySeed( 
-                  vertex=2 
-                ) 
-              ] 
-            ), 
-            g.ToStream() 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetElements(
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                ),
+                g.EntitySeed(
+                  vertex=2
+                )
+              ]
+            ),
+            g.ToStream()
+          ]
         )
         ```
 
@@ -3561,32 +3623,32 @@ The examples use a ToSet operation after the ToVertices operation to deduplicate
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetElements( 
-              view=g.View( 
-                entities=[ 
-                  g.ElementDefinition( 
-                    group="entity" 
-                  ) 
-                ], 
-                all_edges=False, 
-                all_entities=False 
-              ), 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ), 
-                g.EntitySeed( 
-                  vertex=2 
-                ) 
-              ] 
-            ), 
-            g.ToVertices( 
-              edge_vertices="NONE" 
-            ), 
-            g.ToSet() 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetElements(
+              view=g.View(
+                entities=[
+                  g.ElementDefinition(
+                    group="entity"
+                  )
+                ],
+                all_edges=False,
+                all_entities=False
+              ),
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                ),
+                g.EntitySeed(
+                  vertex=2
+                )
+              ]
+            ),
+            g.ToVertices(
+              edge_vertices="NONE"
+            ),
+            g.ToSet()
+          ]
         )
         ```
 
@@ -3657,33 +3719,33 @@ The examples use a ToSet operation after the ToVertices operation to deduplicate
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetElements( 
-              view=g.View( 
-                edges=[ 
-                  g.ElementDefinition( 
-                    group="edge" 
-                  ) 
-                ], 
-                all_edges=False, 
-                all_entities=False 
-              ), 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ), 
-                g.EntitySeed( 
-                  vertex=2 
-                ) 
-              ], 
-              include_incoming_out_going="OUTGOING" 
-            ), 
-            g.ToVertices( 
-              edge_vertices="DESTINATION" 
-            ), 
-            g.ToSet() 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetElements(
+              view=g.View(
+                edges=[
+                  g.ElementDefinition(
+                    group="edge"
+                  )
+                ],
+                all_edges=False,
+                all_entities=False
+              ),
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                ),
+                g.EntitySeed(
+                  vertex=2
+                )
+              ],
+              include_incoming_out_going="OUTGOING"
+            ),
+            g.ToVertices(
+              edge_vertices="DESTINATION"
+            ),
+            g.ToSet()
+          ]
         )
         ```
 
@@ -3756,33 +3818,33 @@ The examples use a ToSet operation after the ToVertices operation to deduplicate
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetElements( 
-              view=g.View( 
-                edges=[ 
-                  g.ElementDefinition( 
-                    group="edge" 
-                  ) 
-                ], 
-                all_edges=False, 
-                all_entities=False 
-              ), 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ), 
-                g.EntitySeed( 
-                  vertex=2 
-                ) 
-              ], 
-              include_incoming_out_going="OUTGOING" 
-            ), 
-            g.ToVertices( 
-              edge_vertices="BOTH" 
-            ), 
-            g.ToSet() 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetElements(
+              view=g.View(
+                edges=[
+                  g.ElementDefinition(
+                    group="edge"
+                  )
+                ],
+                all_edges=False,
+                all_entities=False
+              ),
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                ),
+                g.EntitySeed(
+                  vertex=2
+                )
+              ],
+              include_incoming_out_going="OUTGOING"
+            ),
+            g.ToVertices(
+              edge_vertices="BOTH"
+            ),
+            g.ToSet()
+          ]
         )
         ```
 
@@ -3856,33 +3918,33 @@ The examples use a ToSet operation after the ToVertices operation to deduplicate
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetElements( 
-              view=g.View( 
-                edges=[ 
-                  g.ElementDefinition( 
-                    group="edge" 
-                  ) 
-                ], 
-                all_edges=False, 
-                all_entities=False 
-              ), 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ), 
-                g.EntitySeed( 
-                  vertex=2 
-                ) 
-              ], 
-              include_incoming_out_going="OUTGOING" 
-            ), 
-            g.ToVertices( 
-              use_matched_vertex="EQUAL" 
-            ), 
-            g.ToSet() 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetElements(
+              view=g.View(
+                edges=[
+                  g.ElementDefinition(
+                    group="edge"
+                  )
+                ],
+                all_edges=False,
+                all_entities=False
+              ),
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                ),
+                g.EntitySeed(
+                  vertex=2
+                )
+              ],
+              include_incoming_out_going="OUTGOING"
+            ),
+            g.ToVertices(
+              use_matched_vertex="EQUAL"
+            ),
+            g.ToSet()
+          ]
         )
         ```
 
@@ -3953,33 +4015,33 @@ The examples use a ToSet operation after the ToVertices operation to deduplicate
     === "Python"
 
         ``` python
-        g.OperationChain( 
-          operations=[ 
-            g.GetElements( 
-              view=g.View( 
-                edges=[ 
-                  g.ElementDefinition( 
-                    group="edge" 
-                  ) 
-                ], 
-                all_edges=False, 
-                all_entities=False 
-              ), 
-              input=[ 
-                g.EntitySeed( 
-                  vertex=1 
-                ), 
-                g.EntitySeed( 
-                  vertex=2 
-                ) 
-              ], 
-              include_incoming_out_going="OUTGOING" 
-            ), 
-            g.ToVertices( 
-              use_matched_vertex="OPPOSITE" 
-            ), 
-            g.ToSet() 
-          ] 
+        g.OperationChain(
+          operations=[
+            g.GetElements(
+              view=g.View(
+                edges=[
+                  g.ElementDefinition(
+                    group="edge"
+                  )
+                ],
+                all_edges=False,
+                all_entities=False
+              ),
+              input=[
+                g.EntitySeed(
+                  vertex=1
+                ),
+                g.EntitySeed(
+                  vertex=2
+                )
+              ],
+              include_incoming_out_going="OUTGOING"
+            ),
+            g.ToVertices(
+              use_matched_vertex="OPPOSITE"
+            ),
+            g.ToSet()
+          ]
         )
         ```
 
@@ -4007,7 +4069,7 @@ Gets the Schema of a Graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/
 ??? example "Example getting full schema"
 
     This operation defaults the compact field to false, thereby returning the full Schema.
-    
+
     === "Java"
 
         ``` java
@@ -4026,8 +4088,8 @@ Gets the Schema of a Graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/
     === "Python"
 
         ``` python
-        g.GetSchema( 
-          compact=False 
+        g.GetSchema(
+          compact=False
         )
         ```
 
@@ -4208,7 +4270,7 @@ Gets the Schema of a Graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/
 ??? example "Example getting compact schema"
 
     This operation will retrieve the compact Schema from the store, rather than the full schema.
-    
+
     === "Java"
 
         ``` java
@@ -4229,8 +4291,8 @@ Gets the Schema of a Graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/
     === "Python"
 
         ``` python
-        g.GetSchema( 
-          compact=True 
+        g.GetSchema(
+          compact=True
         )
         ```
 
@@ -4446,8 +4508,8 @@ Gets the traits of the current store. [Javadoc](https://gchq.github.io/Gaffer/uk
     === "Python"
 
         ``` python
-        g.GetTraits( 
-          current_traits=False 
+        g.GetTraits(
+          current_traits=False
         )
         ```
 
@@ -4475,7 +4537,7 @@ Gets the traits of the current store. [Javadoc](https://gchq.github.io/Gaffer/uk
 ??? example "Example getting current traits"
 
     This will only return traits that are applicable to your current schema. This schema doesn't have a visibility property, so the VISIBILITY trait is not returned.
-    
+
     === "Java"
 
         ``` java
@@ -4496,8 +4558,8 @@ Gets the traits of the current store. [Javadoc](https://gchq.github.io/Gaffer/uk
     === "Python"
 
         ``` python
-        g.GetTraits( 
-          current_traits=True 
+        g.GetTraits(
+          current_traits=True
         )
         ```
 
@@ -4525,7 +4587,7 @@ Gets the traits of the current store. [Javadoc](https://gchq.github.io/Gaffer/uk
 
 !!! warning
     This operation is currently only implemented for Accumulo stores.
-    
+
 Deletes all retained data including deleting the graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/DeleteAllData.html)
 
 To use this operation, it must be enabled via an [operations declarations JSON](../../administration-guide/gaffer-config/config.md#operations-declarations-json).

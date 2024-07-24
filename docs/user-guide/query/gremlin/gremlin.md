@@ -24,22 +24,23 @@ languages so for example, you can write queries in Python via the [`gremlinpytho
 ## Using Gremlin Queries in Gaffer
 
 Gremlin was added to Gaffer in version 2.1 as a new graph query language and since
-version 2.2 a container image is provided allowing a Gremlin layer to be added to
-existing 2.x graphs. A full tutorial on setting up this image is provided in the
+version 2.3 it has been added as standard into the Gaffer REST API. A full tutorial
+on the configuration of Gremlin in Gaffer is provided in the
 [administration guide](../../../administration-guide/gaffer-deployment/gremlin.md).
 
 This guide will use the [Python API for Gremlin](https://pypi.org/project/gremlinpython/)
 to demonstrate some basic capabilities and how they compare to standard Gaffer syntax.
 
 To start querying in Gremlin we first need a reference to what is known as the
-Graph Traversal. To obtain this we need to connect to a running Gremlin server,
-similar to how a connection to the Gaffer REST API is needed if using
-[`gafferpy`](../../apis/python-api.md). We can do this by first importing the required
+Graph Traversal. To obtain this we need to connect to the Gremlin websocket provided
+by the Gaffer REST API (if you have used [`gafferpy`](../../apis/python-api.md)
+before this will be quite similar). We can do this by first importing the required
 libraries like so (many of these will be needed later for queries):
 
 ```python
 from gremlin_python.process.anonymous_traversal import traversal
 from gremlin_python.driver.driver_remote_connection import DriverRemoteConnection
+from gremlin_python.driver.serializer import GraphSONSerializersV3d0
 from gremlin_python.process.graph_traversal import __
 ```
 
@@ -47,12 +48,16 @@ We can then establish a connection to the Gremlin server and save a reference to
 this (typically called `g`):
 
 ```python
-# Setup a connection with the gremlin server running on localhost
-g = traversal().with_remote(DriverRemoteConnection('ws://localhost:8182/gremlin', 'g'))
+# Setup a connection with the REST API running on localhost
+g = traversal().with_remote(DriverRemoteConnection('ws://localhost:8080/gremlin', 'g', message_serializer=GraphSONSerializersV3d0()))
 ```
 
 Now that we have the traversal reference this can be used to spawn graph traversals
 and get results back.
+
+!!! note
+    Its important to use the GraphSON v3 serialiser if connecting to the Gaffer
+    REST API.
 
 ### Basic Gremlin Queries
 
@@ -259,83 +264,3 @@ In a seeded query these should be formatted like so `g.E("[source, dest]")` or
 Note that if using TypeSubTypeValue for seeds or property values these must be in the
 format `t:type|st:subtype|v:value`.
 
-## Custom Features
-
-The GafferPop implementation provides some extra features on top of the
-standard Tinkerpop framework that you can utilise in your queries. These
-are likely specific to how a Gaffer graph operates and may not be available
-in other graph technologies that support Gremlin queries.
-
-### NamedOperations in Gremlin
-
-The [GafferPopNamedOperationService](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/tinkerpop/service/GafferPopNamedOperationService.html)
-allows for the running of Gaffer [Named Operations](../../../administration-guide/named-operations.md) using Tinkerpop.
-Users can run Named Operations and add new Named Operations, deleting Named Operations is not currently possible with Tinkerpop.
-
-!!! example ""
-    Add a simple Named Operation that returns a count of all elements in your graph.
-
-    === "Gremlin"
-
-        ```python
-        operation = gc.OperationChain(
-            operations=[
-                gc.GetAllElements(),
-                gc.Count()
-            ]
-        ).to_json_str()
-
-        params = {"add": {"name": "CountAllElements", "opChain": operation}}
-
-        g.call("namedoperation", params)
-        ```
-
-    === "Java"
-
-        ```java
-        final AddNamedOperation operation = new AddNamedOperation.Builder()
-            .operationChain(new OperationChain.Builder()
-                .first(new GetAllElements()
-                        .then(new Count<>())
-                        .build())
-                .build())
-            .name("CountAllElements")
-            .build();
-
-        Map<String, String> addParams = new HashMap<>();
-        addParams.put("name", "CountAllElements");
-        addParams.put("opChain", operation.getOperationChainAsString());
-        Map<String, Map <String, String>> params = Collections.singletonMap("add", addParams);
-
-        g.call("namedoperation", params);
-        ```
-
-Users can also run any existing or added Named Operations that are stored in the cache.
-
-!!! example ""
-
-    === "Gremlin"
-
-        ```python
-        g.call("namedoperation", {"execute": "CountAllElements"}).to_list()
-        ```
-
-    === "Java"
-
-        ```java
-        Map<String, String> params = Collections.singletonMap("execute", "CountAllElements")
-        g.call("namedoperation", params).toList();
-        ```
-
-### Adding Options to Queries
-
-In standard Gremlin syntax it is possible to add additional key value variables
-into a query via a [`with()` step](https://tinkerpop.apache.org/docs/current/reference/#with-step).
-This feature is utilised to allow some custom properties to be passed in
-for Gaffer specific options:
-
-| Key | Example | Description |
-| --- | --- | --- |
-| `operationOptions` | `g.with("operationOptions", "gaffer.federatedstore.operation.graphIds:graphA").V()` | Allows passing options to the underlying Gaffer Operations, this is the same as the `options` field on a standard JSON query. |
-| `getAllElementsLimit` | `g.with("getAllElementsLimit", 100).V()` | Limits the amount of elements returned if performing an unseeded query e.g. a `GetAllElements` operation. |
-| `hasStepFilterStage` | `g.with("hasStepFilterStage", "PRE_AGGREGATION").V()` | Controls which phase the filtering from a Gremlin `has()` stage is applied to the results. |
