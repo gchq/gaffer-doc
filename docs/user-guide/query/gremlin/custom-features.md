@@ -1,15 +1,27 @@
-# Custom Gremlin Features In Gaffer
+# Custom Features in GafferPop
 
 The GafferPop implementation provides some extra features on top of the
 standard Tinkerpop framework that you can utilise in your queries. These
 are likely specific to how a Gaffer graph operates and may not be available
 in other graph technologies that support Gremlin queries.
 
+## Adding Options to Queries
+
+In standard Gremlin syntax it is possible to add additional key value variables
+into a query via a [`with()`](https://tinkerpop.apache.org/docs/current/reference/#with-step)
+step. This feature is utilised to allow some custom properties to be passed in
+for Gaffer specific options.
+
+!!! tip
+    Please see the [reference guide](../../../reference/gremlin-guide/gaffer-options.md)
+    for a full list of available options.
+
 ## NamedOperations in Gremlin
 
 The [GafferPopNamedOperationService](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/tinkerpop/service/GafferPopNamedOperationService.html)
-allows for the running of Gaffer [Named Operations](../../../administration-guide/named-operations.md) using Tinkerpop.
-Users can run Named Operations and add new Named Operations, deleting Named Operations is not currently possible with Tinkerpop.
+allows for the running of Gaffer [Named Operations](../../../administration-guide/named-operations.md)
+using Tinkerpop. Users can run Named Operations and add new Named Operations,
+deleting Named Operations is not currently possible with Tinkerpop.
 
 !!! example ""
     Add a simple Named Operation that returns a count of all elements in your graph.
@@ -66,27 +78,53 @@ Users can also run any existing or added Named Operations that are stored in the
         g.call("namedoperation", params).toList();
         ```
 
-## Adding Options to Queries
+## Custom Types and Functions
 
-In standard Gremlin syntax it is possible to add additional key value variables
-into a query via a [`with()` step](https://tinkerpop.apache.org/docs/current/reference/#with-step).
-This feature is utilised to allow some custom properties to be passed in
-for Gaffer specific options:
+In Gaffer there are various [additional types](../../../reference/properties-guide/properties.md)
+you may want to use to represent properties. These types may not be compatible
+with the [GraphSON standard](https://tinkerpop.apache.org/docs/current/dev/io/#graphson-3d0)
+used by Tinkerpop meaning they cannot be serialised or parsed by a Gremlin
+client. To resolve this, measures have been added to GafferPop so that all custom
+Gaffer types will be converted to their string representation when output via
+this interface.
 
-| Key | Example | Description |
+This conversion to string works both ways for some types too. The current
+supported two way conversions are outlined in the table, all other types will
+**only** be converted from custom type to string so can not be submitted in a
+Gremlin query.
+
+| Type | Input | Output |
 | --- | --- | --- |
-| `operationOptions` | `g.with("operationOptions", "gaffer.federatedstore.operation.graphIds:graphA").V()` | Allows passing options to the underlying Gaffer Operations, this is the same as the `options` field on a standard JSON query. |
-| `getAllElementsLimit` | `g.with("getAllElementsLimit", 100).V()` | Limits the amount of elements returned if performing an unseeded query e.g. a `GetAllElements` operation. |
-| `hasStepFilterStage` | `g.with("hasStepFilterStage", "PRE_AGGREGATION").V()` | Controls which phase the filtering from a Gremlin `has()` stage is applied to the results. |
-| `cypher` | `g.with("cypher", "MATCH (p:person) RETURN p").call()` | Translates the given Cypher query to Gremlin and executes it on the Graph. |
+| [`TypeSubTypeValue`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/types/TypeSubTypeValue.html) | `g.V("[type=thetype,subType=thesubtype,value=thevalue]")` | `"TypeSubTypeValue[type=thetype,subType=thesubtype,value=thevalue]"` |
+
+Some additional functions and predicates are available in GafferPop that are
+not present in standard Gremlin syntax. Currently these only include the
+extensions provided by [`OpenCypher`](https://github.com/opencypher/cypher-for-gremlin/tree/master/tinkerpop/cypher-gremlin-extensions)
+but may be expanded in the future. Please see the reference guide for a full
+list.
+
+!!! note
+    To use custom functions and predicates via Gremlin python you must submit
+    the query as a Groovy script as they likely will not have python bindings
+    e.g.
+
+    ```python
+    results =  client.submit("g.V().values('count').map(cypherToString()).toList()")
+    results.all().result()
+    ```
+
+    See the [Tinkerpop documentation](https://tinkerpop.apache.org/docs/current/reference/#gremlin-python-scripts)
+    for more information.
 
 ## Gaffer Gremlin Explain
 
 With the Gaffer REST API there are additional endpoints to provide explanations
 of how a given Gremlin query maps to Gaffer operation chains. The two endpoints are:
 
-- `/rest/gremlin/explain` - Accepts plain string Gremlin and will return JSON explain.
-- `/rest/gremlin/cypher/explain` - Accepts plain OpenCypher querys and will return JSON explain.
+- `/rest/gremlin/explain` - Accepts plain string Gremlin Groovy script and will
+  return JSON explain.
+- `/rest/gremlin/cypher/explain` - Accepts plain string OpenCypher querys and
+  will return JSON explain.
 
 !!! warning
     Please be aware that in order to provide an explanation your submitted query will
