@@ -255,12 +255,3 @@ a table of how different parts are mapped is as follows:
 | Vertex | Vertex with default label of `id` |
 | Entity | Vertex |
 | Edge | Edge |
-
-In Gafferpop Edge ID's must be made up of a list containing either source and destination
-IDs, e.g. `[source, dest]`, or source, label and destination, e.g. `[source, label, dest]`.
-In a seeded query these should be formatted like so `g.E("[source, dest]")` or
-`g.E(["[source1, dest1]","[source2, label, dest2]"])`.
-
-Note that if using TypeSubTypeValue for seeds or property values these must be in the
-format `t:type|st:subtype|v:value`.
-
