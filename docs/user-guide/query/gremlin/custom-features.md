@@ -101,7 +101,9 @@ Some additional functions and predicates are available in GafferPop that are
 not present in standard Gremlin syntax. Currently these only include the
 extensions provided by [`OpenCypher`](https://github.com/opencypher/cypher-for-gremlin/tree/master/tinkerpop/cypher-gremlin-extensions)
 but may be expanded in the future. Please see the reference guide for a full
-list.
+list of [predicates](../../../reference/gremlin-guide/custom-predicates.md)
+and [functions](../../../reference/gremlin-guide/custom-functions.md)
+available.
 
 !!! note
     To use custom functions and predicates via Gremlin python you must submit
