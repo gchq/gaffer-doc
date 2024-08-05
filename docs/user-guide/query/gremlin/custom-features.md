@@ -78,7 +78,7 @@ Users can also run any existing or added Named Operations that are stored in the
         g.call("namedoperation", params).toList();
         ```
 
-## Custom Types and Functions
+## Custom Types
 
 In Gaffer there are various [additional types](../../../reference/properties-guide/properties.md)
 you may want to use to represent properties. These types may not be compatible
@@ -97,6 +97,8 @@ Gremlin query.
 | --- | --- | --- |
 | [`TypeSubTypeValue`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/types/TypeSubTypeValue.html) | `g.V("[type=thetype,subType=thesubtype,value=thevalue]")` | `"TypeSubTypeValue[type=thetype,subType=thesubtype,value=thevalue]"` |
 
+## Custom Functions and Predicates
+
 Some additional functions and predicates are available in GafferPop that are
 not present in standard Gremlin syntax. Currently these only include the
 extensions provided by [`OpenCypher`](https://github.com/opencypher/cypher-for-gremlin/tree/master/tinkerpop/cypher-gremlin-extensions)
@@ -111,6 +113,13 @@ available.
     e.g.
 
     ```python
+    from gremlin_python.driver import client
+    from gremlin_python.driver.serializer import GraphSONSerializersV3d0
+    from gremlin_python.driver.driver_remote_connection import DriverRemoteConnection
+
+    # Establish client connection
+    client = client.Client('ws://localhost:8080/gremlin', 'g', message_serializer=GraphSONSerializersV3d0())
+
     results =  client.submit("g.V().values('count').map(cypherToString()).toList()")
     results.all().result()
     ```
