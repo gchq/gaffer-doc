@@ -23,7 +23,7 @@ Key `getAllElementsLimit`
 
 Limits the amount of elements returned if performing an unseeded query e.g. a
 `GetAllElements` operation. This will override the default for the current
-query see the [admin guide](../../administration-guide/gaffer-deployment/gremlin.md#configuring-the-gafferpop-library)
+query, see the [admin guide](../../administration-guide/gaffer-deployment/gremlin.md#configuring-the-gafferpop-library)
 for more detail on setting up defaults.
 
 !!! example

@@ -183,7 +183,7 @@ Can be used to reverse a `Collection` or `String`.
 ## cypherSubstring
 
 Can be used to extract a substring from the result by using indexes for start
-and or end point of the string.
+and/or end point of the string.
 
 Note requires complex input pairs by using the project step for the input string
 and index. The example below cuts the first two chars off the start of the
