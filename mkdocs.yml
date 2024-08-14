@@ -99,7 +99,7 @@ nav:
             - 'Using CSV Data': 'user-guide/query/gaffer-syntax/import-export/csv.md'
         - Apache Gremlin:
           - 'Gremlin in Gaffer': 'user-guide/query/gremlin/gremlin.md'
-          - 'Custom Features': 'user-guide/query/gremlin/custom-features.md'
+          - 'GafferPop Features': 'user-guide/query/gremlin/custom-features.md'
           - 'GafferPop Limitations': 'user-guide/query/gremlin/gremlin-limits.md'
       - 'Graph Schemas': 'user-guide/schema.md'
     - Developer Guide:
@@ -219,6 +219,10 @@ nav:
         - 'Misc Operations': 'reference/operations-guide/misc.md'
       - Endpoints:
         - 'Endpoints Guide': 'reference/endpoints-guide/endpoints.md'
+      - Gremlin:
+        - 'Gaffer Options': 'reference/gremlin-guide/gaffer-options.md'
+        - 'Custom Predicates': 'reference/gremlin-guide/custom-predicates.md'
+        - 'Custom Functions': 'reference/gremlin-guide/custom-functions.md'
 theme:
   name: material
   logo: assets/icon.svg
