@@ -4061,7 +4061,48 @@ The examples use a ToSet operation after the ToVertices operation to deduplicate
         ``` json
         [ 4, 3, 2, 5 ]
         ```
+## GetGraphCreatedTime
 
+Gets the creation date of the current graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/GetGraphCreatedTime.html)
+
+??? example "Example getting the graph created time"
+
+    === "Java"
+
+        ``` java
+        final GetGraphCreatedTime operation = new GetGraphCreatedTime.Builder()
+                .build();
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+                "class": "uk.gov.gchq.gaffer.operation.impl.get.GetGraphCreatedTime"
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+        g.GetGraphCreatedTime()
+        ```
+
+    Results:
+
+    === "Java"
+
+        ``` java
+        {graphId=2024-08-22T12:37:53.498}
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+          "graphId": "2024-08-22T12:37:53.498"
+        }
+        ```
 ## GetSchema
 
 Gets the Schema of a Graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/GetSchema.html)
