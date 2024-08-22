@@ -4070,8 +4070,7 @@ Gets the creation date of the current graph. [Javadoc](https://gchq.github.io/Ga
     === "Java"
 
         ``` java
-        final GetGraphCreatedTime operation = new GetGraphCreatedTime.Builder()
-                .build();
+        final GetGraphCreatedTime operation = new GetGraphCreatedTime();
         ```
 
     === "JSON"
