@@ -104,7 +104,9 @@ Adds elements to a graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/ga
 
 ## DeleteElements
 
-Deletes Elements from a graph.
+Deletes Elements from a graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/delete/DeleteElements.html)
+
+Note that this operation does not return any response.
 
 ??? example "Example deleting an entity and edge"
 
@@ -4585,12 +4587,7 @@ Gets the traits of the current store. [Javadoc](https://gchq.github.io/Gaffer/uk
 
 ## DeleteAllData
 
-!!! warning
-    This operation is currently only implemented for Accumulo stores.
-
 Deletes all retained data including deleting the graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/DeleteAllData.html)
-
-To use this operation, it must be enabled via an [operations declarations JSON](../../administration-guide/gaffer-config/config.md#operations-declarations-json).
 
 Note this operation does not return any response.
 
