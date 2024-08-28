@@ -11,6 +11,7 @@ These pages contain examples of most operations in Gaffer. The examples are give
 Operation | Type
 ------------- | -------------
 [`operation.impl.add.AddElements`](core.md#addelements) | Core
+[`operation.impl.delete.DeleteElements`](core.md#deleteelements) | Core
 [`operation.impl.get.GetAdjacentIds`](get.md#getadjacentids) | Get
 [`operation.impl.get.GetAllElements`](get.md#getallelements) | Get
 [`operation.impl.get.GetElements`](get.md#getelements) | Get
@@ -28,6 +29,7 @@ Operation | Type
 [`operation.impl.function.Transform`](core.md#transform) | Core
 `operation.impl.GetVariable` | Core
 `operation.impl.GetVariables` | Core
+[`operation.impl.get.GetGraphCreatedTime`](core.md#getgraphcreatedtime) | Core
 [`operation.impl.Limit`](core.md#limit) | Core
 `operation.impl.Map` | Core
 [`operation.impl.Reduce`](core.md#reduce) | Core
@@ -79,7 +81,7 @@ Operation | Type
 [`named.view.AddNamedView`](named.md#addnamedview) | Named
 [`named.view.DeleteNamedView`](named.md#deletenamedview) | Named
 [`named.view.GetAllNamedViews`](named.md#getallnamedviews) | Named
-[`store.operation.DeleteAllData`](core.md#deletealldata) | Store
+[`store.operation.DeleteAllData`](core.md#deletealldata) | Core
 [`store.operation.GetSchema`](core.md#getschema) | Store
 [`store.operation.GetTraits`](core.md#gettraits) | Store
 `store.operation.HasTrait` | Store
