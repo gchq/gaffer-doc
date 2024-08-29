@@ -11,11 +11,21 @@ Allows passing options to the underlying Gaffer Operations, this is the same as
 the `options` field on a standard JSON query. This will be applied to all
 operations in the query.
 
+Note that any options should be passed as a list or dictionary.
+
 !!! example
 
-    ```groovy
-    g.with("operationOptions", "gaffer.federatedstore.operation.graphIds:graphA").V().toList()
-    ```
+    === "Groovy"
+
+        ```groovy
+        g.with("operationOptions", ["gaffer.federatedstore.operation.graphIds:graphA"]).V().toList()
+        ```
+
+    === "Python"
+
+        ```python
+        g.with_("operationOptions", {"gaffer.federatedstore.operation.graphIds:graphA"}).V().to_list()
+        ```
 
 ## GetAllElements Limit
 
