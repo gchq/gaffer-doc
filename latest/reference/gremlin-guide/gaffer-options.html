@@ -4433,10 +4433,21 @@
 <p>Allows passing options to the underlying Gaffer Operations, this is the same as
 the <code>options</code> field on a standard JSON query. This will be applied to all
 operations in the query.</p>
+<p>Note that any options should be passed as a list or dictionary.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="language-groovy highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">g</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="s2">&quot;operationOptions&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;gaffer.federatedstore.operation.graphIds:graphA&quot;</span><span class="o">).</span><span class="na">V</span><span class="o">().</span><span class="na">toList</span><span class="o">()</span>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Groovy</label><label for="__tabbed_1_2">Python</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-groovy highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">g</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="s2">&quot;operationOptions&quot;</span><span class="o">,</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;gaffer.federatedstore.operation.graphIds:graphA&quot;</span><span class="o">]).</span><span class="na">V</span><span class="o">().</span><span class="na">toList</span><span class="o">()</span>
 </span></code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">g</span><span class="o">.</span><span class="n">with_</span><span class="p">(</span><span class="s2">&quot;operationOptions&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;gaffer.federatedstore.operation.graphIds:graphA&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">V</span><span class="p">()</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+</span></code></pre></div>
+</div>
+</div>
+</div>
 </div>
 <h2 id="getallelements-limit">GetAllElements Limit</h2>
 <p>Key <code>getAllElementsLimit</code></p>
@@ -4446,7 +4457,7 @@ query, see the <a href="../../administration-guide/gaffer-deployment/gremlin.htm
 for more detail on setting up defaults.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="language-groovy highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">g</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="s2">&quot;getAllElementsLimit&quot;</span><span class="o">,</span><span class="w"> </span><span class="mi">100</span><span class="o">).</span><span class="na">V</span><span class="o">().</span><span class="na">toList</span><span class="o">()</span>
+<div class="language-groovy highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">g</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="s2">&quot;getAllElementsLimit&quot;</span><span class="o">,</span><span class="w"> </span><span class="mi">100</span><span class="o">).</span><span class="na">V</span><span class="o">().</span><span class="na">toList</span><span class="o">()</span>
 </span></code></pre></div>
 </div>
 <h2 id="has-step-filter-stage">Has Step Filter Stage</h2>
@@ -4457,7 +4468,7 @@ default, see the <a href="../../administration-guide/gaffer-deployment/gremlin.h
 for more detail on setting up defaults.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="language-groovy highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">g</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="s2">&quot;hasStepFilterStage&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;PRE_AGGREGATION&quot;</span><span class="o">).</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;count&quot;</span><span class="w"> </span><span class="n">P</span><span class="o">.</span><span class="na">gt</span><span class="o">(</span><span class="mi">1</span><span class="o">)).</span><span class="na">toList</span><span class="o">()</span>
+<div class="language-groovy highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">g</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="s2">&quot;hasStepFilterStage&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;PRE_AGGREGATION&quot;</span><span class="o">).</span><span class="na">V</span><span class="o">().</span><span class="na">has</span><span class="o">(</span><span class="s2">&quot;count&quot;</span><span class="w"> </span><span class="n">P</span><span class="o">.</span><span class="na">gt</span><span class="o">(</span><span class="mi">1</span><span class="o">)).</span><span class="na">toList</span><span class="o">()</span>
 </span></code></pre></div>
 </div>
 <h2 id="cypher-query">Cypher Query</h2>
@@ -4467,7 +4478,7 @@ can be used in combination with other <code>with()</code> steps as they will be 
 from translation.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="language-groovy highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">g</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="s2">&quot;cypher&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;MATCH (p:person) RETURN p&quot;</span><span class="o">).</span><span class="na">call</span><span class="o">().</span><span class="na">toList</span><span class="o">()</span>
+<div class="language-groovy highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">g</span><span class="o">.</span><span class="na">with</span><span class="o">(</span><span class="s2">&quot;cypher&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;MATCH (p:person) RETURN p&quot;</span><span class="o">).</span><span class="na">call</span><span class="o">().</span><span class="na">toList</span><span class="o">()</span>
 </span></code></pre></div>
 </div>
 
