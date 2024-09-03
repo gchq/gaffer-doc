@@ -24,7 +24,13 @@ Note that any options should be passed as a list or dictionary.
     === "Python"
 
         ```python
-        g.with_("operationOptions", {"gaffer.federatedstore.operation.graphIds:graphA"}).V().to_list()
+        g.with_("operationOptions", ["gaffer.federatedstore.operation.graphIds:graphA"]).V().to_list()
+        ```
+
+        or
+
+        ```python
+        g.with_("operationOptions", {"gaffer.federatedstore.operation.graphIds": "graphA"}).V().to_list()
         ```
 
 ## GetAllElements Limit
