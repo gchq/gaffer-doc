@@ -26,3 +26,12 @@ Current known limitations or bugs:
 - Chaining `hasLabel()` calls together like `hasLabel("label1").hasLabel("label2")`
   will act like an OR rather than an AND in standard Gremlin. This means you
   may get results back when you realistically shouldn't.
+- Input seeds to Gaffer operations are deduplicated.
+  Therefore, the results of a query against a GafferPop graph may be different than a standard Gremlin graph.  
+  For example, for the Tinkerpop Modern graph:
+  ```
+  (Gremlin)   g.V().out() = [v2, v3, v3, v3, v4, v5]
+  (GafferPop) g.V().out() = [v2, v3, v4, v5]
+  ```
+  In GafferPop, Vertex 3 is only found in the result set once.
+
