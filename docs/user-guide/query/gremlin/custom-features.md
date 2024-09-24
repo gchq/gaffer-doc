@@ -229,3 +229,6 @@ data in that reaches the last step then that step will be missing from the expla
 in the Graph schema.
 - All submitted Cypher explains will be translated to Gremlin first and have a `.toList()`
 appended to the translation so it is actually executed.
+- An explanation of a Gremlin `project()` step will not include all the Operations called.
+As a Gremlin `project` is essentially a for-each loop the explain will only include the
+last iteration of the loop.
