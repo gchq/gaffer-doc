@@ -85,6 +85,7 @@ A full breakdown of the available properties is as follows:
 | `gaffer.schemas` | The path to the directory containing the graph schema files. | No |
 | `gaffer.userId` | The default user ID for the Tinkerpop graph. | No (User is always set via the [`UserFactory`](../security/user-control.md).) |
 | `gaffer.dataAuths` | The default data auths for the user to specify what operations can be performed | No |
+| `gaffer.rest.timeout` | The timeout for gremlin queries submitted to the REST API in ms. Default is 2 mins if not specified. | Yes |
 | `gaffer.operation.options` | Default `Operation` options in the form `key:value` (this can be overridden per query see [here](../../user-guide/query/gremlin/custom-features.md)) | Yes |
 | `gaffer.elements.getalllimit` | The default limit for unseeded queries e.g. `g.V()`. | Yes |
 | `gaffer.elements.hasstepfilterstage` | The default stage to apply any `has()` steps e.g. `PRE_AGGREGATION` | Yes |
