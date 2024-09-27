@@ -17,7 +17,7 @@ where TinkerPop methods are delegated to Gaffer graph operations.
 The addition of Gremlin as query language in Gaffer allows users to represent
 complex graph queries in a simpler language, akin to other querying languages
 used in traditional and NoSQL databases. It also has wide support for various
-languages so for example, you can write queries in Python via the [`gremlinpython`](https://pypi.org/project/gremlinpython/)
+languages; for example you can write queries in Python via the [`gremlinpython`](https://pypi.org/project/gremlinpython/)
 library.
 
 !!! tip
@@ -29,7 +29,7 @@ library.
 There are two main methods of using Gremlin in Gaffer, these are via a websocket
 similar to a typical [Gremlin Server](https://tinkerpop.apache.org/docs/current/reference/#connecting-gremlin-server)
 or by submitting queries via the REST Endpoints like standard Gaffer Operations.
-Once connected the [Gremlin in Gaffer](../query/gremlin/gremlin.md) page
+Once connected, the [Gremlin in Gaffer](../query/gremlin/gremlin.md) page
 provides a simple comparison of Gremlin compared to Gaffer Operations.
 
 !!! note
@@ -38,8 +38,8 @@ provides a simple comparison of Gremlin compared to Gaffer Operations.
 ### Websocket API
 
 The websocket provides the most _standard_ way to use the Gremlin API. The
-Gaffer REST API provides a Gremlin server like experience via a websocket at
-`/gremlin`, this can be connected to provide a graph traversal source for
+Gaffer REST API provides a Gremlin server-like experience via a websocket at
+`/gremlin`. This can be connected to to provide a graph traversal source for
 spawning queries.
 
 The websocket should support all standard Gremlin tooling and uses GraphSONv3
@@ -68,7 +68,7 @@ and get results back.
 ### REST API Endpoints
 
 The Gremlin endpoints provide a similar interface to running Gaffer Operations.
-They accept a plain string Gremlin Groovy or OpenCypher query and will return
+They accept a plaintext Gremlin Groovy or OpenCypher query and will return
 the results in [GraphSONv3](https://tinkerpop.apache.org/docs/current/dev/io/#graphson-3d0)
 format.
 
