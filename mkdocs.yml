@@ -151,6 +151,10 @@ nav:
         - 'Store Guide': 'administration-guide/gaffer-stores/store-guide.md'
         - 'Accumulo Store': 'administration-guide/gaffer-stores/accumulo-store.md'
         - 'Federated Store': 'administration-guide/gaffer-stores/federated-store.md'
+        - Simple Federated Store:
+          - 'Configuration': 'administration-guide/gaffer-stores/simple-federated/configuration.md'
+          - 'Access Control': 'administration-guide/gaffer-stores/simple-federated/access-control.md'
+          - 'Additional Information': 'administration-guide/gaffer-stores/simple-federated/additional-info.md'
         - 'Map Store':  'administration-guide/gaffer-stores/map-store.md'
         - 'Proxy Store': 'administration-guide/gaffer-stores/proxy-store.md'
       - Configuration:
