@@ -92,7 +92,7 @@ performance issues.
 entities or edges will be merged into one.
 - Any filtering you might have specified in the `View` will only be applied
 to the individual graph results, this means two results separately will
-satisfy the filter but once aggregated they may not.
+satisfy the `View` but once aggregated they may not.
 - If you wish to write or use your own operator for merging elements the class
 must extend the [`ElementAggregateOperator`](https://github.com/gchq/Gaffer/blob/develop/store-implementation/simple-federated-store/src/main/java/uk/gov/gchq/gaffer/federated/simple/merge/operator/ElementAggregateOperator.java).
 
