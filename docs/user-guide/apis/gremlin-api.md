@@ -89,3 +89,18 @@ curl -X 'POST' \
   -H 'Content-Type: text/plain' \
   -d 'g.V().hasLabel('\''something'\'').toList()'
 ```
+
+You can also utilise [Gafferpy](./python-api.md) to connect and run queries
+using the endpoints.
+
+```python
+from gafferpy import gaffer_connector
+
+gc = gaffer_connector.GafferConnector("http://localhost:8080/rest")
+
+# Execute and return gremlin
+gremlin_result = gc.execute_gremlin("g.V('1').toList()")
+
+# Execute and return cypher
+cypher_result = gc.execute_cypher("MATCH (n) WHERE ID(n) = '1' RETURN n")
+```
