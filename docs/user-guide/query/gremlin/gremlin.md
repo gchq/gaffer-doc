@@ -1,27 +1,4 @@
-# Gremlin in Gaffer
-
-!!! warning
-    GafferPop is still under development and has some [limitations](gremlin-limits.md).
-    The implementation may not allow some advanced features of Gremlin and it's
-    performance is unknown in comparison to standard Gaffer `OperationChains`.
-
-[Gremlin](https://tinkerpop.apache.org/gremlin.html) is a query language for
-traversing graphs. It is a core component of the Apache Tinkerpop library and
-allows users to easily express more complex graph queries.
-
-GafferPop is a lightweight Gaffer implementation of the [TinkerPop framework](https://tinkerpop.apache.org/),
-where TinkerPop methods are delegated to Gaffer graph operations.
-
-The addition of Gremlin as query language in Gaffer allows users to represent
-complex graph queries in a simpler language akin to other querying languages
-used in traditional and NoSQL databases. It also has wide support for various
-languages so for example, you can write queries in Python via the [`gremlinpython` library](https://pypi.org/project/gremlinpython/)
-
-!!! tip
-    In-depth tutorials on Gremlin as a query language and its associated libraries
-    can be found in the [Apache Tinkerpop Gremlin docs](https://tinkerpop.apache.org/gremlin.html).
-
-## Using Gremlin Queries in Gaffer
+# Using Gremlin Queries in Gaffer
 
 Gremlin was added to Gaffer in version 2.1 as a new graph query language and since
 version 2.3 it has been added as standard into the Gaffer REST API. A full tutorial
@@ -31,35 +8,11 @@ on the configuration of Gremlin in Gaffer is provided in the
 This guide will use the [Python API for Gremlin](https://pypi.org/project/gremlinpython/)
 to demonstrate some basic capabilities and how they compare to standard Gaffer syntax.
 
-To start querying in Gremlin we first need a reference to what is known as the
-Graph Traversal. To obtain this we need to connect to the Gremlin websocket provided
-by the Gaffer REST API (if you have used [`gafferpy`](../../apis/python-api.md)
-before this will be quite similar). We can do this by first importing the required
-libraries like so (many of these will be needed later for queries):
+!!! tip
+    For information on how to set up a Gremlin connection please see the
+    [API guide](../../apis/gremlin-api.md).
 
-```python
-from gremlin_python.process.anonymous_traversal import traversal
-from gremlin_python.driver.driver_remote_connection import DriverRemoteConnection
-from gremlin_python.driver.serializer import GraphSONSerializersV3d0
-from gremlin_python.process.graph_traversal import __
-```
-
-We can then establish a connection to the Gremlin server and save a reference to
-this (typically called `g`):
-
-```python
-# Setup a connection with the REST API running on localhost
-g = traversal().with_remote(DriverRemoteConnection('ws://localhost:8080/gremlin', 'g', message_serializer=GraphSONSerializersV3d0()))
-```
-
-Now that we have the traversal reference this can be used to spawn graph traversals
-and get results back.
-
-!!! note
-    Its important to use the GraphSON v3 serialiser if connecting to the Gaffer
-    REST API.
-
-### Basic Gremlin Queries
+## Basic Gremlin Queries
 
 Gremlin queries (similar to Gaffer queries) usually require a starting set of
 entities to query from. Commonly Gremlin queries will be left without any IDs in
