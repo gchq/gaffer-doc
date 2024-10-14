@@ -106,10 +106,13 @@ has access before running a query.
 ## Read and Write Access
 
 As previously mentioned read/write access can be applied to graphs added to
-federated stores. Reading from a graph is assumed to be running any operation on
-the respective graph, this includes operations such as, `AddElements` etc. Write
-access to the graph is required for modifying how it is stored in the federated
-store, for example, deleting or renaming the graph.
+federated stores.
+
+!!! warning "Please be aware"
+    Reading from a graph is assumed to be running any operation on the
+    respective graph, this includes operations such as, `AddElements` etc. Write
+    access to the graph is required for modifying how it is stored in the
+    federated store, for example, deleting or renaming the graph.
 
 ### Access Control Predicates
 
@@ -124,7 +127,8 @@ implement Java's [`Predicate<User>`](https://docs.oracle.com/javase/8/docs/api/j
 interface.
 
 - `DefaultUserPredicate` - Can be used to define a list of auth strings a user
-must have to satisfy the predicate. This will also pass if the user is the owner, e.g.
-matches the `creatingUserId` the predicate was initialised with.
+must have to satisfy the predicate. This will also pass if the user matches the
+`creatingUserId` the predicate was initialised with (this does not have the be
+the same as the graph owner).
 - `NoAccessUserPredicate` - Will always deny any access if used.
 - `UnrestrictedAccessUserPredicate` - Will always permit access if used.
