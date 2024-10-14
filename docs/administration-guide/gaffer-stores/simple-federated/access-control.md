@@ -6,7 +6,7 @@ addition to the standard user controls that may be in place on the data itself.
 ## Restricting Graph Access
 
 To restrict access to a graph you must add the access controls when the graph
-is added to the federated store. Once added to a store a graph's access can not
+is added to the federated store. Once added to a store a graph's access cannot
 be altered without removing and re-adding it.
 
 The available restrictions you can apply when adding a graph are as follows,
@@ -88,7 +88,7 @@ A full example of adding a graph with all these restrictions would look like:
 ## Public and Private Graphs
 
 Graphs added to a federated store can have a `isPublic` field added to them.
-This field controls if the added graph is public which means, all users can
+This field controls if the added graph is public which means all users can
 submit requests to this graph from the federated store. A public graph will
 essentially ignore any read predicate applied to it assuming all users can
 see at least some data in the graph. Even if a graph is public restrictions
@@ -109,7 +109,7 @@ As previously mentioned read/write access can be applied to graphs added to
 federated stores. Reading from a graph is assumed to be running any operation on
 the respective graph, this includes operations such as, `AddElements` etc. Write
 access to the graph is required for modifying how it is stored in the federated
-store such as, deleting or renaming the graph.
+store, for example, deleting or renaming the graph.
 
 ### Access Control Predicates
 
@@ -120,11 +120,11 @@ executed.
 All predicates are passed through by specifying them as the `userPredicate` in
 the constructor of an `AccessPredicate`. Some default predicates are available
 and are as follows however, if you wish to write your own predicate it must
-implement the Java's [`Predicate<User>`](https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html)
+implement Java's [`Predicate<User>`](https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html)
 interface.
 
 - `DefaultUserPredicate` - Can be used to define a list of auth strings a user
-must have to satisfy the predicate. Also will pass if the user is the owner e.g.
+must have to satisfy the predicate. This will also pass if the user is the owner, e.g.
 matches the `creatingUserId` the predicate was initialised with.
 - `NoAccessUserPredicate` - Will always deny any access if used.
 - `UnrestrictedAccessUserPredicate` - Will always permit access if used.

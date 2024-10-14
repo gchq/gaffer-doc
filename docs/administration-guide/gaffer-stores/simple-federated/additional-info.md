@@ -1,7 +1,7 @@
 # Additional Information on Simple Federation
 
 This page contains additional information and considerations
-a admin may need to know when using the federated store type.
+an admin may need to know when using the federated store type.
 
 ## How are Operations Handled?
 
@@ -30,7 +30,7 @@ the table [here](./configuration.md#store-properties) for more information.
 If you wish to submit different operations to different graphs in the same query
 you can do this using the `federate.forwardChain` option. By setting this to
 false on the outer operation chain the options on the operations inside it will
-be honoured. An example of this can been below:
+be honoured. An example of this can be seen below:
 
 !!! note
     This will turn off any merging of the results at the end of the chain, the
@@ -83,16 +83,15 @@ need to set this to something other than the graph ID (see [here](../store-guide
 
 ## Schema Compatibility
 
-When querying multiple graphs the schemas of each graph the federated store will
-attempt to merge them together. This means the schemas will need to be
+When querying multiple graphs, the federated store will attempt to merge each graph's schema together. This means the schemas will need to be
 compatible in order to query across them. Generally you will need to ensure
-any shared groups can be merged correctly a few examples of criteria to
+any shared groups can be merged correctly, a few examples of criteria to
 consider are:
 
 - Any properties in a shared group defined in both schemas need to have the same
   type and aggregation function.
 - Any visibility properties need to be compatible or they will be removed from the
   schema.
-- Group with different properties in each schema will be merged so the group has
+- Groups with different properties in each schema will be merged so the group has
   all the properties in the merged schema.
-- Any group by definitions need to be compatible or will be removed.
+- Any groupBy definitions need to be compatible or will be removed.

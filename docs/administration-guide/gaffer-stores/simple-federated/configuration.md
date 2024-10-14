@@ -71,10 +71,10 @@ other operators. This operator will only be used if element aggregating is set
 to "true", either by default, using the store properties, or for just the query
 using the operation option `federated.aggregateElements`.
 
-When enabled, by default the operator will attempt to use the aggregation
+When enabled, the default merge operator attempts to use the aggregation
 functions from the merged schema of the graphs that were executed on. This
 attempts to emulate how the data would have been stored in a single Gaffer graph
-as, entities or edges that are the same (e.g. same group and vertices) will be
+as entities or edges that are the same (e.g. same group and vertices) will be
 merged together with their properties aggregated using the functions defined in
 the schema.
 
@@ -99,14 +99,14 @@ must extend the [`ElementAggregateOperator`](https://github.com/gchq/Gaffer/blob
 ## Adding and Removing Graphs
 
 A federated stores main purpose is to hold a library of 'sub' graphs. These
-graphs are stored in the Gaffer cache so can be shared between multiple
-federated stores (you can read more about the cache [here](./additional-info.md#cache-considerations)).
+graphs are stored in the Gaffer [cache](./additional-info.md#cache-considerations) so can be shared between multiple
+federated stores.
 
 You can think of a graph that has been added to a federated store as essentially
 a pointer to the real graph. This generally means all the information required
 to create the graph in the first place (e.g. schema, store properties etc.) are
 required to add the graph to a federated store. Because of this, a common design
-pattern you may wish to adopt is to have one running Accumulo cluster to which,
+pattern you may wish to adopt is to have one running Accumulo cluster to which
 you can add multiple Gaffer graphs through the federated store. This means you
 do not need to setup multiple Gaffer instances and can query all of the graphs
 through the federated store.
