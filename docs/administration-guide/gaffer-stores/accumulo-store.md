@@ -327,3 +327,66 @@ If you have the accumulo cluster shell running, you can set these scan auths dir
 ```sh
 setauths -u root -s vis1,vis2,publicVisibility,privateVisibility,public,private
 ```
+
+#### Unexpected MatchedVertex on Edges
+
+You may notice that sometimes `MatchedVertex` is included on edges when you might not be expecting it.
+When you seed with a mixture of EdgeSeeds and EntitySeeds, `MatchedVertex` will always be included on edges whether they were matched by a vertex or not. In this case `MatchedVertex` will always equal `SOURCE`.
+This is a peculiarity of the Accumulo store.  
+
+!!! example "Example Query"
+    ``` mermaid
+    graph TD
+    1 --> 2
+    2 --> 3
+    3 --> 4
+    ```
+
+    === "JSON"
+      ```json
+      {
+        "class": "GetElements",
+        "input": [
+          {
+            "class": "EdgeSeed",
+            "source": "1",
+            "destination": "2"
+          },
+          {
+            "class": "EntitySeed",
+            "vertex": "4"
+          },
+        ],
+        "view": {
+          "allEdges": true
+        }
+      }
+      ```
+
+    Results:
+
+    === "JSON"
+      ```json
+      [
+        {
+          "class": "uk.gov.gchq.gaffer.data.element.Edge",
+          "group": "example",
+          "source": "3",
+          "destination": "4",
+          "directed": true,
+          "matchedVertex": "DESTINATION",
+          "properties": {}
+        },
+        {
+          "class": "uk.gov.gchq.gaffer.data.element.Edge",
+          "group": "example",
+          "source": "1",
+          "destination": "2",
+          "directed": true,
+          "matchedVertex": "SOURCE",
+          "properties": {}
+        }
+      ]
+      ```
+    The 1 -> 2 edge has MatchedVertex=SOURCE even though the source wasn't matched by an EntitySeed.
+    
