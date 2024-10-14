@@ -1,6 +1,6 @@
 # Type Properties
 
-The `TypeValue` ([Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/types/TypeValue.html)) and `TypeSubTypeValue` ([Javadoc]()) are special properties which are similar to `String`, but also store a secondary string ('type') or secondary and tertiary strings ('type' & 'subtype').
+The `TypeValue` ([Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/types/TypeValue.html)) and `TypeSubTypeValue` ([Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/types/TypeSubTypeValue.html)) are special properties which are similar to `String`, but also store a secondary string ('type') or secondary and tertiary strings ('type' & 'subtype').
 
 ## Predicate Support
 

@@ -33,11 +33,11 @@ Note that any options should be passed as a list or dictionary.
         g.with_("operationOptions", {"gaffer.federatedstore.operation.graphIds": "graphA"}).V().to_list()
         ```
 
-## GetAllElements Limit
+## GetElements Limit
 
-Key `getAllElementsLimit`
+Key `getElementsLimit`
 
-Limits the amount of elements returned if performing an unseeded query e.g. a
+Limits the amount of elements returned if performing a query which returns a large amount of elements e.g. a
 `GetAllElements` operation. This will override the default for the current
 query, see the [admin guide](../../administration-guide/gaffer-deployment/gremlin.md#configuring-the-gafferpop-library)
 for more detail on setting up defaults.
@@ -45,7 +45,7 @@ for more detail on setting up defaults.
 !!! example
 
     ```groovy
-    g.with("getAllElementsLimit", 100).V().toList()
+    g.with("getElementsLimit", 100).V().toList()
     ```
 
 ## Has Step Filter Stage

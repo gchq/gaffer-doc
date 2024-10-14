@@ -208,3 +208,4 @@ a table of how different parts are mapped is as follows:
 | Vertex | Vertex with default label of `id` |
 | Entity | Vertex |
 | Edge | Edge |
+| Orphan Vertex | Vertex that exists only on an edge, has no associated entity |
