@@ -8,8 +8,8 @@ hide:
 | Term              | Description                          |
 | :---------------- | :----------------------------------- |
 | Entity            | An entity represents a point in a graph |
-| Edge              | An edge is a connection between two entities |
-| Vertex            | In Gaffer, a vertex is the id of an entity |
+| Edge              | An edge is a connection between two vertices |
+| Vertex            | In Gaffer, a vertex is the id of an entity. Note that a vertex can exist on an edge without an associated entity. Any querying will only show these vertices on their associated edges |
 | Node              | A node is what Gaffer calls an entity |
 | Properties        | A property is a key/value pair that stores data on both edges and entities |
 | Element           | The word is used to describe edges or entities |
