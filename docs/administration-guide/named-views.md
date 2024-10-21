@@ -2,7 +2,7 @@
 
 This guide walks through configuring Gaffer to use Named Views and how to run them.
 
-Named Views allow users to store a [View](../user-guide/query/gaffer-syntax/filtering.md) 
+Named Views allow users to store a [View](../user-guide/query/gaffer-syntax/filtering.md)
 in the cache, this can then be called on in OperationChains or in NamedOperations.
 
 The benefit of using Named Views is that it allows you to store lengthy or complex Views
@@ -18,7 +18,7 @@ For details on potential caches and how to configure them, see the [Stores Guide
 
 Named Views are enabled by default. To disable this feature the [store property](../administration-guide/gaffer-stores/store-guide.md#all-general-store-properties) `gaffer.store.namedview.enabled` should be set to false.
 
-There are [three operations](../reference/operations-guide/named.md#addnamedview) which manage Named Views. 
+There are [three operations](../reference/operations-guide/named.md#addnamedview) which manage Named Views.
 These are `AddNamedView`, `GetAllNamedViews` and `DeleteNamedView`.
 
 The examples below use the following graph:
@@ -70,7 +70,7 @@ graph LR
 
         ``` json
         {
-            "class" : "AddNamedVieww",
+            "class" : "AddNamedView",
             "name" : "exampleNamedView",
             "description" : "Example Named View",
             "view": {
@@ -100,7 +100,7 @@ graph LR
     === "Python"
 
         ``` python
-        g.AddNamedView( 
+        g.AddNamedView(
             view = g.View(
                 edges = [
                     g.ElementDefinition(
@@ -117,7 +117,7 @@ graph LR
                     )
                 ]
             ),
-            overwrite_flag=True 
+            overwrite_flag=True
         )
         ```
 
@@ -139,7 +139,7 @@ graph LR
 
     === "JSON"
 
-        ```json 
+        ```json
         {
             "class": "GetElements",
             "input": [
@@ -149,7 +149,7 @@ graph LR
                 }
             ],
             "view": {
-                "class": "NamedView", 
+                "class": "NamedView",
                 "name": "exampleNamedView"
             }
         }
@@ -171,8 +171,8 @@ graph LR
         ```
 
 !!! example "Delete a NamedView"
-    This removes the NamedView from the cache. Note that if you delete a Named View 
-    any Operation Chains or Named Operations which reference it will fail. 
+    This removes the NamedView from the cache. Note that if you delete a Named View
+    any Operation Chains or Named Operations which reference it will fail.
 
     === "Java"
 
