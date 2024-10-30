@@ -90,6 +90,7 @@ nav:
         - 'Spring REST': 'user-guide/apis/rest-api.md'
         - 'Python (gafferpy)': 'user-guide/apis/python-api.md'
         - 'Java': 'user-guide/apis/java-api.md'
+        - 'Gremlin (GafferPop)': 'user-guide/apis/gremlin-api.md'
       - Querying:
         - Gaffer Query Syntax:
           - 'Operations': 'user-guide/query/gaffer-syntax/operations.md'
