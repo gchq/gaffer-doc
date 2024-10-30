@@ -43,6 +43,7 @@ specific to a federated store and their usage.
 | `gaffer.store.federated.default.graphIds` | `""` | The list of default graph IDs for if a user does not specify what graph(s) to run their query on. Takes a comma separated list of graph IDs e.g. `"graphID1,graphID2"` |
 | `gaffer.store.federated.allowPublicGraphs` | `true` | Are graphs with public access allowed to be added to this store. |
 | `gaffer.store.federated.default.aggregateElements` | `false` | Should queries aggregate returned Gaffer elements together using the binary operator for merging elements. False by default as it can be slower meaning results are just chained into one big list. |
+| `gaffer.store.federated.graphCache.name` | `"federatedGraphCache_<graphId>"` | The name of the cache that the federated store will store its graphs in. This allows sharing of graphs between different federated stores if the cache name is the same (and same default implementation). |
 | `gaffer.store.federated.merge.number.class` | `uk.gov.gchq.koryphe.impl.binaryoperator.Sum` | Default binary operator for merging [`Number`](https://docs.oracle.com/javase/8/docs/api/java/lang/Number.html) results (e.g. from a `Count` operation) from multiple graphs. |
 | `gaffer.store.federated.merge.string.class` | `uk.gov.gchq.koryphe.impl.binaryoperator.StringConcat` | Default binary operator for merging [`String`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html) results from multiple graphs. |
 | `gaffer.store.federated.merge.boolean.class` | `uk.gov.gchq.koryphe.impl.binaryoperator.And` | Default binary operator for merging [`Boolean`](https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html) results from multiple graphs. |
@@ -63,6 +64,11 @@ own operators to be used. The only requirement for an operator is for it to
 satisfy Java's [`BinaryOperator`](https://docs.oracle.com/javase/8/docs/api/java/util/function/BinaryOperator.html)
 interface, you can then specify it using the property key for the data type you
 wish to use it for.
+
+!!! note
+    Please note you currently can't chose a merge operator for operations that
+    return an `Iterable` type, they will always just be chained together (an
+    iterable of `Element`s is an obvious exception, please see below).
 
 ### The Default Element Merge Operator
 
@@ -95,6 +101,12 @@ to the individual graph results, this means two results separately will
 satisfy the `View` but once aggregated they may not.
 - If you wish to write or use your own operator for merging elements the class
 must extend the [`ElementAggregateOperator`](https://github.com/gchq/Gaffer/blob/develop/store-implementation/simple-federated-store/src/main/java/uk/gov/gchq/gaffer/federated/simple/merge/operator/ElementAggregateOperator.java).
+- If you have chosen in the schema to use a time sensitive aggregation function
+  (e.g. [`First`](../../../reference/binary-operators-guide/koryphe-operators.md#first))
+  for a property that is in multiple sub graphs, you may end up with duplicates
+  in the result as, the aggregator does not know which sub graph is first or
+  last. This means you may get duplicates of the same vertex but with different
+  properties in the result.
 
 ## Adding and Removing Graphs
 

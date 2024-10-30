@@ -1,5 +1,8 @@
 # Federated Store
 
+!!! warning
+    The current version of the federated store and how it currently operates is deprecated, it will be replaced by the current [simple federated store](./simple-federated/configuration.md#) in v2.4.0.
+
 The Federated Store is a Gaffer store which forwards operations to a collection of sub-graphs and returns a single response as though a single graph were queried.
 
 ## Introduction
