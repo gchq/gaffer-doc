@@ -16,14 +16,14 @@ operation. These can be used to do things like pick graphs or control the
 merging, a full list of the available options are outlined in the following
 table:
 
-| Option | Description |
-| --- | --- |
-| `federated.graphIds` | List of graph IDs to submit the operation to, formatted as a comma separated string e.g. `"graph1,graph2"` |
-| `federated.excludedGraphIds` | List of graph IDs to exclude from the query. If this is set any graph IDs on a `federated.graphIds` option are ignored and instead, all graphs are executed on except the ones specified e.g. `"graph1,graph2"` |
-| `federated.aggregateElements` | Should the element aggregator be used when merging element results. |
-| `federated.useDefaultGraphIds` | Explicitly specifies that the default Graph IDs from the store.properties file should be used. By default if no graph ID options are specified the default graph IDs will still be used where applicable. However, specifying this on an operation chain means the whole chain will be sent to the sub graph, and so merging from each graph will happen at the end of the chain instead of after each operation, hopefully increasing performance.
-| `federated.separateResults` | A boolean option to specify if the results from each graph should be kept separate. If set, this will return a map where each key value is the graph ID and its respective result. |
-| `federated.skipGraphOnFail` | A boolean option to specify if the operation should continue even if it fails on one or more of the sub graphs. |
+| Option | Default | Description |
+| --- | --- | --- |
+| `federated.graphIds` | None | List of graph IDs to submit the operation to, formatted as a comma separated string e.g. `"graph1,graph2"` |
+| `federated.excludedGraphIds` | None | List of graph IDs to exclude from the query. If this is set any graph IDs on a `federated.graphIds` option are ignored and instead, all graphs are executed on except the ones specified e.g. `"graph1,graph2"` |
+| `federated.aggregateElements` | See store properties | Should the element aggregator be used when merging element results. |
+| `federated.useDefaultGraphIds` | None |  Explicitly specifies that the default Graph IDs from the store.properties file should be used. By default if no graph ID options are specified the default graph IDs will still be used where applicable. However, specifying this on an operation chain means the whole chain will be sent to the sub graph, and so merging from each graph will happen at the end of the chain instead of after each operation, hopefully increasing performance.
+| `federated.separateResults` | `false` | A boolean option to specify if the results from each graph should be kept separate. If set, this will return a map where each key value is the graph ID and its respective result. |
+| `federated.skipGraphOnFail` | `false` | A boolean option to specify if the operation should continue even if it fails on one or more of the sub graphs. |
 
 Along with the options above, all merge classes can be overridden per query
 using the same property key as you would via the store properties. Please see
@@ -89,10 +89,10 @@ passing graph IDs in the add operation (e.g. `AddNamedOperation`) you can make
 the Named Operation or View specific to the graph(s) you specified. However,
 this will mean if you try to run it on another graph it will not be available.
 
-If you do not specify any graph IDs in the add operation. This will instead add
-the Operation/View to the federated store's cache. By doing this anything Named
-will be resolved before forwarding to sub graphs meaning in essence it is
-available to all sub graphs.
+If you do not specify any graph IDs in the add operation, any Named
+Operations/Views will instead be added to the federated store's cache. By doing
+this anything Named will be resolved before forwarding to sub graphs meaning in
+essence it is available to all sub graphs.
 
 !!! example ""
     === "Add to a sub graph"
