@@ -21,7 +21,7 @@ table:
 | `federated.graphIds` | List of graph IDs to submit the operation to, formatted as a comma separated string e.g. `"graph1,graph2"` |
 | `federated.excludedGraphIds` | List of graph IDs to exclude from the query. If this is set any graph IDs on a `federated.graphIds` option are ignored and instead, all graphs are executed on except the ones specified e.g. `"graph1,graph2"` |
 | `federated.aggregateElements` | Should the element aggregator be used when merging element results. |
-| `federated.useDefaultGraphIds` | Explicitly specifies the default Graph IDs should be used. By default if no graph ID options are specified the default graph IDs will still be used where applicable. However, specifying this on an operation chain means the whole chain will be sent to the sub graph, and so merging from each graph will happen at the end of the chain instead of after each operation, hopefully increasing performance. |
+| `federated.useDefaultGraphIds` | Explicitly specifies that the default Graph IDs from the store.properties file should be used. By default if no graph ID options are specified the default graph IDs will still be used where applicable. However, specifying this on an operation chain means the whole chain will be sent to the sub graph, and so merging from each graph will happen at the end of the chain instead of after each operation, hopefully increasing performance.
 | `federated.separateResults` | A boolean option to specify if the results from each graph should be kept separate. If set, this will return a map where each key value is the graph ID and its respective result. |
 | `federated.skipGraphOnFail` | A boolean option to specify if the operation should continue even if it fails on one or more of the sub graphs. |
 
@@ -30,7 +30,7 @@ using the same property key as you would via the store properties. Please see
 the table [here](./configuration.md#store-properties) for more information.
 
 If you wish to submit different operations to different graphs in the same query
-you can do this by omitting and graph ID options on the outer operation chain.
+you can do this by omitting any graph ID options on the outer operation chain.
 You can then specify the graph IDs on the individual operations in the chain
 instead. An example of this can be seen below:
 

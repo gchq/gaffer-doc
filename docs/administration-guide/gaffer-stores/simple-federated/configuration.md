@@ -104,7 +104,7 @@ must extend the [`ElementAggregateOperator`](https://github.com/gchq/Gaffer/blob
 - If you have chosen in the schema to use a time sensitive aggregation function
   (e.g. [`First`](../../../reference/binary-operators-guide/koryphe-operators.md#first))
   for a property that is in multiple sub graphs, you may end up with duplicates
-  in the result as, the aggregator does not know which sub graph is first or
+  in the result as the aggregator does not know which sub graph is first or
   last. This means you may get duplicates of the same vertex but with different
   properties in the result.
 
