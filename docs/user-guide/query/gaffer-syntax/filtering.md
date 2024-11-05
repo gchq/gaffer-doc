@@ -138,7 +138,7 @@ associated with it. Then we can apply a filter to include only edges where the
                                 g.PredicateContext(
                                     selection = ['weight'],
                                     predicate = g.IsMoreThan(
-                                        value = {'java.lang.Float': 0.4},
+                                        value = g.float_(0.4),
                                         or_equal_to = False
                                     )
                                 )
@@ -538,7 +538,7 @@ These examples show including global properties in the filter, excluded global p
     === "Python"
 
         ```python
-        viewWithGlobalElements = g.View(
+        view_with_global_filter = g.View(
             global_elements=[
                 g.GlobalElementDefinition(
                     properties=["weight"]
@@ -593,7 +593,7 @@ Global View definitions can also be used to filter all elements for specific pro
     === "Python"
 
         ```python
-        viewWithGlobalElements = g.View(
+        view_with_global_filter = g.View(
             global_elements=[
                 g.GlobalElementDefinition(
                     post_aggregation_filter_functions=[
@@ -660,7 +660,7 @@ specific filters using an AND operator.
     === "Python"
 
         ```python
-        globalAndSpecificFilter = g.View(
+        global_and_specific_filter = g.View(
             entities=[
                 g.ElementDefinition(
                     group="Person",
@@ -1144,7 +1144,7 @@ If you apply some pre-aggregation filtering, you can also select a time window t
     === "Python"
 
         ```python
-        elements = c.execute_operation(
+        elements = gc.execute_operation(
             operation = g.GetElements(
                 input = [g.EntitySeed(vertex = "John")],
                 view = g.View(

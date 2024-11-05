@@ -109,7 +109,7 @@ graph LR
                             g.PredicateContext(
                                 selection = ['weight'],
                                 predicate = g.IsMoreThan(
-                                    value = {'java.lang.Float': 0.4},
+                                    value = g.float_(0.4),
                                     or_equal_to = False
                                 )
                             )
@@ -158,7 +158,7 @@ graph LR
     === "Python"
 
         ```python
-        g_connector.execute_operation(
+        gc.execute_operation(
             operation = g.GetElements(
                 input = [g.EntitySeed(vertex = "John")]
                 view = g.View(
