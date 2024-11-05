@@ -73,7 +73,7 @@ based on their ID. To do this we can use the `GetElements` operation and set the
 
         ```python
         elements = gc.execute_operation(
-            operation = g.GetElements(input = [g.EntitySeed(vertex = "v1")])
+            operation=g.GetElements(input=[g.EntitySeed(vertex="v1")])
         )
         ```
 
@@ -122,9 +122,9 @@ how many entities the `GetElements` returned.
 
         ```python
         count = gc.execute_operation_chain(
-            operation_chain = g.OperationChain(
+            operation_chain=g.OperationChain(
                 operations=[
-                    g.GetElements(input = [g.EntitySeed(vertex = "v1")]),
+                    g.GetElements(input=[g.EntitySeed(vertex="v1")]),
                     g.Count()
                 ]
             )

@@ -120,7 +120,7 @@ available.
     # Establish client connection
     client = client.Client('ws://localhost:8080/gremlin', 'g', message_serializer=GraphSONSerializersV3d0())
 
-    results =  client.submit("g.V().values('count').map(cypherToString()).toList()")
+    results = client.submit("g.V().values('count').map(cypherToString()).toList()")
     results.all().result()
     ```
 
