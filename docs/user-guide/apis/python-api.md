@@ -48,7 +48,7 @@ accessed via the `GafferConnector` where users can then query graphs by executin
 
     ```python
     elements = gc.execute_operation(
-        operation =  g.GetAllElements()
+        operation=g.GetAllElements()
     )
     ```
 
@@ -59,7 +59,7 @@ accessed via the `GafferConnector` where users can then query graphs by executin
 
     ```python
     count = gc.execute_operation_chain(
-        operation_chain = g.OperationChain(
+        operation_chain=g.OperationChain(
             operations=[
                 g.GetAllElements(),
                 g.Count()

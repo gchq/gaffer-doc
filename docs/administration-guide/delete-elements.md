@@ -84,8 +84,14 @@ Operation Chain. This will take as its input the output of any operations run pr
         g.OperationChain(
             operations=[
                 g.GetElements(
-                    input = [g.EdgeSeed(source="John", destination="2", directedType="Either")]
-                    view = g.ElementDefinition(group = "created")
+                    input = [g.EdgeSeed(source="John", destination="2", directedType="Either")],
+                    view = g.View(
+                        edges=[
+                            g.ElementDefinition(
+                                group="created"
+                            )
+                        ]
+                    )
                 ),
                 g.DeleteElements()
             ]
@@ -159,8 +165,8 @@ querying for that entity with no filters.
             Entity[vertex="2",group="software"]
         ```
 
-If a user wishes to remove an entity but leave any associated, this is done by
-querying for that entity with a filter.
+If a user wishes to remove an entity but leave any edges associated with the entity's vertex,
+this is done by querying for that entity with a filter.
 
 !!! example ""
     If a user gets the John entity in a query but uses a `View` that filters for just entities, then the
@@ -208,8 +214,14 @@ querying for that entity with a filter.
         g.OperationChain(
             operations=[
                 g.GetElements(
-                    input = [g.EdgeSeed(source="John", destination="2", directedType="Either")]
-                    view = g.ElementDefinition(group = "person")
+                   input=[g.EntitySeed(vertex="John")],
+                    view=g.View(
+                        entities=[
+                            g.ElementDefinition(
+                                group="person"
+                            )
+                        ]
+                    )
                 ),
                 g.DeleteElements()
             ]

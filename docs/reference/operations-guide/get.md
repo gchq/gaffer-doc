@@ -51,18 +51,18 @@ Gets elements related to provided seeds. [Javadoc](https://gchq.github.io/Gaffer
     === "Python"
 
         ``` python
-        g.GetElements( 
-        input=[ 
-            g.EntitySeed( 
-            vertex=2 
-            ), 
-            g.EdgeSeed( 
-            source=2, 
-            destination=3, 
-            directed_type="EITHER", 
-            matched_vertex="SOURCE" 
-            ) 
-        ] 
+        g.GetElements(
+        input=[
+            g.EntitySeed(
+            vertex=2
+            ),
+            g.EdgeSeed(
+            source=2,
+            destination=3,
+            directed_type="EITHER",
+            matched_vertex="SOURCE"
+            )
+        ]
         )
         ```
 
@@ -142,7 +142,7 @@ Gets elements related to provided seeds. [Javadoc](https://gchq.github.io/Gaffer
 ??? example "Example fetching entities and edges by ID and count"
 
     Get entities and edges by entity id 2 and edge id 2 to 3 with count more than 1.
-    
+
     === "Java"
 
         ``` java
@@ -212,54 +212,54 @@ Gets elements related to provided seeds. [Javadoc](https://gchq.github.io/Gaffer
     === "Python"
 
         ``` python
-        g.GetElements( 
-        view=g.View( 
-            entities=[ 
-            g.ElementDefinition( 
-                group="entity", 
-                pre_aggregation_filter_functions=[ 
-                g.PredicateContext( 
-                    selection=[ 
-                    "count" 
-                    ], 
-                    predicate=g.IsMoreThan( 
-                    value=1, 
-                    or_equal_to=False 
-                    ) 
-                ) 
-                ] 
-            ) 
-            ], 
-            edges=[ 
-            g.ElementDefinition( 
-                group="edge", 
-                pre_aggregation_filter_functions=[ 
-                g.PredicateContext( 
-                    selection=[ 
-                    "count" 
-                    ], 
-                    predicate=g.IsMoreThan( 
-                    value=1, 
-                    or_equal_to=False 
-                    ) 
-                ) 
-                ] 
-            ) 
-            ], 
-            all_edges=False, 
-            all_entities=False 
-        ), 
-        input=[ 
-            g.EntitySeed( 
-            vertex=2 
-            ), 
-            g.EdgeSeed( 
-            source=2, 
-            destination=3, 
-            directed_type="EITHER", 
-            matched_vertex="SOURCE" 
-            ) 
-        ] 
+        g.GetElements(
+        view=g.View(
+            entities=[
+            g.ElementDefinition(
+                group="entity",
+                pre_aggregation_filter_functions=[
+                g.PredicateContext(
+                    selection=[
+                    "count"
+                    ],
+                    predicate=g.IsMoreThan(
+                    value=1,
+                    or_equal_to=False
+                    )
+                )
+                ]
+            )
+            ],
+            edges=[
+            g.ElementDefinition(
+                group="edge",
+                pre_aggregation_filter_functions=[
+                g.PredicateContext(
+                    selection=[
+                    "count"
+                    ],
+                    predicate=g.IsMoreThan(
+                    value=1,
+                    or_equal_to=False
+                    )
+                )
+                ]
+            )
+            ],
+            all_edges=False,
+            all_entities=False
+        ),
+        input=[
+            g.EntitySeed(
+            vertex=2
+            ),
+            g.EdgeSeed(
+            source=2,
+            destination=3,
+            directed_type="EITHER",
+            matched_vertex="SOURCE"
+            )
+        ]
         )
         ```
 
@@ -309,7 +309,7 @@ Gets elements related to provided seeds. [Javadoc](https://gchq.github.io/Gaffer
 ??? example "Example fetching entities and edges related to vertex"
 
     Get entities and edges that are related to vertex 2.
-    
+
     === "Java"
 
         ``` java
@@ -333,12 +333,12 @@ Gets elements related to provided seeds. [Javadoc](https://gchq.github.io/Gaffer
     === "Python"
 
         ``` python
-        g.GetElements( 
-        input=[ 
-            g.EntitySeed( 
-            vertex=2 
-            ) 
-        ] 
+        g.GetElements(
+        input=[
+            g.EntitySeed(
+            vertex=2
+            )
+        ]
         )
         ```
 
@@ -410,7 +410,7 @@ Gets elements related to provided seeds. [Javadoc](https://gchq.github.io/Gaffer
 ??? example "Example fetching entities and edges related to edge"
 
     Get all entities and edges that are related to edge 1 to 2.
-    
+
     === "Java"
 
         ``` java
@@ -437,15 +437,15 @@ Gets elements related to provided seeds. [Javadoc](https://gchq.github.io/Gaffer
     === "Python"
 
         ``` python
-        g.GetElements( 
-        input=[ 
-            g.EdgeSeed( 
-            source=1, 
-            destination=2, 
-            directed_type="EITHER", 
-            matched_vertex="SOURCE" 
-            ) 
-        ] 
+        g.GetElements(
+        input=[
+            g.EdgeSeed(
+            source=1,
+            destination=2,
+            directed_type="EITHER",
+            matched_vertex="SOURCE"
+            )
+        ]
         )
         ```
 
@@ -492,7 +492,7 @@ Gets elements related to provided seeds. [Javadoc](https://gchq.github.io/Gaffer
 ??? example "Example fetching entities and edges related to edge with count"
 
     Get all entities and edges that are related to edge 1 to 2 with count more than 1.
-    
+
     === "Java"
 
         ``` java
@@ -559,51 +559,51 @@ Gets elements related to provided seeds. [Javadoc](https://gchq.github.io/Gaffer
     === "Python"
 
         ``` python
-        g.GetElements( 
-        view=g.View( 
-            entities=[ 
-            g.ElementDefinition( 
-                group="entity", 
-                pre_aggregation_filter_functions=[ 
-                g.PredicateContext( 
-                    selection=[ 
-                    "count" 
-                    ], 
-                    predicate=g.IsMoreThan( 
-                    value=1, 
-                    or_equal_to=False 
-                    ) 
-                ) 
-                ] 
-            ) 
-            ], 
-            edges=[ 
-            g.ElementDefinition( 
-                group="edge", 
-                pre_aggregation_filter_functions=[ 
-                g.PredicateContext( 
-                    selection=[ 
-                    "count" 
-                    ], 
-                    predicate=g.IsMoreThan( 
-                    value=1, 
-                    or_equal_to=False 
-                    ) 
-                ) 
-                ] 
-            ) 
-            ], 
-            all_edges=False, 
-            all_entities=False 
-        ), 
-        input=[ 
-            g.EdgeSeed( 
-            source=1, 
-            destination=2, 
-            directed_type="EITHER", 
-            matched_vertex="SOURCE" 
-            ) 
-        ] 
+        g.GetElements(
+        view=g.View(
+            entities=[
+            g.ElementDefinition(
+                group="entity",
+                pre_aggregation_filter_functions=[
+                g.PredicateContext(
+                    selection=[
+                    "count"
+                    ],
+                    predicate=g.IsMoreThan(
+                    value=1,
+                    or_equal_to=False
+                    )
+                )
+                ]
+            )
+            ],
+            edges=[
+            g.ElementDefinition(
+                group="edge",
+                pre_aggregation_filter_functions=[
+                g.PredicateContext(
+                    selection=[
+                    "count"
+                    ],
+                    predicate=g.IsMoreThan(
+                    value=1,
+                    or_equal_to=False
+                    )
+                )
+                ]
+            )
+            ],
+            all_edges=False,
+            all_entities=False
+        ),
+        input=[
+            g.EdgeSeed(
+            source=1,
+            destination=2,
+            directed_type="EITHER",
+            matched_vertex="SOURCE"
+            )
+        ]
         )
         ```
 
@@ -644,7 +644,7 @@ Gets elements related to provided seeds. [Javadoc](https://gchq.github.io/Gaffer
     Get entities related to 2 with count less than 2 or more than 5.
 
     When using an `Or` predicate with a single selected value you can just do `select(propertyName)` then `execute(new Or(predicates))`.
-    
+
     === "Java"
 
         ``` java
@@ -704,46 +704,46 @@ Gets elements related to provided seeds. [Javadoc](https://gchq.github.io/Gaffer
     === "Python"
 
         ``` python
-        g.GetElements( 
-        view=g.View( 
-            entities=[ 
-            g.ElementDefinition( 
-                group="entity", 
-                pre_aggregation_filter_functions=[ 
-                g.PredicateContext( 
-                    selection=[ 
-                    "count" 
-                    ], 
-                    predicate=g.Or( 
-                    predicates=[ 
-                        g.IsLessThan( 
-                        value=2, 
-                        or_equal_to=False 
-                        ), 
-                        g.IsMoreThan( 
-                        value=5, 
-                        or_equal_to=False 
-                        ) 
-                    ] 
-                    ) 
-                ) 
-                ] 
-            ) 
-            ], 
-            all_edges=False, 
-            all_entities=False 
-        ), 
-        input=[ 
-            g.EntitySeed( 
-            vertex=2 
-            ), 
-            g.EdgeSeed( 
-            source=2, 
-            destination=3, 
-            directed_type="EITHER", 
-            matched_vertex="SOURCE" 
-            ) 
-        ] 
+        g.GetElements(
+        view=g.View(
+            entities=[
+            g.ElementDefinition(
+                group="entity",
+                pre_aggregation_filter_functions=[
+                g.PredicateContext(
+                    selection=[
+                    "count"
+                    ],
+                    predicate=g.Or(
+                    predicates=[
+                        g.IsLessThan(
+                        value=2,
+                        or_equal_to=False
+                        ),
+                        g.IsMoreThan(
+                        value=5,
+                        or_equal_to=False
+                        )
+                    ]
+                    )
+                )
+                ]
+            )
+            ],
+            all_edges=False,
+            all_entities=False
+        ),
+        input=[
+            g.EntitySeed(
+            vertex=2
+            ),
+            g.EdgeSeed(
+            source=2,
+            destination=3,
+            directed_type="EITHER",
+            matched_vertex="SOURCE"
+            )
+        ]
         )
         ```
 
@@ -773,7 +773,7 @@ Gets elements related to provided seeds. [Javadoc](https://gchq.github.io/Gaffer
     Get edges related to 2 when source is less than 2 or destination is more than 3.
 
     When using an `Or` predicate with a multiple selected values, it is more complicated. First, you need to select all the values you want: `select(a, b, c)`. This will create an array of the selected values, `[a, b, c]`. You then need to use the `Or.Builder` to build your `Or` predicate, using `.select()` then `.execute()`. When selecting values in the `Or.Builder` you need to refer to the position in the `[a,b,c]` array. So to use property `a`, use position 0 - `select(0)`.
-    
+
     === "Java"
 
         ``` java
@@ -840,51 +840,51 @@ Gets elements related to provided seeds. [Javadoc](https://gchq.github.io/Gaffer
     === "Python"
 
         ``` python
-        g.GetElements( 
-        view=g.View( 
-            edges=[ 
-            g.ElementDefinition( 
-                group="edge", 
-                pre_aggregation_filter_functions=[ 
-                g.PredicateContext( 
-                    selection=[ 
-                    "SOURCE", 
-                    "DESTINATION" 
-                    ], 
-                    predicate=g.Or( 
-                    predicates=[ 
-                        g.NestedPredicate( 
-                        selection=[ 
-                            0 
-                        ], 
-                        predicate=g.IsLessThan( 
-                            value=2, 
-                            or_equal_to=False 
-                        ) 
-                        ), 
-                        g.NestedPredicate( 
-                        selection=[ 
-                            1 
-                        ], 
-                        predicate=g.IsMoreThan( 
-                            value=3, 
-                            or_equal_to=False 
-                        ) 
-                        ) 
-                    ] 
-                    ) 
-                ) 
-                ] 
-            ) 
-            ], 
-            all_edges=False, 
-            all_entities=False 
-        ), 
-        input=[ 
-            g.EntitySeed( 
-            vertex=2 
-            ) 
-        ] 
+        g.GetElements(
+        view=g.View(
+            edges=[
+            g.ElementDefinition(
+                group="edge",
+                pre_aggregation_filter_functions=[
+                g.PredicateContext(
+                    selection=[
+                    "SOURCE",
+                    "DESTINATION"
+                    ],
+                    predicate=g.Or(
+                    predicates=[
+                        g.NestedPredicate(
+                        selection=[
+                            0
+                        ],
+                        predicate=g.IsLessThan(
+                            value=2,
+                            or_equal_to=False
+                        )
+                        ),
+                        g.NestedPredicate(
+                        selection=[
+                            1
+                        ],
+                        predicate=g.IsMoreThan(
+                            value=3,
+                            or_equal_to=False
+                        )
+                        )
+                    ]
+                    )
+                )
+                ]
+            )
+            ],
+            all_edges=False,
+            all_entities=False
+        ),
+        input=[
+            g.EntitySeed(
+            vertex=2
+            )
+        ]
         )
         ```
 
@@ -939,7 +939,7 @@ Gets elements related to provided seeds. [Javadoc](https://gchq.github.io/Gaffer
     Get entities and return only some properties.
 
     Note that because there are only two properties prior to asking to include only `vertex|count`, this returns the same results as asking to exclude `count`.
-    
+
     === "Java"
 
         ``` java
@@ -994,39 +994,39 @@ Gets elements related to provided seeds. [Javadoc](https://gchq.github.io/Gaffer
     === "Python"
 
         ``` python
-        g.GetElements( 
-        view=g.View( 
-            edges=[ 
-            g.ElementDefinition( 
-                group="edge", 
-                transient_properties={'vertex|count': 'java.lang.String'}, 
-                transform_functions=[ 
-                g.FunctionContext( 
-                    selection=[ 
-                    "SOURCE", 
-                    "count" 
-                    ], 
-                    function=g.Concat( 
-                    separator="|" 
-                    ), 
-                    projection=[ 
-                    "vertex|count" 
-                    ] 
-                ) 
-                ], 
-                properties=[ 
-                "vertex|count" 
-                ] 
-            ) 
-            ], 
-            all_edges=False, 
-            all_entities=False 
-        ), 
-        input=[ 
-            g.EntitySeed( 
-            vertex=2 
-            ) 
-        ] 
+        g.GetElements(
+        view=g.View(
+            edges=[
+            g.ElementDefinition(
+                group="edge",
+                transient_properties={'vertex|count': 'java.lang.String'},
+                transform_functions=[
+                g.FunctionContext(
+                    selection=[
+                    "SOURCE",
+                    "count"
+                    ],
+                    function=g.Concat(
+                    separator="|"
+                    ),
+                    projection=[
+                    "vertex|count"
+                    ]
+                )
+                ],
+                properties=[
+                "vertex|count"
+                ]
+            )
+            ],
+            all_edges=False,
+            all_entities=False
+        ),
+        input=[
+            g.EntitySeed(
+            vertex=2
+            )
+        ]
         )
         ```
 
@@ -1092,7 +1092,7 @@ Gets elements related to provided seeds. [Javadoc](https://gchq.github.io/Gaffer
     Get entities and exclude properties.
 
     Note that because there are only two properties prior to the exclusion, this returns the same results as asking to include only `vertex|count`.
-    
+
     === "Java"
 
         ``` java
@@ -1147,39 +1147,39 @@ Gets elements related to provided seeds. [Javadoc](https://gchq.github.io/Gaffer
     === "Python"
 
         ``` python
-        g.GetElements( 
-        view=g.View( 
-            edges=[ 
-            g.ElementDefinition( 
-                group="edge", 
-                transient_properties={'vertex|count': 'java.lang.String'}, 
-                transform_functions=[ 
-                g.FunctionContext( 
-                    selection=[ 
-                    "SOURCE", 
-                    "count" 
-                    ], 
-                    function=g.Concat( 
-                    separator="|" 
-                    ), 
-                    projection=[ 
-                    "vertex|count" 
-                    ] 
-                ) 
-                ], 
-                exclude_properties=[ 
-                "count" 
-                ] 
-            ) 
-            ], 
-            all_edges=False, 
-            all_entities=False 
-        ), 
-        input=[ 
-            g.EntitySeed( 
-            vertex=2 
-            ) 
-        ] 
+        g.GetElements(
+        view=g.View(
+            edges=[
+            g.ElementDefinition(
+                group="edge",
+                transient_properties={'vertex|count': 'java.lang.String'},
+                transform_functions=[
+                g.FunctionContext(
+                    selection=[
+                    "SOURCE",
+                    "count"
+                    ],
+                    function=g.Concat(
+                    separator="|"
+                    ),
+                    projection=[
+                    "vertex|count"
+                    ]
+                )
+                ],
+                exclude_properties=[
+                "count"
+                ]
+            )
+            ],
+            all_edges=False,
+            all_entities=False
+        ),
+        input=[
+            g.EntitySeed(
+            vertex=2
+            )
+        ]
         )
         ```
 
@@ -1363,7 +1363,7 @@ Performs a single hop down related edges. [Javadoc](https://gchq.github.io/Gaffe
 ??? example "Example fetching adjacent IDs from specified vertex"
 
     Get adjacent ids from vertex 2.
-    
+
     === "Java"
 
         ``` java
@@ -1387,12 +1387,12 @@ Performs a single hop down related edges. [Javadoc](https://gchq.github.io/Gaffe
     === "Python"
 
         ``` python
-        g.GetAdjacentIds( 
-        input=[ 
-            g.EntitySeed( 
-            vertex=2 
-            ) 
-        ] 
+        g.GetAdjacentIds(
+        input=[
+            g.EntitySeed(
+            vertex=2
+            )
+        ]
         )
         ```
 
@@ -1428,7 +1428,7 @@ Performs a single hop down related edges. [Javadoc](https://gchq.github.io/Gaffe
 ??? example "Example fetching adjacent IDs from along outbound edges of specified vertex"
 
     Get adjacent ids along outbound edges from vertex 2
-    
+
     === "Java"
 
         ``` java
@@ -1454,13 +1454,13 @@ Performs a single hop down related edges. [Javadoc](https://gchq.github.io/Gaffe
     === "Python"
 
         ``` python
-        g.GetAdjacentIds( 
-        input=[ 
-            g.EntitySeed( 
-            vertex=2 
-            ) 
-        ], 
-        include_incoming_out_going="OUTGOING" 
+        g.GetAdjacentIds(
+        input=[
+            g.EntitySeed(
+            vertex=2
+            )
+        ],
+        include_incoming_out_going="OUTGOING"
         )
         ```
 
@@ -1492,7 +1492,7 @@ Performs a single hop down related edges. [Javadoc](https://gchq.github.io/Gaffe
 ??? example "Example fetching adjacent IDs from along outbound edges of specified vertex with count"
 
     Get adjacent ids along outbound edges from vertex 2 with count greater than 1.
-    
+
     === "Java"
 
         ``` java
@@ -1540,33 +1540,33 @@ Performs a single hop down related edges. [Javadoc](https://gchq.github.io/Gaffe
     === "Python"
 
         ``` python
-        g.GetAdjacentIds( 
-        view=g.View( 
-            edges=[ 
-            g.ElementDefinition( 
-                group="edge", 
-                pre_aggregation_filter_functions=[ 
-                g.PredicateContext( 
-                    selection=[ 
-                    "count" 
-                    ], 
-                    predicate=g.IsMoreThan( 
-                    value=1, 
-                    or_equal_to=False 
-                    ) 
-                ) 
-                ] 
-            ) 
-            ], 
-            all_edges=False, 
-            all_entities=False 
-        ), 
-        input=[ 
-            g.EntitySeed( 
-            vertex=2 
-            ) 
-        ], 
-        include_incoming_out_going="OUTGOING" 
+        g.GetAdjacentIds(
+        view=g.View(
+            edges=[
+            g.ElementDefinition(
+                group="edge",
+                pre_aggregation_filter_functions=[
+                g.PredicateContext(
+                    selection=[
+                    "count"
+                    ],
+                    predicate=g.IsMoreThan(
+                    value=1,
+                    or_equal_to=False
+                    )
+                )
+                ]
+            )
+            ],
+            all_edges=False,
+            all_entities=False
+        ),
+        input=[
+            g.EntitySeed(
+            vertex=2
+            )
+        ],
+        include_incoming_out_going="OUTGOING"
         )
         ```
 
@@ -1800,43 +1800,43 @@ Gets all elements, optionally using a provided View. [Javadoc](https://gchq.gith
     === "Python"
 
         ``` python
-        g.GetAllElements( 
-          view=g.View( 
-            entities=[ 
-              g.ElementDefinition( 
-                group="entity", 
-                pre_aggregation_filter_functions=[ 
-                  g.PredicateContext( 
-                    selection=[ 
-                      "count" 
-                    ], 
-                    predicate=g.IsMoreThan( 
-                      value=2, 
-                      or_equal_to=False 
-                    ) 
-                  ) 
-                ] 
-              ) 
-            ], 
-            edges=[ 
-              g.ElementDefinition( 
-                group="edge", 
-                pre_aggregation_filter_functions=[ 
-                  g.PredicateContext( 
-                    selection=[ 
-                      "count" 
-                    ], 
-                    predicate=g.IsMoreThan( 
-                      value=2, 
-                      or_equal_to=False 
-                    ) 
-                  ) 
-                ] 
-              ) 
-            ], 
-            all_edges=False, 
-            all_entities=False 
-          ) 
+        g.GetAllElements(
+          view=g.View(
+            entities=[
+              g.ElementDefinition(
+                group="entity",
+                pre_aggregation_filter_functions=[
+                  g.PredicateContext(
+                    selection=[
+                      "count"
+                    ],
+                    predicate=g.IsMoreThan(
+                      value=2,
+                      or_equal_to=False
+                    )
+                  )
+                ]
+              )
+            ],
+            edges=[
+              g.ElementDefinition(
+                group="edge",
+                pre_aggregation_filter_functions=[
+                  g.PredicateContext(
+                    selection=[
+                      "count"
+                    ],
+                    predicate=g.IsMoreThan(
+                      value=2,
+                      or_equal_to=False
+                    )
+                  )
+                ]
+              )
+            ],
+            all_edges=False,
+            all_entities=False
+          )
         )
         ```
 
@@ -1916,7 +1916,7 @@ The examples for GetWalks use a modified graph. This graph contains two differen
 ??? example "Example getting walks"
 
     Gets all of the Walks of length 2 which start from vertex 1, with the added restriction that all edges must be traversed using the source as the matched vertex.
-    
+
     === "Java"
 
         ``` java
@@ -1960,29 +1960,29 @@ The examples for GetWalks use a modified graph. This graph contains two differen
     === "Python"
 
         ``` python
-        g.GetWalks( 
-          input=[ 
-            g.EntitySeed( 
-              vertex=1 
-            ) 
-          ], 
-          operations=[ 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  include_incoming_out_going="OUTGOING" 
-                ) 
-              ] 
-            ), 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  include_incoming_out_going="OUTGOING" 
-                ) 
-              ] 
-            ) 
-          ], 
-          results_limit=1000000 
+        g.GetWalks(
+          input=[
+            g.EntitySeed(
+              vertex=1
+            )
+          ],
+          operations=[
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  include_incoming_out_going="OUTGOING"
+                )
+              ]
+            ),
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  include_incoming_out_going="OUTGOING"
+                )
+              ]
+            )
+          ],
+          results_limit=1000000
         )
         ```
 
@@ -2260,29 +2260,29 @@ The examples for GetWalks use a modified graph. This graph contains two differen
     === "Python"
 
         ``` python
-        g.GetWalks( 
-          input=[ 
-            g.EntitySeed( 
-              vertex=1 
-            ) 
-          ], 
-          operations=[ 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  include_incoming_out_going="OUTGOING" 
-                ) 
-              ] 
-            ), 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  include_incoming_out_going="INCOMING" 
-                ) 
-              ] 
-            ) 
-          ], 
-          results_limit=1000000 
+        g.GetWalks(
+          input=[
+            g.EntitySeed(
+              vertex=1
+            )
+          ],
+          operations=[
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  include_incoming_out_going="OUTGOING"
+                )
+              ]
+            ),
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  include_incoming_out_going="INCOMING"
+                )
+              ]
+            )
+          ],
+          results_limit=1000000
         )
         ```
 
@@ -2932,69 +2932,69 @@ The examples for GetWalks use a modified graph. This graph contains two differen
     === "Python"
 
         ``` python
-        g.GetWalks( 
-          input=[ 
-            g.EntitySeed( 
-              vertex=1 
-            ) 
-          ], 
-          operations=[ 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  view=g.View( 
-                    edges=[ 
-                      g.ElementDefinition( 
-                        group="edge", 
-                        pre_aggregation_filter_functions=[ 
-                          g.PredicateContext( 
-                            selection=[ 
-                              "count" 
-                            ], 
-                            predicate=g.IsMoreThan( 
-                              value=3, 
-                              or_equal_to=False 
-                            ) 
-                          ) 
-                        ] 
-                      ) 
-                    ], 
-                    all_edges=False, 
-                    all_entities=False 
-                  ), 
-                  include_incoming_out_going="OUTGOING" 
-                ) 
-              ] 
-            ), 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  view=g.View( 
-                    edges=[ 
-                      g.ElementDefinition( 
-                        group="edge1", 
-                        pre_aggregation_filter_functions=[ 
-                          g.PredicateContext( 
-                            selection=[ 
-                              "count" 
-                            ], 
-                            predicate=g.IsMoreThan( 
-                              value=8, 
-                              or_equal_to=False 
-                            ) 
-                          ) 
-                        ] 
-                      ) 
-                    ], 
-                    all_edges=False, 
-                    all_entities=False 
-                  ), 
-                  include_incoming_out_going="INCOMING" 
-                ) 
-              ] 
-            ) 
-          ], 
-          results_limit=1000000 
+        g.GetWalks(
+          input=[
+            g.EntitySeed(
+              vertex=1
+            )
+          ],
+          operations=[
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  view=g.View(
+                    edges=[
+                      g.ElementDefinition(
+                        group="edge",
+                        pre_aggregation_filter_functions=[
+                          g.PredicateContext(
+                            selection=[
+                              "count"
+                            ],
+                            predicate=g.IsMoreThan(
+                              value=3,
+                              or_equal_to=False
+                            )
+                          )
+                        ]
+                      )
+                    ],
+                    all_edges=False,
+                    all_entities=False
+                  ),
+                  include_incoming_out_going="OUTGOING"
+                )
+              ]
+            ),
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  view=g.View(
+                    edges=[
+                      g.ElementDefinition(
+                        group="edge1",
+                        pre_aggregation_filter_functions=[
+                          g.PredicateContext(
+                            selection=[
+                              "count"
+                            ],
+                            predicate=g.IsMoreThan(
+                              value=8,
+                              or_equal_to=False
+                            )
+                          )
+                        ]
+                      )
+                    ],
+                    all_edges=False,
+                    all_entities=False
+                  ),
+                  include_incoming_out_going="INCOMING"
+                )
+              ]
+            )
+          ],
+          results_limit=1000000
         )
         ```
 
@@ -3044,7 +3044,7 @@ The examples for GetWalks use a modified graph. This graph contains two differen
 ??? example "Example getting walks with entities"
 
     Gets all of the Walks of length 2 which start from vertex 1, with all of the entities which are attached to the vertices found along the way.
-    
+
     === "Java"
 
         ``` java
@@ -3129,79 +3129,79 @@ The examples for GetWalks use a modified graph. This graph contains two differen
     === "Python"
 
         ``` python
-        g.GetWalks( 
-          input=[ 
-            g.EntitySeed( 
-              vertex=1 
-            ) 
-          ], 
-          operations=[ 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  view=g.View( 
-                    entities=[ 
-                      g.ElementDefinition( 
-                        group="entity1" 
-                      ), 
-                      g.ElementDefinition( 
-                        group="entity" 
-                      ) 
-                    ], 
-                    edges=[ 
-                      g.ElementDefinition( 
-                        group="edge" 
-                      ) 
-                    ], 
-                    all_edges=False, 
-                    all_entities=False 
-                  ), 
-                  include_incoming_out_going="OUTGOING" 
-                ) 
-              ] 
-            ), 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  view=g.View( 
-                    entities=[ 
-                      g.ElementDefinition( 
-                        group="entity1" 
-                      ) 
-                    ], 
-                    edges=[ 
-                      g.ElementDefinition( 
-                        group="edge1" 
-                      ) 
-                    ], 
-                    all_edges=False, 
-                    all_entities=False 
-                  ), 
-                  include_incoming_out_going="INCOMING" 
-                ) 
-              ] 
-            ), 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  view=g.View( 
-                    entities=[ 
-                      g.ElementDefinition( 
-                        group="entity1" 
-                      ), 
-                      g.ElementDefinition( 
-                        group="entity" 
-                      ) 
-                    ], 
-                    all_edges=False, 
-                    all_entities=False 
-                  ), 
-                  include_incoming_out_going="INCOMING" 
-                ) 
-              ] 
-            ) 
-          ], 
-          results_limit=1000000 
+        g.GetWalks(
+          input=[
+            g.EntitySeed(
+              vertex=1
+            )
+          ],
+          operations=[
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  view=g.View(
+                    entities=[
+                      g.ElementDefinition(
+                        group="entity1"
+                      ),
+                      g.ElementDefinition(
+                        group="entity"
+                      )
+                    ],
+                    edges=[
+                      g.ElementDefinition(
+                        group="edge"
+                      )
+                    ],
+                    all_edges=False,
+                    all_entities=False
+                  ),
+                  include_incoming_out_going="OUTGOING"
+                )
+              ]
+            ),
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  view=g.View(
+                    entities=[
+                      g.ElementDefinition(
+                        group="entity1"
+                      )
+                    ],
+                    edges=[
+                      g.ElementDefinition(
+                        group="edge1"
+                      )
+                    ],
+                    all_edges=False,
+                    all_entities=False
+                  ),
+                  include_incoming_out_going="INCOMING"
+                )
+              ]
+            ),
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  view=g.View(
+                    entities=[
+                      g.ElementDefinition(
+                        group="entity1"
+                      ),
+                      g.ElementDefinition(
+                        group="entity"
+                      )
+                    ],
+                    all_edges=False,
+                    all_entities=False
+                  ),
+                  include_incoming_out_going="INCOMING"
+                )
+              ]
+            )
+          ],
+          results_limit=1000000
         )
         ```
 
@@ -3323,7 +3323,7 @@ The examples for GetWalks use a modified graph. This graph contains two differen
 ??? example "Example getting walks with filtering on cardinality entities from first hop"
 
     Gets all of the Walks of length 2 which start from vertex 5, where the results of the first hop are filtered based on the cardinality entities in the graph.
-    
+
     === "Java"
 
         ``` java
@@ -3456,122 +3456,122 @@ The examples for GetWalks use a modified graph. This graph contains two differen
     === "Python"
 
         ``` python
-        g.GetWalks( 
-          input=[ 
-            g.EntitySeed( 
-              vertex=5 
-            ) 
-          ], 
-          operations=[ 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  view=g.View( 
-                    entities=[ 
-                      g.ElementDefinition( 
-                        group="cardinality", 
-                        pre_aggregation_filter_functions=[ 
-                          g.PredicateContext( 
-                            selection=[ 
-                              "edgeGroup" 
-                            ], 
-                            predicate=g.IsEqual( 
-                              value={'java.util.TreeSet': ['edge']} 
-                            ) 
-                          ) 
-                        ], 
-                        post_aggregation_filter_functions=[ 
-                          g.PredicateContext( 
-                            selection=[ 
-                              "hllp" 
-                            ], 
-                            predicate=g.HyperLogLogPlusIsLessThan( 
-                              value=2, 
-                              or_equal_to=False 
-                            ) 
-                          ) 
-                        ], 
-                        group_by=[ 
-                        ] 
-                      ) 
-                    ], 
-                    all_edges=False, 
-                    all_entities=False 
-                  ) 
-                ), 
-                g.GetElements( 
-                  view=g.View( 
-                    entities=[ 
-                      g.ElementDefinition( 
-                        group="entity1" 
-                      ), 
-                      g.ElementDefinition( 
-                        group="entity" 
-                      ) 
-                    ], 
-                    edges=[ 
-                      g.ElementDefinition( 
-                        group="edge" 
-                      ), 
-                      g.ElementDefinition( 
-                        group="edge1" 
-                      ) 
-                    ], 
-                    all_edges=False, 
-                    all_entities=False 
-                  ), 
-                  include_incoming_out_going="INCOMING" 
-                ) 
-              ] 
-            ), 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  view=g.View( 
-                    entities=[ 
-                      g.ElementDefinition( 
-                        group="entity1" 
-                      ), 
-                      g.ElementDefinition( 
-                        group="entity" 
-                      ) 
-                    ], 
-                    edges=[ 
-                      g.ElementDefinition( 
-                        group="edge" 
-                      ), 
-                      g.ElementDefinition( 
-                        group="edge1" 
-                      ) 
-                    ], 
-                    all_edges=False, 
-                    all_entities=False 
-                  ), 
-                  include_incoming_out_going="INCOMING" 
-                ) 
-              ] 
-            ), 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  view=g.View( 
-                    entities=[ 
-                      g.ElementDefinition( 
-                        group="entity1" 
-                      ), 
-                      g.ElementDefinition( 
-                        group="entity" 
-                      ) 
-                    ], 
-                    all_edges=False, 
-                    all_entities=False 
-                  ), 
-                  include_incoming_out_going="INCOMING" 
-                ) 
-              ] 
-            ) 
-          ], 
-          results_limit=1000000 
+        g.GetWalks(
+          input=[
+            g.EntitySeed(
+              vertex=5
+            )
+          ],
+          operations=[
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  view=g.View(
+                    entities=[
+                      g.ElementDefinition(
+                        group="cardinality",
+                        pre_aggregation_filter_functions=[
+                          g.PredicateContext(
+                            selection=[
+                              "edgeGroup"
+                            ],
+                            predicate=g.IsEqual(
+                              value=g.tree_set(['edge'])
+                            )
+                          )
+                        ],
+                        post_aggregation_filter_functions=[
+                          g.PredicateContext(
+                            selection=[
+                              "hllp"
+                            ],
+                            predicate=g.HyperLogLogPlusIsLessThan(
+                              value=2,
+                              or_equal_to=False
+                            )
+                          )
+                        ],
+                        group_by=[
+                        ]
+                      )
+                    ],
+                    all_edges=False,
+                    all_entities=False
+                  )
+                ),
+                g.GetElements(
+                  view=g.View(
+                    entities=[
+                      g.ElementDefinition(
+                        group="entity1"
+                      ),
+                      g.ElementDefinition(
+                        group="entity"
+                      )
+                    ],
+                    edges=[
+                      g.ElementDefinition(
+                        group="edge"
+                      ),
+                      g.ElementDefinition(
+                        group="edge1"
+                      )
+                    ],
+                    all_edges=False,
+                    all_entities=False
+                  ),
+                  include_incoming_out_going="INCOMING"
+                )
+              ]
+            ),
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  view=g.View(
+                    entities=[
+                      g.ElementDefinition(
+                        group="entity1"
+                      ),
+                      g.ElementDefinition(
+                        group="entity"
+                      )
+                    ],
+                    edges=[
+                      g.ElementDefinition(
+                        group="edge"
+                      ),
+                      g.ElementDefinition(
+                        group="edge1"
+                      )
+                    ],
+                    all_edges=False,
+                    all_entities=False
+                  ),
+                  include_incoming_out_going="INCOMING"
+                )
+              ]
+            ),
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  view=g.View(
+                    entities=[
+                      g.ElementDefinition(
+                        group="entity1"
+                      ),
+                      g.ElementDefinition(
+                        group="entity"
+                      )
+                    ],
+                    all_edges=False,
+                    all_entities=False
+                  ),
+                  include_incoming_out_going="INCOMING"
+                )
+              ]
+            )
+          ],
+          results_limit=1000000
         )
         ```
 
@@ -3693,7 +3693,7 @@ The examples for GetWalks use a modified graph. This graph contains two differen
 ??? example "Example getting walks with filtering on cardinality entities contained in walk"
 
     Gets all of the Walks of length 2 which start from vertex 5, where each Walk returned in the results is filtered based on total of the count property on the walks' edges being less than 11.
-    
+
     === "Java"
 
         ``` java
@@ -3831,116 +3831,116 @@ The examples for GetWalks use a modified graph. This graph contains two differen
     === "Python"
 
         ``` python
-        g.GetWalks( 
-          input=[ 
-            g.EntitySeed( 
-              vertex=5 
-            ) 
-          ], 
-          operations=[ 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  view=g.View( 
-                    entities=[ 
-                      g.ElementDefinition( 
-                        group="entity1" 
-                      ), 
-                      g.ElementDefinition( 
-                        group="entity" 
-                      ) 
-                    ], 
-                    edges=[ 
-                      g.ElementDefinition( 
-                        group="edge" 
-                      ), 
-                      g.ElementDefinition( 
-                        group="edge1" 
-                      ) 
-                    ], 
-                    all_edges=False, 
-                    all_entities=False 
-                  ), 
-                  include_incoming_out_going="INCOMING" 
-                ) 
-              ] 
-            ), 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  view=g.View( 
-                    entities=[ 
-                      g.ElementDefinition( 
-                        group="entity1" 
-                      ), 
-                      g.ElementDefinition( 
-                        group="entity" 
-                      ) 
-                    ], 
-                    edges=[ 
-                      g.ElementDefinition( 
-                        group="edge" 
-                      ), 
-                      g.ElementDefinition( 
-                        group="edge1" 
-                      ) 
-                    ], 
-                    all_edges=False, 
-                    all_entities=False 
-                  ), 
-                  include_incoming_out_going="INCOMING" 
-                ) 
-              ] 
-            ), 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  view=g.View( 
-                    entities=[ 
-                      g.ElementDefinition( 
-                        group="entity1" 
-                      ), 
-                      g.ElementDefinition( 
-                        group="entity" 
-                      ) 
-                    ], 
-                    all_edges=False, 
-                    all_entities=False 
-                  ), 
-                  include_incoming_out_going="INCOMING" 
-                ) 
-              ] 
-            ) 
-          ], 
-          results_limit=1000000, 
-          conditional=g.Conditional( 
-            predicate=g.IsLessThan( 
-              value=11, 
-              or_equal_to=False 
-            ), 
-            transform=g.OperationChain( 
-              operations=[ 
-                g.Map( 
-                  functions=[ 
-                    g.ExtractWalkEdges(), 
-                    g.IterableConcat() 
-                  ] 
-                ), 
-                g.ForEach( 
-                  operation=g.Map( 
-                    functions=[ 
-                      g.ExtractProperty( 
-                        name="count" 
-                      ) 
-                    ] 
-                  ) 
-                ), 
-                g.Reduce( 
-                  aggregate_function=g.Sum() 
-                ) 
-              ] 
-            ) 
-          ) 
+        g.GetWalks(
+          input=[
+            g.EntitySeed(
+              vertex=5
+            )
+          ],
+          operations=[
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  view=g.View(
+                    entities=[
+                      g.ElementDefinition(
+                        group="entity1"
+                      ),
+                      g.ElementDefinition(
+                        group="entity"
+                      )
+                    ],
+                    edges=[
+                      g.ElementDefinition(
+                        group="edge"
+                      ),
+                      g.ElementDefinition(
+                        group="edge1"
+                      )
+                    ],
+                    all_edges=False,
+                    all_entities=False
+                  ),
+                  include_incoming_out_going="INCOMING"
+                )
+              ]
+            ),
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  view=g.View(
+                    entities=[
+                      g.ElementDefinition(
+                        group="entity1"
+                      ),
+                      g.ElementDefinition(
+                        group="entity"
+                      )
+                    ],
+                    edges=[
+                      g.ElementDefinition(
+                        group="edge"
+                      ),
+                      g.ElementDefinition(
+                        group="edge1"
+                      )
+                    ],
+                    all_edges=False,
+                    all_entities=False
+                  ),
+                  include_incoming_out_going="INCOMING"
+                )
+              ]
+            ),
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  view=g.View(
+                    entities=[
+                      g.ElementDefinition(
+                        group="entity1"
+                      ),
+                      g.ElementDefinition(
+                        group="entity"
+                      )
+                    ],
+                    all_edges=False,
+                    all_entities=False
+                  ),
+                  include_incoming_out_going="INCOMING"
+                )
+              ]
+            )
+          ],
+          results_limit=1000000,
+          conditional=g.Conditional(
+            predicate=g.IsLessThan(
+              value=11,
+              or_equal_to=False
+            ),
+            transform=g.OperationChain(
+              operations=[
+                g.Map(
+                  functions=[
+                    g.ExtractWalkEdges(),
+                    g.IterableConcat()
+                  ]
+                ),
+                g.ForEach(
+                  operation=g.Map(
+                    functions=[
+                      g.ExtractProperty(
+                        name="count"
+                      )
+                    ]
+                  )
+                ),
+                g.Reduce(
+                  aggregate_function=g.Sum()
+                )
+              ]
+            )
+          )
         )
         ```
 
@@ -4011,7 +4011,7 @@ The examples for GetWalks use a modified graph. This graph contains two differen
 ??? example "Example getting walks with multiple groups"
 
     Gets all of the Walks of length 2 which start from vertex 1. The IncludeIncomingOutgoingType flag can be used to determine which edge direction the Walk follows for each hop. Additionally, the group set in the view is used to only travel down certain edges in each hop.
-    
+
     === "Java"
 
         ``` java
@@ -4071,47 +4071,47 @@ The examples for GetWalks use a modified graph. This graph contains two differen
     === "Python"
 
         ``` python
-        g.GetWalks( 
-          input=[ 
-            g.EntitySeed( 
-              vertex=1 
-            ) 
-          ], 
-          operations=[ 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  view=g.View( 
-                    edges=[ 
-                      g.ElementDefinition( 
-                        group="edge" 
-                      ) 
-                    ], 
-                    all_edges=False, 
-                    all_entities=False 
-                  ), 
-                  include_incoming_out_going="OUTGOING" 
-                ) 
-              ] 
-            ), 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  view=g.View( 
-                    edges=[ 
-                      g.ElementDefinition( 
-                        group="edge1" 
-                      ) 
-                    ], 
-                    all_edges=False, 
-                    all_entities=False 
-                  ), 
-                  include_incoming_out_going="INCOMING" 
-                ) 
-              ] 
-            ) 
-          ], 
-          results_limit=1000000 
+        g.GetWalks(
+          input=[
+            g.EntitySeed(
+              vertex=1
+            )
+          ],
+          operations=[
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  view=g.View(
+                    edges=[
+                      g.ElementDefinition(
+                        group="edge"
+                      )
+                    ],
+                    all_edges=False,
+                    all_entities=False
+                  ),
+                  include_incoming_out_going="OUTGOING"
+                )
+              ]
+            ),
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  view=g.View(
+                    edges=[
+                      g.ElementDefinition(
+                        group="edge1"
+                      )
+                    ],
+                    all_edges=False,
+                    all_entities=False
+                  ),
+                  include_incoming_out_going="INCOMING"
+                )
+              ]
+            )
+          ],
+          results_limit=1000000
         )
         ```
 
@@ -4191,7 +4191,7 @@ The examples for GetWalks use a modified graph. This graph contains two differen
 ??? example "Example getting walks with loops"
 
     Gets all of the Walks of length 6 which start from vertex 1, with the added restriction that all edges must be traversed using the source as the matched vertex. This demonstrates the behaviour when previously traversed edges are encountered again.
-    
+
     === "Java"
 
         ``` java
@@ -4271,57 +4271,57 @@ The examples for GetWalks use a modified graph. This graph contains two differen
     === "Python"
 
         ``` python
-        g.GetWalks( 
-          input=[ 
-            g.EntitySeed( 
-              vertex=1 
-            ) 
-          ], 
-          operations=[ 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  include_incoming_out_going="OUTGOING" 
-                ) 
-              ] 
-            ), 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  include_incoming_out_going="OUTGOING" 
-                ) 
-              ] 
-            ), 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  include_incoming_out_going="OUTGOING" 
-                ) 
-              ] 
-            ), 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  include_incoming_out_going="OUTGOING" 
-                ) 
-              ] 
-            ), 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  include_incoming_out_going="OUTGOING" 
-                ) 
-              ] 
-            ), 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  include_incoming_out_going="OUTGOING" 
-                ) 
-              ] 
-            ) 
-          ], 
-          results_limit=1000000 
+        g.GetWalks(
+          input=[
+            g.EntitySeed(
+              vertex=1
+            )
+          ],
+          operations=[
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  include_incoming_out_going="OUTGOING"
+                )
+              ]
+            ),
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  include_incoming_out_going="OUTGOING"
+                )
+              ]
+            ),
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  include_incoming_out_going="OUTGOING"
+                )
+              ]
+            ),
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  include_incoming_out_going="OUTGOING"
+                )
+              ]
+            ),
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  include_incoming_out_going="OUTGOING"
+                )
+              ]
+            ),
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  include_incoming_out_going="OUTGOING"
+                )
+              ]
+            )
+          ],
+          results_limit=1000000
         )
         ```
 
@@ -5151,7 +5151,7 @@ The examples for GetWalks use a modified graph. This graph contains two differen
 ??? example "Example getting walks with self loops"
 
     Gets all of the Walks of length 3 which start from vertex 8, with the added restriction that all edges must be traversed using the source as the matched vertex. This demonstrates the behaviour when self loops exist in the graph.
-    
+
     === "Java"
 
         ``` java
@@ -5204,36 +5204,36 @@ The examples for GetWalks use a modified graph. This graph contains two differen
     === "Python"
 
         ``` python
-        g.GetWalks( 
-          input=[ 
-            g.EntitySeed( 
-              vertex=8 
-            ) 
-          ], 
-          operations=[ 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  include_incoming_out_going="OUTGOING" 
-                ) 
-              ] 
-            ), 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  include_incoming_out_going="OUTGOING" 
-                ) 
-              ] 
-            ), 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  include_incoming_out_going="OUTGOING" 
-                ) 
-              ] 
-            ) 
-          ], 
-          results_limit=1000000 
+        g.GetWalks(
+          input=[
+            g.EntitySeed(
+              vertex=8
+            )
+          ],
+          operations=[
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  include_incoming_out_going="OUTGOING"
+                )
+              ]
+            ),
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  include_incoming_out_going="OUTGOING"
+                )
+              ]
+            ),
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  include_incoming_out_going="OUTGOING"
+                )
+              ]
+            )
+          ],
+          results_limit=1000000
         )
         ```
 
@@ -6072,7 +6072,7 @@ The examples for GetWalks use a modified graph. This graph contains two differen
 ??? example "Example getting walks with additional operations"
 
     Gets all of the Walks of length 2 which start from vertex 5, where an additional operation is inserted between the GetElements operations used to retrieve elements.
-    
+
     === "Java"
 
         ``` java
@@ -6147,61 +6147,61 @@ The examples for GetWalks use a modified graph. This graph contains two differen
     === "Python"
 
         ``` python
-        g.GetWalks( 
-          input=[ 
-            g.EntitySeed( 
-              vertex=5 
-            ) 
-          ], 
-          operations=[ 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  view=g.View( 
-                    edges=[ 
-                      g.ElementDefinition( 
-                        group="edge" 
-                      ), 
-                      g.ElementDefinition( 
-                        group="edge1" 
-                      ) 
-                    ], 
-                    all_edges=False, 
-                    all_entities=False 
-                  ), 
-                  include_incoming_out_going="INCOMING" 
-                ), 
-                g.Sort( 
-                  comparators=[ 
-                    g.ElementPropertyComparator( 
-                      groups=[ 
-                      ], 
-                      property="count", 
-                      reversed=False 
-                    ) 
-                  ], 
-                  deduplicate=True 
-                ) 
-              ] 
-            ), 
-            g.OperationChain( 
-              operations=[ 
-                g.GetElements( 
-                  view=g.View( 
-                    edges=[ 
-                      g.ElementDefinition( 
-                        group="edge1" 
-                      ) 
-                    ], 
-                    all_edges=False, 
-                    all_entities=False 
-                  ), 
-                  include_incoming_out_going="INCOMING" 
-                ) 
-              ] 
-            ) 
-          ], 
-          results_limit=1000000 
+        g.GetWalks(
+          input=[
+            g.EntitySeed(
+              vertex=5
+            )
+          ],
+          operations=[
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  view=g.View(
+                    edges=[
+                      g.ElementDefinition(
+                        group="edge"
+                      ),
+                      g.ElementDefinition(
+                        group="edge1"
+                      )
+                    ],
+                    all_edges=False,
+                    all_entities=False
+                  ),
+                  include_incoming_out_going="INCOMING"
+                ),
+                g.Sort(
+                  comparators=[
+                    g.ElementPropertyComparator(
+                      groups=[
+                      ],
+                      property="count",
+                      reversed=False
+                    )
+                  ],
+                  deduplicate=True
+                )
+              ]
+            ),
+            g.OperationChain(
+              operations=[
+                g.GetElements(
+                  view=g.View(
+                    edges=[
+                      g.ElementDefinition(
+                        group="edge1"
+                      )
+                    ],
+                    all_edges=False,
+                    all_entities=False
+                  ),
+                  include_incoming_out_going="INCOMING"
+                )
+              ]
+            )
+          ],
+          results_limit=1000000
         )
         ```
 

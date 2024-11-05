@@ -28,13 +28,13 @@ Input type: `java.lang.Long`
     === "Python"
 
         ``` python
-        g.AgeOff( 
-          age_off_time=100000 
+        g.AgeOff(
+          age_off_time=100000
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.String | ClassCastException: java.lang.String cannot be cast to java.lang.Long
@@ -81,22 +81,22 @@ Input type: `uk.gov.gchq.koryphe.signature.Signature$UnknownGenericType`
     === "Python"
 
         ``` python
-        g.And( 
-          predicates=[ 
-            g.IsLessThan( 
-              value=3, 
-              or_equal_to=False 
-            ), 
-            g.IsMoreThan( 
-              value=0, 
-              or_equal_to=False 
-            ) 
-          ] 
+        g.And(
+          predicates=[
+            g.IsLessThan(
+              value=3,
+              or_equal_to=False
+            ),
+            g.IsMoreThan(
+              value=0,
+              or_equal_to=False
+            )
+          ]
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Integer | 0 | false
@@ -148,32 +148,32 @@ Input type: `uk.gov.gchq.koryphe.signature.Signature$UnknownGenericType`
     === "Python"
 
         ``` python
-        g.And( 
-          predicates=[ 
-            g.NestedPredicate( 
-              selection=[ 
-                0 
-              ], 
-              predicate=g.IsLessThan( 
-                value=2, 
-                or_equal_to=False 
-              ) 
-            ), 
-            g.NestedPredicate( 
-              selection=[ 
-                1 
-              ], 
-              predicate=g.IsMoreThan( 
-                value=5, 
-                or_equal_to=False 
-              ) 
-            ) 
-          ] 
+        g.And(
+          predicates=[
+            g.NestedPredicate(
+              selection=[
+                0
+              ],
+              predicate=g.IsLessThan(
+                value=2,
+                or_equal_to=False
+              )
+            ),
+            g.NestedPredicate(
+              selection=[
+                1
+              ],
+              predicate=g.IsMoreThan(
+                value=5,
+                or_equal_to=False
+              )
+            )
+          ]
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     [java.lang.Integer, java.lang.Integer] | [1, 10] | true
@@ -211,9 +211,9 @@ Input type: `java.lang.Object, java.lang.Object`
         ``` python
         g.AreEqual()
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     [java.lang.Integer, java.lang.Double] | [1, 1.0] | false
@@ -248,17 +248,17 @@ Input type: `java.util.Collection`
     === "Python"
 
         ``` python
-        g.AreIn( 
-          values=[ 
-            1, 
-            2, 
-            3 
-          ] 
+        g.AreIn(
+          values=[
+            1,
+            2,
+            3
+          ]
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.util.HashSet | [1, 2, 3] | true
@@ -294,13 +294,13 @@ Input type: `java.util.Collection`
     === "Python"
 
         ``` python
-        g.CollectionContains( 
-          value=1 
+        g.CollectionContains(
+          value=1
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.util.HashSet | [1, 2, 3] | true
@@ -336,9 +336,9 @@ Input type: `java.lang.Object`
         ``` python
         g.Exists()
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Integer | 1 | true
@@ -356,7 +356,7 @@ Input type: `uk.gov.gchq.koryphe.signature.Signature$UnknownGenericType`
 ??? example "Example conditionally applying predicates to input"
 
     This example tests first whether the input is an Integer. If so, it is then tested to see if the value is greater than 3. Otherwise, since it is not an Integer, we then test to see if it is NOT a String.
-    
+
     === "Java"
 
         ``` java
@@ -390,24 +390,24 @@ Input type: `uk.gov.gchq.koryphe.signature.Signature$UnknownGenericType`
     === "Python"
 
         ``` python
-        g.If( 
-          predicate=g.IsA( 
-            type="java.lang.Integer" 
-          ), 
-          then=g.IsMoreThan( 
-            value=3, 
-            or_equal_to=False 
-          ), 
-          otherwise=g.Not( 
-            predicate=g.IsA( 
-              type="java.lang.String" 
-            ) 
-          ) 
+        g.If(
+          predicate=g.IsA(
+            type="java.lang.Integer"
+          ),
+          then=g.IsMoreThan(
+            value=3,
+            or_equal_to=False
+          ),
+          otherwise=g.Not(
+            predicate=g.IsA(
+              type="java.lang.String"
+            )
+          )
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Integer | 2 | false
@@ -463,25 +463,25 @@ Input type: `uk.gov.gchq.koryphe.signature.Signature$UnknownGenericType`
     === "Python"
 
         ``` python
-        g.Or( 
-          predicates=[ 
-            g.IsLessThan( 
-              value=2, 
-              or_equal_to=False 
-            ), 
-            g.IsEqual( 
-              value=5 
-            ), 
-            g.IsMoreThan( 
-              value=10, 
-              or_equal_to=False 
-            ) 
-          ] 
+        g.Or(
+          predicates=[
+            g.IsLessThan(
+              value=2,
+              or_equal_to=False
+            ),
+            g.IsEqual(
+              value=5
+            ),
+            g.IsMoreThan(
+              value=10,
+              or_equal_to=False
+            )
+          ]
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Integer | 1 | true
@@ -529,25 +529,25 @@ Input type: `uk.gov.gchq.koryphe.signature.Signature$UnknownGenericType`
     === "Python"
 
         ``` python
-        g.Or( 
-          predicates=[ 
-            g.IsLessThan( 
-              value=2, 
-              or_equal_to=False 
-            ), 
-            g.IsEqual( 
-              value=5 
-            ), 
-            g.IsMoreThan( 
-              value=10, 
-              or_equal_to=False 
-            ) 
-          ] 
+        g.Or(
+          predicates=[
+            g.IsLessThan(
+              value=2,
+              or_equal_to=False
+            ),
+            g.IsEqual(
+              value=5
+            ),
+            g.IsMoreThan(
+              value=10,
+              or_equal_to=False
+            )
+          ]
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Integer | 1 | true
@@ -601,32 +601,32 @@ Input type: `uk.gov.gchq.koryphe.signature.Signature$UnknownGenericType`
     === "Python"
 
         ``` python
-        g.Or( 
-          predicates=[ 
-            g.NestedPredicate( 
-              selection=[ 
-                0 
-              ], 
-              predicate=g.IsLessThan( 
-                value=2, 
-                or_equal_to=False 
-              ) 
-            ), 
-            g.NestedPredicate( 
-              selection=[ 
-                1 
-              ], 
-              predicate=g.IsMoreThan( 
-                value=10, 
-                or_equal_to=False 
-              ) 
-            ) 
-          ] 
+        g.Or(
+          predicates=[
+            g.NestedPredicate(
+              selection=[
+                0
+              ],
+              predicate=g.IsLessThan(
+                value=2,
+                or_equal_to=False
+              )
+            ),
+            g.NestedPredicate(
+              selection=[
+                1
+              ],
+              predicate=g.IsMoreThan(
+                value=10,
+                or_equal_to=False
+              )
+            )
+          ]
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     [java.lang.Integer, java.lang.Integer] | [1, 15] | true
@@ -665,13 +665,13 @@ Input type: `uk.gov.gchq.koryphe.signature.Signature$UnknownGenericType`
     === "Python"
 
         ``` python
-        g.Not( 
-          predicate=g.Exists() 
+        g.Not(
+          predicate=g.Exists()
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Integer | 1 | false
@@ -702,13 +702,13 @@ Input type: `uk.gov.gchq.koryphe.signature.Signature$UnknownGenericType`
     === "Python"
 
         ``` python
-        g.Not( 
-          predicate=g.AreEqual() 
+        g.Not(
+          predicate=g.AreEqual()
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     [java.lang.Integer, java.lang.Double] | [1, 1.0] | true
@@ -759,14 +759,14 @@ Input type: `java.util.Date`
     === "Python"
 
         ``` python
-        g.InDateRange( 
-          start="2017/01/01", 
-          end="2017/02/01" 
+        g.InDateRange(
+          start="2017/01/01",
+          end="2017/02/01"
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.util.Date | Fri Jan 01 00:00:00 GMT 2016 | false
@@ -802,14 +802,14 @@ Input type: `java.util.Date`
     === "Python"
 
         ``` python
-        g.InDateRange( 
-          start="2017/01/01 01:30:10", 
-          end="2017/01/01 01:30:50" 
+        g.InDateRange(
+          start="2017/01/01 01:30:10",
+          end="2017/01/01 01:30:50"
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.util.Date | Sun Jan 01 01:30:09 GMT 2017 | false
@@ -844,14 +844,14 @@ Input type: `java.util.Date`
     === "Python"
 
         ``` python
-        g.InDateRange( 
-          start="1483315200", 
-          end="1485907200" 
+        g.InDateRange(
+          start="1483315200",
+          end="1485907200"
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.util.Date | Sun Jan 18 05:01:55 GMT 1970 | false
@@ -890,16 +890,16 @@ Input type: `java.util.Date`
     === "Python"
 
         ``` python
-        g.InDateRange( 
-          start="2017/01/01", 
-          end="2017/02/01", 
-          start_inclusive=False, 
-          end_inclusive=False 
+        g.InDateRange(
+          start="2017/01/01",
+          end="2017/02/01",
+          start_inclusive=False,
+          end_inclusive=False
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.util.Date | Fri Jan 01 00:00:00 GMT 2016 | false
@@ -914,7 +914,7 @@ Input type: `java.util.Date`
 ??? example "Example of within the last week"
 
     If the end of the range is not specified then the end of the range is unbounded.
-    
+
     === "Java"
 
         ``` java
@@ -938,14 +938,14 @@ Input type: `java.util.Date`
     === "Python"
 
         ``` python
-        g.InDateRange( 
-          start_offset=-7, 
-          offset_unit="DAY" 
+        g.InDateRange(
+          start_offset=-7,
+          offset_unit="DAY"
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.util.Date | Sun Oct 30 11:00:11 GMT 2022 | false
@@ -983,16 +983,16 @@ Input type: `java.util.Date`
     === "Python"
 
         ``` python
-        g.InDateRange( 
-          start_offset=-7, 
-          end_offset=-6, 
-          offset_unit="HOUR", 
-          end_inclusive=False 
+        g.InDateRange(
+          start_offset=-7,
+          end_offset=-6,
+          offset_unit="HOUR",
+          end_inclusive=False
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.util.Date | Mon Nov 07 03:00:12 GMT 2022 | false
@@ -1046,16 +1046,16 @@ Input type: `java.util.Date, java.util.Date`
     === "Python"
 
         ``` python
-        g.InDateRangeDual( 
-          start="2017/03/01", 
-          end="2017/08/01", 
-          start_fully_contained=False, 
-          end_fully_contained=False 
+        g.InDateRangeDual(
+          start="2017/03/01",
+          end="2017/08/01",
+          start_fully_contained=False,
+          end_fully_contained=False
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     [java.util.Date, java.util.Date] | [Sun Jan 01 00:00:00 GMT 2017, Wed Feb 01 00:00:00 GMT 2017] | false
@@ -1095,16 +1095,16 @@ Input type: `java.util.Date, java.util.Date`
     === "Python"
 
         ``` python
-        g.InDateRangeDual( 
-          start="2017/03/01", 
-          end="2017/08/01", 
-          start_fully_contained=True, 
-          end_fully_contained=False 
+        g.InDateRangeDual(
+          start="2017/03/01",
+          end="2017/08/01",
+          start_fully_contained=True,
+          end_fully_contained=False
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     [java.util.Date, java.util.Date] | [Sun Jan 01 00:00:00 GMT 2017, Wed Feb 01 00:00:00 GMT 2017] | false
@@ -1144,11 +1144,11 @@ Input type: `java.util.Date, java.util.Date`
     === "Python"
 
         ``` python
-        g.InDateRangeDual( 
-          start="2017/03/01", 
-          end="2017/08/01", 
-          start_fully_contained=True, 
-          end_fully_contained=True 
+        g.InDateRangeDual(
+          start="2017/03/01",
+          end="2017/08/01",
+          start_fully_contained=True,
+          end_fully_contained=True
         )
         ```
 
@@ -1340,14 +1340,14 @@ Input type: `java.lang.Comparable`
     === "Python"
 
         ``` python
-        g.InRange( 
-          start={'java.lang.Long': 5}, 
-          end={'java.lang.Long': 10} 
+        g.InRange(
+          start=g.long(5),
+          end=g.long(10)
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Long | -5 | false
@@ -1393,16 +1393,16 @@ Input type: `java.lang.Comparable`
     === "Python"
 
         ``` python
-        g.InRange( 
-          start={'java.lang.Long': 5}, 
-          end={'java.lang.Long': 10}, 
-          start_inclusive=False, 
-          end_inclusive=False 
+        g.InRange(
+          start=g.long(5),
+          end=g.long(10),
+          start_inclusive=False,
+          end_inclusive=False
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Long | -5 | false
@@ -1419,7 +1419,7 @@ Input type: `java.lang.Comparable`
 ??? example "Example of Long 5 less than 10"
 
     If the start of the range is not specified then the start of the range is unbounded.
-    
+
     === "Java"
 
         ``` java
@@ -1444,14 +1444,14 @@ Input type: `java.lang.Comparable`
     === "Python"
 
         ``` python
-        g.InRange( 
-          end={'java.lang.Long': 10}, 
-          end_inclusive=False 
+        g.InRange(
+          end=g.long(10),
+          end_inclusive=False
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Long | -5 | true
@@ -1489,14 +1489,14 @@ Input type: `java.lang.Comparable`
     === "Python"
 
         ``` python
-        g.InRange( 
-          start="B", 
-          end="D" 
+        g.InRange(
+          start="B",
+          end="D"
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.String | A | false
@@ -1546,16 +1546,16 @@ Input type: `java.lang.Comparable, java.lang.Comparable`
     === "Python"
 
         ``` python
-        g.InRangeDual( 
-          start={'java.lang.Long': 5}, 
-          end={'java.lang.Long': 10}, 
-          start_fully_contained=False, 
-          end_fully_contained=False 
+        g.InRangeDual(
+            start=g.long(5),
+            end=g.long(10),
+            start_fully_contained=False,
+            end_fully_contained=False
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     [java.lang.Long, java.lang.Long] | [1, 4] | false
@@ -1598,16 +1598,16 @@ Input type: `java.lang.Comparable, java.lang.Comparable`
     === "Python"
 
         ``` python
-        g.InRangeDual( 
-          start={'java.lang.Long': 5}, 
-          end={'java.lang.Long': 10}, 
-          start_fully_contained=True, 
-          end_fully_contained=False 
+        g.InRangeDual(
+          start=g.long(5),
+          end=g.long(10),
+          start_fully_contained=True,
+          end_fully_contained=False
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     [java.lang.Long, java.lang.Long] | [1, 4] | false
@@ -1650,16 +1650,16 @@ Input type: `java.lang.Comparable, java.lang.Comparable`
     === "Python"
 
         ``` python
-        g.InRangeDual( 
-          start={'java.lang.Long': 5}, 
-          end={'java.lang.Long': 10}, 
-          start_fully_contained=True, 
-          end_fully_contained=True 
+        g.InRangeDual(
+          start=g.long(5),
+          end=g.long(10),
+          start_fully_contained=True,
+          end_fully_contained=True
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     [java.lang.Long, java.lang.Long] | [1, 4] | false
@@ -1673,7 +1673,7 @@ Input type: `java.lang.Comparable, java.lang.Comparable`
 ??? example "Example Long less than 10"
 
     If the start of the range is not specified then the start of the range is unbounded.
-    
+
     === "Java"
 
         ``` java
@@ -1698,14 +1698,14 @@ Input type: `java.lang.Comparable, java.lang.Comparable`
     === "Python"
 
         ``` python
-        g.InRangeDual( 
-          end={'java.lang.Long': 10}, 
-          end_inclusive=False 
+        g.InRangeDual(
+          end=g.long(10),
+          end_inclusive=False
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     [java.lang.Long, java.lang.Long] | [-5, -1] | true
@@ -1751,15 +1751,15 @@ Input type: `java.lang.Long`
     === "Python"
 
         ``` python
-        g.InTimeRange( 
-          start="2017/01/01 01:30:10", 
-          end="2017/01/01 01:30:50", 
-          time_unit="MICROSECOND" 
+        g.InTimeRange(
+          start="2017/01/01 01:30:10",
+          end="2017/01/01 01:30:50",
+          time_unit="MICROSECOND"
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Long | 1483234209000000 | false
@@ -1800,13 +1800,13 @@ Input type: `java.lang.Object`
     === "Python"
 
         ``` python
-        g.IsA( 
-          type="java.lang.String" 
+        g.IsA(
+          type="java.lang.String"
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Integer | 1 | false
@@ -1834,13 +1834,13 @@ Input type: `java.lang.Object`
     === "Python"
 
         ``` python
-        g.IsA( 
-          type="java.lang.Number" 
+        g.IsA(
+          type="java.lang.Number"
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Integer | 1 | true
@@ -1874,13 +1874,13 @@ Input type: `java.lang.Object`
     === "Python"
 
         ``` python
-        g.IsEqual( 
-          value=5 
+        g.IsEqual(
+          value=5
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Integer | 5 | true
@@ -1909,13 +1909,13 @@ Input type: `java.lang.Object`
     === "Python"
 
         ``` python
-        g.IsEqual( 
-          value="5" 
+        g.IsEqual(
+          value="5"
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Integer | 5 | false
@@ -1951,9 +1951,9 @@ Input type: `java.lang.Boolean`
         ``` python
         g.IsFalse()
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Boolean | true | false
@@ -1989,9 +1989,9 @@ Input type: `java.lang.Boolean`
         ``` python
         g.IsTrue()
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Boolean | true | true
@@ -2030,18 +2030,18 @@ Input type: `java.lang.Object`
     === "Python"
 
         ``` python
-        g.IsIn( 
-          values=[ 
-            5, 
-            {'java.lang.Long': 5}, 
-            "5", 
-            {'java.lang.Character': '5'} 
-          ] 
+        g.IsIn(
+          values=[
+            5,
+            g.long(5),
+            "5",
+            {'java.lang.Character': '5'}
+          ]
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Integer | 5 | true
@@ -2081,14 +2081,14 @@ Input type: `java.lang.Comparable`
     === "Python"
 
         ``` python
-        g.IsLessThan( 
-          value=5, 
-          or_equal_to=False 
+        g.IsLessThan(
+          value=5,
+          or_equal_to=False
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Integer | 1 | true
@@ -2121,14 +2121,14 @@ Input type: `java.lang.Comparable`
     === "Python"
 
         ``` python
-        g.IsLessThan( 
-          value=5, 
-          or_equal_to=True 
+        g.IsLessThan(
+          value=5,
+          or_equal_to=True
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Integer | 1 | true
@@ -2161,14 +2161,14 @@ Input type: `java.lang.Comparable`
     === "Python"
 
         ``` python
-        g.IsLessThan( 
-          value="B", 
-          or_equal_to=False 
+        g.IsLessThan(
+          value="B",
+          or_equal_to=False
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Integer | 1 | false
@@ -2204,14 +2204,14 @@ Input type: `java.lang.Comparable`
     === "Python"
 
         ``` python
-        g.IsMoreThan( 
-          value=5, 
-          or_equal_to=False 
+        g.IsMoreThan(
+          value=5,
+          or_equal_to=False
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Integer | 1 | false
@@ -2240,14 +2240,14 @@ Input type: `java.lang.Comparable`
     === "Python"
 
         ``` python
-        g.IsMoreThan( 
-          value=5, 
-          or_equal_to=True 
+        g.IsMoreThan(
+          value=5,
+          or_equal_to=True
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Integer | 1 | false
@@ -2276,14 +2276,14 @@ Input type: `java.lang.Comparable`
     === "Python"
 
         ``` python
-        g.IsMoreThan( 
-          value="B", 
-          or_equal_to=False 
+        g.IsMoreThan(
+          value="B",
+          or_equal_to=False
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.Integer | 1 | false
@@ -2319,14 +2319,14 @@ Input type: `java.lang.Object`
     === "Python"
 
         ``` python
-        g.IsLongerThan( 
-          min_length=5, 
-          or_equal_to=False 
+        g.IsLongerThan(
+          min_length=5,
+          or_equal_to=False
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.String | testString | true
@@ -2357,14 +2357,14 @@ Input type: `java.lang.Object`
     === "Python"
 
         ``` python
-        g.IsLongerThan( 
-          min_length=5, 
-          or_equal_to=True 
+        g.IsLongerThan(
+          min_length=5,
+          or_equal_to=True
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.String | test | false
@@ -2402,14 +2402,14 @@ Input type: `java.lang.Object`
     === "Python"
 
         ``` python
-        g.IsShorterThan( 
-          max_length=4, 
-          or_equal_to=False 
+        g.IsShorterThan(
+          max_length=4,
+          or_equal_to=False
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.String | 123 | true
@@ -2451,9 +2451,9 @@ Input type: `java.lang.Comparable, java.lang.Comparable`
         ``` python
         g.IsXLessThanY()
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     [java.lang.Integer, java.lang.Integer] | [1, 5] | true
@@ -2496,9 +2496,9 @@ Input type: `java.lang.Comparable, java.lang.Comparable`
         ``` python
         g.IsXMoreThanY()
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     [java.lang.Integer, java.lang.Integer] | [1, 5] | false
@@ -2540,13 +2540,13 @@ Input type: `java.util.Map`
     === "Python"
 
         ``` python
-        g.MapContains( 
-          key="a" 
+        g.MapContains(
+          key="a"
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.util.HashMap | {a=1, b=2, c=3} | true
@@ -2585,19 +2585,15 @@ Input type: `java.util.Map`
     === "Python"
 
         ``` python
-        {
-          "class" : "uk.gov.gchq.koryphe.impl.predicate.MapContainsPredicate",
-          "keyPredicate" : {
-            "class" : "uk.gov.gchq.koryphe.impl.predicate.Regex",
-            "value" : {
-              "java.util.regex.Pattern" : "a.*"
-            }
-          }
-        }
+        g.MapContainsPredicate(
+          key_predicate=g.Regex(
+            value={"java.util.regex.Pattern": "a.*"}
+          )
+        )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.util.HashMap | {a1=1, a2=2, b=2, c=3} | true
@@ -2638,17 +2634,17 @@ Input type: `java.util.Map`
     === "Python"
 
         ``` python
-        g.PredicateMap( 
-          key="key1", 
-          predicate=g.IsMoreThan( 
-            value={'java.lang.Long': 2}, 
-            or_equal_to=False 
-          ) 
+        g.PredicateMap(
+          key="key1",
+          predicate=g.IsMoreThan(
+            value=g.long(2),
+            or_equal_to=False
+          )
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     uk.gov.gchq.gaffer.types.FreqMap | {key1=1} | false
@@ -2685,17 +2681,17 @@ Input type: `java.util.Map`
     === "Python"
 
         ``` python
-        g.PredicateMap( 
-          key="key1", 
-          predicate=g.IsMoreThan( 
-            value={'java.lang.Long': 2}, 
-            or_equal_to=True 
-          ) 
+        g.PredicateMap(
+          key="key1",
+          predicate=g.IsMoreThan(
+            value=g.long(2),
+            or_equal_to=True
+          )
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     uk.gov.gchq.gaffer.types.FreqMap | {key1=1} | false
@@ -2730,14 +2726,14 @@ Input type: `java.util.Map`
     === "Python"
 
         ``` python
-        g.PredicateMap( 
-          key={'java.util.Date': 0}, 
-          predicate=g.Exists() 
+        g.PredicateMap(
+          key=g.date(0),
+          predicate=g.Exists()
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.util.HashMap | {Thu Jan 01 01:00:00 GMT 1970=1} | true
@@ -2749,7 +2745,7 @@ Input type: `java.util.Map`
 Checks if a string contains some value. [Javadoc](https://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/predicate/StringContains.html)
 
 !!! note
-    
+
     The StringContains predicate is case sensitive by default, hence only exact matches are found.
 
 Input type: `java.lang.String`
@@ -2775,14 +2771,14 @@ Input type: `java.lang.String`
     === "Python"
 
         ``` python
-        g.StringContains( 
-          value="test", 
-          ignore_case=False 
+        g.StringContains(
+          value="test",
+          ignore_case=False
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.String | This is a Test | false
@@ -2811,14 +2807,14 @@ Input type: `java.lang.String`
     === "Python"
 
         ``` python
-        g.StringContains( 
-          value="test", 
-          ignore_case=True 
+        g.StringContains(
+          value="test",
+          ignore_case=True
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.String | This is a Test | true
@@ -2855,13 +2851,13 @@ Input type: `java.lang.String`
     === "Python"
 
         ``` python
-        g.Regex( 
-          value={'java.util.regex.Pattern': '[a-d0-4]'} 
+        g.Regex(
+          value={'java.util.regex.Pattern': '[a-d0-4]'}
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.String | a | true
@@ -2903,16 +2899,16 @@ Input type: `java.lang.String`
     === "Python"
 
         ``` python
-        g.MultiRegex( 
-          value=[ 
-            {'java.util.regex.Pattern': '[a-d]'}, 
-            {'java.util.regex.Pattern': '[0-4]'} 
-          ] 
+        g.MultiRegex(
+          value=[
+            {'java.util.regex.Pattern': '[a-d]'},
+            {'java.util.regex.Pattern': '[0-4]'}
+          ]
         )
         ```
-    
+
     Example inputs:
-    
+
     Input Type | Input | Result
     ---------- | ----- | ------
     java.lang.String | a | true
