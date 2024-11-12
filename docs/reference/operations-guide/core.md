@@ -4524,6 +4524,110 @@ Gets the Schema of a Graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/
         }
         ```
 
+## Variables
+
+Operations associated with storing variables in the operation context map. Note that the context only exists during that operation and so these operations must be contained within the same operation chain to work.
+
+### SetVariable
+
+Stores a variable in the Context variable map. Takes a variable
+name and an input and stores them as a key value pair. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/SetVariable.html)
+
+??? example "Example setting a variable"
+    === "Java"
+
+        ``` java
+        final SetVariable op = new SetVariable.Builder()
+                .variableName("varName")
+                .input(5)
+                .build();
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+            "class" : "SetVariable",
+            "variableName": "varName",
+            "input": 5
+        }
+        ```
+
+### GetVariable
+
+Gets a variable from the Context variable map. Takes the variable
+name as an input. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/GetVariable.html)
+
+??? example "Example getting a variable"
+    === "Java"
+
+        ``` java
+        final GetVariable op = new GetVariable.Builder()
+                .variableName("varName")
+                .build();
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+            "class" : "GetVariable",
+            "variableName": "varName"
+        }
+        ```
+
+    Results:
+
+    === "Java"
+
+        ``` java
+        5
+        ```
+
+    === "JSON"
+
+        ``` json
+        5
+        ```
+
+### GetVariables
+
+Gets all the variables from the Context variable map. Takes a list of variable names
+as an input. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/GetVariables.html)
+
+??? example "Example getting all variables"
+    === "Java"
+
+        ``` java
+        final List<String> variableNames = Arrays.asList("varName");
+        final GetVariables op = new GetVariables.Builder()
+                .variableNames(variableNames)
+                .build();
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+            "class" : "GetVariables",
+            "variableNames": ["varName"]
+        }
+        ```
+
+    Results:
+
+    === "Java"
+
+        ``` java
+        5
+        ```
+
+    === "JSON"
+
+        ``` json
+        5
+        ```
+
 ## GetTraits
 
 Gets the traits of the current store. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/GetTraits.html)
@@ -4623,6 +4727,44 @@ Gets the traits of the current store. [Javadoc](https://gchq.github.io/Gaffer/uk
 
         ``` json
         [ "QUERY_AGGREGATION", "MATCHED_VERTEX", "TRANSFORMATION", "INGEST_AGGREGATION", "PRE_AGGREGATION_FILTERING", "POST_TRANSFORMATION_FILTERING", "POST_AGGREGATION_FILTERING" ]
+        ```
+
+## HasTrait
+
+Checks if a Store has a given trait. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/HasTrait.html)
+
+??? example "Example checking if store has trait"
+    === "Java"
+
+        ``` java
+        final HasTrait operation = new HasTrait.Builder()
+                .currentTraits(false)
+                .trait(PRE_AGGREGATION_FILTERING)
+                .build();
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+            "class" : "HasTrait",
+            "currentTraits" : false,
+            "trait": "PRE_AGGREGATION_FILTERING"
+        }
+        ```
+
+    Results:
+
+    === "Java"
+
+        ``` java
+        true
+        ```
+
+    === "JSON"
+
+        ``` json
+        true
         ```
 
 ## DeleteAllData
