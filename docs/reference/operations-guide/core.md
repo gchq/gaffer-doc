@@ -4633,6 +4633,9 @@ as an input. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operatio
 Gets the traits of the current store. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/GetTraits.html)
 
 ??? example "Example getting all traits"
+    `currentTraits` is an optional field that holds a boolean value. When false the
+    operation returns a list of all supported traits from the store, but if true then a list of current traits is returned.
+    Defaults to true.
 
     === "Java"
 
@@ -4734,6 +4737,10 @@ Gets the traits of the current store. [Javadoc](https://gchq.github.io/Gaffer/uk
 Checks if a Store has a given trait. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/store/operation/HasTrait.html)
 
 ??? example "Example checking if store has trait"
+    `currentTraits` is an optional field that holds a boolean value and
+    defaults to true. It is used to check if the provided traits exists in the either the store default (false)
+    or the schema current traits (true).
+
     === "Java"
 
         ``` java
