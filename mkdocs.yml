@@ -86,11 +86,13 @@ nav:
         - 'What is Python?': 'user-guide/gaffer-basics/what-is-python.md'
         - 'What is Cardinality?': 'user-guide/gaffer-basics/what-is-cardinality.md'
         - 'What is Aggregation?': 'user-guide/gaffer-basics/what-is-aggregation.md'
+      - 'Graph Schema': 'user-guide/schema.md'
       - Available APIs:
         - 'Spring REST': 'user-guide/apis/rest-api.md'
         - 'Python (gafferpy)': 'user-guide/apis/python-api.md'
         - 'Java': 'user-guide/apis/java-api.md'
         - 'Gremlin (GafferPop)': 'user-guide/apis/gremlin-api.md'
+        - 'openCypher': 'user-guide/apis/opencypher.md'
       - Querying:
         - Gaffer Query Syntax:
           - 'Operations': 'user-guide/query/gaffer-syntax/operations.md'
@@ -98,11 +100,11 @@ nav:
           - 'FAQs': 'user-guide/query/gaffer-syntax/faqs.md'
           - Import/Export:
             - 'Using CSV Data': 'user-guide/query/gaffer-syntax/import-export/csv.md'
-        - Apache Gremlin:
+        - Gremlin:
           - 'Gremlin in Gaffer': 'user-guide/query/gremlin/gremlin.md'
-          - 'GafferPop Features': 'user-guide/query/gremlin/custom-features.md'
-          - 'GafferPop Limitations': 'user-guide/query/gremlin/gremlin-limits.md'
-      - 'Graph Schemas': 'user-guide/schema.md'
+          - 'Features': 'user-guide/query/gremlin/custom-features.md'
+          - 'Limitations': 'user-guide/query/gremlin/gremlin-limits.md'
+        - 'openCypher':  'user-guide/query/opencypher.md'
     - Developer Guide:
       - 'Introduction': 'development-guide/introduction.md'
       - 'Ways of Working': 'development-guide/ways-of-working.md'
