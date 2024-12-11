@@ -47,7 +47,7 @@ g.with("cypher", "MATCH (n) WHERE ID(n) = '1' RETURN n").call().toList()
 ### REST API Endpoints
 
 The endpoints provide a similar interface to running Gaffer Operations. They
-accept a plaintext OpenCypher query and will return the results in
+accept a plaintext openCypher query and will return the results in
 [GraphSONv3](https://tinkerpop.apache.org/docs/current/dev/io/#graphson-3d0)
 format.
 
