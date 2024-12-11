@@ -35,7 +35,7 @@ outline how to obtain this reference using the REST API.
 
 As mentioned previously the recommended way to use Gremlin queries is via the
 Websocket in the Gaffer REST API. To do this you will need to provide a config
-file that sets up the Gaffer Tinkerpop library (a.k.a 'GafferPop'). The file can
+file that sets up the Gaffer TinkerPop library (a.k.a 'GafferPop'). The file can
 either be added to `/gaffer/gafferpop.properties` in the container, or at a
  custom path by setting the `gaffer.gafferpop.properties` key in the
 `store.properties` file. This file can be blank but it is still recommended to
@@ -63,11 +63,11 @@ The `gafferpop.properties`, file is the configuration for GafferPop. If using
 the REST API there is no mandatory properties you need to set since you already
 will have configured the Graph in the existing `store.properties` file. However,
 adding some default values in for operation modifiers, such as a limit for
-`GetAllElement` operations, is good practice.
+`GetElements` and `GetAllElements` operations, is good practice.
 
 ```properties
 # Default operation config
-gaffer.elements.getalllimit=5000
+gaffer.elements.getlimit=20000
 gaffer.elements.hasstepfilterstage=PRE_AGGREGATION
 ```
 
@@ -79,13 +79,14 @@ A full breakdown of the available properties is as follows:
 
 | Property Key | Description | Used in REST API |
 | --- | --- | --- |
-| `gremlin.graph` | The Tinkerpop graph class we should use for construction. | No |
+| `gremlin.graph` | The TinkerPop graph class we should use for construction. | No |
 | `gaffer.graphId` | The graph ID of the Tinkerpop graph. | No |
 | `gaffer.storeproperties` | The path to the store properties file. | No |
 | `gaffer.schemas` | The path to the directory containing the graph schema files. | No |
-| `gaffer.userId` | The default user ID for the Tinkerpop graph. | No (User is always set via the [`UserFactory`](../security/user-control.md).) |
+| `gaffer.userId` | The default user ID for the TinkerPop graph. | No (User is always set via the [`UserFactory`](../security/user-control.md).) |
 | `gaffer.dataAuths` | The default data auths for the user to specify what operations can be performed | No |
 | `gaffer.rest.timeout` | The timeout for gremlin queries submitted to the REST API in ms. Default is 2 mins if not specified. | Yes |
 | `gaffer.operation.options` | Default `Operation` options in the form `key:value` (this can be overridden per query see [here](../../user-guide/query/gremlin/custom-features.md)) | Yes |
-| `gaffer.elements.getalllimit` | The default limit for unseeded queries e.g. `g.V()`. | Yes |
+| `gaffer.elements.getlimit` | The default limit applied to get element operations called by TinkerPop e.g. `GetElements` or `GetAllElements`. | Yes |
 | `gaffer.elements.hasstepfilterstage` | The default stage to apply any `has()` steps e.g. `PRE_AGGREGATION` | Yes |
+| `gaffer.includeOrphanedVertices` | Should orphaned vertices be returned by default in a result, these are vertices on an edge that have no associated entity in the Gaffer graph. Queries will likely be slower if enabled. | Yes |

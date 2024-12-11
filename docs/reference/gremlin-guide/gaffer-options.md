@@ -33,13 +33,14 @@ Note that any options should be passed as a list or dictionary.
         g.with_("operationOptions", {"gaffer.federatedstore.operation.graphIds": "graphA"}).V().to_list()
         ```
 
-## GetElements Limit
+## Get Elements Limit
 
 Key `getElementsLimit`
 
-Limits the amount of elements returned if performing a query which returns a large amount of elements e.g. a
-`GetAllElements` operation. This will override the default for the current
-query, see the [admin guide](../../administration-guide/gaffer-deployment/gremlin.md#configuring-the-gafferpop-library)
+Limits the amount of elements that can be returned for each `GetElements` or
+`GetAllElements` query ran by TinkerPop. This applies a Gaffer `Limit`
+operation in the translated operation chain. This will override the default for
+the current query, see the [admin guide](../../administration-guide/gaffer-deployment/gremlin.md#configuring-the-gafferpop-library)
 for more detail on setting up defaults.
 
 !!! example
@@ -75,4 +76,21 @@ from translation.
 
     ```groovy
     g.with("cypher", "MATCH (p:person) RETURN p").call().toList()
+    ```
+
+## Include Orphaned Vertices
+
+Key: `includeOrphanedVertices`
+
+The option to set if orphaned vertices should be included in the result.
+Orphaned vertices are deemed as vertices on an edge that have no
+associated Gaffer entity with them. Enabling this will likely result in slower
+query performance as each vertex on an edge needs to be checked. The orphaned
+vertices returned will be in a special `id` group. This will override the default for
+the current query, see the [admin guide](../../administration-guide/gaffer-deployment/gremlin.md#configuring-the-gafferpop-library)
+for more detail on setting up defaults.
+
+!!! example
+    ```groovy
+    g.with("includeOrphanedVertices", "true").V().toList()
     ```

@@ -1,7 +1,7 @@
 # openCypher in Gaffer
 
 !!! warning
-    The openCypher API is still experimental it is provided by a
+    The openCypher API is still experimental, it is provided by a
     translation layer to Gremlin from the [OpenCypher project](https://github.com/opencypher/cypher-for-gremlin).
     Due to this, the implementation may experience the same [limitations](../query/gremlin/gremlin-limits.md)
     as the Gremlin API. It's performance is unknown but likely slower than
@@ -55,7 +55,7 @@ this maps to is provided.
 
     === "Gremlin"
         ```groovy
-        g.V().as('n').hasLabel('person').has('full-name', containing('John')).where(__.constant(25d).map(cypherToInteger()).is(neq('  cypher.null')).as('  GENERATED1').select('n').values('height').where(gt('  GENERATED1'))).select('n').project('n').by(__.choose(neq('  cypher.null'), __.valueMap().with('~tinkerpop.valueMap.tokens'))).toList()
+        g.V().as('n').hasLabel('person').has('full-name', containing('John')).where(__.constant(25d).map(cypherToInteger()).is(neq('  cypher.null')).as('  GENERATED1').select('n').values('age').where(gt('  GENERATED1'))).select('n').project('n').by(__.choose(neq('  cypher.null'), __.valueMap().with('~tinkerpop.valueMap.tokens'))).toList()
         ```
 
 !!! example ""

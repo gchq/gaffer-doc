@@ -1,7 +1,7 @@
 # openCypher API
 
 !!! warning
-    The openCypher API is still experimental it is provided by a
+    The openCypher API is still experimental, it is provided by a
     translation layer to Gremlin from the [OpenCypher project](https://github.com/opencypher/cypher-for-gremlin).
     Due to this, the implementation may experience the same [limitations](../query/gremlin/gremlin-limits.md)
     as the Gremlin API. It's performance is unknown but likely slower than
@@ -20,7 +20,7 @@ be expressed through Cypher.
 
 !!! tip
     Please see the [full reference guide](https://s3.amazonaws.com/artifacts.opencypher.org/openCypher9.pdf)
-    from the openCypher org for more details.
+    from the openCypher organisation for more details.
 
 ## How to Query a Graph
 

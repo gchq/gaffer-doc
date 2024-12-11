@@ -6,8 +6,10 @@ but some features may also be yet to be implemented.
 
 Current TinkerPop features not present in the GafferPop implementation:
 
-- Unseeded queries run a `GetAllElements` with a configured limit applied,
-  this limit can be configured per query or will default to 5000.
+- Each `GetElements` or `GetAllElements` query ran by TinkerPop will have a
+  Gaffer `Limit` operation also applied. This limit can be configured via the
+  [GafferPop properties](../../../administration-guide/gaffer-deployment/gremlin.md)
+  or per query, but will default to 20000 if not otherwise specified.
 - Gaffer graphs are readonly to Gremlin queries.
 - TinkerPop Graph Computer is not supported.
 - TinkerPop Transactions are not supported.
@@ -30,7 +32,7 @@ Current known limitations or bugs:
   may get results back when you realistically shouldn't.
 - Input seeds to Gaffer operations are deduplicated.
   Therefore, the results of a query against a GafferPop graph may be different than a standard Gremlin graph.
-  For example, for the Tinkerpop Modern graph:
+  For example, for the TinkerPop Modern graph:
   ```text
   (Gremlin)   g.V().out() = [v2, v3, v3, v3, v4, v5]
   (GafferPop) g.V().out() = [v2, v3, v4, v5]
