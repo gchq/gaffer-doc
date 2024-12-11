@@ -68,17 +68,16 @@ and get results back.
 ### REST API Endpoints
 
 The Gremlin endpoints provide a similar interface to running Gaffer Operations.
-They accept a plaintext Gremlin Groovy or OpenCypher query and will return
-the results in [GraphSONv3](https://tinkerpop.apache.org/docs/current/dev/io/#graphson-3d0)
+They accept a plaintext Gremlin Groovy query and will return the results in
+[GraphSONv3](https://tinkerpop.apache.org/docs/current/dev/io/#graphson-3d0)
 format.
 
 The two endpoints are:
 
 - `/rest/gremlin/execute` - Runs a Gremlin Groovy script and outputs the result
   as GraphSONv3 JSON.
-- `/rest/gremlin/cypher/execute` - Translates a Cypher query to Gremlin and
-  executes it returning a GraphSONv3 JSON result. Note will always append a
-  `.toList()` to the translation.
+- `/rest/gremlin/explain` - Runs a Gremlin Groovy script and returns an
+  explanation of what Gaffer operations it ran.
 
 A query can be submitted via the Swagger UI or simple POST request such as:
 
@@ -100,7 +99,4 @@ gc = gaffer_connector.GafferConnector("http://localhost:8080/rest")
 
 # Execute and return gremlin
 gremlin_result = gc.execute_gremlin("g.V('1').toList()")
-
-# Execute and return cypher
-cypher_result = gc.execute_cypher("MATCH (n) WHERE ID(n) = '1' RETURN n")
 ```
