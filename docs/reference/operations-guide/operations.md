@@ -27,14 +27,14 @@ Operation | Type
 [`operation.impl.function.Aggregate`](core.md#aggregate) | Core
 [`operation.impl.function.Filter`](core.md#filter) | Core
 [`operation.impl.function.Transform`](core.md#transform) | Core
-`operation.impl.GetVariable` | Core
-`operation.impl.GetVariables` | Core
+[`operation.impl.GetVariable`](core.md#getvariable)  | Core
+[`operation.impl.GetVariables`](core.md#getvariables) |  Core
 [`operation.impl.get.GetGraphCreatedTime`](core.md#getgraphcreatedtime) | Core
 [`operation.impl.Limit`](core.md#limit) | Core
 `operation.impl.Map` | Core
 [`operation.impl.Reduce`](core.md#reduce) | Core
 `operation.impl.SampleElementsForSplitPoints` | Core
-`operation.impl.SetVariable` | Core
+[`operation.impl.SetVariable`](core.md#setvariable) | Core
 `operation.impl.SplitStoreFromFile` | Core
 `operation.impl.SplitStoreFromIterable` | Core
 `operation.impl.Validate` | Core
@@ -84,7 +84,7 @@ Operation | Type
 [`store.operation.DeleteAllData`](core.md#deletealldata) | Core
 [`store.operation.GetSchema`](core.md#getschema) | Store
 [`store.operation.GetTraits`](core.md#gettraits) | Store
-`store.operation.HasTrait` | Store
+[`store.operation.HasTrait`](core.md#hastrait) | Store
 `store.operation.add.AddSchemaToLibrary` | Store
 `store.operation.add.AddStorePropertiesToLibrary` | Store
 `federatedstore.operation.AddGraph` | Federated
