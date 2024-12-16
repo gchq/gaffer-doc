@@ -190,7 +190,12 @@ nav:
       - 'Introduction': 'reference/intro.md'
       - 'Glossary': 'reference/glossary.md'
       - 'Javadoc': 'reference/javadoc.md'
-      - Properties:
+      - Store Properties:
+        - 'Common Properties': 'reference/store-properties/common.md'
+        - 'Map Store': 'reference/store-properties/map-store.md'
+        - 'Accumulo Store': 'reference/store-properties/accumulo-store.md'
+        - 'Federated Store': 'reference/store-properties/federated-store.md'
+      - Element Properties:
         - 'Properties Guide': 'reference/properties-guide/properties.md'
         - 'Basic Properties': 'reference/properties-guide/basic.md'
         - 'Advanced Properties': 'reference/properties-guide/advanced.md'
