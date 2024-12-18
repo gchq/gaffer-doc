@@ -69,7 +69,7 @@ When using Kerberos authentication, the username and password are not used, alte
 
 Note that if the graph does not exist, it will be created when a `Graph` object is instantiated using these properties, the schema and the graph ID (given when the graph is created in Java or via a `graphConfig.json`). In this case the user must have permission to create a table. If the graph already exists (based on the graph ID) then the user simply needs permission to read the table. For information about protecting data via setting the visibility, see [Visibilty](#visibility).
 
-Other properties can be specified in this file. For details see [Advanced Properties](#advanced-properties). To improve query performance, see the property `accumulo.batchScannerThreads`. Increasing this from the default value of 10 can significantly increase the rate at which data is returned from queries.
+Other properties can be specified in this file. For details see [Advanced Properties](../../reference/store-properties/accumulo-store.md#advanced-properties). To improve query performance, see the property `accumulo.batchScannerThreads`. Increasing this from the default value of 10 can significantly increase the rate at which data is returned from queries.
 
 ## Inserting data
 
@@ -196,23 +196,6 @@ A key-package is an implementation of the `AccumuloKeyPackage` interface. Gaffer
 
 Both key-packages should provide good performance for most use-cases. There will be slight differences in performance between the two for different types of query. The `ByteEntityKeyPackage` will be slightly faster if the query specifies that only out-going or in-coming edges are required. The `ClassicKeyPackage` will be faster when querying for all edges involving a pair of vertices. See the Key-Packages part of the [Accumulo Store Implementation page](../../development-guide/project-structure/components/accumulo-store.md) for more information about these key-packages.
 
-## Advanced properties
-
-The following properties can also be specified in the properties file. If they are not specified, then sensible defaults are used.
-
-- `gaffer.store.accumulo.keypackage.class`: The full name of the class to be used as the key-package. By default `ByteEntityKeyPackage` will be used.
-- `accumulo.batchScannerThreads`: The number of threads to use when `BatchScanner`s are created to query Accumulo. The default value is 10.
-- `accumulo.entriesForBatchScanner`: The maximum number of ranges that should be given to an Accumulo `BatchScanner` at any one time. The default value is  50000.
-- `accumulo.clientSideBloomFilterSize`: The size in bits of the Bloom filter used in the client during operations such as `GetElementsBetweenSets`. The default value is 838860800, i.e. 100MB.
-- `accumulo.falsePositiveRate`: The desired rate of false positives for Bloom filters that are passed to an iterator in operations such as `GetElementsBetweenSets`. The default value is 0.0002.
-- `accumulo.maxBloomFilterToPassToAnIterator`: The maximum size in bits of Bloom filters that will be created in an iterator on Accumulo's tablet server during operations such as `GetElementsBetweenSets`. By default this will be 8388608, i.e. 1MB.
-- `accumulo.maxBufferSizeForBatchWriterInBytes`: The size of the buffer in bytes used in Accumulo `BatchWriter`s when data is being ingested. The default value is 1000000.
-- `accumulo.maxTimeOutForBatchWriterInMilliseconds`: The maximum latency used in Accumulo `BatchWriter`s when data is being ingested. Th default value is 1000, i.e. 1 second.
-- `accumulo.numThreadsForBatchWriter`: The number of threads used in Accumulo `BatchWriter`s when data is being ingested. The default value is 10.
-- `accumulo.file.replication`: The number of replicas of each file in tables created by Gaffer. If this is not set then your general Accumulo setting will apply, which is normally the same as the default on your HDFS instance.
-- `gaffer.store.accumulo.enable.validator.iterator`: This specifies whether the validation iterator is applied. The default value is true.
-- `accumulo.namespace`: The namespace to use for the table in Accumulo. The default is to use the default Accumulo namespace, which is the empty string.
-
 ## Migration
 
 The Accumulo Store also provides a utility [AddUpdateTableIterator](https://github.com/gchq/Gaffer/blob/master/store-implementation/accumulo-store/src/main/java/uk/gov/gchq/gaffer/accumulostore/utils/AddUpdateTableIterator.java)
@@ -332,7 +315,7 @@ setauths -u root -s vis1,vis2,publicVisibility,privateVisibility,public,private
 
 You may notice that sometimes `MatchedVertex` is included on edges when you might not be expecting it.
 When you seed with a mixture of EdgeSeeds and EntitySeeds, `MatchedVertex` will always be included on edges whether they were matched by a vertex or not. In this case `MatchedVertex` will always equal `SOURCE`.
-This is a peculiarity of the Accumulo store.  
+This is a peculiarity of the Accumulo store.
 
 !!! example "Example Query"
     ``` mermaid
@@ -389,4 +372,3 @@ This is a peculiarity of the Accumulo store.
       ]
       ```
     The 1 -> 2 edge has MatchedVertex=SOURCE even though the source wasn't matched by an EntitySeed.
-    

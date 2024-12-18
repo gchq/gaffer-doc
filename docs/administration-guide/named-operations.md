@@ -10,7 +10,7 @@ There are various possible uses for Named Operations:
 - Making it simpler to store and run frequently used Operation Chains.
 - In a controlled way, allowing specific Operation Chains to be run by a user that would not normally have permission to run them.
 
-There are [three operations](../reference/operations-guide/named.md) which manage Named Operations. 
+There are [three operations](../reference/operations-guide/named.md) which manage Named Operations.
 These are `AddNamedOperation`, `GetAllNamedOperations` and `DeleteNamedOperations`.
 
 ## Using Named Operations
@@ -35,7 +35,7 @@ graph TD
   3(3, count=2) -- count=4 --> 4
 ```
 
-Once you have configured your cache, you can then add your first NamedOperation. 
+Once you have configured your cache, you can then add your first NamedOperation.
 
 You can then add a NamedOperation to the cache using `AddNamedOperation`.
 Here you are specifying the OperationChain that you want to be used as a NamedOperation.
@@ -87,26 +87,26 @@ Here you are specifying the OperationChain that you want to be used as a NamedOp
     === "Python"
 
         ``` python
-        g.AddNamedOperation( 
-            operation_chain=g.OperationChainDAO( 
-                operations=[ 
-                    g.GetAdjacentIds( 
-                        include_incoming_out_going="OUTGOING" 
-                    ), 
-                    g.GetAdjacentIds( 
-                        include_incoming_out_going="OUTGOING" 
-                    ) 
-                ] 
-            ), 
-            operation_name="2-hop", 
-            description="2 hop query", 
-            read_access_roles=[ 
-                "read-user" 
-            ], 
-            write_access_roles=[ 
-                "write-user" 
-            ], 
-            overwrite_flag=True 
+        g.AddNamedOperation(
+            operation_chain=g.OperationChainDAO(
+                operations=[
+                    g.GetAdjacentIds(
+                        include_incoming_out_going="OUTGOING"
+                    ),
+                    g.GetAdjacentIds(
+                        include_incoming_out_going="OUTGOING"
+                    )
+                ]
+            ),
+            operation_name="2-hop",
+            description="2 hop query",
+            read_access_roles=[
+                "read-user"
+            ],
+            write_access_roles=[
+                "write-user"
+            ],
+            overwrite_flag=True
         )
         ```
 
@@ -140,13 +140,13 @@ Following on from this, you can then run your new NamedOperation:
     === "Python"
 
         ``` python
-        g.NamedOperation( 
-            input=[ 
-                g.EntitySeed( 
-                    vertex=1 
-                ) 
-            ], 
-            operation_name="2-hop" 
+        g.NamedOperation(
+            input=[
+                g.EntitySeed(
+                    vertex=1
+                )
+            ],
+            operation_name="2-hop"
         )
         ```
 
@@ -161,7 +161,7 @@ EntitySeed[vertex=5]
 Named Operations are able to take parameters which allow the OperationChain that is being executed to be configured.
 Parameters could be as simple as specifying `resultLimit` on a Limit Operation, they could specify a custom view to use in an Operation or even the input to an Operation.
 
-When adding a NamedOperation with parameters to an OperationChain it must be specified as a JSON string, with the parameter names enclosed in `${` and `}`. 
+When adding a NamedOperation with parameters to an OperationChain it must be specified as a JSON string, with the parameter names enclosed in `${` and `}`.
 For each parameter, a `ParameterDetail` object must be created which gives a description, a class type and an optional default for that parameter.
 As the default is optional you can alternatively indicate that the parameter must be provided and that there is no default.
 
@@ -194,7 +194,7 @@ The following code adds a NamedOperation with a parameter that allows the result
         paramMap.put("param1", param);
 
         final AddNamedOperation operation = new AddNamedOperation.Builder()
-                .operationChain(opChainString) 
+                .operationChain(opChainString)
                 .description("2 hop query with settable limit")
                 .name("2-hop-with-limit")
                 .readAccessRoles("read-user")
@@ -242,44 +242,44 @@ The following code adds a NamedOperation with a parameter that allows the result
     === "Python"
 
         ``` python
-        g.AddNamedOperation( 
-            operation_chain=g.OperationChainDAO( 
-                operations=[ 
-                    g.GetAdjacentIds( 
-                        include_incoming_out_going="OUTGOING" 
-                    ), 
-                    g.GetAdjacentIds( 
-                        include_incoming_out_going="OUTGOING" 
-                    ), 
-                    g.Limit( 
-                        result_limit="${param1}" 
-                    ) 
-                ] 
-            ), 
-            operation_name="2-hop-with-limit", 
-            description="2 hop query with settable limit", 
-            read_access_roles=[ 
-                "read-user" 
-            ], 
-            write_access_roles=[ 
-                "write-user" 
-            ], 
-            overwrite_flag=True, 
-            score=3, 
-            parameters=[ 
-                g.NamedOperationParameter( 
-                    name="param1", 
-                    value_class="java.lang.Long", 
-                    description="Limit param", 
-                    default_value=1, 
-                    required=False 
-                ) 
-            ] 
+        g.AddNamedOperation(
+            operation_chain=g.OperationChainDAO(
+                operations=[
+                    g.GetAdjacentIds(
+                        include_incoming_out_going="OUTGOING"
+                    ),
+                    g.GetAdjacentIds(
+                        include_incoming_out_going="OUTGOING"
+                    ),
+                    g.Limit(
+                        result_limit="${param1}"
+                    )
+                ]
+            ),
+            operation_name="2-hop-with-limit",
+            description="2 hop query with settable limit",
+            read_access_roles=[
+                "read-user"
+            ],
+            write_access_roles=[
+                "write-user"
+            ],
+            overwrite_flag=True,
+            score=3,
+            parameters=[
+                g.NamedOperationParameter(
+                    name="param1",
+                    value_class="java.lang.Long",
+                    description="Limit param",
+                    default_value=1,
+                    required=False
+                )
+            ]
         )
         ```
 
 A NamedOperation can then be run, with a value provided for the result limit parameter:
- 
+
 !!! example "Running your NamedOperation with parameters"
 
     === "Java"
@@ -316,14 +316,14 @@ A NamedOperation can then be run, with a value provided for the result limit par
     === "Python"
 
         ``` python
-        g.NamedOperation( 
-            input=[ 
-                g.EntitySeed( 
-                    vertex=1 
-                ) 
-            ], 
-            operation_name="2-hop-with-limit", 
-            parameters={'param1': 2} 
+        g.NamedOperation(
+            input=[
+                g.EntitySeed(
+                    vertex=1
+                )
+            ],
+            operation_name="2-hop-with-limit",
+            parameters={'param1': 2}
         )
         ```
 
@@ -337,8 +337,8 @@ For more examples of Named Operations, please refer to the [Named Operations pag
 
 ### Nested Named Operations
 
-Nested Named Operations allow users to run stored Named Operations within one another. 
-This is disabled by default. To enable this feature the [store property](../administration-guide/gaffer-stores/store-guide.md#all-general-store-properties)
+Nested Named Operations allow users to run stored Named Operations within one another.
+This is disabled by default. To enable this feature the [store property](../reference/store-properties/common.md#gaffernamedoperationnested)
 `gaffer.named.operation.nested` must be set to true.
 
 The [default depth limit](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/graph/hook/NamedOperationResolver.html#DEPTH_LIMIT_DEFAULT) for nested Named Operations is 3.
@@ -358,9 +358,9 @@ Using this graph hook you can set the `depthLimit` in the JSON file to whatever 
 ```
 
 ??? example "Example Nested Named Operation"
-    Create a simple Named Operation, then nest this inside another Named Operation. 
+    Create a simple Named Operation, then nest this inside another Named Operation.
     When you run the second Named Op the first will also be called and run.
-    
+
     === "Java"
 
         ``` java
@@ -374,7 +374,7 @@ Using this graph hook you can set the `depthLimit` in the JSON file to whatever 
             .name("namedOp1")
             .overwrite()
             .build();
-        
+
         final AddNamedOperation namedOp2 = new AddNamedOperation.Builder()
             .operationChain(new OperationChain.Builder()
                     .first(new NamedOperation.Builder<>()
@@ -406,7 +406,7 @@ Using this graph hook you can set the `depthLimit` in the JSON file to whatever 
             },
             "overwriteFlag": true
         }
-        
+
         {
             "class": "AddNamedOperation",
             "operationName": "namedOp2",
@@ -425,42 +425,42 @@ Using this graph hook you can set the `depthLimit` in the JSON file to whatever 
     === "Python"
 
         ``` python
-        g.AddNamedOperation( 
-            operation_chain=g.OperationChainDAO( 
-                operations=[ 
+        g.AddNamedOperation(
+            operation_chain=g.OperationChainDAO(
+                operations=[
                     g.GetElements(
                         input=[
                             g.EntitySeed(vertex=1)
                         ]
-                    ) 
-                ] 
-            ), 
-            operation_name="namedOp1", 
-            description="Simple Named Operation", 
-            overwrite_flag=True 
+                    )
+                ]
+            ),
+            operation_name="namedOp1",
+            description="Simple Named Operation",
+            overwrite_flag=True
         )
 
-        g.AddNamedOperation( 
-            operation_chain=g.OperationChainDAO( 
-                operations=[ 
+        g.AddNamedOperation(
+            operation_chain=g.OperationChainDAO(
+                operations=[
                     g.NamedOperation(
                         operation_name="namedOp1"
-                    ) 
-                ] 
-            ), 
-            operation_name="namedOp2", 
-            description="Nested Named Operation", 
-            overwrite_flag=True 
+                    )
+                ]
+            ),
+            operation_name="namedOp2",
+            description="Nested Named Operation",
+            overwrite_flag=True
         )
         ```
 
-Nested operations should be created in an order which ensures that they never refer to an operation which 
+Nested operations should be created in an order which ensures that they never refer to an operation which
 does not yet exist to avoid producing an error.
 Similarly, if an operation that is nested inside another is deleted then any referencing operations will break.
 
 ## Security
 
-By default, read access to Named Operations is unrestricted while write access is limited to administrators and the NamedOperation creator. 
+By default, read access to Named Operations is unrestricted while write access is limited to administrators and the NamedOperation creator.
 More fine-grained controls can be configured using the following options.
 
 ### Read and Write Access Roles
@@ -468,7 +468,7 @@ More fine-grained controls can be configured using the following options.
 Read and write access to Named Operations can be locked down to users who have at least one of the auths listed in the `readAccessRoles` and `writeAccessRoles` settings.
 This example ensures that readers have the "read-user" auth and writers the "write-user" auth.
 
-!!! example 
+!!! example
     ``` java
     final AddNamedOperation addOperation = new AddNamedOperation.Builder()
             .operationChain(new OperationChain.Builder()
@@ -527,13 +527,13 @@ Note that the `readAccessPredicate` and `writeAccessPredicate` fields are mutual
     ```
 
 ## Full Example
-The below example uses the Road Traffic Dataset and asks "In the year 2000, which junctions in the South West were heavily used by buses". 
+The below example uses the Road Traffic Dataset and asks "In the year 2000, which junctions in the South West were heavily used by buses".
 This can be written as a NamedOperation and is also an example of a more complex query that a user may wish to run on a dataset.
 
 To make it more useful vehicle type and the number of results to return have been parameterised.
 We have also wrapped the `ToCsv` operation in an `If` operation so it can be conditionally enabled/disabled.
 
-??? example 
+??? example
     === "Java"
         ``` java
         final String fullExampleOpChain = "{\n" +
@@ -789,7 +789,7 @@ We have also wrapped the `ToCsv` operation in an `If` operation so it can be con
                         "edges" : {
                             "LocationContainsRoad" : { }
                         }
-                    }       
+                    }
                 }, {
                     "class" : "uk.gov.gchq.gaffer.operation.impl.output.ToSet"
                 }, {
@@ -797,7 +797,7 @@ We have also wrapped the `ToCsv` operation in an `If` operation so it can be con
                     "view" : {
                         "edges" : {
                             "RoadHasJunction" : { }
-                        }       
+                        }
                     }
                 }, {
                     "class" : "uk.gov.gchq.gaffer.operation.impl.get.GetElements",
@@ -886,143 +886,143 @@ We have also wrapped the `ToCsv` operation in an `If` operation so it can be con
 
     === "Python"
         ``` py
-        g.AddNamedOperation( 
-            operation_chain=g.OperationChainDAO( 
-                operations=[ 
-                    g.GetAdjacentIds( 
-                        view=g.View( 
-                            edges=[ 
-                                g.ElementDefinition( 
-                                    group="RegionContainsLocation" 
-                                ) 
-                            ], 
-                            all_edges=False, 
-                            all_entities=False 
-                        ) 
-                    ), 
-                    g.GetAdjacentIds( 
-                        view=g.View( 
-                            edges=[ 
-                                g.ElementDefinition( 
-                                    group="LocationContainsRoad" 
-                                ) 
-                            ], 
-                            all_edges=False, 
-                            all_entities=False 
-                        ) 
-                    ), 
-                    g.ToSet(), 
-                    g.GetAdjacentIds( 
-                        view=g.View( 
-                            edges=[ 
-                                g.ElementDefinition( 
-                                    group="RoadHasJunction" 
-                                ) 
-                            ], 
-                            all_edges=False, 
-                            all_entities=False 
-                        ) 
-                    ), 
-                    g.GetElements( 
-                        view=g.View( 
-                            entities=[ 
-                                g.ElementDefinition( 
-                                    group="JunctionUse", 
-                                    transient_properties={'${vehicle}': 'Long'}, 
-                                    pre_aggregation_filter_functions=[ 
-                                        g.PredicateContext( 
-                                            selection=[ 
-                                                "startDate", 
-                                                "endDate" 
-                                            ], 
-                                            predicate=g.InDateRangeDual( 
-                                                start="2000/01/01", 
-                                                end="2001/01/01" 
-                                            ) 
-                                        ) 
-                                    ], 
-                                    transform_functions=[ 
-                                        g.FunctionContext( 
-                                            selection=[ 
-                                                "countByVehicleType" 
-                                            ], 
-                                            function=g.FreqMapExtractor( 
-                                                key="${vehicle}" 
-                                            ), 
-                                            projection=[ 
-                                                "${vehicle}" 
-                                            ] 
-                                        ) 
-                                    ], 
-                                    properties=[ 
-                                        "${vehicle}" 
-                                    ] 
-                                ) 
-                            ], 
-                            global_elements=[ 
-                                g.GlobalElementDefinition( 
-                                    group_by=[ 
-                                    ] 
-                                ) 
-                            ], 
-                            all_edges=False, 
-                            all_entities=False 
-                        ), 
-                        include_incoming_out_going="OUTGOING" 
-                    ), 
-                    g.Sort( 
-                        comparators=[ 
-                            g.ElementPropertyComparator( 
-                                groups=[ 
-                                    "JunctionUse" 
-                                ], 
-                                property="${vehicle}", 
-                                reversed=True 
-                            ) 
-                        ], 
-                        result_limit="${result-limit}", 
-                        deduplicate=True 
-                    ), 
-                    g.If( 
-                        condition="${to-csv}", 
-                        then=g.ToCsv( 
-                            element_generator=g.CsvGenerator( 
-                                fields={'VERTEX': 'Junction', '${vehicle}': '${vehicle}'}, 
-                                constants={}, 
-                                quoted=False, 
-                                comma_replacement=" " 
-                            ), 
-                            include_header=True 
-                        ) 
-                    ) 
-                ] 
-            ), 
-            operation_name="frequent-vehicles-in-region", 
-            description="Finds the junctions in a region with the most of an individual vehicle (e.g BUS, CAR) in the year 2000. The input is the region.", 
-            overwrite_flag=True, 
-            parameters=[ 
-                g.NamedOperationParameter( 
-                    name="to-csv", 
-                    value_class="java.lang.Boolean", 
-                    description="Enable this parameter to convert the results to a simple CSV in the format: Junction, Count", 
-                    default_value=False, 
-                    required=False 
-                ), 
-                g.NamedOperationParameter( 
-                    name="result-limit", 
-                    value_class="java.lang.Integer", 
-                    description="The maximum number of junctions to return", 
-                    default_value=2, 
-                    required=False 
-                ), 
-                g.NamedOperationParameter( 
-                    name="vehicle", 
-                    value_class="java.lang.String", 
-                    description="The type of vehicle: HGVR3, BUS, HGVR4, AMV, HGVR2, HGVA3, PC, HGVA3, PC, HGCA5, HGVA6, CAR, HGV, WM2, LGV", 
-                    default_value="BUS", 
-                    required=False  
-                ) 
-            ] 
+        g.AddNamedOperation(
+            operation_chain=g.OperationChainDAO(
+                operations=[
+                    g.GetAdjacentIds(
+                        view=g.View(
+                            edges=[
+                                g.ElementDefinition(
+                                    group="RegionContainsLocation"
+                                )
+                            ],
+                            all_edges=False,
+                            all_entities=False
+                        )
+                    ),
+                    g.GetAdjacentIds(
+                        view=g.View(
+                            edges=[
+                                g.ElementDefinition(
+                                    group="LocationContainsRoad"
+                                )
+                            ],
+                            all_edges=False,
+                            all_entities=False
+                        )
+                    ),
+                    g.ToSet(),
+                    g.GetAdjacentIds(
+                        view=g.View(
+                            edges=[
+                                g.ElementDefinition(
+                                    group="RoadHasJunction"
+                                )
+                            ],
+                            all_edges=False,
+                            all_entities=False
+                        )
+                    ),
+                    g.GetElements(
+                        view=g.View(
+                            entities=[
+                                g.ElementDefinition(
+                                    group="JunctionUse",
+                                    transient_properties={'${vehicle}': 'Long'},
+                                    pre_aggregation_filter_functions=[
+                                        g.PredicateContext(
+                                            selection=[
+                                                "startDate",
+                                                "endDate"
+                                            ],
+                                            predicate=g.InDateRangeDual(
+                                                start="2000/01/01",
+                                                end="2001/01/01"
+                                            )
+                                        )
+                                    ],
+                                    transform_functions=[
+                                        g.FunctionContext(
+                                            selection=[
+                                                "countByVehicleType"
+                                            ],
+                                            function=g.FreqMapExtractor(
+                                                key="${vehicle}"
+                                            ),
+                                            projection=[
+                                                "${vehicle}"
+                                            ]
+                                        )
+                                    ],
+                                    properties=[
+                                        "${vehicle}"
+                                    ]
+                                )
+                            ],
+                            global_elements=[
+                                g.GlobalElementDefinition(
+                                    group_by=[
+                                    ]
+                                )
+                            ],
+                            all_edges=False,
+                            all_entities=False
+                        ),
+                        include_incoming_out_going="OUTGOING"
+                    ),
+                    g.Sort(
+                        comparators=[
+                            g.ElementPropertyComparator(
+                                groups=[
+                                    "JunctionUse"
+                                ],
+                                property="${vehicle}",
+                                reversed=True
+                            )
+                        ],
+                        result_limit="${result-limit}",
+                        deduplicate=True
+                    ),
+                    g.If(
+                        condition="${to-csv}",
+                        then=g.ToCsv(
+                            element_generator=g.CsvGenerator(
+                                fields={'VERTEX': 'Junction', '${vehicle}': '${vehicle}'},
+                                constants={},
+                                quoted=False,
+                                comma_replacement=" "
+                            ),
+                            include_header=True
+                        )
+                    )
+                ]
+            ),
+            operation_name="frequent-vehicles-in-region",
+            description="Finds the junctions in a region with the most of an individual vehicle (e.g BUS, CAR) in the year 2000. The input is the region.",
+            overwrite_flag=True,
+            parameters=[
+                g.NamedOperationParameter(
+                    name="to-csv",
+                    value_class="java.lang.Boolean",
+                    description="Enable this parameter to convert the results to a simple CSV in the format: Junction, Count",
+                    default_value=False,
+                    required=False
+                ),
+                g.NamedOperationParameter(
+                    name="result-limit",
+                    value_class="java.lang.Integer",
+                    description="The maximum number of junctions to return",
+                    default_value=2,
+                    required=False
+                ),
+                g.NamedOperationParameter(
+                    name="vehicle",
+                    value_class="java.lang.String",
+                    description="The type of vehicle: HGVR3, BUS, HGVR4, AMV, HGVR2, HGVA3, PC, HGVA3, PC, HGCA5, HGVA6, CAR, HGV, WM2, LGV",
+                    default_value="BUS",
+                    required=False
+                )
+            ]
         )
         ```
 

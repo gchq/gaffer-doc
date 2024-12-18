@@ -16,7 +16,7 @@ For details on potential caches and how to configure them, see the [Stores Guide
 !!! Note
     If you choose a non-persistent cache then any Named Views will be lost when you shut down your instance of Gaffer.
 
-Named Views are enabled by default. To disable this feature the [store property](../administration-guide/gaffer-stores/store-guide.md#all-general-store-properties) `gaffer.store.namedview.enabled` should be set to false.
+Named Views are enabled by default. To disable this feature the [store property](../reference/store-properties/common.md#gafferstorenamedviewenabled) `gaffer.store.namedview.enabled` should be set to false.
 
 There are [three operations](../reference/operations-guide/named.md#addnamedview) which manage Named Views.
 These are `AddNamedView`, `GetAllNamedViews` and `DeleteNamedView`.

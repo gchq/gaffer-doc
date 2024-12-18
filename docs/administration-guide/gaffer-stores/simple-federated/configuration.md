@@ -31,25 +31,12 @@ gaffer.store.properties.class=uk.gov.gchq.gaffer.federated.simple.FederatedStore
 
 As with a standard Gaffer graph the usual store properties are available to a
 federated store; however, additional properties are available to configure the
-the different aspects of federating. The table below covers store properties
-specific to a federated store and their usage.
+the different aspects of federating. The [reference guide](../../../reference/store-properties/federated-store.md)
+covers store properties specific to a federated store and their usage.
 
 !!! note
     Many of the merge related properties are just defaults and can be overridden
     by the user on a per query basis.
-
-| Property | Default | Description |
-| --- | --- | --- |
-| `gaffer.store.federated.default.graphIds` | `""` | The list of default graph IDs for if a user does not specify what graph(s) to run their query on. Takes a comma separated list of graph IDs e.g. `"graphID1,graphID2"` |
-| `gaffer.store.federated.allowPublicGraphs` | `true` | Are graphs with public access allowed to be added to this store. |
-| `gaffer.store.federated.default.aggregateElements` | `false` | Should queries aggregate returned Gaffer elements together using the binary operator for merging elements. False by default as it can be slower meaning results are just chained into one big list. |
-| `gaffer.store.federated.graphCache.name` | `"federatedGraphCache_<graphId>"` | The name of the cache that the federated store will store its graphs in. This allows sharing of graphs between different federated stores if the cache name is the same (and same default implementation). |
-| `gaffer.store.federated.merge.number.class` | `uk.gov.gchq.koryphe.impl.binaryoperator.Sum` | Default binary operator for merging [`Number`](https://docs.oracle.com/javase/8/docs/api/java/lang/Number.html) results (e.g. from a `Count` operation) from multiple graphs. |
-| `gaffer.store.federated.merge.string.class` | `uk.gov.gchq.koryphe.impl.binaryoperator.StringConcat` | Default binary operator for merging [`String`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html) results from multiple graphs. |
-| `gaffer.store.federated.merge.boolean.class` | `uk.gov.gchq.koryphe.impl.binaryoperator.And` | Default binary operator for merging [`Boolean`](https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html) results from multiple graphs. |
-| `gaffer.store.federated.merge.collection.class` | `uk.gov.gchq.koryphe.impl.binaryoperator.CollectionConcat` | Default binary operator for merging [`Collection`](https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html) results from multiple graphs. |
-| `gaffer.store.federated.merge.map.class` | `uk.gov.gchq.koryphe.impl.binaryoperator.Last` | Default binary operator for merging the values of [`Map`](https://docs.oracle.com/javase/8/docs/api/java/util/Map.html) results when two of the same keys exist from multiple graphs. |
-| `gaffer.store.federated.merge.element.class` | `uk.gov.gchq.gaffer.federated.simple.merge.operator.ElementAggregateOperator` | Default binary operator for merging Iterables of Gaffer elements from multiple graphs. |
 
 ## Merge Operators
 

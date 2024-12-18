@@ -15,38 +15,8 @@ Stores are configured using `key=value` style properties stored in a `store.prop
 There are general properties which apply to all Stores and per Store properties for configuring specific behaviour.
 Most properties are optional and don't need to be specified or configured, default values will be used.
 
-### All General Store Properties
-
-The properties in bold are set based on the type of Gaffer Store, for how to configure these see the [respective page for each store type](#stores-guide).
-
-| Property                 | Default | Description                             |
-| ------------------------ | ------- | --------------------------------------- |
-| **`gaffer.store.class`** | None | Class Name String to set Gaffer Store class |
-| `gaffer.store.schema.class` | `gaffer.store.schema.Schema` | Class Name String to set class to use for serialising Schemas |
-| **`gaffer.store.properties.class`** | `uk.gov.gchq.gaffer.store.StoreProperties` | Class Name String to set Gaffer Store Properties class |
-| `gaffer.store.operation.declarations` | None | Path to [Operation Declarations](../../development-guide/example-deployment/project-setup.md#operations-declarations) files (separate multiple files with commas) |
-| `gaffer.store.operation.declarations.json` | None | JSON String containing [Operation Declarations](../../development-guide/example-deployment/project-setup.md#operations-declarations) |
-| `gaffer.store.job.tracker.enabled` | False | Controls if the Job Tracker is to be used |
-| `gaffer.store.namedoperation.enabled` | True| Controls if Named Operations can be used |
-| `gaffer.store.namedview.enabled` | True | Controls if Named Views can be used |
-| `gaffer.store.job.executor.threads` | 50 | Number of threads to be used by the Job Tracker [ExecutorService](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/commonutil/ExecutorService.html) |
-| `gaffer.store.admin.auth` | None | String for Auth to associate with Administrator Users |
-| `gaffer.store.reflection.packages` | None | Reflection Packages to add to Koryphe [ReflectionUtil](https://gchq.github.io/koryphe/uk/gov/gchq/koryphe/util/ReflectionUtil.html) |
-| `gaffer.named.operation.nested` | False | Controls if NamedOperations are allowed to reference/nest other NamedOperations |
-| `gaffer.serialiser.json.class` | `uk.gov.gchq.gaffer.jsonserialisation.JSONSerialiser` | Class Name String for setting a custom class extending [JSONSerialiser](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/jsonserialisation/JSONSerialiser.html) |
-| `gaffer.serialiser.json.modules` | None | Class Name String for registering classes implementing [JSONSerialiserModules](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/jsonserialisation/JSONSerialiserModules.html) (separate multiple modules with commas) |
-| `gaffer.serialiser.json.strict` | False | Controls if unknown fields should be ignored when serialising JSON (sets [Jackson FAIL_ON_UNKNOWN_PROPERTIES](https://fasterxml.github.io/jackson-databind/javadoc/2.13/com/fasterxml/jackson/databind/DeserializationFeature.html#FAIL_ON_UNKNOWN_PROPERTIES) internally) |
-| `gaffer.error-mode.debug` | False | Controls technical debugging by methods calling [`DebugUtil`](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/commonutil/DebugUtil.html) |
-| `gaffer.cache.service.default.class` | None | Fully-qualified class name of a [Gaffer cache](#cache-service) implementation to use as the default |
-| `gaffer.cache.service.jobtracker.class` | None | [Gaffer cache](#cache-service) implementation to use for the Job Tracker |
-| `gaffer.cache.service.namedview.class` | None | [Gaffer cache](#cache-service) implementation to use for Named Views |
-| `gaffer.cache.service.namedoperation.class` | None | [Gaffer cache](#cache-service) implementation to use for Named Operations |
-| `gaffer.cache.config.file` | None | Config file to use with a [Gaffer cache](#cache-service) implementation |
-| `gaffer.cache.service.default.suffix` | `graphId` | String to use as the default [cache suffix](#suffixes) |
-| `gaffer.cache.service.federated.store.suffix` | None | String to override the default [suffix](#suffixes) used by Federated Store graph cache |
-| `gaffer.cache.service.named.operation.suffix` | None | String to override the default [suffix](#suffixes) used by Named Operation cache |
-| `gaffer.cache.service.job.tracker.suffix` | None | String to override the default [suffix](#suffixes) used by Job Tracker cache |
-| `gaffer.cache.service.named.view.suffix` | None | String to override the default [suffix](#suffixes) used by Named View cache |
+!!! tip
+    Please see the [reference guide](../../reference/store-properties/common.md) for a full list of properties.
 
 ## Caches
 
@@ -67,7 +37,8 @@ Cache configuration includes selecting which cache service to use and optionally
 #### Cache Service
 
 In order for the cache service to run you must select your desired implementation. You can set the default implementation by adding a line to the `store.properties` file:
-```
+
+```properties
 gaffer.cache.service.default.class=uk.gov.gchq.gaffer.cache.impl.HashMapCacheService
 ```
 
@@ -76,11 +47,12 @@ In the case of a JCS file this is a [ccf file](https://commons.apache.org/proper
 while for Hazelcast this is commonly a [XML/YAML file](https://docs.hazelcast.com/imdg/4.2/configuration/understanding-configuration#static-configuration).
 
 You should then specify the location of any configuration file(s) in your store.properties file as follows:
-```
+
+```properties
 gaffer.cache.config.file=/path/to/file
 ```
 
-Additionally, the cache service implementation to use for the Job Tracker, Named Views and Named Operations can be set independently (as given in the properties table above).
+Additionally, the cache service implementation to use for the Job Tracker, Named Views and Named Operations can be set independently (see the [reference guide](../../reference/store-properties/common.md#cache-properties) for details).
 The default service should still be specified, unless all optional cache class properties are given.
 When cache service implementations have been set independently, but the same implementation class used, this will result in multiple caches of the same kind being created.
 Setting the cache service independently is intended to allow different cache implementations to be used at the same time. Depending on the implementation, using multiple instances of the same implementation may not work correctly.
@@ -101,7 +73,7 @@ In the past (Gaffer versions `1.x`) these suffixes did not exist, and all graphs
 An example where you might want to share the same cache entry is when using [Named Operations](../named-operations.md) and a [Federated Store](federated-store.md).
 Adding a Named Operation to a Federated Store won't make it available to sub-graphs (when using a `FederatedOperation` to execute it) unless the sub-graphs share the same Named Operation cache as the Federated Store.
 
-If you only want a certain kind of cache entry to be shared, e.g. only share Named Operations, then set the suffix specific to that cache entry. See the [table above for all the properties for this](#all-general-store-properties).
+If you only want a certain kind of cache entry to be shared, e.g. only share Named Operations, then set the suffix specific to that cache entry. See the [reference guide](../../reference/store-properties/common.md#cache-properties) on store properties for how to configure these.
 You could also set the default cache suffix to share everything and set a specific suffix to be different and therefore not shared.
 
 ## Configuring customisable Operations
@@ -111,7 +83,9 @@ Some operations are not available by default and you will need to manually confi
 These customisable operations can be added to your Gaffer graph by providing config in one or more [operation declaration JSON files](../gaffer-config/config.md#operations-declarations-json).
 
 ### Named Operations
+
 Named Operations depends on the Cache service being active at runtime. See [Caches](#caches) above for how to enable these.
 
 ### ScoreOperationChain
+
 Operation scores determine whether a particular user has the required permissions to execute a given OperationChain. See [Operation Scores](../../administration-guide/operation-score.md) for how to enable and configure these.
