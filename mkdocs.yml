@@ -229,6 +229,8 @@ nav:
         - 'Spark Operations': 'reference/operations-guide/spark.md'
         - 'Proxy Operations': 'reference/operations-guide/proxy.md'
         - 'Misc Operations': 'reference/operations-guide/misc.md'
+      - Operation Options:
+        - 'Federated Options': 'reference/operation-options/federated-options.md'
       - Endpoints:
         - 'Endpoints Guide': 'reference/endpoints-guide/endpoints.md'
       - Gremlin:
