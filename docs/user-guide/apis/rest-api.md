@@ -5,6 +5,9 @@ and operations on a graph. This guide should cover a lot of the use cases a user
 may face; however please refer to the [reference guide](../../reference/intro.md)
 for a full list of what is possible.
 
+To start up an instance of Gaffer with its respective REST API please see the
+[quickstart guide](../../administration-guide/gaffer-deployment/quickstart.md).
+
 ## What is the REST API?
 
 When a graph is deployed, a REST (or RESTful) API will be available at a
@@ -20,11 +23,11 @@ commonly by the provided [Swagger UI](https://swagger.io/).
 
 ## Querying a Graph
 
-If you wish to simply run a query which gets some information about the graph instance, such
-as what schema is being used or what Operations are available, then there
-should already be `GET` endpoints to do that. Executing any of these `GET`
-requests will simply 'get' you some information, however they may be of limited
-use for a user.
+If you wish to simply run a query which gets some information about the graph
+instance, such as what schema is being used or what Operations are available,
+then there should already be `GET` endpoints to do that. Executing any of these
+`GET` requests will simply 'get' you some information, however they may be of
+limited use for a user.
 
 The main endpoint users interact with is `/graph/operations/execute`. This
 is a `POST` endpoint which allows you to 'post' a query to that endpoint which

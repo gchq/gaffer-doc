@@ -97,9 +97,10 @@ nav:
         - Gaffer Query Syntax:
           - 'Operations': 'user-guide/query/gaffer-syntax/operations.md'
           - 'Filtering Data': 'user-guide/query/gaffer-syntax/filtering.md'
-          - 'FAQs': 'user-guide/query/gaffer-syntax/faqs.md'
+          - 'Federation': 'user-guide/query/gaffer-syntax/federated-queries.md'
           - Import/Export:
             - 'Using CSV Data': 'user-guide/query/gaffer-syntax/import-export/csv.md'
+          - 'FAQs': 'user-guide/query/gaffer-syntax/faqs.md'
         - Gremlin:
           - 'Gremlin in Gaffer': 'user-guide/query/gremlin/gremlin.md'
           - 'Features': 'user-guide/query/gremlin/custom-features.md'
@@ -167,15 +168,15 @@ nav:
       - Aggregation Guide:
         - 'Overview': 'administration-guide/aggregation/overview.md'
         - 'Ingest Example': 'administration-guide/aggregation/ingest-example.md'
+      - Security:
+        - 'Security Guide': 'administration-guide/security/security-guide.md'
+        - 'User Control': 'administration-guide/security/user-control.md'
+        - 'Accumulo Kerberos': 'administration-guide/security/accumulo-kerberos.md'
       - 'Named Operations': 'administration-guide/named-operations.md'
       - 'Named Views': 'administration-guide/named-views.md'
       - 'Operation Score': 'administration-guide/operation-score.md'
       - 'Job Tracker': 'administration-guide/job-tracker.md'
       - 'Delete Operation': 'administration-guide/delete-elements.md'
-      - Security:
-        - 'Security Guide': 'administration-guide/security/security-guide.md'
-        - 'User Control': 'administration-guide/security/user-control.md'
-        - 'Accumulo Kerberos': 'administration-guide/security/accumulo-kerberos.md'
     - Change Notes:
       - 'Changelist':
         - '2.1.0 Changes': 'change-notes/changelist/v2.1.0-changes.md'
@@ -201,17 +202,6 @@ nav:
         - 'Advanced Properties': 'reference/properties-guide/advanced.md'
         - 'Type Properties': 'reference/properties-guide/type.md'
         - 'Map & Set Properties': 'reference/properties-guide/map-set.md'
-      - Predicates:
-        - 'Predicates Guide': 'reference/predicates-guide/predicates.md'
-        - 'Gaffer Predicates': 'reference/predicates-guide/gaffer-predicates.md'
-        - 'Koryphe Predicates': 'reference/predicates-guide/koryphe-predicates.md'
-      - 'Binary Operators':
-        - 'Binary Operators Guide': 'reference/binary-operators-guide/binary-operators.md'
-        - 'Koryphe Operators Guide': 'reference/binary-operators-guide/koryphe-operators.md'
-      - Functions:
-        - 'Functions Guide': 'reference/functions-guide/functions.md'
-        - 'Gaffer Functions': 'reference/functions-guide/gaffer-functions.md'
-        - 'Koryphe Functions': 'reference/functions-guide/koryphe-functions.md'
       - Operations:
         - 'Operations Guide': 'reference/operations-guide/operations.md'
         - 'Core Operations': 'reference/operations-guide/core.md'
@@ -231,6 +221,18 @@ nav:
         - 'Misc Operations': 'reference/operations-guide/misc.md'
       - Operation Options:
         - 'Federated Options': 'reference/operation-options/federated-options.md'
+        - 'Accumulo Options': 'reference/operation-options/accumulo-options.md'
+      - Predicates:
+        - 'Predicates Guide': 'reference/predicates-guide/predicates.md'
+        - 'Gaffer Predicates': 'reference/predicates-guide/gaffer-predicates.md'
+        - 'Koryphe Predicates': 'reference/predicates-guide/koryphe-predicates.md'
+      - Binary Operators:
+        - 'Binary Operators Guide': 'reference/binary-operators-guide/binary-operators.md'
+        - 'Koryphe Operators Guide': 'reference/binary-operators-guide/koryphe-operators.md'
+      - Functions:
+        - 'Functions Guide': 'reference/functions-guide/functions.md'
+        - 'Gaffer Functions': 'reference/functions-guide/gaffer-functions.md'
+        - 'Koryphe Functions': 'reference/functions-guide/koryphe-functions.md'
       - Endpoints:
         - 'Endpoints Guide': 'reference/endpoints-guide/endpoints.md'
       - Gremlin:

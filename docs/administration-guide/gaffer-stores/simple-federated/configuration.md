@@ -55,45 +55,8 @@ wish to use it for.
 !!! note
     Please note you currently can't chose a merge operator for operations that
     return an `Iterable` type, they will always just be chained together (an
-    iterable of `Element`s is an obvious exception, please see below).
-
-### The Default Element Merge Operator
-
-The default operator used to merge Gaffer elements is unique compared to the
-other operators. This operator will only be used if element aggregating is set
-to "true", either by default, using the store properties, or for just the query
-using the operation option `federated.aggregateElements`.
-
-When enabled, the default merge operator attempts to use the aggregation
-functions from the merged schema of the graphs that were executed on. This
-attempts to emulate how the data would have been stored in a single Gaffer graph
-as entities or edges that are the same (e.g. same group and vertices) will be
-merged together with their properties aggregated using the functions defined in
-the schema.
-
-#### Considerations
-
-There are some considerations you may wish to know when using the element merge
-operator:
-
-- This type of merging will be inherently slower than simply returning a chained
-iterable of elements.
-- The results must fit in the available memory of the federated store to be
-merged. If the returned result size is too big you may experience significant
-performance issues.
-- The results will be deduplicated as part of this process e.g. two identical
-entities or edges will be merged into one.
-- Any filtering you might have specified in the `View` will only be applied
-to the individual graph results, this means two results separately will
-satisfy the `View` but once aggregated they may not.
-- If you wish to write or use your own operator for merging elements the class
-must extend the [`ElementAggregateOperator`](https://github.com/gchq/Gaffer/blob/develop/store-implementation/simple-federated-store/src/main/java/uk/gov/gchq/gaffer/federated/simple/merge/operator/ElementAggregateOperator.java).
-- If you have chosen in the schema to use a time sensitive aggregation function
-  (e.g. [`First`](../../../reference/binary-operators-guide/koryphe-operators.md#first))
-  for a property that is in multiple sub graphs, you may end up with duplicates
-  in the result as the aggregator does not know which sub graph is first or
-  last. This means you may get duplicates of the same vertex but with different
-  properties in the result.
+    iterable of `Element`s is an obvious exception, please see the [user guide](../../../user-guide/query/gaffer-syntax/federated-queries.md#how-are-results-merged)
+    for more details).
 
 ## Adding and Removing Graphs
 
@@ -163,8 +126,8 @@ new graph like so:
 
 Once a graph has been added the graph ID will become available to the store so
 can be referenced when running an operation. More information on running an
-operation on a sub graph and available operation options can be found on the
-[following page](./additional-info.md#how-are-operations-handled).
+operation on a sub graph and available operation options can be found in the
+[user guide](../../../user-guide/query/gaffer-syntax/federated-queries.md).
 
 !!! note
     Added graphs can also have access controls enforced on them, please see the

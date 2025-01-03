@@ -5,17 +5,21 @@ that is backed with a [Federated Store](../../administration-guide/gaffer-stores
 The options can be passed to any individual operation or overall operation
 chain to affect when/how they are applied.
 
-## Use Default Graph IDs
+The merge operators can also be overridden per query using the same key as
+the store property. Please see the [reference guide on store properties](../store-properties/federated-store.md#merge-operators)
+for full details.
 
-Key: `federated.useDefaultGraphIds`
+## General
+
+### `federated.useDefaultGraphIds`
 
 Default: `None`
 
 Explicitly specifies that the default Graph IDs from the `store.properties` file
 should be used. Specifying this on an operation chain means the whole chain will
 be sent to the default sub graph(s), and so merging from each graph will happen
-at the end of the chain instead of after each operation, likely increasing
-performance on longer chains.
+at the end of the chain instead of after each operation. This likely increases
+performance on longer operation chains.
 
 !!! note
     If no graph ID options are specified e.g. `federated.graphIds`, the
@@ -47,11 +51,11 @@ performance on longer chains.
     }
     ```
 
-## Specify Graph IDs
-
-Key: `federated.graphIds` or `gaffer.federatedstore.operation.graphIds`
+### `federated.graphIds`
 
 Default: `None`
+
+Alternative Key: `gaffer.federatedstore.operation.graphIds`
 
 List of graph IDs to submit the operation to, formatted as a comma separated
 string e.g. `"graph1,graph2"`. If an option to set the graph IDs is not set
@@ -69,9 +73,7 @@ will be used as a fallback.
     }
     ```
 
-## Exclude Graph IDs
-
-Key: `federated.excludeGraphIds`
+### `federated.excludeGraphIds`
 
 Default: `None`
 
@@ -90,15 +92,13 @@ except the ones specified.
     }
     ```
 
-## Aggregate Elements
-
-Key: `federated.aggregateElements`
+### `federated.aggregateElements`
 
 Default: [Set in store properties](../store-properties/federated-store.md#gafferstorefederateddefaultaggregateelements).
 
 Should the element aggregator be used when merging element results. This will
 override the default which might be set in the store properties. Enabling this
-has some additional considerations you should be aware of, please see the [store guide](../../administration-guide/gaffer-stores/simple-federated/configuration.md#considerations)
+has some additional considerations you should be aware of, please see the [store guide](../../user-guide/query/gaffer-syntax/federated-queries.md#considerations)
 for details.
 
 !!! example
@@ -112,9 +112,7 @@ for details.
     }
     ```
 
-## Separate Sub Graph Results
-
-Key: `federated.separateResults`
+### `federated.separateResults`
 
 Default: `false`
 
@@ -152,9 +150,7 @@ and its respective result.
     }
     ```
 
-## Skip Graph on Fail
-
-Key: `federated.skipGraphOnFail`
+### `federated.skipGraphOnFail`
 
 Default: `false`
 
