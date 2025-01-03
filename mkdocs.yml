@@ -179,6 +179,7 @@ nav:
       - 'Delete Operation': 'administration-guide/delete-elements.md'
     - Change Notes:
       - 'Changelist':
+        - '2.4.0 Changes': 'change-notes/changelist/v2.4.0-changes.md'
         - '2.1.0 Changes': 'change-notes/changelist/v2.1.0-changes.md'
         - '2.0.0 Changes': 'change-notes/changelist/v2-changes.md'
       - 'Migrating from V1 to V2':
