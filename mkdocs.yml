@@ -65,7 +65,8 @@ plugins:
         'reference/stores-guide/stores.md': 'administration-guide/gaffer-stores/store-guide.md'
         'reference/stores-guide/map.md': 'administration-guide/gaffer-stores/map-store.md'
         'reference/stores-guide/proxy.md': 'administration-guide/gaffer-stores/proxy-store.md'
-        'reference/stores-guide/federated.md': 'administration-guide/gaffer-stores/federated-store.md'
+        'reference/stores-guide/federated.md': 'administration-guide/gaffer-stores/federated/configuration.md'
+        'reference/stores-guide/federated-store.md': 'administration-guide/gaffer-stores/federated/configuration.md'
         'reference/stores-guide/accumulo.md': 'administration-guide/gaffer-stores/accumulo-store.md'
         'getting-started/basics.md': 'user-guide/introduction.md'
         'getting-started/guide/cardinality.md': 'user-guide/gaffer-basics/what-is-cardinality.md'
@@ -154,11 +155,10 @@ nav:
       - Store Types:
         - 'Store Guide': 'administration-guide/gaffer-stores/store-guide.md'
         - 'Accumulo Store': 'administration-guide/gaffer-stores/accumulo-store.md'
-        - 'Federated Store': 'administration-guide/gaffer-stores/federated-store.md'
-        - Simple Federated Store:
-          - 'Configuration': 'administration-guide/gaffer-stores/simple-federated/configuration.md'
-          - 'Access Control': 'administration-guide/gaffer-stores/simple-federated/access-control.md'
-          - 'Additional Information': 'administration-guide/gaffer-stores/simple-federated/additional-info.md'
+        - Federated Store:
+          - 'Configuration': 'administration-guide/gaffer-stores/federated/configuration.md'
+          - 'Access Control': 'administration-guide/gaffer-stores/federated/access-control.md'
+          - 'Additional Information': 'administration-guide/gaffer-stores/federated/additional-info.md'
         - 'Map Store':  'administration-guide/gaffer-stores/map-store.md'
         - 'Proxy Store': 'administration-guide/gaffer-stores/proxy-store.md'
       - Configuration:
@@ -213,7 +213,7 @@ nav:
         - 'Named Operations': 'reference/operations-guide/named.md'
         - 'Export Operations': 'reference/operations-guide/export.md'
         - 'Generate Operations': 'reference/operations-guide/generate.md'
-        - 'Federated Operation': 'reference/operations-guide/federated-operation.md'
+        - 'Federated Operations': 'reference/operations-guide/federated.md'
         - 'Flink Operations': 'reference/operations-guide/flink.md'
         - 'HDFS Operations': 'reference/operations-guide/hdfs.md'
         - 'Accumulo Operations': 'reference/operations-guide/accumulo.md'

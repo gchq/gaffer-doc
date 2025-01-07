@@ -1,10 +1,10 @@
 # Federated Store Properties
 
-!!! note
-    These properties refer specifically to the simple federated store
-    which will replace the standard federated store under v2.4.0.
+!!! warning
+    The federated store was overhauled in version 2.4.0 please read the
+    [change notes](../../change-notes/changelist/v2.4.0-changes.md) for details.
 
-This page details all properties that are specific to [federated stores](../../administration-guide/gaffer-stores/simple-federated/configuration.md).
+This page details all properties that are specific to [federated stores](../../administration-guide/gaffer-stores/federated/configuration.md).
 All properties are specified in the `store.properties` file alongside
 any [common properties](./common.md).
 

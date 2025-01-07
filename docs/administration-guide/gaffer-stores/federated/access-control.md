@@ -1,4 +1,4 @@
-# Simple Federation Graph Access Control
+# Federation Graph Access Control
 
 Graphs added to a federated store can have restrictions placed on them in
 addition to the standard user controls that may be in place on the data itself.
@@ -50,7 +50,7 @@ A full example of adding a graph with all these restrictions would look like:
 
         ```json
         {
-            "class": "uk.gov.gchq.gaffer.federated.simple.operation.AddGraph",
+            "class": "AddGraph",
             "graphConfig": {
                 "graphId": "myGraph"
             },

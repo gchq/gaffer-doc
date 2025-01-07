@@ -42,4 +42,4 @@ technologies, including but not limited to:
 
 - [Aggregation.](./what-is-aggregation.md)
 - [Fine grained security.](../../administration-guide/security/security-guide.md)
-- [Graph Federation.](../../administration-guide/gaffer-stores/federated-store.md)
+- [Graph Federation.](../../administration-guide/gaffer-stores/federated/configuration.md)

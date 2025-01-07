@@ -31,4 +31,4 @@ provide an overview of the different types and features each provides.
 - [Map Store](./gaffer-stores/map-store.md)
 - [Accumulo Store](./gaffer-stores/accumulo-store.md)
 - [Proxy Store](./gaffer-stores/proxy-store.md)
-- [Federated Store](./gaffer-stores/federated-store.md)
+- [Federated Store](./gaffer-stores/federated/configuration.md)

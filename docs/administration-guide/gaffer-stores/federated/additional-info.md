@@ -1,4 +1,4 @@
-# Additional Information on Simple Federation
+# Additional Information on Federation
 
 This page contains additional information and considerations
 an admin may need to know when using the federated store type.

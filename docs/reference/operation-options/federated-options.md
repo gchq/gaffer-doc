@@ -1,7 +1,7 @@
 # Operation Options for a Federated Store
 
 This page details the available options that can be passed to a Gaffer instance
-that is backed with a [Federated Store](../../administration-guide/gaffer-stores/simple-federated/configuration.md).
+that is backed with a [Federated Store](../../administration-guide/gaffer-stores/federated/configuration.md).
 The options can be passed to any individual operation or overall operation
 chain to affect when/how they are applied.
 

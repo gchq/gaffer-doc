@@ -1,13 +1,13 @@
 # Stores Guide
 
-A Gaffer Store represents the backing database responsible for storing (or facilitating access to) a graph. Ordinarily a Store provides backing for a single graph. Stores which provide access to other stores can support multiple graphs. So far only the [Federated Store](federated-store.md) supports this.
+A Gaffer Store represents the backing database responsible for storing (or facilitating access to) a graph. Ordinarily a Store provides backing for a single graph. Stores which provide access to other stores can support multiple graphs. So far only the [Federated Store](./federated/configuration.md) supports this.
 
 Gaffer currently supplies the following store implementations:
 
 - [Map Store](map-store.md) - Simple in-memory store
 - [Accumulo Store](accumulo-store.md) - [Apache Accumulo](https://accumulo.apache.org/) backed store
 - [Proxy Store](proxy-store.md) - Delegates/forwards queries to another Gaffer REST
-- [Federated Store](federated-store.md) - Federates queries across multiple graphs
+- [Federated Store](./federated/configuration.md) - Federates queries across multiple graphs
 
 ## Store Properties
 
@@ -70,8 +70,8 @@ You can manually specify the default suffix to use for all types of cache by set
 
 In the past (Gaffer versions `1.x`) these suffixes did not exist, and all graphs used the same cache entries. If you want two or more graphs to share the same cache entry, then configure them to use the same suffix.
 
-An example where you might want to share the same cache entry is when using [Named Operations](../named-operations.md) and a [Federated Store](federated-store.md).
-Adding a Named Operation to a Federated Store won't make it available to sub-graphs (when using a `FederatedOperation` to execute it) unless the sub-graphs share the same Named Operation cache as the Federated Store.
+An example where you might want to share the same cache entry is when using a [Federated Store](./federated/additional-info.md#cache-considerations). The federated store saves the available sub graphs under the default cache implementation meaning you may wish to make this shared so different federated stores have the same sub graphs.
+Adding a [Named Operation to a Federated Store](./federated/additional-info.md#named-operations-and-views) without specifying any graph IDs will add it to it's local cache by default, this means it will be available to all sub-graphs as it will be resolved by the `NamedOperationResolver` Graph hook before execution.
 
 If you only want a certain kind of cache entry to be shared, e.g. only share Named Operations, then set the suffix specific to that cache entry. See the [reference guide](../../reference/store-properties/common.md#cache-properties) on store properties for how to configure these.
 You could also set the default cache suffix to share everything and set a specific suffix to be different and therefore not shared.

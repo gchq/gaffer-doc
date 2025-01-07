@@ -1,17 +1,16 @@
-# Simple Federated Store Configuration
+# Federated Store Configuration
 
 !!! warning
-    The simple federated store is still under development, with scope to replace
-    the standard federated store in release 2.4.0. Some configuration options
-    and features may be subject to change.
+    The federated store was overhauled in version 2.4.0 please read the
+    [change notes](../../../change-notes/changelist/v2.4.0-changes.md) for details.
 
 ## Introduction
 
-The Simple Federated Store enables a user to add and query multiple Gaffer
-graphs through a single endpoint/instance. Queries submitted to a federated
-store are forwarded to a select set of graphs that then execute the query
-locally. The results from each graph are aggregated together to form the
-final result to give the appearance of coming from one graph.
+The federated store enables a user to add and query multiple Gaffer graphs
+through a single endpoint/instance. Queries submitted to a federated store are
+forwarded to a select set of graphs that then execute the query locally. The
+results from each graph are aggregated together to form the final result to give
+the appearance of coming from one graph.
 
 Due to its unique nature a federated store has various additional configuration
 and features compared to a normal store. This page covers the different
@@ -23,8 +22,8 @@ To get started with a federated store simply set the store class and properties
 like:
 
 ```properties
-gaffer.store.class=uk.gov.gchq.gaffer.federated.simple.FederatedStore
-gaffer.store.properties.class=uk.gov.gchq.gaffer.federated.simple.FederatedStoreProperties
+gaffer.store.class=uk.gov.gchq.gaffer.federatedstore.FederatedStore
+gaffer.store.properties.class=uk.gov.gchq.gaffer.federatedstore.FederatedStoreProperties
 ```
 
 ## Store Properties
@@ -107,7 +106,7 @@ new graph like so:
 
         ```json
         {
-            "class": "uk.gov.gchq.gaffer.federated.simple.operation.AddGraph",
+            "class": "AddGraph",
             "graphConfig": {
                 "graphId": "myGraph"
             },
@@ -174,7 +173,7 @@ To remove a graph you can use the following operation like so:
 
         ```json
             {
-                "class": "uk.gov.gchq.gaffer.federated.simple.operation.RemoveGraph",
+                "class": "RemoveGraph",
                 "graphId": "myGraph"
             }
         ```
@@ -183,7 +182,7 @@ To remove a graph you can use the following operation like so:
 
         ```json
             {
-                "class": "uk.gov.gchq.gaffer.federated.simple.operation.RemoveGraph",
+                "class": "RemoveGraph",
                 "graphId": "myGraph",
                 "deleteAllData": true
             }

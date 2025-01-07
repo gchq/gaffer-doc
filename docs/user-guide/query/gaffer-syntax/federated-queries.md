@@ -61,11 +61,25 @@ A key part to the federated store are its merge operators. These control how
 results from multiple graphs are reduced to one result so can greatly effect the
 results returned by the store.
 
-Sensible defaults are in place if not specified however, you may wish to chose your
-own operators to be used. As mentioned previously you can control aspects of federation
-using operation options. This extends to the merge operators as well meaning you can
-pick a different merge operator for your specific query. To do this you simply use the
-same key as the store properties which are all outlined in the [reference guide](../../../reference/store-properties/federated-store.md#merge-operators)
+The merge operators have been broken down based on data type meaning things will
+be merged differently depending on the type of the result. The following table
+outlines the data type and default merge operator for it
+
+!!! note
+    An admin can change the defaults using the [store properties](../../../administration-guide/gaffer-stores/federated/configuration.md#merge-operators).
+
+| Data Type | Default Merge Operator |
+| --- | --- |
+| [`Number`](https://docs.oracle.com/javase/8/docs/api/java/lang/Number.html) | [`uk.gov.gchq.koryphe.impl.binaryoperator.Sum`](../../../reference/binary-operators-guide/koryphe-operators.md#sum) |
+| [`String`](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html) | [`uk.gov.gchq.koryphe.impl.binaryoperator.StringConcat`](../../../reference/binary-operators-guide/koryphe-operators.md#stringconcat) |
+| [`Boolean`](https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html) | [`uk.gov.gchq.koryphe.impl.binaryoperator.And`](../../../reference/binary-operators-guide/koryphe-operators.md#and) |
+| [`Collection`](https://docs.oracle.com/javase/8/docs/api/java/util/Collection.html) | [`uk.gov.gchq.koryphe.impl.binaryoperator.CollectionConcat`](../../../reference/binary-operators-guide/koryphe-operators.md#collectionconcat) |
+| [`Map`](https://docs.oracle.com/javase/8/docs/api/java/util/Map.html) | [`uk.gov.gchq.koryphe.impl.binaryoperator.Last`](../../../reference/binary-operators-guide/koryphe-operators.md) |
+| `Iterable<Element>` | [`uk.gov.gchq.gaffer.federated.simple.merge.operator.ElementAggregateOperator`](../../../reference/store-properties/federated-store.md#gafferstorefederatedmergeelementclass) |
+
+You may wish to pick a different merge operator for your specific query.
+To do this you simply use the same key as the store properties which are all
+outlined in the [reference guide](../../../reference/store-properties/federated-store.md#merge-operators)
 and then specify the class you want to use instead, an example might be:
 
 !!! example ""
