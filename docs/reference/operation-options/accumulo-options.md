@@ -28,7 +28,7 @@ a serialised HDFS configuration to use for the operation.
 
 Default: `false`
 
-This option if enabled allows reading RFiles directly rather than the usual
+This option, if enabled, allows reading RFiles directly rather than the usual
 approach of obtaining them from Accumulo's tablet servers. This requires the
 Hadoop user, running the Spark job, to have read access to the RFiles in the
 Accumulo tablet.

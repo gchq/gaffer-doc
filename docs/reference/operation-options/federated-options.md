@@ -2,7 +2,7 @@
 
 This page details the available options that can be passed to a Gaffer instance
 that is backed with a [Federated Store](../../administration-guide/gaffer-stores/federated/configuration.md).
-The options can be passed to any individual operation or overall operation
+These options can be passed to any individual operation or overall operation
 chain to affect when/how they are applied.
 
 The merge operators can also be overridden per query using the same key as

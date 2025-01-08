@@ -33,7 +33,7 @@ Generally this will not need to be changed.
 
 Default: `None`
 
-Allows specifying a location of a [`operationDeclarations.json`](../../administration-guide/gaffer-config/config.md#operations-declarations-json)
+Allows specifying a location of an [`operationDeclarations.json`](../../administration-guide/gaffer-config/config.md#operations-declarations-json)
 file which can be used to enable additional Gaffer operations for use.
 Multiple files can be specified using comma operation if required.
 
