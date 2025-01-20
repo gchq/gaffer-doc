@@ -348,6 +348,41 @@ Input type: `java.util.Collection`
     java.util.ArrayList | [test1] and null | java.util.ArrayList | [test1]
     java.util.HashSet | [a, b] and [b, c] | java.util.HashSet | [b]
 
+## IterableMerge
+
+Returns a ChainedIterable of two Iterables. [Javadoc]()
+
+Input type: `java.lang.Iterable`
+
+??? example "Example IterableMerge"
+
+    === "Java"
+
+        ``` java
+        final IterableMerge iterableMerge = new IterableMerge();
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+          "class" : "uk.gov.gchq.koryphe.impl.binaryoperator.IterableMerge"
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+        g.IterableMerge()
+        ```
+
+    Example inputs:
+
+    Input Type | Inputs | Result Type | Results
+    ---------- | ------ | ----------- | -------
+    java.util.ArrayList | [test1] and [test2, test3] | uk.gov.gchq.koryphe.util.ChainedIterable | [test1, test2, test3]
+    java.util.HashSet | [a, b] and [b, c] | uk.gov.gchq.koryphe.util.ChainedIterable | [a, b, b, c]
+
 ## StringConcat
 
 Concatenates 2 strings. [Javadoc](https://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/StringConcat.html)

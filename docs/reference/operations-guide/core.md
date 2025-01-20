@@ -108,16 +108,22 @@ Deletes Elements from a graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gc
 
 Note that this operation does not return any response.
 
+!!! warning
+    Deleting elements is not reversible. Use of this operation should be
+    limited and users should run test a Operation Chain which extracts any elements
+    to be deleted prior to running any delete operations.
+
 ??? example "Example deleting an entity and edge"
 
-    Deleting entity '6' and its edge to 5.
+    Deleting entity '5' and its edge to 2. A user can remove an entity and its associated edges by
+    simply using a GetElements with an entity seed and no filtering.
 
     === "Java"
 
         ``` java
         final OperationChain<Void> deleteElementsChain = new OperationChain.Builder()
                 .first(new GetElements.Builder()
-                    .input(new EntitySeed(6))
+                    .input(new EntitySeed(5))
                     .build())
                 .then(new DeleteElements())
                 .build();
@@ -134,7 +140,7 @@ Note that this operation does not return any response.
                 "class": "GetElements",
                 "input": [{
                     "class": "EntitySeed",
-                    "vertex": 6,
+                    "vertex": 5,
                 }]
             },
             {
@@ -148,13 +154,13 @@ Note that this operation does not return any response.
         ``` python
         g.OperationChain(
             operations=[
-                g.GetElements(input=[g.EntitySeed(vertex=6)]),
+                g.GetElements(input=[g.EntitySeed(vertex=5)]),
                 g.DeleteElements()
             ]
         )
         ```
 
-    Results:
+    Graph following the removal of the entity and associated edges:
 
     ``` mermaid
     graph TD
@@ -162,7 +168,153 @@ Note that this operation does not return any response.
       1 --> 4
       2 --> 3
       2 --> 4
-      2 --> 5
+      3 --> 4
+    ```
+
+??? example "Example deleting only an edge"
+
+    Using filtering, users can target a single edge and leave the associated entities
+    from either end.
+
+    === "Java"
+
+        ``` java
+        final OperationChain<Void> deleteElementsChain = new OperationChain.Builder()
+                .first(new GetElements.Builder()
+                    .input(new EdgeSeed(2, 5, DirectedType.EITHER))
+                    .view(new View.Builder().edge("edge").build())
+                    .build())
+                .then(new DeleteElements())
+                .build();
+
+        graph.execute(deleteElementsChain, new User());
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+            "class" : "OperationChain",
+            "operations" : [{
+                "class": "GetElements",
+                "input": [{
+                    "class": "EdgeSeed",
+                    "source": 2,
+                    "destination": 5,
+                    "directedType": "EITHER"
+                }],
+                "view": {
+                    "edges": {
+                        "edge": {}
+                    }
+                }
+            },
+            {
+                "class" : "DeleteElements"
+            }]
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+        g.OperationChain(
+            operations=[
+                g.GetElements(input=[g.EdgeSeed(source=2, destination=5, directedType="EITHER")],
+                view = g.View(
+                    edges=[
+                        g.ElementDefinition(group="edge")
+                    ]
+                )),
+                g.DeleteElements()
+            ]
+        )
+        ```
+
+    Graph following the removal of a single edge, leaving all entities:
+
+    ``` mermaid
+    graph TD
+      1 --> 2
+      1 --> 4
+      2 --> 3
+      2 --> 4
+      5
+      3 --> 4
+    ```
+
+??? example "Example deleting an entity"
+
+    Deleting entity '5' but leaving all edges associated with it. This will leave 'dangling' or 'orphan'
+    edges where there is no entity associated with the vertex on one end.
+
+    === "Java"
+
+        ``` java
+        final OperationChain<Void> deleteElementsChain = new OperationChain.Builder()
+                .first(new GetElements.Builder()
+                    .input(new EntitySeed(5))
+                    .view(new View.Builder().entity("person").build())
+                    .build())
+                .then(new DeleteElements())
+                .build();
+
+        graph.execute(deleteElementsChain, new User());
+        ```
+
+    === "JSON"
+
+        ``` json
+        {
+            "class" : "OperationChain",
+            "operations" : [{
+                "class": "GetElements",
+                "input": [{
+                    "class": "EntitySeed",
+                    "vertex": 5,
+                }],
+                "view": {
+                    "entities": {
+                        "entity": {}
+                    }
+                }
+            },
+            {
+                "class" : "DeleteElements"
+            }]
+        }
+        ```
+
+    === "Python"
+
+        ``` python
+        g.OperationChain(
+            operations=[
+                g.GetElements(
+                    input=[g.EntitySeed(vertex=5)],
+                    view = g.View(
+                        entities=[
+                            g.ElementDefinition(
+                                group="entity"
+                            )
+                        ]
+                    )
+                ),
+                g.DeleteElements()
+            ]
+        )
+        ```
+
+    Graph following the removal of an entity. There will be the edge 2 --> 5 but
+    it will only be a vertex:
+
+    ``` mermaid
+    graph TD
+      1 --> 2
+      1 --> 4
+      2 --> 3
+      2 --> 4
+      2 --> 5(5, vertex-only)
       3 --> 4
     ```
 
