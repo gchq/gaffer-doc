@@ -106,7 +106,7 @@ Adds elements to a graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/ga
 
 Deletes Elements from a graph. [Javadoc](https://gchq.github.io/Gaffer/uk/gov/gchq/gaffer/operation/impl/delete/DeleteElements.html)
 
-Note that this operation does not return any response.
+This operation will simply return a count of the number of elements deleted.
 
 !!! warning
     Deleting elements is not reversible. Use of this operation should be
@@ -169,6 +169,11 @@ Note that this operation does not return any response.
       2 --> 3
       2 --> 4
       3 --> 4
+    ```
+
+    Output:
+    ```
+        2
     ```
 
 ??? example "Example deleting only an edge"
@@ -241,6 +246,11 @@ Note that this operation does not return any response.
       2 --> 4
       5
       3 --> 4
+    ```
+
+    Output:
+    ```
+        1
     ```
 
 ??? example "Example deleting an entity"
@@ -316,6 +326,11 @@ Note that this operation does not return any response.
       2 --> 4
       2 --> 5(5, vertex-only)
       3 --> 4
+    ```
+
+    Output:
+    ```
+        1
     ```
 
 ## Aggregate
