@@ -350,7 +350,7 @@ Input type: `java.util.Collection`
 
 ## IterableMerge
 
-Returns a ChainedIterable of two Iterables. [Javadoc]()
+Returns a ChainedIterable of two Iterables. [Javadoc](https://gchq.github.io/koryphe/uk/gov/gchq/koryphe/impl/binaryoperator/IterableMerge.html)
 
 Input type: `java.lang.Iterable`
 
