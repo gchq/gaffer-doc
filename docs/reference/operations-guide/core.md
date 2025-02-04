@@ -110,12 +110,12 @@ This operation will simply return a count of the number of elements deleted.
 
 !!! warning
     Deleting elements is not reversible. Use of this operation should be
-    limited and users should run test a Operation Chain which extracts any elements
+    limited and users should run a test Operation Chain which extracts any elements
     to be deleted prior to running any delete operations.
 
 ??? example "Example deleting an entity and edge"
 
-    Deleting entity '5' and its edge to 2. A user can remove an entity and its associated edges by
+    Deleting entity '5' and its edge to entity '2'. A user can remove an entity and its associated edges by
     simply using a GetElements with an entity seed and no filtering.
 
     === "Java"
