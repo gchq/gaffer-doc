@@ -18,6 +18,7 @@ Binary Operator | Origin
 [`impl.binaryoperator.And`](koryphe-operators.md#and) | Koryphe
 [`impl.binaryoperator.CollectionConcat`](koryphe-operators.md#collectionconcat) | Koryphe
 [`impl.binaryoperator.CollectionIntersect`](koryphe-operators.md#collectionintersect) | Koryphe
+[`impl.binaryoperator.IterableMerge`](koryphe-operators.md#iterablemerge) | Koryphe
 [`impl.binaryoperator.First`](koryphe-operators.md#first) | Koryphe
 `impl.binaryoperator.Last` | Koryphe
 [`impl.binaryoperator.Max`](koryphe-operators.md#max) | Koryphe

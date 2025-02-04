@@ -219,6 +219,7 @@ The Accumulo Store also provides a utility [AddUpdateTableIterator](https://gith
 to help with migrations - updating to new versions of Gaffer or updating your schema.
 
 The following changes to your schema are allowed:
+
 - add new groups
 - add new non-groupBy properties (including visibility and timestamp), but they must go after the other properties
 - rename properties
@@ -227,6 +228,7 @@ The following changes to your schema are allowed:
 - change descriptions
 
 But, you cannot do the following:
+
 - rename groups
 - remove any properties (groupBy, non-groupBy, visibility or timestamp)
 - add new groupBy properties
@@ -332,7 +334,7 @@ setauths -u root -s vis1,vis2,publicVisibility,privateVisibility,public,private
 
 You may notice that sometimes `MatchedVertex` is included on edges when you might not be expecting it.
 When you seed with a mixture of EdgeSeeds and EntitySeeds, `MatchedVertex` will always be included on edges whether they were matched by a vertex or not. In this case `MatchedVertex` will always equal `SOURCE`.
-This is a peculiarity of the Accumulo store.  
+This is a peculiarity of the Accumulo store.
 
 !!! example "Example Query"
     ``` mermaid
@@ -389,4 +391,3 @@ This is a peculiarity of the Accumulo store.
       ]
       ```
     The 1 -> 2 edge has MatchedVertex=SOURCE even though the source wasn't matched by an EntitySeed.
-    
